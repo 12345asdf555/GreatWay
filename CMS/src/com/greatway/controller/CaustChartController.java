@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +34,7 @@ public class CaustChartController {
 	private int total = 0;
 	//获取用户id
 	private BigInteger uid = new BigInteger("1");
+	
 	
 	@Autowired
 	private LiveDataManager lm;
@@ -209,6 +211,11 @@ public class CaustChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		int types = insm.getUserInsfType(uid);
+		if(types==22){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -306,6 +313,11 @@ public class CaustChartController {
 		String type = request.getParameter("otype");
 		String number = request.getParameter("number");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		int types = insm.getUserInsfType(uid);
+		if(types==22){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -402,6 +414,11 @@ public class CaustChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		int types = insm.getUserInsfType(uid);
+		if(types==22){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -498,6 +515,11 @@ public class CaustChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		int types = insm.getUserInsfType(uid);
+		if(types==22){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -593,6 +615,11 @@ public class CaustChartController {
 		String type = request.getParameter("otype");
 		String parent = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		int types = insm.getUserInsfType(uid);
+		if(types==22){
+			parent = insm.getUserInsfId(uid).toString();
+		}
 		BigInteger parentid = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -638,7 +665,7 @@ public class CaustChartController {
 	}
 	
 	/**
-	 * 公司单台设备运行数据统计信息查询
+	 * 事业部单台设备运行数据统计信息查询
 	 * @param request
 	 * @return
 	 */
@@ -677,7 +704,7 @@ public class CaustChartController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(ModelDto l:list){
-				json.put("time", l.getTime());
+				json.put("time", Math.round((l.getTime()*100)/100));
 				json.put("fname", l.getFname());
 				json.put("type", l.getType());
 				json.put("fid",l.getFid());
@@ -702,8 +729,14 @@ public class CaustChartController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
+		BigInteger parent = null;
+		//数据权限处理
+		int type = insm.getUserInsfType(uid);
+		if(type==22){
+			parent = insm.getUserInsfId(uid);
+		}
 		try{
-			List<Insframework> list = insm.getInsByType(23);
+			List<Insframework> list = insm.getInsByType(23,parent);
 			for(Insframework i:list){
 				json.put("id", i.getId());
 				json.put("name", i.getName());

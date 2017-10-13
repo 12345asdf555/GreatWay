@@ -125,8 +125,8 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<LiveData> getMachine(BigInteger parent) {
-		return live.getMachine(parent);
+	public List<LiveData> getMachine(BigInteger parent,WeldDto dto) {
+		return live.getMachine(parent,dto);
 	}
 
 	@Override

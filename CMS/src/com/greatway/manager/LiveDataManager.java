@@ -164,9 +164,10 @@ public interface LiveDataManager {
 	/**
 	 * 获取所有焊机
 	 * @param parent 项目id
+	 * @param dto扩展参数类
 	 * @return
 	 */
-	List<LiveData> getMachine(BigInteger parent);
+	List<LiveData> getMachine(BigInteger parent,WeldDto dto);
 	
 	/**
 	 * 获取负荷率明细

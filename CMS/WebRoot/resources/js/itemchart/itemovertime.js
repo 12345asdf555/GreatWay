@@ -117,7 +117,7 @@ function ItemtimeDatagrid(){
                  }});
                  
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='junctionChart/goJunctionOertime?parent="+result.arys1[m].itemid+"&junctionno="+result.arys1[m].name+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype="+otype+"&number="+number+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:"<a href='junctionChart/goJunctionOvertime?parent="+result.arys1[m].itemid+"&junctionno="+result.arys1[m].name+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype="+otype+"&number="+number+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
                  }
              }  
          },  

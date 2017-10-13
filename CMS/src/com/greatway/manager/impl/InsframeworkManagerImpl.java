@@ -128,8 +128,8 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 	}
 
 	@Override
-	public List<Insframework> getInsByType(int type) {
-		return im.getInsByType(type);
+	public List<Insframework> getInsByType(int type,BigInteger parent) {
+		return im.getInsByType(type,parent);
 	}
 
 	@Override

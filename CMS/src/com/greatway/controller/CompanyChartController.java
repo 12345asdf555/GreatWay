@@ -677,7 +677,7 @@ public class CompanyChartController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			List<Insframework> list = insm.getInsByType(22);
+			List<Insframework> list = insm.getInsByType(22,null);
 			for(Insframework i:list){
 				json.put("id", i.getId());
 				json.put("name", i.getName());

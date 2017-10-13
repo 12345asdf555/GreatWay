@@ -49,7 +49,7 @@
 	<!-- 获取用户所属事业部所拥有的项目部 -->
 	<select id="getUserInsfId" resultType="java.math.BigInteger">
 		SELECT fid from tb_users u
-		inner join tb_insframework i	on u.users_insframework=i.fid	where id=#{uid}
+		inner join tb_insframework i	on u.users_insframework=i.fid	where id=#{uid} 
 	</select>
 	
 	<select id="getInsframeworkByName" resultType="java.math.BigInteger">
@@ -70,6 +70,9 @@
 	
 	<select id="getInsByType" resultMap="insMap">
 		select fid,fname from tb_insframework where ftype=#{type}
+		<if test="parent!=null and parent!=''">
+			and fparent = #{parent}
+		</if>
 	</select>
 	
 	<insert id="addInsframework" parameterType="com.greatway.model.Insframework" useGeneratedKeys="true" keyProperty="id">

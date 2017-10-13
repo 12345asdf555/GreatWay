@@ -282,6 +282,17 @@
 		inner join tb_insframework insf on junction.fitemId=insf.fid
 		where 1=1 
 		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
+				and junction.fitemId = #{dto.dtoItem}
+			</if>
+		</if>
+		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
 				AND insf.fparent =#{dto.parent}
 			</if>
@@ -530,6 +541,7 @@
 	
 	<!-- 查询所有在范围内的时间 -->
 	<select id="getAllTime" resultMap="liveMap">
+		select * from(
 		SELECT 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
@@ -569,6 +581,7 @@
 				weekofyear(fweldtime)
 			</if>
 		</if>
+		) temp
 	</select>
 	
 	<select id="getAllInsf" resultMap="liveMap">
@@ -602,6 +615,11 @@
 		</if>
 		) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id
 		inner join tb_insframework i on j.fitemid = i.fid  where i.ftype=23 and  k0.fstatus=0
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				AND i.fparent = #{dto.parent}
+			</if>
+		</if>
 		<if test="parent!=null and parent!=''">
 			AND i.fid = #{parent}
 		</if>
@@ -751,6 +769,7 @@
 		)temp
 	</select>
 	
+	<!-- 项目部超时待机统计 -->
 	<select id="getItemOvertime" resultMap="dtoMap">
 		SELECT * 
 		FROM (
@@ -789,8 +808,13 @@
 		INNER JOIN tb_insframework i ON j.fitemid = i.fid
 		WHERE i.ftype =23
 		AND k0.fstatus =3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				AND i.fparent = #{dto.parent}
+			</if>
+		</if>
 		<if test="parent!=null and parent!=''">
-			and i.fparent = #{parent}
+			AND i.fid = #{parent}
 		</if>
 		)k1
 		GROUP BY fjunction_id, 
@@ -1059,6 +1083,11 @@
 		<if test="parent!=null and parent!=''">
 			AND i.fparent = #{parent}
 		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				and i.fid = #{dto.parent}
+			</if>
+		</if>
 		) AS A
 		GROUP BY  iid, 
 		<if test="dto!=null and dto!=''">
@@ -1080,11 +1109,18 @@
 		)temp
 	</select>
 	
-		<!-- 获取所有焊口 -->
+		<!-- 获取所有焊机 -->
 	<select id="getMachine" resultMap="liveMap">
-		SELECT fid,fequipment_no fname,finsframework_id itemid FROM tb_welding_machine WHERE 1=1 
+		SELECT m.fid,fequipment_no fname,finsframework_id itemid FROM tb_welding_machine m 
+		inner join tb_insframework i on m.finsframework_id = i.fid
+		WHERE 1=1 
 		<if test="parent!=null and parent!=''">
-			 and finsframework_id = #{parent}
+			 and i.fparent = #{parent}
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				 and i.fid = #{dto.parent}
+			</if>
 		</if>
 	</select>
 	
@@ -1276,7 +1312,7 @@
 		WHERE i.ftype =23
 		AND k0.fstatus =3
 		<if test="parent!=null and parent!=''">
-			and i.fparent = #{parent}
+			AND i.fparent = #{parent}
 		</if>
 		)k1
 		GROUP BY iid, 
@@ -1349,6 +1385,11 @@
 		AND k0.fstatus =3
 		<if test="parent!=null and parent!=''">
 			and i.fparent = #{parent}
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				and i.fid = #{dto.parent}
+			</if>
 		</if>
 		)k1
 		where 1=1

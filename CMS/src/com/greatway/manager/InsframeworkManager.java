@@ -100,7 +100,7 @@ public interface InsframeworkManager {
 	 * @param type单位类型
 	 * @return
 	 */
-	List<Insframework> getInsByType(int type);
+	List<Insframework> getInsByType(int type,BigInteger parent);
 	
 	/**
 	 * 获取用户所属层级

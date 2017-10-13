@@ -129,13 +129,6 @@ function openDetailoverproofs(){
 	addTab("焊接工艺超标明细","itemChart/goDetailoverproof");
 }
 
-function openJunctionHour(){
-	addTab("焊口焊接工时","junctionChart/goJunctionHour");
-}
-
-function openJunctionovertime(){
-	addTab("焊口超时待机","junctionChart/gojunctionOvertime");
-}
 
 
 function addTab(title,url){

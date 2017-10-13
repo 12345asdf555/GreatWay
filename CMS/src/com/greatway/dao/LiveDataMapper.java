@@ -42,7 +42,7 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<LiveData> getJunction(@Param("parent") BigInteger parent);
 	
-	List<LiveData> getMachine(@Param("parent") BigInteger parent);
+	List<LiveData> getMachine(@Param("parent") BigInteger parent,@Param("dto") WeldDto dto);
 	
 	List<ModelDto> getDetailovertime(@Param("dto") WeldDto dto,@Param("num") String num,@Param("junctionno") String junctionno);
 	

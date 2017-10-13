@@ -87,12 +87,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<li><a href="javascript:openItemNoLoads()">项目部设备空载率</a></li>
 		    	</ul>
 		    </div>
-		    <div title="项目部明细">
-		    	<ul>
-		    		<li><a href="javascript:openJunctionHour()">焊口焊接工时</a></li>
-		    		<li><a href="javascript:openJunctionovertime()">焊口超时待机统计</a></li>
-		    	</ul>
-		    </div>
 		</div>
 	</div>
 	<div id="mainPanle" region="center" style="background: white; overflow-y: hidden">

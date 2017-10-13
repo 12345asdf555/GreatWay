@@ -30,7 +30,7 @@ public class JunctionChartController {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
-	private BigInteger uid = new BigInteger("2");
+	private BigInteger uid = new BigInteger("3");
 	
 	@Autowired
 	private LiveDataManager lm;
@@ -64,8 +64,8 @@ public class JunctionChartController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/goJunctionOertime")
-	public String goJunctionOertime(HttpServletRequest request){
+	@RequestMapping("/goJunctionOvertime")
+	public String goJunctionOvertime(HttpServletRequest request){
 		String junctionno = request.getParameter("junctionno");
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
@@ -150,6 +150,8 @@ public class JunctionChartController {
 		int type = insm.getUserInsfType(uid);
 		if(type==22){
 			dto.setParent(insm.getUserInsfId(uid));
+		}else if(type==23){
+			item = insm.getUserInsfId(uid).toString();
 		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);

@@ -56,7 +56,7 @@ function saveWeldingMachine(){
 					});
 				} else {
 					$.messager.alert("提示", messager);
-					window.location.href = encodeURI("weldingMachine/goWeldingMachine");
+					window.location.href = encodeURI("/CMS/weldingMachine/goWeldingMachine");
 					$("#valideno").val("");
 					$("#validgid").val("");
 					$("#valideid").val("");
