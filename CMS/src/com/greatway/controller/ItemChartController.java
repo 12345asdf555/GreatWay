@@ -30,7 +30,7 @@ public class ItemChartController {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
-	private BigInteger uid = new BigInteger("1");
+	private BigInteger uid = new BigInteger("3");
 	
 	@Autowired
 	private LiveDataManager lm;
@@ -140,6 +140,8 @@ public class ItemChartController {
 		int type = insm.getUserInsfType(uid);
 		if(type==22){
 			dto.setParent(insm.getUserInsfId(uid));
+		}else if(type==23){
+			item = insm.getUserInsfId(uid).toString();
 		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
