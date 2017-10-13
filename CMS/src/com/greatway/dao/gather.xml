@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatway.dao.GatherMapper">
+
+	<resultMap id="gatherMap" type="com.greatway.model.Gather">
+		<id property="id" column="fid"></id> 
+        <result property="gatherNo" column="fgather_no"></result>  
+        <result property="status" column="fstatus"></result>  
+        <result property="protocol" column="fprotocol"></result>
+       	<result property="ipurl" column="fipurl"></result>
+       	<result property="macurl" column="fmacurl"></result>
+       	<result property="leavetime" column="fleavetime"></result>
+	</resultMap>
+	
+	<select id="getGatherAll" resultMap="gatherMap">
+		SELECT * FROM tb_gather where 1=1
+		<if test="str!=null and str!=''">
+			and ${str}
+		</if>
+	</select>
+	
+	<select id="getGatherByNo" resultType="java.math.BigInteger">
+		select fid from tb_gather where fgather_no = #{gatherno}
+	</select>
+	
+	<select id="getGatherById" resultMap="gatherMap">
+		select * from tb_gather where fid = #{id}
+	</select>
+	
+	<select id="getGatherNoCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(*) from tb_gather where fgather_no = #{gatherno}
+	</select>
+	
+	<insert id="addGather" parameterType="com.greatway.model.Gather" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO tb_gather(fgather_no, fstatus, fprotocol, fipurl, fmacurl, fleavetime) VALUES
+		(#{gatherNo},#{status},#{protocol},#{ipurl},#{macurl},#{leavetime})
+ 	</insert>
+	
+	<update id="editGather" parameterType="com.greatway.model.Gather">
+		UPDATE tb_gather SET fgather_no=#{gatherNo}, fstatus=#{status}, fprotocol=#{protocol}, fipurl=#{ipurl}, fmacurl=#{macurl}, fleavetime=#{leavetime} WHERE fid=#{id}
+	</update>
+	
+	<delete id="deleteGather" parameterType="java.math.BigInteger">
+		DELETE FROM tb_gather WHERE fid=#{id}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,14 @@
+#fm {
+	margin: 0;
+	padding: 10px 10px;
+}
+
+.fitem {
+	margin-bottom: 8px;
+	margin-left: 10px;
+}
+
+.fitem label {
+	display: inline-block;
+	width: 200px;
+}

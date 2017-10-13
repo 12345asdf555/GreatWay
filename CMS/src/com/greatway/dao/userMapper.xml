@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	namespace：必须与对应的接口全类名一致
+	id:必须与对应接口的某个对应的方法名一致
+	
+ -->
+<mapper namespace="com.greatway.dao.UserMapper">
+	
+	<insert id="save" parameterType="User">
+		insert into tb_users(users_name,users_password,users_login_name,users_phone,users_email,users_insframework,users_position,status) values(#{userName},#{userPassword},#{userLoginName},#{userPhone},#{userEmail},#{userInsframework},#{userPosition},#{status});
+<!-- 		insert into tb_users_roles(users_name,roles_name) values(#{userName},#{roleName}) -->
+	</insert>
+	
+	<insert id="saveRole" parameterType="User">
+<!-- 		insert into tb_users(users_name,users_password,users_login_name,users_phone,users_email,users_insframework,users_position,status) values(#{userName},#{userPassword},#{userLoginName},#{userPhone},#{userEmail},#{userInsframework},#{userPosition},#{status}); -->
+		insert into tb_users_roles(users_name,roles_name) values(#{userName},#{roleName})
+	</insert>
+	
+	<update id="update" parameterType="User">
+		update tb_users set users_name=#{userName},users_password=#{userPassword},users_login_name=#{userLoginName},users_phone=#{userPhone},users_email=#{userEmail},users_insframework=#{userInsframework},users_position=#{userPosition},status=#{status} where id=#{id};
+<!-- 		update tb_users_roles set roles_name=#{roleName} where id=#{id} -->
+	</update>
+	
+	<select id="updateUserRole" parameterType="int" resultType="String">
+		select users_name userName from tb_users where id=#{id}
+	</select>
+	
+	<delete id="deleteRole" parameterType="String">
+		delete from tb_users_roles where users_name=#{userName};
+	</delete>
+	
+	<delete id="delete" parameterType="int">
+		delete tb_users,tb_users_roles from tb_users left join tb_users_roles on tb_users.users_name=tb_users_roles.users_name where tb_users.id=#{id};
+	</delete>
+	
+	 <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->  
+	<select id="findById" parameterType="int" resultType="User">
+		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_users_roles.roles_name roleName from tb_users left join tb_users_roles on tb_users.users_name = tb_users_roles.users_name where tb_users.id=#{id}
+	</select>
+	
+	<select id="findByRoleId" parameterType="int" resultType="String">
+		select roles_name roleName from tb_roles where id=#{id}
+	</select>
+	
+	<select id="findAll" resultType="User">
+		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status from tb_users where 1=1
+		<if test="str!=null and str!=''">
+			and ${str}
+		</if>
+	</select>
+	
+	<select id="LoadUser" parameterType="String" resultType="User">
+		select users_password userPassword from tb_users where users_name=#{userName};
+	</select>
+	
+	<select id="findRole" resultType="User">
+		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_users_roles.roles_name roleName from tb_users left join tb_users_roles on tb_users.users_name = tb_users_roles.users_name where tb_users.id=#{id}
+	</select>
+	
+	<select id="findAllRole" resultType="User">
+		select id id,roles_name roleName from tb_roles
+	</select>
+	
+	<select id="getUsernameCount" parameterType="String" resultType="java.lang.Integer">
+		select count(*) from tb_users where users_name=#{userName}
+	</select>
+	
+	<select id="getAuthoritiesByUsername" parameterType="String" resultType="String">
+		select a.authorities_name     
+         from    
+         tb_roles r,    
+         tb_authorities a,    
+         tb_roles_authorities c     
+         where c.roles_name = r.roles_name and c.authority_id = a.id and r.roles_name in     
+         (select o.roles_name from    
+         tb_users_roles d,    
+         tb_users u,    
+         tb_roles o    
+         where d.users_name = u.users_name and d.roles_name = o.roles_name and u.users_name = #{userName}    
+         )  
+	</select>
+	
+</mapper>
