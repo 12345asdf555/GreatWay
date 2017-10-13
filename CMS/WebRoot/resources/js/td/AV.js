@@ -75,7 +75,7 @@
 				                    var series = this.series[0];
 				                    setInterval(function () {
 				                        var x = (new Date()).getTime(), // current time
-				                            y = num1;
+				                            y = Math.random();
 				                        series.addPoint([x, y], true, true);
 				                    }, 1000);
 				                }
@@ -119,10 +119,10 @@
 				                    time = (new Date()).getTime(),
 				                    i;
 
-				                for (i = -19; i <= 0; i += 1) {
+				                for (i = -9; i <= 0; i += 1) {
 				                    data.push({
 				                        x: time + i * 1000,
-				                        y: num1
+				                        y: Math.random()
 				                    });
 				                }
 				                return data;
