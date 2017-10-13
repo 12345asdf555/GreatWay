@@ -25,25 +25,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
+	<!-- <script type="text/javascript" src="resources/js/user/edituser"></script> -->
 	
   </head>
 <body class="easyui-layout">
 	<div  id="body" region="center"  hide="true"  split="true" title="修改角色" style="background: white; height: 335px;">
     <div id="toolbar" style="text-align: center ">
-       <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
+       <form id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">角色编辑</div>
             <div style="margin-bottom:10px;display: none;">
                 <input name="id" id="id" class="easyui-textbox" type="hidden" value="${role.id}">
             </div>
             <div style="margin-bottom:10px">
             	<input id="validName" type="hidden" value="${role.roleName}">
-                <input name="roleName" class="easyui-textbox" data-options="validType:'roleValidate',required:true" value="${role.roleName}" label="角色名:" style="width:100%">
+                <input id="roleName" name="roleName" class="easyui-textbox" data-options="validType:'roleValidate',required:true" value="${role.roleName}" label="角色名:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
-                <input name="roleDesc" class="easyui-textbox" data-options="required:false" value="${role.roleDesc}" label="描&nbsp;&nbsp;&nbsp;&nbsp;述:" style="width:100%">
+                <input id="roleDesc" name="roleDesc" class="easyui-textbox" data-options="required:false" value="${role.roleDesc}" label="描&nbsp;&nbsp;&nbsp;&nbsp;述:" style="width:100%">
             </div>
         <div style="margin-bottom:20px">
-            <select class="easyui-combobox" id="roleStatus" name="roleStatus" data-options="required:true" value="${role.roleStatus}" label="状态:" labelPosition="left">
+            <select class="easyui-combobox" id="roleStatus" name="roleStatus" data-options="required:true" label="状态:" labelPosition="left">
                 <option value="${role.roleStatus==1?"启用":"停用"}">${role.roleStatus==1?"启用":"停用"}</option>
                 <option value="1">启用</option>
                 <option value="0">停用</option>
@@ -117,31 +118,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 }
 
-var flag = 2;
+		var flag = 2;
         function saveRole(){
-        flag = 2;
-         var status1 = $('#roleStatus').combobox('getValue');
-         var status;
-         var rid = $('#id').val();
-         var rows = $("#tt").datagrid("getSelections");
-         var str="";
-		 for(var i=0; i<rows.length; i++){
-			str += rows[i].id+",";
-			}
-		 if(status1==("启用")){
-         status = "1";
-         }
-         else{
-         status = "0";
-         }
-         var url;
-          url = "role/updateRole"+"?status="+status+"&aid="+str+"&rid="+rid;
+	        flag = 2;
+	         var status1 = $('#roleStatus').combobox('getValue');
+	         var status;
+	         var rid = $('#id').val();
+	         var rows = $("#tt").datagrid("getSelections");
+	         var str="";
+			 for(var i=0; i<rows.length; i++){
+				str += rows[i].id+",";
+				}
+			 if(status1==("启用")){
+	         status = 1;
+	         }
+	         else{
+	         status = 0;
+	         }
+	         var url;
+          	url = "role/updateRole"+"?status="+status+"&aid="+str+"&rid="+rid;
             $('#fm').form('submit',{
                 url: url,
                 onSubmit: function(){
                      return $(this).form('enableValidation').form('validate');
                 },
-                success: function(result){
+               success: function(result){
                     var result = eval('('+result+')');
                     if (result.errorMsg){
                         $.messager.show({

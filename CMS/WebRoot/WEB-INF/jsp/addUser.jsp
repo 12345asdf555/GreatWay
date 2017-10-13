@@ -50,17 +50,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="userEmail" class="easyui-textbox" data-options="required:false"  label="邮&nbsp;&nbsp;&nbsp;&nbsp;箱:">
             </div>
             <div style="margin-bottom:10px">
-                <input name="userInsframework" class="easyui-textbox" data-options="required:true" label="岗&nbsp;&nbsp;&nbsp;&nbsp;位:">
+                <input name="userPosition" class="easyui-textbox" data-options="required:true" label="岗&nbsp;&nbsp;&nbsp;&nbsp;位:">
             </div>
             <div style="margin-bottom:20px">
-            <select class="easyui-combobox" id="userPosition" name="userPosition" label="部门:" data-options="required:true" labelPosition="left">
-                <option value="">--请选择--</option>
-                <option value="集团">集团</option>
-                <option value="公司">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司</option>
-                <option value="项目部">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目部</option>
-                <option value="现场">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现场</option>
-            </select>
-        </div>
+				<lable>部门:</lable>
+				<input class="easyui-combobox" name="userInsframework" id="userInsframework" data-options="required:true"/>
+        	</div>
 
         <div style="margin-bottom:20px">
             <select class="easyui-combobox" id="status" name="status" label="状态:" data-options="required:true" labelPosition="left">
@@ -113,11 +108,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	});
 })
+
+		$(function(){
+			   $.ajax({
+			   type: "post", 
+			   url: "user/getIns",
+			   dataType: "json",
+			   data: {},
+			   success: function (result) {
+			      if (result) {
+			         var optionstring = "";
+			         optionstring = "<option value='请选择'>请选择...</option>";
+			         //循环遍历 下拉框绑定
+			         for(var k=0;k<result.rows.length;k++){
+			         optionstring += "<option value=\"" + result.rows[k].insid + "\" >" + result.rows[k].insname + "</option>";
+			         }
+			         $("#userInsframework").html(optionstring);
+			      } else {
+			         alert('部门加载失败');
+			      }
+			      $("#userInsframework").combobox();
+			   },
+			   error: function () {
+			      alert('error');
+			   }
+			});
+		})
+
         $("#fm").form("disableValidation");
  		var flag = 1; 
         function saveUser(){
         flag = 1;
-         var position = $('#userPosition').combobox('getValue');
+         var insframework = $('#userInsframework').combobox('getValue');
          var status = $('#status').combobox('getValue');
          var rows = $("#tt").datagrid("getSelections");
          var str="";
@@ -125,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			str += rows[i].id+",";
 			}
          var url;
-          url = "user/addUser"+"?userPosition="+position+"&status="+status+"&rid="+str;
+          url = "user/addUser"+"?userInsframework="+insframework+"&status="+status+"&rid="+str;
             $('#fm').form('submit',{
                 url: url,
                 onSubmit: function(){

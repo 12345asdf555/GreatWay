@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.spring.model.MyUser;
 import com.spring.service.UserService;  
  
 @Service("myUserDetailService")
@@ -40,13 +41,10 @@ public class MyUserDetailService implements UserDetailsService {
 	    public UserDetails loadUserByUsername(String userName)    
 	            throws UsernameNotFoundException {    
 	    	System.out.println(userName);
-	        com.spring.model.User user = userService.LoadUser(userName);    
-	            
-	        if (null == user) {    
+	    	com.spring.model.User user = userService.LoadUser(userName);   
+/*	        if (null == user) {    
 	            throw new UsernameNotFoundException("用户" + userName + "不存在");    
-	        }    
-	            
-	            
+	        } */        
 	        Collection<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();    
 	        List<String> list = userService.getAuthoritiesByUsername(userName);    
 	        System.out.println(list);
@@ -55,7 +53,8 @@ public class MyUserDetailService implements UserDetailsService {
 	            System.out.println("loadUserByUsername : " + list.get(i));    
 	        }    
 	        System.out.println(user.getUserPassword());
-	      //因为UserEntity实现了UserDetails，所以也可以直接返回user    
-	        return new User(userName, user.getUserPassword(), true, true, true, true, auths);    
+	         
+/*	        return new User(userName, user.getUserPassword(), true, true, true, true, auths); */   
+	        return new MyUser(user.getId(),userName, user.getUserPassword(), true, true, true, true, auths);    
 	    }    
     }

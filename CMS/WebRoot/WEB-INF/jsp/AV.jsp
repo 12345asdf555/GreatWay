@@ -33,6 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white;">
     <div id="body1" style="min-width:300px;height:350px"></div>
     <div id="body2" style="min-width:300px;height:350px"></div>
+    <input name="hid" id="hid" value="${av}" type="hidden" class="easyui-textbox">
         </div>
 </body>
 </html>

@@ -22,5 +22,6 @@ public interface UserMapper {
 	String updateUserRole(Integer findByRoleId);
 	User LoadUser(String userName);
 	List<String> getAuthoritiesByUsername(String userName);
+	List<User> getIns();
 	
 }

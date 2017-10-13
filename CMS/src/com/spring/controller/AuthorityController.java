@@ -142,6 +142,7 @@ public class AuthorityController {
 		String str = request.getParameter("sid");
 		Integer aid = Integer.parseInt(request.getParameter("aid"));
 		authorityService.deleteResource(authorityService.updateAuthorityResource(aid));
+		authority.setAuthorityName("ROLE_"+authority.getAuthorityName());
 		if(null!=str&&""!=str)
 		{
         String[] s = str.split(",");

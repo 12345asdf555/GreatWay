@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="resourceType" class="easyui-textbox" data-options="required:true" label="类&nbsp;&nbsp;&nbsp;&nbsp;型:">
             </div>
             <div style="margin-bottom:10px">
-                <input name="resourceAddress" class="easyui-textbox" data-options="required:false"  label="地&nbsp;&nbsp;&nbsp;&nbsp;址:">
+                <input name="resourceAddress" class="easyui-textbox" data-options="required:true"  label="地&nbsp;&nbsp;&nbsp;&nbsp;址:">
             </div>
             <div style="margin-bottom:10px">
                 <input name="resourceDesc" class="easyui-textbox" data-options="required:false"  label="描&nbsp;&nbsp;&nbsp;&nbsp;述:">
