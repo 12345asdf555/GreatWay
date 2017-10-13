@@ -21,6 +21,7 @@ import com.greatway.model.Insframework;
 import com.greatway.model.LiveData;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -32,9 +33,6 @@ public class CaustChartController {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
-	//获取用户id
-	private BigInteger uid = new BigInteger("1");
-	
 	
 	@Autowired
 	private LiveDataManager lm;
@@ -152,6 +150,7 @@ public class CaustChartController {
 		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
+		BigInteger uid = lm.getUserId();
 		int type = insm.getUserInsfType(uid);
 		if(type==22){
 			dto.setUid(uid);
@@ -212,6 +211,7 @@ public class CaustChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
+		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -314,6 +314,7 @@ public class CaustChartController {
 		String number = request.getParameter("number");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
+		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -415,6 +416,7 @@ public class CaustChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
+		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -516,6 +518,7 @@ public class CaustChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
+		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -616,6 +619,7 @@ public class CaustChartController {
 		String parent = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
+		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			parent = insm.getUserInsfId(uid).toString();
@@ -731,6 +735,7 @@ public class CaustChartController {
 		JSONObject obj = new JSONObject();
 		BigInteger parent = null;
 		//数据权限处理
+		BigInteger uid = lm.getUserId();
 		int type = insm.getUserInsfType(uid);
 		if(type==22){
 			parent = insm.getUserInsfId(uid);

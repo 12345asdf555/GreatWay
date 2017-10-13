@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import com.greatway.manager.LiveDataManager;
 import com.greatway.model.LiveData;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -30,7 +32,6 @@ public class ItemChartController {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
-	private BigInteger uid = new BigInteger("3");
 	
 	@Autowired
 	private LiveDataManager lm;
@@ -137,6 +138,7 @@ public class ItemChartController {
 		String item = request.getParameter("item");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
+		BigInteger uid = lm.getUserId();
 		int type = insm.getUserInsfType(uid);
 		if(type==22){
 			dto.setParent(insm.getUserInsfId(uid));
@@ -200,6 +202,7 @@ public class ItemChartController {
 		String parentid = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
+		BigInteger uid = lm.getUserId();
 		int type = insm.getUserInsfType(uid);
 		if(type==22){
 			dto.setParent(insm.getUserInsfId(uid));
@@ -285,6 +288,7 @@ public class ItemChartController {
 		String number = request.getParameter("number");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
+		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			dto.setParent(insm.getUserInsfId(uid));
@@ -388,6 +392,7 @@ public class ItemChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
+		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -491,6 +496,7 @@ public class ItemChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
+		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -594,6 +600,7 @@ public class ItemChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
+		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			parentId = insm.getUserInsfId(uid).toString();

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import com.greatway.dto.WeldDto;
 import com.greatway.manager.LiveDataManager;
 import com.greatway.model.LiveData;
 import com.greatway.page.Page;
+import com.spring.model.MyUser;
 
 @Service
 @Transactional
@@ -182,6 +184,14 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	public List<ModelDto> getCaustUse(Page page, WeldDto dto, BigInteger insid) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		return live.getCaustUse(dto, insid);
+	}
+	
+	@Override
+	public BigInteger getUserId(){
+		//获取用户id
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		BigInteger uid = new BigInteger(myuser.getId()+"");
+		return uid;
 	}
 
 }

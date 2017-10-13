@@ -245,4 +245,10 @@ public interface LiveDataManager {
 	 * @return
 	 */
 	List<ModelDto> getCaustUse(Page page,WeldDto dto,BigInteger insid);
+	
+	/**
+	 * 获取用户id
+	 * @return
+	 */
+	BigInteger getUserId();
 }
