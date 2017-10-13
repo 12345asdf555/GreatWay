@@ -45,7 +45,7 @@
 	</select>
 	
 	<select id="updateRoleUser" parameterType="int" resultType="String">
-		select roles_name roleName from tb_roles where id=#{id}
+		select roles_name roleName from tb_roles where tb_roles.id=#{id}
 	</select>
 	
 	<delete id="deleteAuthority" parameterType="String">

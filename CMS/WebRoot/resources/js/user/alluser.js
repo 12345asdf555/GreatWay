@@ -71,13 +71,13 @@
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'users_insframework',
+			field : 'users_position',
 			title : '岗位',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'users_position',
+			field : 'users_insframework',
 			title : '部门',
 			width : 100,
 			halign : "center",

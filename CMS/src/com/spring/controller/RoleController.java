@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -140,13 +141,17 @@ public class RoleController {
 	 */
 	@RequestMapping("/updateRole")
 	@ResponseBody
-	public String updateRole(Role role,HttpServletRequest request){
-		
+	public String updateRole(HttpServletRequest request){
+		Role role = new Role();
 		JSONObject obj = new JSONObject();
 		try{
-		role.setRoleStatus(Integer.parseInt(request.getParameter("status")));
+/*		role.setRoleId(Integer.parseInt(request.getParameter("id")));*/
+		role.setRoleName(request.getParameter("roleName"));
+		role.setRoleDesc(request.getParameter("roleDesc"));
+		role.setRoleStatus(Integer.parseInt(request.getParameter("status")));	
 		String str = request.getParameter("aid");
 		Integer rid = Integer.parseInt(request.getParameter("rid"));
+		role.setId(rid);
 		roleService.deleteAuthority(roleService.updateRoleAuthority(rid));
 		if(null!=str&&""!=str)
 		{

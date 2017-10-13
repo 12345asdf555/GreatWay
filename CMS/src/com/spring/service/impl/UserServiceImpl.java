@@ -47,6 +47,10 @@ public class UserServiceImpl implements UserService {
 		return findAllRoleList;
 	}
 	
+	public List<User> getIns() {
+		return mapper.getIns();
+	}
+	
 	public List<String> getAuthoritiesByUsername(String userName) {
 		 
 		return mapper.getAuthoritiesByUsername(userName);
@@ -60,10 +64,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public User LoadUser(String userName) {
-
-		User user = mapper.LoadUser(userName);
 		
-		return user;
+		return mapper.LoadUser(userName);
 	}
 	
 	public String findByRoleId(Integer id) {

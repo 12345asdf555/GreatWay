@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.page.Page;
+import com.spring.model.MyUser;
 import com.spring.model.User;
 import com.spring.service.UserService;
 
@@ -41,6 +44,10 @@ public class UserController {
 	@RequestMapping("/getAllUser")
 	@ResponseBody
 	public String getAllUser(HttpServletRequest request){
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		System.out.println(myuser.getId());
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String search = request.getParameter("searchStr");
@@ -65,8 +72,8 @@ public class UserController {
 				json.put("users_Login_Name", user.getUserLoginName());
 				json.put("users_phone", user.getUserPhone());
 				json.put("users_email",user.getUserEmail());
-				json.put("users_insframework", user.getUserInsframework());
 				json.put("users_position", user.getUserPosition());
+				json.put("users_insframework", user.getInsname());
 				if(1==user.getStatus()){
 				json.put("status", "启用");
 				}
@@ -105,7 +112,7 @@ public class UserController {
        
 		JSONObject obj = new JSONObject();
 		try{
-		user.setUserPosition(request.getParameter("userPosition"));
+		user.setUserInsframework(Long.parseLong(request.getParameter("userInsframework")));
         user.setStatus(Integer.parseInt(request.getParameter("status")));
         String str = request.getParameter("rid");
         if(null!=str&&""!=str)
@@ -135,11 +142,17 @@ public class UserController {
 	 */
 	@RequestMapping("/updateUser")
 	@ResponseBody
-	public String updateUser(User user,HttpServletRequest request){
-		
+	public String updateUser(HttpServletRequest request){
+		User user = new User();
 		JSONObject obj = new JSONObject();
 		try{
-	        user.setUserPosition(request.getParameter("userPosition"));
+			user.setUserName(request.getParameter("userName"));
+			user.setUserPassword(request.getParameter("userPassword"));
+			user.setUserLoginName(request.getParameter("userLoginName"));
+			user.setUserPhone(request.getParameter("userPhone"));
+			user.setUserEmail(request.getParameter("userEmail"));
+			user.setUserPosition(request.getParameter("userPosition"));
+	        user.setUserInsframework(Long.parseLong(request.getParameter("userInsframework")));
 	        user.setStatus(Integer.parseInt(request.getParameter("status")));
 			String str = request.getParameter("rid");
 			Integer uid = Integer.parseInt(request.getParameter("uid"));
@@ -252,6 +265,29 @@ public class UserController {
 			data = false;
 		}
 		return data + "";
+	}
+	
+	@RequestMapping("/getIns")
+	@ResponseBody
+	public String getIns(HttpServletRequest request){
+       
+		List<User> getIns = userService.getIns();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(User user:getIns){
+				json.put("insid", user.getInsid());
+				json.put("insname", user.getInsname());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+/*		return "redirect:/user/AllUser";*/
 	}
 	
 }

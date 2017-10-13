@@ -92,25 +92,8 @@ public class TdController {
 	}
 	
 	@RequestMapping("/AllTda")
-	@ResponseBody
 	public String AllTda(HttpServletRequest request){
-/*		String str3 = request.getParameter("str3");
-		System.out.println(str3);
-		String[] str4 = str3.split(",");
-		Integer[] num = new Integer[6];
-		for(int i=0;i<6;i++)
-		{
-			num[i] = Integer.valueOf(str4[i],16);
-			System.out.println(num[i]);
-		}*/
-/*		String da = request.getParameter("data");
-		String av = request.getParameter("value");
-		request.setAttribute("av",av);
-		request.setAttribute("da",da);
-		System.out.println(da);
-		System.out.println(av);*/
-		String av = request.getParameter("value");
-		request.setAttribute("av",av);
+		request.setAttribute("av", request.getParameter("value"));
 		return "/AV";
 	}
 	

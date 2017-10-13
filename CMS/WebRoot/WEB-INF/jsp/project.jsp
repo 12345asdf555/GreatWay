@@ -35,21 +35,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <input name="project" id="project" value="17" readonly="true" class="easyui-textbox">
             </div>
             <div style="margin-bottom:10px" align="left">
-               <label for="status" style="text-align:center;display:inline-block;width:65px">焊机总数</label> <input name="status" id="status" value="" class="easyui-textbox">
+               <label for="status" style="text-align:center;display:inline-block;width:65px">焊机总数</label> <input name="statusn" id="statusn" value="0" type="text"/>
             </div>
             <div style="margin-bottom:10px;">
-               <div style=" width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;"></div><label for="on" style="text-align:center;display:inline-block">工作总数</label> <input name="on" id="on" value="" class="easyui-textbox">
+               <div style=" width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;"></div><label for="on" style="text-align:center;display:inline-block">工作总数</label> <input name="onn" id="onn" value="0" type="text"/>
             </div>
             <div style="margin-bottom:10px">
-               <div style=" width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;"></div><label for="warning" style="text-align:center;display:inline-block">报警总数</label> <input name="warning" id="warning" value="" class="easyui-textbox">
+               <div style=" width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;"></div><label for="warning" style="text-align:center;display:inline-block">报警总数</label> <input name="warningn" id="warningn" value="0" type="text"/>
             </div>
             <div style="margin-bottom:10px">
-               <div style=" width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;"></div><label for="wait" style="text-align:center;display:inline-block">待机总数</label> <input name="wait" id="wait" value="" class="easyui-textbox">
+               <div style=" width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;"></div><label for="wait" style="text-align:center;display:inline-block">待机总数</label> <input name="waitn" id="waitn" value="0" type="text"/>
             </div>
             <div style="margin-bottom:10px">
-                <div style=" width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;"></div><label for="off" style="text-align:center;display:inline-block">关机总数</label> <input name="off" id="off" value="" class="easyui-textbox">
+                <div style=" width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;"></div><label for="off" style="text-align:center;display:inline-block">关机总数</label> <input name="offn" id="offn" value="0" type="text""/>
             </div>
 		</div>
+		
 		<div>
 <!-- 		<input type="button" id="btnConnection" value="连接" /> -->
 		<input type="button" id="btnClose" value="关闭" />

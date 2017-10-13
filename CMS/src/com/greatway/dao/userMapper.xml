@@ -7,9 +7,9 @@
 	
  -->
 <mapper namespace="com.greatway.dao.UserMapper">
-	
+
 	<insert id="save" parameterType="User">
-		insert into tb_users(users_name,users_password,users_login_name,users_phone,users_email,users_insframework,users_position,status) values(#{userName},#{userPassword},#{userLoginName},#{userPhone},#{userEmail},#{userInsframework},#{userPosition},#{status});
+		insert into tb_users(users_name,users_password,users_login_name,users_phone,users_email,users_position,users_insframework,status) values(#{userName},#{userPassword},#{userLoginName},#{userPhone},#{userEmail},#{userPosition},#{userInsframework},#{status});
 <!-- 		insert into tb_users_roles(users_name,roles_name) values(#{userName},#{roleName}) -->
 	</insert>
 	
@@ -19,7 +19,7 @@
 	</insert>
 	
 	<update id="update" parameterType="User">
-		update tb_users set users_name=#{userName},users_password=#{userPassword},users_login_name=#{userLoginName},users_phone=#{userPhone},users_email=#{userEmail},users_insframework=#{userInsframework},users_position=#{userPosition},status=#{status} where id=#{id};
+		update tb_users set users_name=#{userName},users_password=#{userPassword},users_login_name=#{userLoginName},users_phone=#{userPhone},users_email=#{userEmail},users_position=#{userPosition},users_insframework=#{userInsframework},status=#{status} where id=#{id};
 <!-- 		update tb_users_roles set roles_name=#{roleName} where id=#{id} -->
 	</update>
 	
@@ -37,7 +37,7 @@
 	
 	 <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->  
 	<select id="findById" parameterType="int" resultType="User">
-		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_users_roles.roles_name roleName from tb_users left join tb_users_roles on tb_users.users_name = tb_users_roles.users_name where tb_users.id=#{id}
+		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_users_roles.roles_name roleName,tb_insframework.fid insid,tb_insframework.fname insname from tb_users left join tb_users_roles on tb_users.users_name = tb_users_roles.users_name left join tb_insframework on tb_users.users_insframework=tb_insframework.fid where tb_users.id=#{id}
 	</select>
 	
 	<select id="findByRoleId" parameterType="int" resultType="String">
@@ -45,18 +45,22 @@
 	</select>
 	
 	<select id="findAll" resultType="User">
-		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status from tb_users where 1=1
+		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_insframework.fid insid,tb_insframework.fname insname from tb_users left join tb_insframework on tb_users.users_insframework=tb_insframework.fid  where 1=1
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
 	</select>
 	
 	<select id="LoadUser" parameterType="String" resultType="User">
-		select users_password userPassword from tb_users where users_name=#{userName};
+		select id id,users_password userPassword from tb_users where users_name=#{userName};
 	</select>
 	
 	<select id="findRole" resultType="User">
 		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_users_roles.roles_name roleName from tb_users left join tb_users_roles on tb_users.users_name = tb_users_roles.users_name where tb_users.id=#{id}
+	</select>
+	
+	<select id="getIns" resultType="User">
+		select fid insid,fname insname from tb_insframework
 	</select>
 	
 	<select id="findAllRole" resultType="User">

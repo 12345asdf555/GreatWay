@@ -1,22 +1,33 @@
 package com.spring.model;
 
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 /**
  * 用户
  *
  *
  */
-public class User {
+public class User{
+	/**
+	 * 
+	 */
 	private int id;
+	private long insid;
 	private String userName;
 	private String userPassword;
 	private String userLoginName;
 	private String userPhone;
 	private String userEmail;
-	private String userInsframework;
+	private long userInsframework;
 	private String userPosition;
 	private int status;
 	private String roleName;
 	private String authorityName;
+	private String insname;
+	Collection<GrantedAuthority> auths;
 	public User(){
 		super();
 	}
@@ -25,6 +36,12 @@ public class User {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public long getInsid() {
+		return insid;
+	}
+	public void setInsid(long insid) {
+		this.insid = insid;
 	}
 	public String getUserName() {
 		return userName;
@@ -56,10 +73,10 @@ public class User {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	public String getUserInsframework() {
+	public long getUserInsframework() {
 		return userInsframework;
 	}
-	public void setUserInsframework(String userInsframework) {
+	public void setUserInsframework(long userInsframework) {
 		this.userInsframework = userInsframework;
 	}
 	public String getUserPosition() {
@@ -86,7 +103,13 @@ public class User {
 	public void setAuthorityName(String authorityName) {
 		this.authorityName = authorityName;
 	}
-	public User(int id, String userName, String userPassword, String userLoginName,String userPhone,String userEmail,String userInsframework,String userPosition,int status,String roleName,String authorityName) {
+	public String getInsname() {
+		return insname;
+	}
+	public void setInsname(String insname) {
+		this.insname = insname;
+	}
+	public User(int id, String userName, String userPassword, String userLoginName,String userPhone,String userEmail,long userInsframework,String userPosition,int status,String roleName,String authorityName) {
 		super();
 		this.id = id;
 		this.userName = userName;
