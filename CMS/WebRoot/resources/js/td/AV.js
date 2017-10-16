@@ -1,8 +1,8 @@
 /**
  * 
  */
-  var va = request.getAttribute("av");
-
+	var num1 = new Array(3);
+	var num2 = new Array(3);
   	$(function() {
 		var socket;
 		if(typeof(WebSocket) == "undefined") {
@@ -11,7 +11,7 @@
 		}
 		$(function() {
 			//实现化WebSocket对象，指定要连接的服务器地址与端口
-			socket = new WebSocket("ws://192.168.9.101:5555/SerialPortDemo/ws/张三");
+			socket = new WebSocket("ws://192.168.1.104:5554/SerialPortDemo/ws/张三");
 			//打开事件
 			socket.onopen = function() {
 				alert("Socket 已打开");
@@ -20,39 +20,42 @@
 			//获得消息事件
 			socket.onmessage = function(msg) {
 				/*alert(msg.data);*/
-				dd = msg.data;
-/*				$.ajax({  
-			        type : "post",  
-			        async : false,
-			        url : "td/AllTda?data="+msg.data,  
-			        data : {},  
-			        dataType : "json", //返回数据形式为json  
-				})*/
-				$.ajax({    
-				       type: "POST",    
-				       dataType: "JSON",    
-				       url: "td/getAllTd?data="+msg.data,  //改成你的Action  
-				           success : function(result){   
-				        	   if(result)
-				        		   {
-				        		    var r = result.rows;
-					            	var c = eval(r);
-				/*	           		var str0="";
-					                var str1="";
-					                var str2="";
-					        		for(var j=0; j<c.length; j++){
-					        			str0 += c[j].fequipment_no+",";
-					        			str1 += c[j].voltage+",";
-					        			str2 += c[j].electricity+",";
-					        			};*/
-					        		for(var i = 0;i < c.length;i++)
-					        			{
-					        				if(va.equals(c[i].fequipment_no)){
-					        					num1[i] = parseInt(c[i].voltage); 
-					        					num2[i] = parseInt(c[i].electricity);
-					        			}
-					        			}
-				        		   }
+				function create() {
+				    var series = new Array();
+				    $.ajax({
+				      type: "POST",
+				      url: "td/getAllTd?data="+msg.data,
+				      async: false, 
+				      success: function(result){
+/*				        results = eval("(" + result + ")");*/
+	        		    var r = result.rows;
+		            	var c = eval(r);
+		            	var va = document.getElementById("hid1").value;
+		        		for(var i = 0;i < c.length;i++){
+		        				if(va == c[i].fequipment_no){					        					
+		        					num1[i] = parseInt(c[i].voltage,16);
+		        					num2[i] = parseInt(c[i].electricity);
+		        					var value = num1[i];
+						            var data = function() {
+							            var data = [],
+							            //  time = result.time,//x轴数据由后台决定。
+							              time = (new Date()).getTime(),
+							              i;
+							            for(i=-9; i<=0; i++) {
+							              data.push({
+							                x: time + i * 1000,
+							                y: value
+							              });
+							            }
+							            return data;
+							          }();
+							          series.push({"data": data});
+		        				}	
+				        } 
+				      }
+				    }, false);  //false表示“遮罩”，前台不显示“请稍后”进度提示
+				        return series;
+				  }
 
 				   $(document).ready(function () {
 				    Highcharts.setOptions({
@@ -72,11 +75,30 @@
 				                load: function () {
 
 				                    // set up the updating of the chart each second
-				                    var series = this.series[0];
+				                    var series = this.series;
 				                    setInterval(function () {
-				                        var x = (new Date()).getTime(), // current time
-				                            y = Math.random();
-				                        series.addPoint([x, y], true, true);
+				                        $.ajax({
+		                                      type: "POST",
+		                                      url: "td/getAllTd?data="+msg.data,
+		                                      async: false,
+		                                      success: function(result){
+		                  	        		    var r = result.rows;
+		                		            	var c = eval(r);
+		                		            	var va = document.getElementById("hid1").value;
+		                  		        		for(var i = 0;i < c.length;i++){
+		            		        				if(va == c[i].fequipment_no){					        					
+		            		        					num1[i] = parseInt(c[i].voltage,16);
+		            		        					num2[i] = parseInt(c[i].electricity);
+			            		        				
+		            		        				}
+		            		        				var value = num1[i];
+		                                            series[i].addPoint([(new Date()).getTime(), value], true, true);
+		                                            }
+
+		                                        
+		                                      }
+		                                }, false);				                       
+				                        
 				                    }, 1000);
 				                }
 				            }
@@ -86,7 +108,7 @@
 				        },
 				        xAxis: {
 				            type: 'datetime',
-				            tickPixelInterval: 150
+				            tickPixelInterval: 75
 				        },
 				        yAxis: {
 				            title: {
@@ -111,27 +133,11 @@
 				        exporting: {
 				            enabled: false
 				        },
-				        series: [{
-				            name: 'Random data',
-				            data: (function () {
-				                // generate an array of random data
-				                var data = [],
-				                    time = (new Date()).getTime(),
-				                    i;
-
-				                for (i = -9; i <= 0; i += 1) {
-				                    data.push({
-				                        x: time + i * 1000,
-				                        y: Math.random()
-				                    });
-				                }
-				                return data;
-				            }())
-				        }]
+				        series: create()
 				    });
 				});
 
-				    $(document).ready(function () {
+/*				    $(document).ready(function () {
 				    Highcharts.setOptions({
 				        global: {
 				            useUTC: false
@@ -206,10 +212,10 @@
 				            }())
 				        }]
 				    });
-				});
+				});*/
 				    
-				           }
-				    })
+				           
+				    
 			};
 			//关闭事件
 			socket.onclose = function() {
@@ -422,3 +428,4 @@ $(function(){
            }
     })
 })*/
+

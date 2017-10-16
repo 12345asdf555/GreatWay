@@ -93,6 +93,8 @@ public class TdController {
 	
 	@RequestMapping("/AllTda")
 	public String AllTda(HttpServletRequest request){
+		String xxx = request.getParameter("value");
+		System.out.println(xxx);
 		request.setAttribute("av", request.getParameter("value"));
 		return "/AV";
 	}
@@ -103,7 +105,7 @@ public class TdController {
 		
 		JSONObject obj = new JSONObject();
 		String da = request.getParameter("data");
-		System.out.println(da);
+/*		System.out.println(da);*/
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{

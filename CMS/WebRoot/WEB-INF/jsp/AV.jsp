@@ -27,13 +27,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
 	<script type="text/javascript" src="resources/js/highcharts.js"></script>
 	<script type="text/javascript" src="resources/js/td/AV.js"></script>
+	<script type="text/javascript" src="resources/js/exporting.js"></script>
 
   </head>
 <body class="easyui-layout">
     <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white;">
     <div id="body1" style="min-width:300px;height:350px"></div>
     <div id="body2" style="min-width:300px;height:350px"></div>
-    <input name="hid" id="hid" value="${av}" type="hidden" class="easyui-textbox">
+    <input id="hid1" name="hid1" type="hidden" value="${av}">
         </div>
 </body>
 </html>

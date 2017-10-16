@@ -9,11 +9,11 @@
 var dd;
 
 $(function(){
-	newSearch(show);
+	newSearch();
 })
 
 
-function newSearch(show){
+function newSearch(){
   	$(function() {
 		var socket;
 		if(typeof(WebSocket) == "undefined") {
@@ -22,7 +22,7 @@ function newSearch(show){
 		}
 		$(function() {
 			//实现化WebSocket对象，指定要连接的服务器地址与端口
-			socket = new WebSocket("ws://121.196.222.216:5554/SerialPortDemo/ws/张三");
+			socket = new WebSocket("ws://192.168.1.104:5554/SerialPortDemo/ws/张三");
 			//打开事件
 			socket.onopen = function() {
 				alert("Socket 已打开");
@@ -97,24 +97,24 @@ function newSearch(show){
 		            		document.getElementById("welderName"+i+"").value=c[index].electricity;
 		            		/*document.getElementById("position"+i+"").value=c[index].fposition;*/
 			            }
-			            document.getElementById("status").value=(c.length)/3;
+			            document.getElementById("statusn").value=(c.length)/3;
 			            for(var l=0;l<c.length;l+=3){
 			            	if(c[l].finsframework_id==document.getElementById("project").value){
 			            		if(c[l].fstatus_id=="00"){
 			            			num0=num0+1;
-			            			document.getElementById("on").value=num0;
+			            			document.getElementById("onn").value=num0;
 			            		}
 			            		else if(c[l].fstatus_id=="01"){
 			            			num1=num1+1;
-			            			document.getElementById("warning").value=num1;
+			            			document.getElementById("warningn").value=num1;
 			            		}
 			            		else if(c[l].fstatus_id=="10"){
 			            			num2=num2+1;
-			            			document.getElementById("wait").value=num2;
+			            			document.getElementById("waitn").value=num2;
 			            		}
 			            		else{
 			            			num3=num3+1;
-			            			document.getElementById("off").value=num3;
+			            			document.getElementById("offn").value=num3;
 			            		}
 			            		}
 			            }
@@ -145,7 +145,7 @@ function newSearch(show){
 	});
 }
    	function show(value){
-   		window.location.href="td/AllTda";
+   		window.location.href="td/AllTda?value="+value;
 /*   		var st="";
         var str="";
         var str1="";

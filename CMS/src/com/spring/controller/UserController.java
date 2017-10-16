@@ -155,6 +155,7 @@ public class UserController {
 	        user.setStatus(Integer.parseInt(request.getParameter("status")));
 			String str = request.getParameter("rid");
 			Integer uid = Integer.parseInt(request.getParameter("uid"));
+			user.setId(uid);
 			userService.deleteRole(userService.updateUserRole(uid));
 			if(null!=str&&""!=str)
 			{
