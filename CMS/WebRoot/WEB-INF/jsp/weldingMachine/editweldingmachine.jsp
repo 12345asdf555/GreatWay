@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>设备编码</lable>
 					<input class="easyui-textbox" id="wid" value="${w.id }">
 					<input class="easyui-textbox" id="valideno" value="${w.equipmentNo }">
-					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo" value="${w.equipmentNo }" data-options="validType:'wmEnoValidate',required:true"/>
+					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  value="${w.equipmentNo }" data-options="validType:['wmEnoValidate','length[4,4]'],required:true"/>
 				</div>
 				<div class="fitem">
 					<lable>设备类型</lable>
