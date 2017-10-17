@@ -21,7 +21,7 @@
 		}
 		$(function() {
 			//实现化WebSocket对象，指定要连接的服务器地址与端口
-			socket = new WebSocket("ws://192.168.9.101:5554/SerialPortDemo/ws/张三");
+			socket = new WebSocket("ws://121.196.222.216:5554/SerialPortDemo/ws/张三");
 			//打开事件
 			socket.onopen = function() {
 				alert("Socket 已打开");
