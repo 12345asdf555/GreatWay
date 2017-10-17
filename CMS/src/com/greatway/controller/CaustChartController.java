@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,7 @@ import com.greatway.model.Insframework;
 import com.greatway.model.LiveData;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -197,6 +199,12 @@ public class CaustChartController {
 	@RequestMapping("/getCaustOverproof")
 	@ResponseBody
 	public String getCaustOverproof(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -229,15 +237,8 @@ public class CaustChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
-		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-			page = new Page(pageIndex,pageSize,total);
-			time = lm.getAllTime(page,dto);
-		}else{
-			time = lm.getAllTimes(dto);
-		}
+		page = new Page(pageIndex,pageSize,total);
+		List<LiveData> time = lm.getAllTime(page,dto);
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -248,7 +249,6 @@ public class CaustChartController {
 		JSONObject obj = new JSONObject();
 		JSONArray arys = new JSONArray();
 		JSONArray arys1 = new JSONArray();
-		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getCauseOverproof(dto,parent);
 			List<LiveData> ins = lm.getAllInsf(parent,23);
@@ -272,6 +272,7 @@ public class CaustChartController {
 				json.put("itemid",ins.get(i).getFid());
 				arys1.add(json);
 			}
+			JSONObject object = new JSONObject();
 			
 			for(int i=0;i<time.size();i++){
 				for(int j=0;j<arys1.size();j++){
@@ -280,7 +281,6 @@ public class CaustChartController {
 					String[] str = overproof.split(",");
 					object.put("a"+j, str[i]);
 				}
-				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){
@@ -301,6 +301,12 @@ public class CaustChartController {
 	@RequestMapping("/getCaustOvertime")
 	@ResponseBody
 	public String getCaustOvertime(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -334,16 +340,8 @@ public class CaustChartController {
 				dto.setWeek("week");
 			}
 		}
-
-		List<LiveData> time = null;
-		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-			page = new Page(pageIndex,pageSize,total);
-			time = lm.getAllTime(page,dto);
-		}else{
-			time = lm.getAllTimes(dto);
-		}
+		page = new Page(pageIndex,pageSize,total);
+		List<LiveData> time = lm.getAllTime(page,dto);
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -386,7 +384,6 @@ public class CaustChartController {
 					String[] str = overproof.split(",");
 					object.put("a"+j, str[i]);
 				}
-				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){
@@ -407,6 +404,12 @@ public class CaustChartController {
 	@RequestMapping("/getCaustLoads")
 	@ResponseBody
 	public String getCaustLoads(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -439,15 +442,8 @@ public class CaustChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
-		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-			page = new Page(pageIndex,pageSize,total);
-			time = lm.getAllTime(page,dto);
-		}else{
-			time = lm.getAllTimes(dto);
-		}
+		page = new Page(pageIndex,pageSize,total);
+		List<LiveData> time = lm.getAllTime(page,dto);
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -490,7 +486,6 @@ public class CaustChartController {
 					String[] str = overproof.split(",");
 					object.put("a"+j, str[i]+"%");
 				}
-				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){
@@ -511,6 +506,12 @@ public class CaustChartController {
 	@RequestMapping("/getCaustNoLoads")
 	@ResponseBody
 	public String getCaustNoLoads(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -543,15 +544,8 @@ public class CaustChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
-		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-			page = new Page(pageIndex,pageSize,total);
-			time = lm.getAllTime(page,dto);
-		}else{
-			time = lm.getAllTimes(dto);
-		}
+		page = new Page(pageIndex,pageSize,total);
+		List<LiveData> time = lm.getAllTime(page,dto);
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -594,7 +588,6 @@ public class CaustChartController {
 					String[] str = overproof.split(",");
 					object.put("a"+j, str[i]+"%");
 				}
-				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){

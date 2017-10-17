@@ -20,6 +20,8 @@
         <!-- <intercept-url pattern="/welder/welder.jsp" access="ROLE_ADMIN"/> -->
         <!-- <intercept-url pattern="/**" access="ROLE_**"/> -->
         <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" default-target-url="/index.jsp"/> 
+        <logout logout-success-url="/login.jsp" invalidate-session="true"     
+            logout-url="/logout" />
         <session-management>  
             <concurrency-control max-sessions="1" 
                 error-if-maximum-exceeded="false" />  

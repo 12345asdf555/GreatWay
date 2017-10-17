@@ -105,6 +105,10 @@ function openCompanyIdle(){
 	addTab("公司设备闲置率","companyChart/goCompanyIdle");
 }
 
+function openCompanyTd(){
+	addTab("实时监测","td/AllTd");
+}
+
 function openItemHour(){
 	addTab("项目部焊口焊接工时","itemChart/goItemHour");
 }

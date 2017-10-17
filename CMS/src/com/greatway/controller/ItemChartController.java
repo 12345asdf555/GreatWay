@@ -275,6 +275,12 @@ public class ItemChartController {
 	@RequestMapping("/getItemOvertime")
 	@ResponseBody
 	public String getItemOvertime(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -310,15 +316,8 @@ public class ItemChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
-		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-			page = new Page(pageIndex,pageSize,total);
-			time = lm.getAllTime(page,dto);
-		}else{
-			time = lm.getAllTimes(dto);
-		}
+		page = new Page(pageIndex,pageSize,total);
+		List<LiveData> time = lm.getAllTime(page,dto);
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -361,7 +360,6 @@ public class ItemChartController {
 					String[] str = overproof.split(",");
 					object.put("a"+j, str[i]);
 				}
-				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){
@@ -382,6 +380,12 @@ public class ItemChartController {
 	@RequestMapping("/getItemLoads")
 	@ResponseBody
 	public String getItemLoads(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -416,15 +420,8 @@ public class ItemChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
-		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-			page = new Page(pageIndex,pageSize,total);
-			time = lm.getAllTime(page,dto);
-		}else{
-			time = lm.getAllTimes(dto);
-		}
+		page = new Page(pageIndex,pageSize,total);
+		List<LiveData> time = lm.getAllTime(page,dto);
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -467,7 +464,6 @@ public class ItemChartController {
 					String[] str = loads.split(",");
 					object.put("a"+j, str[i]+"%");
 				}
-				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){
@@ -488,6 +484,12 @@ public class ItemChartController {
 	@RequestMapping("/getItemNoLoads")
 	@ResponseBody
 	public String getItemNoLoads(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -522,15 +524,8 @@ public class ItemChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
-		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-			page = new Page(pageIndex,pageSize,total);
-			time = lm.getAllTime(page,dto);
-		}else{
-			time = lm.getAllTimes(dto);
-		}
+		page = new Page(pageIndex,pageSize,total);
+		List<LiveData> time = lm.getAllTime(page,dto);
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -573,7 +568,6 @@ public class ItemChartController {
 					String[] str = loads.split(",");
 					object.put("a"+j, str[i]+"%");
 				}
-				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){
@@ -594,6 +588,12 @@ public class ItemChartController {
 	@RequestMapping("/getItemIdle")
 	@ResponseBody
 	public String getItemIdle(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -626,15 +626,8 @@ public class ItemChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
-		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-			page = new Page(pageIndex,pageSize,total);
-			time = lm.getAllTime(page,dto);
-		}else{
-			time = lm.getAllTimes(dto);
-		}
+		page = new Page(pageIndex,pageSize,total);
+		List<LiveData> time = lm.getAllTime(page,dto);
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -678,7 +671,6 @@ public class ItemChartController {
 					String[] str = loads.split(",");
 					object.put("a", str[i]);
 				}
-				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){

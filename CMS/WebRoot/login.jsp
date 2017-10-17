@@ -17,22 +17,6 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<!-- CSS -->
-<!-- 
-		<link rel="stylesheet" href="resources/login/css/reset.css">
-		<link rel="stylesheet" href="resources/login/css/supersized.css">
-		<link rel="stylesheet" href="resources/login/css/style.css"> -->
-		<!-- Javascript -->
-<!-- 		<script src="resources/js/jquery.min.js"></script>
-		<script src="resources/login/js/supersized.3.2.7.min.js"></script>
-		<script src="resources/login/js/supersized-init.js"></script>
-		<script src="resources/login/js/scripts.js"></script>
- -->
-		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-		<!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-
 	</head>
 
 	<body onLoad="document.f.j_username.focus();">

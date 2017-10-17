@@ -10,4 +10,6 @@ public interface TdMapper {
 	List<Td> findAll(@Param("str")String str);
 	List<Td> findAllpro();
 	List<Td> findAllcom();
+	List<Td> findAlldiv(long ins);
+	long findAllIns(long uid);
 }

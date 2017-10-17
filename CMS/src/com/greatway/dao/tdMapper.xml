@@ -15,4 +15,12 @@
 		</if>
 	</select>
 	
+	<select id="findAlldiv" parameterType="long" resultType="Td">
+		select * from tb_insframework where tb_insframework.fparent=#{fci} 
+	</select>
+	
+	<select id="findAllIns" parameterType="long" resultType="long">
+		select tb_users.users_insframework from tb_users where tb_users.id=#{fci} 
+	</select>
+	
 </mapper>

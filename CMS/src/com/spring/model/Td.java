@@ -13,11 +13,14 @@ public class Td {
 	private int fpt;
 	private int fpi;
 	private int fpp;
+	private String fpn;
 	private int fdt;
 	private int fdp;
 	private int fdi;
+	private String fdn;
 	private int fci;
 	private int fct;
+	private String fcn;
 	public Td(){
 		super();
 	}
@@ -123,9 +126,27 @@ public class Td {
 	public void setFci(int fci) {
 		this.fci = fci;
 	}
+	public String getFpn(){
+		return fpn;
+	}
+	public void setFpn(String fpn) {
+		this.fpn = fpn;
+	}
+	public String getFdn(){
+		return fdn;
+	}
+	public void setFdn(String fdn) {
+		this.fdn = fdn;
+	}
+	public String getFcn(){
+		return fcn;
+	}
+	public void setFcn(String fcn) {
+		this.fcn = fcn;
+	}
 
 
-	public Td(int id,double electricity,double voltage,String fposition,String fwelder_no,String fname,String fequipment_no,String finsframework_id,String fstatus_id,int fpt,int fpp,int fpi, int fdt,int fdp,int fdi,int fct,int fci) {
+	public Td(int id,double electricity,double voltage,String fposition,String fwelder_no,String fname,String fequipment_no,String finsframework_id,String fstatus_id,int fpt,int fpp,int fpi, int fdt,int fdp,int fdi,int fct,int fci,String fcn,String fdn,String fpn) {
 		super();
 		this.id = id;
 		this.electricity = electricity;
@@ -144,5 +165,8 @@ public class Td {
 		this.fdi = fdi;
 		this.fct = fct;
 		this.fci = fci;
+		this.fcn = fcn;
+		this.fdn = fdn;
+		this.fpn = fpn;
 	}
 }

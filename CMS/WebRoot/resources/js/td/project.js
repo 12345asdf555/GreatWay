@@ -22,7 +22,7 @@ function newSearch(){
 		}
 		$(function() {
 			//实现化WebSocket对象，指定要连接的服务器地址与端口
-			socket = new WebSocket("ws://192.168.1.104:5554/SerialPortDemo/ws/张三");
+			socket = new WebSocket("ws://192.168.9.101:5554/SerialPortDemo/ws/张三");
 			//打开事件
 			socket.onopen = function() {
 				alert("Socket 已打开");
@@ -32,13 +32,6 @@ function newSearch(){
 			socket.onmessage = function(msg) {
 				/*alert(msg.data);*/
 				dd = msg.data;
-/*				$.ajax({  
-			        type : "post",  
-			        async : false,
-			        url : "td/AllTda?data="+msg.data,  
-			        data : {},  
-			        dataType : "json", //返回数据形式为json  
-				})*/
 				$.ajax({  
 			        type : "post",  
 			        async : false,
@@ -53,16 +46,7 @@ function newSearch(){
 			            	var num3 = 0;
 			            	var r = result.rows;
 			            	var c = eval(r);
-/*			           		var str0="";
-			                var str1="";
-			                var str2="";
-			        		for(var j=0; j<c.length; j++){
-			        			str0 += c[j].fequipment_no+",";
-			        			str1 += c[j].voltage+",";
-			        			str2 += c[j].electricity+",";
-			        			};*/
-			            	console.log(result.rows);
-			            	for(var index = 0;index < c.length;index++)
+			            	for(var index = 0;index < c.length;index+=3)
 			            	{
 			            	var i = Math.floor(index/3);
 		            		if(index%3==0){
@@ -90,12 +74,19 @@ function newSearch(){
 			            	$("#body").append(str);
 		            				}
 		            		}
+		            		
 		            		document.getElementById("btnReg"+i+"").value=c[index].fequipment_no;
 		            		document.getElementById("voltage"+i+"").value=c[index].voltage;
 		            		document.getElementById("electricity"+i+"").value=c[index].electricity;
 		            		document.getElementById("welderNo"+i+"").value=c[index].fwelder_no;
 		            		document.getElementById("welderName"+i+"").value=c[index].electricity;
 		            		/*document.getElementById("position"+i+"").value=c[index].fposition;*/
+		            		var t = Date.now();  
+		            		  
+		            		function sleep(d){  
+		            		    while(Date.now - t <= d);  
+		            		}   
+		            		sleep(1000); 
 			            }
 			            document.getElementById("statusn").value=(c.length)/3;
 			            for(var l=0;l<c.length;l+=3){

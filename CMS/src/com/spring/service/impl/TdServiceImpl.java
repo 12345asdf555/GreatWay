@@ -34,4 +34,12 @@ import com.spring.service.TdService;
 		public List<Td> findAllcom(){
 			return mapper.findAllcom();
 		}
+		
+		public List<Td> findAlldiv(long ins){
+			return mapper.findAlldiv(ins);
+		}
+		
+		public long findIns(long uid){
+			return mapper.findAllIns(uid);
+		}
 	}

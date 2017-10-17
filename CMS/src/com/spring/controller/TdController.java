@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.page.Page;
+import com.spring.model.MyUser;
 import com.spring.model.Td;
 import com.spring.model.User;
 import com.spring.service.TdService;
@@ -44,7 +46,7 @@ public class TdController {
 	
 	@RequestMapping("/AllTdd")
 	public String AllTdd(HttpServletRequest request){
-		request.setAttribute("td", request.getParameter("index"));
+		request.setAttribute("div", request.getParameter("value"));
 		return "/division";
 	}
 	
@@ -109,7 +111,7 @@ public class TdController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
-			for(int i = 0;i < da.length();i+=24)
+			for(int i = 0;i < da.length();i+=57)
 			{
 				json.put("fstatus_id", da.substring(0+i, 2+i));
 				json.put("finsframework_id", da.substring(2+i, 4+i));
@@ -118,6 +120,39 @@ public class TdController {
 				json.put("fwelder_no", da.substring(12+i, 16+i));
 				json.put("voltage", da.substring(16+i, 20+i));
 				json.put("electricity", da.substring(20+i, 24+i));
+				json.put("time", da.substring(24+i, 45+i));
+				json.put("maxele", da.substring(45+i, 48+i));
+				json.put("minele", da.substring(48+i, 51+i));
+				json.put("maxvol", da.substring(51+i, 54+i));
+				json.put("minvol", da.substring(54+i, 57+i));
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/getAllTddiv")
+	@ResponseBody
+	public String getAllTddiv(HttpServletRequest request){
+		
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		JSONObject obj = new JSONObject();
+		long uid = myuser.getId();
+		List<Td> findAlld = tdService.findAlldiv(tdService.findIns(uid));
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+			for(Td td:findAlld)
+			{
+				json.put("fid", td.getFdi());
+				json.put("fname", td.getFdn());
+				json.put("fparent", td.getFdp());
+				json.put("ftype", td.getFdt());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -133,12 +168,11 @@ public class TdController {
 		
 		JSONObject obj = new JSONObject();
 		String da = request.getParameter("data");
-		List<Td> findAllpro = tdService.findAllpro();
 		System.out.println(da);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
-			for(int i = 0;i < da.length();i+=24)
+			for(int i = 0;i < da.length();i+=57)
 			{
 				json.put("fstatus_id", da.substring(0+i, 2+i));
 				json.put("finsframework_id", da.substring(2+i, 4+i));
@@ -147,6 +181,11 @@ public class TdController {
 				json.put("fwelder_no", da.substring(12+i, 16+i));
 				json.put("voltage", da.substring(16+i, 20+i));
 				json.put("electricity", da.substring(20+i, 24+i));
+				json.put("time", da.substring(24+i, 45+i));
+				json.put("maxele", da.substring(45+i, 48+i));
+				json.put("minele", da.substring(48+i, 51+i));
+				json.put("maxvol", da.substring(51+i, 54+i));
+				json.put("minvol", da.substring(54+i, 57+i));
 				ary.add(json);
 			}
 		}catch(Exception e){

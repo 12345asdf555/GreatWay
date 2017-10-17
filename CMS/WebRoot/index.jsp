@@ -52,8 +52,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <li><a href="javascript:openWelder()">焊工管理</a></li>
 			        <li><a href="javascript:openInsframework()">组织机构管理</a></li>
 			        <li><a href="javascript:openGather()">采集模块管理</a></li>
-			        <li><a href="javascript:openData()">实时数据</a></li>
-			        <li><a href="javascript:openTd()">实时检测</a></li>
 		        </ul>
 		    </div>
 		    <div title="公司">
@@ -65,6 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<li><a href="javascript:openCompanyNoLoads()">公司设备空载率</a></li>
 		    		<li><a href="javascript:openCompanyIdle()">公司设备闲置率</a></li>
 		    		<li><a href="javascript:openCompanyUse()">公司单台设备运行数据统计</a></li>
+		    		<li><a href="javascript:openCompanyTd()">实时监测</a></li>
 		    	</ul>
 		    </div>
 		    <div title="事业部">
@@ -85,6 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<li><a href="javascript:openItemovertime()">项目部超时待机统计</a></li>
 		    		<li><a href="javascript:openItemLoads()">项目部设备负荷率</a></li>
 		    		<li><a href="javascript:openItemNoLoads()">项目部设备空载率</a></li>
+		    		<li><a href="javascript:openTd()">实时监测</a></li>
 		    	</ul>
 		    </div>
 		</div>

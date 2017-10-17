@@ -194,9 +194,4 @@ public class LiveDataManagerImpl implements LiveDataManager {
 		return uid;
 	}
 
-	@Override
-	public List<LiveData> getAllTimes(WeldDto dto) {
-		return live.getAllTime(dto);
-	}
-
 }

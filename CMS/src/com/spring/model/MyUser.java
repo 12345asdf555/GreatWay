@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import java.math.BigInteger;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;

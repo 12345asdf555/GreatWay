@@ -10,4 +10,6 @@ public interface TdService {
 	List<Td> findAll(Page page, String str);
 	List<Td> findAllpro();
 	List<Td> findAllcom();
+	List<Td> findAlldiv(long ins);
+	long findIns(long uid);
 }
