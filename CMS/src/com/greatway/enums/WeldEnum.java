@@ -5,6 +5,7 @@ public enum WeldEnum {
 	NoLine(11,"在线"),
 	OffLine(12,"离线"),
 	//2.组织机构类型
+	Project0(20,"集团"),
 	Project1(21,"公司"),
 	Project2(22,"事业部"),
 	Project3(23,"项目部"),

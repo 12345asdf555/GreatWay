@@ -150,8 +150,10 @@ public class CaustChartController {
 		//数据权限处理
 		BigInteger uid = lm.getUserId();
 		int type = insm.getUserInsfType(uid);
-		if(type==22){
-			dto.setUid(uid);
+		if(type==21){
+			dto.setParent(insm.getUserInsfId(uid));
+		}else if(type==22){
+			parentId = insm.getUserInsfId(uid).toString();
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){

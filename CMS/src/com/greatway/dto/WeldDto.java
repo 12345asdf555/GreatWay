@@ -18,7 +18,14 @@ public class WeldDto {
 	private String week;
 	private BigInteger uid;
 	private BigInteger parent;
+	private BigInteger companyid;
 	
+	public BigInteger getCompanyid() {
+		return companyid;
+	}
+	public void setCompanyid(BigInteger companyid) {
+		this.companyid = companyid;
+	}
 	public BigInteger getParent() {
 		return parent;
 	}

@@ -133,6 +133,34 @@ function openDetailoverproofs(){
 	addTab("焊接工艺超标明细","itemChart/goDetailoverproof");
 }
 
+function openBlocUse(){
+	addTab("集团单台设备运行数据统计","blocChart/goBlocUse");
+}
+
+function openBlocHour(){
+	addTab("集团焊口焊接工时","blocChart/goBlocHour");
+}
+
+function openBlocoverproof(){
+	addTab("集团焊接工艺超标统计","blocChart/goBlocOverproof");
+}
+
+function openBlocovertime(){
+	addTab("集团超时待机统计","blocChart/goBlocOvertime");
+}
+
+function openBlocLoads(){
+	addTab("集团设备负荷率","blocChart/goBlocLoads");
+}
+
+function openBlocNoLoads(){
+	addTab("集团设备空载率","blocChart/goBlocNoLoads");
+}
+
+function openBlocIdle(){
+	addTab("集团设备闲置率","blocChart/goBlocIdle");
+}
+
 
 
 function addTab(title,url){

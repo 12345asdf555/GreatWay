@@ -3,6 +3,8 @@ package com.greatway.manager;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.greatway.dto.ModelDto;
 import com.greatway.dto.WeldDto;
 import com.greatway.model.LiveData;
@@ -252,6 +254,62 @@ public interface LiveDataManager {
 	 */
 	BigInteger getUserId();
 	
-
+	/**
+	 * 获取所有时间
+	 * @param dto
+	 * @return
+	 */
 	List<LiveData> getAllTimes(WeldDto dto);
+	
+	/**
+	 * 集团焊接工时
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<LiveData> getBlochour(Page page,WeldDto dto);
+	
+	/**
+	 * 集团超标统计
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<ModelDto> getBlocOverproof(WeldDto dto);
+	
+	/**
+	 * 集团超时待机统计
+	 * @param dto 扩展参数类
+	 * @param num 超时点
+	 * @return
+	 */
+	List<ModelDto> getBlocOvertime(WeldDto dto,String num);
+	
+	/**
+	 * 集团负载率
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<ModelDto> getBlocLoads(WeldDto dto);
+	
+	/**
+	 * 集团空载率
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<ModelDto> getBlocNoLoads(WeldDto dto);
+	
+	/**
+	 * 集团闲置率
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<ModelDto> getBlocIdle(Page page,WeldDto dto);
+	
+	/**
+	 * 集团单台设备运行数据统计
+	 * @param dto  扩展参数类
+	 * @param parent 上级的父id
+	 * @return
+	 */
+	List<ModelDto> getBlocUse(Page page,WeldDto dto,BigInteger parent);
+	
 }

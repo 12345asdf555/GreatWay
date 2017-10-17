@@ -34,13 +34,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="body" region="center"  hide="true"  split="true" title="公司焊口焊接工时" style="background: witch; height: 335px;">
 	  	<div id="caustHour_btn">
 			<div style="margin-bottom: 5px;">
+				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
 				<a href="javascript:serachcompanyHour();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
-		
+		<div><h2>${str }</h2></div>
 		<div id="companyHourChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
 		
 	    <table id="companyHourTable" style="table-layout: fixed; width:100%;"></table>

@@ -269,7 +269,7 @@ public class InsframeworkController {
 	}
 	
 	/**
-	 * 校验项目名称是否存在
+	 * 组织机构树形菜单
 	 * @param name
 	 * @return
 	 */
@@ -281,7 +281,7 @@ public class InsframeworkController {
         // 拼接根节点  
         json.append("[");  
         json.append("{\"id\":" +String.valueOf(0));
-        json.append(",\"text\":\"" +"中国核建" + "\"");
+        json.append(",\"text\":\"" +"集团" + "\"");
         json.append(",\"state\":\"open\"");  
         // 获取根节点下的所有子节点  
         List<Insframework> treeList = im.getConmpany();

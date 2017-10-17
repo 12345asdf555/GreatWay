@@ -9,10 +9,11 @@ $(document).ready(function(){
 function showCompanyHourChart(){
 	var array1 = new Array();
 	var array2 = new Array();
+	var parent = $("#parent").val();
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "companyChart/getCompanyHour"+chartStr,
+         url : "companyChart/getCompanyHour?parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -79,12 +80,13 @@ function showCompanyHourChart(){
 
 
 function CaustHourDatagrid(){
+	var parent = $("#parent").val();
 	$("#companyHourTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "companyChart/getCompanyHour",
+		url : "companyChart/getCompanyHour?parent="+parent,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -130,7 +132,7 @@ function serachcompanyHour(){
 		"dtoTime1" : dtoTime1,
 		"dtoTime2" : dtoTime2
 	});
-	chartStr = "?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 	showCompanyHourChart();
 }
 

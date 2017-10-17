@@ -47,7 +47,10 @@ public class CompanyChartController {
 	 * @return
 	 */
 	@RequestMapping("/goCompanyHour")
-	public String goCompany(){
+	public String goCompany(HttpServletRequest request){
+		String parent = request.getParameter("parent");
+		insm.showParent(request, parent);
+		request.setAttribute("parent", parent);
 		return "companychart/companyHour";
 	}
 	
@@ -129,6 +132,12 @@ public class CompanyChartController {
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		BigInteger uid = lm.getUserId();
+		int types = insm.getUserInsfType(uid);
+		if(types==21){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);

@@ -199,4 +199,41 @@ public class LiveDataManagerImpl implements LiveDataManager {
 		return live.getAllTime(dto);
 	}
 
+	@Override
+	public List<LiveData> getBlochour(Page page, WeldDto dto) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.getBlochour(dto);
+	}
+
+	@Override
+	public List<ModelDto> getBlocOverproof(WeldDto dto) {
+		return live.getBlocOverproof(dto);
+	}
+
+	@Override
+	public List<ModelDto> getBlocOvertime(WeldDto dto, String num) {
+		return live.getBlocOvertime(dto, num);
+	}
+
+	@Override
+	public List<ModelDto> getBlocLoads(WeldDto dto) {
+		return live.getBlocLoads(dto);
+	}
+
+	@Override
+	public List<ModelDto> getBlocNoLoads(WeldDto dto) {
+		return live.getBlocNoLoads(dto);
+	}
+
+	@Override
+	public List<ModelDto> getBlocIdle(Page page,WeldDto dto) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.getBlocIdle(dto);
+	}
+
+	@Override
+	public List<ModelDto> getBlocUse(Page page,WeldDto dto, BigInteger parent) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.getBlocUse(dto, parent);
+	}
 }

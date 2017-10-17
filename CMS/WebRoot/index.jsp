@@ -47,12 +47,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li><a href="javascript:openAuthority()">权限管理</a></li>
 				<li><a href="javascript:openResource()">资源管理</a></li>
 				<li><a href="javascript:openWeldingMachine()">焊机设备管理</a></li>
-			        <li><a href="javascript:openMachine()">维修记录管理</a></li>
-			        <li><a href="javascript:openWedJunction()">焊口管理</a></li>
-			        <li><a href="javascript:openWelder()">焊工管理</a></li>
-			        <li><a href="javascript:openInsframework()">组织机构管理</a></li>
-			        <li><a href="javascript:openGather()">采集模块管理</a></li>
-		        </ul>
+			    <li><a href="javascript:openMachine()">维修记录管理</a></li>
+		        <li><a href="javascript:openWedJunction()">焊口管理</a></li>
+		        <li><a href="javascript:openWelder()">焊工管理</a></li>
+		        <li><a href="javascript:openInsframework()">组织机构管理</a></li>
+		        <li><a href="javascript:openGather()">采集模块管理</a></li>
+	        </ul>
+		    </div>
+		    <div title="集团">
+		    	<ul>
+		    		<li><a href="javascript:openBlocHour()">集团焊口焊接工时</a></li>
+		    		<li><a href="javascript:openBlocoverproof()">集团焊接工艺超标统计</a></li>
+		    		<li><a href="javascript:openBlocovertime()">集团超时待机统计</a></li>
+		    		<li><a href="javascript:openBlocLoads()">集团设备负荷率</a></li>
+		    		<li><a href="javascript:openBlocNoLoads()">集团设备空载率</a></li>
+		    		<li><a href="javascript:openBlocIdle()">集团设备闲置率</a></li>
+		    		<li><a href="javascript:openBlocUse()">集团单台设备运行数据统计</a></li>
+		    	</ul>
 		    </div>
 		    <div title="公司">
 		    	<ul>

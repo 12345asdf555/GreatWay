@@ -140,7 +140,9 @@ public class ItemChartController {
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId();
 		int type = insm.getUserInsfType(uid);
-		if(type==22){
+		if(type==21){
+			dto.setCompanyid(insm.getUserInsfId(uid));
+		}else if(type==22){
 			dto.setParent(insm.getUserInsfId(uid));
 		}else if(type==23){
 			item = insm.getUserInsfId(uid).toString();
