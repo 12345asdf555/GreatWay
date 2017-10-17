@@ -104,13 +104,7 @@ function ItemidleDatagrid(){
          success : function(result) {  
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
-                 column.push({field:"weldTime",title:"时间跨度(年/月/日)",width:width,halign : "center",align : "left",formatter:function(value,row,index){
-                	 for(var i=0;i<result.arys.length;i++){
-                		 if(index==i){
-                			 return result.arys[i].weldTime;
-                		 }
-                 	 }
-                 }});
+                 column.push({field:"w",title:"时间跨度(年/月/日)",width:width,halign : "center",align : "left"});
                  column.push({field:"a",title:"闲置数量",width:width,halign : "center",align : "left"});
              }  
          },  

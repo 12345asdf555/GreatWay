@@ -173,12 +173,6 @@ public class CompanyChartController {
 	@RequestMapping("/getCompanyOverproof")
 	@ResponseBody
 	public String getCompanyOverproof(HttpServletRequest request){
-		if(iutil.isNull(request.getParameter("page"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-		}
-		if(iutil.isNull(request.getParameter("rows"))){
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -205,8 +199,16 @@ public class CompanyChartController {
 				dto.setWeek("week");
 			}
 		}
-		page = new Page(pageIndex,pageSize,total);
-		List<LiveData> time = lm.getAllTime(page,dto);
+		List<LiveData> time = null;
+		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+			page = new Page(pageIndex,pageSize,total);
+			time = lm.getAllTime(page,dto);
+			
+		}else{
+			time = lm.getAllTimes(dto);
+		}
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -249,6 +251,7 @@ public class CompanyChartController {
 					String[] str = overproof.split(",");
 					object.put("a"+j, str[i]);
 				}
+				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){
@@ -270,12 +273,6 @@ public class CompanyChartController {
 	@RequestMapping("/getCompanyOvertime")
 	@ResponseBody
 	public String getCompanyOvertime(HttpServletRequest request){
-		if(iutil.isNull(request.getParameter("page"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-		}
-		if(iutil.isNull(request.getParameter("rows"))){
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -302,9 +299,15 @@ public class CompanyChartController {
 			}else if(type.equals("4")){
 				dto.setWeek("week");
 			}
+		}List<LiveData> time = null;
+		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+			page = new Page(pageIndex,pageSize,total);
+			time = lm.getAllTime(page,dto);
+		}else{
+			time = lm.getAllTimes(dto);
 		}
-		page = new Page(pageIndex,pageSize,total);
-		List<LiveData> time = lm.getAllTime(page,dto);
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -347,6 +350,7 @@ public class CompanyChartController {
 					String[] str = overproof.split(",");
 					object.put("a"+j, str[i]);
 				}
+				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){
@@ -367,12 +371,6 @@ public class CompanyChartController {
 	@RequestMapping("/getCompanyLoads")
 	@ResponseBody
 	public String getCompanyLoads(HttpServletRequest request){
-		if(iutil.isNull(request.getParameter("page"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-		}
-		if(iutil.isNull(request.getParameter("rows"))){
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -399,8 +397,15 @@ public class CompanyChartController {
 				dto.setWeek("week");
 			}
 		}
-		page = new Page(pageIndex,pageSize,total);
-		List<LiveData> time = lm.getAllTime(page,dto);
+		List<LiveData> time = null;
+		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+			page = new Page(pageIndex,pageSize,total);
+			time = lm.getAllTime(page,dto);
+		}else{
+			time = lm.getAllTimes(dto);
+		}
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -443,6 +448,7 @@ public class CompanyChartController {
 					String[] str = overproof.split(",");
 					object.put("a"+j, str[i]+"%");
 				}
+				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){
@@ -463,12 +469,6 @@ public class CompanyChartController {
 	@RequestMapping("/getCompanyNoLoads")
 	@ResponseBody
 	public String getCompanyNoLoads(HttpServletRequest request){
-		if(iutil.isNull(request.getParameter("page"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-		}
-		if(iutil.isNull(request.getParameter("rows"))){
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
@@ -495,8 +495,15 @@ public class CompanyChartController {
 				dto.setWeek("week");
 			}
 		}
-		page = new Page(pageIndex,pageSize,total);
-		List<LiveData> time = lm.getAllTime(page,dto);
+		List<LiveData> time = null;
+		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+			page = new Page(pageIndex,pageSize,total);
+			time = lm.getAllTime(page,dto);
+		}else{
+			time = lm.getAllTimes(dto);
+		}
 		long total = 0;
 		if(time != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
@@ -539,6 +546,7 @@ public class CompanyChartController {
 					String[] str = overproof.split(",");
 					object.put("a"+j, str[i]+"%");
 				}
+				object.put("w",time.get(i).getWeldTime());
 				ary.add(object);
 			}
 		}catch(Exception e){
