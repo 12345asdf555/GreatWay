@@ -251,4 +251,7 @@ public interface LiveDataManager {
 	 * @return
 	 */
 	BigInteger getUserId();
+	
+
+	List<LiveData> getAllTimes(WeldDto dto);
 }
