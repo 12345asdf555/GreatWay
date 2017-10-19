@@ -15,7 +15,7 @@ function showCompanyOverptimeChart(){
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyOvertime?otype="+otype+chartStr,
+         url : "companyChart/getCompanyOvertime?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -94,11 +94,12 @@ function showCompanyOverptimeChart(){
 
 function CompanytimeDatagrid(){
 	var otype = $("input[name='otype']:checked").val();
+	var parent = $("#parent").val();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyOvertime?otype="+otype+chartStr,
+         url : "companyChart/getCompanyOvertime?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -122,7 +123,7 @@ function CompanytimeDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "companyChart/getCompanyOvertime?otype="+otype+chartStr,
+			url : "companyChart/getCompanyOvertime?otype="+otype+"&parent="+parent+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,

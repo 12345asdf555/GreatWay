@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.greatway.dto.WeldDto;
 import com.greatway.model.WeldingMachine;
 
 import tk.mybatis.mapper.common.Mapper;
@@ -40,5 +41,5 @@ public interface WeldingMachineMapper extends Mapper<WeldingMachine>{
 	
 	void editGatherid(@Param("wid")BigInteger wid);
 	
-	BigInteger getMachineCountByManu(@Param("mid")BigInteger mid);
+	BigInteger getMachineCountByManu(@Param("mid")BigInteger mid,@Param("dto")WeldDto dto,@Param("id")BigInteger id);
 }

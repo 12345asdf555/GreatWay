@@ -15,7 +15,7 @@ function showCaustOverptimeChart(){
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustOvertime?otype="+otype+chartStr,
+         url : "caustChart/getCaustOvertime?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -94,11 +94,12 @@ function showCaustOverptimeChart(){
 
 function CausttimeDatagrid(){
 	var otype = $("input[name='otype']:checked").val();
+	var parent = $("#parent").val();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustOvertime?otype="+otype+chartStr,
+         url : "caustChart/getCaustOvertime?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -122,7 +123,7 @@ function CausttimeDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "caustChart/getCaustOvertime?otype="+otype+chartStr,
+			url : "caustChart/getCaustOvertime?otype="+otype+"&parent="+parent+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,

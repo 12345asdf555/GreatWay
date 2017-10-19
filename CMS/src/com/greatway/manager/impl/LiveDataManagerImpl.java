@@ -64,8 +64,8 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getCompanyOverproof(WeldDto dto) {
-		return live.getCompanyOverproof(dto);
+	public List<ModelDto> getCompanyOverproof(WeldDto dto,BigInteger parent) {
+		return live.getCompanyOverproof(dto,parent);
 	}
 
 	@Override
@@ -86,8 +86,8 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getcompanyOvertime(WeldDto dto, String num) {
-		return live.getcompanyOvertime(dto, num);
+	public List<ModelDto> getcompanyOvertime(WeldDto dto, String num,BigInteger parent) {
+		return live.getcompanyOvertime(dto, num,parent);
 	}
 
 	@Override
@@ -112,8 +112,8 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getCompanyLoads(WeldDto dto) {
-		return live.getCompanyLoads(dto);
+	public List<ModelDto> getCompanyLoads(WeldDto dto,BigInteger parent) {
+		return live.getCompanyLoads(dto,parent);
 	}
 
 	@Override
@@ -127,8 +127,8 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<LiveData> getMachine(BigInteger parent,WeldDto dto) {
-		return live.getMachine(parent,dto);
+	public List<LiveData> getMachine(BigInteger parent) {
+		return live.getMachine(parent);
 	}
 
 	@Override
@@ -138,8 +138,8 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getCompanyNoLoads(WeldDto dto) {
-		return live.getCompanyNoLoads(dto);
+	public List<ModelDto> getCompanyNoLoads(WeldDto dto,BigInteger parent) {
+		return live.getCompanyNoLoads(dto,parent);
 	}
 
 	@Override
@@ -153,9 +153,9 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getCompanyIdle(Page page,WeldDto dto) {
+	public List<ModelDto> getCompanyIdle(Page page,WeldDto dto,BigInteger parent) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return live.getCompanyIdle(dto);
+		return live.getCompanyIdle(dto,parent);
 	}
 
 	@Override
@@ -190,6 +190,9 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	public BigInteger getUserId(){
 		//获取用户id
 		MyUser myuser = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(myuser==null){
+			return new BigInteger("0");
+		}
 		BigInteger uid = new BigInteger(myuser.getId()+"");
 		return uid;
 	}
@@ -235,5 +238,10 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	public List<ModelDto> getBlocUse(Page page,WeldDto dto, BigInteger parent) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
 		return live.getBlocUse(dto, parent);
+	}
+
+	@Override
+	public List<LiveData> getBlocChildren() {
+		return live.getBlocChildren();
 	}
 }

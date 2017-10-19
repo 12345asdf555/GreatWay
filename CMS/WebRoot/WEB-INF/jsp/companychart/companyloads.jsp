@@ -34,6 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="body" region="center"  hide="true"  split="true" title="公司设备负荷率" style="background: witch; height: 335px;">
 	  	<div id="companyLoads_btn">
 			<div style="margin-bottom: 5px;">
+				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
@@ -45,6 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:serachCompanyloads();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
+		<div><h2>${str }</h2></div>
 		<div id="companyLoadsChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
 		
 	    <table id="companyLoadsTable" style="table-layout: fixed; width:100%;"></table>

@@ -61,6 +61,9 @@ public class CompanyChartController {
 	 */
 	@RequestMapping("/goCompanyOverproof")
 	public String goCompanyOverproof(HttpServletRequest request){
+		String parent = request.getParameter("parent");
+		insm.showParent(request, parent);
+		request.setAttribute("parent", parent);
 		return "companychart/companyoverproof";
 	}
 	
@@ -71,6 +74,9 @@ public class CompanyChartController {
 	 */
 	@RequestMapping("/goCompanyOvertime")
 	public String goCompanyOvertime(HttpServletRequest request){
+		String parent = request.getParameter("parent");
+		insm.showParent(request, parent);
+		request.setAttribute("parent", parent);
 		return "companychart/companyovertime";
 	}
 	
@@ -81,6 +87,9 @@ public class CompanyChartController {
 	 */
 	@RequestMapping("/goCompanyLoads")
 	public String goCompanyLoads(HttpServletRequest request){
+		String parent = request.getParameter("parent");
+		insm.showParent(request, parent);
+		request.setAttribute("parent", parent);
 		return "companychart/companyloads";
 	}
 	
@@ -91,6 +100,9 @@ public class CompanyChartController {
 	 */
 	@RequestMapping("/goCompanyNoLoads")
 	public String goCompanyNoLoads(HttpServletRequest request){
+		String parent = request.getParameter("parent");
+		insm.showParent(request, parent);
+		request.setAttribute("parent", parent);
 		return "companychart/companynoloads";
 	}
 	
@@ -101,6 +113,9 @@ public class CompanyChartController {
 	 */
 	@RequestMapping("/goCompanyIdle")
 	public String goCompanyIdle(HttpServletRequest request){
+		String parent = request.getParameter("parent");
+		insm.showParent(request, parent);
+		request.setAttribute("parent", parent);
 		return "companychart/companyidle";
 	}
 	
@@ -187,6 +202,12 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		BigInteger uid = lm.getUserId();
+		int types = insm.getUserInsfType(uid);
+		if(types==21){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -214,7 +235,6 @@ public class CompanyChartController {
 			pageSize = Integer.parseInt(request.getParameter("rows"));
 			page = new Page(pageIndex,pageSize,total);
 			time = lm.getAllTime(page,dto);
-			
 		}else{
 			time = lm.getAllTimes(dto);
 		}
@@ -229,7 +249,7 @@ public class CompanyChartController {
 		JSONArray arys = new JSONArray();
 		JSONArray arys1 = new JSONArray();
 		try{
-			List<ModelDto> list = lm.getCompanyOverproof(dto);
+			List<ModelDto> list = lm.getCompanyOverproof(dto,parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			int[] num = null;
 			for(LiveData live :time){
@@ -288,6 +308,12 @@ public class CompanyChartController {
 		String type = request.getParameter("otype");
 		String number = request.getParameter("number");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		BigInteger uid = lm.getUserId();
+		int types = insm.getUserInsfType(uid);
+		if(types==21){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -328,7 +354,7 @@ public class CompanyChartController {
 		JSONArray arys = new JSONArray();
 		JSONArray arys1 = new JSONArray();
 		try{
-			List<ModelDto> list = lm.getcompanyOvertime(dto, number);
+			List<ModelDto> list = lm.getcompanyOvertime(dto, number, parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			int[] num = null;
 			for(LiveData live :time){
@@ -385,6 +411,12 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		BigInteger uid = lm.getUserId();
+		int types = insm.getUserInsfType(uid);
+		if(types==21){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -426,7 +458,7 @@ public class CompanyChartController {
 		JSONArray arys = new JSONArray();
 		JSONArray arys1 = new JSONArray();
 		try{
-			List<ModelDto> list = lm.getCompanyLoads(dto);
+			List<ModelDto> list = lm.getCompanyLoads(dto,parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			double[] num = null;
 			for(LiveData live :time){
@@ -483,6 +515,12 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		BigInteger uid = lm.getUserId();
+		int types = insm.getUserInsfType(uid);
+		if(types==21){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -524,7 +562,7 @@ public class CompanyChartController {
 		JSONArray arys = new JSONArray();
 		JSONArray arys1 = new JSONArray();
 		try{
-			List<ModelDto> list = lm.getCompanyNoLoads(dto);
+			List<ModelDto> list = lm.getCompanyNoLoads(dto,parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			double[] num = null;
 			for(LiveData live :time){
@@ -586,7 +624,15 @@ public class CompanyChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String type = request.getParameter("otype");
+		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
+		//数据权限处理
+		BigInteger uid = lm.getUserId();
+		int types = insm.getUserInsfType(uid);
+		if(types==21){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
+		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -602,8 +648,11 @@ public class CompanyChartController {
 				dto.setWeek("week");
 			}
 		}
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
 		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.getCompanyIdle(page, dto);
+		List<ModelDto> list = lm.getCompanyIdle(page, dto, parent);
 		long total = 0;
 		if(list != null){
 			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
@@ -672,7 +721,9 @@ public class CompanyChartController {
 				json.put("fname", l.getFname());
 				json.put("type", l.getType());
 				json.put("fid",l.getFid());
-				json.put("num", wm.getMachineCountByManu(l.getFid()));
+				WeldDto dtos = new WeldDto();
+				dtos.setCompany("22");
+				json.put("num", wm.getMachineCountByManu(l.getFid(),dtos,typeid));
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -693,8 +744,15 @@ public class CompanyChartController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
+		BigInteger parent = null;
+		//数据权限处理
+		BigInteger uid = lm.getUserId();
+		int type = insm.getUserInsfType(uid);
+		if(type==21){
+			parent = insm.getUserInsfId(uid);
+		}
 		try{
-			List<Insframework> list = insm.getInsByType(22,null);
+			List<Insframework> list = insm.getInsByType(22,parent);
 			for(Insframework i:list){
 				json.put("id", i.getId());
 				json.put("name", i.getName());

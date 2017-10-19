@@ -23,10 +23,14 @@ import com.greatway.util.IsnullUtil;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
+/**
+ * 集团报表
+ * @author gpyf16
+ *
+ */
 @Controller
-@RequestMapping(value = "/caustChart", produces = { "text/json;charset=UTF-8" })
-public class CaustChartController {
+@RequestMapping(value = "/blocChart", produces = { "text/json;charset=UTF-8" })
+public class BlocChartController {
 	private Page page;
 	private int pageIndex = 1;
 	private int pageSize = 10;
@@ -34,109 +38,91 @@ public class CaustChartController {
 	
 	@Autowired
 	private LiveDataManager lm;
-	@Autowired
-	private InsframeworkManager insm;
+	
 	@Autowired
 	private WeldingMachineManager wm;
+	@Autowired
+	private InsframeworkManager insm;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
 	/**
-	 * 跳转事业部工时页面
-	 * @param request
+	 * 跳转集团工时页面
 	 * @return
 	 */
-	@RequestMapping("/goCaustHour")
-	public String goCaustHour(HttpServletRequest request){
-		String parent = request.getParameter("parent");
-		insm.showParent(request, parent);
-		request.setAttribute("parent",parent);
-		return "caustchart/caustHour";
+	@RequestMapping("/goBlocHour")
+	public String goBlocHour(){
+		return "blocchart/blocHour";
 	}
 	
 	/**
-	 * 跳转事业部超标页面
+	 * 跳转集团超标页面
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/goCaustOverproof")
-	public String goCaustOverproof(HttpServletRequest request){
-		String parent = request.getParameter("parent");
-		insm.showParent(request, parent);
-		request.setAttribute("parent",parent);
-		return "caustchart/caustoverproof";
+	@RequestMapping("/goBlocOverproof")
+	public String goBlocOverproof(HttpServletRequest request){
+		return "blocchart/blocoverproof";
 	}
 	
 	/**
-	 * 跳转事业部超时页面
+	 * 跳转集团超时待机页面
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/goCaustOvertime")
-	public String goCaustOvertime(HttpServletRequest request){
-		String parent = request.getParameter("parent");
-		insm.showParent(request, parent);
-		request.setAttribute("parent",parent);
-		return "caustchart/caustovertime";
+	@RequestMapping("/goBlocOvertime")
+	public String goBlocOvertime(HttpServletRequest request){
+		return "blocchart/blocovertime";
 	}
 	
 	/**
-	 * 跳转事业部闲置率页面
+	 * 跳转集团设备负荷率页面
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/goCaustIdle")
-	public String goCaustIdle(HttpServletRequest request){
-		String parent = request.getParameter("parent");
-		insm.showParent(request, parent);
-		request.setAttribute("parent",parent);
-		return "caustchart/caustidle";
+	@RequestMapping("/goBlocLoads")
+	public String goBlocLoads(HttpServletRequest request){
+		return "blocchart/blocloads";
 	}
 	
 	/**
-	 * 跳转事业部焊机负荷率页面
+	 * 跳转集团设备空载率页面
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/goCaustLoads")
-	public String goCaustLoads(HttpServletRequest request){
-		String parent = request.getParameter("parent");
-		insm.showParent(request, parent);
-		request.setAttribute("parent",parent);
-		return "caustchart/caustloads";
+	@RequestMapping("/goBlocNoLoads")
+	public String goBlocNoLoads(HttpServletRequest request){
+		return "blocchart/blocnoloads";
 	}
 	
 	/**
-	 * 跳转事业部空载率页面
+	 * 跳转集团闲置率页面
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/goCaustNoLoads")
-	public String goCaustNoLoads(HttpServletRequest request){
-		String parent = request.getParameter("parent");
-		insm.showParent(request, parent);
-		request.setAttribute("parent",parent);
-		return "caustchart/caustnoloads";
+	@RequestMapping("/goBlocIdle")
+	public String goBlocIdle(HttpServletRequest request){
+		return "blocchart/blocidle";
 	}
 	
 	/**
-	 * 跳转事业部单台设备运行数据统计
+	 * 跳转集团单台设备运行数据统计页面
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/goCaustUse")
-	public String goCaustUse(HttpServletRequest request){
-		return "caustchart/caustuse";
+	@RequestMapping("/goBlocUse")
+	public String goBlocUse(HttpServletRequest request){
+		return "blocchart/blocuse";
 	}
 	
 	/**
-	 * 事业部工时报表信息查询
+	 * 集团工时报表信息查询
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getCaustHour")
+	@RequestMapping("/getBlocHour")
 	@ResponseBody
-	public String getCaustHour(HttpServletRequest request){
+	public String getBlocHour(HttpServletRequest request){
 		if(iutil.isNull(request.getParameter("page"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 		}
@@ -145,28 +131,15 @@ public class CaustChartController {
 		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
-		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
-		//数据权限处理
-		BigInteger uid = lm.getUserId();
-		int type = insm.getUserInsfType(uid);
-		if(type==21){
-			dto.setParent(insm.getUserInsfId(uid));
-		}else if(type==22){
-			parentId = insm.getUserInsfId(uid).toString();
-		}
-		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
 		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
 		}
-		if(iutil.isNull(parentId)){
-			parent = new BigInteger(parentId);
-		}
 		page = new Page(pageIndex,pageSize,total);
-		List<LiveData> list = lm.getCausehour(page,dto,parent);
+		List<LiveData> list = lm.getBlochour(page,dto);
 		long total = 0;
 		if(list != null){
 			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(list);
@@ -180,7 +153,7 @@ public class CaustChartController {
 				json.put("manhour", l.getHous());
 				json.put("dyne", l.getDyne());
 				json.put("name",l.getFname());
-				json.put("itemid",l.getFid());
+				json.put("companyid",l.getFid());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -192,39 +165,22 @@ public class CaustChartController {
 	}
 	
 	/**
-	 * 事业部超标报表信息查询
+	 * 集团超标报表信息查询
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getCaustOverproof")
+	@RequestMapping("/getBlocOverproof")
 	@ResponseBody
-	public String getCaustOverproof(HttpServletRequest request){
+	public String getBlocOverproof(HttpServletRequest request){
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
-		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
-		BigInteger pid = null;
-		//数据权限处理
-		BigInteger uid = lm.getUserId();
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			dto.setCompanyid(insm.getUserInsfId(uid));
-			pid = insm.getUserInsfId(uid);
-		}else if(types==22){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = insm.getUserInsfId(uid);
-		}
-		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
 		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
-		}
-		if(iutil.isNull(parentId)){
-			parent = new BigInteger(parentId);
-			pid = new BigInteger(parentId);
 		}
 		if(iutil.isNull(type)){
 			if(type.equals("1")){
@@ -243,6 +199,7 @@ public class CaustChartController {
 			pageSize = Integer.parseInt(request.getParameter("rows"));
 			page = new Page(pageIndex,pageSize,total);
 			time = lm.getAllTime(page,dto);
+			
 		}else{
 			time = lm.getAllTimes(dto);
 		}
@@ -256,10 +213,9 @@ public class CaustChartController {
 		JSONObject obj = new JSONObject();
 		JSONArray arys = new JSONArray();
 		JSONArray arys1 = new JSONArray();
-		JSONObject object = new JSONObject();
 		try{
-			List<ModelDto> list = lm.getCauseOverproof(dto,parent);
-			List<LiveData> ins = lm.getAllInsf(pid,23);
+			List<ModelDto> list = lm.getBlocOverproof(dto);
+			List<LiveData> ins = lm.getBlocChildren();
 			int[] num = null;
 			for(LiveData live :time){
 				json.put("weldTime",live.getWeldTime());
@@ -271,7 +227,7 @@ public class CaustChartController {
 					num[j] = 0;
 					for(ModelDto l:list){
 						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = Integer.parseInt(l.getOverproof().toString());
+							num[j] = Integer.parseInt(l.getOverproof().toString());;
 						}
 					}
 				}
@@ -280,6 +236,7 @@ public class CaustChartController {
 				json.put("itemid",ins.get(i).getFid());
 				arys1.add(json);
 			}
+			JSONObject object = new JSONObject();
 			
 			for(int i=0;i<time.size();i++){
 				for(int j=0;j<arys1.size();j++){
@@ -300,42 +257,26 @@ public class CaustChartController {
 		obj.put("arys1", arys1);
 		return obj.toString();
 	}
+
 	
 	/**
-	 * 事业部超时报表信息查询
+	 * 集团超时报表信息查询
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getCaustOvertime")
+	@RequestMapping("/getBlocOvertime")
 	@ResponseBody
-	public String getCaustOvertime(HttpServletRequest request){
+	public String getBlocOvertime(HttpServletRequest request){
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
-		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		String number = request.getParameter("number");
 		WeldDto dto = new WeldDto();
-		BigInteger pid = null;
-		//数据权限处理
-		BigInteger uid = lm.getUserId();
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
-		}else if(types==22){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
-		}
-		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
 		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
-		}
-		if(iutil.isNull(parentId)){
-			parent = new BigInteger(parentId);
-			pid = new BigInteger(parentId);
 		}
 		if(iutil.isNull(type)){
 			if(type.equals("1")){
@@ -347,9 +288,7 @@ public class CaustChartController {
 			}else if(type.equals("4")){
 				dto.setWeek("week");
 			}
-		}
-
-		List<LiveData> time = null;
+		}List<LiveData> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -369,8 +308,8 @@ public class CaustChartController {
 		JSONArray arys = new JSONArray();
 		JSONArray arys1 = new JSONArray();
 		try{
-			List<ModelDto> list = lm.getCaustOvertime(dto, number, parent);
-			List<LiveData> ins = lm.getAllInsf(pid,23);
+			List<ModelDto> list = lm.getBlocOvertime(dto, number);
+			List<LiveData> ins = lm.getBlocChildren();
 			int[] num = null;
 			for(LiveData live :time){
 				json.put("weldTime",live.getWeldTime());
@@ -414,39 +353,22 @@ public class CaustChartController {
 	}
 
 	/**
-	 * 事业部负荷率报表信息查询
+	 * 集团负荷率报表信息查询
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getCaustLoads")
+	@RequestMapping("/getBlocLoads")
 	@ResponseBody
-	public String getCaustLoads(HttpServletRequest request){
+	public String getBlocLoads(HttpServletRequest request){
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
-		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
-		BigInteger pid = null;
-		//数据权限处理
-		BigInteger uid = lm.getUserId();
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
-		}else if(types==22){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
-		}
-		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
 		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
-		}
-		if(iutil.isNull(parentId)){
-			parent = new BigInteger(parentId);
-			pid = new BigInteger(parentId);
 		}
 		if(iutil.isNull(type)){
 			if(type.equals("1")){
@@ -479,8 +401,8 @@ public class CaustChartController {
 		JSONArray arys = new JSONArray();
 		JSONArray arys1 = new JSONArray();
 		try{
-			List<ModelDto> list = lm.getCaustLoads(dto,parent);
-			List<LiveData> ins = lm.getAllInsf(pid,23);
+			List<ModelDto> list = lm.getBlocLoads(dto);
+			List<LiveData> ins = lm.getBlocChildren();
 			double[] num = null;
 			for(LiveData live :time){
 				json.put("weldTime",live.getWeldTime());
@@ -522,124 +444,109 @@ public class CaustChartController {
 		obj.put("arys1", arys1);
 		return obj.toString();
 	}
+
+	/**
+	 * 集团空载率报表信息查询
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getBlocNoLoads")
+	@ResponseBody
+	public String getBlocNoLoads(HttpServletRequest request){
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String type = request.getParameter("otype");
+		WeldDto dto = new WeldDto();
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(type)){
+			if(type.equals("1")){
+				dto.setYear("year");
+			}else if(type.equals("2")){
+				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
+			}else if(type.equals("4")){
+				dto.setWeek("week");
+			}
+		}
+		List<LiveData> time = null;
+		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+			page = new Page(pageIndex,pageSize,total);
+			time = lm.getAllTime(page,dto);
+		}else{
+			time = lm.getAllTimes(dto);
+		}
+		long total = 0;
+		if(time != null){
+			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			total = pageinfo.getTotal();
+		}
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		JSONArray arys = new JSONArray();
+		JSONArray arys1 = new JSONArray();
+		try{
+			List<ModelDto> list = lm.getBlocNoLoads(dto);
+			List<LiveData> ins = lm.getBlocChildren();
+			double[] num = null;
+			for(LiveData live :time){
+				json.put("weldTime",live.getWeldTime());
+				arys.add(json);
+			}
+			for(int i=0;i<ins.size();i++){
+				num = new double[time.size()];
+				for(int j=0;j<time.size();j++){
+					num[j] = 0;
+					for(ModelDto l:list){
+						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
+							num[j] = (double)Math.round(l.getLoads()*100)/100;
+						}
+					}
+				}
+				json.put("loads",num);
+				json.put("name",ins.get(i).getFname());
+				json.put("itemid",ins.get(i).getId());
+				arys1.add(json);
+			}
+			JSONObject object = new JSONObject();
+			
+			for(int i=0;i<time.size();i++){
+				for(int j=0;j<arys1.size();j++){
+					JSONObject js = (JSONObject)arys1.get(j);
+					String overproof = js.getString("loads").substring(1, js.getString("loads").length()-1);
+					String[] str = overproof.split(",");
+					object.put("a"+j, str[i]+"%");
+				}
+				object.put("w",time.get(i).getWeldTime());
+				ary.add(object);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		obj.put("arys", arys);
+		obj.put("arys1", arys1);
+		return obj.toString();
+	}
+
 	
 	/**
-	 * 事业部空载率报表信息查询
+	 * 集团闲置率报表信息查询
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getCaustNoLoads")
+	@RequestMapping("/getBlocIdle")
 	@ResponseBody
-	public String getCaustNoLoads(HttpServletRequest request){
-		String time1 = request.getParameter("dtoTime1");
-		String time2 = request.getParameter("dtoTime2");
-		String parentId = request.getParameter("parent");
-		String type = request.getParameter("otype");
-		WeldDto dto = new WeldDto();
-		BigInteger pid = null;
-		//数据权限处理
-		BigInteger uid = lm.getUserId();
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
-		}else if(types==22){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
-		}
-		BigInteger parent = null;
-		if(iutil.isNull(time1)){
-			dto.setDtoTime1(time1);
-		}
-		if(iutil.isNull(time2)){
-			dto.setDtoTime2(time2);
-		}
-		if(iutil.isNull(parentId)){
-			parent = new BigInteger(parentId);
-			pid = new BigInteger(parentId);
-		}
-		if(iutil.isNull(type)){
-			if(type.equals("1")){
-				dto.setYear("year");
-			}else if(type.equals("2")){
-				dto.setMonth("month");
-			}else if(type.equals("3")){
-				dto.setDay("day");
-			}else if(type.equals("4")){
-				dto.setWeek("week");
-			}
-		}
-		List<LiveData> time = null;
-		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-			page = new Page(pageIndex,pageSize,total);
-			time = lm.getAllTime(page,dto);
-		}else{
-			time = lm.getAllTimes(dto);
-		}
-		long total = 0;
-		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
-			total = pageinfo.getTotal();
-		}
-		JSONObject json = new JSONObject();
-		JSONArray ary = new JSONArray();
-		JSONObject obj = new JSONObject();
-		JSONArray arys = new JSONArray();
-		JSONArray arys1 = new JSONArray();
-		try{
-			List<ModelDto> list = lm.getCaustNOLoads(dto, parent);
-			List<LiveData> ins = lm.getAllInsf(pid,23);
-			double[] num = null;
-			for(LiveData live :time){
-				json.put("weldTime",live.getWeldTime());
-				arys.add(json);
-			}
-			for(int i=0;i<ins.size();i++){
-				num = new double[time.size()];
-				for(int j=0;j<time.size();j++){
-					num[j] = 0;
-					for(ModelDto l:list){
-						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = (double)Math.round(l.getLoads()*100)/100;
-						}
-					}
-				}
-				json.put("loads",num);
-				json.put("name",ins.get(i).getFname());
-				json.put("itemid",ins.get(i).getId());
-				arys1.add(json);
-			}
-			JSONObject object = new JSONObject();
-			
-			for(int i=0;i<time.size();i++){
-				for(int j=0;j<arys1.size();j++){
-					JSONObject js = (JSONObject)arys1.get(j);
-					String overproof = js.getString("loads").substring(1, js.getString("loads").length()-1);
-					String[] str = overproof.split(",");
-					object.put("a"+j, str[i]+"%");
-				}
-				object.put("w",time.get(i).getWeldTime());
-				ary.add(object);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		obj.put("total", total);
-		obj.put("rows", ary);
-		obj.put("arys", arys);
-		obj.put("arys1", arys1);
-		return obj.toString();
-	}
-	/**
-	 * 事业部闲置率报表信息查询
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/getCaustIdle")
-	@ResponseBody
-	public String getCaustIdle(HttpServletRequest request){
+	public String getBlocIdle(HttpServletRequest request){
 		if(iutil.isNull(request.getParameter("page"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 		}
@@ -649,17 +556,7 @@ public class CaustChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String type = request.getParameter("otype");
-		String parent = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
-		//数据权限处理
-		BigInteger uid = lm.getUserId();
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parent = insm.getUserInsfId(uid).toString();
-		}else if(types==22){
-			parent = insm.getUserInsfId(uid).toString();
-		}
-		BigInteger parentid = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -675,11 +572,8 @@ public class CaustChartController {
 				dto.setWeek("week");
 			}
 		}
-		if(iutil.isNull(parent)){
-			parentid = new BigInteger(parent);
-		}
 		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.getCaustIdle(page, dto,parentid);
+		List<ModelDto> list = lm.getBlocIdle(page, dto);
 		long total = 0;
 		if(list != null){
 			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
@@ -704,13 +598,13 @@ public class CaustChartController {
 	}
 	
 	/**
-	 * 事业部单台设备运行数据统计信息查询
+	 * 集团单台设备运行数据统计信息查询
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getCaustUse")
+	@RequestMapping("/getBlocUse")
 	@ResponseBody
-	public String getCaustUse(HttpServletRequest request){
+	public String getBlocUse(HttpServletRequest request){
 		if(iutil.isNull(request.getParameter("page"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 		}
@@ -732,7 +626,7 @@ public class CaustChartController {
 			typeid = new BigInteger(type);
 		}
 		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.getCaustUse(page, dto, typeid);
+		List<ModelDto> list = lm.getBlocUse(page, dto, typeid);
 		long total = 0;
 		if(list != null){
 			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
@@ -743,12 +637,13 @@ public class CaustChartController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(ModelDto l:list){
-				json.put("time", Math.round((l.getTime()*100)/100));
+				double time = (double)Math.round(l.getTime()*100)/100;
+				json.put("time", time);
 				json.put("fname", l.getFname());
 				json.put("type", l.getType());
 				json.put("fid",l.getFid());
 				WeldDto dtos = new WeldDto();
-				dtos.setCaust("23");
+				dtos.setBloc("21");
 				json.put("num", wm.getMachineCountByManu(l.getFid(),dtos,typeid));
 				ary.add(json);
 			}
@@ -764,23 +659,14 @@ public class CaustChartController {
 	 * 事业部下拉框
 	 * @return
 	 */
-	@RequestMapping("getItem")
+	@RequestMapping("getCaust")
 	@ResponseBody
-	public String getItem(){
+	public String getCaust(){
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
-		BigInteger parent = null;
-		//数据权限处理
-		BigInteger uid = lm.getUserId();
-		int type = insm.getUserInsfType(uid);
-		if(type==21){
-			parent = insm.getUserInsfId(uid);
-		}else if(type==22){
-			parent = insm.getUserInsfId(uid);
-		}
 		try{
-			List<Insframework> list = insm.getInsByType(23,parent);
+			List<Insframework> list = insm.getInsByType(21,null);
 			for(Insframework i:list){
 				json.put("id", i.getId());
 				json.put("name", i.getName());
@@ -792,5 +678,4 @@ public class CaustChartController {
 		obj.put("ary", ary);
 		return obj.toString();
 	}
-
 }

@@ -1,28 +1,27 @@
 $(function(){
-	otypecombobox();
-	CaustIdleDatagrid();
+	typecombobox();
+	CaustUseDatagrid();
 })
 var chartStr = "";
 $(document).ready(function(){
-	showCompanyIdleChart();
+	showblocUseChart();
 })
 
-function showCompanyIdleChart(){
+function showblocUseChart(){
 	var array1 = new Array();
 	var array2 = new Array();
-	var otype = $('#otype').combobox('getValue');
-	var parent = $("#parent").val();
+	var type = $('#type').combobox('getValue');
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "companyChart/getCompanyIdle?otype="+otype+"&parent="+parent+chartStr,
+         url : "blocChart/getBlocUse?type="+type+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
              if (result) {  
                  for(var i=0;i<result.rows.length;i++){
                  	array1.push(result.rows[i].fname);
-                 	array2.push(result.rows[i].idle);
+                 	array2.push(result.rows[i].time);
                  }
              }  
          },  
@@ -31,7 +30,7 @@ function showCompanyIdleChart(){
          }  
     }); 
    	//初始化echart实例
-	charts = echarts.init(document.getElementById("companyIdleChart"));
+	charts = echarts.init(document.getElementById("blocUseChart"));
 	//显示加载动画效果
 	charts.showLoading({
 		text: '稍等片刻,精彩马上呈现...',
@@ -39,13 +38,13 @@ function showCompanyIdleChart(){
 	});
 	option = {
 		title:{
-			text: "焊机闲置率"
+			text: "公司部单台设备运行数据统计"
 		},
 		tooltip:{
 			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
 		},
 		legend:{
-			data:['数量']
+			data:['时长(h)']
 		},
 		grid:{
 			left:'10%',//组件距离容器左边的距离
@@ -68,7 +67,7 @@ function showCompanyIdleChart(){
 		},
 		series:[
 			{
-				name:'工时',
+				name:'时长(h)',
 				type:'bar',
 				data:array2
 			}
@@ -81,15 +80,14 @@ function showCompanyIdleChart(){
 }
 
 
-function CaustIdleDatagrid(){
-	var otype = $('#otype').combobox('getValue');
-	var parent = $("#parent").val();
-	$("#companyIdleTable").datagrid( {
+function CaustUseDatagrid(){
+	var type = $('#type').combobox('getValue'); 
+	$("#blocUseTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-40,
+		height : $("#body").height() - $("#blocUseChart").height()-$("#blocUse_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "companyChart/getCompanyIdle?otype="+otype+"&parent="+parent,
+		url : "blocChart/getBlocUse?type="+type+chartStr,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -98,48 +96,64 @@ function CaustIdleDatagrid(){
 		pagination : true,
 		columns : [ [ {
 			field : 'fname',
-			title : '事业部',
-			width : 100,
-			halign : "center",
-			align : "left",
-			formatter:function(value,row,index){
-				return  '<a href="caustChart/goCaustIdle?parent='+row.fid+'">'+value+'</a>';
-			}
-		}, {
-			field : 'idle',
-			title : '数量',
+			title : '厂家',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'fid',
-			title : '事业id',
+			field : 'type',
+			title : '型号',
 			width : 100,
 			halign : "center",
-			align : "left",
-			hidden: true
+			align : "left"
+		}, {
+			field : 'time',
+			title : '时长(h)',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'num',
+			title : '数量',
+			width : 100,
+			halign : "center",
+			align : "left"
 		}] ]
 	});
 }
 
-function otypecombobox(){
-	var optionFields = "<option value='1'>一年</option>" +
-	"<option value='2'>一月</option>" +
-	"<option value='4'>一周</option>";
-	$("#otype").html(optionFields);
-	$("#otype").combobox();
-	$('#otype').combobox('select',"2");
+function typecombobox(){
+	$.ajax({  
+      type : "post",  
+      async : false,
+      url : "blocChart/getCaust",  
+      data : {},  
+      dataType : "json", //返回数据形式为json  
+      success : function(result) {  
+          if (result) {
+              var optionStr = '';
+              for (var i = 0; i < result.ary.length; i++) {  
+                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+                          + result.ary[i].name + "</option>";
+              }
+              $("#type").html(optionStr);
+          }  
+      },  
+      error : function(errorMsg) {  
+          alert("数据请求失败，请联系系统管理员!");  
+      }  
+	}); 
+	$("#type").combobox();
+	var data = $("#type").combobox('getData');
+	$("#type").combobox('select',data[0].value);
 }
 
-function serachcompanyIdle(){
+function serachblocUse(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#companyIdleTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2
-	});
+	CaustUseDatagrid();
 	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
-	showCompanyIdleChart();
+	showblocUseChart();
 }
 
 //监听窗口大小变化
@@ -149,8 +163,8 @@ window.onresize = function() {
 
 //改变表格高宽
 function domresize() {
-	$("#companyIdleTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-10,
+	$("#blocUseTable").datagrid('resize', {
+		height : $("#body").height() - $("#blocUseChart").height()-$("#blocUse_btn").height()-10,
 		width : $("#body").width()
 	});
 }

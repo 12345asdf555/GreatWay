@@ -19,7 +19,28 @@ public class WeldDto {
 	private BigInteger uid;
 	private BigInteger parent;
 	private BigInteger companyid;
+	private String company;
+	private String bloc;
+	private String caust;
 	
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public String getBloc() {
+		return bloc;
+	}
+	public void setBloc(String bloc) {
+		this.bloc = bloc;
+	}
+	public String getCaust() {
+		return caust;
+	}
+	public void setCaust(String caust) {
+		this.caust = caust;
+	}
 	public BigInteger getCompanyid() {
 		return companyid;
 	}

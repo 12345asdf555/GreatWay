@@ -69,9 +69,11 @@
 	</select>
 	
 	<select id="getInsByType" resultMap="insMap">
-		select fid,fname from tb_insframework where ftype=#{type}
+		select i.fid,i.fname from tb_insframework i
+		inner join tb_insframework ins on ins.fid = i.fparent 
+		where i.ftype=#{type}
 		<if test="parent!=null and parent!=''">
-			and fparent = #{parent}
+			and (i.fparent = #{parent} or ins.fparent = #{parent})
 		</if>
 	</select>
 	

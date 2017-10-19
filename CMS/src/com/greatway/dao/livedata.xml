@@ -183,7 +183,7 @@
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE 1=1
 		<if test="parent!=null and parent!=''">
-			AND fparent = #{parent}
+			AND i.fparent = #{parent}
 		</if>
 		and i.fid NOT
 		IN (
@@ -559,7 +559,10 @@
 		) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id
 		inner join tb_insframework i on j.fitemid = i.fid
 		inner join tb_insframework ins on ins.fid = i.fparent
-		 where i.ftype=23 and  k0.fstatus &lt; 3 
+		where i.ftype=23 and  k0.fstatus &lt; 3 
+		<if test="parent!=null and parent!=''">
+			AND ins.fparent = #{parent}
+		</if>
 		)k1
 		)
 		as K 
@@ -619,10 +622,16 @@
 	) AS k0
 	INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
 	INNER JOIN tb_insframework i ON j.fitemid = i.fid
+	INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 	WHERE i.ftype =23
 	AND k0.fstatus &lt; 3
 	<if test="parent!=null and parent!=''">
 		AND i.fparent = #{parent}
+	</if>
+	<if test="dto!=null and dto!=''">
+		<if test="dto.companyid!=null and dto.companyid!=''">
+			 AND ins.fparent = #{dto.companyid}
+		</if>
 	</if>
 	)k1
 	) AS K
@@ -690,9 +699,12 @@
 	</select>
 	
 	<select id="getAllInsf" resultMap="liveMap">
-		SELECT fid,fname from tb_insframework where ftype=#{type}
+		SELECT i.fid,i.fname from tb_insframework i
+		inner join tb_insframework ins on ins.fid = i.fparent
+		inner join tb_insframework insf on insf.fid = ins.fparent
+		where i.ftype=#{type}
 		<if test="parent!=null and parent!=''">
-			AND fparent = #{parent}
+			and (ins.fparent = #{parent} or i.fparent=#{parent})
 		</if>
 	</select>
 	
@@ -719,10 +731,14 @@
 			</if>
 		</if>
 		) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id
-		inner join tb_insframework i on j.fitemid = i.fid  where i.ftype=23 and  k0.fstatus=0
+		inner join tb_insframework i on j.fitemid = i.fid
+		inner join tb_insframework ins on ins.fid = i.fparent  where i.ftype=23 and  k0.fstatus=0
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
 				AND i.fparent = #{dto.parent}
+			</if>
+			<if test="dto.companyid!=null and dto.companyid!=''">
+				AND ins.fparent = #{dto.companyid}
 			</if>
 		</if>
 		<if test="parent!=null and parent!=''">
@@ -811,7 +827,6 @@
 		)temp
 	</select>
 	
-	
 	<!-- 公司超时待机统计 -->
 	<select id="getcompanyOvertime" resultMap="dtoMap">
 		SELECT * 
@@ -852,6 +867,9 @@
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE i.ftype =23
 		AND k0.fstatus =3
+		<if test="parent!=null and parent!=''">
+			AND ins.fparent = #{parent}
+		</if>
 		)k1
 		GROUP BY iid, 
 		<if test="dto!=null and dto!=''">
@@ -911,10 +929,11 @@
 		) AS k0
 		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
 		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE i.ftype =23
 		AND k0.fstatus =3
 		<if test="parent!=null and parent!=''">
-			and i.fparent = #{parent}
+			and (i.fparent = #{parent} or  ins.fparent = #{parent})
 		</if>
 		)k1
 		GROUP BY iid, 
@@ -975,11 +994,12 @@
 		) AS k0
 		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
 		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE i.ftype =23
 		AND k0.fstatus =3
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
-				AND i.fparent = #{dto.parent}
+				AND (i.fparent = #{dto.parent} or ins.fparent=#{dto.parent})
 			</if>
 		</if>
 		<if test="parent!=null and parent!=''">
@@ -1009,9 +1029,12 @@
 	
 	<!-- 获取所有焊口 -->
 	<select id="getJunction" resultMap="liveMap">
-		SELECT fid,fwelded_junction_no fname,fitemid itemid FROM tb_welded_junction WHERE 1=1 
+		SELECT j.fid,fwelded_junction_no fname,fitemid itemid FROM tb_welded_junction j
+		inner join tb_insframework i on i.fid = j.fitemId
+		inner join tb_insframework ins on ins.fid = i.fparent
+		WHERE 1=1 
 		<if test="parent!=null and parent!=''">
-			and  fitemid = #{parent}
+			and  (i.fid = #{parent} or ins.fid = #{parent} or ins.fparent=#{parent})
 		</if>
 	</select>
 	
@@ -1186,6 +1209,9 @@
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE i.ftype =23
 		AND k0.fstatus &lt; 3
+		<if test="parent!=null and parent!=''">
+			AND ins.fparent = #{parent}
+		</if>
 		) AS A
 		GROUP BY  iid, 
 		<if test="dto!=null and dto!=''">
@@ -1247,10 +1273,11 @@
 		) AS k0
 		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
 		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent 
 		WHERE i.ftype =23
 		AND k0.fstatus &lt; 3
 		<if test="parent!=null and parent!=''">
-			AND i.fparent = #{parent}
+			AND (i.fparent = #{parent} or ins.fparent = #{parent})
 		</if>
 		) AS A
 		GROUP BY  iid, 
@@ -1313,10 +1340,11 @@
 		) AS k0
 		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
 		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE i.ftype =23
 		AND k0.fstatus &lt; 3
 		<if test="parent!=null and parent!=''">
-			AND i.fparent = #{parent}
+			AND (i.fparent = #{dto.parent} or ins.fparent=#{dto.parent})
 		</if>
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
@@ -1344,18 +1372,14 @@
 		)temp
 	</select>
 	
-		<!-- 获取所有焊机 -->
+	<!-- 获取所有焊机 -->
 	<select id="getMachine" resultMap="liveMap">
 		SELECT m.fid,fequipment_no fname,finsframework_id itemid FROM tb_welding_machine m 
 		inner join tb_insframework i on m.finsframework_id = i.fid
+		inner join tb_insframework ins on ins.fid = i.fparent
 		WHERE 1=1 
 		<if test="parent!=null and parent!=''">
-			 and i.fparent = #{parent}
-		</if>
-		<if test="dto!=null and dto!=''">
-			<if test="dto.parent!=null and dto.parent!=''">
-				 and i.fid = #{dto.parent}
-			</if>
+			 and (i.fid = #{parent} or i.fparent = #{parent} or ins.fparent = #{parent})
 		</if>
 	</select>
 	
@@ -1496,7 +1520,6 @@
 		)temp
 	</select>
 	
-	
 	<!-- 公司空载率 -->
 	<select id="getCompanyNoLoads" resultMap="dtoMap">
 		SELECT * 
@@ -1549,6 +1572,9 @@
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE i.ftype =23
 		AND k0.fstatus =3
+		<if test="parent!=null and parent!=''">
+			AND ins.fparent = #{parent}
+		</if>
 		)k1
 		GROUP BY iid, 
 		<if test="dto!=null and dto!=''">
@@ -1617,10 +1643,11 @@
 		) AS k0
 		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
 		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent 
 		WHERE i.ftype =23
 		AND k0.fstatus =3
 		<if test="parent!=null and parent!=''">
-			AND i.fparent = #{parent}
+			AND (i.fparent = #{parent} or ins.fparent = #{parent})
 		</if>
 		)k1
 		GROUP BY iid, 
@@ -1689,10 +1716,11 @@
 		) AS k0
 		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
 		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE i.ftype =23
 		AND k0.fstatus =3
 		<if test="parent!=null and parent!=''">
-			and i.fparent = #{parent}
+			and (i.fparent = #{parent} or ins.fparent = #{parent})
 		</if>
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
@@ -1764,9 +1792,9 @@
 		group by ins.fid
 		union
 		SELECT 0 AS idle, ins.fname,ins.fid
-		FROM tb_insframework
+		FROM tb_insframework i
 		inner join tb_insframework ins on ins.fid = i.fparent
-		WHERE fid NOT IN
+		WHERE ins.fid NOT IN
 		(
 		select insf.fid from tb_welding_machine m
 		inner join  tb_insframework i on i.fid = m.finsframework_id
@@ -1806,11 +1834,10 @@
 		)
 		group by ins.fid
 		)
-		and ftype=22
+		and i.ftype=22
 		) temp order by fid
 	</select>
-	
-	
+
 	<!-- 公司闲置率 -->
 	<select id="getCompanyIdle" resultMap="dtoMap">
 		select * from (
@@ -1849,6 +1876,9 @@
 		inner join tb_insframework i on i.fid = m.finsframework_id
 		group by ins.fname,fequipment_no
 		)
+		<if test="parent!=null and parent!=''">
+			and ins.fparent = #{parent}
+		</if>
 		group by ins.fid
 		union
 		SELECT 0 AS idle, fname,fid
@@ -1893,6 +1923,9 @@
 		group by ins.fid
 		)
 		and ftype=22
+		<if test="parent!=null and parent!=''">
+			and fparent = #{parent}
+		</if>
 		) temp order by fid
 	</select>
 
@@ -1901,6 +1934,7 @@
 		select * from (
 		select count(*)  idle,i.fname fname,i.fid fid from tb_welding_machine m
 		inner join  tb_insframework i on i.fid = m.finsframework_id
+		inner join tb_insframework ins on ins.fid = i.fparent
 		where fequipment_no not in(
 		select fequipment_no from (
 		select fmachine_id from tb_live_data
@@ -1934,13 +1968,13 @@
 		group by i.fname,fequipment_no
 		)
 		<if test="parent!=null and parent!=''">
-			and i.fparent = #{parent}
+			and (i.fparent = #{parent} or ins.fparent = #{parent})
 		</if>
 		group by i.fid
 		union 
-		SELECT 0 AS idle, fname,fid
-		FROM tb_insframework
-		WHERE fid NOT
+		SELECT 0 AS idle, i.fname,i.fid
+		FROM tb_insframework  i inner join tb_insframework ins on ins.fid = i.fparent
+		WHERE i.fid NOT
 		IN(
 		select i.fid from tb_welding_machine m
 		inner join  tb_insframework i on i.fid = m.finsframework_id
@@ -1978,9 +2012,9 @@
 		)
 		group by i.fid
 		)
-		and ftype=23
+		and i.ftype=23
 		<if test="parent!=null and parent!=''">
-			and fparent = #{parent}
+			and (i.fparent = #{parent} or ins.fparent=#{parent})
 		</if>
 		) temp order by fid
 	</select>
@@ -2129,8 +2163,7 @@
 		</if>
 		group by e.fname
 		union
-		select 0 time,fname ,ftype type,fid
-		from tb_equipment_manufacturer
+		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
 		where fname not in
 		(
 		select fname from tb_live_data l 
@@ -2148,5 +2181,9 @@
 		group by e.fname
 		)
 		)temp
+	</select>
+	
+	<select id="getBlocChildren" resultMap="liveMap">
+		SELECT fid,fname from tb_insframework where ftype=21
 	</select>
 </mapper>

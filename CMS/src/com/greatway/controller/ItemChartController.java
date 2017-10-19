@@ -206,7 +206,9 @@ public class ItemChartController {
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId();
 		int type = insm.getUserInsfType(uid);
-		if(type==22){
+		if(type==21){
+			dto.setCompanyid(insm.getUserInsfId(uid));
+		}else if(type==22){
 			dto.setParent(insm.getUserInsfId(uid));
 		}else if(type==23){
 			parentid = insm.getUserInsfId(uid).toString();
@@ -283,13 +285,19 @@ public class ItemChartController {
 		String type = request.getParameter("otype");
 		String number = request.getParameter("number");
 		WeldDto dto = new WeldDto();
+		BigInteger pid = null;
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
-		if(types==22){
+		if(types==21){
 			dto.setParent(insm.getUserInsfId(uid));
+			pid = dto.getParent();
+		}else if(types==22){
+			dto.setParent(insm.getUserInsfId(uid));
+			pid = dto.getParent();
 		}else if(types==23){
 			parentId = insm.getUserInsfId(uid).toString();
+			pid = new BigInteger(parentId);
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -333,7 +341,7 @@ public class ItemChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getItemOvertime(dto, number, parent);
-			List<LiveData> jun = lm.getJunction(parent);
+			List<LiveData> jun = lm.getJunction(pid);
 			int[] num = null;
 			for(LiveData live :time){
 				json.put("weldTime",live.getWeldTime());
@@ -389,13 +397,19 @@ public class ItemChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		BigInteger pid = null;
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
-		if(types==22){
+		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
+			pid = new BigInteger(parentId);
+		}else if(types==22){
+			parentId = insm.getUserInsfId(uid).toString();
+			pid = new BigInteger(parentId);
 		}else if(types==23){
 			dto.setParent(insm.getUserInsfId(uid));
+			pid = dto.getParent();
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -439,7 +453,7 @@ public class ItemChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getItemLoads(dto, parent);
-			List<LiveData> machine = lm.getMachine(parent,dto);
+			List<LiveData> machine = lm.getMachine(pid);
 			double[] num = null;
 			for(LiveData live :time){
 				json.put("weldTime",live.getWeldTime());
@@ -495,13 +509,19 @@ public class ItemChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		BigInteger pid = null;
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId();
 		int types = insm.getUserInsfType(uid);
-		if(types==22){
+		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
+			pid = new BigInteger(parentId);
+		}else if(types==22){
+			parentId = insm.getUserInsfId(uid).toString();
+			pid = new BigInteger(parentId);
 		}else if(types==23){
 			dto.setParent(insm.getUserInsfId(uid));
+			pid = dto.getParent();
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -545,7 +565,7 @@ public class ItemChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getItemNOLoads(dto, parent,null);
-			List<LiveData> machine = lm.getMachine(parent,dto);
+			List<LiveData> machine = lm.getMachine(pid);
 			double[] num = null;
 			for(LiveData live :time){
 				json.put("weldTime",live.getWeldTime());
@@ -649,7 +669,7 @@ public class ItemChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getItemIdle(dto, parent);
-			List<LiveData> machine = lm.getMachine(parent,dto);
+			List<LiveData> machine = lm.getMachine(parent);
 			double[] num = null;
 			for(LiveData live :time){
 				json.put("weldTime",live.getWeldTime());

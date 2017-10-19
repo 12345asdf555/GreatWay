@@ -15,7 +15,7 @@ function showCompanyOverproofChart(){
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyOverproof?otype="+otype+chartStr,
+         url : "companyChart/getCompanyOverproof?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -95,10 +95,11 @@ function showCompanyOverproofChart(){
 function CompanyHourDatagrid(){
 	var otype = $("input[name='otype']:checked").val();
 	var column = new Array();
+	var parent = $("#parent").val();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyOverproof?otype="+otype+chartStr,
+         url : "companyChart/getCompanyOverproof?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -121,7 +122,7 @@ function CompanyHourDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "companyChart/getCompanyOverproof?otype="+otype+chartStr,
+			url : "companyChart/getCompanyOverproof?otype="+otype+"&parent="+parent+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,

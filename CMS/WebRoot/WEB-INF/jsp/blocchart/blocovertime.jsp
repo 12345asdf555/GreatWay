@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>公司焊机闲置率</title>
+    <title>集团超时待机统计</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -27,26 +27,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/echarts.js"></script>
-	<script type="text/javascript" src="resources/js/companychart/companyidle.js"></script>
+	<script type="text/javascript" src="resources/js/blocchart/blocovertime.js"></script>
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" title="公司焊机闲置率" style="background: witch; height: 335px;">
-	  	<div id="companyIdle_btn">
+    <div id="body" region="center"  hide="true"  split="true" title="集团超时待机统计" style="background: witch; height: 335px;">
+	  	<div id="blocOvertime_btn">
 			<div style="margin-bottom: 5px;">
-				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
-				闲置时长：
-				<input class="easyui-combobox" name="otype" id="otype"/>
-				<a href="javascript:serachcompanyIdle();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
+				时间跨度:
+				<input type="radio" name="otype" value="1" />年
+				<input type="radio" name="otype" value="2" checked="checked" />月
+				<input type="radio" name="otype" value="3" />日
+				<input type="radio" name="otype" value="4" />周
+				超时待机基值:
+				<input class="easyui-numberbox" name="number" id="number">
+				<a href="javascript:serachBlocOvertime();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
-		<div><h2>${str }</h2></div>
-		<div id="companyIdleChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		<div id="blocOvertimeChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
 		
-	    <table id="companyIdleTable" style="table-layout: fixed; width:100%;"></table>
+	    <table id="blocOvertimeTable" style="table-layout: fixed; width:100%;"></table>
+	    
 	</div>
   </body>
 </html>

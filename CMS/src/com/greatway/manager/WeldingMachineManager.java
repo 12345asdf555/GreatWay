@@ -3,8 +3,7 @@ package com.greatway.manager;
 import java.math.BigInteger;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
+import com.greatway.dto.WeldDto;
 import com.greatway.model.EquipmentManufacturer;
 import com.greatway.model.WeldingMachine;
 import com.greatway.page.Page;
@@ -89,5 +88,5 @@ public interface WeldingMachineManager {
 	 * @param mid 厂商id
 	 * @return
 	 */
-	BigInteger getMachineCountByManu(BigInteger mid);
+	BigInteger getMachineCountByManu(BigInteger mid,WeldDto dto,BigInteger id);
 }

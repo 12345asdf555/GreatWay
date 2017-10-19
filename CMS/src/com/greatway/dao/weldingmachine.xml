@@ -82,7 +82,20 @@
 	</select>
 	
 	<select id="getMachineCountByManu" resultType="java.math.BigInteger">
-		SELECT count(fid) FROM tb_welding_machine WHERE  fmanufacturer_id = #{mid}
+		 SELECT count(m.fid) FROM tb_welding_machine m inner join tb_insframework i  on i.fid = m.finsframework_id
+		 inner join tb_insframework ins  on ins.fid = i.fparent
+		 WHERE fmanufacturer_id = #{mid}
+		 <if test="dto!=null and dto!=''">
+			 <if test="dto.bloc!=null and dto.bloc!=''">
+			 	and ins.fparent = #{id}
+			 </if>
+			  <if test="dto.company!=null and dto.company!=''">
+			 	and ins.fid = #{id}
+			 </if>
+			  <if test="dto.caust!=null and dto.caust!=''">
+			 	and i.fid = #{id}
+			 </if>
+		 </if>
 	</select>
 	
 	<select id="getIdByGatherid" resultType="java.math.BigInteger">

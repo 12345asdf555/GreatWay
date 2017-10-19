@@ -15,7 +15,7 @@ function showitemLoadsChart(){
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemLoads?otype="+otype+chartStr,
+         url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -94,11 +94,12 @@ function showitemLoadsChart(){
 
 function ItemloadsDatagrid(){
 	var otype = $("input[name='otype']:checked").val();
+	var parent = $("#parent").val();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemLoads?otype="+otype+chartStr,
+         url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -122,7 +123,7 @@ function ItemloadsDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "itemChart/getItemLoads?otype="+otype+chartStr,
+			url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,

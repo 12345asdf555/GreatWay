@@ -1,21 +1,20 @@
 $(function(){
 	otypecombobox();
-	CaustIdleDatagrid();
+	BlocIdleDatagrid();
 })
 var chartStr = "";
 $(document).ready(function(){
-	showCompanyIdleChart();
+	showblocIdleChart();
 })
 
-function showCompanyIdleChart(){
+function showblocIdleChart(){
 	var array1 = new Array();
 	var array2 = new Array();
 	var otype = $('#otype').combobox('getValue');
-	var parent = $("#parent").val();
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "companyChart/getCompanyIdle?otype="+otype+"&parent="+parent+chartStr,
+         url : "blocChart/getBlocIdle?otype="+otype+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -31,7 +30,7 @@ function showCompanyIdleChart(){
          }  
     }); 
    	//初始化echart实例
-	charts = echarts.init(document.getElementById("companyIdleChart"));
+	charts = echarts.init(document.getElementById("blocIdleChart"));
 	//显示加载动画效果
 	charts.showLoading({
 		text: '稍等片刻,精彩马上呈现...',
@@ -81,15 +80,14 @@ function showCompanyIdleChart(){
 }
 
 
-function CaustIdleDatagrid(){
+function BlocIdleDatagrid(){
 	var otype = $('#otype').combobox('getValue');
-	var parent = $("#parent").val();
-	$("#companyIdleTable").datagrid( {
+	$("#blocIdleTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-40,
+		height : $("#body").height() - $("#blocIdle_btn").height()-$("#blocIdle_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "companyChart/getCompanyIdle?otype="+otype+"&parent="+parent,
+		url : "blocChart/getBlocIdle?otype="+otype,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -98,12 +96,12 @@ function CaustIdleDatagrid(){
 		pagination : true,
 		columns : [ [ {
 			field : 'fname',
-			title : '事业部',
+			title : '公司',
 			width : 100,
 			halign : "center",
 			align : "left",
 			formatter:function(value,row,index){
-				return  '<a href="caustChart/goCaustIdle?parent='+row.fid+'">'+value+'</a>';
+				return  '<a href="companyChart/goCompanyIdle?parent='+row.fid+'">'+value+'</a>';
 			}
 		}, {
 			field : 'idle',
@@ -113,7 +111,7 @@ function CaustIdleDatagrid(){
 			align : "left"
 		}, {
 			field : 'fid',
-			title : '事业id',
+			title : '公司id',
 			width : 100,
 			halign : "center",
 			align : "left",
@@ -131,15 +129,15 @@ function otypecombobox(){
 	$('#otype').combobox('select',"2");
 }
 
-function serachcompanyIdle(){
+function serachBlocIdle(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#companyIdleTable').datagrid('load', {
+	$('#blocIdleTable').datagrid('load', {
 		"dtoTime1" : dtoTime1,
 		"dtoTime2" : dtoTime2
 	});
 	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
-	showCompanyIdleChart();
+	showblocIdleChart();
 }
 
 //监听窗口大小变化
@@ -149,8 +147,8 @@ window.onresize = function() {
 
 //改变表格高宽
 function domresize() {
-	$("#companyIdleTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-10,
+	$("#blocIdleTable").datagrid('resize', {
+		height : $("#body").height() - $("#blocIdleChart").height()-$("#blocIdle_btn").height()-10,
 		width : $("#body").width()
 	});
 }

@@ -12,6 +12,7 @@ import com.greatway.dao.DictionaryMapper;
 import com.greatway.dao.EquipmentManufacturerMapper;
 import com.greatway.dao.InsframeworkMapper;
 import com.greatway.dao.WeldingMachineMapper;
+import com.greatway.dto.WeldDto;
 import com.greatway.manager.WeldingMachineManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.model.EquipmentManufacturer;
@@ -91,8 +92,8 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 	}
 
 	@Override
-	public BigInteger getMachineCountByManu(BigInteger mid) {
-		return wmm.getMachineCountByManu(mid);
+	public BigInteger getMachineCountByManu(BigInteger mid,WeldDto dto,BigInteger id) {
+		return wmm.getMachineCountByManu(mid,dto,id);
 	}
 
 }

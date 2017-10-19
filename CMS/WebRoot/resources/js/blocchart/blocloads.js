@@ -1,12 +1,12 @@
 $(function(){
-	CompanyloadsDatagrid();
+	BlocloadsDatagrid();
 })
 var chartStr = "";
 $(document).ready(function(){
-	showCompanyLoadsChart();
+	showblocLoadsChart();
 })
 
-function showCompanyLoadsChart(){
+function showblocLoadsChart(){
 	var array1 = new Array();
 	var array2 = new Array();
 	var parent = $("#parent").val();
@@ -15,7 +15,7 @@ function showCompanyLoadsChart(){
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyLoads?otype="+otype+"&parent="+parent+chartStr,
+         url : "blocChart/getBlocLoads?otype="+otype+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -46,7 +46,7 @@ function showCompanyLoadsChart(){
          }  
     }); 
    	//初始化echart实例
-	charts = echarts.init(document.getElementById("companyLoadsChart"));
+	charts = echarts.init(document.getElementById("blocLoadsChart"));
 	//显示加载动画效果
 	charts.showLoading({
 		text: '稍等片刻,精彩马上呈现...',
@@ -92,14 +92,13 @@ function showCompanyLoadsChart(){
 }
 
 
-function CompanyloadsDatagrid(){
+function BlocloadsDatagrid(){
 	var otype = $("input[name='otype']:checked").val();
-	var parent = $("#parent").val();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyLoads?otype="+otype+"&parent="+parent+chartStr,
+         url : "blocChart/getBlocLoads?otype="+otype+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -108,7 +107,7 @@ function CompanyloadsDatagrid(){
                  column.push({field:"w",title:"时间跨度(年/月/日)",width:width,halign : "center",align : "left"});
                  
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustLoads?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:"<a href='companyChart/goCompanyLoads?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
                  }
              }  
          },  
@@ -116,14 +115,14 @@ function CompanyloadsDatagrid(){
              alert("请求数据失败啦,请联系系统管理员!");  
          }  
     }); 
-	 $("#companyLoadsTable").datagrid( {
+	 $("#blocLoadsTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#companyLoadsChart").height()-$("#companyLoads_btn").height()-40,
+			height : $("#body").height() - $("#blocLoadsChart").height()-$("#blocLoads_btn").height()-40,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "companyChart/getCompanyLoads?otype="+otype+"&parent="+parent+chartStr,
+			url : "blocChart/getBlocLoads?otype="+otype+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -132,13 +131,13 @@ function CompanyloadsDatagrid(){
 	 })
 }
 
-function serachCompanyloads(){
+function serachBlocloads(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var otype = $("input[name='otype']:checked").val();
 	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
-	showCompanyLoadsChart();
-	CompanyloadsDatagrid();
+	showblocLoadsChart();
+	BlocloadsDatagrid();
 }
 
 //监听窗口大小变化
@@ -148,8 +147,8 @@ window.onresize = function() {
 
 //改变表格高宽
 function domresize() {
-	$("#companyLoadsTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyLoadsChart").height()-$("#companyLoads_btn").height()-10,
+	$("#blocLoadsTable").datagrid('resize', {
+		height : $("#body").height() - $("#blocLoadsChart").height()-$("#blocLoads_btn").height()-10,
 		width : $("#body").width()
 	});
 }

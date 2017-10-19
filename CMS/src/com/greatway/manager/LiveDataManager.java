@@ -69,7 +69,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> getCompanyOverproof(WeldDto dto);
+	List<ModelDto> getCompanyOverproof(WeldDto dto,BigInteger parent);
 	
 	/**
 	 * 超标明细
@@ -104,7 +104,7 @@ public interface LiveDataManager {
 	 * @param num 超时点
 	 * @return
 	 */
-	List<ModelDto> getcompanyOvertime(WeldDto dto , String num);
+	List<ModelDto> getcompanyOvertime(WeldDto dto , String num,BigInteger parent);
 	
 	/**
 	 * 获取事业部超时待机统计
@@ -145,7 +145,7 @@ public interface LiveDataManager {
 	 * @param dto扩展参数类
 	 * @return
 	 */
-	List<ModelDto> getCompanyLoads(WeldDto dto);
+	List<ModelDto> getCompanyLoads(WeldDto dto,BigInteger parent);
 	
 	/**
 	 * 事业部负荷率
@@ -169,7 +169,7 @@ public interface LiveDataManager {
 	 * @param dto扩展参数类
 	 * @return
 	 */
-	List<LiveData> getMachine(BigInteger parent,WeldDto dto);
+	List<LiveData> getMachine(BigInteger parent);
 	
 	/**
 	 * 获取负荷率明细
@@ -184,7 +184,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> getCompanyNoLoads(WeldDto dto);
+	List<ModelDto> getCompanyNoLoads(WeldDto dto,BigInteger parent);
 
 	/**
 	 * 获取事业部空载率
@@ -207,7 +207,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> getCompanyIdle(Page page,WeldDto dto);
+	List<ModelDto> getCompanyIdle(Page page,WeldDto dto,BigInteger parent);
 	
 	/**
 	 * 事业部闲置率
@@ -312,4 +312,9 @@ public interface LiveDataManager {
 	 */
 	List<ModelDto> getBlocUse(Page page,WeldDto dto,BigInteger parent);
 	
+	/**
+	 * 获取集团下的公司
+	 * @return
+	 */
+	List<LiveData> getBlocChildren();
 }
