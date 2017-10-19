@@ -3,7 +3,7 @@ package com.greatway.manager;
 import java.math.BigInteger;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
+import javax.servlet.http.HttpServletRequest;
 
 import com.greatway.dto.ModelDto;
 import com.greatway.dto.WeldDto;
@@ -252,7 +252,7 @@ public interface LiveDataManager {
 	 * 获取用户id
 	 * @return
 	 */
-	BigInteger getUserId();
+	BigInteger getUserId(HttpServletRequest request);
 	
 	/**
 	 * 获取所有时间

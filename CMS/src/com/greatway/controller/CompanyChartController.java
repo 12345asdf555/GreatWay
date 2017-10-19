@@ -50,6 +50,7 @@ public class CompanyChartController {
 	public String goCompany(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent", parent);
 		return "companychart/companyHour";
 	}
@@ -63,6 +64,7 @@ public class CompanyChartController {
 	public String goCompanyOverproof(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent", parent);
 		return "companychart/companyoverproof";
 	}
@@ -76,6 +78,7 @@ public class CompanyChartController {
 	public String goCompanyOvertime(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent", parent);
 		return "companychart/companyovertime";
 	}
@@ -89,6 +92,7 @@ public class CompanyChartController {
 	public String goCompanyLoads(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent", parent);
 		return "companychart/companyloads";
 	}
@@ -102,6 +106,7 @@ public class CompanyChartController {
 	public String goCompanyNoLoads(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent", parent);
 		return "companychart/companynoloads";
 	}
@@ -115,6 +120,7 @@ public class CompanyChartController {
 	public String goCompanyIdle(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent", parent);
 		return "companychart/companyidle";
 	}
@@ -126,6 +132,7 @@ public class CompanyChartController {
 	 */
 	@RequestMapping("/goCompanyUse")
 	public String goCompanyUse(HttpServletRequest request){
+		lm.getUserId(request);
 		return "companychart/companyuse";
 	}
 	
@@ -148,7 +155,7 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -203,7 +210,7 @@ public class CompanyChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -309,7 +316,7 @@ public class CompanyChartController {
 		String number = request.getParameter("number");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -412,7 +419,7 @@ public class CompanyChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -516,7 +523,7 @@ public class CompanyChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -627,7 +634,7 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -740,13 +747,13 @@ public class CompanyChartController {
 	 */
 	@RequestMapping("getCaust")
 	@ResponseBody
-	public String getCaust(){
+	public String getCaust(HttpServletRequest request){
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		BigInteger parent = null;
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int type = insm.getUserInsfType(uid);
 		if(type==21){
 			parent = insm.getUserInsfId(uid);

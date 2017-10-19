@@ -58,6 +58,7 @@ public class JunctionChartController {
 		request.setAttribute("externalDiameter",externalDiameter );
 		request.setAttribute("wallThickness", wallThickness);
 		request.setAttribute("nextexternaldiameter",nextexternaldiameter );
+		lm.getUserId(request);
 		return "junctionchart/junctionhour";
 	}
 	
@@ -81,6 +82,7 @@ public class JunctionChartController {
 		request.setAttribute("type",type );
 		request.setAttribute("number",number );
 		insm.showParent(request, parentId);
+		lm.getUserId(request);
 		return "junctionchart/junctionovertime";
 	}
 	
@@ -97,6 +99,7 @@ public class JunctionChartController {
 		request.setAttribute("time", request.getParameter("time"));
 		String itemid = request.getParameter("itemid");
 		insm.showParent(request,itemid);
+		lm.getUserId(request);
 		return "junctionchart/junctionoverproof";
 	}
 	
@@ -110,6 +113,7 @@ public class JunctionChartController {
 		request.setAttribute("machineno", request.getParameter("machineno"));
 		String itemid = request.getParameter("itemid");
 		insm.showParent(request,itemid);
+		lm.getUserId(request);
 		return "junctionchart/detailloads";
 	}
 	
@@ -123,6 +127,7 @@ public class JunctionChartController {
 		request.setAttribute("machineno", request.getParameter("machineno"));
 		String itemid = request.getParameter("itemid");
 		insm.showParent(request,itemid);
+		lm.getUserId(request);
 		return "junctionchart/detailnoloads";
 	}
 	
@@ -149,7 +154,7 @@ public class JunctionChartController {
 		String nextexternaldiameter = request.getParameter("nextexternaldiameter");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int type = insm.getUserInsfType(uid);
 		if(type==22){
 			dto.setParent(insm.getUserInsfId(uid));

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,7 @@ import com.greatway.model.Insframework;
 import com.greatway.model.LiveData;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -50,6 +52,7 @@ public class CaustChartController {
 	public String goCaustHour(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent",parent);
 		return "caustchart/caustHour";
 	}
@@ -63,6 +66,7 @@ public class CaustChartController {
 	public String goCaustOverproof(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent",parent);
 		return "caustchart/caustoverproof";
 	}
@@ -77,6 +81,7 @@ public class CaustChartController {
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
 		request.setAttribute("parent",parent);
+		lm.getUserId(request);
 		return "caustchart/caustovertime";
 	}
 	
@@ -90,6 +95,7 @@ public class CaustChartController {
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
 		request.setAttribute("parent",parent);
+		lm.getUserId(request);
 		return "caustchart/caustidle";
 	}
 	
@@ -102,6 +108,7 @@ public class CaustChartController {
 	public String goCaustLoads(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent",parent);
 		return "caustchart/caustloads";
 	}
@@ -115,6 +122,7 @@ public class CaustChartController {
 	public String goCaustNoLoads(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent",parent);
 		return "caustchart/caustnoloads";
 	}
@@ -126,6 +134,7 @@ public class CaustChartController {
 	 */
 	@RequestMapping("/goCaustUse")
 	public String goCaustUse(HttpServletRequest request){
+		lm.getUserId(request);
 		return "caustchart/caustuse";
 	}
 	
@@ -148,7 +157,7 @@ public class CaustChartController {
 		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int type = insm.getUserInsfType(uid);
 		if(type==21){
 			dto.setParent(insm.getUserInsfId(uid));
@@ -206,7 +215,7 @@ public class CaustChartController {
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			dto.setCompanyid(insm.getUserInsfId(uid));
@@ -317,7 +326,7 @@ public class CaustChartController {
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -428,7 +437,7 @@ public class CaustChartController {
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -538,7 +547,7 @@ public class CaustChartController {
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			parentId = insm.getUserInsfId(uid).toString();
@@ -652,7 +661,7 @@ public class CaustChartController {
 		String parent = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			parent = insm.getUserInsfId(uid).toString();
@@ -766,13 +775,13 @@ public class CaustChartController {
 	 */
 	@RequestMapping("getItem")
 	@ResponseBody
-	public String getItem(){
+	public String getItem(HttpServletRequest request){
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		BigInteger parent = null;
 		//数据权限处理
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int type = insm.getUserInsfType(uid);
 		if(type==21){
 			parent = insm.getUserInsfId(uid);
@@ -792,5 +801,4 @@ public class CaustChartController {
 		obj.put("ary", ary);
 		return obj.toString();
 	}
-
 }

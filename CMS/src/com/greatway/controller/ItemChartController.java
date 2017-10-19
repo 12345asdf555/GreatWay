@@ -49,6 +49,7 @@ public class ItemChartController {
 	@RequestMapping("/goItemHour")
 	public String goItemHour(HttpServletRequest request){
 		String item = request.getParameter("item");
+		lm.getUserId(request);
 		insm.showParent(request, item);
 		request.setAttribute("item", item);
 		return "itemchart/itemhour";
@@ -63,6 +64,7 @@ public class ItemChartController {
 	public String goDetailoverproof(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent", parent);
 		return "itemchart/detailoverproof";
 	}
@@ -76,6 +78,7 @@ public class ItemChartController {
 	public String goItemOvertime(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent",parent);
 		return "itemchart/itemovertime";
 	}
@@ -89,6 +92,7 @@ public class ItemChartController {
 	public String goItemLoads(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent",parent);
 		return "itemchart/itemloads";
 	}
@@ -102,6 +106,7 @@ public class ItemChartController {
 	public String goItemNoLoads(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent",parent);
 		return "itemchart/itemnoloads";
 	}
@@ -115,6 +120,7 @@ public class ItemChartController {
 	public String goItemIdle(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		insm.showParent(request, parent);
+		lm.getUserId(request);
 		request.setAttribute("parent",parent);
 		return "itemchart/itemidle";
 	}
@@ -138,7 +144,7 @@ public class ItemChartController {
 		String item = request.getParameter("item");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int type = insm.getUserInsfType(uid);
 		if(type==21){
 			dto.setCompanyid(insm.getUserInsfId(uid));
@@ -204,7 +210,7 @@ public class ItemChartController {
 		String parentid = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int type = insm.getUserInsfType(uid);
 		if(type==21){
 			dto.setCompanyid(insm.getUserInsfId(uid));
@@ -287,7 +293,7 @@ public class ItemChartController {
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
 		//处理用户数据权限
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			dto.setParent(insm.getUserInsfId(uid));
@@ -400,7 +406,7 @@ public class ItemChartController {
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
 		//处理用户数据权限
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			dto.setParent(insm.getUserInsfId(uid));
@@ -513,7 +519,7 @@ public class ItemChartController {
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
 		//处理用户数据权限
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			dto.setParent(insm.getUserInsfId(uid));
@@ -625,7 +631,7 @@ public class ItemChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
-		BigInteger uid = lm.getUserId();
+		BigInteger uid = lm.getUserId(request);
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			parentId = insm.getUserInsfId(uid).toString();

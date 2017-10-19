@@ -34,6 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="body" region="center"  hide="true"  split="true" title="焊口超时待机" style="background: witch; height: 335px;">
 	  	<div id="junctionOvertime_btn">
 			<div style="margin-bottom: 5px;">
+				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 				<input  name="junctionno" id="junctionno" type="hidden" value="${junctionno }"/>
 				<input  name="time1" id="time1" type="hidden" value="${time1 }"/>
 				<input  name="time2" id="time2" type="hidden" value="${time2 }"/>

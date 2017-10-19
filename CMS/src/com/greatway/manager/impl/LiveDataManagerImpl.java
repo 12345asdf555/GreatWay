@@ -3,6 +3,8 @@ package com.greatway.manager.impl;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -187,15 +189,23 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 	
 	@Override
-	public BigInteger getUserId(){
+	public BigInteger getUserId(HttpServletRequest request){
 		//获取用户id
 		MyUser myuser = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(myuser==null){
-			return new BigInteger("0");
+			try {
+				request.setAttribute("afreshLogin", "您的Session已过期，请重新登录！");
+				throw new Exception();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
+		request.setAttribute("afreshLogin", "请重新登录！");
 		BigInteger uid = new BigInteger(myuser.getId()+"");
 		return uid;
 	}
+	
 
 	@Override
 	public List<LiveData> getAllTimes(WeldDto dto) {

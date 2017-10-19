@@ -33,6 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body class="easyui-layout">
     <div id="body" region="center"  hide="true"  split="true" title="焊机焊接工艺超标统计" style="background: witch; height: 335px;">
 		<div style="margin-bottom: 5px; "align="center">
+			<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 			<input  name="welderno" id="welderno" type="hidden" value="${welderno }"/>
 			<input  name="machineno" id="machineno" type="hidden" value="${machineno }"/>
 			<input  name="junctionno" id="junctionno" type="hidden" value="${junctionno }"/>
