@@ -201,7 +201,6 @@ public class LiveDataManagerImpl implements LiveDataManager {
 			}
 			return null;
 		}
-		request.setAttribute("afreshLogin", "请重新登录！");
 		BigInteger uid = new BigInteger(myuser.getId()+"");
 		return uid;
 	}
