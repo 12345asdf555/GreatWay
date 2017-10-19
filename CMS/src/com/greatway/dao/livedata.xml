@@ -1344,11 +1344,11 @@
 		WHERE i.ftype =23
 		AND k0.fstatus &lt; 3
 		<if test="parent!=null and parent!=''">
-			AND (i.fparent = #{dto.parent} or ins.fparent=#{dto.parent})
+				AND i.fid = #{parent}
 		</if>
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
-				and i.fid = #{dto.parent}
+				AND (i.fparent = #{dto.parent} or ins.fparent=#{dto.parent})
 			</if>
 		</if>
 		) AS A
@@ -1720,11 +1720,11 @@
 		WHERE i.ftype =23
 		AND k0.fstatus =3
 		<if test="parent!=null and parent!=''">
-			and (i.fparent = #{parent} or ins.fparent = #{parent})
+				and i.fid = #{parent}
 		</if>
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
-				and i.fid = #{dto.parent}
+				and (i.fparent = #{dto.parent} or ins.fparent = #{dto.parent})
 			</if>
 		</if>
 		)k1
