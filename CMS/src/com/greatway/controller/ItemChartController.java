@@ -410,13 +410,13 @@ public class ItemChartController {
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			dto.setParent(insm.getUserInsfId(uid));
-			pid = new BigInteger(parentId);
+			pid = dto.getParent();
 		}else if(types==22){
 			dto.setParent(insm.getUserInsfId(uid));
-			pid = new BigInteger(parentId);
+			pid = dto.getParent();
 		}else if(types==23){
 			parentId = insm.getUserInsfId(uid).toString();
-			pid = dto.getParent();
+			pid = new BigInteger(parentId);
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -523,13 +523,13 @@ public class ItemChartController {
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			dto.setParent(insm.getUserInsfId(uid));
-			pid = new BigInteger(parentId);
+			pid = dto.getParent();
 		}else if(types==22){
 			dto.setParent(insm.getUserInsfId(uid));
-			pid = new BigInteger(parentId);
+			pid = dto.getParent();
 		}else if(types==23){
 			parentId = insm.getUserInsfId(uid).toString();
-			pid = dto.getParent();
+			pid = new BigInteger(parentId);
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
