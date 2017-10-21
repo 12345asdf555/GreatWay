@@ -29,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body class="easyui-layout">
     <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white;">
+    <input name="division" id="division" value="${divi}" type="hidden">
 <!--     <div id="body1" style="min-width:300px;height:350px"></div>
     <div id="body2" style="min-width:300px;height:350px"></div> -->
  <!--       	<form id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px;">

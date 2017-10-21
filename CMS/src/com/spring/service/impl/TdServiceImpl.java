@@ -27,8 +27,8 @@ import com.spring.service.TdService;
 			return findAllList;
 		}
 		
-		public List<Td> findAllpro(){
-			return mapper.findAllpro();
+		public List<Td> findAllpro(long ins){
+			return mapper.findAllpro(ins);
 		}
 		
 		public List<Td> findAllcom(){
@@ -41,5 +41,17 @@ import com.spring.service.TdService;
 		
 		public long findIns(long uid){
 			return mapper.findAllIns(uid);
+		}
+		
+		public long findInsid(String insname){
+			return mapper.findInsid(insname);
+		}
+		
+		public String findweld(String weldid){
+			return mapper.findweld(weldid);	
+		}
+		
+		public String findInsname(long uid){
+			return mapper.findInsname(uid);	
 		}
 	}

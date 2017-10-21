@@ -17,7 +17,7 @@ function newSearch(){
 		}
 		$(function() {
 			//实现化WebSocket对象，指定要连接的服务器地址与端口
-			socket = new WebSocket("ws://192.168.9.101:5555/SerialPortDemo/ws/张三");
+			socket = new WebSocket("ws://192.168.8.108:5554/SerialPortDemo/ws/张三");
 			//打开事件
 			socket.onopen = function() {
 				alert("Socket 已打开");
@@ -27,10 +27,11 @@ function newSearch(){
 			socket.onmessage = function(msg) {
 				/*alert(msg.data);*/
 				/*dd = msg.data;*/
+				var div = document.getElementById("division").value;
 				$.ajax({  
 			        type : "post",  
 			        async : false,
-			        url : "td/getAllTdp1",  
+			        url : "td/getAllTdd?div="+div,  
 			        data : {},  
 			        dataType : "json", //返回数据形式为json  
 			        success : function(data){
@@ -51,91 +52,68 @@ function newSearch(){
 			            	var num1 = 0;
 			            	var num2 = 0;
 			            	var num3 = 0;
+			            	var num = 0;
 			            	var r = result.rows;
 			            	var c = eval(r);
 			            	var array=new Array(da.length);  
-			            	for(var v=0;v<dd.length;v++){
-			            		array[v] = 0;
-			            	}
+
 			            	console.log(result.rows);
 			            	for(var index = 0;index < da.length;index++)
 			            	{
+			            		num=0;num0 = 0;num1 = 0;num2 = 0;num3 = 0;
+			            		if($("#div"+index+"").length<=0){
 /*			            	var i = Math.floor(index/3);
 		            		if(index%3==0){*/
 /*		            			if($("#div"+i+"").length<=0)
 		            				{*/
             				var str = "<div id='div"+index+"' style='width:270px;heigth:240px;float:left;'>" +
             				"<div>" +
-            				"<input id='btnReg"+index+"' type='button' value='' onclick='show()'/></div>&nbsp;" +
+            				"<input id='btnReg"+index+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
             				"<div>" +
             				"<label for='status' style='text-align:center;display:inline-block;width:20px'/>焊机总数</lable>&nbsp;" +
-            				"<input class='easyui-textbox' name='status"+index+"' id='status"+index+"'/></div>&nbsp;" +
+            				"<input class='easyui-textbox' name='status"+index+"' id='status"+index+"' value='0'/></div>&nbsp;" +
             				"<div>" +
             				"<div style=' width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
             				"<label for='on' style='text-align:center;display:inline-block'/>工作总数</lable>&nbsp;" +
-            				"<input class='easyui-textbox' name='on"+index+"' id='on"+index+"'/></div>&nbsp;" +
+            				"<input class='easyui-textbox' name='on"+index+"' id='on"+index+"' value='0'/></div>&nbsp;" +
             				"<div>" +
             				"<div style=' width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
             				"<label for='warning' style='text-align:center;display:inline-block'/>报警总数</lable>&nbsp;" +
-            				"<input class='easyui-textbox' name='warning"+index+"' id='warning"+index+"'/></div>&nbsp;" +
+            				"<input class='easyui-textbox' name='warning"+index+"' id='warning"+index+"' value='0'/></div>&nbsp;" +
             				"<div>" +
             				"<div style=' width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
             				"<label for='wait' style='text-align:center;display:inline-block'/>待机总数</lable>&nbsp;" +
-            				"<input class='easyui-textbox' name='wait"+index+"' id='wait"+index+"'/></div>&nbsp;" +
+            				"<input class='easyui-textbox' name='wait"+index+"' id='wait"+index+"' value='0'/></div>&nbsp;" +
             				"<div>" +
             				"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
             				"<label for='off' style='text-align:center;display:inline-block'/>关机总数</lable>&nbsp;" +
-            				"<input class='easyui-textbox' name='off"+index+"' id='off"+index+"'/></div><div/>";
+            				"<input class='easyui-textbox' name='off"+index+"' id='off"+index+"' value='0'/></div><div/>";
             				$("#body").append(str);
-		            		for(var l=0;l<c.length;l++){
-		            			if((da[index].fdname).equals(c[index].finsframework_id)){
-		            				if(c[l].fstatus_id == "00"){
+			            		}
+			            	document.getElementById("btnReg"+index+"").value=da[index].fname;
+		            		for(var l=0;l<c.length;l=l+3){
+		            			if(da[index].fid==c[l].finsframework_id){
+		            				num++;
+		            				if(c[l].fstatus_id=="31"||c[l].fstatus_id=="32"){
 		            					num0 = num0+1;
 		            					document.getElementById("on"+index+"").value=num0;
 		            				}
-		            				else if(c[l].fstatus_id=="01"){
+		            				if(c[l].maxvol>c[l].voltage||c[l].maxele>c[l].electricity){
 				            			num1=num1+1;
 				            			document.getElementById("warning"+index+"").value=num1;
 				            		}
-				            		else if(c[l].fstatus_id=="10"){
+				            		if(c[l].fstatus_id=="33"){
 				            			num2=num2+1;
 				            			document.getElementById("wait"+index+"").value=num2;
 				            		}
-				            		else{
+				            		if(c[l].fstatus_id=="00"){
 				            			num3=num3+1;
 				            			document.getElementById("off"+index+"").value=num3;
 				            		}
 		            			}
 		            		}
-		            		document.getElementById("status"+index+"").value=num0 + num1 + num2 + num3;
-		            		document.getElementById("btnReg"+index+"").value=c[index].fpname;
-/*		            		document.getElementById("btnReg"+i+"").value=c[index].fequipment_no;
-		            		document.getElementById("voltage"+i+"").value=c[index].voltage;
-		            		document.getElementById("electricity"+i+"").value=c[index].electricity;
-		            		document.getElementById("welderNo"+i+"").value=c[index].fwelder_no;
-		            		document.getElementById("welderName"+i+"").value=c[index].electricity;*/
+		            		document.getElementById("status"+index+"").value=num;
 			            }
-			            /*document.getElementById("status"+index+"").value=(c.length)/3;*/
-/*			            for(var l=0;l<c.length;l+=3){
-			            	if(c[l].finsframework_id==xxx){
-			            		if(c[l].fstatus_id=="00"){
-			            			num0=num0+1;
-			            			document.getElementById("on").value=num0;
-			            		}
-			            		else if(c[l].fstatus_id=="01"){
-			            			num1=num1+1;
-			            			document.getElementById("warning").value=num1;
-			            		}
-			            		else if(c[l].fstatus_id=="10"){
-			            			num2=num2+1;
-			            			document.getElementById("wait").value=num2;
-			            		}
-			            		else{
-			            			num3=num3+1;
-			            			document.getElementById("off").value=num3;
-			            		}
-			            		}
-			            }*/
 			            }  
 			        },  
 			        error : function(errorMsg) {  
@@ -162,39 +140,9 @@ function newSearch(){
 		});
 	});
 
-	
-	
-/*	var x = [1,2,3,4,5];
-	for(var index = 0;index < 5;index++)
-		{
-	var str = "<div id='div"+index+"' style='width:270px;heigth:240px;float:left;'>" +
-			"<div>" +
-			"<input id='btnReg"+index+"' type='button' value='' onclick='show()'/></div>&nbsp;" +
-			"<div>" +
-			"<label for='status' style='text-align:center;display:inline-block;width:20px'/>焊机总数</lable>&nbsp;" +
-			"<input class='easyui-textbox' name='status"+index+"' id='status"+index+"'/></div>&nbsp;" +
-			"<div>" +
-			"<div style=' width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-			"<label for='on' style='text-align:center;display:inline-block'/>工作总数</lable>&nbsp;" +
-			"<input class='easyui-textbox' name='on"+index+"' id='on"+index+"'/></div>&nbsp;" +
-			"<div>" +
-			"<div style=' width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-			"<label for='warning' style='text-align:center;display:inline-block'/>报警总数</lable>&nbsp;" +
-			"<input class='easyui-textbox' name='warning"+index+"' id='warning"+index+"'/></div>&nbsp;" +
-			"<div>" +
-			"<div style=' width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-			"<label for='wait' style='text-align:center;display:inline-block'/>待机总数</lable>&nbsp;" +
-			"<input class='easyui-textbox' name='wait"+index+"' id='wait"+index+"'/></div>&nbsp;" +
-			"<div>" +
-			"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-			"<label for='off' style='text-align:center;display:inline-block'/>关机总数</lable>&nbsp;" +
-			"<input class='easyui-textbox' name='off"+index+"' id='off"+index+"'/></div><div/>";
-	$("#body").append(str);
-	document.getElementById("btnReg"+index+"").value=x[index];
-	}*/
 }
-	function show(){
-		window.location.href="td/AllTdp";
+	function show(value){
+		window.location.href="td/AllTddp?value="+value;
 	}
 	
 

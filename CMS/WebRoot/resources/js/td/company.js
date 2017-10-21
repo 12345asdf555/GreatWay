@@ -9,6 +9,8 @@ $(function(){
 var da;
 var dd;
 var dd1;
+var ddd;
+var num = 0;
 function newSearch(){
   	$(function() {
 		var socket;
@@ -58,55 +60,60 @@ function newSearch(){
 		            	console.log(result.rows);
 		            	for(var index = 0;index < dd.length;index++)
 		            	{
+		            		num=0;num0 = 0;num1 = 0;num2 = 0;num3 = 0;
+	            			if($("#div"+index+"").length<=0)
+            				{
 			    var str = "<div id='div"+index+"' style='width:270px;heigth:250px;float:left;'>" +
 				"<div>" +
 				"<input id='btnReg"+index+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
 				"<div>" +
 				"<label for='status' style='text-align:center;display:inline-block;width:20px'/>焊机总数</lable>&nbsp;" +
-				"<input class='easyui-textbox' name='status"+index+"' id='status"+index+"' value=''/></div>&nbsp;" +
+				"<input class='easyui-textbox' name='status"+index+"' id='status"+index+"' value='0' readonly='true'/></div>&nbsp;" +
 				"<div>" +
 				"<div style=' width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
 				"<label for='on' style='text-align:center;display:inline-block'/>工作总数</lable>&nbsp;" +
-				"<input class='easyui-textbox' name='on"+index+"' id='on"+index+"'/ value=''></div>&nbsp;" +
+				"<input class='easyui-textbox' name='on"+index+"' id='on"+index+"' value='0'/ readonly='true'></div>&nbsp;" +
 				"<div>" +
 				"<div style=' width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-				"<label for='warning' style='text-align:center;display:inline-block'/ value=''>报警总数</lable>&nbsp;" +
-				"<input class='easyui-textbox' name='warning"+index+"' id='warning"+index+"'/></div>&nbsp;" +
+				"<label for='warning' style='text-align:center;display:inline-block'/>报警总数</lable>&nbsp;" +
+				"<input class='easyui-textbox' name='warning"+index+"' id='warning"+index+"' value='0' readonly='true'/></div>&nbsp;" +
 				"<div>" +
 				"<div style=' width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-				"<label for='wait' style='text-align:center;display:inline-block'/ value=''>待机总数</lable>&nbsp;" +
-				"<input class='easyui-textbox' name='wait"+index+"' id='wait"+index+"'/></div>&nbsp;" +
+				"<label for='wait' style='text-align:center;display:inline-block'/>待机总数</lable>&nbsp;" +
+				"<input class='easyui-textbox' name='wait"+index+"' id='wait"+index+"' value='0' readonly='true'/></div>&nbsp;" +
 				"<div>" +
 				"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-				"<label for='off' style='text-align:center;display:inline-block'/ value=''>关机总数</lable>&nbsp;" +
-				"<input class='easyui-textbox' name='off"+index+"' id='off"+index+"'/></div><div/>";
+				"<label for='off' style='text-align:center;display:inline-block'/>关机总数</lable>&nbsp;" +
+				"<input class='easyui-textbox' name='off"+index+"' id='off"+index+"' value='0' readonly='true'/></div><div/>";
 				$("#body").append(str);
+            	}
 				document.getElementById("btnReg"+index+"").value=dd[index].fname;
 				$.ajax({ 
 					type : "post",  
 			        async : false,
-			        url : "td/getAllTdd1?ins="+dd[index].fid,  
+			        url : "td/getAllTdp1?ins="+dd[index].fid,  
 			        data : {},  
 			        dataType : "json", //返回数据形式为json  
 			        success : function(data) {
-			        	dd1 = eval(data.rows);
+			        	ddd = eval(data.rows);
 			        }})
-					for(var h = 0;h<dd1.length;h++){
-			        for(var k=0;k<c.length;k++){
-				if(c[k].finsframework_id==dd1[h].fprent){
-        				if(c[k].fstatus_id == "00"){
+					for(var h = 0;h<ddd.length;h++){
+			        for(var k=0;k<c.length;k=k+3){
+				if(c[k].finsframework_id==ddd[h].fid){
+					num++;
+        				if(c[k].fstatus_id=="31"||c[k].fstatus_id=="32"){
         					num0 = num0+1;
         					document.getElementById("on"+index+"").value=num0;
         				}
-        				else if(c[k].fstatus_id=="01"){
+        				if(c[k].maxvol>c[k].voltage||c[k].maxele>c[k].electricity){
 	            			num1=num1+1;
 	            			document.getElementById("warning"+index+"").value=num1;
 	            		}
-	            		else if(c[k].fstatus_id=="10"){
+	            		if(c[k].fstatus_id=="33"){
 	            			num2=num2+1;
 	            			document.getElementById("wait"+index+"").value=num2;
 	            		}
-	            		else{
+	            		if(c[k].fstatus_id=="00"){
 	            			num3=num3+1;
 	            			document.getElementById("off"+index+"").value=num3;
 	            		}
@@ -115,47 +122,29 @@ function newSearch(){
 				}
 				/*num0 = 0;num1 = 0;num2 = 0;num3 = 0;*/
 				}
+				document.getElementById("status"+index+"").value = num;
+				
 		}				
-		            	for(var q=0;q<c.length;q++){
-        				if(c[q].fstatus_id == "00"){
+		            	num0 = 0;num1 = 0;num2 = 0;num3 = 0;
+		            	for(var q=0;q<c.length;q=q+3){
+        				if(c[q].fstatus_id=="31"||c[q].fstatus_id=="32"){
         					num0 = num0+1;
         					document.getElementById("onn").value=num0;
         				}
-        				else if(c[q].fstatus_id=="01"){
+        				if(c[q].maxvol>c[q].voltage||c[q].maxele>c[q].electricity){
 	            			num1=num1+1;
 	            			document.getElementById("warningn").value=num1;
 	            		}
-	            		else if(c[q].fstatus_id=="10"){
+	            		if(c[q].fstatus_id=="33"){
 	            			num2=num2+1;
 	            			document.getElementById("waitn").value=num2;
 	            		}
-	            		else{
+	            		if(c[q].fstatus_id=="00"){
 	            			num3=num3+1;
 	            			document.getElementById("offn").value=num3;
 	            		}  	
 		            	}
-		    			document.getElementById("statusn").value=num0 + num1 + num2 + num3;
-		/*document.getElementById("status"+index+"").value=(c.length)/3;*/
-		/*			            for(var l=0;l<c.length;l+=3){
-			if(c[l].finsframework_id==xxx){
-				if(c[l].fstatus_id=="00"){
-					num0=num0+1;
-					document.getElementById("on").value=num0;
-				}
-				else if(c[l].fstatus_id=="01"){
-					num1=num1+1;
-					document.getElementById("warning").value=num1;
-				}
-				else if(c[l].fstatus_id=="10"){
-					num2=num2+1;
-					document.getElementById("wait").value=num2;
-				}
-				else{
-					num3=num3+1;
-					document.getElementById("off").value=num3;
-				}
-				}
-		}*/
+		    			document.getElementById("statusn").value=(c.length)/3;
 		}  
 		},  
 		error : function(errorMsg) {  

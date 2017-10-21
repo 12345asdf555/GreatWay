@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<div>
 <!-- 		<input type="button" id="btnConnection" value="连接" /> -->
-		<input type="button" id="btnClose" value="关闭" />
+		<input name="project1" id="project1" value="${proj}" type="hidden">
 		</div>
 		</div>
 </body>

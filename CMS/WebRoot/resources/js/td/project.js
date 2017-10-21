@@ -7,7 +7,7 @@
     	   $("#welderName").textbox('setValue','333');
 })*/
 var dd;
-
+var name;
 $(function(){
 	newSearch();
 })
@@ -22,7 +22,7 @@ function newSearch(){
 		}
 		$(function() {
 			//实现化WebSocket对象，指定要连接的服务器地址与端口
-			socket = new WebSocket("ws://121.196.222.216:5554/SerialPortDemo/ws/张三");
+			socket = new WebSocket("ws://192.168.8.108:5554/SerialPortDemo/ws/张三");
 			//打开事件
 			socket.onopen = function() {
 				alert("Socket 已打开");
@@ -32,6 +32,7 @@ function newSearch(){
 			socket.onmessage = function(msg) {
 				/*alert(msg.data);*/
 				dd = msg.data;
+				var pro = document.getElementById("project").value;
 				$.ajax({  
 			        type : "post",  
 			        async : false,
@@ -74,12 +75,26 @@ function newSearch(){
 			            	$("#body").append(str);
 		            				}
 		            		}
-		            		
+		            		if(c[index].fwelder_no!="0000"){
+		            		$.ajax({  
+		    			        type : "post",  
+		    			        async : false,
+		    			        url : "td/getWeld?weldid="+c[index].fwelder_no,  
+		    			        data : {},  
+		    			        dataType : "json", //返回数据形式为json  
+		    			        success : function(result) {
+		    			        	var weldname = eval(result.rows);
+		    			        	for(var b = 0;b < weldname.length;b++){
+		    			        		name = weldname[b].fweldname;
+		    			        	}
+		    			        	document.getElementById("welderName"+i+"").value=name;
+		    			        }})
+		            		}
 		            		document.getElementById("btnReg"+i+"").value=c[index].fequipment_no;
-		            		document.getElementById("voltage"+i+"").value=c[index].voltage;
-		            		document.getElementById("electricity"+i+"").value=c[index].electricity;
+		            		document.getElementById("voltage"+i+"").value=parseInt(c[index].voltage,16);
+		            		document.getElementById("electricity"+i+"").value=parseInt(c[index].electricity,16);
 		            		document.getElementById("welderNo"+i+"").value=c[index].fwelder_no;
-		            		document.getElementById("welderName"+i+"").value=c[index].electricity;
+		            		
 		            		/*document.getElementById("position"+i+"").value=c[index].fposition;*/
 		            		var t = Date.now();  
 		            		  
@@ -90,24 +105,24 @@ function newSearch(){
 			            }
 			            document.getElementById("statusn").value=(c.length)/3;
 			            for(var l=0;l<c.length;l+=3){
-			            	if(c[l].finsframework_id==document.getElementById("project").value){
-			            		if(c[l].fstatus_id=="00"){
+			            	/*if(c[l].finsframework_id==document.getElementById("project").value){*/
+			            		if(c[l].fstatus_id=="31"||c[l].fstatus_id=="32"){
 			            			num0=num0+1;
 			            			document.getElementById("onn").value=num0;
 			            		}
-			            		else if(c[l].fstatus_id=="01"){
+			            		if(c[l].maxvol>c[l].voltage||c[l].maxele>c[l].electricity){
 			            			num1=num1+1;
 			            			document.getElementById("warningn").value=num1;
 			            		}
-			            		else if(c[l].fstatus_id=="10"){
+			            		if(c[l].fstatus_id=="33"){
 			            			num2=num2+1;
 			            			document.getElementById("waitn").value=num2;
 			            		}
-			            		else{
+			            		if(c[l].fstatus_id=="00"){
 			            			num3=num3+1;
 			            			document.getElementById("offn").value=num3;
 			            		}
-			            		}
+			            		/*}*/
 			            }
 			            }  
 			        },  

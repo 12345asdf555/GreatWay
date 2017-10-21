@@ -16,11 +16,22 @@
 	</select>
 	
 	<select id="findAlldiv" parameterType="long" resultType="Td">
-		select * from tb_insframework where tb_insframework.fparent=#{fci} 
+		select fid fdi,fname fdn,fparent fdp,ftype fdt from tb_insframework where tb_insframework.fparent=#{fci} 
 	</select>
 	
 	<select id="findAllIns" parameterType="long" resultType="long">
 		select tb_users.users_insframework from tb_users where tb_users.id=#{fci} 
 	</select>
 	
+	<select id="findInsid" parameterType="String" resultType="long">
+		select fid fdn from tb_insframework where tb_insframework.fname=#{fdn} 
+	</select>
+	
+	<select id="findInsname" parameterType="long" resultType="String">
+		select fname fcn from tb_insframework where tb_insframework.fid=#{fci} 
+	</select>
+
+	<select id="findweld" parameterType="String" resultType="String">
+		select tb_welder.fname from tb_welder where tb_welder.fwelder_no=#{fci} 
+	</select>
 </mapper>

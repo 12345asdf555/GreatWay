@@ -34,22 +34,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
        	<form id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px;">
             <div style="margin-bottom:10px;" align="left">
-               <input name="company" id="company" value="13" readonly="true" class="easyui-textbox">
+               <input name="company" id="company" value="${insname}" readonly="true" type="text">
             </div>
             <div style="margin-bottom:10px" align="left">
-               <label for="status" style="text-align:center;display:inline-block;width:65px">焊机总数</label> <input name="statusn" id="statusn" value="0" type="text">
+               <label for="status" style="text-align:center;display:inline-block;width:65px">焊机总数</label> <input name="statusn" id="statusn" value="0" readonly="true" type="text">
             </div>
             <div style="margin-bottom:10px;">
-               <div style=" width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left"></div><label for="on" style="text-align:center;display:inline-block">工作总数</label> <input name="onn" id="onn" value="0" type="text">
+               <div style=" width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left"></div><label for="on" style="text-align:center;display:inline-block">工作总数</label> <input name="onn" id="onn" value="0" readonly="true" type="text">
             </div>
             <div style="margin-bottom:10px">
-               <div style=" width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left"></div><label for="warning" style="text-align:center;display:inline-block">报警总数</label> <input name="warningn" id="warningn" value="0" type="text">
+               <div style=" width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left"></div><label for="warning" style="text-align:center;display:inline-block">报警总数</label> <input name="warningn" id="warningn" value="0" readonly="true" type="text">
             </div>
             <div style="margin-bottom:10px">
-               <div style=" width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left"></div><label for="wait" style="text-align:center;display:inline-block">待机总数</label> <input name="waitn" id="waitn" value="0" type="text">
+               <div style=" width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left"></div><label for="wait" style="text-align:center;display:inline-block">待机总数</label> <input name="waitn" id="waitn" value="0" readonly="true" type="text">
             </div>
             <div style="margin-bottom:10px">
-                <div style=" width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left"></div><label for="off" style="text-align:center;display:inline-block">关机总数</label> <input name="offn" id="offn" value="0" type="text">
+                <div style=" width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left"></div><label for="off" style="text-align:center;display:inline-block">关机总数</label> <input name="offn" id="offn" value="0" readonly="true" type="text">
             </div>
         </form>
         <input id="hid1" name="hid1" type="hidden" value="${session.SPRING_SECURITY_CONTEXT.authentication.principal.id}">
