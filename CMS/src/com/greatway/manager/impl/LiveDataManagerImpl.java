@@ -193,7 +193,7 @@ public class LiveDataManagerImpl implements LiveDataManager {
 		try{
 			//获取用户id
 			Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			if(obj==null && !(obj instanceof MyUser)){
+			if(obj==null){
 				request.setAttribute("afreshLogin", "您的Session已过期，请重新登录！");
 				return null;
 			}
@@ -201,6 +201,7 @@ public class LiveDataManagerImpl implements LiveDataManager {
 			BigInteger uid = new BigInteger(myuser.getId()+"");
 			return uid;
 		}catch(Exception e){
+			request.setAttribute("afreshLogin", "您的Session已过期，请重新登录！");
 			return null;
 		}
 	}

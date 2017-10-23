@@ -783,6 +783,14 @@ public class CompanyChartController {
 		BigInteger parent = null;
 		//数据权限处理
 		BigInteger uid = lm.getUserId(request);
+		String afreshLogin = (String)request.getAttribute("afreshLogin");
+		if(iutil.isNull(afreshLogin)){
+			json.put("id", 0);
+			json.put("name", "无");
+			ary.add(json);
+			obj.put("ary", ary);
+			return obj.toString();
+		}
 		int type = insm.getUserInsfType(uid);
 		if(type==21){
 			parent = insm.getUserInsfId(uid);
