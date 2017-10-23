@@ -145,6 +145,10 @@ public class ItemChartController {
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId(request);
+		String afreshLogin = (String)request.getAttribute("afreshLogin");
+		if(iutil.isNull(afreshLogin)){
+			return "0";
+		}
 		int type = insm.getUserInsfType(uid);
 		if(type==21){
 			dto.setCompanyid(insm.getUserInsfId(uid));
@@ -211,6 +215,10 @@ public class ItemChartController {
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId(request);
+		String afreshLogin = (String)request.getAttribute("afreshLogin");
+		if(iutil.isNull(afreshLogin)){
+			return "0";
+		}
 		int type = insm.getUserInsfType(uid);
 		if(type==21){
 			dto.setCompanyid(insm.getUserInsfId(uid));
@@ -294,6 +302,10 @@ public class ItemChartController {
 		BigInteger pid = null;
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId(request);
+		String afreshLogin = (String)request.getAttribute("afreshLogin");
+		if(iutil.isNull(afreshLogin)){
+			return "0";
+		}
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			dto.setParent(insm.getUserInsfId(uid));
@@ -407,6 +419,10 @@ public class ItemChartController {
 		BigInteger pid = null;
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId(request);
+		String afreshLogin = (String)request.getAttribute("afreshLogin");
+		if(iutil.isNull(afreshLogin)){
+			return "0";
+		}
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			dto.setParent(insm.getUserInsfId(uid));
@@ -520,6 +536,10 @@ public class ItemChartController {
 		BigInteger pid = null;
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId(request);
+		String afreshLogin = (String)request.getAttribute("afreshLogin");
+		if(iutil.isNull(afreshLogin)){
+			return "0";
+		}
 		int types = insm.getUserInsfType(uid);
 		if(types==21){
 			dto.setParent(insm.getUserInsfId(uid));
@@ -632,6 +652,10 @@ public class ItemChartController {
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
 		BigInteger uid = lm.getUserId(request);
+		String afreshLogin = (String)request.getAttribute("afreshLogin");
+		if(iutil.isNull(afreshLogin)){
+			return "0";
+		}
 		int types = insm.getUserInsfType(uid);
 		if(types==22){
 			parentId = insm.getUserInsfId(uid).toString();

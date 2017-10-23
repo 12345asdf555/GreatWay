@@ -195,7 +195,6 @@ public class LiveDataManagerImpl implements LiveDataManager {
 		if(myuser==null){
 			try {
 				request.setAttribute("afreshLogin", "您的Session已过期，请重新登录！");
-				throw new Exception();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
