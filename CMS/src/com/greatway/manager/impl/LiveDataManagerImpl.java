@@ -190,18 +190,18 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	
 	@Override
 	public BigInteger getUserId(HttpServletRequest request){
-		//获取用户id
-		MyUser myuser = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(myuser==null){
-			try {
+		try{
+			//获取用户id
+			MyUser myuser = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(myuser==null){
 				request.setAttribute("afreshLogin", "您的Session已过期，请重新登录！");
-			} catch (Exception e) {
-				e.printStackTrace();
+				return null;
 			}
+			BigInteger uid = new BigInteger(myuser.getId()+"");
+			return uid;
+		}catch(Exception e){
 			return null;
 		}
-		BigInteger uid = new BigInteger(myuser.getId()+"");
-		return uid;
 	}
 	
 

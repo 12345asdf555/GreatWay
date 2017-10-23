@@ -6,6 +6,8 @@ $(function(){
 				top.location.href = "/CMS/login.jsp";
 			}
 		});
+	}else{
+		refresh();
 	}
 })
 $(document).ready(function(){
@@ -74,31 +76,43 @@ function showjunctionOverproofChart(){
 	//隐藏动画加载效果
 	charts.hideLoading();
 };
-var time = 1000;
+var setTime = 1000;
 var data1 = new Array();
 var data2 = new Array();
-var timer=window.setInterval(function () {
-	data1.splice(0,data1.length);//清空数组 
-	data2.splice(0,data2.length);
-	if(array1.length==0){
-		window.clearInterval(timer);
-	}else{
-		for(var i=0;i<10;i++){
-			data1.push(array1[i]);
-			data2.push(array3[i]);
-		};
-		array1 = array1.slice(9, array1.length-1);
-		array3 = array3.slice(9, array3.length-1);
-		showjunctionOverproofChart();
-	}	
-}, time);
 
+function refresh(){
+	var timer=window.setInterval(function () {
+		data1.splice(0,data1.length);//清空数组 
+		data2.splice(0,data2.length);
+		if(array1.length==0){
+			window.clearInterval(timer);
+		}else{
+			for(var i=0;i<10;i++){
+				data1.push(array1[i]);
+				data2.push(array3[i]);
+			};
+			array1 = array1.slice(9, array1.length-1);
+			array3 = array3.slice(9, array3.length-1);
+			showjunctionOverproofChart();
+		}	
+	}, setTime);
+}
+//加速
 function addtime(){
-	time += 500;
+	setTime -= 500;
+	if(setTime<=100){
+		setTime = 100;
+	}
+	refresh();
 }
 
+//减速
 function reducetime(){
-	time -= 500;
+	setTime += 500;
+	if(setTime>=10000){
+		setTime = 10000;
+	}
+	refresh();
 }
 
 function getAjax(){
