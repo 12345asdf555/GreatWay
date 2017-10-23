@@ -321,6 +321,7 @@
 		GROUP BY fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,j.fitemid
 		UNION
 		SELECT 0 AS hous, 0 as dynes, fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,junction.fid,fitemid FROM tb_welded_junction junction
+		inner join tb_live_data l on junction.fwelded_junction_no = l.fjunction_id
 		inner join tb_insframework insf on junction.fitemId=insf.fid
 		INNER JOIN tb_insframework ins ON ins.fid = insf.fparent
 		where 1=1 

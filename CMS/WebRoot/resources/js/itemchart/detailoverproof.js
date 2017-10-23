@@ -135,7 +135,7 @@ function detailOverproofDatagrid(){
 function serachDetailOverproof(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#junctionHourTable').datagrid('load', {
+	$('#DetailOverproofTable').datagrid('load', {
 		"dtoTime1" : dtoTime1,
 		"dtoTime2" : dtoTime2
 	});

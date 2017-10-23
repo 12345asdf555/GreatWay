@@ -18,7 +18,7 @@ function detailloadsDatagrid(){
 		height : $("#body").height() - $("#detailLoad_btn").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getDetailLoads?machineno="+machineno+"&otype="+otype,
+		url : "junctionChart/getDetailLoads?machineno="+machineno+"&otype="+otype+serachField,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -60,15 +60,12 @@ function detailloadsDatagrid(){
 	});
 }
 
+var serachField = "";
 function serachdetailloads(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
-	$('#detailLoadsTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2,
-		"otype" : otype
-	});
+	serachField = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	detailloadsDatagrid();
 }
 
 //监听窗口大小变化
