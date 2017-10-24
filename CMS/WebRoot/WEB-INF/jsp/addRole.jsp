@@ -116,7 +116,7 @@ var flag = 1;
                         });
                     } else {
               			$.messager.alert("提示", "新增成功");
-                    	window.location.href = encodeURI("role/AllRole");
+                    	window.location.href = encodeURI("/CMS/role/AllRole");
                     }
                 }
             });

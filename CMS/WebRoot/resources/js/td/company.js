@@ -175,7 +175,7 @@ function newSearch(){
 
 	function show(value){
 /*		var xx = document.getElementById("btnReg"+index+"").value;*/
-		window.location.href="td/AllTdd?value="+value;
+		window.location.href="/CMS/td/AllTdd?value="+value;
 	}
 	
 

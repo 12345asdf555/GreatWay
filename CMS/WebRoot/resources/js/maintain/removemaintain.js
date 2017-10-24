@@ -21,7 +21,7 @@ function removeMaintain(){
 							});
 						} else {
 							$.messager.alert("提示", "删除成功！");
-							var url = "maintain/goMaintain";
+							var url = "/CMS/maintain/goMaintain";
 							window.location.href = encodeURI(url);
 						}
 		            }  

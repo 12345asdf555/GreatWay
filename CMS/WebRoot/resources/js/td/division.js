@@ -142,7 +142,7 @@ function newSearch(){
 
 }
 	function show(value){
-		window.location.href="td/AllTddp?value="+value;
+		window.location.href="/CMS/td/AllTddp?value="+value;
 	}
 	
 

@@ -47,7 +47,7 @@ function saveMaintain(){
 					});
 				} else {
 					$.messager.alert("提示", messager);
-					window.location.href = encodeURI("maintain/goMaintain");
+					window.location.href = encodeURI("/CMS/maintain/goMaintain");
 				}
 			}
 			

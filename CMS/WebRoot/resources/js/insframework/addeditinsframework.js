@@ -47,7 +47,7 @@ function saveInsframework(){
 					});
 				} else {
 					$.messager.alert("提示", messager);
-					window.location.href = encodeURI("insframework/goInsframework");
+					window.location.href = encodeURI("/CMS/insframework/goInsframework");
 				}
 			}
 			

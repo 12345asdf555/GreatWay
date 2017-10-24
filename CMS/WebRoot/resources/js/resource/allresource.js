@@ -92,7 +92,7 @@
 								});
 							} else {
 								$.messager.alert("提示", "删除成功！");
-								var url = "resource/AllResource";
+								var url = "/CMS/resource/AllResource";
 								window.location.href = encodeURI(url);
 							}
 			            }  

@@ -21,8 +21,7 @@ function removeWeldingMachine(){
 							});
 						} else {
 							$.messager.alert("提示", "删除成功！");
-							var url = "weldingMachine/goWeldingMachine";
-							window.location.href = encodeURI(url);
+							window.location.href = encodeURI("/CMS/weldingMachine/goWeldingMachine");
 						}
 		            }  
 		        },  

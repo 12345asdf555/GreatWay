@@ -21,7 +21,7 @@ function removeInsframework(){
 							});
 						} else {
 							$.messager.alert("提示", "删除成功！");
-							var url = "insframework/goInsframework";
+							var url = "/CMS/insframework/goInsframework";
 							window.location.href = encodeURI(url);
 						}
 		            }  

@@ -21,7 +21,7 @@ function removeGather(){
 							});
 						} else {
 							$.messager.alert("提示", "删除成功！");
-							var url = "gather/goGather";
+							var url = "/CMS/gather/goGather";
 							window.location.href = encodeURI(url);
 						}
 		            }  

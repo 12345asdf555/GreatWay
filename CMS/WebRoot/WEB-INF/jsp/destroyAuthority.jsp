@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								});
 							} else {
 								$.messager.alert("提示", "删除成功！");
-								var url = "authority/AllAuthority";
+								var url = "/CMS/authority/AllAuthority";
 								window.location.href = encodeURI(url);
 							}
 			            }  

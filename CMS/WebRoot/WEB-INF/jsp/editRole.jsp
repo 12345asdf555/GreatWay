@@ -151,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         });
                     } else {
               			$.messager.alert("提示", "修改成功");
-                    	window.location.href = encodeURI("role/AllRole");
+                    	window.location.href = encodeURI("/CMS/role/AllRole");
                     }
                 }
             });

@@ -151,7 +151,7 @@ function newSearch(){
 	});
 }
    	function show(value){
-   		window.location.href="td/AllTda?value="+value;
+   		window.location.href="/CMS/td/AllTda?value="+value;
 /*   		var st="";
         var str="";
         var str1="";

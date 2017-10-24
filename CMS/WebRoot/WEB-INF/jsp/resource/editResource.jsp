@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         });
                     } else {
               			$.messager.alert("提示", "修改成功");
-                    	window.location.href = encodeURI("resource/AllResource");
+                    	window.location.href = encodeURI("/CMS/resource/AllResource");
                     }
                 }
             });

@@ -47,7 +47,7 @@ function saveGather(){
 					});
 				} else {
 					$.messager.alert("提示", messager);
-					window.location.href = encodeURI("gather/goGather");
+					window.location.href = encodeURI("/CMS/gather/goGather");
 				}
 			}
 			

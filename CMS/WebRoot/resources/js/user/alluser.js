@@ -139,7 +139,7 @@
 								});
 							} else {
 								$.messager.alert("提示", "删除成功！");
-								var url = "user/AllUser";
+								var url = "/CMS/user/AllUser";
 								window.location.href = encodeURI(url);
 							}
 			            }  
