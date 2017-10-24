@@ -1,7 +1,50 @@
-$(function openUser(){
-	addTab("用户管理","user/AllUser");
+$(function(){
+	openUser();
 	tabsIncident();
+	hierarchyLoding();
 })
+
+function hierarchyLoding(){
+	$.ajax({  
+	      type : "post",  
+	      async : false,
+	      url : "hierarchy/goIndex",  
+	      data : {},  
+	      dataType : "json", //返回数据形式为json  
+	      success : function(result) {
+	          if (result) {
+	              if(result.hierarchy==1){//集团层
+	            	  $('#accordiondiv').accordion('add', {
+	            			title: '集团',
+	            			content: $("#bloc").html(),
+	            			selected: false
+	            		});
+	              }else if(result.hierarchy==2){//公司层
+	            	  $('#accordiondiv').accordion('add', {
+	            			title: '公司',
+	            			content: $("#company").html(),
+	            			selected: false
+	            		});
+	              }else if(result.hierarchy==3){//事业部层
+	            	  $('#accordiondiv').accordion('add', {
+	            			title: '事业部',
+	            			content: $("#caust").html(),
+	            			selected: false
+	            		});
+	              }else if(result.hierarchy==4){//项目部层
+	            	  $('#accordiondiv').accordion('add', {
+	            			title: '项目部',
+	            			content: $("#item").html(),
+	            			selected: false
+	            		});
+	              }
+	          }  
+	      },
+	      error : function(errorMsg) {  
+	          alert("数据请求失败，请联系系统管理员!");  
+	      }  
+	 }); 
+}
 
 function openUser(){
 	addTab("用户管理","user/AllUser");
