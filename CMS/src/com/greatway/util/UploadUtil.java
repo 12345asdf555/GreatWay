@@ -40,8 +40,7 @@ public class UploadUtil {
 		response.setContentType("multipart/form-data");
 		response.setCharacterEncoding("UTF-8");
 		String fileName ="";
-		String savePath = "C:";
-
+		String savePath = "home/excelfile";
 
 		File file = new File(savePath);
 		if (!file.exists()) {

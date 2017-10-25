@@ -139,29 +139,11 @@ function okMaintain(){
 
 //导出到excel
 function exporMaintain(){
-	$.ajax({  
-        type : "post",  
-        async : false,
-        url : "export/exporMaintain",  
-        data : {},  
-        dataType : "json", //返回数据形式为json  
-        success : function(result) {
-            if (result) {
-				if (!result.success) {
-					$.messager.show( {
-						title : 'Error',
-						msg : result.msg
-					});
-				} else {
-					$('#weldingmachineTable').datagrid('reload');
-					$.messager.alert("提示", "导出成功。");
-				}
-            }  
-        },  
-        error : function(errorMsg) {  
-            alert("数据请求失败，请联系系统管理员!");  
-        }  
-   });
+	$.messager.confirm("提示", "文件默认保存在浏览器的默认路径，<br/>如需更改路径请设置浏览器的<br/>“下载前询问每个文件的保存位置“属性！",function(result){
+		if(result){
+			window.location.href = encodeURI("/CMS/export/exporMaintain");
+		}
+	});
 }
 
 //导入
