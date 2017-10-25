@@ -40,7 +40,7 @@ public class UploadUtil {
 		response.setContentType("multipart/form-data");
 		response.setCharacterEncoding("UTF-8");
 		String fileName ="";
-		String savePath = "/home/gpyf16/文档";
+		String savePath = "C:";
 
 
 		File file = new File(savePath);

@@ -64,6 +64,12 @@ public class ImportExcelController {
 	private GatherManager g;
 	IsnullUtil iutil = new IsnullUtil();
 	
+	/**
+	 * 导入焊机设备
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/importWeldingMachine")
 	@ResponseBody
 	public String importWeldingMachine(HttpServletRequest request,
@@ -79,13 +85,17 @@ public class ImportExcelController {
 				wm.getManufacturerId().setId(wmm.getManuidByValue(wm.getManufacturerId().getName()));
 				String name = wm.getInsframeworkId().getName();
 				wm.getInsframeworkId().setId(wmm.getInsframeworkByName(name));
-				BigInteger gid = g.getGatherByNo(wm.getGatherId().getGatherNo());
-				Gather gather = new Gather();
-				gather.setId(gid);
+				Gather gather = wm.getGatherId();
+				BigInteger gid = null;
+				int count2 = 0;
+				if(gather!=null){
+					gid = g.getGatherByNo(gather.getGatherNo());
+					gather.setId(gid);
+					count2 = wmm.getGatheridCount(gid);
+				}
 				wm.setGatherId(gather);
 				//编码唯一
 				int count1 = wmm.getEquipmentnoCount(wm.getEquipmentNo());
-				int count2 = wmm.getGatheridCount(gid);
 				if(count1>0 || count2>0){
 					obj.put("msg","导入失败，请检查您的设备编码、采集序号是否已存在！");
 					obj.put("success",false);
@@ -98,10 +108,17 @@ public class ImportExcelController {
 		}catch(Exception e){
 			obj.put("msg","导入失败，请检查您的文件格式以及数据是否符合要求！");
 			obj.put("success",false);
+			e.printStackTrace();
 		}
 		return obj.toString();
 	}
 	
+	/**
+	 * 导入维修记录
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/importMaintain")
 	@ResponseBody
 	public String importMaintain(HttpServletRequest request,

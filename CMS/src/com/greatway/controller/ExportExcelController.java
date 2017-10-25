@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileSystemView;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.chainsaw.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.greatway.enums.WeldEnum;
 import com.greatway.manager.MaintainManager;
 import com.greatway.manager.WeldingMachineManager;
+import com.greatway.model.Gather;
 import com.greatway.model.WeldingMachine;
 import com.greatway.model.WeldingMaintenance;
 import com.greatway.util.CommonExcelUtil;
@@ -74,37 +74,44 @@ public class ExportExcelController {
 				data[i][5] = WeldEnum.getValue(list.get(i).getStatusId());
 				data[i][6] = list.get(i).getManufacturerId().getName();
 				data[i][7] = WeldEnum.getValue(list.get(i).getIsnetworking());
-				data[i][8] = list.get(i).getGatherId().getGatherNo();
+				Gather gather = list.get(i).getGatherId();
+				if(gather!=null){
+					data[i][8] = gather.getGatherNo();
+				}else{
+					data[i][8] = null;
+				}
 				data[i][9] = list.get(i).getPosition();
 			}
 			filename = "焊机设备" + sdf.format(new Date()) + ".xls";
-			//用户自定义下载路径
-			JFileChooser chooser = new JFileChooser();
-			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);//只能选择文件夹
-			FileSystemView fsv = FileSystemView.getFileSystemView();
-			chooser.setCurrentDirectory(fsv.getHomeDirectory());//设置默认路径为桌面
-			chooser.setSelectedFile(new File(filename));//默认文件名
-		    //打开选择器面板
-		    int returnVal = chooser.showSaveDialog(new JPanel());
-		    String path="";
-		    File file = null;
-	        //保存文件
-		    if(returnVal == JFileChooser.APPROVE_OPTION) {
-		       path = chooser.getSelectedFile().getPath();
-		       try {
-		    	   file = new File(path);
-	//	    	   System.out.println(file.getAbsolutePath());
-		    	   file.createNewFile();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		    }else{
-		    	obj.put("success", false);
-		    	obj.put("msg", "已取消。");
-		    	return obj.toString();
-		    }
+//			//用户自定义下载路径
+//			JFileChooser chooser = new JFileChooser();
+//			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);//只能选择文件夹
+//			FileSystemView fsv = FileSystemView.getFileSystemView();
+//			chooser.setCurrentDirectory(fsv.getHomeDirectory());//设置默认路径为桌面
+//			chooser.setSelectedFile(new File(filename));//默认文件名
+//		    //打开选择器面板
+//		    int returnVal = chooser.showSaveDialog(new JPanel());
+//		    String path="";
+//		    File file = null;
+//	        //保存文件
+//		    if(returnVal == JFileChooser.APPROVE_OPTION) {
+//		       path = chooser.getSelectedFile().getPath();
+//		       try {
+//		    	   file = new File(path);
+//	//	    	   System.out.println(file.getAbsolutePath());
+//		    	   file.createNewFile();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//		    }else{
+//		    	obj.put("success", false);
+//		    	obj.put("msg", "已取消。");
+//		    	return obj.toString();
+//		    }
+			String path = "D://" + filename;
 			new CommonExcelUtil(titles, data, path, "焊机设备数据");
-			
+
+			File file = new File(path);
 			HttpHeaders headers = new HttpHeaders();
 			String fileName = "";
 			
