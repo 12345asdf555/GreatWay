@@ -38,7 +38,6 @@ function weldingMachineDatagrid(){
 			width : 150,
 			halign : "center",
 			align : "left"
-			
 		}, {
 			field : 'insframeworkName',
 			title : '所属项目',
@@ -68,7 +67,7 @@ function weldingMachineDatagrid(){
 			title : '采集序号',
 			width : 100,
 			halign : "center",
-			align : "left",
+			align : "left"
 		}, {
 			field : 'position',
 			title : '位置',

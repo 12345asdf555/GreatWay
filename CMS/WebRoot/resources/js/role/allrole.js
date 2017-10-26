@@ -14,14 +14,14 @@
 		selectOnCheck:true,
 		columns : [ [ {
 		    field:'ck',
-			checkbox:true,
+			checkbox:true
 		},{
 			field : 'authorities_desc',
 			title : '权限描述',
 			width : 100,
 			halign : "center",
 			align : "left"
-		}]],
+		}]]
 		
 	});
 })   
@@ -58,13 +58,13 @@
 			title : '描述',
 			width : 100,
 			halign : "center",
-			align : "left",
+			align : "left"
 		}, {
 			field : 'status',
 			title : '状态',
 			width : 100,
 			halign : "center",
-			align : "left",
+			align : "left"
         }, {
 			field : 'authority',
 			title : '权限列表',
@@ -158,7 +158,7 @@
 				selectOnCheck:true,
 				columns : [ [ {
 				    field:'ck',
-					checkbox:true,
+					checkbox:true
 				},{
 					field : 'authorities_name',
 					title : '权限名',
@@ -222,7 +222,7 @@
 			width : 100,
 			halign : "center",
 			align : "left"
-		}]],
+		}]]
 		
 			});
         }

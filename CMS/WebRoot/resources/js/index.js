@@ -66,7 +66,7 @@ function openData(){
 }
 
 function openTd(){
-	addTab("实时监测","td/AllTdp");
+	addTab("公司实时监测","td/AllTdp");
 }
 
 function openWeldingMachine(){

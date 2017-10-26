@@ -105,10 +105,8 @@ function mainDatagrid(){
 	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
 	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
 		}
-		
 	});
 }
-
 
 //完成维修
 function okMaintain(){

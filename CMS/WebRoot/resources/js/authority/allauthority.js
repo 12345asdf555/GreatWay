@@ -14,14 +14,14 @@
 		selectOnCheck:true,
 		columns : [ [ {
 		    field:'ck',
-			checkbox:true,
+			checkbox:true
 		},{
 			field : 'resources_name',
 			title : '资源名',
 			width : 100,
 			halign : "center",
 			align : "left"
-		}]],
+		}]]
 		
 	});
 })   
@@ -52,19 +52,19 @@
 			title : '权限',
 			width : 100,
 			halign : "center",
-			align : "left",
+			align : "left"
 		}, {
         	field : 'authorities_desc',
 			title : '描述',
 			width : 100,
 			halign : "center",
-			align : "left",
+			align : "left"
 		}, {
 			field : 'status',
 			title : '状态',
 			width : 100,
 			halign : "center",
-			align : "left",
+			align : "left"
 		}, {
 			field : 'resources',
 			title : 'URL',
@@ -146,7 +146,7 @@
 				selectOnCheck:true,
 				columns : [ [ {
 				    field:'ck',
-					checkbox:true,
+					checkbox:true
 				},{
 					field : 'resources_name',
 					title : '角色名',
@@ -216,7 +216,7 @@
 			width : 100,
 			halign : "center",
 			align : "left"
-		}]],
+		}]]
 		
 			});
         }
