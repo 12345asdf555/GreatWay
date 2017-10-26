@@ -1,12 +1,12 @@
 package com.greatway.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,28 +64,42 @@ public class ImportExcelController {
 	private GatherManager g;
 	IsnullUtil iutil = new IsnullUtil();
 	
+	/**
+	 * 导入焊机设备
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/importWeldingMachine")
 	@ResponseBody
 	public String importWeldingMachine(HttpServletRequest request,
 			HttpServletResponse response){
 		UploadUtil u = new UploadUtil();
 		JSONObject obj = new JSONObject();
+		String path = "";
 		try{
-			String path = u.uploadFile(request, response);
+			path = u.uploadFile(request, response);
 			List<WeldingMachine> list = xlsxWm(path);
+			//删除已保存的excel文件
+			File file  = new File(path);
+			file.delete();
 			for(WeldingMachine wm : list){
 				wm.setTypeId(WeldEnum.getKey(wm.getTypename()));
 				wm.setStatusId(WeldEnum.getKey(wm.getStatusname()));
 				wm.getManufacturerId().setId(wmm.getManuidByValue(wm.getManufacturerId().getName()));
 				String name = wm.getInsframeworkId().getName();
 				wm.getInsframeworkId().setId(wmm.getInsframeworkByName(name));
-				BigInteger gid = g.getGatherByNo(wm.getGatherId().getGatherNo());
-				Gather gather = new Gather();
-				gather.setId(gid);
+				Gather gather = wm.getGatherId();
+				BigInteger gid = null;
+				int count2 = 0;
+				if(gather!=null){
+					gid = g.getGatherByNo(gather.getGatherNo());
+					gather.setId(gid);
+					count2 = wmm.getGatheridCount(gid);
+				}
 				wm.setGatherId(gather);
 				//编码唯一
 				int count1 = wmm.getEquipmentnoCount(wm.getEquipmentNo());
-				int count2 = wmm.getGatheridCount(gid);
 				if(count1>0 || count2>0){
 					obj.put("msg","导入失败，请检查您的设备编码、采集序号是否已存在！");
 					obj.put("success",false);
@@ -102,6 +116,12 @@ public class ImportExcelController {
 		return obj.toString();
 	}
 	
+	/**
+	 * 导入维修记录
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/importMaintain")
 	@ResponseBody
 	public String importMaintain(HttpServletRequest request,
@@ -111,6 +131,9 @@ public class ImportExcelController {
 		try{
 			String path = u.uploadFile(request, response);
 			List<WeldingMaintenance> wt = xlsxMaintain(path);
+			//删除已保存的excel文件
+			File file  = new File(path);
+			file.delete();
 			for(int i=0;i<wt.size();i++){
 				wt.get(i).getMaintenance().setTypeId(WeldEnum.getKey(wt.get(i).getMaintenance().getTypename()));
 				BigInteger wmid = wmm.getWeldingMachineByEno(wt.get(i).getWelding().getEquipmentNo());

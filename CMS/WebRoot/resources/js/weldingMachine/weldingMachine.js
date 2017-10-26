@@ -4,7 +4,6 @@ $(function(){
 
 function weldingMachineDatagrid(){
 	$("#weldingmachineTable").datagrid( {
-		fitColumns : true,
 		height : ($("#body").height() - $('#weldingmachineTable_btn').height()),
 		width : $("#body").width(),
 		idField : 'id',
@@ -19,7 +18,8 @@ function weldingMachineDatagrid(){
 			title : '序号',
 			width : 50,
 			halign : "center",
-			align : "left"
+			align : "left",
+			hidden:true
 		}, {
 			field : 'equipmentNo',
 			title : '设备编码',
@@ -38,7 +38,6 @@ function weldingMachineDatagrid(){
 			width : 150,
 			halign : "center",
 			align : "left"
-			
 		}, {
 			field : 'insframeworkName',
 			title : '所属项目',
@@ -68,7 +67,7 @@ function weldingMachineDatagrid(){
 			title : '采集序号',
 			width : 100,
 			halign : "center",
-			align : "left",
+			align : "left"
 		}, {
 			field : 'position',
 			title : '位置',
@@ -126,6 +125,7 @@ function weldingMachineDatagrid(){
 		}] ],
 		toolbar : '#weldingmachineTable_btn',
 		pagination : true,
+		fitColumns : true,
 		onLoadSuccess:function(data){
 	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
 	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
@@ -136,29 +136,11 @@ function weldingMachineDatagrid(){
 
 //导出到excel
 function exportWeldingMachine(){
-	$.ajax({  
-        type : "post",  
-        async : false,
-        url : "export/exporWeldingMachine",  
-        data : {},  
-        dataType : "json", //返回数据形式为json  
-        success : function(result) {
-            if (result) {
-				if (!result.success) {
-					$.messager.show( {
-						title : 'Error',
-						msg : result.msg
-					});
-				} else {
-					$('#weldingmachineTable').datagrid('reload');
-					$.messager.alert("提示", "导出成功。");
-				}
-            }  
-        },  
-        error : function(errorMsg) {  
-            alert("数据请求失败，请联系系统管理员!");  
-        }  
-   });
+	$.messager.confirm("提示", "文件默认保存在浏览器的默认路径，<br/>如需更改路径请设置浏览器的<br/>“下载前询问每个文件的保存位置“属性！",function(result){
+		if(result){
+			window.location.href = encodeURI("/CMS/export/exporWeldingMachine");
+		}
+	});
 }
 
 //导入

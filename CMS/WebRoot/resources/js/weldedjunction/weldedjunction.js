@@ -18,7 +18,8 @@ function weldedJunctionDatagrid(){
 			title : '序号',
 			width : 50,
 			halign : "center",
-			align : "left"
+			align : "left",
+			hidden:true
 		}, {
 			field : 'weldedJunctionno',
 			title : '编号',

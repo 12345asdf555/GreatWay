@@ -14,14 +14,14 @@
 		selectOnCheck:true,
 		columns : [ [ {
 		    field:'ck',
-			checkbox:true,
+			checkbox:true
 		},{
 			field : 'roles_name',
 			title : '角色名',
 			width : 100,
 			halign : "center",
 			align : "left"
-		}]],
+		}]]
 			});
 		})   
 
@@ -63,7 +63,7 @@
 			title : '电话',
 			width : 100,
 			halign : "center",
-			align : "left",
+			align : "left"
 		}, {
 			field : 'users_email',
 			title : '邮箱',
@@ -87,7 +87,7 @@
 			title : '状态',
 			width : 100,
 			halign : "center",
-			align : "left",
+			align : "left"
         }, {
 			field : 'role',
 			title : '角色',
@@ -175,7 +175,7 @@
 			width : 100,
 			halign : "center",
 			align : "left"
-		}]],
+		}]]
 		
 			});
 

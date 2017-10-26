@@ -19,7 +19,8 @@ function GatherDatagrid(){
 			title : '序号',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			hidden:true
 		}, {
 			field : 'gatherNo',
 			title : '采集模块编号',

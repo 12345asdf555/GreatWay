@@ -40,7 +40,7 @@
 			title : '地址',
 			width : 100,
 			halign : "center",
-			align : "left",
+			align : "left"
 		}, {
 			field : 'resources_desc',
 			title : '描述',
@@ -122,7 +122,7 @@
 				selectOnCheck:true,
 				columns : [ [ {
 				    field:'ck',
-					checkbox:true,
+					checkbox:true
 				},{
 					field : 'roles_name',
 					title : '角色名',

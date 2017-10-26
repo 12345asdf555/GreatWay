@@ -66,7 +66,7 @@ function openData(){
 }
 
 function openTd(){
-	addTab("实时监测","td/AllTdp");
+	addTab("公司实时监测","td/AllTdp");
 }
 
 function openWeldingMachine(){
@@ -217,6 +217,7 @@ function addTab(title,url){
 	}else{
 		$("#tabs").tabs('select',title);
 	}
+	// 为选项卡绑定右键
 	$(".tabs-inner").bind('contextmenu', function(e) {
 		$('#tabMenu').menu('show', {
 			left : e.pageX,
@@ -237,20 +238,20 @@ function createFrame(url) {
 	return s;
 }
 
+
 //标签页事件
 function tabsIncident(){
 	//刷新
-//	$("#refreshtab").click(function(){
-//		var tabs = $('#tabs').tabs('getSelected');
-//		var url = $(tabs.panel('options').content).attr('src');
-//		$('#tabs').tabs('update', {
-//			tab: tabs,
-//			options: {
-//				href: createFrame(url)
-//			}
-//		});
-//
-//	})
+	$('#refreshtab').click(function() {
+		var currTab = $('#tabs').tabs('getSelected');
+		var url = $(currTab.panel('options').content).attr('src');
+		$('#tabs').tabs('update', {
+			tab : currTab,
+			options : {
+				content : createFrame(url)
+			}
+		})
+	})
 	//关闭标签页
 	$("#closetab").click(function(){
 		var currtab_title = $('#tabMenu').data("currtab");
@@ -271,27 +272,17 @@ function tabsIncident(){
 	//关闭右侧标签页
 	$('#closeRight').click(function(){
 		var nextall = $('.tabs-selected').nextAll();
-		if (nextall.length == 0) {
-			alert('后边没有啦~~');
-			return false;
-		}
 		nextall.each(function(i, n) {
 			var t = $('a:eq(0) span', $(n)).text();
 			$('#tabs').tabs('close', t);
 		});
-		return false;
 	})
 	//关闭左侧标签页
 	$('#closeLeft').click(function() {
 		var prevall = $('.tabs-selected').prevAll();
-		if (prevall.length == 0) {
-			alert('到头了，前边没有啦~~');
-			return false;
-		}
 		prevall.each(function(i, n) {
 			var t = $('a:eq(0) span', $(n)).text();
 			$('#tabs').tabs('close', t);
 		});
-		return false;
 	});
 }

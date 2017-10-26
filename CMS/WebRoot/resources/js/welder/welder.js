@@ -18,7 +18,8 @@ function weldDatagrid(){
 			title : '序号',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			hidden:true
 		}, {
 			field : 'name',
 			title : '姓名',

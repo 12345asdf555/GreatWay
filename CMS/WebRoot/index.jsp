@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openCompanyNoLoads()">公司设备空载率</a></li>
     		<li><a href="javascript:openCompanyIdle()">公司设备闲置率</a></li>
     		<li><a href="javascript:openCompanyUse()">公司单台设备运行数据统计</a></li>
-    		<li><a href="javascript:openCompanyTd()">实时监测</a></li>
+    		<li><a href="javascript:openCompanyTd()">公司实时监测</a></li>
     	</ul>
     </div>
 	<!-- 事业部 -->
@@ -92,6 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openCaustNoLoads()">事业部设备空载率</a></li>
     		<li><a href="javascript:openCaustIdle()">事业部设备闲置率</a></li>
     		<li><a href="javascript:openCaustUse()">事业部单台设备运行数据统计</a></li>
+    		<li><a href="javascript:openTd()">事业部实时监测</a></li>
     	</ul>
     </div>
 	<!-- 项目部 -->
@@ -102,20 +103,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openItemovertime()">项目部超时待机统计</a></li>
     		<li><a href="javascript:openItemLoads()">项目部设备负荷率</a></li>
     		<li><a href="javascript:openItemNoLoads()">项目部设备空载率</a></li>
-    		<li><a href="javascript:openTd()">实时监测</a></li>
+    		<li><a href="javascript:openTd()">项目部实时监测</a></li>
     	</ul>
     </div>
 	<div id="mainPanle" region="center" style="background: white; overflow-y: hidden">
-			<div id="tabs" class="easyui-tabs" fit="true" border="false">
-
-	</div>
-	<div id="tabMenu" class="easyui-menu" style="width:150px">
-<!-- 		<div id="refreshtab">刷新</div> -->
-		<div id="closetab">关闭标签页</div>
-		<div id="closeLeft">关闭左侧标签页</div>
-		<div id="closeRight">关闭右侧标签页</div>
-		<div id="closeOther">关闭其他标签页</div>
-		<div id="closeAll">关闭全部标签页</div>
+		<div id="tabs" class="easyui-tabs" fit="true" border="false"></div>
+		<div id="tabMenu" class="easyui-menu" style="width:150px">
+			<div id="refreshtab">刷新</div>
+			<div id="closetab">关闭标签页</div>
+			<div id="closeLeft">关闭左侧标签页</div>
+			<div id="closeRight">关闭右侧标签页</div>
+			<div id="closeOther">关闭其他标签页</div>
+			<div id="closeAll">关闭全部标签页</div>
+	    </div>
 	</div>
   </body>
 </html>
