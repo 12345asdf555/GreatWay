@@ -1,12 +1,12 @@
 package com.greatway.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,9 +76,13 @@ public class ImportExcelController {
 			HttpServletResponse response){
 		UploadUtil u = new UploadUtil();
 		JSONObject obj = new JSONObject();
+		String path = "";
 		try{
-			String path = u.uploadFile(request, response);
+			path = u.uploadFile(request, response);
 			List<WeldingMachine> list = xlsxWm(path);
+			//删除已保存的excel文件
+			File file  = new File(path);
+			file.delete();
 			for(WeldingMachine wm : list){
 				wm.setTypeId(WeldEnum.getKey(wm.getTypename()));
 				wm.setStatusId(WeldEnum.getKey(wm.getStatusname()));
@@ -108,7 +112,6 @@ public class ImportExcelController {
 		}catch(Exception e){
 			obj.put("msg","导入失败，请检查您的文件格式以及数据是否符合要求！");
 			obj.put("success",false);
-			e.printStackTrace();
 		}
 		return obj.toString();
 	}
@@ -128,6 +131,9 @@ public class ImportExcelController {
 		try{
 			String path = u.uploadFile(request, response);
 			List<WeldingMaintenance> wt = xlsxMaintain(path);
+			//删除已保存的excel文件
+			File file  = new File(path);
+			file.delete();
 			for(int i=0;i<wt.size();i++){
 				wt.get(i).getMaintenance().setTypeId(WeldEnum.getKey(wt.get(i).getMaintenance().getTypename()));
 				BigInteger wmid = wmm.getWeldingMachineByEno(wt.get(i).getWelding().getEquipmentNo());

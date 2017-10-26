@@ -84,7 +84,11 @@ public class ExportExcelController {
 				data[i][9] = list.get(i).getPosition();
 			}
 			filename = "焊机设备" + sdf.format(new Date()) + ".xls";
-			String path = "D://" + filename;
+			String path = "/tmp/excelfiles//" + filename;
+			File f = new File("/tmp/excelfiles");
+			if (!f.exists()) {
+				f.mkdirs();
+			}
 			new CommonExcelUtil(titles, data, path, "焊机设备数据");
 
 			file = new File(path);
@@ -127,7 +131,11 @@ public class ExportExcelController {
 				data[i][6] = list.get(i).getMaintenance().getDesc();
 			}
 			filename = "焊机维修" + sdf.format(new Date())+".xls";
-			String path = "D://" + filename;
+			String path = "/tmp/excelfiles//" + filename;
+			File f = new File("/tmp/excelfiles");
+			if (!f.exists()) {
+				f.mkdirs();
+			}
 			new CommonExcelUtil(titles, data, path, "焊机维修数据");
 			file = new File(path);
 			HttpHeaders headers = new HttpHeaders();
@@ -138,7 +146,7 @@ public class ExportExcelController {
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 		} catch (Exception e) {
-	    	return null;
+			return null;
 		} finally {
 			file.delete();
 		}
