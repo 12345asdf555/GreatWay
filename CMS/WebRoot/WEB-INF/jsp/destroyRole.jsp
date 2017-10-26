@@ -49,6 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="margin-bottom:20px" align="center">
                 <table id="tt" title="权限列表" checkbox="true" readonly="true" style="table-layout:fixed;width:100%"></table>
             </div>
+            
     </form>
     </div>
     <div id="dlg-buttons" align="center">
