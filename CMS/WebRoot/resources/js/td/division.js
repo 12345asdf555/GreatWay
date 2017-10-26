@@ -1,12 +1,27 @@
 /**
  * 
  */
-
+var da;
+var data1;
 $(function(){
+	$.ajax({  
+	      type : "post",  
+	      async : false,
+	      url : "td/AllTdbf",  
+	      data : {},  
+	      dataType : "json", //返回数据形式为json  
+	      success : function(result) {
+	          if (result) {
+	        	  data1 = eval(result.web_socket);
+	          }  
+	      },
+	      error : function(errorMsg) {  
+	          alert("数据请求失败，请联系系统管理员!");  
+	      }  
+	 });
 	newSearch();
 })
 
-var da;
 function newSearch(){
 
   	$(function() {
@@ -17,10 +32,10 @@ function newSearch(){
 		}
 		$(function() {
 			//实现化WebSocket对象，指定要连接的服务器地址与端口
-			socket = new WebSocket("ws://121.196.222.216:5554/SerialPortDemo/ws/张三");
+			socket = new WebSocket(data1);
 			//打开事件
 			socket.onopen = function() {
-				alert("Socket 已打开");
+//				alert("Socket 已打开");
 				//socket.send("这是来自客户端的消息" + location.href + new Date());
 			};
 			//获得消息事件

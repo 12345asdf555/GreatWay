@@ -43,13 +43,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="margin-bottom:10px">
                 <input id="roleDesc" name="roleDesc" class="easyui-textbox" data-options="required:false" value="${role.roleDesc}" label="描&nbsp;&nbsp;&nbsp;&nbsp;述:" style="width:100%">
             </div>
-        <div style="margin-bottom:20px">
-            <select class="easyui-combobox" id="roleStatus" name="roleStatus" data-options="required:true" label="状态:" labelPosition="left">
-                <option value="${role.roleStatus==1?"启用":"停用"}">${role.roleStatus==1?"启用":"停用"}</option>
-                <option value="1">启用</option>
-                <option value="0">停用</option>
-            </select>
-        </div>
+			<div class="fitem">
+				<input id="status" type="hidden" value="${role.roleStatus }"/>
+				<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
+   				<lable id="radios"></lable>
+			</div>
             <div style="margin-bottom:20px" align="center">
                 <table id="tt" title="权限列表" checkbox="true" style="table-layout:fixed;width:100%"></table>
             </div>
@@ -62,7 +60,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
             $(function(){
 		    showdatagrid();
+		    statusRadio();
+		var status = $("#status").val();
+		$('[name="statusId"]:radio').each(function() { 
+		if (this.value ==status ) { 
+			this.checked = true;
+		} 
+		});
 		})
+		
 		
 		function showdatagrid(){
 	    $("#tt").datagrid( {
@@ -118,25 +124,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 }
 
+		function statusRadio(){
+			$.ajax({  
+			    type : "post",  
+			    async : false,
+			    url : "role/getStatusAll",  
+			    data : {},  
+			    dataType : "json", //返回数据形式为json  
+			    success : function(result) {
+			    	if (result) {
+			    		var str = "";
+			    		for (var i = 0; i < result.ary.length; i++) {
+			    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+		                    + result.ary[i].name;
+			    		}
+			            $("#radios").html(str);
+			            $("input[name='statusId']").eq(0).attr("checked",true);
+			        }  
+			    },  
+			    error : function(errorMsg) {  
+			        alert("数据请求失败，请联系系统管理员!");  
+			    }  
+			});
+		}
+
 		var flag = 2;
         function saveRole(){
 	        flag = 2;
-	         var status1 = $('#roleStatus').combobox('getValue');
-	         var status;
 	         var rid = $('#id').val();
 	         var rows = $("#tt").datagrid("getSelections");
+	         var sid = $("input[name='statusId']:checked").val();
 	         var str="";
 			 for(var i=0; i<rows.length; i++){
 				str += rows[i].id+",";
 				}
-			 if(status1==("启用")){
-	         status = 1;
-	         }
-	         else{
-	         status = 0;
-	         }
 	         var url;
-          	url = "role/updateRole"+"?status="+status+"&aid="+str+"&rid="+rid;
+          	url = "role/updateRole"+"?status="+sid+"&aid="+str+"&rid="+rid;
             $('#fm').form('submit',{
                 url: url,
                 onSubmit: function(){

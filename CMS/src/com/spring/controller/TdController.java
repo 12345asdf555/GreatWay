@@ -35,6 +35,16 @@ public class TdController {
 	 * @param request
 	 * @return
 	 */
+	@RequestMapping("/AllTdbf")
+	@ResponseBody
+	public String Alltdbf(HttpServletRequest request){
+		String websocket = request.getSession().getServletContext().getInitParameter("websocket");
+//		request.setAttribute("web_socket", websocket);
+		JSONObject obj = new JSONObject();
+		obj.put("web_socket", websocket);
+		return obj.toString();
+	}
+	
 	@RequestMapping("/AllTd")
 	public String Alltd(HttpServletRequest request){
 		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
@@ -212,6 +222,27 @@ public class TdController {
 				json.put("ftype", td.getFdt());
 				ary.add(json);
 			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/getAllTdp2")
+	@ResponseBody
+	public String getAllTdp2(HttpServletRequest request){
+		
+		JSONObject obj = new JSONObject();
+		String insname = request.getParameter("div");
+		long insid = tdService.findInsid(insname);
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+			
+				json.put("fid", insid);
+				ary.add(json);
+			
 		}catch(Exception e){
 			e.getMessage();
 		}

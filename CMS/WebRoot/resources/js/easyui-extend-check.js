@@ -29,7 +29,7 @@ $(function(){
 						}
 		
 					},
-					message : '用户名已经被占用'
+					message : '登录名已经被占用'
 				},
 				
 				roleValidate : {

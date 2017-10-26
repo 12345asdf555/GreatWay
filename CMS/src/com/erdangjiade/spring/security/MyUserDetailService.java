@@ -15,10 +15,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;  
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.spring.model.MyUser;
 import com.spring.service.UserService;  
- 
+
 @Service("myUserDetailService")
 
 public class MyUserDetailService implements UserDetailsService {   
@@ -27,7 +28,6 @@ public class MyUserDetailService implements UserDetailsService {
 	 @Autowired
 	    private UserService userService;    
 	        
-	    
 	    /*  
 	     * 根据用户名判断是否存在  
 	     * <p>Title: loadUserByUsername</p>  
@@ -37,9 +37,11 @@ public class MyUserDetailService implements UserDetailsService {
 	     * @throws UsernameNotFoundException  
 	     * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)  
 	     */    
+	 
 	    @Override    
 	    public UserDetails loadUserByUsername(String userName)    
 	            throws UsernameNotFoundException {    
+	    	
 	    	System.out.println(userName);
 	    	com.spring.model.User user = userService.LoadUser(userName);   
 /*	        if (null == user) {    

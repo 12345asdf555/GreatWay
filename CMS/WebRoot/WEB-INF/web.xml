@@ -53,7 +53,10 @@
   	<param-name>hierarchy</param-name>
   	<param-value>2</param-value>
   </context-param>
-  
+  <context-param>
+  	<param-name>websocket</param-name>
+  	<param-value>"ws://192.168.8.108:5554/SerialPortDemo/ws/张三"</param-value>
+  </context-param>
   <welcome-file-list>
     <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>

@@ -35,13 +35,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             
             <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">添加用户</div>
             <div style="margin-bottom:10px">
-                <input name="userName" id="userName" class="easyui-textbox" data-options="validType:'userValidate',required:true" label="用户名:">
+                <input name="userName" id="userName" class="easyui-textbox" data-options="required:true" label="用户名:">
             </div>
             <div style="margin-bottom:10px">
                 <input name="userPassword" type="password" class="easyui-textbox" data-options="required:true" label="密&nbsp;&nbsp;&nbsp;&nbsp;码:">
             </div>
             <div style="margin-bottom:10px">
-                <input name="userLoginName" class="easyui-textbox" data-options="required:true"  label="登录名:">
+                <input name="userLoginName" class="easyui-textbox" data-options="validType:'userValidate',required:true"  label="登录名:">
             </div>
             <div style="margin-bottom:10px">
                 <input name="userPhone" class="easyui-textbox" data-options="required:false"  label="电&nbsp;&nbsp;&nbsp;&nbsp;话:">

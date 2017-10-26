@@ -1,29 +1,53 @@
 /**
  * 
  */
-
-$(function(){
-	newSearch();
-	
-})
 var da;
 var dd;
 var dd1;
 var ddd;
 var num = 0;
+var data1;
+$(function(){
+	$.ajax({  
+	      type : "post",  
+	      async : false,
+	      url : "td/AllTdbf",  
+	      data : {},  
+	      dataType : "json", //返回数据形式为json  
+	      success : function(result) {
+	          if (result) {
+	        	  data1 = eval(result.web_socket);
+	          }  
+	      },
+	      error : function(errorMsg) {  
+	          alert("数据请求失败，请联系系统管理员!");  
+	      }  
+	 });
+	newSearch();
+})
 function newSearch(){
   	$(function() {
 		var socket;
+//		$.ajax({ 
+//			type : "post",  
+//	        async : false,
+//	        url : "td/AllTdbf",  
+//	        data : {},  
+//	        dataType : "json", //返回数据形式为json  
+//	        success : function(data) {
+//	        	data1 = eval(data.web_socket);
+//	        	alert(data1);
+//	        }})
 		if(typeof(WebSocket) == "undefined") {
 			alert("您的浏览器不支持WebSocket");
 			return;
 		}
 		$(function() {
 			//实现化WebSocket对象，指定要连接的服务器地址与端口
-			socket = new WebSocket("ws://121.196.222.216:5554/SerialPortDemo/ws/张三");
+			socket = new WebSocket(data1);
 			//打开事件
 			socket.onopen = function() {
-				alert("Socket 已打开");
+//				alert("Socket 已打开");
 				//socket.send("这是来自客户端的消息" + location.href + new Date());
 			};
 			//获得消息事件
@@ -144,7 +168,7 @@ function newSearch(){
 	            			document.getElementById("offn").value=num3;
 	            		}  	
 		            	}
-		    			document.getElementById("statusn").value=(c.length)/3;
+		    			document.getElementById("statusn").value=Math.ceil((c.length)/3);
 		}  
 		},  
 		error : function(errorMsg) {  

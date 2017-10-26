@@ -2,6 +2,7 @@ package com.spring.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.greatway.enums.WeldEnum;
 import com.greatway.page.Page;
 import com.spring.model.Role;
 import com.spring.model.User;
@@ -68,7 +70,7 @@ public class RoleController {
 				json.put("id", role.getId());
 				json.put("roles_name", role.getRoleName());
 				json.put("roles_desc", role.getRoleDesc());
-				if(1==role.getRoleStatus()){
+				if(31==role.getRoleStatus()){
 				json.put("status", "启用");
 				}
 				else{
@@ -323,5 +325,27 @@ public class RoleController {
 		return data+"";
 	}
 	
-
+	@RequestMapping("/getStatusAll")
+	@ResponseBody
+	public String getStatusAll(){
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			//获取枚举值
+			List<Integer> key = new ArrayList<Integer>();
+			key.add(31);
+			key.add(32);
+			/*key.add(33);*/
+			for(Integer k:key){
+				json.put("id", k);
+				json.put("name", WeldEnum.getValue(k));
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
 }

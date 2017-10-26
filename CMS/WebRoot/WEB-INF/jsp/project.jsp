@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white; height: 335px;">
        <div>
             <div style="margin-bottom:10px;" align="left">
-               <input name="project" id="project" value="17" readonly="true" class="easyui-textbox">
+               <input name="project" id="project" value="${proj}" readonly="true" class="easyui-textbox">
             </div>
             <div style="margin-bottom:10px" align="left">
                <label for="status" style="text-align:center;display:inline-block;width:65px">焊机总数</label> <input name="statusn" id="statusn" value="0" type="text"/>
@@ -51,10 +51,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
 		</div>
 		
-		<div>
-<!-- 		<input type="button" id="btnConnection" value="连接" /> -->
-		<input name="project1" id="project1" value="${proj}" type="hidden">
-		</div>
 		</div>
 </body>
 </html>

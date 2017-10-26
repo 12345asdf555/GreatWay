@@ -59,11 +59,6 @@
 				<span style="color: red;">${error}</span>
 			</div>
 		</div>
-		<div align="center">
-			2017©Greatway
-			<a href="http://www.guangwei-china.com/index.html" target="_blank"
-				title="广为集团">广为集团</a>
-		</div>
 	</body>
 
 </html>

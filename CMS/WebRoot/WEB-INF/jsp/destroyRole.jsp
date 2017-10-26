@@ -41,13 +41,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="margin-bottom:10px">
                 <input name="roleDesc" class="easyui-textbox" readonly="true" data-options="required:false" value="${role.roleDesc}" label="描&nbsp;&nbsp;&nbsp;&nbsp;述:" style="width:100%">
             </div>
-        <div style="margin-bottom:20px">
-            <select class="easyui-combobox" id="roleStatus" name="roleStatus" readonly="true" data-options="required:true" value="${role.roleStatus}" label="状态:" labelPosition="left">
-                <option value="${role.roleStatus==1?"启用":"停用"}">${role.roleStatus==1?"启用":"停用"}</option>
-                <option value="1">启用</option>
-                <option value="0">停用</option>
-            </select>
-        </div>
+			<div class="fitem">
+				<input id="status" type="hidden" value="${role.roleStatus }"/>
+				<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
+   				<lable id="radios"></lable>
+			</div>
             <div style="margin-bottom:20px" align="center">
                 <table id="tt" title="权限列表" checkbox="true" readonly="true" style="table-layout:fixed;width:100%"></table>
             </div>
@@ -60,6 +58,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
             $(function(){
 		    showdatagrid();
+		    statusRadio();
+		var status = $("#status").val();
+		$('[name="statusId"]:radio').each(function() { 
+		if (this.value ==status ) { 
+			this.checked = true;
+		} 
+		});
 		})
 		
 		function showdatagrid(){
@@ -116,6 +121,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 }
 
+		function statusRadio(){
+			$.ajax({  
+			    type : "post",  
+			    async : false,
+			    url : "role/getStatusAll",  
+			    data : {},  
+			    dataType : "json", //返回数据形式为json  
+			    success : function(result) {
+			    	if (result) {
+			    		var str = "";
+			    		for (var i = 0; i < result.ary.length; i++) {
+			    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+		                    + result.ary[i].name;
+			    		}
+			            $("#radios").html(str);
+			            $("input[name='statusId']").eq(0).attr("checked",true);
+			        }  
+			    },  
+			    error : function(errorMsg) {  
+			        alert("数据请求失败，请联系系统管理员!");  
+			    }  
+			});
+		}
         function saveRole(){
 		var id = document.getElementById("id").value;
 		$.messager.confirm('提示', '此操作不可撤销，是否确认删除?', function(flag) {

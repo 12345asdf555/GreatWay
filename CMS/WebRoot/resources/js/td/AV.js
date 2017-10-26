@@ -12,7 +12,23 @@
 	var minele;
 	var minvol;
 	var socket;
+	var data1;
 	$(function(){
+		$.ajax({  
+		      type : "post",  
+		      async : false,
+		      url : "td/AllTdbf",  
+		      data : {},  
+		      dataType : "json", //返回数据形式为json  
+		      success : function(result) {
+		          if (result) {
+		        	  data1 = eval(result.web_socket);
+		          }  
+		      },
+		      error : function(errorMsg) {  
+		          alert("数据请求失败，请联系系统管理员!");  
+		      }  
+		 });
 		w();
 		q();
 	})
@@ -23,10 +39,10 @@
 		}
 		$(function() {
 			//实现化WebSocket对象，指定要连接的服务器地址与端口
-			socket = new WebSocket("ws://121.196.222.216:5554/SerialPortDemo/ws/张三");
+			socket = new WebSocket(data1);
 			//打开事件
 			socket.onopen = function() {
-				alert("Socket 已打开");
+//				alert("Socket 已打开");
 				//socket.send("这是来自客户端的消息" + location.href + new Date());
 			};
 			//获得消息事件
@@ -102,7 +118,7 @@
   		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
   		  		value:maxele, //在值为2的地方 
   		  		width:2, //标示线的宽度为2px 
-  		  		color: 'black', //标示线的颜色 
+  		  		color: 'red', //标示线的颜色 
   		  	    dashStyle:'longdashdot',
   		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
 		          label:{
@@ -114,7 +130,7 @@
   		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
   		  		value:minele, //在值为2的地方 
   		  		width:2, //标示线的宽度为2px 
-  		  		color: 'black', //标示线的颜色 
+  		  		color: 'red', //标示线的颜色 
   		  	    dashStyle:'longdashdot',
   		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
 		          label:{
@@ -126,7 +142,7 @@
   		  	chart.yAxis[1].addPlotLine({ //在y轴上增加 
   		  		value:maxvol, //在值为2的地方 
   		  		width:2, //标示线的宽度为2px 
-  		  		color: 'blue', //标示线的颜色 
+  		  		color: 'DarkMagenta', //标示线的颜色 
   		  	    dashStyle:'longdashdot',
   		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
 		          label:{
@@ -138,7 +154,7 @@
   		  	chart.yAxis[1].addPlotLine({ //在y轴上增加 
   		  		value:minvol, //在值为2的地方 
   		  		width:2, //标示线的宽度为2px 
-  		  		color: 'blue', //标示线的颜色 
+  		  		color: 'DarkMagenta', //标示线的颜色 
   		  	    dashStyle:'longdashdot',
   		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
 		          label:{

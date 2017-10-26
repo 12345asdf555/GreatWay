@@ -36,15 +36,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="margin-bottom:10px;display: none;">
                 <input name="id" id="id" class="easyui-textbox" type="hidden" value="${user.id}">
             </div>
-            <div style="margin-bottom:10px">
-            	<input id="validName" type="hidden" value="${user.userName}">
-                <input name="userName" id="userName" class="easyui-textbox" value="${user.userName}" data-options="validType:'userValidate',required:true" label="用户名:" style="width:100%">
+            <div style="margin-bottom:10px">	
+                <input name="userName" id="userName" class="easyui-textbox" value="${user.userName}" data-options="required:true" label="用户名:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
                 <input id="userLoginName" name="userPassword" class="easyui-textbox" type="password" data-options="required:false" value="${user.userPassword}" label="密&nbsp;&nbsp;&nbsp;&nbsp;码:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
-                <input id="userLoginName" name="userLoginName" class="easyui-textbox" data-options="required:true"  value="${user.userLoginName}" label="登录名:" style="width:100%">
+            	<input id="validName" type="hidden" value="${user.userLoginName}">
+                <input id="userLoginName" name="userLoginName" class="easyui-textbox" data-options="validType:'userValidate',required:true"  value="${user.userLoginName}" label="登录名:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
                 <input id="userPhone" name="userPhone" class="easyui-textbox" data-options="required:false"  value="${user.userPhone}" label="电&nbsp;&nbsp;&nbsp;&nbsp;话:" style="width:100%">
