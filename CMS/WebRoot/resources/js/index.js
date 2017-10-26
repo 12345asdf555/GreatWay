@@ -272,27 +272,17 @@ function tabsIncident(){
 	//关闭右侧标签页
 	$('#closeRight').click(function(){
 		var nextall = $('.tabs-selected').nextAll();
-		if (nextall.length == 0) {
-			alert('后边没有啦~~');
-			return false;
-		}
 		nextall.each(function(i, n) {
 			var t = $('a:eq(0) span', $(n)).text();
 			$('#tabs').tabs('close', t);
 		});
-		return false;
 	})
 	//关闭左侧标签页
 	$('#closeLeft').click(function() {
 		var prevall = $('.tabs-selected').prevAll();
-		if (prevall.length == 0) {
-			alert('到头了，前边没有啦~~');
-			return false;
-		}
 		prevall.each(function(i, n) {
 			var t = $('a:eq(0) span', $(n)).text();
 			$('#tabs').tabs('close', t);
 		});
-		return false;
 	});
 }
