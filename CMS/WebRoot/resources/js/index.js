@@ -240,17 +240,16 @@ function createFrame(url) {
 //标签页事件
 function tabsIncident(){
 	//刷新
-//	$("#refreshtab").click(function(){
-//		var tabs = $('#tabs').tabs('getSelected');
-//		var url = $(tabs.panel('options').content).attr('src');
-//		$('#tabs').tabs('update', {
-//			tab: tabs,
-//			options: {
-//				href: createFrame(url)
-//			}
-//		});
-//
-//	})
+	$("#refreshtab").click(function(){
+		var tabs = $('#tabs').tabs('getSelected');
+		var url = $(tabs.panel('options').content).attr('src');
+		$('#tabs').tabs('update', {
+			tab: tabs,
+			options: {
+				href: createFrame(url)
+			}
+		});
+	})
 	//关闭标签页
 	$("#closetab").click(function(){
 		var currtab_title = $('#tabMenu').data("currtab");

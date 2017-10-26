@@ -4,7 +4,6 @@ $(function(){
 
 function weldingMachineDatagrid(){
 	$("#weldingmachineTable").datagrid( {
-		fitColumns : true,
 		height : ($("#body").height() - $('#weldingmachineTable_btn').height()),
 		width : $("#body").width(),
 		idField : 'id',
@@ -19,7 +18,8 @@ function weldingMachineDatagrid(){
 			title : '序号',
 			width : 50,
 			halign : "center",
-			align : "left"
+			align : "left",
+			hidden:true
 		}, {
 			field : 'equipmentNo',
 			title : '设备编码',
@@ -126,6 +126,7 @@ function weldingMachineDatagrid(){
 		}] ],
 		toolbar : '#weldingmachineTable_btn',
 		pagination : true,
+		fitColumns : true,
 		onLoadSuccess:function(data){
 	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
 	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});

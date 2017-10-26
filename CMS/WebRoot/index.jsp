@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	</div>
 	<div id="tabMenu" class="easyui-menu" style="width:150px">
-<!-- 		<div id="refreshtab">刷新</div> -->
+		<div id="refreshtab">刷新</div>
 		<div id="closetab">关闭标签页</div>
 		<div id="closeLeft">关闭左侧标签页</div>
 		<div id="closeRight">关闭右侧标签页</div>
