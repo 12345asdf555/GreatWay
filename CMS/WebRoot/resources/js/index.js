@@ -217,6 +217,7 @@ function addTab(title,url){
 	}else{
 		$("#tabs").tabs('select',title);
 	}
+	// 为选项卡绑定右键
 	$(".tabs-inner").bind('contextmenu', function(e) {
 		$('#tabMenu').menu('show', {
 			left : e.pageX,
@@ -237,18 +238,19 @@ function createFrame(url) {
 	return s;
 }
 
+
 //标签页事件
 function tabsIncident(){
 	//刷新
-	$("#refreshtab").click(function(){
-		var tabs = $('#tabs').tabs('getSelected');
-		var url = $(tabs.panel('options').content).attr('src');
+	$('#refreshtab').click(function() {
+		var currTab = $('#tabs').tabs('getSelected');
+		var url = $(currTab.panel('options').content).attr('src');
 		$('#tabs').tabs('update', {
-			tab: tabs,
-			options: {
-				href: createFrame(url)
+			tab : currTab,
+			options : {
+				content : createFrame(url)
 			}
-		});
+		})
 	})
 	//关闭标签页
 	$("#closetab").click(function(){

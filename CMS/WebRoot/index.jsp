@@ -106,16 +106,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</ul>
     </div>
 	<div id="mainPanle" region="center" style="background: white; overflow-y: hidden">
-			<div id="tabs" class="easyui-tabs" fit="true" border="false">
-
-	</div>
-	<div id="tabMenu" class="easyui-menu" style="width:150px">
-		<div id="refreshtab">刷新</div>
-		<div id="closetab">关闭标签页</div>
-		<div id="closeLeft">关闭左侧标签页</div>
-		<div id="closeRight">关闭右侧标签页</div>
-		<div id="closeOther">关闭其他标签页</div>
-		<div id="closeAll">关闭全部标签页</div>
+		<div id="tabs" class="easyui-tabs" fit="true" border="false"></div>
+		<div id="tabMenu" class="easyui-menu" style="width:150px">
+			<div id="refreshtab">刷新</div>
+			<div id="closetab">关闭标签页</div>
+			<div id="closeLeft">关闭左侧标签页</div>
+			<div id="closeRight">关闭右侧标签页</div>
+			<div id="closeOther">关闭其他标签页</div>
+			<div id="closeAll">关闭全部标签页</div>
+	    </div>
 	</div>
   </body>
 </html>
