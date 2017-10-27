@@ -272,6 +272,7 @@
   		        enabled: false
   		    },
   		    series: [{
+  		    	color:'#A020F0',
   		        name: '电压',
   		        data: (function () {
   		            // generate an array of random data
