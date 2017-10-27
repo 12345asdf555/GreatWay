@@ -24,7 +24,7 @@ import com.greatway.util.IsnullUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 /**
- * 集团报表
+ * 集团报表 
  * @author gpyf16
  *
  */
