@@ -6,9 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
-import java.util.Random;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,12 +15,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.log4j.Logger;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Excel导入数据之：上传文件
@@ -40,9 +33,11 @@ public class UploadUtil {
 		response.setContentType("multipart/form-data");
 		response.setCharacterEncoding("UTF-8");
 		String fileName ="";
-		String savePath = "/tmp/excelfiles";
+		ServletContext scontext=request.getSession().getServletContext();
+		//获取绝对路径
+		String abpath=scontext.getRealPath("")+"excelfiles";
 
-		File file = new File(savePath);
+		File file = new File(abpath);
 		if (!file.exists()) {
 			file.mkdirs();
 		}
@@ -99,10 +94,8 @@ public class UploadUtil {
 				}
 			}
 		} catch (FileUploadException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String path = file+"\\"+fileName;

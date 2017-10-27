@@ -1,16 +1,12 @@
 package com.greatway.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.filechooser.FileSystemView;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +54,6 @@ public class ExportExcelController {
 	@RequestMapping("/exporWeldingMachine")
 	@ResponseBody
 	public ResponseEntity<byte[]> exporWeldingMachine(HttpServletRequest request){
-		JSONObject obj = new JSONObject();
 		File file = null;
 		try {
 			String str=(String) request.getSession().getAttribute("searchStr");
@@ -84,13 +79,15 @@ public class ExportExcelController {
 				data[i][9] = list.get(i).getPosition();
 			}
 			filename = "焊机设备" + sdf.format(new Date()) + ".xls";
-			String path = "/tmp/excelfiles//" + filename;
-			File f = new File("/tmp/excelfiles");
-			if (!f.exists()) {
-				f.mkdirs();
-			}
-			new CommonExcelUtil(titles, data, path, "焊机设备数据");
 
+			ServletContext scontext=request.getSession().getServletContext();
+			//获取绝对路径
+			String abpath=scontext.getRealPath("");
+			//String contextpath=scontext. getContextPath() ; 获取虚拟路径
+			
+			String path = abpath+"excelfiles/" + filename;
+			new CommonExcelUtil(titles, data, path, "焊机设备数据");
+			
 			file = new File(path);
 			HttpHeaders headers = new HttpHeaders();
 			String fileName = "";
@@ -113,7 +110,6 @@ public class ExportExcelController {
 	@RequestMapping("/exporMaintain")
 	@ResponseBody
 	public ResponseEntity<byte[]> exporMaintain(HttpServletRequest request){
-		JSONObject obj = new JSONObject();
 		File file = null;
 		try{
 			String str=(String) request.getSession().getAttribute("searchStr");
@@ -131,11 +127,14 @@ public class ExportExcelController {
 				data[i][6] = list.get(i).getMaintenance().getDesc();
 			}
 			filename = "焊机维修" + sdf.format(new Date())+".xls";
-			String path = "/tmp/excelfiles//" + filename;
-			File f = new File("/tmp/excelfiles");
-			if (!f.exists()) {
-				f.mkdirs();
-			}
+
+			ServletContext scontext=request.getSession().getServletContext();
+			//获取绝对路径
+			String abpath=scontext.getRealPath("");
+			//String contextpath=scontext. getContextPath() ; 获取虚拟路径
+			
+			String path = abpath+"excelfiles/" + filename;
+			
 			new CommonExcelUtil(titles, data, path, "焊机维修数据");
 			file = new File(path);
 			HttpHeaders headers = new HttpHeaders();

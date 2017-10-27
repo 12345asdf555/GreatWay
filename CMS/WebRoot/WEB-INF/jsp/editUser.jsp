@@ -200,8 +200,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             msg: result.errorMsg
                         });
                     } else {
-              			$.messager.alert("提示", "修改成功");
-                    	window.location.href = encodeURI("/CMS/user/AllUser");
+              			$.messager.alert("提示", "修改成功");              					
+						var url = "user/AllUser";
+						var a = document.createElement('A');
+						a.href = url;  // 设置相对路径给Image, 此时会发送出请求
+						url = a.href;  // 此时相对路径已经变成绝对路径
+						window.location.href = encodeURI(url);
                     }
                 }
             });
