@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.greatway.enums.WeldEnum;
 import com.greatway.page.Page;
 import com.spring.model.MyUser;
 import com.spring.model.User;
@@ -73,7 +75,7 @@ public class UserController {
 				json.put("users_email",user.getUserEmail());
 				json.put("users_position", user.getUserPosition());
 				json.put("users_insframework", user.getInsname());
-				if(1==user.getStatus()){
+				if(31==user.getStatus()){
 				json.put("status", "启用");
 				}
 				else{
@@ -288,6 +290,30 @@ public class UserController {
 		obj.put("rows", ary);
 		return obj.toString();
 /*		return "redirect:/user/AllUser";*/
+	}
+	
+	@RequestMapping("/getStatusAll")
+	@ResponseBody
+	public String getStatusAll(){
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			//获取枚举值
+			List<Integer> key = new ArrayList<Integer>();
+			key.add(31);
+			key.add(32);
+			/*key.add(33);*/
+			for(Integer k:key){
+				json.put("id", k);
+				json.put("name", WeldEnum.getValue(k));
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
 	}
 	
 }

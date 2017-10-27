@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.greatway.enums.WeldEnum;
 import com.greatway.page.Page;
 import com.spring.model.Authority;
 import com.spring.model.User;
@@ -63,7 +65,7 @@ public class AuthorityController {
 				json.put("id", authority.getId());
 				json.put("authorities_name", authority.getAuthorityName());
 				json.put("authorities_desc", authority.getAuthorityDesc());
-				if(1==authority.getStatus()){
+				if(31==authority.getStatus()){
 					json.put("status","启用");
 				}
 				else{
@@ -258,5 +260,29 @@ public class AuthorityController {
 			data = false;
 		}
 		return data + "";
+	}
+	
+	@RequestMapping("/getStatusAll")
+	@ResponseBody
+	public String getStatusAll(){
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			//获取枚举值
+			List<Integer> key = new ArrayList<Integer>();
+			key.add(31);
+			key.add(32);
+			/*key.add(33);*/
+			for(Integer k:key){
+				json.put("id", k);
+				json.put("name", WeldEnum.getValue(k));
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
 	}
 }

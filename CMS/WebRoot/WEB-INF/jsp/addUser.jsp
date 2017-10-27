@@ -57,13 +57,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-combobox" name="userInsframework" id="userInsframework" data-options="required:true"/>
         	</div>
 
-        <div style="margin-bottom:20px">
-            <select class="easyui-combobox" id="status" name="status" label="状态:" data-options="required:true" labelPosition="left">
-                <option value="">--请选择--</option>
-                <option value="1">启用</option>
-                <option value="0">停用</option>
-            </select>
-        </div>
+			<div class="fitem">
+				<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
+   				<lable id="radios"></lable>
+			</div>
         
         <div style="margin-bottom:20px" align="center">
         <table id="tt" name="tt" title="角色列表" checkbox="true" style="table-layout:fixed"></table>
@@ -78,6 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     <script type="text/javascript">
         $(function(){
+        statusRadio();
 	    $("#tt").datagrid( {
 		fitColumns : true,
 		height : '250px',
@@ -140,14 +138,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         function saveUser(){
         flag = 1;
          var insframework = $('#userInsframework').combobox('getValue');
-         var status = $('#status').combobox('getValue');
+         var sid = $("input[name='statusId']:checked").val();
          var rows = $("#tt").datagrid("getSelections");
          var str="";
 		for(var i=0; i<rows.length; i++){
 			str += rows[i].id+",";
 			}
          var url;
-          url = "user/addUser"+"?userInsframework="+insframework+"&status="+status+"&rid="+str;
+          url = "user/addUser"+"?userInsframework="+insframework+"&status="+sid+"&rid="+str;
             $('#fm').form('submit',{
                 url: url,
                 onSubmit: function(){
@@ -161,16 +159,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             msg: result.errorMsg
                         });
                     } else {
-					$.messager.alert("提示", "新增成功");              					
-						var url = "user/AllUser";
-						var a = document.createElement('A');
-						a.href = url;  // 设置相对路径给Image, 此时会发送出请求
-						url = a.href;  // 此时相对路径已经变成绝对路径
-						window.location.href = encodeURI(url);
+					$.messager.alert("提示", "新增成功");
+                    window.location.href = encodeURI("/CMS/user/AllUser");
                     }
                 }
             });
         }
+        
+               function statusRadio(){
+		$.ajax({  
+		    type : "post",  
+		    async : false,
+		    url : "user/getStatusAll",  
+		    data : {},  
+		    dataType : "json", //返回数据形式为json  
+		    success : function(result) {
+		    	if (result) {
+		    		var str = "";
+		    		for (var i = 0; i < result.ary.length; i++) {
+		    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+	                    + result.ary[i].name;
+		    		}
+		            $("#radios").html(str);
+		            $("input[name='statusId']").eq(0).attr("checked",true);
+		        }  
+		    },  
+		    error : function(errorMsg) {  
+		        alert("数据请求失败，请联系系统管理员!");  
+		    }  
+		});
+	}
     </script>
     </div>
 </body>

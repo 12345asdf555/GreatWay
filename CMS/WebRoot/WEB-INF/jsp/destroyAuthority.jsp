@@ -41,13 +41,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="margin-bottom:10px">
                 <input name="authorityDesc" class="easyui-textbox" readonly="true" data-options="required:true" label="描述:" value="${authority.authorityDesc}" style="width:100%">
             </div>
-        <div style="margin-bottom:20px">
-            <select class="easyui-combobox" id="status" name="status" readonly="true" value="${authority.status}" label="状态:" labelPosition="left">
-                <option value="${authority.status==1?"启用":"停用"}">${authority.status==1?"启用":"停用"}</option>
-                <option value="Status1">启用</option>
-                <option value="Status2">停用</option>
-            </select>
-        </div>
+			<div class="fitem">
+				<input id="status" type="hidden" value="${authority.status }"/>
+				<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
+   				<lable id="radios"></lable>
+			</div>
 
         <div style="margin-bottom:20px" align="center">
         <table id="tt" title="资源列表" checkbox="true" readonly="true" style="table-layout:fixed;width:100%"></table>
@@ -62,7 +60,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     <script type="text/javascript">
            $(function(){
-		    showdatagrid();
+		   showdatagrid();
+		   statusRadio();
+		var status = $("#status").val();
+		$('[name="statusId"]:radio').each(function() { 
+		if (this.value ==status ) { 
+			this.checked = true;
+		} 
+		});
 		})
     
         function showdatagrid(){
@@ -119,6 +124,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 }
 
+		function statusRadio(){
+			$.ajax({  
+			    type : "post",  
+			    async : false,
+			    url : "authority/getStatusAll",  
+			    data : {},  
+			    dataType : "json", //返回数据形式为json  
+			    success : function(result) {
+			    	if (result) {
+			    		var str = "";
+			    		for (var i = 0; i < result.ary.length; i++) {
+			    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+		                    + result.ary[i].name;
+			    		}
+			            $("#radios").html(str);
+			            $("input[name='statusId']").eq(0).attr("checked",true);
+			        }  
+			    },  
+			    error : function(errorMsg) {  
+			        alert("数据请求失败，请联系系统管理员!");  
+			    }  
+			});
+		}
+
        function saveAuthority(){
        var id = document.getElementById("id").value;
 		$.messager.confirm('提示', '此操作不可撤销，是否确认删除?', function(flag) {
@@ -138,10 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								});
 							} else {
 								$.messager.alert("提示", "删除成功！");
-								var url = "authority/AllAuthority";
-								var a = document.createElement('A');
-								a.href = url;  // 设置相对路径给Image, 此时会发送出请求
-								url = a.href;  // 此时相对路径已经变成绝对路径
+								var url = "/CMS/authority/AllAuthority";
 								window.location.href = encodeURI(url);
 							}
 			            }  

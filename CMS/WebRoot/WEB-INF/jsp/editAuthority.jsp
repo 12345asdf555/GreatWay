@@ -42,13 +42,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="margin-bottom:10px">
                 <input name="authorityDesc" class="easyui-textbox" data-options="required:true" label="描述:" value="${authority.authorityDesc}" style="width:100%">
             </div>
-        <div style="margin-bottom:20px">
-            <select class="easyui-combobox" id="status" name="status" value="${authority.status}" label="状态:" labelPosition="left">
-                <option value="${authority.status==1?"启用":"停用"}">${authority.status==1?"启用":"停用"}</option>
-                <option value="Status1">启用</option>
-                <option value="Status2">停用</option>
-            </select>
-        </div>
+			<div class="fitem">
+				<input id="status" type="hidden" value="${authority.status }"/>
+				<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
+   				<lable id="radios"></lable>
+			</div>
 
         <div style="margin-bottom:20px" align="center">
         <table id="tt" title="资源列表" checkbox="true" style="table-layout:fixed;width:100%"></table>
@@ -64,7 +62,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
            $(function(){
 		    showdatagrid();
+		   statusRadio();
+		var status = $("#status").val();
+		$('[name="statusId"]:radio').each(function() { 
+		if (this.value ==status ) { 
+			this.checked = true;
+		} 
+		});
 		})
+    
+    		function statusRadio(){
+			$.ajax({  
+			    type : "post",  
+			    async : false,
+			    url : "role/getStatusAll",  
+			    data : {},  
+			    dataType : "json", //返回数据形式为json  
+			    success : function(result) {
+			    	if (result) {
+			    		var str = "";
+			    		for (var i = 0; i < result.ary.length; i++) {
+			    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+		                    + result.ary[i].name;
+			    		}
+			            $("#radios").html(str);
+			            $("input[name='statusId']").eq(0).attr("checked",true);
+			        }  
+			    },  
+			    error : function(errorMsg) {  
+			        alert("数据请求失败，请联系系统管理员!");  
+			    }  
+			});
+		}
     
         function showdatagrid(){
 	    $("#tt").datagrid( {
@@ -124,21 +153,15 @@ var flag = 2;
        function saveAuthority(){
        flag = 2;
          var status;
-         var status1 = $('#status').combobox('getValue');
+          var sid = $("input[name='statusId']:checked").val();
          var aid = $('#id').val();
          var rows = $("#tt").datagrid("getSelections");
-         if(status1==("启用")){
-         status = 1;
-         }
-         else{
-         status = 0;
-         }
          var str="";
 		for(var i=0; i<rows.length; i++){
 			str += rows[i].id+",";
 			}
          var url;
-          url = "authority/updateAuthority"+"?status="+status+"&sid="+str+"&aid="+aid;
+          url = "authority/updateAuthority"+"?status="+sid+"&sid="+str+"&aid="+aid;
             $('#fm').form('submit',{
                 url: url,
                 onSubmit: function(){
@@ -152,12 +175,8 @@ var flag = 2;
                             msg: result.errorMsg
                         });
                     } else {
-              			$.messager.alert("提示", "修改成功");              					
-						var url = "authority/AllAuthority";
-						var a = document.createElement('A');
-						a.href = url;  // 设置相对路径给Image, 此时会发送出请求
-						url = a.href;  // 此时相对路径已经变成绝对路径
-						window.location.href = encodeURI(url);
+              			$.messager.alert("提示", "修改成功");
+                    	window.location.href = encodeURI("/CMS/authority/AllAuthority");
                     }
                 }
             });

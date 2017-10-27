@@ -142,7 +142,7 @@
   		  	chart.yAxis[1].addPlotLine({ //在y轴上增加 
   		  		value:maxvol, //在值为2的地方 
   		  		width:2, //标示线的宽度为2px 
-  		  		color: 'DarkMagenta', //标示线的颜色 
+  		  		color: 'black', //标示线的颜色 
   		  	    dashStyle:'longdashdot',
   		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
 		          label:{
@@ -154,7 +154,7 @@
   		  	chart.yAxis[1].addPlotLine({ //在y轴上增加 
   		  		value:minvol, //在值为2的地方 
   		  		width:2, //标示线的宽度为2px 
-  		  		color: 'DarkMagenta', //标示线的颜色 
+  		  		color: 'black', //标示线的颜色 
   		  	    dashStyle:'longdashdot',
   		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
 		          label:{
@@ -197,11 +197,11 @@
   		        tickPixelInterval: 150
   		    },
   		    yAxis: [{
-                max:200, // 定义Y轴 最大值  
+                max:400, // 定义Y轴 最大值  
                 min:0, // 定义最小值  
                 minPadding: 0.2,   
                 maxPadding: 0.2,  
-                tickInterval:40,
+                tickInterval:80,
   		        title: {
   		            text: '电流'
   		        },
@@ -227,11 +227,11 @@
   		        }
   		        }],*/
   		    },{
-                max:100, // 定义Y轴 最大值  
+                max:60, // 定义Y轴 最大值  
                 min:0, // 定义最小值  
                 minPadding: 0.2,   
                 maxPadding: 0.2,  
-                tickInterval:20,
+                tickInterval:12,
   		    	title: {
   		            text: '电压'
   		        },
