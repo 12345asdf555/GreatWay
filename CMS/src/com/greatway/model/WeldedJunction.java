@@ -34,6 +34,9 @@ public class WeldedJunction {
 	private String nextexternaldiameter;//下游外径（新增字段）
 	private String startTime;
 	private String endTime;
+	private String creatTime;
+	private String updateTime;
+	private int updatecount;
 	@Transient
 	private Insframework itemid;//所属项目（新增字段）
 	
@@ -169,7 +172,23 @@ public class WeldedJunction {
 	public void setItemid(Insframework itemid) {
 		this.itemid = itemid;
 	}
-	
-	
+	public String getCreatTime() {
+		return creatTime;
+	}
+	public void setCreatTime(String creatTime) {
+		this.creatTime = creatTime;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	public int getUpdatecount() {
+		return updatecount;
+	}
+	public void setUpdatecount(int updatecount) {
+		this.updatecount = updatecount;
+	}
 	
 }

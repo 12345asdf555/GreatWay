@@ -17,7 +17,7 @@ function addGather(){
 function editGather(){
 	flag = 2;
 	var id = $("#id").val();
-	url = "gather/editGather";
+	url = "gather/editGather?id="+id;
 	saveGather();
 }
 //提交

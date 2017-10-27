@@ -23,7 +23,7 @@ function mainDatagrid(){
 			hidden:true
 		}, {
 			field : 'equipmentNo',
-			title : '设备编码',
+			title : '固定资产编号',
 			width : 100,
 			halign : "center",
 			align : "left"

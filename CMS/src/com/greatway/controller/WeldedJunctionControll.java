@@ -78,6 +78,9 @@ public class WeldedJunctionControll {
 				json.put("itemname", w.getItemid().getName());
 				json.put("startTime", w.getStartTime());
 				json.put("endTime", w.getEndTime());
+				json.put("creatTime", w.getCreatTime());
+				json.put("updateTime", w.getUpdateTime());
+				json.put("updatecount", w.getUpdatecount());
 				ary.add(json);
 			}
 		}catch(Exception e){

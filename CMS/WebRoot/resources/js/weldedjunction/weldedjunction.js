@@ -146,6 +146,24 @@ function weldedJunctionDatagrid(){
 			width : 70,
 			halign : "center",
 			align : "left"
+		}, {
+			field : 'creatTime',
+			title : '创建时间',
+			width : 70,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'updateTime',
+			title : '修改时间',
+			width : 70,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'updatecount',
+			title : '修改次数',
+			width : 70,
+			halign : "center",
+			align : "left"
 		}] ],
 		toolbar : '#disctionaryTable_btn',
 		pagination : true,

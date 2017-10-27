@@ -22,7 +22,7 @@ function insframeworkDatagrid(){
 			hidden:true
 		}, {
 			field : 'name',
-			title : '项目名称',
+			title : '名称',
 			width : 100,
 			halign : "center",
 			align : "left"

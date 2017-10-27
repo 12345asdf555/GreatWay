@@ -263,6 +263,7 @@ public class WeldingMachineController {
 			key.add(31);
 			key.add(32);
 			key.add(33);
+			key.add(34);
 			for(Integer k:key){
 				json.put("id", k);
 				json.put("name", WeldEnum.getValue(k));

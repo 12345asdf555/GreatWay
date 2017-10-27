@@ -25,6 +25,9 @@
         <result property="endTime" column="fend_time"></result>
         <result property="material" column="fmaterial"></result>
         <result property="nextexternaldiameter" column="fnextExternal_diameter"></result>
+        <result property="creatTime" column="fcreatetime"></result>
+        <result property="updateTime" column="fupdatetime"></result>
+        <result property="updatecount" column="fupdatecount"></result>
         <association property="itemid" column="fitemId" javaType="com.greatway.model.Insframework">  
             <id property="id" column="iid"></id> 
             <result property="name" column="iname"></result>  

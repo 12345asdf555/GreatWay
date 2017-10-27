@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div  id="body" region="center"  hide="true"  split="true" title="删除焊机设备" style="background: white; height: 335px;">
 			<br/>
 			<div class="fitem" align="center">
-				<lable>设备编码</lable>
+				<lable>固定资产编号</lable>
 				<input class="easyui-textbox" id="wid" readonly="readonly" value="${w.id }"/>
 				<input class="easyui-textbox" id="equipmentNo" readonly="readonly" value="${w.equipmentNo }"/>
 			</div>

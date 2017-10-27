@@ -22,7 +22,7 @@ function weldingMachineDatagrid(){
 			hidden:true
 		}, {
 			field : 'equipmentNo',
-			title : '设备编码',
+			title : '固定资产编号',
 			width : 80,
 			halign : "center",
 			align : "left"

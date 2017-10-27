@@ -12,8 +12,9 @@ public enum WeldEnum {
 	Project4(24,"施工队"),
 	//3.设备状态
 	WeldStatus1(31,"启用"),
-	WeldStatus2(32,"停用"),
-	WeldStatus3(33,"维护中"),
+	WeldStatus2(32,"封存"),
+	WeldStatus3(33,"维修"),
+	WeldStatus4(34,"报废"),
 	//4.设备类型
 	WeldType1(41,"氩弧焊"),
 	WeldType2(42,"手工焊"),
