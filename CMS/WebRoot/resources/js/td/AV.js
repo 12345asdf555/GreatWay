@@ -103,7 +103,6 @@
 		});
 	};
   	
-
   	function q(){
   		Highcharts.setOptions({
   		    global: {
