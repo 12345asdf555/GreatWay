@@ -410,7 +410,7 @@ function newSearchWJ(){
 
 //焊口下拉框
 function searchWJCombobox(){
-	var optionFields = "<option value='fid'>序号</option>" +
+	var optionFields = "<option value='j.fid'>序号</option>" +
 		"<option value='fwelded_junction_no'>编号</option>" +
 		"<option value='fserial_no'>序列号</option>" +
 		"<option value='fpipeline_no'>管线号</option>" +

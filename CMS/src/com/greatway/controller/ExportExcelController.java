@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,6 @@ import com.greatway.model.WeldingMachine;
 import com.greatway.model.WeldingMaintenance;
 import com.greatway.util.CommonExcelUtil;
 import com.greatway.util.IsnullUtil;
-
-import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping(value = "/export", produces = { "text/json;charset=UTF-8" })
@@ -53,7 +53,7 @@ public class ExportExcelController {
 	
 	@RequestMapping("/exporWeldingMachine")
 	@ResponseBody
-	public ResponseEntity<byte[]> exporWeldingMachine(HttpServletRequest request){
+	public ResponseEntity<byte[]> exporWeldingMachine(HttpServletRequest request,HttpServletResponse response){
 		File file = null;
 		try {
 			String str=(String) request.getSession().getAttribute("searchStr");
@@ -92,11 +92,17 @@ public class ExportExcelController {
 			HttpHeaders headers = new HttpHeaders();
 			String fileName = "";
 			
-			fileName = new String(filename.getBytes("UTF-8"),"iso-8859-1");
+			fileName = new String(filename.getBytes("gb2312"),"iso-8859-1");
 			
 			headers.setContentDispositionFormData("attachment", fileName);
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			
+			//处理ie无法下载的问题
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.setHeader( "Content-Disposition", 
+					"attachment;filename=\""+ fileName); 
+			ServletOutputStream o = response.getOutputStream();
+			o.flush();
 			
 			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 		}catch (Exception e) {
@@ -106,10 +112,9 @@ public class ExportExcelController {
 		}
 	}
 	
-	
 	@RequestMapping("/exporMaintain")
 	@ResponseBody
-	public ResponseEntity<byte[]> exporMaintain(HttpServletRequest request){
+	public ResponseEntity<byte[]> exporMaintain(HttpServletRequest request,HttpServletResponse response){
 		File file = null;
 		try{
 			String str=(String) request.getSession().getAttribute("searchStr");
@@ -139,10 +144,18 @@ public class ExportExcelController {
 			file = new File(path);
 			HttpHeaders headers = new HttpHeaders();
 			String fileName = "";
-			fileName = new String(filename.getBytes("UTF-8"),"iso-8859-1");
+			fileName = new String(filename.getBytes("gb2312"),"iso-8859-1");
 		
 			headers.setContentDispositionFormData("attachment", fileName);
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			
+			//处理ie无法下载的问题
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.setHeader( "Content-Disposition", 
+					"attachment;filename=\""+ fileName); 
+			ServletOutputStream o = response.getOutputStream();
+			o.flush();
+			
 			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return null;
