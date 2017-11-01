@@ -58,14 +58,16 @@
 						var xx = dd.substring(16+i, 20+i);
 						num1[jj] = parseInt(xx,16);
 						num2[jj] = parseInt(dd.substring(20+i, 24+i),16);
-						time1[j] = new Date(dd.substring(24+i, 45+i));
+						time1[jj] = new Date(dd.substring(24+i, 45+i));
 						maxele = parseInt(dd.substring(45+i, 48+i));
 						minele = parseInt(dd.substring(48+i, 51+i));
 						maxvol = parseInt(dd.substring(51+i, 54+i));
 						minvol = parseInt(dd.substring(54+i, 57+i));
+						alert(time1[jj]);
 						jj++;
 						}	
 					}
+					
             		if(weld!="0000"){
             		$.ajax({  
     			        type : "post",  
@@ -165,7 +167,7 @@
   		  	  		  	
   		}
  
-  		$('#body1').highcharts({
+  		$('#body3').highcharts({
   		    chart: {
   		        type: 'spline',
   		        animation: Highcharts.svg, // don't animate in old IE
@@ -177,8 +179,9 @@
   		                	series1 = this.series[1],
   		                    chart = this;
   		                setInterval(function () {
-  		                    var x = (new Date()).getTime(), // current time
-  		                        y = num1[z];
+  		                    /*var x = ti(new Date()).getTime(),*/ // current time
+  		                    var x = time1[z],   
+  		                    y = num1[z];
   		                    var y1 = num2[z];
   		                    z++;
   		                    series.addPoint([x, y], true, true);
@@ -204,27 +207,6 @@
   		        title: {
   		            text: '电流'
   		        },
-/*  		        plotLines: [{
-  		            value: maxele,
-  		            width: 1,
-  		            color: 'black',
-  		            dashStyle:'longdashdot',
-  		          label:{
-  		            text:'最高电流',     //标签的内容
-  		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-  		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-  		        }
-  		        },{
-  		            value: minele,
-  		            width: 1,
-  		            color: 'black',
-  		          dashStyle:'longdashdot',
-  		          label:{
-  		            text:'最低电流',     //标签的内容
-  		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-  		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-  		        }
-  		        }],*/
   		    },{
                 max:60, // 定义Y轴 最大值  
                 min:0, // 定义最小值  
@@ -234,27 +216,6 @@
   		    	title: {
   		            text: '电压'
   		        },
-/*  		        plotLines: [{
-  		            value: 80,
-  		            width: 2,
-  		            color: 'blue',
-  		            dashStyle:'longdashdot',
-		          label:{
-	  		            text:'最高电压',     //标签的内容
-	  		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-	  		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-	  		        }
-  		        },{
-  		            value: 20,
-  		            width: 2,
-  		            color: 'blue',
-  		            dashStyle:'longdashdot',
-		          label:{
-	  		            text:'最低电压',     //标签的内容
-	  		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-	  		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-	  		        }
-  		        }],*/
   		      opposite: true  
   		    }],
   		    tooltip: {

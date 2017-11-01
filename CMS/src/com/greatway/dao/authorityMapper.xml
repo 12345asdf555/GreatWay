@@ -45,7 +45,7 @@
 	
 	 <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->  
 	<select id="findById" parameterType="int" resultType="Authority">
-		 select tb_authorities.id id,tb_authorities.authorities_name authorityName,tb_authorities.authorities_desc authorityDesc,tb_authorities.status status,tb_authorities_resources.resources_name resourceName,tb_roles_authorities.roles_name roleName from tb_authorities left join tb_authorities_resources on tb_authorities.authorities_name = tb_authorities_resources.authorities_name left join tb_roles_authorities on tb_authorities.id=tb_roles_authorities.authority_id where tb_authorities.id=#{id}
+		 select tb_authorities.id id,tb_authorities.authorities_name authorityName,tb_authorities.authorities_desc authorityDesc,tb_authorities.status status from tb_authorities where tb_authorities.id=#{id}
 	</select>
 	
 	<select id="findByResourceId" parameterType="int" resultType="String">

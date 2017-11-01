@@ -40,6 +40,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div id="toolbar" style="margin-bottom: 5px;">
         	<a href="user/toAddUser" class="easyui-linkbutton" iconCls="icon-add">新增</a>
         	<a href="javascript:insertSearchUser();" class="easyui-linkbutton" iconCls="icon-search">查找</a>   
+        	
+<%-- 			<c:url value="j_spring_security_logout" var="logoutUrl"/>
+   			<a href="${logoutUrl }">退出系统</a> --%>
+   			<a href="javascript:logout();">退出系统</a>
+        	
     	</div>
     		<!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">

@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +41,28 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
+	@RequestMapping("/logout")
+	@ResponseBody
+	public String AllLouout(HttpServletRequest request,HttpServletResponse response){
+		JSONObject obj = new JSONObject();
+		try{
+		Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
+		    if (auth != null){    
+		        new SecurityContextLogoutHandler().logout(request,response,auth);
+		    }
+		    obj.put("success", true);
+		}catch(Exception e){
+			obj.put("success", false);
+			obj.put("errorMsg", e.getMessage());
+		}
+		return obj.toString();
+/*		    Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
+		    if (auth != null){    
+		        new SecurityContextLogoutHandler().logout(request,response,auth);
+		    }
+		    return "redirect:/login?logout";*/
+	}
+	
 	@RequestMapping("/AllUser")
 	public String AllUser(HttpServletRequest request){
 		return "/allUser";
@@ -45,10 +70,10 @@ public class UserController {
 	@RequestMapping("/getAllUser")
 	@ResponseBody
 	public String getAllUser(HttpServletRequest request){
-		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+/*		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
 			    .getAuthentication()  
 			    .getPrincipal();
-		System.out.println(myuser.getId());
+		System.out.println(myuser.getId());*/
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String search = request.getParameter("searchStr");
