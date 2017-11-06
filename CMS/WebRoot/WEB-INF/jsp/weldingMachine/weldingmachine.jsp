@@ -40,11 +40,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:insertSearchWeldingMachine();" class="easyui-linkbutton"iconCls="icon-search" >查找</a>
 			</div>
 		</div>
-		<div id="importdiv" class="easyui-dialog" style="width:300px; height:350px;" closed="true">
+		<div id="importdiv" class="easyui-dialog" style="width:300px; height:200px;" closed="true">
 			<form id="importfm" method="post" class="easyui-form" data-options="novalidate:true" enctype="multipart/form-data"> 
-				<div class="fitem">
-					<lable><input type="file" name="file" id="file"></lable>
-					<input type="button" value="上传" onclick="importWeldingMachine()"/> 
+				<div>
+					<span><input type="file" name="file" id="file"></span>
+					<input type="button" value="上传" onclick="importWeldingMachine()" class="upButton"/> 
 				</div>
 			</form>
 		</div>

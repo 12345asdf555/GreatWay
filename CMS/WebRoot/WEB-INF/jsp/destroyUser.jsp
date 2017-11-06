@@ -58,11 +58,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
             	<lable>岗位</lable>
-                <input name="userInsframework" class="easyui-textbox" readonly="true" data-options="required:true" value="${user.userInsframework}" style="width:100%">
+                <input id="userPosition" name="userPosition" class="easyui-textbox" readonly="true" value="${user.userPosition}" style="width:100%">
             </div>
             <div class="fitem">
             	<lable>部门</lable>
-            	<input class="easyui-textbox"  id="userPosition" name="userPosition" value="${user.userPosition}" readonly="true" data-options="required:true">
+            	<input class="easyui-combobox" name="userInsframework" id="userInsframework" value="${user.userInsframework}"/>
             </div>
 			<div class="fitem">
 				<input id="status" type="hidden" value="${role.roleStatus }"/>
@@ -80,11 +80,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</div>
         </form>
     </div> 
-    
-    <div id="dlg-buttons" align="center">
-        <a href="javascript:saveUser();" class="easyui-linkbutton c6" iconCls="icon-ok">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="user/AllUser" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
-    </div>
     
     <script type="text/javascript">
             $(function(){

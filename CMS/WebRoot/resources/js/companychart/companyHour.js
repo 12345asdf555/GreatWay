@@ -13,7 +13,6 @@ var chartStr = "";
 $(document).ready(function(){
 	showCompanyHourChart();
 })
-
 function showCompanyHourChart(){
 	var array1 = new Array();
 	var array2 = new Array();
@@ -23,9 +22,11 @@ function showCompanyHourChart(){
          async : false, //同步执行  
          url : "companyChart/getCompanyHour?parent="+parent+chartStr,
          data : {},  
-         dataType : "json", //返回数据形式为json  
+         dataType : "json", //返回数据形式为json
          success : function(result) {  
-             if (result) {  
+//        	 $.messager.progress('close');
+
+             if (result) {
                  for(var i=0;i<result.rows.length;i++){
                  	array1.push(result.rows[i].name);
                  	array2.push(result.rows[i].manhour);

@@ -246,7 +246,7 @@
   background: -webkit-linear-gradient(top,#EFF5FF 0,#E0ECFF 20%);
   background: -moz-linear-gradient(top,#EFF5FF 0,#E0ECFF 20%);
   background: -o-linear-gradient(top,#EFF5FF 0,#E0ECFF 20%);
-  background: linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 20%);
+  background: linear-gradient(to bottom,#3578ca 0,#48A1E5 20%);/*dialog边框*/
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);
 }
@@ -806,7 +806,7 @@
 .tabs-p-tool a:hover,
 .tabs li a:hover.tabs-close,
 .tabs-scroller-over {
-  background-color: red;
+  background-color: #eaf2ff;
 }
 .tabs li.tabs-selected a.tabs-inner {
   border-bottom: 1px solid #ffffff;
