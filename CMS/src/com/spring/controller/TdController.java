@@ -120,20 +120,20 @@ public class TdController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
-			for(int i = 0;i < da.length();i+=57)
+			for(int i = 0;i < da.length();i+=58)
 			{
 				json.put("fstatus_id", da.substring(0+i, 2+i));
 				json.put("finsframework_id", da.substring(2+i, 4+i));
 				json.put("fequipment_no", da.substring(4+i, 8+i));
-				json.put("fposition", da.substring(8+i, 12+i));
-				json.put("fwelder_no", da.substring(12+i, 16+i));
-				json.put("voltage", da.substring(16+i, 20+i));
-				json.put("electricity", da.substring(20+i, 24+i));
-				json.put("time", da.substring(24+i, 45+i));
-				json.put("maxele", da.substring(45+i, 48+i));
-				json.put("minele", da.substring(48+i, 51+i));
-				json.put("maxvol", da.substring(51+i, 54+i));
-				json.put("minvol", da.substring(54+i, 57+i));
+				json.put("fposition", da.substring(8+i, 13+i));
+				json.put("fwelder_no", da.substring(13+i, 17+i));
+				json.put("voltage", da.substring(17+i, 21+i));
+				json.put("electricity", da.substring(21+i, 25+i));
+				json.put("time", da.substring(25+i, 46+i));
+				json.put("maxele", da.substring(46+i, 49+i));
+				json.put("minele", da.substring(49+i, 52+i));
+				json.put("maxvol", da.substring(52+i, 55+i));
+				json.put("minvol", da.substring(55+i, 58+i));
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -182,20 +182,20 @@ public class TdController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
-			for(int i = 0;i < da.length();i+=57)
+			for(int i = 0;i < da.length();i+=58)
 			{
 				json.put("fstatus_id", da.substring(0+i, 2+i));
 				json.put("finsframework_id", da.substring(2+i, 4+i));
 				json.put("fequipment_no", da.substring(4+i, 8+i));
-				json.put("fposition", da.substring(8+i, 12+i));
-				json.put("fwelder_no", da.substring(12+i, 16+i));
-				json.put("voltage", da.substring(16+i, 20+i));
-				json.put("electricity", da.substring(20+i, 24+i));
-				json.put("time", da.substring(24+i, 45+i));
-				json.put("maxele", da.substring(45+i, 48+i));
-				json.put("minele", da.substring(48+i, 51+i));
-				json.put("maxvol", da.substring(51+i, 54+i));
-				json.put("minvol", da.substring(54+i, 57+i));
+				json.put("fposition", da.substring(8+i, 13+i));
+				json.put("fwelder_no", da.substring(13+i, 17+i));
+				json.put("voltage", da.substring(17+i, 21+i));
+				json.put("electricity", da.substring(21+i, 25+i));
+				json.put("time", da.substring(25+i, 46+i));
+				json.put("maxele", da.substring(46+i, 49+i));
+				json.put("minele", da.substring(49+i, 52+i));
+				json.put("maxvol", da.substring(52+i, 55+i));
+				json.put("minvol", da.substring(55+i, 58+i));
 				ary.add(json);
 			}
 		}catch(Exception e){

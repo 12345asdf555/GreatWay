@@ -51,18 +51,18 @@
 				dd = msg.data;
 				var va = document.getElementById("hid1").value;
 				for(var j = 0;j < 3;j++){
-					for(var i = 0;i < dd.length;i+=57){
-						if(va == dd.substring(4+i, 8+i)&&dd.substring(12+i, 16+i)!="0000"){
+					for(var i = 0;i < dd.length;i+=58){
+						if(va == dd.substring(4+i, 8+i)&&dd.substring(13+i, 17+i)!="0000"){
 						var mach = dd.substring(4+i, 8+i);
-						var weld = dd.substring(12+i, 16+i);
-						var xx = dd.substring(16+i, 20+i);
+						var weld = dd.substring(13+i, 17+i);
+						var xx = dd.substring(17+i, 21+i);
 						num1[jj] = parseInt(xx,16);
-						num2[jj] = parseInt(dd.substring(20+i, 24+i),16);
-						time1[j] = new Date(dd.substring(24+i, 45+i));
-						maxele = parseInt(dd.substring(45+i, 48+i));
-						minele = parseInt(dd.substring(48+i, 51+i));
-						maxvol = parseInt(dd.substring(51+i, 54+i));
-						minvol = parseInt(dd.substring(54+i, 57+i));
+						num2[jj] = parseInt(dd.substring(21+i, 25+i),16);
+						time1[j] = new Date(dd.substring(25+i, 46+i));
+						maxele = parseInt(dd.substring(46+i, 49+i));
+						minele = parseInt(dd.substring(49+i, 52+i));
+						maxvol = parseInt(dd.substring(52+i, 55+i));
+						minvol = parseInt(dd.substring(55+i, 58+i));
 						jj++;
 						}	
 					}

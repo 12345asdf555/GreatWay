@@ -37,32 +37,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="id" id="id" class="easyui-textbox" type="hidden" value="${user.id}">
             </div>
             <div style="margin-bottom:10px">
-                <input name="userName" id="userName" class="easyui-textbox" value="${user.userName}"  readonly="true" data-options="required:true" label="用户名:" style="width:100%">
+                <input name="userName" id="userName" class="easyui-textbox" value="${user.userName}"  readonly="true" label="用户名:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
-                <input name="userPassword" class="easyui-textbox" type="password" readonly="true" data-options="required:false" value="${user.userPassword}" label="密&nbsp;&nbsp;&nbsp;&nbsp;码:" style="width:100%">
+                <input name="userPassword" class="easyui-textbox" type="password" readonly="true" value="${user.userPassword}" label="密&nbsp;&nbsp;&nbsp;&nbsp;码:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
-                <input name="userLoginName" class="easyui-textbox" readonly="true" data-options="required:true"  value="${user.userLoginName}" label="登录名:" style="width:100%">
+                <input name="userLoginName" class="easyui-textbox" readonly="true"  value="${user.userLoginName}" label="登录名:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
-                <input name="userPhone" class="easyui-textbox" readonly="true" data-options="required:false"  value="${user.userPhone}" label="电&nbsp;&nbsp;&nbsp;&nbsp;话:" style="width:100%">
+                <input name="userPhone" class="easyui-textbox" readonly="true"  value="${user.userPhone}" label="电&nbsp;&nbsp;&nbsp;&nbsp;话:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
-                <input name="userEmail" class="easyui-textbox" readonly="true" data-options="required:false"  value="${user.userEmail}" label="邮&nbsp;&nbsp;&nbsp;&nbsp;箱:" style="width:100%">
+                <input name="userEmail" class="easyui-textbox" readonly="true"  value="${user.userEmail}" label="邮&nbsp;&nbsp;&nbsp;&nbsp;箱:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
-                <input name="userInsframework" class="easyui-textbox" readonly="true" data-options="required:true" value="${user.userInsframework}" label="岗&nbsp;&nbsp;&nbsp;&nbsp;位:" style="width:100%">
+               <input id="userPosition" name="userPosition" class="easyui-textbox" readonly="true" value="${user.userPosition}" label="岗&nbsp;&nbsp;&nbsp;&nbsp;位:" style="width:100%">
             </div>
             <div style="margin-bottom:20px">
-            <select class="easyui-combobox" id="userPosition" name="userPosition" value="${user.userPosition}" readonly="true" data-options="required:true" label="部门:" labelPosition="left">
-                <option value="${user.userPosition}">${user.userPosition}</option>
-                <option value="集团">集团</option>
-                <option value="公司">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司</option>
-                <option value="项目部">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目部</option>
-                <option value="现场">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现场</option>
-            </select>
-        </div>
+				<lable>部门:</lable>
+				<input class="easyui-combobox" name="userInsframework" id="userInsframework" value="${user.userInsframework}"/>
+        	</div>
 
 			<div class="fitem">
 				<input id="status" type="hidden" value="${role.roleStatus }"/>
@@ -180,6 +175,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 	
         }
+        
+        	   $(function(){
+			   $.ajax({
+			   type: "post", 
+			   url: "user/getIns",
+			   dataType: "json",
+			   data: {},
+			   success: function (result) {
+			      if (result) {
+			         var optionstring = "";
+			         optionstring = "<option value='请选择'>请选择...</option>";
+			         //循环遍历 下拉框绑定
+			         for(var k=0;k<result.rows.length;k++){
+			         optionstring += "<option value=\"" + result.rows[k].insid + "\" >" + result.rows[k].insname + "</option>";
+			         }
+			         $("#userInsframework").html(optionstring);
+			      } else {
+			         alert('部门加载失败');
+			      }
+			      $("#userInsframework").combobox();
+			      $("#userInsframework").combobox('select',document.getElementById("userInsframework").value);
+			   },
+			   error: function () {
+			      alert('error');
+			   }
+			});
+		})
         
         		function statusRadio(){
 			$.ajax({  
