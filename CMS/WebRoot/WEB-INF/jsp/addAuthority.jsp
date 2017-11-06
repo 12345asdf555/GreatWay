@@ -33,26 +33,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">权限信息</div>
-            <div style="margin-bottom:10px">
-                <input name="authorityName" class="easyui-textbox" data-options="validType:'authorityValidate',required:true" label="权限:" style="width:100%">
+            <div class="fitem">
+				<lable>权限</lable>
+                <input name="authorityName" class="easyui-textbox" data-options="validType:'authorityValidate',required:true" style="width:100%">
             </div>
-            <div style="margin-bottom:10px">
-                <input name="authorityDesc" class="easyui-textbox" data-options="required:true" label="描述:" style="width:100%">
+            <div class="fitem">
+				<lable>描述</lable>
+                <input name="authorityDesc" class="easyui-textbox" data-options="required:true" style="width:100%">
             </div>
 			<div class="fitem">
-				<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
-   				<lable id="radios"></lable>
+				<lable>状态</lable>&nbsp;&nbsp;
+   				<span id="radios"></span>
 			</div>
-        <div style="margin-bottom:20px" align="center">
-        <table id="tt" title="资源列表" checkbox="true" style="table-layout:fixed"></table>
-        </div>
+	        <div style="margin-bottom:20px;margin-left:100px" align="center">
+	        <table id="tt" title="资源列表" checkbox="true" style="table-layout:fixed"></table>
+	        </div>
+		    <div class="buttonoption">
+				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="javascript:saveAuthority();" class="easyui-linkbutton c6" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="authority/AllAuthority" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+		        </lable>
+		    </div>
         </form>
     </div> 
     
-    <div id="dlg-buttons" align="center">
-        <a href="javascript:saveAuthority();" class="easyui-linkbutton c6" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="authority/AllAuthority" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
-    </div>
     <script type="text/javascript">
         $(function(){
         statusRadio();
@@ -131,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		var str = "";
 		    		for (var i = 0; i < result.ary.length; i++) {
 		    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
-	                    + result.ary[i].name;
+	                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 		    		}
 		            $("#radios").html(str);
 		            $("input[name='statusId']").eq(0).attr("checked",true);

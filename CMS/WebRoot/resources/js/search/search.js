@@ -5,6 +5,54 @@ var condition="";
 var content="";
 var joint = "";
 var flag = true;
+//组织机构进入查询
+function insertSearchInsf(){
+	$("#searchdiv").dialog("open");
+	searchInsfCombobox();
+	initSearch();
+}
+
+//组织机构下拉框
+function searchInsfCombobox(){
+	var optionFields = 
+		"<option value='fname'>名称</option>" +
+		"<option value='flogogram'>简写</option>" +
+		"<option value='fcode'>编码</option>" +
+		"<option value='fparent'>上级项目</option>" +
+		"<option value='ftype'>类型</option>";
+	$(".fields").html(optionFields);
+	$(".fields").combobox();
+	createSearchCombobox();
+}
+
+//新增组织机构查询条件
+function newSearchInsf(){
+	fillcontent();
+	newSearch();
+	searchInsfCombobox();
+	initSearch();
+}
+
+//组织机构执行查询
+function searchInsf(){
+	fillcontent();
+	if(!getContent()){
+		return;
+	}
+	$('#insframeworkTable').datagrid('load', {
+		"searchStr" : searchStr
+	});
+	$("#searchdiv").dialog("close");
+	searchStr="";
+}
+
+//新增采集模块查询条件
+function newSearchGather(){
+	fillcontent();
+	newSearch();
+	searchGatherCombobox();
+	initSearch();
+}
 
 //采集模块进入查询
 function insertSearchGather(){
@@ -14,7 +62,7 @@ function insertSearchGather(){
 }
 //采集模块下拉框
 function searchGatherCombobox(){
-	var optionFields = "<option value='fid'>序号</option>" +
+	var optionFields = 
 		"<option value='fgather_no'>采集模块编号</option>" +
 		"<option value='fstatus'>采集模块状态</option>" +
 		"<option value='fprotocol'>采集模块通讯协议</option>" +
@@ -40,7 +88,7 @@ function searchGather(){
 	if(!getContent()){
 		return;
 	}
-	$('#welderTable').datagrid('load', {
+	$('#gatherTable').datagrid('load', {
 		"searchStr" : searchStr
 	});
 	$("#searchdiv").dialog("close");
@@ -57,7 +105,7 @@ function newSearchWeldingMachine(){
 
 //焊接设备下拉框
 function searchWeldingMachineCombobox(){
-	var optionFields = "<option value='w.fid'>序号</option>" +
+	var optionFields = 
 		"<option value='fequipment_no'>固定资产编号</option>" +
 		"<option value='ftype_id'>设备类型</option>" +
 		"<option value='fjoin_time'>入厂时间</option>" +
@@ -126,9 +174,12 @@ function searchWeldingmachine(){
 				contend="9999";
 			}
 		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""|| joint==null || joint==""){
+		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
 			alert('请输入完整的查询条件！');
 			return false;
+		}
+		if(joint==null || joint==""){
+			joint = "and";
 		}
 		if(condition == "like"){
 			content = "%"+content+"%";
@@ -157,7 +208,7 @@ function newSearchMaintain(){
 
 //维修记录下拉框
 function searchMaintainCombobox(){
-	var optionFields = "<option value='m.fid'>序号</option>" +
+	var optionFields = 
 		"<option value='fequipment_no'>固定资产编号</option>" +
   		"<option value='r.ftype_id'>维修类型</option>" +
   		"<option value='fviceman'>维修人员</option>" +
@@ -199,9 +250,12 @@ function searchMaintain(){
 				content="9999";
 			}
 		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""|| joint==null || joint==""){
+		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
 			alert('请输入完整的查询条件！');
 			return false;
+		}
+		if(joint==null || joint==""){
+			joint = "and";
 		}
 		if(condition == "like"){
 			content = "%"+content+"%";
@@ -257,7 +311,7 @@ function newSearchResource(){
 
 //焊工信息下拉框
 function searchWelderCombobox(){
-	var optionFields = "<option value='fid'>序号</option>" +
+	var optionFields = 
   		"<option value='fname'>名称</option>" +
   		"<option value='fwelder_no'>编号</option>";
 	$(".fields").html(optionFields);
@@ -410,7 +464,7 @@ function newSearchWJ(){
 
 //焊口下拉框
 function searchWJCombobox(){
-	var optionFields = "<option value='j.fid'>序号</option>" +
+	var optionFields = 
 		"<option value='fwelded_junction_no'>编号</option>" +
 		"<option value='fserial_no'>序列号</option>" +
 		"<option value='fpipeline_no'>管线号</option>" +
@@ -428,7 +482,10 @@ function searchWJCombobox(){
 		"<option value='fmax_valtage'>电压上限</option>" +
 		"<option value='fmin_valtage'>电压下限</option>" +
 		"<option value='fstart_time'>开始时间</option>" +
-		"<option value='fend_time'>完成时间</option>";
+		"<option value='fend_time'>完成时间</option>" +
+		"<option value='fcreatetime'>创建时间</option>" +
+		"<option value='	fupdatetime'>修改时间</option>" +
+		"<option value='fupdatecount'>修改次数</option>";
 	$(".fields").html(optionFields);
 	$(".fields").combobox();
 	createSearchCombobox();
@@ -537,9 +594,12 @@ function getContent(){
 		var content = $("#"+contentId+"").val();
 		var jointId =$(".joint").eq(i).attr("id");
 		var joint = $("#"+jointId+"").combobox('getValue');
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""|| joint==null || joint==""){
+		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
 			alert('请输入完整的查询条件！');
 			return false;
+		}
+		if(joint==null || joint==""){
+			joint = "and";
 		}
 		if(condition == "like"){
 			content = "%"+content+"%";

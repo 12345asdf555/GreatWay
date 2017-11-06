@@ -33,35 +33,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body class="easyui-layout">
     <div  id="body" region="center"  hide="true"  split="true" title="删除维修记录" style="background: white; height: 335px;">
-			<div class="fitem" align="center">
+		<div style="text-align: center ">
+			<div class="fitem">
 				<lable>固定资产编号</lable>
 				<input class="easyui-textbox" id="wid" readonly="readonly" value="${m.id }"/>
 				<input class="easyui-textbox" id="equipmentNo" readonly="readonly" value="${m.welding.equipmentNo }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>维修类型</lable>
 				<input class="easyui-textbox" id="tname" readonly="readonly" value="${tname }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>维修人员</lable>
 				<input class="easyui-textbox" id="viceman" readonly="readonly" value="${m.maintenance.viceman }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>起始时间</lable>
 				<input class="easyui-textbox" id="starttime" readonly="readonly" value="${m.maintenance.startTime }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>结束时间</lable>
 				<input class="easyui-textbox" id="endtime" readonly="readonly" value="${m.maintenance.endTime }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>维修说明</lable>
 				<input class="easyui-textbox" id="desc" readonly="readonly" value="${m.maintenance.desc }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="weldbutton">
 				<a href="javascript:removeMaintain();" class="easyui-linkbutton"	iconCls="icon-remove">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="maintain/goMaintain" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 			</div>
+		</div>
     </div>
   </body>
 </html>

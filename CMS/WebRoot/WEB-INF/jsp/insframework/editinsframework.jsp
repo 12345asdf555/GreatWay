@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" id="type" value="${insf.type }"/>
 					<input class="easyui-combobox" name="typeid" id="typeid" value="${insf.type }" data-options="required:true"/>
 				</div>
-				<div class="fitem">
+				<div class="weldbutton">
 					<a href="javascript:editInsframework();" class="easyui-linkbutton"	iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="insframework/goInsframework" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 				</div>

@@ -17,7 +17,7 @@
   position: relative;
 }
 .panel-title {
-  background: url('images/blank.gif') no-repeat;
+  background: #48A1E5;/**/
 }
 .panel-header-noborder {
   border-width: 0 0 1px 0;
@@ -106,14 +106,14 @@
 }
 .panel-header,
 .panel-body {
-  border-color: #95B8E7;
+  border-color: #84b5ed;/**/
 }
 .panel-header {
   background-color: #E0ECFF;
   background: -webkit-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
   background: -moz-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
   background: -o-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
-  background: linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 100%);
+  background: linear-gradient(to bottom,#2da4d7 0,#2da4d7 100%);/**/
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);
 }
@@ -125,7 +125,7 @@
 .panel-title {
   font-size: 12px;
   font-weight: bold;
-  color: #0E2D5F;
+  color: #ffffff;/**/
   height: 16px;
   line-height: 16px;
 }
@@ -161,14 +161,14 @@
   border-color: #95B8E7;
 }
 .accordion .accordion-header {
-  background: #E0ECFF;
+  background: #48A1E5;/**/
   filter: none;
 }
 .accordion .accordion-header-selected {
-  background: #ffe48d;
+  background: #45c2e1;/**/
 }
 .accordion .accordion-header-selected .panel-title {
-  color: #000000;
+  color: #ffffff;/**/
 }
 .window {
   overflow: hidden;
@@ -177,7 +177,7 @@
   border-style: solid;
 }
 .window .window-header {
-  background: transparent;
+  background: #48A1E5;/**/
   padding: 0px 0px 6px 0px;
 }
 .window .window-body {
@@ -340,8 +340,8 @@
   background-color: #ffffff;
 }
 .combo {
-  border-color: #95B8E7;
-  background-color: #ffffff;
+  border-color: #48A1E5;/**/
+  background-color: #48A1E5;/**/
 }
 .combo-arrow {
   background-color: #E0ECFF;
@@ -447,7 +447,7 @@
   background-color: #aac5e7;
 }
 .layout-split-north {
-  border-bottom: 5px solid #E6EEF8;
+  border-bottom: 5px solid #48A1E5;/*分割线颜色*/
 }
 .layout-split-south {
   border-top: 5px solid #E6EEF8;
@@ -456,7 +456,7 @@
   border-left: 5px solid #E6EEF8;
 }
 .layout-split-west {
-  border-right: 5px solid #E6EEF8;
+  border-right: 5px solid #48A1E5;/*分割线颜色*/
 }
 .layout-expand {
   background-color: #E0ECFF;
@@ -478,7 +478,7 @@
 }
 .tabs-header-plain {
   border: 0;
-  background: transparent;
+  background: #48A1E5;/**/
 }
 .tabs-scroller-left,
 .tabs-scroller-right {
@@ -785,7 +785,7 @@
 }
 .tabs-header,
 .tabs-tool {
-  background-color: #E0ECFF;
+  background-color: #48A1E5;/**/
 }
 .tabs-header-plain {
   background: transparent;
@@ -806,7 +806,7 @@
 .tabs-p-tool a:hover,
 .tabs li a:hover.tabs-close,
 .tabs-scroller-over {
-  background-color: #eaf2ff;
+  background-color: red;
 }
 .tabs li.tabs-selected a.tabs-inner {
   border-bottom: 1px solid #ffffff;

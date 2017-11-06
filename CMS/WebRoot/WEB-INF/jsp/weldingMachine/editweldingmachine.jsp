@@ -69,19 +69,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" name="position" id="position" value="${w.position }"/>
 				</div>
 				<div class="fitem" >
-					<lable>是否联网</lable>
+					<lable>是否联网</lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input class="easyui-textbox" id="isnw" value="${w.isnetworking }"/>
-					<input type="radio" name="isnetworking" value="0"/>是
-					<input type="radio" name="isnetworking" value="1"/>否
+					<input type="radio" name="isnetworking" value="0"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="isnetworking" value="1"/>否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</div>
 				<div class="fitem">
 					<input class="easyui-textbox" id="status" value="${w.statusId }"/>
 					<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
-	   				<lable id="radios"></lable>
+	   				<span id="radios"></span>
 				</div>
-				<div class="fitem">
-					<a href="javascript:editWeldingMachine();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="weldingMachine/goWeldingMachine" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+				<div class="weldbutton">
+					<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="javascript:editWeldingMachine();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="weldingMachine/goWeldingMachine" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+					</lable>
 				</div>
 			</form>
 		</div>

@@ -33,48 +33,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body class="easyui-layout">
     <div  id="body" region="center"  hide="true"  split="true" title="删除焊机设备" style="background: white; height: 335px;">
-			<br/>
-			<div class="fitem" align="center">
+		<div style="text-align: center ">
+			<div class="fitem">
 				<lable>固定资产编号</lable>
 				<input class="easyui-textbox" id="wid" readonly="readonly" value="${w.id }"/>
 				<input class="easyui-textbox" id="equipmentNo" readonly="readonly" value="${w.equipmentNo }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>设备类型</lable>
 				<input class="easyui-textbox" id="tId" readonly="readonly" value="${typename}"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>入厂时间</lable>
 				<input class="easyui-textbox" id="joinTime" readonly="readonly" value="${w.joinTime }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>所属项目</lable>
 				<input class="easyui-textbox" id="iId" readonly="readonly" value="${w.insframeworkId.name }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>生产厂商</lable>
 				<input class="easyui-textbox" id="manuno" readonly="readonly" value="${w.manufacturerId.name }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>采集序号</lable>
 				<input class="easyui-textbox" id="gatherId" readonly="readonly" value="${w.gatherId.gatherNo }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>设备位置</lable>
 				<input class="easyui-textbox" id="position" readonly="readonly" value="${w.position }"/>
 			</div>
-			<div class="fitem" align="center">
+			<div class="fitem">
 				<lable>是否联网</lable>
 				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${isnetworking }"/>
 			</div>
-			<div class="fitem" align="center">
-				<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
+			<div class="fitem">
+				<lable>状态</lable>
 				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${statusname }"/>
 			</div>
-			<div class="fitem" align="center">
-				<a href="javascript:removeWeldingMachine();" class="easyui-linkbutton"	iconCls="icon-remove">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="weldingMachine/goWeldingMachine" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+			<div class="weldbutton">
+				<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="javascript:removeWeldingMachine();" class="easyui-linkbutton"	iconCls="icon-remove">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="weldingMachine/goWeldingMachine" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+				</label>
 			</div>
+		</div>
     </div>
   </body>
 </html>

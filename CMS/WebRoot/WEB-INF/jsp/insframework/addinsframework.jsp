@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>项目类型</lable>
 					<input class="easyui-combobox" name="typeid" id="typeid" data-options="required:true"/>
 				</div>
-				<div class="fitem">
+				<div class="weldbutton">
 					<a href="javascript:addInsframework();" class="easyui-linkbutton"	iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="insframework/goInsframework" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 				</div>

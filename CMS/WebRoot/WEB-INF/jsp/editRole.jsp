@@ -36,26 +36,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="margin-bottom:10px;display: none;">
                 <input name="id" id="id" class="easyui-textbox" type="hidden" value="${role.id}">
             </div>
-            <div style="margin-bottom:10px">
+            <div class="fitem">
+            	<lable>角色名</lable>
             	<input id="validName" type="hidden" value="${role.roleName}">
-                <input id="roleName" name="roleName" class="easyui-textbox" data-options="validType:'roleValidate',required:true" value="${role.roleName}" label="角色名:" style="width:100%">
+                <input id="roleName" name="roleName" class="easyui-textbox" data-options="validType:'roleValidate',required:true" value="${role.roleName}" style="width:100%">
             </div>
-            <div style="margin-bottom:10px">
-                <input id="roleDesc" name="roleDesc" class="easyui-textbox" data-options="required:false" value="${role.roleDesc}" label="描&nbsp;&nbsp;&nbsp;&nbsp;述:" style="width:100%">
+            <div class="fitem">
+            	<lable>描述</lable>
+                <input id="roleDesc" name="roleDesc" class="easyui-textbox" data-options="required:false" value="${role.roleDesc}" style="width:100%">
             </div>
 			<div class="fitem">
 				<input id="status" type="hidden" value="${role.roleStatus }"/>
-				<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
-   				<lable id="radios"></lable>
+				<lable>状态</lable>&nbsp;&nbsp;
+   				<span id="radios"></span>
 			</div>
-            <div style="margin-bottom:20px" align="center">
+            <div style="margin-bottom:20px;margin-left:100px;" align="center">
                 <table id="tt" title="权限列表" checkbox="true" style="table-layout:fixed;width:100%"></table>
             </div>
+		    <div class="buttonoption">
+			    <lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="javascript:saveRole();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="role/AllRole" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+				</lable>
+		   </div> 
     </form>
-    </div>
-    <div id="dlg-buttons" align="center">
-        <a href="javascript:saveRole();" class="easyui-linkbutton" iconCls="icon-ok" >保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="role/AllRole" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
     </div>
     <script type="text/javascript">
             $(function(){
@@ -136,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		var str = "";
 			    		for (var i = 0; i < result.ary.length; i++) {
 			    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
-		                    + result.ary[i].name;
+		                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 			    		}
 			            $("#radios").html(str);
 			            $("input[name='statusId']").eq(0).attr("checked",true);

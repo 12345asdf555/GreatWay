@@ -32,31 +32,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
             <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">权限信息</div>
-            <div style="margin-bottom:10px;display: none;">
-                <input name="id" id="id" class="easyui-textbox" type="hidden" value="${authority.id}">
+            <div class="fitem">
+                <input name="id" id="id" type="hidden" value="${authority.id}">
             </div>
-           <div style="margin-bottom:10px">
+            <div class="fitem">
+				<lable>权限</lable>
            		<input id="validName" type="hidden" value="${authority.authorityName}">
-                <input name="authorityName" class="easyui-textbox"  data-options="validType:'authorityValidate',required:true" label="权限:" value="${authority.authorityName}" style="width:100%">
+                <input name="authorityName" class="easyui-textbox"  data-options="validType:'authorityValidate',required:true" value="${authority.authorityName}" style="width:100%">
             </div>
-            <div style="margin-bottom:10px">
-                <input name="authorityDesc" class="easyui-textbox" data-options="required:true" label="描述:" value="${authority.authorityDesc}" style="width:100%">
+            <div class="fitem">
+				<lable>描述</lable>
+                <input name="authorityDesc" class="easyui-textbox" data-options="required:true" value="${authority.authorityDesc}" style="width:100%">
             </div>
 			<div class="fitem">
 				<input id="status" type="hidden" value="${authority.status }"/>
-				<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
-   				<lable id="radios"></lable>
+				<lable>状态</lable>&nbsp;&nbsp;
+   				<span id="radios"></span>
 			</div>
-
-        <div style="margin-bottom:20px" align="center">
-        <table id="tt" title="资源列表" checkbox="true" style="table-layout:fixed;width:100%"></table>
-        </div>
+	        <div style="margin-bottom:20px;margin-left:100px;" align="center">
+	        <table id="tt" title="资源列表" checkbox="true" style="table-layout:fixed;width:100%"></table>
+	        </div>
+		    <div class="buttonoption">
+				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="javascript:saveAuthority();" class="easyui-linkbutton c6" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="authority/AllAuthority" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+		        </lable>
+		    </div>
         </form>
-    </div> 
-    
-    <div id="dlg-buttons" align="center">
-        <a href="javascript:saveAuthority()" class="easyui-linkbutton c6" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="authority/AllAuthority" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
     </div>
     </div>
     <script type="text/javascript">
@@ -83,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		var str = "";
 			    		for (var i = 0; i < result.ary.length; i++) {
 			    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
-		                    + result.ary[i].name;
+		                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 			    		}
 			            $("#radios").html(str);
 			            $("input[name='statusId']").eq(0).attr("checked",true);

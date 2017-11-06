@@ -1,4 +1,8 @@
 $(function(){
+	$('#accordiondiv').accordion('add', {
+		title: '<i class="iconfont icon-ren"></i>    管理员',
+		content: $("#admin").html()
+	});
 	openUser();
 	tabsIncident();
 	hierarchyLoding();
@@ -15,25 +19,25 @@ function hierarchyLoding(){
 	          if (result) {
 	              if(result.hierarchy==1){//集团层
 	            	  $('#accordiondiv').accordion('add', {
-	            			title: '集团',
+	            			title: '<i class="iconfont icon-ren"></i>    集团',
 	            			content: $("#bloc").html(),
 	            			selected: false
 	            		});
 	              }else if(result.hierarchy==2){//公司层
 	            	  $('#accordiondiv').accordion('add', {
-	            			title: '公司',
+	            			title: '<i class="iconfont icon-ren"></i>    公司',
 	            			content: $("#company").html(),
 	            			selected: false
 	            		});
 	              }else if(result.hierarchy==3){//事业部层
 	            	  $('#accordiondiv').accordion('add', {
-	            			title: '事业部',
+	            			title: '<i class="iconfont icon-ren"></i>    事业部',
 	            			content: $("#caust").html(),
 	            			selected: false
 	            		});
 	              }else if(result.hierarchy==4){//项目部层
 	            	  $('#accordiondiv').accordion('add', {
-	            			title: '项目部',
+	            			title: '<i class="iconfont icon-ren"></i>    项目部',
 	            			content: $("#item").html(),
 	            			selected: false
 	            		});

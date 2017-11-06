@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>维修说明</lable>
 					<textarea name="desc" id="desc" style="height:40px;width:150px">${wm.maintenance.desc }</textarea>
 				</div>
-				<div class="fitem">
+				<div class="weldbutton">
 					<a href="javascript:editMaintain();" class="easyui-linkbutton"	iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="maintain/goMaintain" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 				</div>

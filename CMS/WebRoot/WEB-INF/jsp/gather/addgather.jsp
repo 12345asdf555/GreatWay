@@ -35,11 +35,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
-					<lable>采集模块编号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+					<lable>采集模块编号</lable>
 					<input class="easyui-textbox" name="gatherNo" id="gatherNo" data-options="validType:['checkNumber','gathernoValidate'],required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>采集模块状态&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+					<lable>采集模块状态</lable>
 					<input class="easyui-combobox" name="status" id="status" data-options="required:true"/>
 				</div>
 				<div class="fitem">
@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-combobox" name="protocol" id="protocol" data-options="required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>采集模块IP地址&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+					<lable>采集模块IP地址</lable>
 					<input class="easyui-textbox" name="ipurl" id="ipurl"/>
 				</div>
 				<div class="fitem">
@@ -58,9 +58,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>采集模块出厂时间</lable>
 					<input class="easyui-datetimebox" name="leavetime" id="leavetime"/>
 				</div>
-				<div class="fitem">
-					<a href="javascript:addGather();" class="easyui-linkbutton"	iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="gather/goGather" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+				<div class="weldbutton">
+					<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="javascript:addGather();" class="easyui-linkbutton"	iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="gather/goGather" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+					</lable>
 				</div>
 			</form>
 		</div>

@@ -33,42 +33,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">用户编辑</div>
-            <div style="margin-bottom:10px;display: none;">
-                <input name="id" id="id" class="easyui-textbox" type="hidden" value="${user.id}">
+            <div class="fitem">
+                <input name="id" id="id" type="hidden" value="${user.id}">
             </div>
-            <div style="margin-bottom:10px">
-                <input name="userName" id="userName" class="easyui-textbox" value="${user.userName}"  readonly="true" label="用户名:" style="width:100%">
+            <div class="fitem">
+            	<lable>用户名</lable>
+                <input name="userName" id="userName" class="easyui-textbox" value="${user.userName}"  readonly="true" data-options="required:true" style="width:100%">
             </div>
-            <div style="margin-bottom:10px">
-                <input name="userPassword" class="easyui-textbox" type="password" readonly="true" value="${user.userPassword}" label="密&nbsp;&nbsp;&nbsp;&nbsp;码:" style="width:100%">
+            <div class="fitem">
+            	<lable>登录名</lable>
+                <input name="userLoginName" class="easyui-textbox" readonly="true" data-options="required:true"  value="${user.userLoginName}" style="width:100%">
             </div>
-            <div style="margin-bottom:10px">
-                <input name="userLoginName" class="easyui-textbox" readonly="true"  value="${user.userLoginName}" label="登录名:" style="width:100%">
+            <div class="fitem">
+            	<lable>密码</lable>
+                <input name="userPassword" class="easyui-textbox" type="password" readonly="true" data-options="required:false" value="${user.userPassword}"style="width:100%">
             </div>
-            <div style="margin-bottom:10px">
-                <input name="userPhone" class="easyui-textbox" readonly="true"  value="${user.userPhone}" label="电&nbsp;&nbsp;&nbsp;&nbsp;话:" style="width:100%">
+            <div class="fitem">
+            	<lable>电话</lable>
+                <input name="userPhone" class="easyui-textbox" readonly="true" data-options="required:false"  value="${user.userPhone}" style="width:100%">
             </div>
-            <div style="margin-bottom:10px">
-                <input name="userEmail" class="easyui-textbox" readonly="true"  value="${user.userEmail}" label="邮&nbsp;&nbsp;&nbsp;&nbsp;箱:" style="width:100%">
+            <div class="fitem">
+            	<lable>邮箱</lable>
+                <input name="userEmail" class="easyui-textbox" readonly="true" data-options="required:false"  value="${user.userEmail}" style="width:100%">
             </div>
-            <div style="margin-bottom:10px">
-               <input id="userPosition" name="userPosition" class="easyui-textbox" readonly="true" value="${user.userPosition}" label="岗&nbsp;&nbsp;&nbsp;&nbsp;位:" style="width:100%">
+            <div class="fitem">
+            	<lable>岗位</lable>
+                <input name="userInsframework" class="easyui-textbox" readonly="true" data-options="required:true" value="${user.userInsframework}" style="width:100%">
             </div>
-            <div style="margin-bottom:20px">
-				<lable>部门:</lable>
-				<input class="easyui-combobox" name="userInsframework" id="userInsframework" value="${user.userInsframework}"/>
-        	</div>
-
+            <div class="fitem">
+            	<lable>部门</lable>
+            	<input class="easyui-textbox"  id="userPosition" name="userPosition" value="${user.userPosition}" readonly="true" data-options="required:true">
+            </div>
 			<div class="fitem">
 				<input id="status" type="hidden" value="${role.roleStatus }"/>
-				<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
-   				<lable id="radios"></lable>
+				<lable>状态</lable>&nbsp;&nbsp;
+   				<span id="radios"></span>
 			</div>
-        
-        <div style="margin-bottom:20px" align="center">
-        <table id="tt" title="角色列表" checkbox="true" readonly="true" style="table-layout:fixed;width:100%"></table>
-        </div>
-
+	        <div style="margin-bottom:20px;margin-left:100px;" align="center">
+	        <table id="tt" title="角色列表" checkbox="true" readonly="true" style="table-layout:fixed;width:100%"></table>
+	        </div>
+		    <div class="buttonoption">
+				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="javascript:saveUser();" class="easyui-linkbutton" iconCls="icon-ok">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="user/AllUser" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+		        </lable>
+	    	</div>
         </form>
     </div> 
     
@@ -215,7 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		var str = "";
 			    		for (var i = 0; i < result.ary.length; i++) {
 			    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
-		                    + result.ary[i].name;
+		                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 			    		}
 			            $("#radios").html(str);
 			            $("input[name='statusId']").eq(0).attr("checked",true);
