@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
@@ -33,6 +34,33 @@ public class WeldedJunctionControll {
 	@RequestMapping("/goWeldedJunction")
 	public String goWeldedJunction(){
 		return "weldingjunction/weldedjunction";
+	}
+	
+	@RequestMapping("/goShowMoreJunction")
+	public String goShowMoreJunction(HttpServletRequest request,@RequestParam String rows){
+		try{
+			String[] str = rows.split(",");
+			for(int i=0;i<str.length;i++){
+				if(!iutil.isNull(str[i]) || str[i].equals("undefined")){
+					str[i]="";
+				}
+			}
+			request.setAttribute("weldedJunctionno", str[0]);request.setAttribute("serialNo", str[1]);
+			request.setAttribute("pipelineNo", str[2]);request.setAttribute("roomNo", str[3]);
+			request.setAttribute("unit", str[4]);request.setAttribute("area", str[5]);
+			request.setAttribute("systems", str[6]);request.setAttribute("children", str[7]);
+			request.setAttribute("externalDiameter", str[8]);request.setAttribute("wallThickness", str[9]);
+			request.setAttribute("dyne", str[10]);request.setAttribute("specification", str[11]);
+			request.setAttribute("maxElectricity", str[12]);request.setAttribute("minElectricity", str[13]);
+			request.setAttribute("maxValtage", str[14]);request.setAttribute("minValtage", str[15]);
+			request.setAttribute("itemname", str[16]);request.setAttribute("material", str[17]);
+			request.setAttribute("nextexternaldiameter", str[18]);request.setAttribute("startTime", str[19]);
+			request.setAttribute("endTime", str[20]);request.setAttribute("creatTime", str[21]);
+			request.setAttribute("updateTime", str[22]);request.setAttribute("updatecount", str[23]);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "weldingjunction/showmore";
 	}
 	
 	@RequestMapping("/getWeldedJunctionList")
