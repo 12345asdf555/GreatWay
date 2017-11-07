@@ -20,7 +20,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/common.css">
 	 <link rel="stylesheet" type="text/css" href="resources/css/base.css">
-	 <link rel="stylesheet" type="text/css" href="resources/css/index.css">
 	 <link rel="stylesheet" type="text/css" href="resources/css/iconfont.css">
 	
 	
