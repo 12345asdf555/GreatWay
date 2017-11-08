@@ -2184,6 +2184,17 @@
 		)temp
 	</select>
 	
+	<select id="getItemEfficiencyDetail" resultMap="dtoMap">
+		select * from (
+		select *,count(wname) from (SELECT i.fname iname,w.fname wname,w.fwelder_no,sum(j.fdyne) dyne,COUNT(l.fid) weldtime,count(l.fjunction_id)junctionnum
+		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
+		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
+		inner join tb_insframework i on i.fid = j.fitemId
+		where 1=1 AND DATE_FORMAT(fweldtime,'%Y-%m-%d')>='2017-09-01' and DATE_FORMAT(fweldtime,'%Y-%m-%d')<='2017-11-08'  
+		group by l.fjunction_id,w.fname)A group by wname
+		)temp
+	</select>
+	
 	<select id="getBlocChildren" resultMap="liveMap">
 		SELECT fid,fname from tb_insframework where ftype=21
 	</select>

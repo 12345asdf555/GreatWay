@@ -19,9 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/common.css">
-	 <link rel="stylesheet" type="text/css" href="resources/css/base.css">
-	 <link rel="stylesheet" type="text/css" href="resources/css/iconfont.css">
-	
+	<link rel="stylesheet" type="text/css" href="resources/css/iconfont.css">
 	
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
@@ -110,6 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 项目部 -->
     <div  id="item" >
     	<ul>
+<!--     		<li><a href="javascript:openItemEfficiency()"><i class="iconfont icon-bijiben"></i>项目部工效</a></li> -->
     		<li><a href="javascript:openItemHour()"><i class="iconfont icon-bijiben"></i>项目部焊口焊接工时</a></li>
     		<li><a href="javascript:openDetailoverproofs()"><i class="iconfont icon-bijiben"></i>焊接工艺超标明细</a></li>
     		<li><a href="javascript:openItemovertime()"><i class="iconfont icon-bijiben"></i>项目部超时待机统计</a></li>
