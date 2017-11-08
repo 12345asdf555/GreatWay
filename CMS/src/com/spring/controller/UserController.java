@@ -42,9 +42,9 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/logout")
-	@ResponseBody
+
 	public String AllLouout(HttpServletRequest request,HttpServletResponse response){
-		JSONObject obj = new JSONObject();
+/*		JSONObject obj = new JSONObject();
 		try{
 		Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
 		    if (auth != null){    
@@ -55,12 +55,14 @@ public class UserController {
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
 		}
-		return obj.toString();
-/*		    Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
+		return obj.toString();*/
+		
+		    Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
 		    if (auth != null){    
 		        new SecurityContextLogoutHandler().logout(request,response,auth);
 		    }
-		    return "redirect:/login?logout";*/
+		    System.out.println(auth);
+		    return "redirect:/login.jsp?logout";
 	}
 	
 	@RequestMapping("/AllUser")
@@ -140,17 +142,20 @@ public class UserController {
 		try{
 		user.setUserInsframework(Long.parseLong(request.getParameter("userInsframework")));
         user.setStatus(Integer.parseInt(request.getParameter("status")));
+		userService.save(user);
         String str = request.getParameter("rid");
         if(null!=str&&""!=str)
         {
         String[] s = str.split(",");
         for (int i = 0; i < s.length; i++) {
             Integer id = Integer.parseInt(s[i]);
+            user.setId(userService.findByName(user.getUserLoginName()));
             user.setRoleName(userService.findByRoleId(id));
+            user.setRoleId(id);
             userService.saveRole(user);
         }
         }
-		userService.save(user);
+/*		userService.save(user);*/
 		obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
@@ -183,7 +188,7 @@ public class UserController {
 			String str = request.getParameter("rid");
 			Integer uid = Integer.parseInt(request.getParameter("uid"));
 			user.setId(uid);
-			userService.deleteRole(userService.updateUserRole(uid));
+			userService.deleteRole(uid);
 			if(null!=str&&""!=str)
 			{
 	        String[] s = str.split(",");
@@ -191,6 +196,7 @@ public class UserController {
 	            Integer id = Integer.parseInt(s[i]);
 	            /*userService.deleteRole(userService.updateUserRole(uid));*/
 	            user.setRoleName(userService.findByRoleId(id));
+	            user.setRoleId(id);
                 userService.saveRole(user);
 	        }
 			}

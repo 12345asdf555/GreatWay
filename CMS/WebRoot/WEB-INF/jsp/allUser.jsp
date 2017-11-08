@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	
 <%-- 			<c:url value="j_spring_security_logout" var="logoutUrl"/>
    			<a href="${logoutUrl }">退出系统</a> --%>
-   			<a href="javascript:logout();">退出系统</a>
+   			<!-- <a href="javascript:logout();">退出系统</a> -->
         	
     	</div>
     		<!-- 自定义多条件查询 -->

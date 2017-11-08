@@ -16,6 +16,7 @@ public class User{
 	 */
 	private int id;
 	private long insid;
+	private int roleId;
 	private String userName;
 	private String userPassword;
 	private String userLoginName;
@@ -42,6 +43,12 @@ public class User{
 	}
 	public void setInsid(long insid) {
 		this.insid = insid;
+	}
+	public int getRoleId(){
+		return roleId;
+	}
+	public void setRoleId(int roleId){
+		this.roleId = roleId;
 	}
 	public String getUserName() {
 		return userName;
@@ -109,9 +116,10 @@ public class User{
 	public void setInsname(String insname) {
 		this.insname = insname;
 	}
-	public User(int id, String userName, String userPassword, String userLoginName,String userPhone,String userEmail,long userInsframework,String userPosition,int status,String roleName,String authorityName) {
+	public User(int id, int roleId, String userName, String userPassword, String userLoginName,String userPhone,String userEmail,long userInsframework,String userPosition,int status,String roleName,String authorityName) {
 		super();
 		this.id = id;
+		this.roleId = roleId;
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.userLoginName = userLoginName;

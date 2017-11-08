@@ -13,9 +13,10 @@ public interface UserService {
 	void saveRole(User user);
 	boolean update(User user);
 	boolean delete(int id);
-	boolean deleteRole(String userName);
+	boolean deleteRole(int id);
 	User findById(Integer id);
 	String findByRoleId(Integer id);
+	int findByName(String name);
 	List<User> findAll(Page page, String str);
 	List<User> findRole(Integer id);
 	List<User> findAllRole();

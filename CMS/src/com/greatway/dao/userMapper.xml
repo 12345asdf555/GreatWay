@@ -15,7 +15,7 @@
 	
 	<insert id="saveRole" parameterType="User">
 <!-- 		insert into tb_users(users_name,users_password,users_login_name,users_phone,users_email,users_insframework,users_position,status) values(#{userName},#{userPassword},#{userLoginName},#{userPhone},#{userEmail},#{userInsframework},#{userPosition},#{status}); -->
-		insert into tb_users_roles(users_name,roles_name) values(#{userName},#{roleName})
+		insert into tb_users_roles(users_id,roles_id) values(#{id},#{roleId})
 	</insert>
 	
 	<update id="update" parameterType="User">
@@ -27,17 +27,21 @@
 		select users_name userName from tb_users where id=#{id}
 	</select>
 	
-	<delete id="deleteRole" parameterType="String">
-		delete from tb_users_roles where users_name=#{userName};
+	<delete id="deleteRole" parameterType="int">
+		delete from tb_users_roles where users_id=#{id};
 	</delete>
 	
 	<delete id="delete" parameterType="int">
-		delete tb_users,tb_users_roles from tb_users left join tb_users_roles on tb_users.users_name=tb_users_roles.users_name where tb_users.id=#{id};
+		delete tb_users,tb_users_roles from tb_users left join tb_users_roles on tb_users.id=tb_users_roles.users_id where tb_users.id=#{id};
 	</delete>
 	
 	 <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->  
 	<select id="findById" parameterType="int" resultType="User">
 		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_insframework.fid insid,tb_insframework.fname insname from tb_users left join tb_insframework on tb_users.users_insframework=tb_insframework.fid where tb_users.id=#{id}
+	</select>
+	
+	<select id="findByName" parameterType="String" resultType="int">
+		select tb_users.id id from tb_users where tb_users.users_login_name=#{userLoginName}
 	</select>
 	
 	<select id="findByRoleId" parameterType="int" resultType="String">
@@ -56,7 +60,7 @@
 	</select>
 	
 	<select id="findRole" resultType="User">
-		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_users_roles.roles_name roleName from tb_users left join tb_users_roles on tb_users.users_name = tb_users_roles.users_name where tb_users.id=#{id}
+		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_users_roles.roles_id roleId,tb_roles.roles_name roleName from tb_users left join tb_users_roles on tb_users.id = tb_users_roles.users_id left join tb_roles on tb_roles.id=tb_users_roles.roles_id where tb_users.id=#{id}
 	</select>
 	
 	<select id="getIns" resultType="User">
@@ -82,7 +86,7 @@
          tb_users_roles d,    
          tb_users u,    
          tb_roles o    
-         where d.users_name = u.users_name and d.roles_name = o.roles_name and u.users_name = #{userName}    
+         where d.users_id = u.id and d.roles_id = o.id and u.users_login_name = #{userName}    
          )  
 	</select>
 	

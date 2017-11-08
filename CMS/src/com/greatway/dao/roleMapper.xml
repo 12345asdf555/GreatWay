@@ -20,7 +20,7 @@
 	
 	<insert id="saveUser" parameterType="Role">
     	<!-- insert into tb_roles(roles_name,roles_desc,status) values(#{roleName},#{roleDesc},#{roleStatus}); -->
-		insert into tb_users_roles(users_name,roles_name) values(#{userName},#{roleName})
+		insert into tb_users_roles(users_id,roles_id) values(#{userId},#{id})
 	</insert>
 	
 	<update id="update" parameterType="Role">
@@ -32,8 +32,8 @@
 		delete from tb_roles where id=#{id};
 	</delete>
 	
-	<delete id="delete1" parameterType="String">
-		delete from tb_users_roles where roles_name=#{roleName};
+	<delete id="delete1" parameterType="int">
+		delete from tb_users_roles where roles_id=#{id};
 	</delete>
 	
 	<delete id="delete2" parameterType="String">
@@ -52,8 +52,8 @@
 		delete from tb_roles_authorities where roles_name=#{roleName};
 	</delete>
 	
-	<delete id="deleteUser" parameterType="String">
-		delete from tb_users_roles where roles_name=#{roleName};
+	<delete id="deleteUser" parameterType="int">
+		delete from tb_users_roles where roles_id=#{id};
 	</delete>
 	
 	 <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->  
@@ -85,7 +85,7 @@
 		select id id,users_name userName from tb_users
 	</select>
 	<select id="findUser" resultType="Role">
-		select tb_roles.id id,tb_roles.roles_name roleName,tb_roles.roles_desc roleDesc,tb_roles.status roleStatus,tb_users_roles.users_name userName from tb_roles left join tb_users_roles on tb_roles.roles_name=tb_users_roles.roles_name where tb_roles.id=#{id}
+		select tb_roles.id id,tb_roles.roles_name roleName,tb_roles.roles_desc roleDesc,tb_roles.status roleStatus,tb_users_roles.users_id userId,tb_users.users_name userName from tb_roles left join tb_users_roles on tb_roles.id=tb_users_roles.roles_id left join tb_users on tb_users.id = tb_users_roles.users_id where tb_roles.id=#{id}
 	</select>
 	
 	<select id="getRolenameCount" parameterType="String" resultType="java.lang.Integer">

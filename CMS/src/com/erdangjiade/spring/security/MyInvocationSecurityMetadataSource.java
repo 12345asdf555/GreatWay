@@ -13,8 +13,12 @@ import javax.annotation.Resource;
 import org.springframework.security.access.ConfigAttribute;  
 import org.springframework.security.access.SecurityConfig;  
 import org.springframework.security.web.FilterInvocation;  
-import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;  
- 
+import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.erdangjiade.spring.security.tool.AntUrlPathMatcher;  
 import com.erdangjiade.spring.security.tool.UrlMatcher;
 import com.spring.model.Authority;
@@ -22,6 +26,9 @@ import com.spring.model.Role;
 import com.spring.service.AuthorityService;
 import com.spring.service.ResourceService;  
  
+@Controller
+@RequestMapping(value = "/reload",produces = { "text/json;charset=UTF-8" })
+
 public class MyInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {   
     private UrlMatcher urlMatcher = new AntUrlPathMatcher();   
  
@@ -39,6 +46,8 @@ public class MyInvocationSecurityMetadataSource implements FilterInvocationSecur
      * 指定init为初始化方法，从数据库中读取资源   
      * TODO(这里用一句话描述这个方法的作用).  
      */    
+    @RequestMapping("/init")
+	@ResponseBody
     @PostConstruct    
     public void init() {    
         loadResourceDefine();    

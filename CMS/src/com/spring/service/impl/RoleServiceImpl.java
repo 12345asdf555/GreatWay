@@ -29,9 +29,9 @@ public class RoleServiceImpl implements RoleService {
 		return mapper.delete(id);
 	}
 	
-	public boolean delete1(String roleName) {
+	public boolean delete1(int id) {
 		
-		return mapper.delete1(roleName);
+		return mapper.delete1(id);
 	}
 	
 	public boolean delete2(String roleName) {
@@ -48,9 +48,9 @@ public class RoleServiceImpl implements RoleService {
 		return mapper.getRolenameCount(roleName);
 	}
 	
-	public boolean deleteUser(String roleName) {
+	public boolean deleteUser(int id) {
 		
-		return mapper.deleteAuthority(roleName);
+		return mapper.deleteUser(id);
 	}
 
 	public List<Role> findAll(Page page,String str) {

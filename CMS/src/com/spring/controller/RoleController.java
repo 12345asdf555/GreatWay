@@ -179,14 +179,17 @@ public class RoleController {
    
 		String str = request.getParameter("uid");
 		Integer rid = Integer.parseInt(request.getParameter("rid"));
-		roleService.deleteUser(roleService.updateRoleUser(rid));
-        String[] s = str.split(",");
+		roleService.deleteUser(rid);
+		if(null!=str&&""!=str){
+		String[] s = str.split(",");
         for (int i = 0; i < s.length; i++) {
             Integer id = Integer.parseInt(s[i]);
             /*roleService.deleteUser(roleService.updateRoleUser(rid));*/
             role.setUserName(roleService.findByUserId(id));
+            role.setUserId(id);
             roleService.saveUser(role);
         }
+		}
 			return "redirect:/role/getAllRole";
 	}
 	/**
@@ -221,7 +224,7 @@ public class RoleController {
 		try{
 			 Role role = roleService.findById(new Integer(id));
 			 roleService.delete2(role.getRoleName());
-			 roleService.delete1(role.getRoleName());
+			 roleService.delete1(role.getRoleId());
 			 roleService.delete(new Integer(role.getId()));
 			 obj.put("success", true);
 		}catch(Exception e){

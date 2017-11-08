@@ -27,9 +27,9 @@ public class UserServiceImpl implements UserService {
 		return mapper.delete(id);
 	}
 	
-	public boolean deleteRole(String userName) {
+	public boolean deleteRole(int id) {
 		
-		return mapper.deleteRole(userName);
+		return mapper.deleteRole(id);
 	}
 	
 	public int getUsernameCount(String userName) {
@@ -45,6 +45,10 @@ public class UserServiceImpl implements UserService {
 	public List<User> findAllRole() {
 		List<User> findAllRoleList = mapper.findAllRole();
 		return findAllRoleList;
+	}
+	
+	public int findByName(String name){
+		return mapper.findByName(name);
 	}
 	
 	public List<User> getIns() {

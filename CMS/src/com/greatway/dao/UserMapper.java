@@ -12,8 +12,9 @@ public interface UserMapper {
 	void saveRole(User user);
 	boolean update(User user);
 	boolean delete(int id);
-	boolean deleteRole(String userName);
+	boolean deleteRole(int id);
 	User findById(Integer id);
+	int findByName(String name);
 	String findByRoleId(Integer id);
 	List<User> findAll(@Param("str")String str);
 	int getUsernameCount(@Param("userName")String userName);

@@ -45,6 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a href="javascript:void(0)">首页</a>
 					<a href="javascript:void(0)">实时监控</a>
 					<a href="javascript:void(0)">数据分析</a>
+					<a href="user/logout" style="margin-right:-590px;">注销</a>
 				</div>
 			</div>
 		</div>

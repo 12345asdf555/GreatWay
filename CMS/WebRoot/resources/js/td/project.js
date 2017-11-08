@@ -77,6 +77,7 @@ function newSearch(){
 			            	var num3 = 0;
 			            	var r = result.rows;
 			            	var c = eval(r);
+			            	
 			            	for(var index = 0;index < c.length;index=index+3)
 			            	{
 			            	/*var i = Math.floor(index/3);*/
@@ -120,15 +121,14 @@ function newSearch(){
 		    			        	}
 		    			        	document.getElementById("welderName"+i+"").value=name;
 		    			        }})
-		            		
-		            		document.getElementById("btnReg"+i+"").value=c[index].fequipment_no;
-		            		document.getElementById("voltage"+i+"").value=parseInt(c[index].voltage,16);
-		            		document.getElementById("electricity"+i+"").value=parseInt(c[index].electricity,16);
-		            		document.getElementById("welderNo"+i+"").value=c[index].fwelder_no;
+			            		document.getElementById("btnReg"+i+"").value=parseInt(c[index].fequipment_no,16);
+			            		document.getElementById("voltage"+i+"").value=parseInt(c[index].electricity,16);
+			            		document.getElementById("electricity"+i+"").value=parseInt(c[index].voltage,16);
+			            		document.getElementById("welderNo"+i+"").value=parseInt(c[index].fwelder_no,16);
 		            		/*document.getElementById("position"+i+"").value=c[index].fposition;*/
 		            		}
 		            		else{
-		            			document.getElementById("btnReg"+i+"").value=c[index].fequipment_no;
+		            			document.getElementById("btnReg"+i+"").value=parseInt(c[index].fequipment_no,16);
 		            		}
 				            document.getElementById("statusn").value=i;
 				            	/*if(c[l].finsframework_id==document.getElementById("project").value){*/

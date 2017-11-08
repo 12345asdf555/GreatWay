@@ -12,10 +12,10 @@ import com.spring.model.Role;
 		void saveUser(Role role);
 		boolean update(Role role);
 		boolean delete(int id);
-		boolean delete1(String roleName);
+		boolean delete1(int id);
 		boolean delete2(String roleName);
 		boolean deleteAuthority(String roleName);
-		boolean deleteUser(String roleName);
+		boolean deleteUser(int id);
 		Role findById(int id);
 		String findByAuthorityId(Integer id);
 		String findByUserId(Integer id);
@@ -28,4 +28,3 @@ import com.spring.model.Role;
 		List<Role> findUser(Integer id);
 		int getRolenameCount(String roleName);
 	}
-

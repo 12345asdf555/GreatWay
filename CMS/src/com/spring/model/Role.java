@@ -7,6 +7,7 @@ public class Role {
 
 	private int id;
 	private int roleId;
+	private int userId;
 	private int authorityId;
 	private int authoritiesId;
 	private String userName;
@@ -32,6 +33,12 @@ public class Role {
 	}
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
+	}
+	public int getUserId(){
+		return userId;
+	}
+	public void setUserId(int userId){
+		this.userId = userId;
 	}
 	public int getAuthorityId() {
 		return authorityId;
@@ -93,10 +100,11 @@ public class Role {
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
-	public Role(int id, String roleName,String userName,String roleDesc,int roleStatus,String authorityName,String resourceName,int enabled, int roleId, int authorityId, int authoritiesId) {
+	public Role(int id, int userId, String roleName,String userName,String roleDesc,int roleStatus,String authorityName,String resourceName,int enabled, int roleId, int authorityId, int authoritiesId) {
 		super();
 		this.id = id;
 		this.roleId = roleId;
+		this.userId = userId;
 		this.authorityId = authorityId;
 		this.userName = userName;
 		this.roleName = roleName;

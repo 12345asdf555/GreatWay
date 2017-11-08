@@ -50,15 +50,15 @@
 				/*alert(msg.data);*/
 				dd = msg.data;
 				var va = document.getElementById("hid1").value;
-				for(var j = 0;j < 3;j++){
+				for(var j = 0;j < 1;j++){
 					for(var i = 0;i < dd.length;i+=58){
-						if(va == dd.substring(4+i, 8+i)&&dd.substring(13+i, 17+i)!="0000"){
-						var mach = dd.substring(4+i, 8+i);
+						if(va == parseInt(dd.substring(4+i, 8+i),16)&&dd.substring(13+i, 17+i)!="0000"){
+						var mach = parseInt(dd.substring(4+i, 8+i),16);
 						var weld = dd.substring(13+i, 17+i);
 						var xx = dd.substring(17+i, 21+i);
 						num1[jj] = parseInt(xx,16);
 						num2[jj] = parseInt(dd.substring(21+i, 25+i),16);
-						time1[j] = new Date(dd.substring(25+i, 46+i));
+						time1[jj] = new Date(dd.substring(25+i, 46+i));
 						maxele = parseInt(dd.substring(46+i, 49+i));
 						minele = parseInt(dd.substring(49+i, 52+i));
 						maxvol = parseInt(dd.substring(52+i, 55+i));
@@ -82,7 +82,7 @@
     			        }})
             		}
 					}				
-				document.getElementById("machid").value = mach;
+				/*document.getElementById("machid").value = mach;*/
 			};
 			//关闭事件
 			socket.onclose = function() {
@@ -184,7 +184,7 @@
   		                    series.addPoint([x, y], true, true);
   		                    series1.addPoint([x, y1], true, true);
   		                    activeLastPointToolip(chart);
-  		                }, 1000);
+  		                }, 1150);
   		            }
   		        }
   		    },
@@ -196,65 +196,31 @@
   		        tickPixelInterval: 150
   		    },
   		    yAxis: [{
-                max:400, // 定义Y轴 最大值  
+                max:280, // 定义Y轴 最大值  
                 min:0, // 定义最小值  
                 minPadding: 0.2,   
                 maxPadding: 0.2,  
-                tickInterval:80,
+                tickInterval:40,
+                color:'#A020F0',
   		        title: {
-  		            text: '电流'
-  		        },
-/*  		        plotLines: [{
-  		            value: maxele,
-  		            width: 1,
-  		            color: 'black',
-  		            dashStyle:'longdashdot',
-  		          label:{
-  		            text:'最高电流',     //标签的内容
-  		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-  		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+  		            text: '电流',
+  	                style: {  
+  	                    color: '#A020F0'  
+  	                }  
   		        }
-  		        },{
-  		            value: minele,
-  		            width: 1,
-  		            color: 'black',
-  		          dashStyle:'longdashdot',
-  		          label:{
-  		            text:'最低电流',     //标签的内容
-  		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-  		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-  		        }
-  		        }],*/
   		    },{
-                max:60, // 定义Y轴 最大值  
+                max:105, // 定义Y轴 最大值  
                 min:0, // 定义最小值  
                 minPadding: 0.2,   
                 maxPadding: 0.2,  
-                tickInterval:12,
+                tickInterval:15,
+                color:'#87CEFA',
   		    	title: {
-  		            text: '电压'
+  		            text: '电压',
+  	                style: {  
+  	                    color: '#87CEFA'  
+  	                }  
   		        },
-/*  		        plotLines: [{
-  		            value: 80,
-  		            width: 2,
-  		            color: 'blue',
-  		            dashStyle:'longdashdot',
-		          label:{
-	  		            text:'最高电压',     //标签的内容
-	  		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-	  		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-	  		        }
-  		        },{
-  		            value: 20,
-  		            width: 2,
-  		            color: 'blue',
-  		            dashStyle:'longdashdot',
-		          label:{
-	  		            text:'最低电压',     //标签的内容
-	  		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-	  		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-	  		        }
-  		        }],*/
   		      opposite: true  
   		    }],
   		    tooltip: {
@@ -272,7 +238,8 @@
   		    },
   		    series: [{
   		    	color:'#A020F0',
-  		        name: '电压',
+  		        name: '电流',
+  		        
   		        data: (function () {
   		            // generate an array of random data
   		            var data = [],
@@ -288,7 +255,8 @@
   		        }())
   		    },{
 
-  		        name: '电流',
+  		        name: '电压',
+  		        yAxis: 1,
   		        data: (function () {
   		            // generate an array of random data
   		            var data = [],
