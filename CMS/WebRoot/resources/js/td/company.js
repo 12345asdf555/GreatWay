@@ -89,26 +89,26 @@ function newSearch(){
             				{
 			    var str = "<div id='div"+index+"' style='width:270px;heigth:250px;float:left;'>" +
 				"<div>" +
-				"<input id='btnReg"+index+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
+				"<input class='liveInput' id='btnReg"+index+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
 				"<div>" +
 				"<label for='status' style='text-align:center;display:inline-block;width:20px'/>焊机总数</lable>&nbsp;" +
-				"<input class='easyui-textbox' name='status"+index+"' id='status"+index+"' value='0' readonly='true'/></div>&nbsp;" +
+				"<input class='liveInput' type='text' name='status"+index+"' id='status"+index+"' value='0' readonly='true'/></div>&nbsp;" +
 				"<div>" +
 				"<div style=' width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
 				"<label for='on' style='text-align:center;display:inline-block'/>工作总数</lable>&nbsp;" +
-				"<input class='easyui-textbox' name='on"+index+"' id='on"+index+"' value='0'/ readonly='true'></div>&nbsp;" +
+				"<input class='liveInput' type='text' name='on"+index+"' id='on"+index+"' value='0'/ readonly='true'></div>&nbsp;" +
 				"<div>" +
 				"<div style=' width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
 				"<label for='warning' style='text-align:center;display:inline-block'/>报警总数</lable>&nbsp;" +
-				"<input class='easyui-textbox' name='warning"+index+"' id='warning"+index+"' value='0' readonly='true'/></div>&nbsp;" +
+				"<input class='liveInput' type='text' name='warning"+index+"' id='warning"+index+"' value='0' readonly='true'/></div>&nbsp;" +
 				"<div>" +
 				"<div style=' width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
 				"<label for='wait' style='text-align:center;display:inline-block'/>待机总数</lable>&nbsp;" +
-				"<input class='easyui-textbox' name='wait"+index+"' id='wait"+index+"' value='0' readonly='true'/></div>&nbsp;" +
+				"<input class='liveInput' type='text' name='wait"+index+"' id='wait"+index+"' value='0' readonly='true'/></div>&nbsp;" +
 				"<div>" +
 				"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
 				"<label for='off' style='text-align:center;display:inline-block'/>关机总数</lable>&nbsp;" +
-				"<input class='easyui-textbox' name='off"+index+"' id='off"+index+"' value='0' readonly='true'/></div><div/>";
+				"<input class='liveInput' type='text' name='off"+index+"' id='off"+index+"' value='0' readonly='true'/></div><div/>";
 				$("#body").append(str);
             	}
 				document.getElementById("btnReg"+index+"").value=dd[index].fname;

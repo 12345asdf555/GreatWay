@@ -87,22 +87,22 @@ function newSearch(){
 			            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
 			            			"<div>" +
 			            			"<div style=' width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;' id='fequipment_no"+i+"'/><div/>&nbsp;" +
-			            			"<input id='btnReg"+i+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
+			            			"<input class='liveInput' id='btnReg"+i+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
 			            			"<div>" +
 			            			"<label for='vol' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;压</lable>&nbsp;" +
-			            			"<input class='easyui-textbox' id='voltage"+i+"' readonly='true' value=''/></div>&nbsp;" +
+			            			"<input class='liveInput' type='text' id='voltage"+i+"' readonly='true' value=''/></div>&nbsp;" +
 			            			"<div>" +
 			            			"<label for='ele' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流</lable>&nbsp;" +
-			            			"<input class='easyui-textbox' id='electricity"+i+"' readonly='true' value=''/></div>&nbsp;" +
+			            			"<input class='liveInput' type='text' id='electricity"+i+"' readonly='true' value=''/></div>&nbsp;" +
 			            			"<div>" +
 			            			"<label for='num' style='text-align:center;display:inline-block'/>焊工编号</lable>&nbsp;" +
-			            			"<input class='easyui-textbox' id='welderNo"+i+"' readonly='true' value=''/></div>&nbsp;" +
+			            			"<input class='liveInput' type='text' id='welderNo"+i+"' readonly='true' value=''/></div>&nbsp;" +
 			            			"<div>" +
 			            			"<label for='name' style='text-align:center;display:inline-block'/>焊工姓名</lable>&nbsp;" +
-			            			"<input class='easyui-textbox' id='welderName"+i+"' readonly='true' value=''/></div>&nbsp;" +
+			            			"<input class='liveInput' type='text' id='welderName"+i+"' readonly='true' value=''/></div>&nbsp;" +
 			            			"<div>" +
 			            			"<label for='po' style='text-align:center;display:inline-block'/>设备位置</lable>&nbsp;" +
-			            			"<input class='easyui-textbox' id='position"+i+"' readonly='true' value='"+c[index].fposition+"'/></div><div/>";
+			            			"<input class='liveInput' type='text' id='position"+i+"' readonly='true' value='"+c[index].fposition+"'/></div><div/>";
 			            	$("#body").append(str);
 		            		}
 			            	

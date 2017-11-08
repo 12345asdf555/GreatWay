@@ -32,22 +32,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white; height: 335px;">
        <div>
             <div style="margin-bottom:10px;" align="left">
-               <input name="project" id="project" value="${proj}" readonly="true" class="easyui-textbox">
+               <input class='liveInput' name="project" id="project" value="${proj}" readonly="true" class="easyui-textbox">
             </div>
             <div style="margin-bottom:10px" align="left">
-               <label for="status" style="text-align:center;display:inline-block;width:65px">焊机总数</label> <input name="statusn" id="statusn" value="0" type="text"/>
+               <label for="status" style="text-align:center;display:inline-block;width:65px">焊机总数</label> <input class='liveInput' name="statusn" id="statusn" value="0" type="text"/>
             </div>
             <div style="margin-bottom:10px;">
-               <div style=" width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;"></div><label for="on" style="text-align:center;display:inline-block">工作总数</label> <input name="onn" id="onn" value="0" type="text"/>
+               <div style=" width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;"></div><label for="on" style="text-align:center;display:inline-block">工作总数</label> <input class='liveInput' name="onn" id="onn" value="0" type="text"/>
             </div>
             <div style="margin-bottom:10px">
-               <div style=" width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;"></div><label for="warning" style="text-align:center;display:inline-block">报警总数</label> <input name="warningn" id="warningn" value="0" type="text"/>
+               <div style=" width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;"></div><label for="warning" style="text-align:center;display:inline-block">报警总数</label> <input class='liveInput' name="warningn" id="warningn" value="0" type="text"/>
             </div>
             <div style="margin-bottom:10px">
-               <div style=" width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;"></div><label for="wait" style="text-align:center;display:inline-block">待机总数</label> <input name="waitn" id="waitn" value="0" type="text"/>
+               <div style=" width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;"></div><label for="wait" style="text-align:center;display:inline-block">待机总数</label> <input class='liveInput' name="waitn" id="waitn" value="0" type="text"/>
             </div>
             <div style="margin-bottom:10px">
-                <div style=" width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;"></div><label for="off" style="text-align:center;display:inline-block">关机总数</label> <input name="offn" id="offn" value="0" type="text""/>
+                <div style=" width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;"></div><label for="off" style="text-align:center;display:inline-block">关机总数</label> <input class='liveInput' name="offn" id="offn" value="0" type="text""/>
             </div>
 		</div>
 		
