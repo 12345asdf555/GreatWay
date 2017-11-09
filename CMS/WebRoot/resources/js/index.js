@@ -156,6 +156,10 @@ function openCompanyTd(){
 	addTab("实时监测","td/AllTd");
 }
 
+function openItemEfficiency(){
+	addTab("项目部工效","itemChart/goItemEfficiency");
+}
+
 function openItemHour(){
 	addTab("项目部焊口焊接工时","itemChart/goItemHour");
 }

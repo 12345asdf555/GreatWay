@@ -86,6 +86,8 @@
         <result property="overtime" column="overtime"></result>
         <result property="time" column="time"></result>
         <result property="type" column="type"></result>
+        <result property="dyne" column="dyne"></result>
+        <result property="num" column="num"></result>
     </resultMap>
     
     <!-- 集团焊接工时 -->
@@ -2187,7 +2189,7 @@
 	<select id="getItemEfficiency" resultMap="dtoMap">
 		select * from (
 		select *,count(wname) from (
-		SELECT i.fname iname,w.fname wname,w.fwelder_no,sum(j.fdyne) dyne,COUNT(l.fid) weldtime,count(l.fjunction_id)junctionnum
+		SELECT i.fname iname,w.fname wname,w.fwelder_no,sum(j.fdyne) dyne,round(COUNT(l.fid)/60/60) weldtime
 		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId

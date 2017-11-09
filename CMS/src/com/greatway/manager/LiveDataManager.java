@@ -317,4 +317,13 @@ public interface LiveDataManager {
 	 * @return
 	 */
 	List<LiveData> getBlocChildren();
+	
+	/**
+	 * 项目部工效
+	 * @param page分页
+	 * @param parent父id
+	 * @param dto扩展参数类
+	 * @return
+	 */
+	List<ModelDto> getItemEfficiency(Page page,BigInteger parent,WeldDto dto);
 }
