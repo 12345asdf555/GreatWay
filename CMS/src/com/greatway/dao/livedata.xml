@@ -2184,6 +2184,31 @@
 		)temp
 	</select>
 	
+	<select id="getItemEfficiency" resultMap="dtoMap">
+		select * from (
+		select *,count(wname) from (
+		SELECT i.fname iname,w.fname wname,w.fwelder_no,sum(j.fdyne) dyne,COUNT(l.fid) weldtime,count(l.fjunction_id)junctionnum
+		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
+		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
+		inner join tb_insframework i on i.fid = j.fitemId
+		inner join tb_insframework ins on ins.fid = i.fparent
+		where 1=1 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		<if test="parent!=null and parent!=''">
+			AND (i.fid = #{parent} or i.fparent=#{parent} or ins.fparent=#{parent}) 
+		</if>
+		group by l.fjunction_id,w.fname
+		)A group by wname
+		)temp
+	</select>
+	
 	<select id="getBlocChildren" resultMap="liveMap">
 		SELECT fid,fname from tb_insframework where ftype=21
 	</select>

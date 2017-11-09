@@ -154,15 +154,17 @@ public class CompanyChartController {
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -213,15 +215,17 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -323,15 +327,17 @@ public class CompanyChartController {
 		String type = request.getParameter("otype");
 		String number = request.getParameter("number");
 		WeldDto dto = new WeldDto();
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -430,15 +436,17 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -538,15 +546,17 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -653,15 +663,17 @@ public class CompanyChartController {
 		String type = request.getParameter("otype");
 		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){

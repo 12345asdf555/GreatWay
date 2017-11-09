@@ -156,17 +156,19 @@ public class CaustChartController {
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int type = insm.getUserInsfType(uid);
-		if(type==21){
-			dto.setParent(insm.getUserInsfId(uid));
-		}else if(type==22){
-			parentId = insm.getUserInsfId(uid).toString();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int type = insm.getUserInsfType(uid);
+			if(type==21){
+				dto.setParent(insm.getUserInsfId(uid));
+			}else if(type==22){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -218,19 +220,21 @@ public class CaustChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			dto.setCompanyid(insm.getUserInsfId(uid));
-			pid = insm.getUserInsfId(uid);
-		}else if(types==22){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = insm.getUserInsfId(uid);
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				dto.setCompanyid(insm.getUserInsfId(uid));
+				pid = insm.getUserInsfId(uid);
+			}else if(types==22){
+				parentId = insm.getUserInsfId(uid).toString();
+				pid = insm.getUserInsfId(uid);
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -333,19 +337,21 @@ public class CaustChartController {
 		String number = request.getParameter("number");
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
-		}else if(types==22){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+				pid = new BigInteger(parentId);
+			}else if(types==22){
+				parentId = insm.getUserInsfId(uid).toString();
+				pid = new BigInteger(parentId);
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -448,19 +454,21 @@ public class CaustChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
-		}else if(types==22){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+				pid = new BigInteger(parentId);
+			}else if(types==22){
+				parentId = insm.getUserInsfId(uid).toString();
+				pid = new BigInteger(parentId);
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -562,19 +570,21 @@ public class CaustChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
-		}else if(types==22){
-			parentId = insm.getUserInsfId(uid).toString();
-			pid = new BigInteger(parentId);
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+				pid = new BigInteger(parentId);
+			}else if(types==22){
+				parentId = insm.getUserInsfId(uid).toString();
+				pid = new BigInteger(parentId);
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -680,17 +690,19 @@ public class CaustChartController {
 		String type = request.getParameter("otype");
 		String parent = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
-		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parent = insm.getUserInsfId(uid).toString();
-		}else if(types==22){
-			parent = insm.getUserInsfId(uid).toString();
+		if(!iutil.isNull(parent)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parent = insm.getUserInsfId(uid).toString();
+			}else if(types==22){
+				parent = insm.getUserInsfId(uid).toString();
+			}
 		}
 		BigInteger parentid = null;
 		if(iutil.isNull(time1)){
