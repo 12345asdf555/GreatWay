@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatway.dao.DictionaryMapper">
+
+	<resultMap id="dMap" type="com.greatway.model.Dictionarys">
+        <id property="id" column="fid"></id> 
+        <result property="typeid" column="ftypeid"></result>  
+        <result property="value" column="fvalue"></result>
+        <result property="valueName" column="fvaluename"></result>
+        <result property="back" column="fback"></result>
+	</resultMap>
+</mapper>

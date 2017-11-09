@@ -1,0 +1,2190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatway.dao.LiveDataMapper">
+
+	<resultMap id="liveMap" type="com.greatway.model.LiveData">
+		<id property="id" column="fid"></id> 
+        <result property="electricity" column="felectricity"></result>  
+        <result property="voltage" column="fvoltage"></result>  
+        <result property="rateofflow" column="frateofflow"></result>
+       	<result property="status" column="fstatus"></result>
+       	<result property="uploadDateTime" column="fuploaddatetime"></result>
+       	<result property="weldTime" column="weldtime"></result>
+       	<result property="dyne" column="dynes"></result>
+       	<result property="hous" column="hous"></result>
+       	<result property="fid" column="fid"></result>
+       	<result property="fname" column="fname"></result>
+       	<result property="externalDiameter" column="fexternal_diameter"></result>
+       	<result property="wallThickness" column="fwall_thickness"></result>
+       	<result property="material" column="fmaterial"></result>
+       	<result property="nextexternaldiameter" column="fnextExternal_diameter"></result>
+       	<result property="itemid" column="itemid"></result>
+       	<result property="overproof" column="overproof"></result>
+       	<association property="machine" column="fmachine_id" javaType="com.greatway.model.WeldingMachine">
+       		<id property="id" column="mid"></id> 
+			<result property="equipmentNo" column="fequipment_no" />		
+			<result property="position" column="fposition" />
+			<result property="isnetworking" column="fisnetworking" />
+			<result property="joinTime" column="fjoin_time" />
+			<result property="typeId" column="ftype_id" />
+			<result property="statusId" column="fstatus_id" />
+       	</association>
+       	<association property="welder" column="fwelder_id" javaType="com.greatway.model.Welder">
+       		<id property="id" column="wid"></id> 
+	        <result property="welderno" column="fwelder_no"></result>  
+	        <result property="name" column="fname"></result>
+       	</association>
+       	<association property="junction" column="fjunction_id" javaType="com.greatway.model.WeldedJunction">
+       		<id property="id" column="jid"></id> 
+	        <result property="weldedJunctionno" column="fwelded_junction_no"></result>  
+	        <result property="serialNo" column="fserial_no"></result>
+	        <result property="pipelineNo" column="fpipeline_no"></result>
+	        <result property="roomNo" column="froom_no"></result>
+	        <result property="unit" column="funit"></result>
+	        <result property="area" column="farea"></result>
+	        <result property="systems" column="fsystems"></result>
+	        <result property="children" column="fchildren"></result>
+	        <result property="externalDiameter" column="fexternal_diameter"></result>
+	        <result property="wallThickness" column="fwall_thickness"></result>
+	        <result property="dyne" column="fdyne"></result>
+	        <result property="specification" column="fspecification"></result>
+	        <result property="maxElectricity" column="fmax_electricity"></result>
+	        <result property="minElectricity" column="fmin_electricity"></result>
+	        <result property="maxValtage" column="fmax_valtage"></result>
+	        <result property="minValtage" column="fmin_valtage"></result>
+	        <result property="startTime" column="fstart_time"></result>
+	        <result property="endTime" column="fend_time"></result>
+	        <result property="material" column="fmaterial"></result>
+	        <result property="nextexternaldiameter" column="fnextExternal_diameter"></result>
+	        <association property="itemid" column="fitemId" javaType="com.greatway.model.Insframework">  
+	            <id property="id" column="iid"></id> 
+	            <result property="name" column="iname"></result>  
+	            <result property="logogram" column="flogogram"></result>  
+	            <result property="code" column="fcode"></result>
+	        	<result property="parent" column="fparent"></result>
+	        	<result property="type" column="ftype"></result>
+        	</association>
+       	</association>
+	</resultMap>
+	
+	<resultMap id="dtoMap" type="com.greatway.dto.ModelDto">
+		<id property="fid" column="fid"></id> 
+        <result property="overproof" column="overproof"></result>
+        <result property="weldTime" column="weldTime"></result>
+        <result property="fname" column="fname"></result>
+        <result property="f_welder_id" column="f_welder_id"></result>
+        <result property="fmachine_id" column="fmachine_id"></result>
+        <result property="fjunction_id" column="fjunction_id"></result>
+        <result property="felectricity" column="felectricity"></result>
+        <result property="fvoltage" column="fvoltage"></result>
+        <result property="iname" column="iname"></result>
+        <result property="wname" column="wname"></result>
+        <result property="livecount" column="livecount"></result>
+        <result property="fmax_electricity" column="fmax_electricity"></result>
+        <result property="fmin_electricity" column="fmin_electricity"></result>
+        <result property="overtime" column="overtime"></result>
+        <result property="time" column="time"></result>
+        <result property="type" column="type"></result>
+    </resultMap>
+    
+    <!-- 集团焊接工时 -->
+	<select id="getBlochour" resultMap="liveMap">
+		SELECT *
+		FROM (
+		(
+		SELECT count( l.fid ) AS hous, sum( fdyne ) dynes, insf.fname fname, insf.fid fid
+		FROM tb_live_data l
+		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
+		WHERE fstatus  &lt; 3
+		AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY i.fparent
+		)
+		UNION (
+		SELECT 0 AS hous, 0 AS dyne, fname, fid
+		FROM tb_insframework
+		WHERE fid NOT
+		IN (
+		SELECT insf.fid
+		FROM tb_live_data l
+		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+	    INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
+		WHERE fstatus  &lt; 3
+		AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY i.fparent
+		)
+		AND ftype =21
+		)
+		)temp
+		ORDER BY fid
+	</select>
+    
+
+	<!-- 事业部焊接工时 -->
+	<select id="getCausehour" resultMap="liveMap">
+		select * from (
+		(SELECT count( l.fid ) AS hous, sum( fdyne ) dynes, i.fname fname, i.fid fid
+		FROM tb_live_data l
+		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+        INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE fstatus &lt; 3
+		AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		<if test="parent==null and parent==''">
+			AND i.fparent
+			IN (
+			SELECT fid
+			FROM tb_insframework
+			WHERE ftype =22
+			)
+		</if>
+		<if test="parent!=null and parent!=''">
+			AND i.fparent = #{parent}
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				and ins.fparent=#{dto.parent}
+			</if>
+		</if>
+		GROUP BY i.fname
+		) 
+		UNION (
+		SELECT 0 AS hous, 0 AS dyne, i.fname, i.fid
+		FROM tb_insframework i
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE 1=1
+		<if test="parent!=null and parent!=''">
+			AND i.fparent = #{parent}
+		</if>
+		and i.fid NOT
+		IN (
+		SELECT i.fid
+		FROM tb_live_data l
+		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		WHERE fstatus &lt; 3
+		AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		<if test="parent==null and parent==''">
+			AND i.fparent
+			IN (
+			SELECT fid
+			FROM tb_insframework
+			WHERE ftype =22
+			)
+		</if>
+		<if test="parent!=null and parent!=''">
+			AND i.fparent = #{parent}
+		</if>
+		GROUP BY i.fname
+		)
+		AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				and ins.fparent=#{dto.parent}
+			</if>
+		</if>
+		GROUP BY i.fname
+		))temp group by fid
+	</select>
+
+	<!-- 公司焊接工时 -->
+	<select id="getCompanyhour" resultMap="liveMap">
+		SELECT *
+		FROM (
+		(
+		SELECT count( l.fid ) AS hous, sum( fdyne ) dynes, ins.fname fname, ins.fid fid
+		FROM tb_live_data l
+		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE fstatus  &lt; 3
+		AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		<if test="parent!=null and parent!=''">
+			AND ins.fparent = #{parent}
+		</if>
+		GROUP BY i.fparent
+		)
+		UNION (
+		SELECT 0 AS hous, 0 AS dyne, fname, fid
+		FROM tb_insframework
+		WHERE 1=1
+		<if test="parent!=null and parent!=''">
+			AND fparent = #{parent}
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoId!=null and dto.dtoId!=''">
+				and fid = #{dto.dtoId}
+			</if>
+		</if>
+		and fid NOT
+		IN (
+		SELECT ins.fid
+		FROM tb_live_data l
+		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		LEFT JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE fstatus  &lt; 3
+		AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		<if test="parent!=null and parent!=''">
+			AND ins.fparent = #{parent}
+		</if>
+		GROUP BY i.fparent
+		)
+		AND ftype =22
+		)
+		)temp
+		ORDER BY fid
+	</select>
+
+	<!-- 项目部焊口工时 -->
+	<select id="getItemhour" resultMap="liveMap">
+		select * from (
+		SELECT count( l.fid ) AS hous, sum( fdyne ) dynes, fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,j.fid fid,j.fitemid itemid
+		FROM tb_live_data l
+		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE fstatus &lt; 3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				AND i.fparent =#{dto.parent}
+			</if>
+			<if test="dto.companyid!=null and dto.companyid!=''">
+				AND ins.fparent =#{dto.companyid}
+			</if>
+		</if>
+		AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
+				AND j.fitemid =#{dto.dtoItem}
+			</if>
+		</if>
+		GROUP BY fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,j.fitemid
+		UNION
+		SELECT 0 AS hous, 0 as dynes, fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,junction.fid,fitemid FROM tb_welded_junction junction
+		inner join tb_live_data l on junction.fwelded_junction_no = l.fjunction_id
+		inner join tb_insframework insf on junction.fitemId=insf.fid
+		INNER JOIN tb_insframework ins ON ins.fid = insf.fparent
+		where 1=1 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
+				and junction.fitemId = #{dto.dtoItem}
+			</if>
+			<if test="dto.parent!=null and dto.parent!=''">
+				AND insf.fparent =#{dto.parent}
+			</if>
+			<if test="dto.companyid!=null and dto.companyid!=''">
+				AND ins.fparent =#{dto.companyid}
+			</if>
+		</if>
+		and (fmaterial not IN
+		(SELECT fmaterial FROM tb_live_data l INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no INNER JOIN tb_insframework i ON j.fitemid = i.fid 
+		WHERE fstatus &lt; 3 AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
+				AND j.fitemid =#{dto.dtoItem}
+			</if>
+		</if>
+		GROUP BY fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter, j.fitemid)
+		or fexternal_diameter
+		not IN
+		(SELECT fexternal_diameter FROM tb_live_data l INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no INNER JOIN tb_insframework i ON j.fitemid = i.fid 
+		WHERE fstatus &lt; 3 AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
+				AND j.fitemid =#{dto.dtoItem}
+			</if>
+		</if>
+  		GROUP BY fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter, j.fitemid)
+		or fwall_thickness not IN
+		(SELECT fwall_thickness FROM tb_live_data l INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		WHERE fstatus &lt; 3	AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
+				AND j.fitemid =#{dto.dtoItem}
+			</if>
+		</if>
+  		GROUP BY fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter, j.fitemid)
+		or fnextExternal_diameter
+		not IN
+		(SELECT fnextExternal_diameter FROM tb_live_data l INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		WHERE fstatus &lt; 3 AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
+				AND j.fitemid =#{dto.dtoItem}
+			</if>
+		</if>
+		 GROUP BY fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter, j.fitemid))
+		 and fitemId not IN (SELECT fitemId FROM tb_live_data l INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no INNER JOIN tb_insframework i ON j.fitemid = i.fid 
+		 WHERE fstatus &lt; 3 AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
+				AND j.fitemid =#{dto.dtoItem}
+			</if>
+		</if>
+		GROUP BY fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter, j.fitemid)
+		 )temp
+	</select>
+	
+	<!-- 项目部工时明细 -->
+	<select id="getJunctionHous" resultMap="liveMap">
+		SELECT *
+		FROM (
+		SELECT count( l.fid ) AS hous, sum( fdyne ) dynes, fjunction_id fname, j.fid fid
+		FROM tb_live_data l
+		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		WHERE fstatus &lt; 3
+		AND i.ftype =23
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.dtoMaterial!=null and dto.dtoMaterial!=''">
+				AND fmaterial = #{dto.dtoMaterial}
+			</if>
+			<if test="dto.dtoExternalDiameter!=null and dto.dtoExternalDiameter!=''">
+				AND fexternal_diameter = #{dto.dtoExternalDiameter}
+			</if>
+			<if test="dto.dtoWallThickness!=null and dto.dtoWallThickness!=''">
+				AND fwall_thickness = #{dto.dtoWallThickness}
+			</if>
+			<if test="dto.dtoNextExternalDiameter!=null and dto.dtoNextExternalDiameter!=''">
+				AND fnextExternal_diameter = #{dto.dtoNextExternalDiameter}
+			</if>
+			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
+				AND j.fitemid = #{dto.dtoItem}
+			</if>
+			<if test="dto.parent!=null and dto.parent!=''">
+				and i.fparent = #{dto.parent}
+			</if>
+		</if>
+		group by fjunction_id
+		)temp
+	</select>
+
+	<!-- 集团超标统计 -->
+	<select id="getBlocOverproof" resultMap="dtoMap">
+		select * from
+		(
+		select sum(OverFlage) as overproof ,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldtime ,fname,fid from 
+		(
+		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end as OverFlage,fweldtime,fname,fid
+		FROM 
+		(
+		select insf.fid,fmax_electricity,fmin_electricity,felectricity,fweldtime,insf.fname  from
+		(
+		select fid,felectricity,fstatus,fjunction_id,fweldtime from tb_live_data where fstatus &lt; 3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id
+		inner join tb_insframework i on j.fitemid = i.fid
+		inner join tb_insframework ins on ins.fid = i.fparent
+		inner join tb_insframework insf on insf.fid = ins.fparent
+		 where i.ftype=23 and  k0.fstatus &lt; 3 
+		)k1
+		)
+		as K 
+		group by fid,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) temp
+	</select>
+	
+	<!-- 公司超标统计 -->
+	<select id="getCompanyOverproof" resultMap="dtoMap">
+		select * from
+		(
+		select sum(OverFlage) as overproof ,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldtime ,fname,fid from 
+		(
+		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end as OverFlage,fweldtime,fname,fid
+		FROM 
+		(
+		select ins.fid,fmax_electricity,fmin_electricity,felectricity,fweldtime,ins.fname  from
+		(
+		select fid,felectricity,fstatus,fjunction_id,fweldtime from tb_live_data where fstatus &lt; 3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id
+		inner join tb_insframework i on j.fitemid = i.fid
+		inner join tb_insframework ins on ins.fid = i.fparent
+		where i.ftype=23 and  k0.fstatus &lt; 3 
+		<if test="parent!=null and parent!=''">
+			AND ins.fparent = #{parent}
+		</if>
+		)k1
+		)
+		as K 
+		group by fid,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) temp
+	</select>
+	
+	<!-- 事业部超标统计 -->
+	<select id="getCauseOverproof" resultMap="dtoMap">
+	SELECT * FROM (
+	SELECT sum( OverFlage ) AS overproof, 
+	<if test="dto!=null and dto!=''">
+		<if test="dto.year!=null and dto.year!=''">
+			DATE_FORMAT( fweldtime,  '%Y' )
+		</if>
+		<if test="dto.month!=null and dto.month!=''">
+			DATE_FORMAT( fweldtime,  '%Y-%m' )
+		</if>
+		<if test="dto.day!=null and dto.day!=''">
+			DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+		</if>
+		<if test="dto.week!=null and dto.week!=''">
+			weekofyear(fweldtime)
+		</if>
+	</if> weldTime,fid,fname
+	FROM (
+	SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end
+	AS OverFlage, fweldtime, fname, fid
+	FROM (
+	SELECT i.fid, fmax_electricity, fmin_electricity, felectricity, fweldtime, i.fname
+	FROM (
+	SELECT fid, felectricity, fstatus, fjunction_id, fweldtime
+	FROM tb_live_data
+	WHERE fstatus &lt; 3
+	<if test="dto!=null and dto!=''">
+		<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+			and fweldtime &gt;= #{dto.dtoTime1}
+		</if>
+		<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+			and fweldtime &lt;= #{dto.dtoTime2}
+		</if>
+	</if>
+	) AS k0
+	INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
+	INNER JOIN tb_insframework i ON j.fitemid = i.fid
+	INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+	WHERE i.ftype =23
+	AND k0.fstatus &lt; 3
+	<if test="parent!=null and parent!=''">
+		AND i.fparent = #{parent}
+	</if>
+	<if test="dto!=null and dto!=''">
+		<if test="dto.companyid!=null and dto.companyid!=''">
+			 AND ins.fparent = #{dto.companyid}
+		</if>
+	</if>
+	)k1
+	) AS K
+	GROUP BY fid,
+	<if test="dto!=null and dto!=''">
+		<if test="dto.year!=null and dto.year!=''">
+			DATE_FORMAT( fweldtime,  '%Y' )
+		</if>
+		<if test="dto.month!=null and dto.month!=''">
+			DATE_FORMAT( fweldtime,  '%Y-%m' )
+		</if>
+		<if test="dto.day!=null and dto.day!=''">
+			DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+		</if>
+		<if test="dto.week!=null and dto.week!=''">
+			weekofyear(fweldtime)
+		</if>
+	</if>
+	)temp
+	</select>
+	
+	<!-- 查询所有在范围内的时间 -->
+	<select id="getAllTime" resultMap="liveMap">
+		select * from(
+		SELECT 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if> weldTime,fid
+		 FROM tb_live_data WHERE 1=1
+		 <if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) temp
+	</select>
+	
+	<select id="getAllInsf" resultMap="liveMap">
+		SELECT i.fid,i.fname from tb_insframework i
+		inner join tb_insframework ins on ins.fid = i.fparent
+		inner join tb_insframework insf on insf.fid = ins.fparent
+		where i.ftype=#{type}
+		<if test="parent!=null and parent!=''">
+			and (ins.fparent = #{parent} or i.fparent=#{parent})
+		</if>
+	</select>
+	
+	<!-- 超标明细 -->
+	<select id="getDatailOverproof" resultMap="dtoMap">
+		select * from (
+		select sum(OverFlage) as overproof , DATE_FORMAT(fweldtime,'%Y-%m-%d') weldtime ,iid,jid,fwelder_id,fmachine_id,felectricity,fjunction_id,iname,wname,fmax_electricity,fmin_electricity from 
+		(
+		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end  as OverFlage,
+		fweldtime,iid,jid,fwelder_id,fmachine_id,felectricity,fjunction_id,iname,wname,fmax_electricity,fmin_electricity
+		FROM 
+		(
+		select i.fid iid,j.fid jid,fmax_electricity,fmin_electricity,felectricity,fweldtime,i.fname iname,fwelder_id,fmachine_id ,fjunction_id,k0.fname wname  from
+		(
+		select felectricity,fstatus,fjunction_id,fweldtime,fwelder_id,fmachine_id,w.fname from tb_live_data l 
+		inner join tb_welder w on l.fwelder_id = w.fwelder_no
+		where fstatus=0
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id
+		inner join tb_insframework i on j.fitemid = i.fid
+		inner join tb_insframework ins on ins.fid = i.fparent  where i.ftype=23 and  k0.fstatus=0
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				AND i.fparent = #{dto.parent}
+			</if>
+			<if test="dto.companyid!=null and dto.companyid!=''">
+				AND ins.fparent = #{dto.companyid}
+			</if>
+		</if>
+		<if test="parent!=null and parent!=''">
+			AND i.fid = #{parent}
+		</if>
+		)k1
+		)
+		as K 
+		group by fwelder_id,jid,fmachine_id,DATE_FORMAT(fweldtime,'%Y-%m-%d')
+		) temp
+	</select>
+	
+	<select id="getCountTime" resultType="java.lang.Integer" >
+		 select count(l.fid) from tb_live_data l inner join tb_welded_junction j on j.fwelded_junction_no = l.fjunction_id 
+		 where fwelder_id=#{welderno} and fmachine_id=#{machineno} and fjunction_id=#{junctionno} and DATE_FORMAT(fweldtime,'%Y-%m-%d') =DATE_FORMAT(#{time},'%Y-%m-%d')
+	</select>
+	
+	<select id="getjunctionoverproof" resultMap="dtoMap">
+		SELECT case when felectricity  &gt; fmax_electricity then 1
+		when felectricity &lt; fmin_electricity then 1 else 0  end  as overproof,fweldtime weldtime,fjunction_id
+		FROM tb_live_data l inner join tb_welded_junction j on l.fjunction_id=j.fwelded_junction_no 
+		where DATE_FORMAT(fweldtime,'%Y-%m-%d')  = DATE_FORMAT(#{time},'%Y-%m-%d')
+ 		and fjunction_id=#{junctionno} and fwelder_id=#{welderno} and fmachine_id=#{machineno}  group by fweldtime
+	</select>
+	
+	<!-- 集团超时待机统计 -->
+	<select id="getBlocOvertime" resultMap="dtoMap">
+		SELECT * 
+		FROM (
+		SELECT COUNT( lid ) AS overtime, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime, fname, iid
+		FROM (
+		SELECT insf.fid iid, lid, fmax_electricity, fmin_electricity, felectricity, fweldtime, insf.fname
+		FROM (
+		SELECT fid lid, felectricity, fstatus, fjunction_id, fweldtime
+		FROM tb_live_data
+		WHERE fstatus =3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus =3
+		)k1
+		GROUP BY iid, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		<if test="num!=null and num!=''">
+			HAVING COUNT( * ) >= #{num}
+		</if>
+		)temp
+	</select>
+	
+	<!-- 公司超时待机统计 -->
+	<select id="getcompanyOvertime" resultMap="dtoMap">
+		SELECT * 
+		FROM (
+		SELECT COUNT( lid ) AS overtime, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime, fname, iid
+		FROM (
+		SELECT ins.fid iid, lid, fmax_electricity, fmin_electricity, felectricity, fweldtime, ins.fname
+		FROM (
+		SELECT fid lid, felectricity, fstatus, fjunction_id, fweldtime
+		FROM tb_live_data
+		WHERE fstatus =3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus =3
+		<if test="parent!=null and parent!=''">
+			AND ins.fparent = #{parent}
+		</if>
+		)k1
+		GROUP BY iid, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		<if test="num!=null and num!=''">
+			HAVING COUNT( * ) >= #{num}
+		</if>
+		)temp
+	</select>
+	
+	<!-- 事业部超时待机统计 -->
+	<select id="getCaustOvertime" resultMap="dtoMap">
+		SELECT * 
+		FROM (
+		SELECT COUNT( lid ) AS overtime,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime, fname, iid
+		FROM (
+		SELECT i.fid iid, lid, fmax_electricity, fmin_electricity, felectricity, fweldtime, i.fname
+		FROM (
+		SELECT fid lid, felectricity, fstatus, fjunction_id, fweldtime
+		FROM tb_live_data
+		WHERE fstatus =3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus =3
+		<if test="parent!=null and parent!=''">
+			and (i.fparent = #{parent} or  ins.fparent = #{parent})
+		</if>
+		)k1
+		GROUP BY iid, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		<if test="num!=null and num!=''">
+			HAVING COUNT( * ) >= #{num}
+		</if>
+		)temp
+	</select>
+	
+	<!-- 项目部超时待机统计 -->
+	<select id="getItemOvertime" resultMap="dtoMap">
+		SELECT * 
+		FROM (
+		SELECT COUNT( lid ) AS overtime, fname, iid,fjunction_id,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime
+		FROM (
+		SELECT i.fid iid, lid, fmax_electricity, fmin_electricity, felectricity, fweldtime, i.fname,fjunction_id
+		FROM (
+		SELECT fid lid, felectricity, fstatus, fjunction_id, fweldtime
+		FROM tb_live_data
+		WHERE fstatus =3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus =3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				AND (i.fparent = #{dto.parent} or ins.fparent=#{dto.parent})
+			</if>
+		</if>
+		<if test="parent!=null and parent!=''">
+			AND i.fid = #{parent}
+		</if>
+		)k1
+		GROUP BY fjunction_id, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+			</if>
+			<if test="num!=null and num!=''">
+				HAVING COUNT( * ) >= #{num}
+			</if>
+		)temp
+	</select>
+	
+	<!-- 获取所有焊口 -->
+	<select id="getJunction" resultMap="liveMap">
+		SELECT j.fid,fwelded_junction_no fname,fitemid itemid FROM tb_welded_junction j
+		inner join tb_insframework i on i.fid = j.fitemId
+		inner join tb_insframework ins on ins.fid = i.fparent
+		WHERE 1=1 
+		<if test="parent!=null and parent!=''">
+			and  (i.fid = #{parent} or ins.fid = #{parent} or ins.fparent=#{parent})
+		</if>
+	</select>
+	
+	<!-- 待机明细 -->
+	<select id="getDetailovertime" resultMap="dtoMap">
+		SELECT * 
+		FROM (
+		SELECT COUNT( lid ) AS overtime, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime, fjunction_id, wname, fmachine_id, fwelder_id
+		FROM (
+		SELECT i.fid iid, lid, fmax_electricity, fmin_electricity, felectricity, fweldtime, i.fname, k0.fname wname, fwelder_id, fjunction_id, fmachine_id
+		FROM (
+		SELECT l.fid lid, felectricity, fstatus, fjunction_id, fweldtime, fwelder_id, fname, fmachine_id
+		FROM tb_live_data l
+		INNER JOIN tb_welder w ON l.fwelder_id = w.fwelder_no
+		WHERE  fstatus =3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		WHERE i.ftype =23
+		AND k0.fstatus =3
+		AND fjunction_id =  #{junctionno}
+		)k1
+		GROUP BY 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		<if test="num!=null and num!=''">
+				HAVING COUNT( * ) >= #{num}
+		</if>
+		)temp
+	</select>
+	
+	<!-- 集团负荷率 -->
+	<select id="getBlocLoads" resultMap="dtoMap">
+		select * from (
+		SELECT AVG( ovl ) loads ,weldTime,fname,iid
+		FROM (
+		SELECT COUNT( lid ) AS FD, COUNT( lid ) / ( 8 *60 *60 ) AS OvL, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		AS weldTime,fname,iid
+		FROM  
+		(
+		SELECT insf.fid iid, lid,fweldtime, insf.fname
+		FROM 
+		(
+		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime
+		FROM tb_live_data
+		WHERE fstatus &lt; 3 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
+		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus &lt; 3
+		) AS A
+		GROUP BY  iid, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) AS M
+		GROUP BY iid,weldTime
+		) temp
+	</select>
+	
+	<!-- 公司负荷率 -->
+	<select id="getCompanyLoads" resultMap="dtoMap">
+		select * from (
+		SELECT AVG( ovl ) loads ,weldTime,fname,iid
+		FROM (
+		SELECT COUNT( lid ) AS FD, COUNT( lid ) / ( 8 *60 *60 ) AS OvL, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		AS weldTime,fname,iid
+		FROM  
+		(
+		SELECT ins.fid iid, lid,fweldtime, ins.fname
+		FROM 
+		(
+		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime
+		FROM tb_live_data
+		WHERE fstatus &lt; 3 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
+		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus &lt; 3
+		<if test="parent!=null and parent!=''">
+			AND ins.fparent = #{parent}
+		</if>
+		) AS A
+		GROUP BY  iid, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) AS M
+		GROUP BY iid,weldTime
+		) temp
+	</select>
+	
+	<!-- 事业部负荷率 -->
+	<select id="getCaustLoads" resultMap="dtoMap">
+		select * from(
+		SELECT AVG( ovl ) loads ,weldTime,fname,iid
+		FROM (
+		SELECT COUNT( lid ) AS FD, COUNT( lid ) / ( 8 *60 *60 ) AS OvL, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		AS weldTime,fname,iid
+		FROM  
+		(
+		SELECT i.fid iid, lid,fweldtime, i.fname
+		FROM 
+		(
+		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime
+		FROM tb_live_data
+		WHERE fstatus &lt; 3 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
+		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent 
+		WHERE i.ftype =23
+		AND k0.fstatus &lt; 3
+		<if test="parent!=null and parent!=''">
+			AND (i.fparent = #{parent} or ins.fparent = #{parent})
+		</if>
+		) AS A
+		GROUP BY  iid, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) AS M
+		GROUP BY iid,weldTime
+		)temp
+	</select>
+	
+	<!-- 获取项目部负荷率 -->
+	<select id="getItemLoads"  resultMap="dtoMap">
+		select * from (
+		SELECT AVG( ovl ) loads ,weldTime,iid,fmachine_id
+		FROM (
+		SELECT COUNT( lid ) AS FD, COUNT( lid ) / ( 8 *60 *60 ) AS OvL, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime,iid,fmachine_id
+		FROM  
+		(
+		SELECT i.fid iid, lid,fweldtime,fmachine_id
+		FROM 
+		(
+		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime
+		FROM tb_live_data
+		WHERE fstatus &lt; 3 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
+		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus &lt; 3
+		<if test="parent!=null and parent!=''">
+				AND i.fid = #{parent}
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				AND (i.fparent = #{dto.parent} or ins.fparent=#{dto.parent})
+			</if>
+		</if>
+		) AS A
+		GROUP BY  iid, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) AS M
+		GROUP BY fmachine_id,weldTime
+		)temp
+	</select>
+	
+	<!-- 获取所有焊机 -->
+	<select id="getMachine" resultMap="liveMap">
+		SELECT m.fid,fequipment_no fname,finsframework_id itemid FROM tb_welding_machine m 
+		inner join tb_insframework i on m.finsframework_id = i.fid
+		inner join tb_insframework ins on ins.fid = i.fparent
+		WHERE 1=1 
+		<if test="parent!=null and parent!=''">
+			 and (i.fid = #{parent} or i.fparent = #{parent} or ins.fparent = #{parent})
+		</if>
+	</select>
+	
+	<!-- 负载率明细 -->
+	<select id="getDetailLoads" resultMap="dtoMap">
+		select * from (
+		SELECT AVG( ovl ) loads ,weldTime,fname,fid ,fmachine_id,iname
+		FROM (
+		SELECT COUNT( lid ) AS FD, COUNT( lid ) / ( 8 *60 *60 ) AS OvL, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		AS weldTime,fname,iid fid,fmachine_id,iname
+		FROM  
+		(
+		SELECT i.fid iid, lid,fweldtime, i.fname,fmachine_id,ins.fname iname
+		FROM 
+		(
+		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime,fjunction_id
+		FROM tb_live_data
+		WHERE fstatus &lt; 3 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
+		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus &lt; 3
+		) AS A
+		GROUP BY  fmachine_id, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) AS M
+		where fmachine_id = #{machineno}
+		GROUP BY fmachine_id,weldTime
+		) temp
+	</select>
+	
+	<!-- 集团空载率 -->
+	<select id="getBlocNoLoads" resultMap="dtoMap">
+		SELECT * 
+		FROM (
+		SELECT COUNT( lid )/start AS loads, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime, fname, iid
+		FROM (
+		SELECT insf.fid iid, lid, fweldtime, insf.fname,start
+		FROM (
+		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime,
+		(SELECT count(fid)
+		FROM tb_live_data WHERE 1=1 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) as start
+		FROM tb_live_data
+		WHERE 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		AND fstatus =3
+		) AS k0
+		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
+		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus =3
+		)k1
+		GROUP BY iid, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		)temp
+	</select>
+	
+	<!-- 公司空载率 -->
+	<select id="getCompanyNoLoads" resultMap="dtoMap">
+		SELECT * 
+		FROM (
+		SELECT COUNT( lid )/start AS loads, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime, fname, iid
+		FROM (
+		SELECT ins.fid iid, lid, fweldtime, ins.fname,start
+		FROM (
+		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime,
+		(SELECT count(fid)
+		FROM tb_live_data WHERE 1=1 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) as start
+		FROM tb_live_data
+		WHERE 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		AND fstatus =3
+		) AS k0
+		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
+		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus =3
+		<if test="parent!=null and parent!=''">
+			AND ins.fparent = #{parent}
+		</if>
+		)k1
+		GROUP BY iid, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		)temp
+	</select>
+
+	<!-- 事业部空载率 -->
+	<select id="getCaustNoLoads" resultMap="dtoMap">
+		SELECT * 
+		FROM (
+		SELECT COUNT( lid )/start AS loads, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime, fname, iid
+		FROM (
+		SELECT i.fid iid, lid, fweldtime, i.fname,start
+		FROM (
+		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime,
+		(SELECT count(fid)
+		FROM tb_live_data WHERE 1=1 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) as start
+		FROM tb_live_data
+		WHERE 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		AND fstatus =3
+		) AS k0
+		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
+		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent 
+		WHERE i.ftype =23
+		AND k0.fstatus =3
+		<if test="parent!=null and parent!=''">
+			AND (i.fparent = #{parent} or ins.fparent = #{parent})
+		</if>
+		)k1
+		GROUP BY iid, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		)temp
+	</select>
+	
+	<!-- 项目部空载率 -->
+	<select id="getItemNOLoads" resultMap="dtoMap">
+		SELECT * 
+		FROM (
+		SELECT COUNT( lid )/start AS loads, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime, fname, iid,fequipment_no as fmachine_id,fid
+		FROM (
+		SELECT i.fid iid, lid, fweldtime, i.fname,start,fequipment_no,m.fid fid
+		FROM (
+		SELECT fid lid, felectricity, fstatus, fweldtime,fmachine_id,
+		(SELECT count(fid)
+		FROM tb_live_data WHERE 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) as start
+		FROM tb_live_data
+		WHERE fstatus =3
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
+		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		WHERE i.ftype =23
+		AND k0.fstatus =3
+		<if test="parent!=null and parent!=''">
+				and i.fid = #{parent}
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.parent!=null and dto.parent!=''">
+				and (i.fparent = #{dto.parent} or ins.fparent = #{dto.parent})
+			</if>
+		</if>
+		)k1
+		where 1=1
+		<if test="equipmentno!=null and equipmentno!=''">
+			and fequipment_no = #{equipmentno}
+		</if>
+		GROUP BY fequipment_no, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		)temp
+	</select>
+	
+	<!-- 集团闲置率 -->
+	<select id="getBlocIdle" resultMap="dtoMap">
+		select * from (
+		select count(*)  idle,insf.fname fname,insf.fid fid from tb_welding_machine m
+		inner join  tb_insframework i on i.fid = m.finsframework_id
+		inner join tb_insframework ins on ins.fid = i.fparent
+		inner join tb_insframework insf on insf.fid = ins.fparent 
+		where fequipment_no not in(
+		select fequipment_no from (
+		select fmachine_id from tb_live_data
+		where 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by fmachine_id,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) A
+		inner join tb_welding_machine m on A.fmachine_id = m.fequipment_no
+		inner join tb_insframework i on i.fid = m.finsframework_id
+		group by ins.fname,fequipment_no
+		)
+		group by ins.fid
+		union
+		SELECT 0 AS idle, ins.fname,ins.fid
+		FROM tb_insframework i
+		inner join tb_insframework ins on ins.fid = i.fparent
+		WHERE ins.fid NOT IN
+		(
+		select insf.fid from tb_welding_machine m
+		inner join  tb_insframework i on i.fid = m.finsframework_id
+		inner join tb_insframework ins on ins.fid = i.fparent
+		inner join tb_insframework insf on insf.fid = ins.fparent 
+		where fequipment_no not in(
+		select fequipment_no from (
+		select fmachine_id from tb_live_data
+		where 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by fmachine_id,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) A
+		inner join tb_welding_machine m on A.fmachine_id = m.fequipment_no
+		inner join tb_insframework i on i.fid = m.finsframework_id
+		group by ins.fname,fequipment_no
+		)
+		group by ins.fid
+		)
+		and i.ftype=22
+		) temp order by fid
+	</select>
+
+	<!-- 公司闲置率 -->
+	<select id="getCompanyIdle" resultMap="dtoMap">
+		select * from (
+		select count(*)  idle,ins.fname fname,ins.fid fid from tb_welding_machine m
+		inner join  tb_insframework i on i.fid = m.finsframework_id
+		inner join tb_insframework ins on ins.fid = i.fparent
+		where fequipment_no not in(
+		select fequipment_no from (
+		select fmachine_id from tb_live_data
+		where 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by fmachine_id,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) A
+		inner join tb_welding_machine m on A.fmachine_id = m.fequipment_no
+		inner join tb_insframework i on i.fid = m.finsframework_id
+		group by ins.fname,fequipment_no
+		)
+		<if test="parent!=null and parent!=''">
+			and ins.fparent = #{parent}
+		</if>
+		group by ins.fid
+		union
+		SELECT 0 AS idle, fname,fid
+		FROM tb_insframework
+		WHERE fid NOT IN
+		(
+		select ins.fid from tb_welding_machine m
+		inner join  tb_insframework i on i.fid = m.finsframework_id
+		inner join tb_insframework ins on ins.fid = i.fparent
+		where fequipment_no not in(
+		select fequipment_no from (
+		select fmachine_id from tb_live_data
+		where 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by fmachine_id,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) A
+		inner join tb_welding_machine m on A.fmachine_id = m.fequipment_no
+		inner join tb_insframework i on i.fid = m.finsframework_id
+		group by ins.fname,fequipment_no
+		)
+		group by ins.fid
+		)
+		and ftype=22
+		<if test="parent!=null and parent!=''">
+			and fparent = #{parent}
+		</if>
+		) temp order by fid
+	</select>
+
+	<!-- 事业部闲置率 -->
+	<select id="getCaustIdle" resultMap="dtoMap">
+		select * from (
+		select count(*)  idle,i.fname fname,i.fid fid from tb_welding_machine m
+		inner join  tb_insframework i on i.fid = m.finsframework_id
+		inner join tb_insframework ins on ins.fid = i.fparent
+		where fequipment_no not in(
+		select fequipment_no from (
+		select fmachine_id from tb_live_data
+		where 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by fmachine_id,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		) A
+		inner join tb_welding_machine m on A.fmachine_id = m.fequipment_no
+		inner join tb_insframework i on i.fid = m.finsframework_id
+		group by i.fname,fequipment_no
+		)
+		<if test="parent!=null and parent!=''">
+			and (i.fparent = #{parent} or ins.fparent = #{parent})
+		</if>
+		group by i.fid
+		union 
+		SELECT 0 AS idle, i.fname,i.fid
+		FROM tb_insframework  i inner join tb_insframework ins on ins.fid = i.fparent
+		WHERE i.fid NOT
+		IN(
+		select i.fid from tb_welding_machine m
+		inner join  tb_insframework i on i.fid = m.finsframework_id
+		where fequipment_no not in(
+		select fequipment_no from (
+		select fmachine_id from tb_live_data
+		where 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by fmachine_id,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>	
+		) A
+		inner join tb_welding_machine m on A.fmachine_id = m.fequipment_no
+		inner join tb_insframework i on i.fid = m.finsframework_id
+		group by i.fname,fequipment_no
+		)
+		group by i.fid
+		)
+		and i.ftype=23
+		<if test="parent!=null and parent!=''">
+			and (i.fparent = #{parent} or ins.fparent=#{parent})
+		</if>
+		) temp order by fid
+	</select>
+	
+	<!-- 项目部闲置率 -->
+	<select id="getItemidle" resultMap="dtoMap">
+		SELECT fmachine_id, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+		weldTime
+		FROM tb_live_data l
+		INNER JOIN tb_welding_machine m ON m.fequipment_no = l.fmachine_id
+		INNER JOIN tb_insframework i ON i.fid = m.finsframework_id
+		WHERE  i.fid = #{itemid}
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY fmachine_id, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if>
+	</select>
+	
+	<select id="getMachineCount" resultType="java.lang.Integer">
+		SELECT count(fid) from tb_welding_machine where finsframework_id=#{id}
+	</select>
+	
+	<!-- 集团单台设备运行数据统计 -->
+	<select id="getBlocUse" resultMap="dtoMap">
+		select * from(
+		select count(l.fid)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_live_data l 
+		inner join tb_welding_machine w  on l.fmachine_id = w.fequipment_no
+		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
+		where w.finsframework_id in 
+		(select i.fid from tb_insframework  i inner join  tb_insframework ins on ins.fid = i.fparent where ins.fparent=#{parent})
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by e.fname
+		union
+		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
+		where fname not in
+		(
+		select fname from tb_live_data l 
+		inner join tb_welding_machine w  on l.fmachine_id = w.fequipment_no
+		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
+		where w.finsframework_id in 
+		(select i.fid from tb_insframework i inner join  tb_insframework ins on ins.fid = i.fparent where ins.fparent=#{parent})
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by e.fname
+		)
+		)temp
+	</select>
+	
+	<!-- 公司单台设备运行数据统计 -->
+	<select id="getCompanyUse" resultMap="dtoMap">
+		select * from(
+		select count(l.fid)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_live_data l 
+		inner join tb_welding_machine w  on l.fmachine_id = w.fequipment_no
+		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
+		where w.finsframework_id in (select fid from tb_insframework where fparent=#{parent})
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by e.fname
+		union
+		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
+		where fname not in
+		(
+		select fname from tb_live_data l 
+		inner join tb_welding_machine w  on l.fmachine_id = w.fequipment_no
+		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
+		where w.finsframework_id in (select fid from tb_insframework where fparent=#{parent})
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by e.fname
+		)
+		)temp
+	</select>
+	
+	<!-- 事业部单台设备运行数据统计 -->
+	<select id="getCaustUse" resultMap="dtoMap">
+		select * from (
+		select count(l.fid)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_live_data l 
+		inner join tb_welding_machine w  on l.fmachine_id = w.fequipment_no
+		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
+		where w.finsframework_id =#{insid}
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by e.fname
+		union
+		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
+		where fname not in
+		(
+		select fname from tb_live_data l 
+		inner join tb_welding_machine w  on l.fmachine_id = w.fequipment_no
+		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
+		where w.finsframework_id =#{insid}
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by e.fname
+		)
+		)temp
+	</select>
+	
+	<select id="getBlocChildren" resultMap="liveMap">
+		SELECT fid,fname from tb_insframework where ftype=21
+	</select>
+</mapper>
