@@ -1,8 +1,8 @@
 /**
  * 
  */
-	var num1 = new Array();
-	var num2 = new Array();
+	var num1 = new Array(0,0,0);
+	var num2 = new Array(0,0,0);
 	var z=0;
 	var jj=0;
 	var dd;
@@ -50,6 +50,7 @@
 				/*alert(msg.data);*/
 				dd = msg.data;
 				var va = document.getElementById("hid1").value;
+				for(var j = 0;j < 1;j++){
 					for(var i = 0;i < dd.length;i+=58){
 						if(va == parseInt(dd.substring(4+i, 8+i),16)&&dd.substring(13+i, 17+i)!="0000"){
 						var mach = parseInt(dd.substring(4+i, 8+i),16);
@@ -64,9 +65,6 @@
 						minvol = parseInt(dd.substring(55+i, 58+i));
 						jj++;
 						}	
-					}
-					if(jj>29){
-						jj = 0;
 					}
             		if(weld!="0000"){
             		$.ajax({  
@@ -83,7 +81,7 @@
     			        	document.getElementById("weldname").value=name;
     			        }})
             		}
-								
+					}				
 				/*document.getElementById("machid").value = mach;*/
 			};
 			//关闭事件
@@ -170,7 +168,7 @@
   		$('#body1').highcharts({
   		    chart: {
   		        type: 'spline',
-  		        animation: false, // don't animate in old IE
+  		        animation: Highcharts.svg, // don't animate in old IE
   		        marginRight: 70,
   		        events: {
   		            load: function () {
@@ -183,9 +181,6 @@
   		                        y = num1[z];
   		                    var y1 = num2[z];
   		                    z++;
-  		                    if(jj==0){
-  		                    	z=0;
-  		                    }
   		                    series.addPoint([x, y], true, true);
   		                    series1.addPoint([x, y1], true, true);
   		                    activeLastPointToolip(chart);
@@ -250,13 +245,12 @@
   		            var data = [],
   		                time = (new Date()).getTime(),
   		                i;
-  		            for (i = -10; i <= 0; i += 1) {
+  		            for (i = -19; i <= 0; i += 1) {
   		                data.push({
   		                    x: time + i * 1000,
-  		                    y: 0
+  		                    y: num1[0]
   		                });
   		            }
-		            
   		            return data;
   		        }())
   		    },{
@@ -268,10 +262,10 @@
   		            var data = [],
   		                time = (new Date()).getTime(),
   		                i;
-  		            for (i = -10; i <= 0; i += 1) {
+  		            for (i = -19; i <= 0; i += 1) {
   		                data.push({
   		                    x: time + i * 1000,
-  		                    y: 0
+  		                    y: num2[0]
   		                });
   		            }
   		            return data;

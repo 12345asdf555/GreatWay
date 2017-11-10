@@ -27,12 +27,12 @@
 	       </font>
 	    </c:if>
 	   <form name="f" action="<c:url value='j_spring_security_check'/>" method="POST">
-	        <h1>云智能焊接管控系统</h1>
+	        <h1>核电站焊接管理系统</h1>
 	        <div class="logindiv">
 	            <table>
 	                <tr>
 	                    <td colspan="3">
-	                        <img src="resources/images/th.png" />
+	                        <img src="resources/images/gongsilogo.png" />
 	                    </td>
 	                </tr>
 	                <tr>

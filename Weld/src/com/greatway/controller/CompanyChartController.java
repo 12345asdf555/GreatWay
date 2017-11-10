@@ -843,6 +843,7 @@ public class CompanyChartController {
 	@RequestMapping("/getCompanyEfficiency")
 	@ResponseBody
 	public String getCompanyEfficiency(HttpServletRequest request){
+		System.out.println("123");
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
