@@ -319,11 +319,20 @@ public interface LiveDataManager {
 	List<LiveData> getBlocChildren();
 	
 	/**
-	 * 项目部工效
-	 * @param page分页
-	 * @param parent父id
-	 * @param dto扩展参数类
+	 * 事业部工效
+	 * @param page 分页
+	 * @param parent 父id
+	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> getItemEfficiency(Page page,BigInteger parent,WeldDto dto);
+	List<ModelDto> geCaustEfficiency(Page page,BigInteger parent,WeldDto dto);
+	
+	/**
+	 * 公司工效
+	 * @param page 分页
+	 * @param parent 父id
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<ModelDto> companyEfficiency(Page page ,BigInteger parent,WeldDto dto);
 }

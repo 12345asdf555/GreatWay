@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>项目部焊工效率</title>
+    <title>事业部工效</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -28,25 +28,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/echarts.js"></script>
-	<script type="text/javascript" src="resources/js/itemchart/itemefficiency.js"></script>
+	<script type="text/javascript" src="resources/js/caustchart/caustefficiency.js"></script>
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" title="项目部工效" style="background: witch; height: 335px;">
-	  	<div id="itemefficiency_btn">
+    <div id="body" region="center"  hide="true"  split="true" title="事业部工效" style="background: witch; height: 335px;">
+	  	<div id="caustEfficiency_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
-				<a href="javascript:serachitemloads();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
+				<a href="javascript:serachEfficiencyCaust();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="itemEfficiencyChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		<div id="caustEfficiencyChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
 		
-	    <table id="itemEfficiencyTable" style="table-layout: fixed; width:100%;"></table>
+	    <table id="caustEfficiencyTable" style="table-layout: fixed; width:100%;"></table>
 	    
 	</div>
   </body>

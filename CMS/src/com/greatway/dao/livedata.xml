@@ -2185,11 +2185,35 @@
 		)
 		)temp
 	</select>
-	
-	<select id="getItemEfficiency" resultMap="dtoMap">
+	<select id="companyEfficiency" resultMap="dtoMap">
 		select * from (
-		select *,count(wname) from (
-		SELECT i.fname iname,w.fname wname,w.fwelder_no,sum(j.fdyne) dyne,round(COUNT(l.fid)/60/60) weldtime
+		select *,count(wname) num from (
+		SELECT ins.fid fid,ins.fname iname,w.fname wname,w.fwelder_no fwelder_id,sum(j.fdyne) dyne,round(COUNT(l.fid)/60/60) weldtime
+		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
+		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
+		inner join tb_insframework i on i.fid = j.fitemId
+		inner join tb_insframework ins on ins.fid = i.fparent
+		where 1=1 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		<if test="parent!=null and parent!=''">
+			AND (i.fid = #{parent} or i.fparent=#{parent} or ins.fparent=#{parent}) 
+		</if>
+		group by l.fjunction_id,w.fname
+		)A group by wname
+		)temp
+	</select>
+	
+	<select id="geCaustEfficiency" resultMap="dtoMap">
+		select * from (
+		select *,count(wname) num from (
+		SELECT i.fname iname,w.fname wname,w.fwelder_no fwelder_id,sum(j.fdyne) dyne,round(COUNT(l.fid)/60/60) weldtime
 		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId

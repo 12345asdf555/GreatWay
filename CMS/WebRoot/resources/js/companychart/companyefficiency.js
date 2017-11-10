@@ -1,5 +1,5 @@
 $(function(){
-	ItemEfficiencyDatagrid();
+	CompanyEfficiencyDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
@@ -11,10 +11,10 @@ $(function(){
 })
 var chartStr = "";
 $(document).ready(function(){
-//	showitemEfficiencyChart();
+//	showcompanyEfficiencyChart();
 })
 
-function showitemEfficiencyChart(){
+function showcompanyEfficiencyChart(){
 	var array1 = new Array();
 	var array2 = new Array();
 	var parent = $("#parent").val();
@@ -23,7 +23,7 @@ function showitemEfficiencyChart(){
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+chartStr,
+         url : "companyChart/getCompanyLoads?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -54,7 +54,7 @@ function showitemEfficiencyChart(){
          }  
     }); 
    	//初始化echart实例
-	charts = echarts.init(document.getElementById("itemEfficiencyChart"));
+	charts = echarts.init(document.getElementById("companyEfficiencyChart"));
 	//显示加载动画效果
 	charts.showLoading({
 		text: '稍等片刻,精彩马上呈现...',
@@ -100,21 +100,29 @@ function showitemEfficiencyChart(){
 }
 
 
-function ItemEfficiencyDatagrid(){
-	$("#itemEfficiencyTable").datagrid( {
+function CompanyEfficiencyDatagrid(){
+	var parent = $("#parent").val();
+	$("#companyEfficiencyTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#itemEfficiencyChart").height()-$("#itemEfficiency_btn").height()-40,
+		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "itemChart/getItemEfficiency?parent="+parent+chartStr,
+		url : "companyChart/getCompanyEfficiency?parent="+parent+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
 		columns : [ [ {
+			field : 'id',
+			title : '事业部id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden:true
+		}, {
 			field : 'iname',
-			title : '项目部',
+			title : '事业部',
 			width : 100,
 			halign : "center",
 			align : "left"
@@ -132,7 +140,7 @@ function ItemEfficiencyDatagrid(){
 			align : "left"
 		}, {
 			field : 'weldtime',
-			title : '焊接时长',
+			title : '焊接时长(h)',
 			width : 150,
 			halign : "center",
 			align : "left"
@@ -153,13 +161,13 @@ function ItemEfficiencyDatagrid(){
 	});
 }
 
-function serachEfficiencyloads(){
+function serachEfficiencyCompany(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var otype = $("input[name='otype']:checked").val();
 	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
-	showitemEfficiencyChart();
-	ItemEfficiencyDatagrid();
+	showcompanyEfficiencyChart();
+	CompanyEfficiencyDatagrid();
 }
 
 //监听窗口大小变化
@@ -169,8 +177,8 @@ window.onresize = function() {
 
 //改变表格高宽
 function domresize() {
-	$("#itemEfficiencyTable").datagrid('resize', {
-		height : $("#body").height() - $("#itemEfficiencyChart").height()-$("#itemEfficiency_btn").height()-10,
+	$("#companyEfficiencyTable").datagrid('resize', {
+		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-10,
 		width : $("#body").width()
 	});
 }

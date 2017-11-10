@@ -256,8 +256,14 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getItemEfficiency(Page page, BigInteger parent, WeldDto dto) {
+	public List<ModelDto> geCaustEfficiency(Page page, BigInteger parent, WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return live.getItemEfficiency(dto, parent);
+		return live.geCaustEfficiency(dto, parent);
+	}
+
+	@Override
+	public List<ModelDto> companyEfficiency(Page page, BigInteger parent, WeldDto dto) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.companyEfficiency(dto,parent);
 	}
 }

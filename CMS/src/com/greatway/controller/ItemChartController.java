@@ -126,21 +126,6 @@ public class ItemChartController {
 	}
 	
 	/**
-	 * 跳转项目部工效页面
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/goItemEfficiency")
-	public String goItemEfficiency(HttpServletRequest request){
-		String parent = request.getParameter("parent");
-		insm.showParent(request, parent);
-		lm.getUserId(request);
-		request.setAttribute("parent",parent);
-		return "itemchart/itemefficiency";
-	}
-	
-	
-	/**
 	 * 查询项目工时明细
 	 * @param request
 	 * @return
@@ -772,70 +757,4 @@ public class ItemChartController {
 		obj.put("arys1", arys1);
 		return obj.toString();
 	}
-
-	/**
-	 * 项目部工效报表信息查询
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/getItemEfficiency")
-	@ResponseBody
-	public String getItemEfficiency(HttpServletRequest request){
-		String time1 = request.getParameter("dtoTime1");
-		String time2 = request.getParameter("dtoTime2");
-		String parentId = request.getParameter("parent");
-		WeldDto dto = new WeldDto();
-		if(!iutil.isNull(parentId)){
-			//处理用户数据权限
-			BigInteger uid = lm.getUserId(request);
-			String afreshLogin = (String)request.getAttribute("afreshLogin");
-			if(iutil.isNull(afreshLogin)){
-				return "0";
-			}
-			int types = insm.getUserInsfType(uid);
-			if(types==21){
-				parentId = insm.getUserInsfId(uid).toString();
-			}else if(types==22){
-				parentId = insm.getUserInsfId(uid).toString();
-			}else if(types==23){
-				parentId = insm.getUserInsfId(uid).toString();
-			}
-		}
-		BigInteger parent = null;
-		if(iutil.isNull(time1)){
-			dto.setDtoTime1(time1);
-		}
-		if(iutil.isNull(time2)){
-			dto.setDtoTime2(time2);
-		}
-		if(iutil.isNull(parentId)){
-			parent = new BigInteger(parentId);
-		}
-		pageIndex = Integer.parseInt(request.getParameter("page"));
-		pageSize = Integer.parseInt(request.getParameter("rows"));
-		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.getItemEfficiency(page, parent, dto);
-		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
-		long total = pageinfo.getTotal();
-		JSONObject json = new JSONObject();
-		JSONArray ary = new JSONArray();
-		JSONObject obj = new JSONObject();
-		try{
-			for(ModelDto m : list){
-				json.put("iname",m.getIname());
-				json.put("wname",m.getWname());
-				json.put("wid",m.getFwelder_id());
-				json.put("dyne",m.getDyne());
-				json.put("weldtime",m.getWeldTime());
-				json.put("num",m.getNum());
-				ary.add(json);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		obj.put("total", total);
-		obj.put("rows", ary);
-		return obj.toString();
-	}
-
 }

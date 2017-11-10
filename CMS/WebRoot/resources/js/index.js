@@ -97,6 +97,10 @@ function openGather(){
 	addTab("采集模块管理","gather/goGather");
 }
 
+function openCaustEfficiency(){
+	addTab("事业部工效","caustChart/goCaustEfficiency");
+}
+
 function openCaustHour(){
 	addTab("事业部焊口焊接工时","caustChart/goCaustHour");
 }
@@ -104,6 +108,7 @@ function openCaustHour(){
 function openCaustoverproof(){
 	addTab("事业部焊接工艺超标统计","caustChart/goCaustOverproof");
 }
+
 function openCaustovertime(){
 	addTab("事业部超时待机统计","caustChart/goCaustOvertime");
 }
@@ -122,6 +127,10 @@ function openCaustIdle(){
 
 function openCaustUse(){
 	addTab("事业部单台设备运行数据统计","caustChart/goCaustUse");
+}
+
+function openCompanytEfficiency(){
+	addTab("公司工效","companyChart/goCompanyEfficiency");
 }
 
 function openCompanyUse(){
@@ -154,10 +163,6 @@ function openCompanyIdle(){
 
 function openCompanyTd(){
 	addTab("实时监测","td/AllTd");
-}
-
-function openItemEfficiency(){
-	addTab("项目部工效","itemChart/goItemEfficiency");
 }
 
 function openItemHour(){
