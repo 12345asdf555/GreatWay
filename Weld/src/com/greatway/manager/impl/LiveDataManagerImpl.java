@@ -254,4 +254,16 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	public List<LiveData> getBlocChildren() {
 		return live.getBlocChildren();
 	}
+
+	@Override
+	public List<ModelDto> geCaustEfficiency(Page page, BigInteger parent, WeldDto dto) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return live.geCaustEfficiency(dto, parent);
+	}
+
+	@Override
+	public List<ModelDto> companyEfficiency(Page page, BigInteger parent, WeldDto dto) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.companyEfficiency(dto,parent);
+	}
 }

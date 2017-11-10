@@ -153,17 +153,19 @@ public class JunctionChartController {
 		String wallThickness = request.getParameter("wallThickness");
 		String nextexternaldiameter = request.getParameter("nextexternaldiameter");
 		WeldDto dto = new WeldDto();
-		//处理用户数据权限
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int type = insm.getUserInsfType(uid);
-		if(type==22){
-			dto.setParent(insm.getUserInsfId(uid));
-		}else if(type==23){
-			item = insm.getUserInsfId(uid).toString();
+		if(!iutil.isNull(item)){
+			//处理用户数据权限
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int type = insm.getUserInsfType(uid);
+			if(type==22){
+				dto.setParent(insm.getUserInsfId(uid));
+			}else if(type==23){
+				item = insm.getUserInsfId(uid).toString();
+			}
 		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);

@@ -87,4 +87,8 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	List<ModelDto> getBlocUse(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
 	
 	List<LiveData> getBlocChildren();
+	
+	List<ModelDto> geCaustEfficiency(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+	
+	List<ModelDto> companyEfficiency(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
 }

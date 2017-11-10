@@ -30,6 +30,21 @@ public class ModelDto {
 	private BigInteger idle;
 	private double time;
 	private String type;
+	private BigInteger dyne;
+	private BigInteger num;
+	
+	public BigInteger getDyne() {
+		return dyne;
+	}
+	public void setDyne(BigInteger dyne) {
+		this.dyne = dyne;
+	}
+	public BigInteger getNum() {
+		return num;
+	}
+	public void setNum(BigInteger num) {
+		this.num = num;
+	}
 	public String getType() {
 		return type;
 	}
