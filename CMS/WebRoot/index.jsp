@@ -4,7 +4,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%response.setHeader("Cache-Control","no-store");%>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -26,7 +25,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/index.js"></script>
-
+	<style type="text/css">
+		a{text-decoration:none;color:inherit;outline:none;}
+	</style>
   </head>
 
   <body class="easyui-layout">
@@ -72,6 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 集团 -->
 	<div id="bloc" >
     	<ul>
+    		<li><a href="javascript:openBlocEfficiency()"><i class="iconfont icon-bijiben"></i>集团工效</a></li>
     		<li><a href="javascript:openBlocHour()"><i class="iconfont icon-bijiben"></i>集团焊口焊接工时</a></li>
     		<li><a href="javascript:openBlocoverproof()"><i class="iconfont icon-bijiben"></i>集团焊接工艺超标统计</a></li>
     		<li><a href="javascript:openBlocovertime()"><i class="iconfont icon-bijiben"></i>集团超时待机统计</a></li>
@@ -84,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 公司 -->
     <div id="company" >
     	<ul>
-<!--     		<li><a href="javascript:openCompanytEfficiency()"><i class="iconfont icon-bijiben"></i>公司工效</a></li> -->
+    		<li><a href="javascript:openCompanytEfficiency()"><i class="iconfont icon-bijiben"></i>公司工效</a></li>
     		<li><a href="javascript:openCompanyHour()"><i class="iconfont icon-bijiben"></i>公司焊口焊接工时</a></li>
     		<li><a href="javascript:openCompanyoverproof()"><i class="iconfont icon-bijiben"></i>公司焊接工艺超标统计</a></li>
     		<li><a href="javascript:openCompanyovertime()"><i class="iconfont icon-bijiben"></i>公司超时待机统计</a></li>
@@ -98,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 事业部 -->
     <div id="caust" >
     	<ul>
-<!--     		<li><a href="javascript:openCaustEfficiency()"><i class="iconfont icon-bijiben"></i>事业部工效</a></li> -->
+    		<li><a href="javascript:openCaustEfficiency()"><i class="iconfont icon-bijiben"></i>事业部工效</a></li>
     		<li><a href="javascript:openCaustHour()"><i class="iconfont icon-bijiben"></i>事业部焊口焊接工时</a></li>
     		<li><a href="javascript:openCaustoverproof()"><i class="iconfont icon-bijiben"></i>事业部焊接工艺超标统计</a></li>
     		<li><a href="javascript:openCaustovertime()"><i class="iconfont icon-bijiben"></i>事业部超时待机统计</a></li>
@@ -112,8 +114,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 项目部 -->
     <div  id="item" >
     	<ul>
+    		<li><a href="javascript:openItemEfficiency()"><i class="iconfont icon-bijiben"></i>项目部工效</a></li>
     		<li><a href="javascript:openItemHour()"><i class="iconfont icon-bijiben"></i>项目部焊口焊接工时</a></li>
-    		<li><a href="javascript:openDetailoverproofs()"><i class="iconfont icon-bijiben"></i>焊接工艺超标明细</a></li>
+    		<li><a href="javascript:openDetailoverproofs()"><i class="iconfont icon-bijiben"></i>项目部焊接工艺超标明细</a></li>
     		<li><a href="javascript:openItemovertime()"><i class="iconfont icon-bijiben"></i>项目部超时待机统计</a></li>
     		<li><a href="javascript:openItemLoads()"><i class="iconfont icon-bijiben"></i>项目部设备负荷率</a></li>
     		<li><a href="javascript:openItemNoLoads()"><i class="iconfont icon-bijiben"></i>项目部设备空载率</a></li>

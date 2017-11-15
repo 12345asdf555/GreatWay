@@ -191,17 +191,23 @@ public class CompanyChartController {
 			parent = new BigInteger(parentId);
 		}
 		page = new Page(pageIndex,pageSize,total);
-		List<LiveData> list = lm.getCompanyhour(page,dto, parent);
+		List<ModelDto> list = lm.getCompanyhour(page,dto, parent);
 		long total = 0;
 		if(list != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(list);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			for(LiveData l:list){
+			for(ModelDto l:list){
+				String[] str = l.getJidgather().split(",");
+				if(l.getJidgather().equals("0")){
+					json.put("jidgather", "0");
+				}else{
+					json.put("jidgather", str.length);
+				}
 				json.put("manhour", l.getHous());
 				json.put("dyne", l.getDyne());
 				json.put("name",l.getFname());
@@ -843,23 +849,10 @@ public class CompanyChartController {
 	@RequestMapping("/getCompanyEfficiency")
 	@ResponseBody
 	public String getCompanyEfficiency(HttpServletRequest request){
-		System.out.println("123");
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
 		WeldDto dto = new WeldDto();
-		if(!iutil.isNull(parentId)){
-			//处理用户数据权限
-			BigInteger uid = lm.getUserId(request);
-			String afreshLogin = (String)request.getAttribute("afreshLogin");
-			if(iutil.isNull(afreshLogin)){
-				return "0";
-			}
-			int types = insm.getUserInsfType(uid);
-			if(types==21){
-				parentId = insm.getUserInsfId(uid).toString();
-			}
-		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -873,7 +866,7 @@ public class CompanyChartController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.geCaustEfficiency(page, parent, dto);
+		List<ModelDto> list = lm.companyEfficiency(page, parent, dto);
 		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 		long total = pageinfo.getTotal();
 		JSONObject json = new JSONObject();

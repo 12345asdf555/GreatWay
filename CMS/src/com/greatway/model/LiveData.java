@@ -32,6 +32,14 @@ public class LiveData {
 	private String nextexternaldiameter;//下游外径
 	private BigInteger itemid;//项目id
 	private String overproof;//工艺超标总值
+	private String jidgather;
+	
+	public String getJidgather() {
+		return jidgather;
+	}
+	public void setJidgather(String jidgather) {
+		this.jidgather = jidgather;
+	}
 	public String getOverproof() {
 		return overproof;
 	}

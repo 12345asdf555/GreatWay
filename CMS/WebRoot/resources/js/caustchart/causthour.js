@@ -28,7 +28,12 @@ function showCaustHourChart(){
              if (result) {  
                  for(var i=0;i<result.rows.length;i++){
                  	array1.push(result.rows[i].name);
-                 	array2.push(result.rows[i].manhour);
+                 	if(result.rows[i].jidgather==0){
+                     	array2.push(0);
+                 	}else{
+                     	var num = (result.rows[i].manhour/result.rows[i].jidgather).toFixed(2);
+                     	array2.push(num);
+                 	}
                  }
              }  
          },  
@@ -111,11 +116,23 @@ function CaustHourDatagrid(){
 				return '<a href="itemChart/goItemHour?item='+row.itemid+'">'+value+'</a>';
 			}
 		}, {
+			field : 'jidgather',
+			title : '焊口数量',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
 			field : 'manhour',
 			title : '焊接工时',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			formatter:function(value,row,index){
+				if(row.jidgather==0){
+					return 0;
+				}
+				return (value/row.jidgather).toFixed(2);
+			}
 		}, {
 			field : 'dyne',
 			title : '达因',

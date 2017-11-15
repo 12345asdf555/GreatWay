@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,10 +16,9 @@ import com.greatway.dto.ModelDto;
 import com.greatway.dto.WeldDto;
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.LiveDataManager;
-import com.greatway.model.LiveData;
+import com.greatway.model.WeldedJunction;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
-import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -60,6 +58,19 @@ public class JunctionChartController {
 		request.setAttribute("nextexternaldiameter",nextexternaldiameter );
 		lm.getUserId(request);
 		return "junctionchart/junctionhour";
+	}
+	
+	/**
+	 * 跳转焊机超时待机
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goJunctionDetail")
+	public String goJunctionDetail(HttpServletRequest request,@RequestParam BigInteger id,@RequestParam BigInteger item){
+		WeldedJunction w = lm.getWeldedJunctionById(id);
+		request.setAttribute("w", w);
+		request.setAttribute("item", item);
+		return "junctionchart/junctionDetail";
 	}
 	
 	/**
@@ -189,21 +200,25 @@ public class JunctionChartController {
 			dto.setDtoNextExternalDiameter(nextexternaldiameter);
 		}
 		page = new Page(pageIndex,pageSize,total);
-		List<LiveData> list = lm.getJunctionHous(page,dto);
+		List<ModelDto> list = lm.getJunctionHous(page,dto);
 		long total = 0;
 		if(list != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(list);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			for(LiveData l:list){
+			for(ModelDto l:list){
 				json.put("manhour", l.getHous());
 				json.put("dyne", l.getDyne());
 				json.put("name",l.getFname());
 				json.put("itemid",l.getFid());
+				json.put("starttime",l.getStarttime());
+				json.put("endtime",l.getEndtime());
+				json.put("iname",l.getIname());
+				json.put("welder",l.getFwelder_id());
 				ary.add(json);
 			}
 		}catch(Exception e){

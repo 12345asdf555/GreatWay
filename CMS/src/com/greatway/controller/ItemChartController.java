@@ -126,6 +126,16 @@ public class ItemChartController {
 	}
 	
 	/**
+	 * 跳转项目部工效页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goItemEfficiency")
+	public String goCompanyEfficiency(HttpServletRequest request){
+		return "itemchart/itemefficiency";
+	}
+	
+	/**
 	 * 查询项目工时明细
 	 * @param request
 	 * @return
@@ -169,17 +179,23 @@ public class ItemChartController {
 			dto.setDtoItem(new BigInteger(item));
 		}
 		page = new Page(pageIndex,pageSize,total);
-		List<LiveData> list = lm.getItemhour(page,dto);
+		List<ModelDto> list = lm.getItemhour(page,dto);
 		long total = 0;
 		if(list != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(list);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			for(LiveData l:list){
+			for(ModelDto l:list){
+				String[] str = l.getJidgather().split(",");
+				if(l.getJidgather().equals("0")){
+					json.put("jidgather", "0");
+				}else{
+					json.put("jidgather", str.length);
+				}
 				json.put("manhour", l.getHous());
 				json.put("dyne", l.getDyne());
 				json.put("nextexternaldiameter",l.getNextexternaldiameter());
@@ -757,4 +773,68 @@ public class ItemChartController {
 		obj.put("arys1", arys1);
 		return obj.toString();
 	}
+	
+	/**
+	 * 项目部工效报表信息查询
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getItemEfficiency")
+	@ResponseBody
+	public String getItemEfficiency(HttpServletRequest request){
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		WeldDto dto = new WeldDto();
+		String parentId = "";
+		//处理用户数据权限
+		BigInteger uid = lm.getUserId(request);
+		String afreshLogin = (String)request.getAttribute("afreshLogin");
+		if(iutil.isNull(afreshLogin)){
+			return "0";
+		}
+		int types = insm.getUserInsfType(uid);
+		if(types==21){
+			parentId = insm.getUserInsfId(uid).toString();
+		}else if(types==22){
+			parentId = insm.getUserInsfId(uid).toString();
+		}else if(types==23){
+			parentId = insm.getUserInsfId(uid).toString();
+		}
+		BigInteger parent = null;
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		page = new Page(pageIndex,pageSize,total);
+		List<ModelDto> list = lm.caustEfficiency(page, parent, dto);
+		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+		long total = pageinfo.getTotal();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(ModelDto m : list){
+				json.put("iname",m.getIname());
+				json.put("wname",m.getWname());
+				json.put("wid",m.getFwelder_id());
+				json.put("dyne",m.getDyne());
+				json.put("weldtime",m.getWeldTime());
+				json.put("num",m.getNum());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+
 }

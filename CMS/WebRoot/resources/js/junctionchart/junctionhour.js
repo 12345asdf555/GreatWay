@@ -29,11 +29,20 @@ function itemjunctionDatagrid(){
 		showPageList : false,
 		pagination : true,
 		columns : [ [ {
+			field : 'iname',
+			title : '项目部',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
 			field : 'name',
 			title : '焊口',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			formatter: function(value,row,index){
+				return '<a href="junctionChart/goJunctionDetail?id='+row.itemid+'&item='+item+'">'+value+'</a>';
+			}
 		}, {
 			field : 'manhour',
 			title : '焊接工时',
@@ -44,6 +53,24 @@ function itemjunctionDatagrid(){
 			field : 'dyne',
 			title : '达因',
 			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'starttime',
+			title : '开始时间',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'endtime',
+			title : '完成时间',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'welder',
+			title : '焊工',
+			width : 150,
 			halign : "center",
 			align : "left"
 		}, {

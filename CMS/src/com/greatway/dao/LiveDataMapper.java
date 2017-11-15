@@ -12,13 +12,13 @@ import com.greatway.model.LiveData;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface LiveDataMapper extends Mapper<LiveData>{
-	List<LiveData> getCausehour(@Param("dto") WeldDto dto,@Param("parent") BigInteger parent);
+	List<ModelDto> getCausehour(@Param("dto") WeldDto dto,@Param("parent") BigInteger parent);
 	
-	List<LiveData> getCompanyhour(@Param("dto") WeldDto dto,@Param("parent") BigInteger parent);
+	List<ModelDto> getCompanyhour(@Param("dto") WeldDto dto,@Param("parent") BigInteger parent);
 
-	List<LiveData> getItemhour(@Param("dto") WeldDto dto);
+	List<ModelDto> getItemhour(@Param("dto") WeldDto dto);
 	
-	List<LiveData> getJunctionHous(@Param("dto") WeldDto dto);
+	List<ModelDto> getJunctionHous(@Param("dto") WeldDto dto);
 	
 	List<ModelDto> getCompanyOverproof(@Param("dto") WeldDto dto,@Param("parent") BigInteger parent);
 	
@@ -72,7 +72,7 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<ModelDto> getCaustUse(@Param("dto")WeldDto dto,@Param("insid")BigInteger insid);
 	
-	List<LiveData> getBlochour(@Param("dto") WeldDto dto);
+	List<ModelDto> getBlochour(@Param("dto") WeldDto dto);
 	
 	List<ModelDto> getBlocOverproof(@Param("dto") WeldDto dto);
 	
@@ -88,7 +88,13 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<LiveData> getBlocChildren();
 	
-	List<ModelDto> geCaustEfficiency(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+	List<ModelDto> caustEfficiency(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
 	
 	List<ModelDto> companyEfficiency(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+
+	List<ModelDto> blocEfficiency(@Param("dto")WeldDto dto,@Param("parent") BigInteger parent);
+	
+	List<ModelDto> getEfficiencyChartNum(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+	
+	List<ModelDto> getEfficiencyChart(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent,@Param("minnum")int minnum,@Param("avgnum")int avgnum);
 }
