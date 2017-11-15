@@ -162,7 +162,7 @@ function openCompanyIdle(){
 }
 
 function openCompanyTd(){
-	addTab("实时监测","td/AllTd");
+	addTab("公司实时监测","td/AllTd");
 }
 
 function openItemHour(){

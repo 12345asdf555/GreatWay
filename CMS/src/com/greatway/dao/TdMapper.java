@@ -15,4 +15,5 @@ public interface TdMapper {
 	long findInsid(String insname);
 	String findweld(String weldid);
 	String findInsname(long uid);
+	String findPosition(String equip);
 }

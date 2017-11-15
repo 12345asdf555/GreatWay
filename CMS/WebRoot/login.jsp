@@ -62,8 +62,8 @@
 			        	<td>
 			            </td>
 			            <td align="center">
-			                <input name="submit" type="submit">
-			                <input name="reset" type="reset">
+			                <input name="submit" type="submit" value="登录">
+			                <input name="reset" type="reset" value="重置">
 			            </td>
 			        </tr>
 	            </table>

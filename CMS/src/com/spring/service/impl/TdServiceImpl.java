@@ -54,4 +54,8 @@ import com.spring.service.TdService;
 		public String findInsname(long uid){
 			return mapper.findInsname(uid);	
 		}
+		
+		public String findPosition(String equip){
+			return mapper.findPosition(equip);
+		}
 	}

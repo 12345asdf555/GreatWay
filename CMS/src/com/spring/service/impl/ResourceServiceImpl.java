@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageHelper;
 import com.greatway.dao.ResourceMapper;
 import com.greatway.page.Page;
+import com.spring.model.Authority;
 import com.spring.model.Resources;
 import com.spring.service.ResourceService;
 
@@ -55,6 +56,12 @@ public class ResourceServiceImpl implements ResourceService {
 	public boolean update(Resources resource) {
 
 		return mapper.update(resource);
+	}
+
+	@Override
+	public List<String> getAuthByRes(String url) {
+
+		return mapper.getAuthByRes(url);
 	}
 
 }
