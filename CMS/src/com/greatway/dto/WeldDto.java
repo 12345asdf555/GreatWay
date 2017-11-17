@@ -22,7 +22,14 @@ public class WeldDto {
 	private String company;
 	private String bloc;
 	private String caust;
+	private String search;
 	
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
 	public String getCompany() {
 		return company;
 	}

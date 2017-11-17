@@ -358,6 +358,23 @@ public interface LiveDataManager {
 	 */
 	List<ModelDto> getEfficiencyChart(WeldDto dto,BigInteger parent,int minnum,int avgnum);
 	
-	
+	/**
+	 * 根据id获取焊口信息
+	 * @param id
+	 * @return
+	 */
 	WeldedJunction getWeldedJunctionById(BigInteger id);
+	
+	/**
+	 * 获取焊口分类
+	 * @param page 分页
+	 * @param parent 父id
+	 * @param material 材质
+	 * @param external_diameter 外径
+	 * @param wall_thickness 璧厚
+	 * @param nextExternal_diameter 下游外径
+	 * @return
+	 */
+	List<ModelDto> getHousClassify(Page page,BigInteger parent,String material,String external_diameter,String wall_thickness,String nextExternal_diameter);
+	
 }

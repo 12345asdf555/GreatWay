@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +19,6 @@ import com.greatway.manager.LiveDataManager;
 import com.greatway.model.LiveData;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
-import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -152,6 +150,7 @@ public class ItemChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String item = request.getParameter("item");
+		String search = request.getParameter("search");
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(item)){
 			//处理用户数据权限
@@ -177,6 +176,9 @@ public class ItemChartController {
 		}
 		if(iutil.isNull(item)){
 			dto.setDtoItem(new BigInteger(item));
+		}
+		if(iutil.isNull(search)){
+			dto.setSearch(search);
 		}
 		page = new Page(pageIndex,pageSize,total);
 		List<ModelDto> list = lm.getItemhour(page,dto);
@@ -827,6 +829,65 @@ public class ItemChartController {
 				json.put("dyne",m.getDyne());
 				json.put("weldtime",m.getWeldTime());
 				json.put("num",m.getNum());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+
+	/**
+	 * 获取焊口分类信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getItemHousClassify")
+	@ResponseBody
+	public String getItemHousClassify(HttpServletRequest request){
+		String parentId = request.getParameter("item");
+		String material = request.getParameter("material");
+		String external_diameter = request.getParameter("external_diameter");
+		String wall_thickness = request.getParameter("wall_thickness");
+		String nextExternal_diameter = request.getParameter("nextExternal_diameter");
+		if(!iutil.isNull(parentId)){
+			//处理用户数据权限
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}else if(types==22){
+				parentId = insm.getUserInsfId(uid).toString();
+			}else if(types==23){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
+		}
+		BigInteger parent = null;
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		page = new Page(pageIndex,pageSize,total);
+		List<ModelDto> list = lm.getHousClassify(page, parent, material, external_diameter, wall_thickness, nextExternal_diameter);
+		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+		long total = pageinfo.getTotal();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(ModelDto m : list){
+				json.put("fid",m.getFid());
+				json.put("material",m.getMaterial());
+				json.put("external_diameter",m.getExternalDiameter());
+				json.put("wall_thickness",m.getWallThickness());
+				json.put("nextExternal_diameter",m.getNextexternaldiameter());
 				ary.add(json);
 			}
 		}catch(Exception e){

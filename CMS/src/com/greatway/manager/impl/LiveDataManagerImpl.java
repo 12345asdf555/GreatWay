@@ -291,4 +291,11 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	public WeldedJunction getWeldedJunctionById(BigInteger id) {
 		return wm.getWeldedJunctionById(id);
 	}
+
+	@Override
+	public List<ModelDto> getHousClassify(Page page, BigInteger parent, String material, String external_diameter,
+			String wall_thickness, String nextExternal_diameter) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.getHousClassify(parent, material, external_diameter, wall_thickness, nextExternal_diameter);
+	}
 }

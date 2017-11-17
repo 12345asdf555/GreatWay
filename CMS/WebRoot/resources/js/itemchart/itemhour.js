@@ -1,5 +1,6 @@
 $(function(){
 	itemHourDatagrid();
+	itemClassifyDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
@@ -179,14 +180,102 @@ function itemHourDatagrid(){
 	});
 }
 
+function itemClassifyDatagrid(){
+	var item = $("#item").val();
+	$("#itemClassify").datagrid( {
+		fitColumns : true,
+		height : $("#classifydiv").height(),
+		width : $("#body").width()-$("#itemHourChart").width(),
+		idField : 'fid',
+		url : "itemChart/getItemHousClassify?item="+item,
+		pageSize : 5,
+		pageList : [ 5, 10, 15, 20, 25],
+		rownumbers : true,
+		showPageList : false,
+		pagination : true,
+		columns : [ [ {
+			field : 'ck',
+			checkbox : true
+		},{
+			field : 'fid',
+			hidden : true
+		},{
+			field : 'material',
+			title : '材质',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'external_diameter',
+			title : '外径',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'wall_thickness',
+			title : '璧厚',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'nextExternal_diameter',
+			title : '下游外径',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}] ],
+		toolbar : '#itemClassify_btn'
+	});
+}
+var search;
+function commitChecked(){
+	search = "";
+	var rows = $("#itemClassify").datagrid("getSelections");
+	if(rows==null || rows==""){
+		alert("您还没有选中行！");
+	}else{
+		for(var i=0;i<rows.length;i++){
+			if(i==0){
+				search = "";
+			}else{
+				search += " or";
+			}
+			search += " (fmaterial='"+rows[i].material+"' and fexternal_diameter='"+rows[i].external_diameter+"' and fwall_thickness='"+rows[i].wall_thickness+"' and fnextExternal_diameter='"+rows[i].nextExternal_diameter+"')";
+		}
+		var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+		var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+		$('#itemHourTable').datagrid('load', {
+			"dtoTime1" : dtoTime1,
+			"dtoTime2" : dtoTime2,
+			"search" : search
+		});
+		chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
+		showItemHourChart();
+	}
+}
+
+function serachClassify(){
+	var material = $("#material").val();
+	var external_diameter = $("#external_diameter").val();
+	var wall_thickness = $("#wall_thickness").val();
+	var nextExternal_diameter = $("#nextExternal_diameter").val();
+	$('#itemClassify').datagrid('load', {
+		"material" : material,
+		"external_diameter" : external_diameter,
+		"wall_thickness" : wall_thickness,
+		"nextExternal_diameter" : nextExternal_diameter
+	});
+}
+
 function serachItemHour(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	$('#itemHourTable').datagrid('load', {
 		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2
+		"dtoTime2" : dtoTime2,
+		"search" : search
 	});
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
 	showItemHourChart();
 }
 
