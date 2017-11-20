@@ -11,9 +11,6 @@ $(function(){
 })
 var chartStr = "";
 var search;
-$(document).ready(function(){
-	showItemHourChart();
-})
 
 function showItemHourChart(){
 	var array1 = new Array();
@@ -227,9 +224,10 @@ function classifyDatagrid(){
 		toolbar : '#classify_btn',
 		onLoadSuccess: function(){
 			$("#classify").datagrid("selectRow",0);
+			showItemHourChart();
+			itemHourDatagrid();
 		}
 	});
-	itemHourDatagrid();
 }
 function commitChecked(){
 	search = "";

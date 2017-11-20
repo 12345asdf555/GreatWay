@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="caustHourChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px;"></div>
+		<div id="caustHourChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px;float:left;"></div>
 		<div id="classifydiv" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px;float:right;">
 			<div style="margin-bottom: 5px;" id="classify_btn">
 				材质：<input class="easyui-textbox" name="material" id="material">

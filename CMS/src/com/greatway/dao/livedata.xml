@@ -133,6 +133,9 @@
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
+			<if test="dto.search!=null and dto.search!=''">
+				and ${dto.search}
+			</if>
 		</if>
 		GROUP BY i.fparent
 		)
@@ -155,6 +158,9 @@
 			</if>
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.search!=null and dto.search!=''">
+				and ${dto.search}
 			</if>
 		</if>
 		GROUP BY i.fparent
@@ -182,6 +188,9 @@
 			</if>
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.search!=null and dto.search!=''">
+				and ${dto.search}
 			</if>
 		</if>
 		<if test="parent==null and parent==''">
@@ -224,6 +233,9 @@
 			</if>
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.search!=null and dto.search!=''">
+				and ${dto.search}
 			</if>
 		</if>
 		<if test="parent==null and parent==''">
@@ -268,6 +280,9 @@
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
+			<if test="dto.search!=null and dto.search!=''">
+				and ${dto.search}
+			</if>
 		</if>
 		<if test="parent!=null and parent!=''">
 			AND ins.fparent = #{parent}
@@ -301,6 +316,9 @@
 			</if>
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.search!=null and dto.search!=''">
+				and ${dto.search}
 			</if>
 		</if>
 		<if test="parent!=null and parent!=''">

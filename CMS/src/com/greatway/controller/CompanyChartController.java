@@ -167,6 +167,7 @@ public class CompanyChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String search = request.getParameter("search");
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(parentId)){
 			//数据权限处理
@@ -181,6 +182,10 @@ public class CompanyChartController {
 			}
 		}
 		BigInteger parent = null;
+		String s = (String)request.getSession().getAttribute("s");
+		if(iutil.isNull(s)){
+			dto.setSearch(s);
+		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -189,6 +194,9 @@ public class CompanyChartController {
 		}
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
+		}
+		if(iutil.isNull(search)){
+			dto.setSearch(search);
 		}
 		page = new Page(pageIndex,pageSize,total);
 		List<ModelDto> list = lm.getCompanyhour(page,dto, parent);

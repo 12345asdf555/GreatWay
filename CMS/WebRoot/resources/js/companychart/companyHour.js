@@ -1,5 +1,5 @@
 $(function(){
-	CaustHourDatagrid();
+	classifyDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
@@ -10,9 +10,6 @@ $(function(){
 	}
 })
 var chartStr = "";
-$(document).ready(function(){
-	showCompanyHourChart();
-})
 function showCompanyHourChart(){
 	var array1 = new Array();
 	var array2 = new Array();
@@ -90,8 +87,7 @@ function showCompanyHourChart(){
 	charts.hideLoading();
 }
 
-
-function CaustHourDatagrid(){
+function CompanyHourDatagrid(){
 	var parent = $("#parent").val();
 	$("#companyHourTable").datagrid( {
 		fitColumns : true,
@@ -150,15 +146,88 @@ function CaustHourDatagrid(){
 }
 
 function serachcompanyHour(){
+	commitChecked();
+}
+
+function classifyDatagrid(){
+	var parent = $("#parent").val();
+	$("#classify").datagrid( {
+		fitColumns : true,
+		height : $("#classifydiv").height(),
+		width : $("#body").width()/2,
+		idField : 'fid',
+		url : "itemChart/getItemHousClassify?item="+parent,
+		singleSelect : true,
+		pageSize : 5,
+		pageList : [ 5, 10, 15, 20, 25],
+		rownumbers : true,
+		showPageList : false,
+		pagination : true,
+		columns : [ [{
+			field : 'fid',
+			hidden : true
+		},{
+			field : 'material',
+			title : '材质',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'external_diameter',
+			title : '外径',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'wall_thickness',
+			title : '璧厚',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'nextExternal_diameter',
+			title : '下游外径',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}] ],
+		toolbar : '#classify_btn',
+		onLoadSuccess: function(){
+			$("#classify").datagrid("selectRow",0);
+			CompanyHourDatagrid();
+			showCompanyHourChart();
+		}
+	});
+}
+
+function commitChecked(){
+	search = "";
+	var rows = $("#classify").datagrid("getSelected");
+	search += " (fmaterial='"+rows.material+"' and fexternal_diameter='"+rows.external_diameter+"' and fwall_thickness='"+rows.wall_thickness+"' and fnextExternal_diameter='"+rows.nextExternal_diameter+"')";
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	$('#companyHourTable').datagrid('load', {
 		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2
+		"dtoTime2" : dtoTime2,
+		"search" : search
 	});
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
 	showCompanyHourChart();
 }
+
+function serachClassify(){
+	var material = $("#material").val();
+	var external_diameter = $("#external_diameter").val();
+	var wall_thickness = $("#wall_thickness").val();
+	var nextExternal_diameter = $("#nextExternal_diameter").val();
+	$('#classify').datagrid('load', {
+		"material" : material,
+		"external_diameter" : external_diameter,
+		"wall_thickness" : wall_thickness,
+		"nextExternal_diameter" : nextExternal_diameter
+	});
+}
+
 
 //监听窗口大小变化
 window.onresize = function() {

@@ -144,14 +144,22 @@ public class BlocChartController {
 		if(iutil.isNull(request.getParameter("rows"))){
 			pageSize = Integer.parseInt(request.getParameter("rows"));
 		}
+		String search = request.getParameter("search");
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		WeldDto dto = new WeldDto();
+		String s = (String)request.getSession().getAttribute("s");
+		if(iutil.isNull(s)){
+			dto.setSearch(s);
+		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
 		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(search)){
+			dto.setSearch(search);
 		}
 		page = new Page(pageIndex,pageSize,total);
 		List<ModelDto> list = lm.getBlochour(page,dto);
@@ -743,6 +751,47 @@ public class BlocChartController {
 				json.put("num",m.getNum());
 				ary.add(json);
 			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	/**
+	 * 获取焊口分类信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getBlocHousClassify")
+	@ResponseBody
+	public String getBlocHousClassify(HttpServletRequest request){
+		String material = request.getParameter("material");
+		String external_diameter = request.getParameter("external_diameter");
+		String wall_thickness = request.getParameter("wall_thickness");
+		String nextExternal_diameter = request.getParameter("nextExternal_diameter");
+		
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		page = new Page(pageIndex,pageSize,total);
+		List<ModelDto> list = lm.getHousClassify(page, null, material, external_diameter, wall_thickness, nextExternal_diameter);
+		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+		long total = pageinfo.getTotal();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			String s = "";
+			for(ModelDto m : list){
+				json.put("fid",m.getFid());
+				json.put("material",m.getMaterial());
+				json.put("external_diameter",m.getExternalDiameter());
+				json.put("wall_thickness",m.getWallThickness());
+				json.put("nextExternal_diameter",m.getNextexternaldiameter());
+				ary.add(json);
+				s = " (fmaterial='"+list.get(0).getMaterial()+"' and fexternal_diameter='"+list.get(0).getExternalDiameter()+"' and fwall_thickness='"+list.get(0).getWallThickness()+"' and fnextExternal_diameter='"+list.get(0).getNextexternaldiameter()+"')";
+			}
+			request.getSession().setAttribute("s", s);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
