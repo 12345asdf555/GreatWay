@@ -168,6 +168,10 @@ public class ItemChartController {
 				item = insm.getUserInsfId(uid).toString();
 			}
 		}
+		String s = (String)request.getSession().getAttribute("s");
+		if(iutil.isNull(s)){
+			dto.setSearch(s);
+		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -882,6 +886,7 @@ public class ItemChartController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
+			String s = "";
 			for(ModelDto m : list){
 				json.put("fid",m.getFid());
 				json.put("material",m.getMaterial());
@@ -889,7 +894,9 @@ public class ItemChartController {
 				json.put("wall_thickness",m.getWallThickness());
 				json.put("nextExternal_diameter",m.getNextexternaldiameter());
 				ary.add(json);
+				s = " (fmaterial='"+list.get(0).getMaterial()+"' and fexternal_diameter='"+list.get(0).getExternalDiameter()+"' and fwall_thickness='"+list.get(0).getWallThickness()+"' and fnextExternal_diameter='"+list.get(0).getNextexternaldiameter()+"')";
 			}
+			request.getSession().setAttribute("s", s);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

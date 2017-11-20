@@ -1,6 +1,5 @@
 $(function(){
-	itemHourDatagrid();
-	itemClassifyDatagrid();
+	classifyDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
@@ -11,6 +10,7 @@ $(function(){
 	}
 })
 var chartStr = "";
+var search;
 $(document).ready(function(){
 	showItemHourChart();
 })
@@ -41,7 +41,7 @@ function showItemHourChart(){
         error : function(errorMsg) {  
              alert("图表请求数据失败啦!");  
          }  
-    }); 
+    });
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("itemHourChart"));
 	//显示加载动画效果
@@ -180,12 +180,12 @@ function itemHourDatagrid(){
 	});
 }
 
-function itemClassifyDatagrid(){
+function classifyDatagrid(){
 	var item = $("#item").val();
-	$("#itemClassify").datagrid( {
+	$("#classify").datagrid( {
 		fitColumns : true,
 		height : $("#classifydiv").height(),
-		width : $("#body").width()-$("#itemHourChart").width(),
+		width : $("#body").width()/2,
 		idField : 'fid',
 		url : "itemChart/getItemHousClassify?item="+item,
 		pageSize : 5,
@@ -224,13 +224,16 @@ function itemClassifyDatagrid(){
 			halign : "center",
 			align : "left"
 		}] ],
-		toolbar : '#itemClassify_btn'
+		toolbar : '#classify_btn',
+		onLoadSuccess: function(){
+			$("#classify").datagrid("selectRow",0);
+		}
 	});
+	itemHourDatagrid();
 }
-var search;
 function commitChecked(){
 	search = "";
-	var rows = $("#itemClassify").datagrid("getSelections");
+	var rows = $("#classify").datagrid("getSelections");
 	if(rows==null || rows==""){
 		alert("您还没有选中行！");
 	}else{
@@ -259,7 +262,7 @@ function serachClassify(){
 	var external_diameter = $("#external_diameter").val();
 	var wall_thickness = $("#wall_thickness").val();
 	var nextExternal_diameter = $("#nextExternal_diameter").val();
-	$('#itemClassify').datagrid('load', {
+	$('#classify').datagrid('load', {
 		"material" : material,
 		"external_diameter" : external_diameter,
 		"wall_thickness" : wall_thickness,
@@ -268,15 +271,7 @@ function serachClassify(){
 }
 
 function serachItemHour(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#itemHourTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2,
-		"search" : search
-	});
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
-	showItemHourChart();
+	commitChecked();
 }
 
 //监听窗口大小变化

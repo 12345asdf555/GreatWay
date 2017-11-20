@@ -45,7 +45,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div><h2>${str }</h2></div>
 		<div id="caustHourChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px;"></div>
-		
+		<div id="classifydiv" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px;float:right;">
+			<div style="margin-bottom: 5px;" id="classify_btn">
+				材质：<input class="easyui-textbox" name="material" id="material">
+				外径：<input class="easyui-textbox" name="external_diameter" id="external_diameter"><br/>
+				璧厚：<input class="easyui-textbox" name="wall_thickness" id="wall_thickness">
+				下游外径：<input class="easyui-textbox" name="nextExternal_diameter" id="nextExternal_diameter">
+				<a href="javascript:serachClassify();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
+				<a href="javascript:commitChecked();" class="easyui-linkbutton">提交选中数据</a>
+			</div>
+			<table id="classify" style="table-layout: fixed; width:100%;"></table>
+		</div>
 	    <table id="caustHourTable" style="table-layout: fixed; width:100%;"></table>
 	</div>
   </body>
