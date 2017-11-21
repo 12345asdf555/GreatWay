@@ -21,7 +21,7 @@ function itemjunctionDatagrid(){
 		height : $("#body").height() - $("#junctionHour_btn").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getJunctionHour?item="+item+"&material="+material+"&externalDiameter="+externalDiameter+"&wallThickness="+wallThickness+"&nextexternaldiameter="+nextexternaldiameter,
+		url : "junctionChart/getJunctionHour?item="+item+"&material="+encodeURI(material)+"&externalDiameter="+encodeURI(externalDiameter)+"&wallThickness="+encodeURI(wallThickness)+"&nextexternaldiameter="+encodeURI(nextexternaldiameter),
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],

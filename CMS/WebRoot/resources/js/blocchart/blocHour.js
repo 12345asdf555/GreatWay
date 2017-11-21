@@ -9,7 +9,7 @@ function showblocHourChart(){
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "blocChart/getBlocHour"+chartStr,
+         url : encodeURI("blocChart/getBlocHour"+chartStr),
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -197,7 +197,7 @@ function commitChecked(){
 		"dtoTime2" : dtoTime2,
 		"search" : search
 	});
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
+	chartStr = "?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
 	showblocHourChart();
 }
 

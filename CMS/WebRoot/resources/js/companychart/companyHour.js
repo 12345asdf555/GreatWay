@@ -17,7 +17,7 @@ function showCompanyHourChart(){
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "companyChart/getCompanyHour?parent="+parent+chartStr,
+         url : encodeURI("companyChart/getCompanyHour?parent="+parent+chartStr),
          data : {},  
          dataType : "json", //返回数据形式为json
          success : function(result) {  

@@ -1,5 +1,6 @@
 package com.greatway.controller;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -799,5 +800,21 @@ public class BlocChartController {
 		obj.put("rows", ary);
 		return obj.toString();
 	}
+
+	
+	/***********************************************************************
+	 * 正态分布报表实验代码
+	 */
+	/**
+	 * 保留几位小数
+	 * @param num 预备格式数据
+	 * @param n 
+	 * @return 保留指定小数点数据
+	 */
+	public double ZeroFormat(double num,int n){
+		BigDecimal bigDecimal = new BigDecimal(num);
+		return bigDecimal.setScale(n, BigDecimal.ROUND_HALF_UP).doubleValue();
+	}
+
 
 }

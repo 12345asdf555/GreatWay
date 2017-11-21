@@ -19,7 +19,7 @@ function showItemHourChart(){
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行
-         url : "itemChart/getitemHour?item="+item+chartStr,
+         url : encodeURI("itemChart/getitemHour?item="+item+chartStr),
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -112,7 +112,7 @@ function itemHourDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 				var str = row.material+"+"+row.externalDiameter+"+"+row.wallThickness+"+"+row.nextexternaldiameter;
-				return '<a href="junctionChart/goJunctionHour?material='+row.material+'&externalDiameter='+row.externalDiameter+'&wallThickness='+row.wallThickness+'&nextexternaldiameter='+row.nextexternaldiameter+'&itemid='+row.itemid+'">'+str+'</a>';
+				return '<a href="junctionChart/goJunctionHour?material='+encodeURI(row.material)+'&externalDiameter='+encodeURI(row.externalDiameter)+'&wallThickness='+encodeURI(row.wallThickness)+'&nextexternaldiameter='+encodeURI(row.nextexternaldiameter)+'&itemid='+row.itemid+'">'+str+'</a>';
 			}
 		}, {
 			field : 'jidgather',

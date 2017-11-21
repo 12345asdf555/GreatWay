@@ -18,7 +18,7 @@ function showCaustHourChart(){
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "caustChart/getCaustHour?parent="+parent+chartStr,
+         url : encodeURI("caustChart/getCaustHour?parent="+parent+chartStr),
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  

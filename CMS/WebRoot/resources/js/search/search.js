@@ -128,7 +128,7 @@ function insertSearchWeldingMachine(){
 }
 
 //焊机设备执行查询
-function searchWeldingmachine(){
+function searchWeldingmachine(e){
 	fillcontent();
 	for(var i=0;i<=index;i++){
 		var fieldId =$(".fields").eq(i).attr("id");
@@ -176,7 +176,7 @@ function searchWeldingmachine(){
 		}
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
 			alert('请输入完整的查询条件！');
-			return false;
+			e.preventDefault();//取消事件的默认动作，return false的一部分，但是避免了return false带来的隐患
 		}
 		if(joint==null || joint==""){
 			joint = "and";
@@ -228,7 +228,7 @@ function insertSearchMaintain(){
 }
 
 //维修记录执行查询
-function searchMaintain(){
+function searchMaintain(e){
 	fillcontent();
 	for(var i=0;i<=index;i++){
 		var fieldId =$(".fields").eq(i).attr("id");
@@ -252,7 +252,7 @@ function searchMaintain(){
 		}
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
 			alert('请输入完整的查询条件！');
-			return false;
+			e.preventDefault();//取消事件的默认动作，return false的一部分，但是避免了return false带来的隐患
 		}
 		if(joint==null || joint==""){
 			joint = "and";
@@ -515,9 +515,9 @@ function searchWJ(){
 
 //----------------------------------------------------
 //删除查询条件
-function removeSerach(){
+function removeSerach(e){
 	if(index == 0){
-		return false;
+		e.preventDefault();//取消事件的默认动作，return false的一部分，但是避免了return false带来的隐患
 	}
 	$("#div"+index).remove();
 	index -= 1;
@@ -584,7 +584,7 @@ function initSearch(){
 }
 
 //获取值
-function getContent(){
+function getContent(e){
 	for(var i=0;i<=index;i++){
 		var fieldId =$(".fields").eq(i).attr("id");
 		var field = $("#"+fieldId+"").combobox('getValue');
@@ -596,7 +596,7 @@ function getContent(){
 		var joint = $("#"+jointId+"").combobox('getValue');
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
 			alert('请输入完整的查询条件！');
-			return false;
+			e.preventDefault();//取消事件的默认动作，return false的一部分，但是避免了return false带来的隐患
 		}
 		if(joint==null || joint==""){
 			joint = "and";

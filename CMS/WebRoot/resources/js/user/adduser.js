@@ -14,7 +14,7 @@
 		selectOnCheck:true,
 		columns : [ [ {
 		    field:'ck',
-			checkbox:true,
+			checkbox:true
 		},{
 			field : 'id',
 			title : 'id',

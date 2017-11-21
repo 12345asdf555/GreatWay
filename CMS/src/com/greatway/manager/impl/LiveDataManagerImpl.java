@@ -3,6 +3,7 @@ package com.greatway.manager.impl;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.jws.WebService;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import com.greatway.model.LiveData;
 import com.greatway.model.WeldedJunction;
 import com.greatway.page.Page;
 import com.spring.model.MyUser;
-
+@WebService
 @Service
 @Transactional
 public class LiveDataManagerImpl implements LiveDataManager {
