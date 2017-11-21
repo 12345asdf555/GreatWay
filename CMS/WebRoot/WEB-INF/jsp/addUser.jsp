@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		selectOnCheck:true,
 		columns : [ [ {
 		    field:'ck',
-			checkbox:true,
+			checkbox:true
 		},{
 			field : 'id',
 			title : 'id',
@@ -109,8 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			width : 100,
 			halign : "center",
 			align : "left"
-		}]],
-		
+		}]]
 	});
 })
 
