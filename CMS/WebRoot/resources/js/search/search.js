@@ -612,3 +612,7 @@ function getContent(e){
 	}
 	return true;
 }
+//关闭查询div
+function close(){
+	$('#searchdiv').dialog('close');
+}
