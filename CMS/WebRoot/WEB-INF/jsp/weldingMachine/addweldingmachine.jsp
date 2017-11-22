@@ -10,7 +10,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     
     <title>新增焊机设备</title>
-    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -40,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>设备类型</lable>
-					<input class="easyui-combobox" name="typeId" id="tId" data-options="required:true"/>
+					<select class="easyui-combobox" name="typeId" id="tId" data-options="required:true" ></select>
 				</div>
 				<div class="fitem">
 					<lable>入厂时间</lable>
@@ -48,15 +47,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>所属项目</lable>
-					<input class="easyui-combobox" name="iId" id="iId" data-options="required:true"/>
+					<select class="easyui-combobox" name="iId" id="iId" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>生产厂商</lable>
-					<input class="easyui-combobox" name="manuno" id="manuno" data-options="required:true"/>
+					<select class="easyui-combobox" name="manuno" id="manuno" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>采集序号</lable>
-					<input class="easyui-combobox" name="gatherId" id="gatherId" data-options="validType:['checkNumber','wmGatheridValidate']"/>
+					<select class="easyui-combobox" name="gatherId" id="gatherId" data-options="validType:['checkNumber','wmGatheridValidate']"></select>
 				</div>
 				<div class="fitem">
 					<lable>设备位置</lable>
@@ -64,8 +63,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem" >
 					<lable>是否联网</lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="isnetworking" value="0" checked="checked"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="isnetworking" value="1"/>否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="radioStyle" name="isnetworking" value="0" checked="checked"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="radioStyle" name="isnetworking" value="1"/>否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</div>
 				<div class="fitem">
 					<lable>状态</lable>

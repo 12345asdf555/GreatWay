@@ -3,7 +3,7 @@
 body,h1,h2,h3,h4,h5,h6,p,dd{margin:0;}
 ul,ol,dl{margin:0;padding:0;list-style:none;}
 img{border:none;vertical-align:middle;}
-input{border:none;outline:none;padding:0;margin:0;font-size:12px}
+input{border:none;outline:none;padding:0;margin:0;font-size:12px;width:150px}
 button{border:none;outline:none;padding:0;margin:0;}
 a{text-decoration:none;outline:none;}
 body{font:12px/1.5 'Microsoft Yahei',sans-serif;
@@ -345,4 +345,12 @@ body{font:12px/1.5 'Microsoft Yahei',sans-serif;
 .liveInput,.fields,.condition,.joint,{
 	border: 1px solid #48A1E5;
 	padding:2px;
+}
+
+select{
+	width:150px;
+	text-align:left;
+}
+.radioStyle{
+	width:15px;
 }

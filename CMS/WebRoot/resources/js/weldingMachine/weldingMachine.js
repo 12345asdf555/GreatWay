@@ -154,8 +154,8 @@ function importclick(){
 }
 
 function importWeldingMachine(){
-	var file = $('input[name="file"][type="file"]').prop('files')[0];
-	if(file == null){
+	var file = $("#file").val();
+	if(file == null || file == ""){
 		$.messager.alert("提示", "请选择要上传的文件！");
 		return false;
 	}else{

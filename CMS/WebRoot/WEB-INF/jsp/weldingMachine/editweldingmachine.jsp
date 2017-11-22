@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>设备类型</lable>
 					<input class="easyui-textbox" id="type" value="${w.typeId }">
-					<input class="easyui-combobox" name="typeId" id="tId" data-options="required:true"/>
+					<select class="easyui-combobox" name="typeId" id="tId" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>入厂时间</lable>
@@ -52,17 +52,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>所属项目</lable>
 					<input class="easyui-textbox" id="insframework" value="${w.insframeworkId.id }">
-					<input class="easyui-combobox" name="insframeworkId" id="iId" data-options="required:true"/>
+					<select class="easyui-combobox" name="insframeworkId" id="iId" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>生产厂商</lable>
 					<input class="easyui-textbox" id="manu" value="${w.manufacturerId.id }">
-					<input class="easyui-combobox" name="manuno" id="manuno" data-options="required:true"/>
+					<select class="easyui-combobox" name="manuno" id="manuno" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>采集序号</lable>
 					<input class="easyui-textbox" id="validgid" value="${w.gatherId.id }">
-					<input class="easyui-combobox" name="gatherId" id="gatherId" value="${w.gatherId.gatherNo }" data-options="validType:['checkNumber','wmGatheridValidate']"/>
+					<select class="easyui-combobox" name="gatherId" id="gatherId" value="${w.gatherId.gatherNo }" data-options="validType:['checkNumber','wmGatheridValidate']"></select>
 				</div>
 				<div class="fitem">
 					<lable>设备位置</lable>

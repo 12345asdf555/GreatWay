@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
             	<lable>部门</lable>
-            	<input class="easyui-combobox" name="userInsframework" id="userInsframework" value="${user.userInsframework}"/>
+            	<select class="easyui-combobox" name="userInsframework" id="userInsframework" value="${user.userInsframework}"></select>
             </div>
 			<div class="fitem">
 				<input id="status" type="hidden" value="${role.roleStatus }"/>
@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				selectOnCheck:true,
 				columns : [ [ {
 				    field:'ck',
-					checkbox:true,
+					checkbox:true
 				},{
 					field : 'roles_name',
 					title : '角色名',

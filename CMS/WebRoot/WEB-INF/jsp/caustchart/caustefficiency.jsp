@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
-				<input class="easyui-combobox" name="parent" id="parent"/>
+				<select class="easyui-combobox" name="parent" id="parent"></select>
 				<a href="javascript:serachEfficiencyCaust();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 				
 			</div>

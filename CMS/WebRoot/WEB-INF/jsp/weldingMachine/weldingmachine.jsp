@@ -25,7 +25,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/weldingMachine/weldingMachine.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
-
 	
   </head>
   
@@ -36,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div style="margin-bottom: 5px;">
 				<a href="weldingMachine/goAddWeldingMachine" class="easyui-linkbutton" iconCls="icon-add">新增</a>
 				<a href="javascript:importclick();" class="easyui-linkbutton" iconCls="icon-excel">导入</a>
-				<a href="javascript:exportWeldingMachine();" class="easyui-linkbutton" iconCls="icon-excel">导出</a>
+				<a href="javascript:exportWeldingMachine();" class="easyui-linkbutton" iconCls="icon-excel">导出</a>				
 				<a href="javascript:insertSearchWeldingMachine();" class="easyui-linkbutton"iconCls="icon-search" >查找</a>
 			</div>
 		</div>

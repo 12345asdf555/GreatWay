@@ -37,12 +37,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>固定资产编号</lable>
 					<input class="easyui-textbox" id="mid" value="${wm.maintenance.id }"/>
 					<input class="easyui-textbox" id="wid" value="${wm.welding.id }"/>
-					<input class="easyui-combobox" name="equipmentNo" id="equipmentNo" readonly="readonly"/>
+					<select class="easyui-combobox" name="equipmentNo" id="equipmentNo" readonly="readonly"></select>
 				</div>
 				<div class="fitem">
 					<lable>维修类型</lable>
 					<input class="easyui-textbox" id="type"  value="${wm.maintenance.typeId }"/>
-					<input class="easyui-combobox" name="typeId" id="typeId" value="${wm.maintenance.typeId }" data-options="required:true"/>
+					<select class="easyui-combobox" name="typeId" id="typeId" value="${wm.maintenance.typeId }" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>维修人员</lable>

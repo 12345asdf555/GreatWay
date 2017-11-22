@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
 				闲置时长：
-				<input class="easyui-combobox" name="otype" id="otype"/>
+				<select class="easyui-combobox" name="otype" id="otype"></select>
 				<a href="javascript:serachitemIdle();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>

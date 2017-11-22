@@ -150,11 +150,11 @@ function typeCombobox(){
         success : function(result) {
             if (result) {
                 var optionStr = '';  
-                for (var i = 0; i < result.ary.length; i++) {  
+                for (var i = 0; i < result.ary.length; i++) { 
                     optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
                             + result.ary[i].name + "</option>";  
-                }  
-                $("#tId").html(optionStr);
+                } 
+                $("#tId").append(optionStr);
             }  
         },  
         error : function(errorMsg) {  
@@ -227,7 +227,7 @@ function statusRadio(){
 	    	if (result) {
 	    		var str = "";
 	    		for (var i = 0; i < result.ary.length; i++) {
-	    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+	    			str += "<input type='radio' class='radioStyle' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
                     + result.ary[i].name;
 	    		}
 	            $("#radios").html(str);

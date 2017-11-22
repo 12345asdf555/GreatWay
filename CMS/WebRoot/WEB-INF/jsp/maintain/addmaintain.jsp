@@ -35,11 +35,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
 					<lable>固定资产编号</lable>
-					<input class="easyui-combobox" name="equipmentNo" id="equipmentNo" data-options="required:true"/>
+					<select class="easyui-combobox" name="equipmentNo" id="equipmentNo" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>维修类型</lable>
-					<input class="easyui-combobox" name="typeId" id="typeId" data-options="required:true"/>
+					<select class="easyui-combobox" name="typeId" id="typeId" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>维修人员</lable>
