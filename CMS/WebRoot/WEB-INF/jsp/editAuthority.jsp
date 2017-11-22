@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		selectOnCheck:true,
 		columns : [ [ {
 		    field:'ck',
-			checkbox:true,
+			checkbox:true
 		},{
 			field : 'resources_name',
 			title : '资源名',

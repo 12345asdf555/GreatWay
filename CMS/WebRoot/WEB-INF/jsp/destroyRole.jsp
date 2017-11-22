@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		selectOnCheck:true,
 		columns : [ [ {
 		    field:'ck',
-			checkbox:true,
+			checkbox:true
 		},{
 			field : 'authorities_desc',
 			title : '权限描述',

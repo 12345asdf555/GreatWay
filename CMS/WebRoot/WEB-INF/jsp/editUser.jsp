@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				selectOnCheck:true,
 				columns : [ [ {
 				    field:'ck',
-					checkbox:true,
+					checkbox:true
 				},{
 					field : 'roles_name',
 					title : '角色名',
