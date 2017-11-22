@@ -140,7 +140,7 @@ var flag = 1;
 		    	if (result) {
 		    		var str = "";
 		    		for (var i = 0; i < result.ary.length; i++) {
-		    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+		    			str += "<input type='radio' class='radioStyle' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
 	                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 		    		}
 		            $("#radios").html(str);

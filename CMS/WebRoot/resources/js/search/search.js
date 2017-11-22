@@ -558,11 +558,11 @@ function fillcontent(){
 
 function newSearch(){
 	index += 1;
-	var str = "<div id='div"+index+"'>" +
-			"<input class='fields' id='fields"+index+"'/>&nbsp;" +
-			"<input class='condition' id='condition"+index+"'/>&nbsp;" +
+	var str = "<div style='margin-top:5px' id='div"+index+"'>" +
+			"<select class='fields' id='fields"+index+"'></select>&nbsp;" +
+			"<select class='condition' id='condition"+index+"'></select>&nbsp;" +
 			"<input class='content' id='content"+index+"'/>&nbsp;" +
-			"<input class='joint' id='joint"+index+"'/><div/>";
+			"<select class='joint' id='joint"+index+"'></select><div/>";
 	$("#searchdiv").append(str);
 }
 

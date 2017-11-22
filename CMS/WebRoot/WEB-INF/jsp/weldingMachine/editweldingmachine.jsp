@@ -71,8 +71,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem" >
 					<lable>是否联网</lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input class="easyui-textbox" id="isnw" value="${w.isnetworking }"/>
-					<input type="radio" name="isnetworking" value="0"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="isnetworking" value="1"/>否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="radioStyle" name="isnetworking" value="0"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="radioStyle" name="isnetworking" value="1"/>否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</div>
 				<div class="fitem">
 					<input class="easyui-textbox" id="status" value="${w.statusId }"/>

@@ -41,10 +41,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
 				时间跨度:
-				<input type="radio" name="otype" value="1" />年
-				<input type="radio" name="otype" value="2" checked="checked" />月
-				<input type="radio" name="otype" value="3" />日
-				<input type="radio" name="otype" value="4" />周
+				<input type="radio" class="radioStyle" name="otype" value="1" />年
+				<input type="radio" class="radioStyle" name="otype" value="2" checked="checked" />月
+				<input type="radio" class="radioStyle" name="otype" value="3" />日
+				<input type="radio" class="radioStyle" name="otype" value="4" />周
 				<a href="javascript:serachitemloads();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
