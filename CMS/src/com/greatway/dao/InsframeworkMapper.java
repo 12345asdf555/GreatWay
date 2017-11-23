@@ -39,4 +39,6 @@ public interface InsframeworkMapper extends Mapper<Insframework>{
 	int getUserInsfType(@Param("uid")BigInteger uid);
 	
 	BigInteger  getUserInsfId(@Param("uid")BigInteger uid);
+	
+	Insframework getBloc();
 }

@@ -64,6 +64,11 @@ public interface InsframeworkManager {
 	Insframework getInsfAllById(BigInteger id);
 	
 	/**
+	 * 查看集团
+	 * @return
+	 */
+	Insframework getBloc();
+	/**
 	 * 查看公司级
 	 * @return
 	 */

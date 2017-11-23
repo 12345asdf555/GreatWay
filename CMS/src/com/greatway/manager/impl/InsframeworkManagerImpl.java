@@ -142,4 +142,9 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 		return im.getUserInsfId(uid);
 	}
 
+	@Override
+	public Insframework getBloc() {
+		return im.getBloc();
+	}
+
 }

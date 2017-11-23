@@ -128,7 +128,7 @@ function insertSearchWeldingMachine(){
 }
 
 //焊机设备执行查询
-function searchWeldingmachine(e){
+function searchWeldingmachine(){
 	fillcontent();
 	for(var i=0;i<=index;i++){
 		var fieldId =$(".fields").eq(i).attr("id");
@@ -176,7 +176,7 @@ function searchWeldingmachine(e){
 		}
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
 			alert('请输入完整的查询条件！');
-			e.preventDefault();//取消事件的默认动作，return false的一部分，但是避免了return false带来的隐患
+			return;
 		}
 		if(joint==null || joint==""){
 			joint = "and";
@@ -228,7 +228,7 @@ function insertSearchMaintain(){
 }
 
 //维修记录执行查询
-function searchMaintain(e){
+function searchMaintain(){
 	fillcontent();
 	for(var i=0;i<=index;i++){
 		var fieldId =$(".fields").eq(i).attr("id");
@@ -252,7 +252,7 @@ function searchMaintain(e){
 		}
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
 			alert('请输入完整的查询条件！');
-			e.preventDefault();//取消事件的默认动作，return false的一部分，但是避免了return false带来的隐患
+			return;
 		}
 		if(joint==null || joint==""){
 			joint = "and";
@@ -512,12 +512,26 @@ function searchWJ(){
 	searchStr="";
 }
 
+//删除用户查询条件
+function removeSerachByUser(){
+	if(index == 0){
+		return;
+	}
+	if(index == 1){
+		//处理用户点击删除时总是多一行且删除不了
+		$("#div0").nextAll().remove();
+		index = 0
+	}else{
+		$("#div"+index).remove();
+		index -= 1;
+	}
+}
 
 //----------------------------------------------------
 //删除查询条件
-function removeSerach(e){
+function removeSerach(){
 	if(index == 0){
-		e.preventDefault();//取消事件的默认动作，return false的一部分，但是避免了return false带来的隐患
+		return;
 	}
 	$("#div"+index).remove();
 	index -= 1;
@@ -584,7 +598,7 @@ function initSearch(){
 }
 
 //获取值
-function getContent(e){
+function getContent(){
 	for(var i=0;i<=index;i++){
 		var fieldId =$(".fields").eq(i).attr("id");
 		var field = $("#"+fieldId+"").combobox('getValue');
@@ -596,7 +610,7 @@ function getContent(e){
 		var joint = $("#"+jointId+"").combobox('getValue');
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
 			alert('请输入完整的查询条件！');
-			e.preventDefault();//取消事件的默认动作，return false的一部分，但是避免了return false带来的隐患
+			return;
 		}
 		if(joint==null || joint==""){
 			joint = "and";

@@ -13,7 +13,12 @@ function insftrameworkTree(){
                       }  
                   });  
               }  
-         }  
+         },
+         onClick : function(node){
+ 			$("#weldingmachineTable").datagrid('load',{
+ 				"parent" : node.id
+ 			})
+ 		}
            
-     });  
+     });
 }

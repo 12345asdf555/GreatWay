@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
-import com.greatway.dao.DictionaryMapper;
 import com.greatway.dao.EquipmentManufacturerMapper;
 import com.greatway.dao.InsframeworkMapper;
 import com.greatway.dao.WeldingMachineMapper;
 import com.greatway.dto.WeldDto;
 import com.greatway.manager.WeldingMachineManager;
-import com.greatway.model.Dictionarys;
 import com.greatway.model.EquipmentManufacturer;
 import com.greatway.model.WeldingMachine;
 import com.greatway.page.Page;
@@ -31,9 +29,9 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 	private InsframeworkMapper im;
 	
 	@Override
-	public List<WeldingMachine> getWeldingMachineAll(Page page,String str) {
+	public List<WeldingMachine> getWeldingMachineAll(Page page,BigInteger parent,String str) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
-		return wmm.getWeldingMachineAll(str);
+		return wmm.getWeldingMachineAll(parent,str);
 	}
 
 	@Override
@@ -48,7 +46,7 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 
 	@Override
 	public List<WeldingMachine> getWeldingMachine(String str) {
-		return wmm.getWeldingMachineAll(str);
+		return wmm.getWeldingMachineAll(null,str);
 	}
 
 	@Override

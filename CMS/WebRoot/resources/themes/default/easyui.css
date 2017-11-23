@@ -343,7 +343,7 @@
 }
 .combo {
   border-color: #48A1E5;/**/
-  background-color: #48A1E5;/**/
+  background-color: #48A1E5;/**/red;/**/
 }
 .combo-arrow {
   background-color: #E0ECFF;
@@ -403,7 +403,7 @@
 }
 .layout-expand .panel-header,
 .layout-expand .panel-body {
-  background: transparent;
+  background: #48A1E5;/*layout扩展边框颜色*/
   filter: none;
   overflow: hidden;
 }
@@ -452,10 +452,10 @@
   border-bottom: 5px solid #48A1E5;/*分割线颜色*/
 }
 .layout-split-south {
-  border-top: 5px solid #E6EEF8;
+  border-top: 5px solid #48A1E5;/*分割线颜色*/
 }
 .layout-split-east {
-  border-left: 5px solid #E6EEF8;
+  border-left: 5px solid #48A1E5;/*分割线颜色*/
 }
 .layout-split-west {
   border-right: 5px solid #48A1E5;/*分割线颜色*/

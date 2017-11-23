@@ -13,7 +13,7 @@ public interface WeldingMachineManager {
 	/**
 	 * 查询所有焊机信息:分页
 	 */
-	List<WeldingMachine> getWeldingMachineAll(Page page,String str);
+	List<WeldingMachine> getWeldingMachineAll(Page page,BigInteger parent,String str);
 	
 	/**
 	 * 查询所有焊机信息

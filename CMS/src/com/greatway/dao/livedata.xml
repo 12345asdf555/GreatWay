@@ -2286,6 +2286,6 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by i.fid, w.fname ORDER by round(count(l.fid)/60/60))A)temp
+		group by w.fname ORDER by round(count(l.fid)/60/60))A)temp
 	</select>
 </mapper>

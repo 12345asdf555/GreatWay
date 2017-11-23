@@ -33,7 +33,8 @@ function showcompanyEfficiencyChart(){
                        	array1 = result.ary[i].num1;
                        	Series.push({
                        		name : '工效(1:1)',
-                       		type :'line',//折线图
+                       		type :'line',
+                       		smooth: true,//是否平滑曲线显示
                        		data : result.ary[i].num2,
                        		itemStyle : {
                        			normal: {

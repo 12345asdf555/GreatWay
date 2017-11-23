@@ -30,6 +30,11 @@
 		WHERE i.fid =#{id}
 	</select>
 	
+	<!-- 查看集团 -->
+	<select id="getBloc" resultMap="insMap">
+		SELECT fid,fname FROM tb_insframework WHERE ftype=20
+	</select>
+	
 	<!-- 查看公司级 -->
 	<select id="getConmpany" resultMap="insMap">
 		SELECT fid,fname FROM tb_insframework WHERE ftype=21

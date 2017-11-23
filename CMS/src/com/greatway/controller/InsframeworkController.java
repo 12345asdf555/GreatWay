@@ -279,35 +279,38 @@ public class InsframeworkController {
         String str ="";  
         StringBuilder json = new StringBuilder();  
         // 拼接根节点  
-        json.append("[");  
-        json.append("{\"id\":" +String.valueOf(0));
-        json.append(",\"text\":\"" +"集团" + "\"");
-        json.append(",\"state\":\"open\"");  
-        // 获取根节点下的所有子节点  
-        List<Insframework> treeList = im.getConmpany();
-        // 遍历子节点下的子节点  
-        if(treeList!=null && treeList.size()!=0){  
-            json.append(",\"children\":[");  
-            for (Insframework t : treeList) {  
-                  
-                json.append("{\"id\":" +String.valueOf(t.getId()));   
-                json.append(",\"text\":\"" +t.getName() + "\"");   
-                json.append(",\"state\":\"open\"");   
-                  
-                // 该节点有子节点  
-                // 设置为关闭状态,而从构造异步加载tree  
-              
-                List<Insframework> tList = im.getCause(t.getId());  
-                if(tList!=null && tList.size()!=0){// 存在子节点  
-                     json.append(",\"children\":[");  
-                     json.append(dealJsonFormat(tList));// 存在子节点的都放在一个工具类里面处理了
-                     json.append("]");  
-                }  
-                json.append("},");  
-            }  
-            str = json.toString();  
-            str = str.substring(0, str.length()-1);  
-            str+="]}]";  
+        Insframework b = im.getBloc();
+        if(b!=null){  
+	        json.append("[");  
+	        json.append("{\"id\":" +b.getId());
+	        json.append(",\"text\":\"" +b.getName()+ "\"");
+	        json.append(",\"state\":\"open\"");  
+	        // 获取根节点下的所有子节点  
+	        List<Insframework> treeList = im.getConmpany();
+	        // 遍历子节点下的子节点  
+	        if(treeList!=null && treeList.size()!=0){  
+	            json.append(",\"children\":[");  
+	            for (Insframework t : treeList) {  
+	                  
+	                json.append("{\"id\":" +String.valueOf(t.getId()));   
+	                json.append(",\"text\":\"" +t.getName() + "\"");   
+	                json.append(",\"state\":\"open\"");   
+	                  
+	                // 该节点有子节点  
+	                // 设置为关闭状态,而从构造异步加载tree  
+	              
+	                List<Insframework> tList = im.getCause(t.getId());  
+	                if(tList!=null && tList.size()!=0){// 存在子节点  
+	                     json.append(",\"children\":[");  
+	                     json.append(dealJsonFormat(tList));// 存在子节点的都放在一个工具类里面处理了
+	                     json.append("]");  
+	                }  
+	                json.append("},");  
+	            }  
+	            str = json.toString();  
+	            str = str.substring(0, str.length()-1);  
+	            str+="]}]";
+	        }
               
         }  
         try {
