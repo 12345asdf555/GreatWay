@@ -1,5 +1,6 @@
 $(function(){
 	insframeworkDatagrid();
+	insframeworkTree();
 });
 function insframeworkDatagrid(){
 	$("#insframeworkTable").datagrid( {
@@ -70,6 +71,16 @@ function insframeworkDatagrid(){
 	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
 		}
 	});
+}
+
+function insframeworkTree(){
+	$("#myTree").tree({  
+		onClick : function(node){
+			$("#insframeworkTable").datagrid('load',{
+				"parent" : node.id
+			})
+		 }
+	})
 }
 
 //监听窗口大小变化

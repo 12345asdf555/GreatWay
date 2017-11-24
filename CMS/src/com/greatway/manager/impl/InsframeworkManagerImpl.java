@@ -13,6 +13,7 @@ import com.github.pagehelper.PageHelper;
 import com.greatway.dao.InsframeworkMapper;
 import com.greatway.dao.WeldingMachineMapper;
 import com.greatway.dao.WeldingMaintenanceMapper;
+import com.greatway.dto.WeldDto;
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.model.Insframework;
 import com.greatway.model.WeldingMachine;
@@ -33,9 +34,9 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 	private WeldingMaintenanceMapper wm;
 
 	@Override
-	public List<Insframework> getInsframeworkAll(Page page, String str) {
+	public List<Insframework> getInsframeworkAll(Page page,BigInteger parent, String str,WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
-		return im.getInsframeworkAll(str);
+		return im.getInsframeworkAll(parent,str,dto);
 	}
 
 	@Override
@@ -68,7 +69,7 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 
 	@Override
 	public List<Insframework> getInsframework(String str) {
-		return im.getInsframeworkAll(str);
+		return im.getInsframeworkAll(null,str,null);
 	}
 
 	@Override
@@ -145,6 +146,11 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 	@Override
 	public Insframework getBloc() {
 		return im.getBloc();
+	}
+
+	@Override
+	public int getTypeById(BigInteger id) {
+		return im.getTypeById(id);
 	}
 
 }

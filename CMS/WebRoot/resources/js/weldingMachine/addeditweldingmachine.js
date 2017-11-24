@@ -106,11 +106,11 @@ function editText(){
 	$('#tId').combobox('select',type);
 	$('#iId').combobox('select',insframework);
 	$('#manuno').combobox('select',manu);
-	$('#gatherId').combobox('select',gid);
 
 	if(gid==null||gid==""){
 	}else{
 		$("#gatherId").combobox({disabled: true});  
+		$('#gatherId').combobox('select',gid);
 	}
 }
 

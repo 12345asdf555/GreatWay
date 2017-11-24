@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout">
-<%--   	<jsp:include  page="insframeworktree.jsp"/> --%>
+  	<jsp:include  page="../insframeworktree.jsp"/>
     <div  id="body" region="center"  hide="true"  split="true" title="修改组织机构" style="background: white; height: 335px;">
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>

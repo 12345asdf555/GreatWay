@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.greatway.dto.WeldDto;
 import com.greatway.enums.WeldEnum;
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.model.Insframework;
@@ -86,11 +87,26 @@ public class InsframeworkController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String searchStr = request.getParameter("searchStr");
+		String parentId = request.getParameter("parent");
 		request.getSession().setAttribute("searchStr", searchStr);
-		
+		BigInteger parent = null;
+		WeldDto dto = new WeldDto();
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+			int type = im.getTypeById(parent);
+			if(type==20){
+				dto.setBloc("bloc");
+			}else if(type==21){
+				dto.setCompany("company");
+			}else if(type==22){
+				dto.setCaust("caust");
+			}else if(type==23){
+				dto.setItem("item");
+			}
+		}
 		page = new Page(pageIndex,pageSize,total);
 		
-		List<Insframework> list = im.getInsframeworkAll(page, searchStr);
+		List<Insframework> list = im.getInsframeworkAll(page, parent,searchStr,dto);
 		long total = 0;
 		
 		if(list != null){

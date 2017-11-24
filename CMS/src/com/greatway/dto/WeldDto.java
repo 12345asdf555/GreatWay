@@ -23,7 +23,14 @@ public class WeldDto {
 	private String bloc;
 	private String caust;
 	private String search;
+	private String item;
 	
+	public String getItem() {
+		return item;
+	}
+	public void setItem(String item) {
+		this.item = item;
+	}
 	public String getSearch() {
 		return search;
 	}

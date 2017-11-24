@@ -1,4 +1,5 @@
 $(function(){
+	insframeworkTree();
 	weldingMachineDatagrid();
 });
 
@@ -182,6 +183,16 @@ function importWeldingMachine(){
 		    } 
 		});
 	}
+}
+
+function insframeworkTree(){
+	$("#myTree").tree({  
+		onClick : function(node){
+			$("#weldingmachineTable").datagrid('load',{
+				"parent" : node.id
+			})
+		 }
+	})
 }
 
 //监听窗口大小变化
