@@ -5,7 +5,7 @@ $(function(){
 
 function weldingMachineDatagrid(){
 	$("#weldingmachineTable").datagrid( {
-		height : ($("#body").height() - $('#weldingmachineTable_btn').height()),
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -203,7 +203,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#weldingmachineTable").datagrid('resize', {
-		height : $("#body").height() - $("#weldingmachineTable_btn").height() - 5,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }

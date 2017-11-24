@@ -4,7 +4,8 @@ $(function(){
 
 function weldedJunctionDatagrid(){
 	$("#weldedJunctionTable").datagrid( {
-		height : ($("#body").height() - $('#disctionaryTable_btn').height()),
+		fitColumns : true,
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -191,7 +192,6 @@ function weldedJunctionDatagrid(){
 		}] ],
 		toolbar : '#disctionaryTable_btn',
 		pagination : true,
-		fitColumns : true,
 		onLoadSuccess: function(data){
 			$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
 		}
@@ -206,7 +206,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#maintainTable").datagrid('resize', {
-		height : $("#body").height() - $("#maintainTable_btn").height() - 5,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }

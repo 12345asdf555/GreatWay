@@ -6,6 +6,11 @@ $(function(){
 	openUser();
 	tabsIncident();
 	hierarchyLoding();
+	$("#west").layout({  
+		onExpand : function(node){
+			 alert("傻逼");
+		 }
+	})
 })
 
 function hierarchyLoding(){

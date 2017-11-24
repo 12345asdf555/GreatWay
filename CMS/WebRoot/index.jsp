@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="search-wrap">
 				<div class="search">
 					<input type="" placeholder='公司内部' class=''>
-						<button><i class="iconfont icon-search ver-a-m"></i></button>
+					<button><i class="iconfont icon-search ver-a-m"></i></button>
 				</div>
 			</div>
 			<div class="box clearfix" >

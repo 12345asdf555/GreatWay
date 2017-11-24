@@ -47,7 +47,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#maintainTable").datagrid('resize', {
-		height : $("#body").height() - $("#maintainTable_btn").height() - 5,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }
