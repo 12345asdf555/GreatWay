@@ -205,7 +205,7 @@ window.onresize = function() {
 
 //改变表格高宽
 function domresize() {
-	$("#maintainTable").datagrid('resize', {
+	$("#weldedJunctionTable").datagrid('resize', {
 		height : $("#body").height(),
 		width : $("#body").width()
 	});

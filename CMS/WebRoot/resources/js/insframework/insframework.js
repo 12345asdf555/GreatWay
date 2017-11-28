@@ -1,7 +1,23 @@
 $(function(){
 	insframeworkDatagrid();
 	insframeworkTree();
+	var width = $("#treeDiv").width();
+	$(".easyui-layout").layout({
+		onCollapse:function(){
+			$("#insframeworkTable").datagrid( {
+				height : $("#body").height(),
+				width : $("#body").width()
+			})
+		},
+		onExpand:function(){
+			$("#insframeworkTable").datagrid( {
+				height : $("#body").height(),
+				width : $("#body").width()
+			})
+		}
+	});
 });
+
 function insframeworkDatagrid(){
 	$("#insframeworkTable").datagrid( {
 		fitColumns : true,

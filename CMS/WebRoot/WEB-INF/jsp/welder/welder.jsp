@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout">
-  	<div id="body" region="center"  hide="true"  split="true" title="焊工管理" style="background: #eee; height: 335px;" fit="true">
+  	<div id="body" region="center"  hide="true"  split="true" title="焊工管理" style="background: witch; height: 335px;">
 	  	
 	  	<div id="welderTable_btn">
 			<div style="margin-bottom: 5px;">

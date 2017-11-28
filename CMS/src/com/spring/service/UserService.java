@@ -1,11 +1,10 @@
 package com.spring.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
+import com.greatway.dto.WeldDto;
 import com.greatway.page.Page;
-import com.spring.model.Role;
 import com.spring.model.User;
 
 public interface UserService {
@@ -17,7 +16,7 @@ public interface UserService {
 	User findById(Integer id);
 	String findByRoleId(Integer id);
 	int findByName(String name);
-	List<User> findAll(Page page, String str);
+	List<User> findAll(Page page, BigInteger parent,WeldDto dto,String str);
 	List<User> findRole(Integer id);
 	List<User> findAllRole();
 	String updateUserRole(Integer findByRoleId);

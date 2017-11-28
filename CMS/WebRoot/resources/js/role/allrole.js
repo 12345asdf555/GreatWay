@@ -231,3 +231,17 @@
 			});
         }
         
+
+        //监听窗口大小变化
+          window.onresize = function() {
+          	setTimeout(domresize, 500);
+          }
+
+          //改变表格高宽
+          function domresize() {
+          	$("#dg").datagrid('resize', {
+          		height : $("#body").height(),
+          		width : $("#body").width()
+          	});
+          }
+        

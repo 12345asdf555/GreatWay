@@ -1,6 +1,21 @@
 $(function(){
 	insframeworkTree();
 	weldingMachineDatagrid();
+	var width = $("#treeDiv").width();
+	$(".easyui-layout").layout({
+		onCollapse:function(){
+			$("#weldingmachineTable").datagrid( {
+				height : $("#body").height(),
+				width : $("#body").width()
+			})
+		},
+		onExpand:function(){
+			$("#weldingmachineTable").datagrid( {
+				height : $("#body").height(),
+				width : $("#body").width()
+			})
+		}
+	});
 });
 
 function weldingMachineDatagrid(){

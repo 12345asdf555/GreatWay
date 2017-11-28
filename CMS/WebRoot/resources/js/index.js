@@ -6,11 +6,14 @@ $(function(){
 	openUser();
 	tabsIncident();
 	hierarchyLoding();
-	$("#west").layout({  
-		onExpand : function(node){
-			 alert("傻逼");
-		 }
-	})
+
+	var width = $("#treeDiv").width();
+	$(".easyui-layout").layout({
+		onCollapse:function(){
+		},
+		onExpand:function(){
+		}
+	});
 })
 
 function hierarchyLoding(){

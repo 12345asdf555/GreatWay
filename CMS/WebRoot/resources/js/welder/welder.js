@@ -46,7 +46,7 @@ window.onresize = function() {
 
 //改变表格高宽
 function domresize() {
-	$("#maintainTable").datagrid('resize', {
+	$("#welderTable").datagrid('resize', {
 		height : $("#body").height(),
 		width : $("#body").width()
 	});
