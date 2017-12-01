@@ -155,7 +155,10 @@ function BlocEfficiencyDatagrid(){
 			title : '公司',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			formatter : function(value,row,index){
+				return "<a href='companyChart/goCompanyEfficiency?nextparent="+row.id+"'>"+value+"</a>";
+			}
 		}, {
 			field : 'wname',
 			title : '焊工姓名',

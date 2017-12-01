@@ -29,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/echarts.js"></script>
 	<script type="text/javascript" src="resources/js/blocchart/blocHour.js"></script>
+	<script type="text/javascript" src="resources/js/search/search.js"></script>
   </head>
   
   <body class="easyui-layout">
@@ -44,11 +45,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<div id="blocHourChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px;float:left;"></div>
 		<div id="classifydiv" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px;float:right;">
+			<!-- 自定义多条件查询 -->
+		    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
+		    	<div id="div0">
+			    	<select class="fields" id="fields"></select>
+			    	<select class="condition" id="condition"></select>
+			    	<input class="content" id="content"/>
+			    	<select class="joint" id="joint"></select>
+			    	<a href="javascript:newSearchhoustclassify();" class="easyui-linkbutton" iconCls="icon-add"></a>
+			    	<a href="javascript:removeSerach();" class="easyui-linkbutton" iconCls="icon-remove"></a>
+		    	</div>
+		    </div>
+		    <div id="searchButton">
+				<a href="javascript:searchHousClassify();" class="easyui-linkbutton" iconCls="icon-ok">查询</a>
+				<a href="javascript:close();" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+			</div>
 			<div style="margin-bottom: 5px;" id="classify_btn">
-				材质：<input class="easyui-textbox" name="material" id="material">
-				外径：<input class="easyui-textbox" name="external_diameter" id="external_diameter"><br/>
-				璧厚：<input class="easyui-textbox" name="wall_thickness" id="wall_thickness">
-				下游外径：<input class="easyui-textbox" name="nextExternal_diameter" id="nextExternal_diameter">
 				<a href="javascript:serachClassify();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 				<a href="javascript:commitChecked();" class="easyui-linkbutton">提交选中数据</a>
 			</div>

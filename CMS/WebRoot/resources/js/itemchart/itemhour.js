@@ -25,7 +25,7 @@ function showItemHourChart(){
          success : function(result) {  
              if (result) {  
                  for(var i=0;i<result.rows.length;i++){
-                 	array1.push(result.rows[i].material+"+"+result.rows[i].externalDiameter+"+"+result.rows[i].wallThickness+"+"+result.rows[i].nextexternaldiameter);
+                 	array1.push(result.rows[i].material+"+"+rows[i].nextmaterial+"+"+result.rows[i].externalDiameter+"+"+result.rows[i].nextexternaldiameter)+"+"+result.rows[i].wallThickness+"+"+result.rows[i].nextwall_thickness;
                  	if(result.rows[i].jidgather==0){
                      	array2.push(0);
                  	}else{
@@ -111,8 +111,9 @@ function itemHourDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter:function(value,row,index){
-				var str = row.material+"+"+row.externalDiameter+"+"+row.wallThickness+"+"+row.nextexternaldiameter;
-				return '<a href="junctionChart/goJunctionHour?material='+encodeURI(row.material)+'&externalDiameter='+encodeURI(row.externalDiameter)+'&wallThickness='+encodeURI(row.wallThickness)+'&nextexternaldiameter='+encodeURI(row.nextexternaldiameter)+'&itemid='+row.itemid+'">'+str+'</a>';
+				var str = row.material+"+"+row.nextmaterial+"+"+row.externalDiameter+"+"+row.nextexternaldiameter+"+"+row.wallThickness+"+"+row.nextwall_thickness;
+				return '<a href="junctionChart/goJunctionHour?material='+encodeURI(row.material)+'&nextmaterial='+encodeURI(row.nextmaterial)+'&externalDiameter='+encodeURI(row.externalDiameter)+'&nextexternaldiameter='+encodeURI(row.nextexternaldiameter)+
+				'&wallThickness='+encodeURI(row.wallThickness)+'&nextwall_thickness='+encodeURI(row.nextwall_thickness)+'&itemid='+row.itemid+'">'+str+'</a>';
 			}
 		}, {
 			field : 'jidgather',
@@ -140,7 +141,14 @@ function itemHourDatagrid(){
 			align : "left"
 		}, {
 			field : 'material',
-			title : '材质',
+			title : '上游材质',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden: true
+		}, {
+			field : 'nextmaterial',
+			title : '下游材质',
 			width : 100,
 			halign : "center",
 			align : "left",
@@ -154,14 +162,21 @@ function itemHourDatagrid(){
 			hidden: true
 		}, {
 			field : 'externalDiameter',
-			title : '外径',
+			title : '上游外径',
 			width : 100,
 			halign : "center",
 			align : "left",
 			hidden: true
 		}, {
 			field : 'wallThickness',
-			title : '璧厚',
+			title : '上游璧厚',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden: true
+		}, {
+			field : 'nextwall_thickness',
+			title : '下游璧厚',
 			width : 100,
 			halign : "center",
 			align : "left",
@@ -198,19 +213,31 @@ function classifyDatagrid(){
 			hidden : true
 		},{
 			field : 'material',
-			title : '材质',
+			title : '上游材质',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'external_diameter',
-			title : '外径',
+			field : 'nextmaterial',
+			title : '下游材质',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'wall_thickness',
-			title : '璧厚',
+			title : '上游璧厚',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'nextwall_thickness',
+			title : '下游璧厚',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'external_diameter',
+			title : '上游外径',
 			width : 100,
 			halign : "center",
 			align : "left"
@@ -241,7 +268,8 @@ function commitChecked(){
 			}else{
 				search += " or";
 			}
-			search += " (fmaterial='"+rows[i].material+"' and fexternal_diameter='"+rows[i].external_diameter+"' and fwall_thickness='"+rows[i].wall_thickness+"' and fnextExternal_diameter='"+rows[i].nextExternal_diameter+"')";
+			search += " (fmaterial='"+rows[i].material+"' and fexternal_diameter='"+rows[i].external_diameter+"' and fwall_thickness='"+rows[i].wall_thickness+"' and fnextExternal_diameter='"+rows[i].nextExternal_diameter+
+			"' and fnextwall_thickness ='"+rows[i].nextwall_thickness+"' and Fnext_material ='"+rows[i].nextmaterial+"')";
 		}
 		var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 		var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
@@ -255,18 +283,6 @@ function commitChecked(){
 	}
 }
 
-function serachClassify(){
-	var material = $("#material").val();
-	var external_diameter = $("#external_diameter").val();
-	var wall_thickness = $("#wall_thickness").val();
-	var nextExternal_diameter = $("#nextExternal_diameter").val();
-	$('#classify').datagrid('load', {
-		"material" : material,
-		"external_diameter" : external_diameter,
-		"wall_thickness" : wall_thickness,
-		"nextExternal_diameter" : nextExternal_diameter
-	});
-}
 
 function serachItemHour(){
 	commitChecked();

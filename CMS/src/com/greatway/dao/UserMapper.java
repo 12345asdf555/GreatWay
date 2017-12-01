@@ -17,7 +17,7 @@ public interface UserMapper {
 	User findById(Integer id);
 	int findByName(String name);
 	String findByRoleId(Integer id);
-	List<User> findAll(@Param("parent")BigInteger parent,@Param("dto")WeldDto dto,@Param("str")String str);
+	List<User> findAll(@Param("parent")BigInteger parent,@Param("str")String str);
 	int getUsernameCount(@Param("userName")String userName);
 	List<User> findRole(Integer id);
 	List<User> findAllRole();

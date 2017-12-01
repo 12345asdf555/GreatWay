@@ -38,9 +38,9 @@ public class UserServiceImpl implements UserService {
 		return mapper.getUsernameCount(userName);
 	}
 
-	public List<User> findAll(Page page,BigInteger parent,WeldDto dto,String str) {
+	public List<User> findAll(Page page,BigInteger parent,String str) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		List<User> findAllList = mapper.findAll(parent,dto,str);
+		List<User> findAllList = mapper.findAll(parent,str);
 		return findAllList;
 	}
 	

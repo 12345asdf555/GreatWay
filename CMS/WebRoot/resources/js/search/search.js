@@ -5,6 +5,47 @@ var condition="";
 var content="";
 var joint = "";
 var flag = true;
+//工时分类进入查询
+function serachClassify(){
+	$("#searchdiv").dialog("open");
+	searchClassifyCombobox();
+	initSearch();
+}
+//工时分类下拉框
+function searchClassifyCombobox(){
+	var optionFields = 
+		"<option value='fmaterial'>上游材质</option>" +
+		"<option value='fnext_material'>下游材质</option>" +
+		"<option value='fwall_thickness'>上游璧厚</option>" +
+		"<option value='fnextwall_thickness'>下游璧厚</option>" +
+		"<option value='fexternal_diameter'>上游外径</option>" +
+		"<option value='fnextExternal_diameter'>下游外径</option>";
+	$(".fields").html(optionFields);
+	$(".fields").combobox();
+	createSearchCombobox();
+}
+
+//新增工时分类查询条件
+function newSearchhoustclassify(){
+	fillcontent();
+	newSearch();
+	searchClassifyCombobox();
+	initSearch();
+}
+
+//工时分类执行查询
+function searchHousClassify(){
+	fillcontent();
+	if(!getContent()){
+		return;
+	}
+	$('#classify').datagrid('load', {
+		"searchStr" : searchStr
+	});
+	$("#searchdiv").dialog("close");
+	searchStr="";
+}
+
 //组织机构进入查询
 function insertSearchInsf(){
 	$("#searchdiv").dialog("open");
@@ -24,6 +65,7 @@ function searchInsfCombobox(){
 	$(".fields").combobox();
 	createSearchCombobox();
 }
+
 
 //新增组织机构查询条件
 function newSearchInsf(){
@@ -473,10 +515,15 @@ function searchWJCombobox(){
 		"<option value='farea'>区域</option>" +
 		"<option value='fsystems'>系统</option>" +
 		"<option value='fchildren'>子项</option>" +
-		"<option value='fexternal_diameter'>外径</option>" +
-		"<option value='fwall_thickness'>壁厚</option>" +
+		"<option value='fexternal_diameter'>上游外径</option>" +
+		"<option value='fnextExternal_diameter'>下游外径</option>" +
+		"<option value='fwall_thickness'>上游壁厚</option>" +
+		"<option value='fnextwall_thickness'>下游壁厚</option>" +
+		"<option value='fmaterial'>上游材质</option>" +
+		"<option value='fnext_material'>下游材质</option>" +
 		"<option value='fdyne'>达因</option>" +
 		"<option value='fspecification'>规格</option>" +
+		"<option value='fname'>所属项目</option>" +
 		"<option value='fmax_electricity'>电流上限</option>" +
 		"<option value='fmin_electricity'>电流下限</option>" +
 		"<option value='fmax_valtage'>电压上限</option>" +

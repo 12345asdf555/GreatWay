@@ -53,8 +53,11 @@ function newSearch(){
 			        	if(data){
 			        		da = eval(data.rows);
 			        	}
-			        }
-				})
+			        },
+				      error : function(errorMsg) {  
+				          alert("数据请求失败，请联系系统管理员!");  
+				      }  
+				});
 				$.ajax({  
 			        type : "post",  
 			        async : false,
@@ -157,7 +160,7 @@ function newSearch(){
 
 }
 	function show(value){
-		window.location.href="/CMS/td/AllTddp?value="+value;
+		window.location.href="/CMS/td/AllTddp?value="+encodeURI(value);
 	}
 	
 

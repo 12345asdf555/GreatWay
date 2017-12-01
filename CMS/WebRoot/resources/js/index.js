@@ -6,14 +6,6 @@ $(function(){
 	openUser();
 	tabsIncident();
 	hierarchyLoding();
-
-	var width = $("#treeDiv").width();
-	$(".easyui-layout").layout({
-		onCollapse:function(){
-		},
-		onExpand:function(){
-		}
-	});
 })
 
 function hierarchyLoding(){

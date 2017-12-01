@@ -130,6 +130,8 @@ public class ItemChartController {
 	 */
 	@RequestMapping("/goItemEfficiency")
 	public String goCompanyEfficiency(HttpServletRequest request){
+		String nextparent = request.getParameter("nextparent");
+		request.setAttribute("nextparent", nextparent);
 		return "itemchart/itemefficiency";
 	}
 	
@@ -209,6 +211,8 @@ public class ItemChartController {
 				json.put("wallThickness",l.getWallThickness());
 				json.put("material",l.getMaterial());
 				json.put("itemid",l.getItemid());
+				json.put("nextmaterial",l.getNextmaterial());
+				json.put("nextwall_thickness",l.getNextwallThickness());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -790,21 +794,23 @@ public class ItemChartController {
 	public String getItemEfficiency(HttpServletRequest request){
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("nextparent");
 		WeldDto dto = new WeldDto();
-		String parentId = "";
-		//处理用户数据权限
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			return "0";
-		}
-		int types = insm.getUserInsfType(uid);
-		if(types==21){
-			parentId = insm.getUserInsfId(uid).toString();
-		}else if(types==22){
-			parentId = insm.getUserInsfId(uid).toString();
-		}else if(types==23){
-			parentId = insm.getUserInsfId(uid).toString();
+		if(!iutil.isNull(parentId)){
+			//处理用户数据权限
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}else if(types==22){
+				parentId = insm.getUserInsfId(uid).toString();
+			}else if(types==23){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -852,10 +858,7 @@ public class ItemChartController {
 	@ResponseBody
 	public String getItemHousClassify(HttpServletRequest request){
 		String parentId = request.getParameter("item");
-		String material = request.getParameter("material");
-		String external_diameter = request.getParameter("external_diameter");
-		String wall_thickness = request.getParameter("wall_thickness");
-		String nextExternal_diameter = request.getParameter("nextExternal_diameter");
+		String searchStr = request.getParameter("searchStr");
 		if(!iutil.isNull(parentId)){
 			//处理用户数据权限
 			BigInteger uid = lm.getUserId(request);
@@ -879,7 +882,7 @@ public class ItemChartController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.getHousClassify(page, parent, material, external_diameter, wall_thickness, nextExternal_diameter);
+		List<ModelDto> list = lm.getHousClassify(page, parent, searchStr);
 		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 		long total = pageinfo.getTotal();
 		JSONObject json = new JSONObject();
@@ -890,11 +893,15 @@ public class ItemChartController {
 			for(ModelDto m : list){
 				json.put("fid",m.getFid());
 				json.put("material",m.getMaterial());
-				json.put("external_diameter",m.getExternalDiameter());
+				json.put("nextmaterial",m.getNextmaterial());
 				json.put("wall_thickness",m.getWallThickness());
+				json.put("nextwall_thickness",m.getNextwallThickness());
+				json.put("external_diameter",m.getExternalDiameter());
 				json.put("nextExternal_diameter",m.getNextexternaldiameter());
 				ary.add(json);
-				s = " (fmaterial='"+list.get(0).getMaterial()+"' and fexternal_diameter='"+list.get(0).getExternalDiameter()+"' and fwall_thickness='"+list.get(0).getWallThickness()+"' and fnextExternal_diameter='"+list.get(0).getNextexternaldiameter()+"')";
+				s = " (fmaterial='"+list.get(0).getMaterial()+"' and fexternal_diameter='"+list.get(0).getExternalDiameter()+
+						"' and fwall_thickness='"+list.get(0).getWallThickness()+"' and fnextExternal_diameter='"+list.get(0).getNextexternaldiameter()+
+						"' and fnextwall_thickness ='"+list.get(0).getNextwallThickness()+"' and Fnext_material ='"+list.get(0).getNextmaterial()+"')";
 			}
 			request.getSession().setAttribute("s", s);
 		}catch(Exception e){

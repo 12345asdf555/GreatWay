@@ -147,10 +147,10 @@ public class CaustChartController {
 	 */
 	@RequestMapping("/goCaustEfficiency")
 	public String goCaustEfficiency(HttpServletRequest request){
-		String parent = request.getParameter("parent");
-		insm.showParent(request, parent);
+		String nextparent = request.getParameter("nextparent");
+		insm.showParent(request, nextparent);
 		lm.getUserId(request);
-		request.setAttribute("parent",parent);
+		request.setAttribute("nextparent",nextparent);
 		return "caustchart/caustefficiency";
 	}
 	
@@ -893,6 +893,7 @@ public class CaustChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String nextparent = request.getParameter("nextparent");
 		WeldDto dto = new WeldDto();
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -901,7 +902,9 @@ public class CaustChartController {
 		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
 		}
-		if(iutil.isNull(parentId)){
+		if(iutil.isNull(nextparent)){
+			parent = new BigInteger(nextparent);
+		}else if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
 		}
 		pageIndex = Integer.parseInt(request.getParameter("page"));
@@ -915,6 +918,7 @@ public class CaustChartController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(ModelDto m : list){
+				json.put("id",m.getFid());
 				json.put("iname",m.getIname());
 				json.put("wname",m.getWname());
 				json.put("wid",m.getFwelder_id());
@@ -946,12 +950,16 @@ public class CaustChartController {
 		try{
 			String time1 = request.getParameter("dtoTime1");
 			String time2 = request.getParameter("dtoTime2");
+			String nextparent = request.getParameter("nextparent");
 			WeldDto dto = new WeldDto();
 			if(iutil.isNull(time1)){
 				dto.setDtoTime1(time1);
 			}
 			if(iutil.isNull(time2)){
 				dto.setDtoTime2(time2);
+			}
+			if(iutil.isNull(nextparent)){
+				parent = new BigInteger(nextparent);
 			}
 			List<ModelDto> list = lm.getEfficiencyChartNum(dto, parent);
 			List<ModelDto> efficiency = null;

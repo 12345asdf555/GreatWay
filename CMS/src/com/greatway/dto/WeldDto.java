@@ -12,6 +12,8 @@ public class WeldDto {
 	private String dtoExternalDiameter;
 	private String dtoNextExternalDiameter;
 	private String dtoWallThickness;
+	private String nextmaterial;
+	private String nextwallthickness;
 	private String year;
 	private String month;
 	private String day;
@@ -25,6 +27,18 @@ public class WeldDto {
 	private String search;
 	private String item;
 	
+	public String getNextmaterial() {
+		return nextmaterial;
+	}
+	public void setNextmaterial(String nextmaterial) {
+		this.nextmaterial = nextmaterial;
+	}
+	public String getNextwallthickness() {
+		return nextwallthickness;
+	}
+	public void setNextwallthickness(String nextwallthickness) {
+		this.nextwallthickness = nextwallthickness;
+	}
 	public String getItem() {
 		return item;
 	}

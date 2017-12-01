@@ -26,6 +26,9 @@ import com.spring.model.MyUser;
 @Transactional
 public class LiveDataManagerImpl implements LiveDataManager {
 	@Autowired
+	HttpServletRequest request ;
+	
+	@Autowired
 	private LiveDataMapper live;
 	@Autowired
 	private WeldedJunctionMapper wm;
@@ -294,9 +297,8 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getHousClassify(Page page, BigInteger parent, String material, String external_diameter,
-			String wall_thickness, String nextExternal_diameter) {
+	public List<ModelDto> getHousClassify(Page page, BigInteger parent, String searchStr) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
-		return live.getHousClassify(parent, material, external_diameter, wall_thickness, nextExternal_diameter);
+		return live.getHousClassify(parent,searchStr);
 	}
 }

@@ -107,6 +107,8 @@
        	<result property="wallThickness" column="fwall_thickness"></result>
        	<result property="material" column="fmaterial"></result>
        	<result property="nextexternaldiameter" column="fnextExternal_diameter"></result>
+       	<result property="nextwallThickness" column="fnextwall_thickness"></result>
+       	<result property="nextmaterial" column="fnext_material "></result>
        	<result property="itemid" column="itemid"></result>
        	<result property="jidgather" column="jidgather"></result>
        	<result property="starttime" column="starttime"></result>
@@ -335,7 +337,7 @@
 	<!-- 项目部焊口工时 -->
 	<select id="getItemhour" resultMap="dtoMap">
 		select * from (
-		SELECT count( l.fid ) AS hous, sum( fdyne ) dyne, fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,group_concat(distinct(j.fid)) jidgather,j.fitemid itemid
+		SELECT count( l.fid ) AS hous, sum( fdyne ) dyne, fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,fnext_material nextmaterial , fnextwall_thickness,group_concat(distinct(j.fid)) jidgather,j.fitemid itemid
 		FROM tb_live_data l
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON j.fitemid = i.fid
@@ -364,32 +366,23 @@
 				and (${dto.search})
 			</if>
 		</if>
-		GROUP BY fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,j.fitemid
+		GROUP BY fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,fnext_material,fnextwall_thickness,j.fitemid
 		 )temp
 	</select>
 	
 	<!-- 获取焊口分类 -->
 	<select id="getHousClassify" resultMap="dtoMap">
-		select j.fid, fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter from tb_welded_junction j
+		select j.fid, fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,fnext_material nextmaterial , fnextwall_thickness from tb_welded_junction j
 		INNER JOIN tb_insframework i ON i.fid = j.fitemid
         INNER JOIN tb_insframework ins ON ins.fid = i.fparent
         where 1=1
 		<if test="parent!=null and parent!=''">
 			and (i.fid=#{parent} or ins.fid=#{parent} or ins.fparent=#{parent})
 		</if>
-		<if test="material!=null and material!=''">
-			and fmaterial = #{material}
+		<if test="str!=null and str!=''">
+			and ${str}
 		</if>
-		<if test="external_diameter!=null and external_diameter!=''">
-			and fexternal_diameter = #{external_diameter}
-		</if>
-		<if test="wall_thickness!=null and wall_thickness!=''">
-			and fwall_thickness = #{wall_thickness}
-		</if>
-		<if test="nextExternal_diameter!=null and nextExternal_diameter!=''">
-			and fnextExternal_diameter = #{nextExternal_diameter}
-		</if>
-		group by fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter
+		group by fmaterial, fexternal_diameter, fwall_thickness, fnextExternal_diameter,fnext_material,fnextwall_thickness
 	</select>
 	
 	<!-- 项目部工时明细 -->
@@ -418,6 +411,12 @@
 			</if>
 			<if test="dto.dtoWallThickness!=null and dto.dtoWallThickness!=''">
 				AND fwall_thickness = #{dto.dtoWallThickness}
+			</if>
+			<if test="dto.nextmaterial!=null and dto.nextmaterial!=''">
+				AND fnext_material = #{dto.nextmaterial}
+			</if>
+			<if test="dto.nextwallthickness!=null and dto.nextwallthickness!=''">
+				AND fnextwall_thickness = #{dto.nextwallthickness}
 			</if>
 			<if test="dto.dtoNextExternalDiameter!=null and dto.dtoNextExternalDiameter!=''">
 				AND fnextExternal_diameter = #{dto.dtoNextExternalDiameter}
@@ -2209,7 +2208,7 @@
 	<select id="caustEfficiency" resultMap="dtoMap">
 		select * from (
 		select *,count(wname) num from (
-		SELECT i.fname iname,w.fname wname,w.fwelder_no fwelder_id,sum(j.fdyne) dyne,round(COUNT(l.fid)/60/60) weldtime
+		SELECT i.fid fid,i.fname iname,w.fname wname,w.fwelder_no fwelder_id,sum(j.fdyne) dyne,round(COUNT(l.fid)/60/60) weldtime
 		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId

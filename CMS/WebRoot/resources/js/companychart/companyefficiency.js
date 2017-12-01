@@ -19,11 +19,12 @@ function showcompanyEfficiencyChart(){
 	var array1 = new Array();
 	var array2 = new Array();
 	var parent = $('#parent').combobox('getValue');
+	var nextparent = $("#nextparent").val();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustEfficiencyChart?parent="+parent+chartStr,
+         url : "caustChart/getCaustEfficiencyChart?parent="+parent+"&nextparent="+nextparent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -132,6 +133,7 @@ function typecombobox(){
 
 function CompanyEfficiencyDatagrid(){
 	var parent = $('#parent').combobox('getValue');
+	var nextparent = $("#nextparent").val();
 	$("#companyEfficiencyTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-40,
@@ -139,7 +141,7 @@ function CompanyEfficiencyDatagrid(){
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "companyChart/getCompanyEfficiency?parent="+parent+chartStr,
+		url : "companyChart/getCompanyEfficiency?parent="+parent+"&nextparent="+nextparent+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
@@ -155,7 +157,10 @@ function CompanyEfficiencyDatagrid(){
 			title : '事业部',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			formatter : function(value,row,index){
+				return "<a href='caustChart/goCaustEfficiency?nextparent="+row.id+"'>"+value+"</a>";
+			}
 		}, {
 			field : 'wname',
 			title : '焊工姓名',
@@ -192,6 +197,7 @@ function CompanyEfficiencyDatagrid(){
 }
 
 function serachEfficiencyCompany(){
+	$("#nextparent").val("");
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;

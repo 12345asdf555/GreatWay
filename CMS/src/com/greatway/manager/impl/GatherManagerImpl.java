@@ -3,6 +3,8 @@ package com.greatway.manager.impl;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.jws.WebService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +15,7 @@ import com.greatway.dao.WeldingMachineMapper;
 import com.greatway.manager.GatherManager;
 import com.greatway.model.Gather;
 import com.greatway.page.Page;
-
+@WebService
 @Service
 @Transactional
 public class GatherManagerImpl implements GatherManager {

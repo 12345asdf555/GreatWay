@@ -375,6 +375,6 @@ public interface LiveDataManager {
 	 * @param nextExternal_diameter 下游外径
 	 * @return
 	 */
-	List<ModelDto> getHousClassify(Page page,BigInteger parent,String material,String external_diameter,String wall_thickness,String nextExternal_diameter);
+	List<ModelDto> getHousClassify(Page page,BigInteger parent,String searchStr);
 	
 }

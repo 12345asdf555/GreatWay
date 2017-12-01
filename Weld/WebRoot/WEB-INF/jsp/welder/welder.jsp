@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div>
 	    <div id="searchButton">
 			<a href="javascript:searchWelder();" class="easyui-linkbutton" iconCls="icon-ok">查询</a>
-			<a href="javascript:$('#searchdiv').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+			<a href="javascript:close();" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 		</div>
 	</div>
   </body>

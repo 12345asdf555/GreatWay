@@ -51,11 +51,15 @@ public class JunctionChartController {
 		String wallThickness = request.getParameter("wallThickness");
 		String nextexternaldiameter = request.getParameter("nextexternaldiameter");
 		String itemid = request.getParameter("itemid");
+		String nextmaterial = request.getParameter("nextmaterial");
+		String nextwall_thickness = request.getParameter("nextwall_thickness");
 		request.setAttribute("item", itemid);
 		request.setAttribute("material", material);
 		request.setAttribute("externalDiameter",externalDiameter );
 		request.setAttribute("wallThickness", wallThickness);
 		request.setAttribute("nextexternaldiameter",nextexternaldiameter );
+		request.setAttribute("nextmaterial", nextmaterial);
+		request.setAttribute("nextwall_thickness",nextwall_thickness );
 		lm.getUserId(request);
 		return "junctionchart/junctionhour";
 	}
@@ -163,6 +167,8 @@ public class JunctionChartController {
 		String externalDiameter = request.getParameter("externalDiameter");
 		String wallThickness = request.getParameter("wallThickness");
 		String nextexternaldiameter = request.getParameter("nextexternaldiameter");
+		String nextmaterial = request.getParameter("nextmaterial");
+		String nextwallthickness = request.getParameter("nextwallthickness");
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(item)){
 			//处理用户数据权限
@@ -198,6 +204,12 @@ public class JunctionChartController {
 		}
 		if(iutil.isNull(nextexternaldiameter)){
 			dto.setDtoNextExternalDiameter(nextexternaldiameter);
+		}
+		if(iutil.isNull(nextmaterial)){
+			dto.setNextmaterial(nextmaterial);
+		}
+		if(iutil.isNull(nextwallthickness)){
+			dto.setNextwallthickness(nextwallthickness);
 		}
 		page = new Page(pageIndex,pageSize,total);
 		List<ModelDto> list = lm.getJunctionHous(page,dto);

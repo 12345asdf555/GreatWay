@@ -265,7 +265,7 @@ function newSearch(){
 	});
 }
    	function show(value){
-   		window.location.href="/CMS/td/AllTda?value="+value;
+   		window.location.href="/CMS/td/AllTda?value="+encodeURI(value);
 	}
    	
  

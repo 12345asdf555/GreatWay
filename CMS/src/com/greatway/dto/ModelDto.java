@@ -49,12 +49,26 @@ public class ModelDto {
 	private String wallThickness;//璧厚
 	private String material;//材质
 	private String nextexternaldiameter;//下游外径
+	private String nextwallThickness;//下游璧厚
+	private String nextmaterial;//下游材质
 	private BigInteger itemid;//项目id
 	private String jidgather;
 	private BigInteger hous;//用来获取工时的总值
 	private String starttime;
 	private String endtime;
 	
+	public String getNextwallThickness() {
+		return nextwallThickness;
+	}
+	public void setNextwallThickness(String nextwallThickness) {
+		this.nextwallThickness = nextwallThickness;
+	}
+	public String getNextmaterial() {
+		return nextmaterial;
+	}
+	public void setNextmaterial(String nextmaterial) {
+		this.nextmaterial = nextmaterial;
+	}
 	public String getStarttime() {
 		return starttime;
 	}

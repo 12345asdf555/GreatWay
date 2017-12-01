@@ -3,9 +3,29 @@ $(function(){
 		title: '<i class="iconfont icon-ren"></i>    管理员',
 		content: $("#admin").html()
 	});
+	$('#accordiondiv').accordion('add', {
+		title: '<i class="iconfont icon-ren"></i>    集团',
+		content: $("#bloc").html(),
+		selected: false
+	});
+	$('#accordiondiv').accordion('add', {
+		title: '<i class="iconfont icon-ren"></i>    公司',
+		content: $("#company").html(),
+		selected: false
+	});
+	$('#accordiondiv').accordion('add', {
+		title: '<i class="iconfont icon-ren"></i>    事业部',
+		content: $("#caust").html(),
+		selected: false
+	});
+	 $('#accordiondiv').accordion('add', {
+			title: '<i class="iconfont icon-ren"></i>    项目部',
+			content: $("#item").html(),
+			selected: false
+		});
 	openUser();
 	tabsIncident();
-	hierarchyLoding();
+//	hierarchyLoding();
 })
 
 function hierarchyLoding(){

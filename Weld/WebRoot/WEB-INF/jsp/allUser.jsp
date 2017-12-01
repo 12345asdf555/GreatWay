@@ -49,17 +49,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
 	    	<div id="div0">
-		    	<input class="fields" id="fields"/>
-		    	<input class="condition" id="condition"/>
+		    	<select class="fields" id="fields"></select>
+		    	<select class="condition" id="condition"></select>
 		    	<input class="content" id="content"/>
-		    	<input class="joint" id="joint"/>
+		    	<select class="joint" id="joint"></select>
 		    	<a href="javascript:newSearchUser();" class="easyui-linkbutton" iconCls="icon-add"></a>
 		    	<a href="javascript:removeSerach();" class="easyui-linkbutton" iconCls="icon-remove"></a>
 	    	</div>
 	    </div>
 	    <div id="searchButton">
 			<a href="javascript:searchUser();" class="easyui-linkbutton" iconCls="icon-ok">查询</a>
-			<a href="javascript:$('#searchdiv').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+			<a href="javascript:close();" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 		</div>
     </div>
 </body>

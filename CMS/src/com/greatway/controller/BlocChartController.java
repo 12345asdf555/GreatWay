@@ -1,6 +1,5 @@
 package com.greatway.controller;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -767,15 +766,12 @@ public class BlocChartController {
 	@RequestMapping("/getBlocHousClassify")
 	@ResponseBody
 	public String getBlocHousClassify(HttpServletRequest request){
-		String material = request.getParameter("material");
-		String external_diameter = request.getParameter("external_diameter");
-		String wall_thickness = request.getParameter("wall_thickness");
-		String nextExternal_diameter = request.getParameter("nextExternal_diameter");
+		String searchStr = request.getParameter("searchStr");
 		
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.getHousClassify(page, null, material, external_diameter, wall_thickness, nextExternal_diameter);
+		List<ModelDto> list = lm.getHousClassify(page, null, searchStr);
 		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 		long total = pageinfo.getTotal();
 		JSONObject json = new JSONObject();
@@ -786,11 +782,15 @@ public class BlocChartController {
 			for(ModelDto m : list){
 				json.put("fid",m.getFid());
 				json.put("material",m.getMaterial());
-				json.put("external_diameter",m.getExternalDiameter());
+				json.put("nextmaterial",m.getNextmaterial());
 				json.put("wall_thickness",m.getWallThickness());
+				json.put("nextwall_thickness",m.getNextwallThickness());
+				json.put("external_diameter",m.getExternalDiameter());
 				json.put("nextExternal_diameter",m.getNextexternaldiameter());
 				ary.add(json);
-				s = " (fmaterial='"+list.get(0).getMaterial()+"' and fexternal_diameter='"+list.get(0).getExternalDiameter()+"' and fwall_thickness='"+list.get(0).getWallThickness()+"' and fnextExternal_diameter='"+list.get(0).getNextexternaldiameter()+"')";
+				s = " (fmaterial='"+list.get(0).getMaterial()+"' and fexternal_diameter='"+list.get(0).getExternalDiameter()+
+						"' and fwall_thickness='"+list.get(0).getWallThickness()+"' and fnextExternal_diameter='"+list.get(0).getNextexternaldiameter()+
+						"' and fnextwall_thickness ='"+list.get(0).getNextwallThickness()+"' and Fnext_material ='"+list.get(0).getNextmaterial()+"')";
 			}
 			request.getSession().setAttribute("s", s);
 		}catch(Exception e){
@@ -799,21 +799,6 @@ public class BlocChartController {
 		obj.put("total", total);
 		obj.put("rows", ary);
 		return obj.toString();
-	}
-
-	
-	/***********************************************************************
-	 * 正态分布报表实验代码
-	 */
-	/**
-	 * 保留几位小数
-	 * @param num 预备格式数据
-	 * @param n 
-	 * @return 保留指定小数点数据
-	 */
-	public double ZeroFormat(double num,int n){
-		BigDecimal bigDecimal = new BigDecimal(num);
-		return bigDecimal.setScale(n, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 
 

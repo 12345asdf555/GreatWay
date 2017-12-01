@@ -154,19 +154,31 @@ function classifyDatagrid(){
 			hidden : true
 		},{
 			field : 'material',
-			title : '材质',
+			title : '上游材质',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'external_diameter',
-			title : '外径',
+			field : 'nextmaterial',
+			title : '下游材质',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'wall_thickness',
-			title : '璧厚',
+			title : '上游璧厚',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'nextwall_thickness',
+			title : '下游璧厚',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'external_diameter',
+			title : '上游外径',
 			width : 100,
 			halign : "center",
 			align : "left"
@@ -189,7 +201,8 @@ function classifyDatagrid(){
 function commitChecked(){
 	search = "";
 	var rows = $("#classify").datagrid("getSelected");
-	search += " (fmaterial='"+rows.material+"' and fexternal_diameter='"+rows.external_diameter+"' and fwall_thickness='"+rows.wall_thickness+"' and fnextExternal_diameter='"+rows.nextExternal_diameter+"')";
+	search += " (fmaterial='"+rows.material+"' and fexternal_diameter='"+rows.external_diameter+"' and fwall_thickness='"+rows.wall_thickness+"' and fnextExternal_diameter='"+rows.nextExternal_diameter+
+	"' and fnextwall_thickness ='"+rows.nextwall_thickness+"' and fnext_material ='"+rows.nextmaterial+"')";
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	$('#blocHourTable').datagrid('load', {
@@ -200,20 +213,6 @@ function commitChecked(){
 	chartStr = "?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
 	showblocHourChart();
 }
-
-function serachClassify(){
-	var material = $("#material").val();
-	var external_diameter = $("#external_diameter").val();
-	var wall_thickness = $("#wall_thickness").val();
-	var nextExternal_diameter = $("#nextExternal_diameter").val();
-	$('#classify').datagrid('load', {
-		"material" : material,
-		"external_diameter" : external_diameter,
-		"wall_thickness" : wall_thickness,
-		"nextExternal_diameter" : nextExternal_diameter
-	});
-}
-
 
 function serachblocHour(){
 	commitChecked();

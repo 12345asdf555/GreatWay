@@ -12,14 +12,15 @@ $(function(){
 var chartStr = "";
 
 function ItemEfficiencyDatagrid(){
+	var nextparent = $("#nextparent").val();
 	$("#itemEfficiencyTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() -$("#itemEfficiency_btn").height(),
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "itemChart/getItemEfficiency"+chartStr,
+		url : "itemChart/getItemEfficiency?nextparent="+nextparent+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
@@ -68,7 +69,7 @@ function ItemEfficiencyDatagrid(){
 function serachEfficiencyItem(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 	ItemEfficiencyDatagrid();
 }
 
@@ -80,7 +81,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#itemEfficiencyTable").datagrid('resize', {
-		height : $("#body").height() - $("#itemEfficiencyChart").height()-$("#itemEfficiency_btn").height()-10,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }

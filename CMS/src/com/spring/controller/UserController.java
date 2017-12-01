@@ -89,18 +89,11 @@ public class UserController {
 		String search = request.getParameter("searchStr");
 		String parentId = request.getParameter("parent");
 		BigInteger parent = null;
-		WeldDto dto = new WeldDto();
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
-			int type = im.getTypeById(parent);
-			if(type==20){
-				dto.setBloc("bloc");
-			}else{
-				dto.setCompany("company");
-			}
 		}
 		page = new Page(pageIndex,pageSize,total);
-		List<User> findAll = userService.findAll(page,parent,dto,search);
+		List<User> findAll = userService.findAll(page,parent,search);
 		long total = 0;
 		
 		if(findAll != null){

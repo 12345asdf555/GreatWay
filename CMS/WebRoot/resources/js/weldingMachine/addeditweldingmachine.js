@@ -39,7 +39,7 @@ function saveWeldingMachine(){
 		url2 = url+"?tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno;
 	}else{
 		messager = "修改成功！";
-		url2 = url+"&tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno;
+		url2 = url+"&tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno+"&gatherId="+gatherId;
 	}
 	$('#fm').form('submit', {
 		url : url2,

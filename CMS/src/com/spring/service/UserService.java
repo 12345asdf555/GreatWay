@@ -16,7 +16,7 @@ public interface UserService {
 	User findById(Integer id);
 	String findByRoleId(Integer id);
 	int findByName(String name);
-	List<User> findAll(Page page, BigInteger parent,WeldDto dto,String str);
+	List<User> findAll(Page page, BigInteger parent,String str);
 	List<User> findRole(Integer id);
 	List<User> findAllRole();
 	String updateUserRole(Integer findByRoleId);

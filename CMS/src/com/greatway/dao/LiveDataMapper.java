@@ -98,5 +98,5 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<ModelDto> getEfficiencyChart(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent,@Param("minnum")int minnum,@Param("avgnum")int avgnum);
 	
-	List<ModelDto> getHousClassify(@Param("parent")BigInteger parent,@Param("material")String material,@Param("external_diameter")String external_diameter,@Param("wall_thickness")String wall_thickness,@Param("nextExternal_diameter")String nextExternal_diameter);
+	List<ModelDto> getHousClassify(@Param("parent")BigInteger parent,@Param("str")String str);
 }

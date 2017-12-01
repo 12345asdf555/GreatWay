@@ -143,10 +143,10 @@ public class CompanyChartController {
 	 */
 	@RequestMapping("/goCompanyEfficiency")
 	public String goCompanyEfficiency(HttpServletRequest request){
-		String parent = request.getParameter("parent");
-		insm.showParent(request, parent);
+		String nextparent = request.getParameter("nextparent");
+		insm.showParent(request, nextparent);
 		lm.getUserId(request);
-		request.setAttribute("parent",parent);
+		request.setAttribute("nextparent",nextparent);
 		return "companychart/companyefficiency";
 	}
 	
@@ -860,6 +860,7 @@ public class CompanyChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String nextparent = request.getParameter("nextparent");
 		WeldDto dto = new WeldDto();
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -868,7 +869,9 @@ public class CompanyChartController {
 		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
 		}
-		if(iutil.isNull(parentId)){
+		if(iutil.isNull(nextparent)){
+			parent = new BigInteger(nextparent);
+		}else if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
 		}
 		pageIndex = Integer.parseInt(request.getParameter("page"));

@@ -16,12 +16,14 @@ function itemjunctionDatagrid(){
 	var externalDiameter = $("#externalDiameter").val();
 	var wallThickness = $("#wallThickness").val();
 	var nextexternaldiameter = $("#nextexternaldiameter").val();
+	var nextmaterial = $("#nextmaterial").val();
+	var nextwallthickness = $("#nextwallthickness").val();
 	$("#junctionHourTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#junctionHour_btn").height(),
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getJunctionHour?item="+item+"&material="+encodeURI(material)+"&externalDiameter="+encodeURI(externalDiameter)+"&wallThickness="+encodeURI(wallThickness)+"&nextexternaldiameter="+encodeURI(nextexternaldiameter),
+		url : "junctionChart/getJunctionHour?item="+item+"&material="+encodeURI(material)+"&externalDiameter="+encodeURI(externalDiameter)+"&wallThickness="+encodeURI(wallThickness)+"&nextexternaldiameter="+encodeURI(nextexternaldiameter)+"&nextmaterial="+encodeURI(nextmaterial)+"&nextwallthickness="+encodeURI(nextwallthickness),
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -102,7 +104,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#junctionHourTable").datagrid('resize', {
-		height : $("#body").height() - $("#junctionHour_btn").height(),
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }
