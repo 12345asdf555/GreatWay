@@ -125,19 +125,19 @@ function newSearch(){
 			        for(var k=0;k<c.length;k=k+3){
 				if(c[k].finsframework_id==ddd[h].fid){
 					num++;
-        				if(c[k].fstatus_id=="31"||c[k].fstatus_id=="32"){
+        				if(c[k].fstatus_id=="03"||c[k].fstatus_id=="05"){
         					num0 = num0+1;
         					document.getElementById("on"+index+"").value=num0;
         				}
-        				if(c[k].maxvol>c[k].voltage||c[k].maxele>c[k].electricity){
+        				if(c[q].fstatus_id=="07"){
 	            			num1=num1+1;
 	            			document.getElementById("warning"+index+"").value=num1;
 	            		}
-	            		if(c[k].fstatus_id=="33"){
+	            		if(c[k].fstatus_id=="00"){
 	            			num2=num2+1;
 	            			document.getElementById("wait"+index+"").value=num2;
 	            		}
-	            		if(c[k].fstatus_id=="00"){
+	            		if(c[k].fstatus_id=="09"){
 	            			num3=num3+1;
 	            			document.getElementById("off"+index+"").value=num3;
 	            		}
@@ -151,19 +151,19 @@ function newSearch(){
 		}				
 		            	num0 = 0;num1 = 0;num2 = 0;num3 = 0;
 		            	for(var q=0;q<c.length;q=q+3){
-        				if(c[q].fstatus_id=="31"||c[q].fstatus_id=="32"){
+        				if(c[q].fstatus_id=="03"||c[q].fstatus_id=="05"){
         					num0 = num0+1;
         					document.getElementById("onn").value=num0;
         				}
-        				if(c[q].maxvol>c[q].voltage||c[q].maxele>c[q].electricity){
+        				if(c[q].fstatus_id=="07"){
 	            			num1=num1+1;
 	            			document.getElementById("warningn").value=num1;
 	            		}
-	            		if(c[q].fstatus_id=="33"){
+	            		if(c[q].fstatus_id=="00"){
 	            			num2=num2+1;
 	            			document.getElementById("waitn").value=num2;
 	            		}
-	            		if(c[q].fstatus_id=="00"){
+	            		if(c[q].fstatus_id=="09"){
 	            			num3=num3+1;
 	            			document.getElementById("offn").value=num3;
 	            		}  	

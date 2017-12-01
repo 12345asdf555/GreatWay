@@ -11,6 +11,7 @@ public interface TdMapper {
 	List<Td> findAllpro(long ins);
 	List<Td> findAllcom();
 	List<Td> findAlldiv(long ins);
+	List<Td> getAllPosition();
 	long findAllIns(long uid);
 	long findInsid(String insname);
 	String findweld(String weldid);

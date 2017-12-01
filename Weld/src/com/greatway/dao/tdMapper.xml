@@ -38,4 +38,8 @@
 	<select id="findPosition" parameterType="String" resultType="String">
 		select fposition from tb_welding_machine where fequipment_no=#{equip}
 	</select>
+	
+	<select id="getAllPosition" parameterType="String" resultType="Td">
+		select DISTINCT fposition fposition from tb_welding_machine
+	</select>
 </mapper>

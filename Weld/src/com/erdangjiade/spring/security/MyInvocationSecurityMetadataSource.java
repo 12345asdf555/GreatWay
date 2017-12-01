@@ -57,51 +57,7 @@ public class MyInvocationSecurityMetadataSource implements FilterInvocationSecur
      *   
      * TODO(程序启动的时候就加载所有资源信息).  
      */    
-    private void loadResourceDefine() {    
-    
-        // 在Web服务器启动时，提取系统中的所有权限。    
-        //sql = "select authority_name from pub_authorities";    
-    
-        List<Authority> query = authorityService.getAllAuthoritys();    
-    
-        /**//*  
-             * 应当是资源为key， 权限为value。 资源通常为url， 权限就是那些以ROLE_为前缀的角色。 一个资源可以由多个权限来访问。  
-             * sparta  
-             */    
-        resourceMap = new HashMap<String, Collection<ConfigAttribute>>();    
-    
-        for (Authority auth : query) {    
-            String authName = auth.getAuthorityName();    
-                
-            ConfigAttribute ca = new SecurityConfig(auth.getAuthorityName());    
-    
-            List<String> resources = resourceService.getResourcesByAuthName(authName);    
-             
-    
-            for (String str : resources) {    
-                //String authName = auth2.getAuthorityName();    
-                String url = str;    
-    
-                /**//*  
-                     * 判断资源文件和权限的对应关系，如果已经存在相关的资源url，则要通过该url为key提取出权限集合，将权限增加到权限集合中。  
-                     * sparta  
-                     */    
-                if (resourceMap.containsKey(url)) {    
-    
-                    Collection<ConfigAttribute> value = resourceMap.get(url);    
-                    value.add(ca);    
-                    resourceMap.put(url, value);    
-                } else {    
-                    Collection<ConfigAttribute> atts = new ArrayList<ConfigAttribute>();    
-                    atts.add(ca);    
-                    resourceMap.put(url, atts);    
-                }    
-    
-            }    
-    
-        }    
-    
-    }    
+    private void loadResourceDefine() {}    
     
     /**  
      * TODO(自定义方法，将List<Role>集合转换为框架需要的Collection<ConfigAttribute>集合).  

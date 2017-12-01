@@ -84,7 +84,7 @@ function newSearch(){
 			            	/*var i = Math.floor(index/3);*/
 			            		if(c[index].finsframework_id == da[0].fid){
 			            			i++;
-			            		if(c[index].fstatus_id=="31"||c[index].fstatus_id=="32"){
+			            		if(c[index].fstatus_id=="03"||c[index].fstatus_id=="05"){
 		            			if($("#div"+i+"").length<=0)
 		            			{
 			            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
@@ -109,7 +109,7 @@ function newSearch(){
 			            	$("#body").append(str);
 		            		}
 			            	}
-			            		else if(c[index].maxvol>c[index].voltage||c[index].maxele>c[index].electricity){
+			            		else if(c[q].fstatus_id=="07"){
 			            			if($("#div"+i+"").length<=0)
 			            			{
 				            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
@@ -134,7 +134,7 @@ function newSearch(){
 				            	$("#body").append(str);
 			            		}
 			            		}
-			            		else if(c[index].fstatus_id=="33"){
+			            		else if(c[index].fstatus_id=="00"){
 			            			if($("#div"+i+"").length<=0)
 			            			{
 				            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
@@ -218,19 +218,19 @@ function newSearch(){
 		            		}
 				            document.getElementById("statusn").value=i;
 				            	/*if(c[l].finsframework_id==document.getElementById("project").value){*/
-				            		if(c[index].fstatus_id=="31"||c[index].fstatus_id=="32"){
+				            		if(c[index].fstatus_id=="03"||c[index].fstatus_id=="05"){
 				            			num0=num0+1;
 				            			document.getElementById("onn").value=num0;
 				            		}
-				            		if(c[index].maxvol>c[index].voltage||c[index].maxele>c[index].electricity){
+				            		if(c[q].fstatus_id=="07"){
 				            			num1=num1+1;
 				            			document.getElementById("warningn").value=num1;
 				            		}
-				            		if(c[index].fstatus_id=="33"){
+				            		if(c[index].fstatus_id=="00"){
 				            			num2=num2+1;
 				            			document.getElementById("waitn").value=num2;
 				            		}
-				            		if(c[index].fstatus_id=="00"){
+				            		if(c[index].fstatus_id=="09"){
 				            			num3=num3+1;
 				            			document.getElementById("offn").value=num3;
 				            		}

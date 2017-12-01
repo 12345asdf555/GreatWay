@@ -27,9 +27,9 @@ public class AuthorityServiceImpl implements AuthorityService {
 		return mapper.delete(id);
 	}
 	
-	public boolean delete1(String authorityName) {
+	public boolean delete1(int id) {
 		
-		return mapper.delete1(authorityName);
+		return mapper.delete1(id);
 	}
 	
 	public boolean delete2(int id) {
@@ -37,9 +37,9 @@ public class AuthorityServiceImpl implements AuthorityService {
 		return mapper.delete2(id);
 	}
 	
-	public boolean deleteResource(String authorityName) {
+	public boolean deleteResource(int id) {
 		
-		return mapper.deleteResource(authorityName);
+		return mapper.deleteResource(id);
 	}
 
 	public List<Authority> findAll(Page page,String str) {
@@ -96,6 +96,11 @@ public class AuthorityServiceImpl implements AuthorityService {
 	public boolean update(Authority authority) {
 
 		return mapper.update(authority);
+	}
+	
+	public int findAuthId(String authName){
+		
+		return mapper.findAuthId(authName);
 	}
 
 }

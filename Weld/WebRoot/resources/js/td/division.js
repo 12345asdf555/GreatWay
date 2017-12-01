@@ -109,19 +109,19 @@ function newSearch(){
 		            		for(var l=0;l<c.length;l=l+3){
 		            			if(da[index].fid==c[l].finsframework_id){
 		            				num++;
-		            				if(c[l].fstatus_id=="31"||c[l].fstatus_id=="32"){
+		            				if(c[l].fstatus_id=="03"||c[l].fstatus_id=="05"){
 		            					num0 = num0+1;
 		            					document.getElementById("on"+index+"").value=num0;
 		            				}
-		            				if(c[l].maxvol>c[l].voltage||c[l].maxele>c[l].electricity){
+		            				if(c[q].fstatus_id=="07"){
 				            			num1=num1+1;
 				            			document.getElementById("warning"+index+"").value=num1;
 				            		}
-				            		if(c[l].fstatus_id=="33"){
+				            		if(c[l].fstatus_id=="00"){
 				            			num2=num2+1;
 				            			document.getElementById("wait"+index+"").value=num2;
 				            		}
-				            		if(c[l].fstatus_id=="00"){
+				            		if(c[l].fstatus_id=="09"){
 				            			num3=num3+1;
 				            			document.getElementById("off"+index+"").value=num3;
 				            		}

@@ -11,9 +11,9 @@ public interface AuthorityService {
 	void saveResource(Authority authority);
 	boolean update(Authority authority);
 	boolean delete(int id);
-	boolean delete1(String authorityName);
+	boolean delete1(int id);
 	boolean delete2(int id);
-	boolean deleteResource(String authorityName);
+	boolean deleteResource(int id);
 	String findByResourceId(Integer id);
 	Authority findById(Integer id);
 	List<Authority> findAll(Page page, String search);
@@ -22,4 +22,5 @@ public interface AuthorityService {
 	String updateAuthorityResource(Integer findByRoleId);
 	int getAuthoritynameCount(String authorityName);
 	List<Authority> getAllAuthoritys();
+	int findAuthId(String authName);
 }

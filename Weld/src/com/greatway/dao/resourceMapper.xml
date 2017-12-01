@@ -43,7 +43,7 @@
 	</select>
 	
 	<select id="getAuthByRes" parameterType="String" resultType="String">
-		select tb_authorities.authorities_name from tb_authorities left join tb_authorities_resources on tb_authorities.authorities_name = tb_authorities_resources.authorities_name left join tb_resources on tb_authorities_resources.resources_name = tb_resources.resources_name where tb_resources.resources_address =#{resourceAddress} 
+		select tb_authorities.authorities_name from tb_authorities left join tb_authorities_resources on tb_authorities.id = tb_authorities_resources.authorities_id left join tb_resources on tb_authorities_resources.resources_id = tb_resources.id where tb_resources.resources_address =#{resourceAddress} 
 	</select>
 	
 </mapper>
