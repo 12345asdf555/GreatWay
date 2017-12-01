@@ -50,7 +50,7 @@ public class MyInvocationSecurityMetadataSource implements FilterInvocationSecur
 	@ResponseBody
     @PostConstruct    
     public void init() {    
-        loadResourceDefine();    
+//        loadResourceDefine();    
     }    
     
     /**  
@@ -150,15 +150,31 @@ public class MyInvocationSecurityMetadataSource implements FilterInvocationSecur
         if(firstQuestionMarkIndex != -1){    
             url = url.substring(0,firstQuestionMarkIndex);    
         }    
-            
-        Iterator<String> ite = resourceMap.keySet().iterator();    
-        //取到请求的URL后与上面取出来的资源做比较    
-        while (ite.hasNext()) {    
-            String resURL = ite.next();    
-            if(urlMatcher.pathMatchesUrl(url, resURL)){    
-                return resourceMap.get(resURL);    
-            }    
-        }    
+  
+        List<String> query = resourceService.getAuthByRes(url);    
+    
+        /**//*  
+             * 应当是资源为key， 权限为value。 资源通常为url， 权限就是那些以ROLE_为前缀的角色。 一个资源可以由多个权限来访问。  
+             * sparta  
+             */    
+        resourceMap = new HashMap<String, Collection<ConfigAttribute>>();    
+    
+        for (String auth : query) {    
+                
+            ConfigAttribute ca = new SecurityConfig(auth);       
+             
+                //String authName = auth2.getAuthorityName();    
+    
+                /**//*  
+                     * 判断资源文件和权限的对应关系，如果已经存在相关的资源url，则要通过该url为key提取出权限集合，将权限增加到权限集合中。  
+                     * sparta  
+                     */     
+                    Collection<ConfigAttribute> atts = new ArrayList<ConfigAttribute>();    
+                    atts.add(ca);    
+                    resourceMap.put(url, atts);   
+                    return resourceMap.get(url);    
+    
+        }                    
         return null;    
     }    
     

@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.greatway.dto.ModelDto;
 import com.greatway.dto.WeldDto;
 import com.greatway.model.LiveData;
+import com.greatway.model.WeldedJunction;
 import com.greatway.page.Page;
 
 public interface LiveDataManager {
@@ -17,7 +20,7 @@ public interface LiveDataManager {
 	 * @param parent 父id
 	 * @return
 	 */
-	List<LiveData> getCausehour(Page page,WeldDto dto,BigInteger parent);
+	List<ModelDto> getCausehour(Page page,WeldDto dto,BigInteger parent);
 	
 	/**
 	 * 查询公司焊接工时
@@ -25,21 +28,21 @@ public interface LiveDataManager {
 	 * @param parent父id
 	 * @return
 	 */
-	List<LiveData> getCompanyhour(Page page,WeldDto dto,BigInteger parent);
+	List<ModelDto> getCompanyhour(Page page,WeldDto dto,BigInteger parent);
 	
 	/**
 	 * 项目部焊接工时
 	 * @param dto扩展参数类
 	 * @return
 	 */
-	List<LiveData> getItemhour(Page page,WeldDto dto);
+	List<ModelDto> getItemhour(Page page,WeldDto dto);
 	
 	/**
 	 * 焊口焊接工时
 	 * @param dto扩展参数类
 	 * @return
 	 */
-	List<LiveData> getJunctionHous(Page page,WeldDto dto);
+	List<ModelDto> getJunctionHous(Page page,WeldDto dto);
 	
 	/**
 	 * 事业部工艺超标统计
@@ -266,7 +269,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<LiveData> getBlochour(Page page,WeldDto dto);
+	List<ModelDto> getBlochour(Page page,WeldDto dto);
 	
 	/**
 	 * 集团超标统计
@@ -325,7 +328,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> geCaustEfficiency(Page page,BigInteger parent,WeldDto dto);
+	List<ModelDto> caustEfficiency(Page page,BigInteger parent,WeldDto dto);
 	
 	/**
 	 * 公司工效
@@ -335,4 +338,43 @@ public interface LiveDataManager {
 	 * @return
 	 */
 	List<ModelDto> companyEfficiency(Page page ,BigInteger parent,WeldDto dto);
+	
+	/**
+	 * 集团工效
+	 * @param page 分页
+	 * @param parent 父id
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<ModelDto> blocEfficiency(Page page,WeldDto dto,BigInteger parent);
+	
+	/**
+	 * 获取工效最大值最小值以及平均跨度
+	 */
+	List<ModelDto> getEfficiencyChartNum(WeldDto dto,BigInteger parent);
+	
+	/**
+	 * 获取工效图表数据
+	 */
+	List<ModelDto> getEfficiencyChart(WeldDto dto,BigInteger parent,int minnum,int avgnum);
+	
+	/**
+	 * 根据id获取焊口信息
+	 * @param id
+	 * @return
+	 */
+	WeldedJunction getWeldedJunctionById(BigInteger id);
+	
+	/**
+	 * 获取焊口分类
+	 * @param page 分页
+	 * @param parent 父id
+	 * @param material 材质
+	 * @param external_diameter 外径
+	 * @param wall_thickness 璧厚
+	 * @param nextExternal_diameter 下游外径
+	 * @return
+	 */
+	List<ModelDto> getHousClassify(Page page,BigInteger parent,String searchStr);
+	
 }

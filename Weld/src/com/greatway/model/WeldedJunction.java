@@ -37,6 +37,8 @@ public class WeldedJunction {
 	private String creatTime;
 	private String updateTime;
 	private int updatecount;
+	private String nextwall_thickness;
+	private String next_material;
 	@Transient
 	private Insframework itemid;//所属项目（新增字段）
 	
@@ -189,6 +191,18 @@ public class WeldedJunction {
 	}
 	public void setUpdatecount(int updatecount) {
 		this.updatecount = updatecount;
+	}
+	public String getNextwall_thickness() {
+		return nextwall_thickness;
+	}
+	public void setNextwall_thickness(String nextwall_thickness) {
+		this.nextwall_thickness = nextwall_thickness;
+	}
+	public String getNext_material() {
+		return next_material;
+	}
+	public void setNext_material(String next_material) {
+		this.next_material = next_material;
 	}
 	
 }

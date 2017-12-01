@@ -3,6 +3,7 @@ package com.greatway.manager.impl;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.jws.WebService;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,39 +13,46 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.greatway.dao.LiveDataMapper;
+import com.greatway.dao.WeldedJunctionMapper;
 import com.greatway.dto.ModelDto;
 import com.greatway.dto.WeldDto;
 import com.greatway.manager.LiveDataManager;
 import com.greatway.model.LiveData;
+import com.greatway.model.WeldedJunction;
 import com.greatway.page.Page;
 import com.spring.model.MyUser;
-
+@WebService
 @Service
 @Transactional
 public class LiveDataManagerImpl implements LiveDataManager {
 	@Autowired
+	HttpServletRequest request ;
+	
+	@Autowired
 	private LiveDataMapper live;
+	@Autowired
+	private WeldedJunctionMapper wm;
 	
 	@Override
-	public List<LiveData> getCausehour(Page page,WeldDto dto, BigInteger parent) {
+	public List<ModelDto> getCausehour(Page page,WeldDto dto, BigInteger parent) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		return live.getCausehour(dto,parent);
 	}
 
 	@Override
-	public List<LiveData> getCompanyhour(Page page,WeldDto dto, BigInteger parent) {
+	public List<ModelDto> getCompanyhour(Page page,WeldDto dto, BigInteger parent) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		return live.getCompanyhour(dto, parent);
 	}
 
 	@Override
-	public List<LiveData> getItemhour(Page page,WeldDto dto) {
+	public List<ModelDto> getItemhour(Page page,WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		return live.getItemhour(dto);
 	}
 
 	@Override
-	public List<LiveData> getJunctionHous(Page page,WeldDto dto) {
+	public List<ModelDto> getJunctionHous(Page page,WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		return live.getJunctionHous(dto);
 	}
@@ -213,7 +221,7 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<LiveData> getBlochour(Page page, WeldDto dto) {
+	public List<ModelDto> getBlochour(Page page, WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
 		return live.getBlochour(dto);
 	}
@@ -256,14 +264,41 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> geCaustEfficiency(Page page, BigInteger parent, WeldDto dto) {
+	public List<ModelDto> caustEfficiency(Page page, BigInteger parent, WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return live.geCaustEfficiency(dto, parent);
+		return live.caustEfficiency(dto, parent);
 	}
 
 	@Override
 	public List<ModelDto> companyEfficiency(Page page, BigInteger parent, WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
 		return live.companyEfficiency(dto,parent);
+	}
+
+	@Override
+	public List<ModelDto> blocEfficiency(Page page, WeldDto dto,BigInteger parent) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.blocEfficiency(dto,parent);
+	}
+
+	@Override
+	public List<ModelDto> getEfficiencyChartNum(WeldDto dto, BigInteger parent) {
+		return live.getEfficiencyChartNum(dto, parent);
+	}
+
+	@Override
+	public List<ModelDto> getEfficiencyChart(WeldDto dto, BigInteger parent, int minnum, int avgnum) {
+		return live.getEfficiencyChart(dto, parent, minnum, avgnum);
+	}
+
+	@Override
+	public WeldedJunction getWeldedJunctionById(BigInteger id) {
+		return wm.getWeldedJunctionById(id);
+	}
+
+	@Override
+	public List<ModelDto> getHousClassify(Page page, BigInteger parent, String searchStr) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.getHousClassify(parent,searchStr);
 	}
 }

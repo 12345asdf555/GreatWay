@@ -52,8 +52,8 @@ function newSearch(){
 			};
 			//获得消息事件
 			socket.onmessage = function(msg) {
-				/*alert(msg.data);*/
-				/*dd = msg.data;*/
+/*				alert(msg.data);
+				dd = msg.data;*/
 				$.ajax({ 
 					type : "post",  
 			        async : false,
@@ -199,7 +199,7 @@ function newSearch(){
 
 	function show(value){
 /*		var xx = document.getElementById("btnReg"+index+"").value;*/
-		window.location.href="/CMS/td/AllTdd?value="+value;
+		window.location.href="/CMS/td/AllTdd?value="+encodeURI(value);
 	}
 	
 

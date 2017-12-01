@@ -40,11 +40,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>采集模块状态</lable>
-					<input class="easyui-combobox" name="status" id="status" data-options="required:true"/>
+					<select class="easyui-combobox" name="status" id="status" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>采集模块通讯协议</lable>
-					<input class="easyui-combobox" name="protocol" id="protocol" data-options="required:true"/>
+					<select class="easyui-combobox" name="protocol" id="protocol" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>采集模块IP地址</lable>

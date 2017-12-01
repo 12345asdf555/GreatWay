@@ -29,9 +29,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-  <body  class="easyui-layout">
-<%--   	<jsp:include  page="insframeworktree.jsp"/> --%>
-  	<div id="body" region="center"  hide="true"  split="true" title="组织机构管理" style="background: witch; width:80%; height: 335px;">
+  <body  class="easyui-layout" >
+  	<jsp:include  page="../insframeworktree.jsp"/>
+  	<div id="body" region="center"  hide="true"  split="true" title="组织机构管理" style="background: witch; width:auto; height: 335px;" >
 	  	
 	  	<div id="insframework_btn">
 			<div style="margin-bottom: 5px;">
@@ -45,10 +45,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
 	    	<div id="div0">
-		    	<input class="fields" id="fields"/>
-		    	<input class="condition" id="condition"/>
+		    	<select class="fields" id="fields"></select>
+		    	<select class="condition" id="condition"></select>
 		    	<input class="content" id="content"/>
-		    	<input class="joint" id="joint"/>
+		    	<select class="joint" id="joint"></select>
 		    	<a href="javascript:newSearchInsf();" class="easyui-linkbutton" iconCls="icon-add"></a>
 		    	<a href="javascript:removeSerach();" class="easyui-linkbutton" iconCls="icon-remove"></a>
 	    	</div>

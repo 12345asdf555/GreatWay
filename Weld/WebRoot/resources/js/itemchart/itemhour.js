@@ -1,5 +1,5 @@
 $(function(){
-	itemHourDatagrid();
+	classifyDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
@@ -10,9 +10,7 @@ $(function(){
 	}
 })
 var chartStr = "";
-$(document).ready(function(){
-	showItemHourChart();
-})
+var search;
 
 function showItemHourChart(){
 	var array1 = new Array();
@@ -21,21 +19,26 @@ function showItemHourChart(){
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行
-         url : "itemChart/getitemHour?item="+item+chartStr,
+         url : encodeURI("itemChart/getitemHour?item="+item+chartStr),
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
              if (result) {  
                  for(var i=0;i<result.rows.length;i++){
-                 	array1.push(result.rows[i].material+"+"+result.rows[i].externalDiameter+"+"+result.rows[i].wallThickness+"+"+result.rows[i].nextexternaldiameter);
-                 	array2.push(result.rows[i].manhour);
+                 	array1.push(result.rows[i].material+"+"+rows[i].nextmaterial+"+"+result.rows[i].externalDiameter+"+"+result.rows[i].nextexternaldiameter)+"+"+result.rows[i].wallThickness+"+"+result.rows[i].nextwall_thickness;
+                 	if(result.rows[i].jidgather==0){
+                     	array2.push(0);
+                 	}else{
+                     	var num = (result.rows[i].manhour/result.rows[i].jidgather).toFixed(2);
+                     	array2.push(num);
+                 	}
                  }
              }  
          },  
         error : function(errorMsg) {  
              alert("图表请求数据失败啦!");  
          }  
-    }); 
+    });
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("itemHourChart"));
 	//显示加载动画效果
@@ -108,15 +111,28 @@ function itemHourDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter:function(value,row,index){
-				var str = row.material+"+"+row.externalDiameter+"+"+row.wallThickness+"+"+row.nextexternaldiameter;
-				return '<a href="junctionChart/goJunctionHour?material='+row.material+'&externalDiameter='+row.externalDiameter+'&wallThickness='+row.wallThickness+'&nextexternaldiameter='+row.nextexternaldiameter+'&itemid='+row.itemid+'">'+str+'</a>';
+				var str = row.material+"+"+row.nextmaterial+"+"+row.externalDiameter+"+"+row.nextexternaldiameter+"+"+row.wallThickness+"+"+row.nextwall_thickness;
+				return '<a href="junctionChart/goJunctionHour?material='+encodeURI(row.material)+'&nextmaterial='+encodeURI(row.nextmaterial)+'&externalDiameter='+encodeURI(row.externalDiameter)+'&nextexternaldiameter='+encodeURI(row.nextexternaldiameter)+
+				'&wallThickness='+encodeURI(row.wallThickness)+'&nextwall_thickness='+encodeURI(row.nextwall_thickness)+'&itemid='+row.itemid+'">'+str+'</a>';
 			}
+		}, {
+			field : 'jidgather',
+			title : '焊口数量',
+			width : 100,
+			halign : "center",
+			align : "left"
 		}, {
 			field : 'manhour',
 			title : '焊接工时',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			formatter:function(value,row,index){
+				if(row.jidgather==0){
+                 	return 0;
+             	}
+				return (value/row.jidgather).toFixed(2);
+			}
 		}, {
 			field : 'dyne',
 			title : '达因',
@@ -125,7 +141,14 @@ function itemHourDatagrid(){
 			align : "left"
 		}, {
 			field : 'material',
-			title : '材质',
+			title : '上游材质',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden: true
+		}, {
+			field : 'nextmaterial',
+			title : '下游材质',
 			width : 100,
 			halign : "center",
 			align : "left",
@@ -139,14 +162,21 @@ function itemHourDatagrid(){
 			hidden: true
 		}, {
 			field : 'externalDiameter',
-			title : '外径',
+			title : '上游外径',
 			width : 100,
 			halign : "center",
 			align : "left",
 			hidden: true
 		}, {
 			field : 'wallThickness',
-			title : '璧厚',
+			title : '上游璧厚',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden: true
+		}, {
+			field : 'nextwall_thickness',
+			title : '下游璧厚',
 			width : 100,
 			halign : "center",
 			align : "left",
@@ -162,15 +192,100 @@ function itemHourDatagrid(){
 	});
 }
 
-function serachItemHour(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#itemHourTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2
+function classifyDatagrid(){
+	var item = $("#item").val();
+	$("#classify").datagrid( {
+		fitColumns : true,
+		height : $("#classifydiv").height(),
+		width : $("#body").width()/2,
+		idField : 'fid',
+		url : "itemChart/getItemHousClassify?item="+item,
+		pageSize : 5,
+		pageList : [ 5, 10, 15, 20, 25],
+		rownumbers : true,
+		showPageList : false,
+		pagination : true,
+		columns : [ [ {
+			field : 'ck',
+			checkbox : true
+		},{
+			field : 'fid',
+			hidden : true
+		},{
+			field : 'material',
+			title : '上游材质',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'nextmaterial',
+			title : '下游材质',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'wall_thickness',
+			title : '上游璧厚',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'nextwall_thickness',
+			title : '下游璧厚',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'external_diameter',
+			title : '上游外径',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'nextExternal_diameter',
+			title : '下游外径',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}] ],
+		toolbar : '#classify_btn',
+		onLoadSuccess: function(){
+			$("#classify").datagrid("selectRow",0);
+			showItemHourChart();
+			itemHourDatagrid();
+		}
 	});
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
-	showItemHourChart();
+}
+function commitChecked(){
+	search = "";
+	var rows = $("#classify").datagrid("getSelections");
+	if(rows==null || rows==""){
+		alert("您还没有选中行！");
+	}else{
+		for(var i=0;i<rows.length;i++){
+			if(i==0){
+				search = "";
+			}else{
+				search += " or";
+			}
+			search += " (fmaterial='"+rows[i].material+"' and fexternal_diameter='"+rows[i].external_diameter+"' and fwall_thickness='"+rows[i].wall_thickness+"' and fnextExternal_diameter='"+rows[i].nextExternal_diameter+
+			"' and fnextwall_thickness ='"+rows[i].nextwall_thickness+"' and Fnext_material ='"+rows[i].nextmaterial+"')";
+		}
+		var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+		var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+		$('#itemHourTable').datagrid('load', {
+			"dtoTime1" : dtoTime1,
+			"dtoTime2" : dtoTime2,
+			"search" : search
+		});
+		chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
+		showItemHourChart();
+	}
+}
+
+
+function serachItemHour(){
+	commitChecked();
 }
 
 //监听窗口大小变化

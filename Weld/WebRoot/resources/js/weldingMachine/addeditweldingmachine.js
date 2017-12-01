@@ -39,7 +39,7 @@ function saveWeldingMachine(){
 		url2 = url+"?tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno;
 	}else{
 		messager = "修改成功！";
-		url2 = url+"&tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno;
+		url2 = url+"&tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno+"&gatherId="+gatherId;
 	}
 	$('#fm').form('submit', {
 		url : url2,
@@ -106,11 +106,11 @@ function editText(){
 	$('#tId').combobox('select',type);
 	$('#iId').combobox('select',insframework);
 	$('#manuno').combobox('select',manu);
-	$('#gatherId').combobox('select',gid);
 
 	if(gid==null||gid==""){
 	}else{
 		$("#gatherId").combobox({disabled: true});  
+		$('#gatherId').combobox('select',gid);
 	}
 }
 
@@ -150,11 +150,11 @@ function typeCombobox(){
         success : function(result) {
             if (result) {
                 var optionStr = '';  
-                for (var i = 0; i < result.ary.length; i++) {  
+                for (var i = 0; i < result.ary.length; i++) { 
                     optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
                             + result.ary[i].name + "</option>";  
-                }  
-                $("#tId").html(optionStr);
+                } 
+                $("#tId").append(optionStr);
             }  
         },  
         error : function(errorMsg) {  
@@ -227,7 +227,7 @@ function statusRadio(){
 	    	if (result) {
 	    		var str = "";
 	    		for (var i = 0; i < result.ary.length; i++) {
-	    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+	    			str += "<input type='radio' class='radioStyle' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
                     + result.ary[i].name;
 	    		}
 	            $("#radios").html(str);

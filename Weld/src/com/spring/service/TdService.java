@@ -15,4 +15,5 @@ public interface TdService {
 	String findInsname(long uid);
 	long findInsid(String insname);
 	long findIns(long uid);
+	String findPosition(String equip);
 }

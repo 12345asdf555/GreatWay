@@ -1,7 +1,7 @@
 $(function(){
-	updatetext();
 	parentCombobox();
 	typeCombobox();
+	updatetext();
 	$("#fm").form("disableValidation");
 })
 
@@ -64,14 +64,9 @@ function saveInsframework(){
 }
 
 function updatetext(){
-	//隐藏文本框
-	$("#id").next().hide();
-	$("#parentid").next().hide();
-	$("#validname").next().hide();
-	$("#type").next().hide();
 	var type = $("#type").val();
 	var parent = $("#parentid").val();
-	$("#typeId").combobox('select',type);
+	$("#typeid").combobox('select',type);
 	$("#parent").combobox('select',parent);
 }
 

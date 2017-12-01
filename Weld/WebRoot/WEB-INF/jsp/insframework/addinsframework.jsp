@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout">
-<%--   	<jsp:include  page="insframeworktree.jsp"/> --%>
+  	<jsp:include  page="../insframeworktree.jsp"/>
     <div  id="body" region="center"  hide="true"  split="true" title="新增组织机构" style="background: white; height: 335px;">
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
@@ -50,11 +50,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>上级项目</lable>
-					<input class="easyui-combobox" name="parent" id="parent"/>
+					<select class="easyui-combobox" name="parent" id="parent"></select>
 				</div>
 				<div class="fitem">
 					<lable>项目类型</lable>
-					<input class="easyui-combobox" name="typeid" id="typeid" data-options="required:true"/>
+					<select class="easyui-combobox" name="typeid" id="typeid" data-options="required:true"></select>
 				</div>
 				<div class="weldbutton">
 					<a href="javascript:addInsframework();" class="easyui-linkbutton"	iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

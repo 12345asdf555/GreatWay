@@ -23,20 +23,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
 	<script type="text/javascript" src="resources/js/weldingMachine/weldingMachine.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
-
 	
   </head>
   
   <body  class="easyui-layout">
-  	<div id="body" region="center"  hide="true"  split="true" title="焊机设备管理" style="background: #eee; height: 335px;">
-	  	
+  	<jsp:include  page="../insframeworktree.jsp"/>
+  	<div id="body" region="center"  hide="true"  split="true" title="焊机设备管理" style="background: #eee;height: 335px;">
 	  	<div id="weldingmachineTable_btn">
 			<div style="margin-bottom: 5px;">
 				<a href="weldingMachine/goAddWeldingMachine" class="easyui-linkbutton" iconCls="icon-add">新增</a>
 				<a href="javascript:importclick();" class="easyui-linkbutton" iconCls="icon-excel">导入</a>
-				<a href="javascript:exportWeldingMachine();" class="easyui-linkbutton" iconCls="icon-excel">导出</a>
+				<a href="javascript:exportWeldingMachine();" class="easyui-linkbutton" iconCls="icon-excel">导出</a>				
 				<a href="javascript:insertSearchWeldingMachine();" class="easyui-linkbutton"iconCls="icon-search" >查找</a>
 			</div>
 		</div>
@@ -54,10 +54,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
 	    	<div id="div0">
-		    	<input class="fields" id="fields"/>
-		    	<input class="condition" id="condition"/>
+		    	<select class="fields" id="fields"></select>
+		    	<select class="condition" id="condition"></select>
 		    	<input class="content" id="content"/>
-		    	<input class="joint" id="joint"/>
+		    	<select class="joint" id="joint"></select>
 		    	<a href="javascript:newSearchWeldingMachine();" class="easyui-linkbutton" iconCls="icon-add"></a>
 		    	<a href="javascript:removeSerach();" class="easyui-linkbutton" iconCls="icon-remove"></a>
 	    	</div>

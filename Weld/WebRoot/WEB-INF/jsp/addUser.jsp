@@ -60,7 +60,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
 				<lable>部门</lable>
-				<input class="easyui-combobox" name="userInsframework" id="userInsframework" data-options="required:true"/>
+<!-- 				<select class="easyui-combobox" name="userInsframework" id="userInsframework" data-options="required:true"></select> -->
+				<input class="easyui-textbox" name="userInsframework" id="userInsframework" value="${insfname }" readonly="readonly"/>
         	</div>
 
 			<div class="fitem">
@@ -95,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		selectOnCheck:true,
 		columns : [ [ {
 		    field:'ck',
-			checkbox:true,
+			checkbox:true
 		},{
 			field : 'id',
 			title : 'id',
@@ -109,35 +110,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			width : 100,
 			halign : "center",
 			align : "left"
-		}]],
-		
+		}]]
 	});
 })
 
 		$(function(){
-			   $.ajax({
-			   type: "post", 
-			   url: "user/getIns",
-			   dataType: "json",
-			   data: {},
-			   success: function (result) {
-			      if (result) {
-			         var optionstring = "";
-			         optionstring = "<option value='请选择'>请选择...</option>";
-			         //循环遍历 下拉框绑定
-			         for(var k=0;k<result.rows.length;k++){
-			         optionstring += "<option value=\"" + result.rows[k].insid + "\" >" + result.rows[k].insname + "</option>";
-			         }
-			         $("#userInsframework").html(optionstring);
-			      } else {
-			         alert('部门加载失败');
-			      }
-			      $("#userInsframework").combobox();
-			   },
-			   error: function () {
-			      alert('error');
-			   }
-			});
+// 			   $.ajax({
+// 			   type: "post", 
+// 			   url: "user/getIns",
+// 			   dataType: "json",
+// 			   data: {},
+// 			   success: function (result) {
+// 			      if (result) {
+// 			         var optionstring = "";
+// 			         optionstring = "<option value='请选择'>请选择...</option>";
+// 			         //循环遍历 下拉框绑定
+// 			         for(var k=0;k<result.rows.length;k++){
+// 			         optionstring += "<option value=\"" + result.rows[k].insid + "\" >" + result.rows[k].insname + "</option>";
+// 			         }
+// 			         $("#userInsframework").html(optionstring);
+// 			      } else {
+// 			         alert('部门加载失败');
+// 			      }
+// 			      $("#userInsframework").combobox();
+// 			   },
+// 			   error: function () {
+// 			      alert('error');
+// 			   }
+// 			});
 		})
 
         $("#fm").form("disableValidation");
@@ -184,7 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	if (result) {
 		    		var str = "";
 		    		for (var i = 0; i < result.ary.length; i++) {
-		    			str += "<input type='radio' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+		    			str += "<input type='radio' class='radioStyle' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
 	                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 		    		}
 		            $("#radios").html(str);

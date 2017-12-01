@@ -16,12 +16,14 @@ function itemjunctionDatagrid(){
 	var externalDiameter = $("#externalDiameter").val();
 	var wallThickness = $("#wallThickness").val();
 	var nextexternaldiameter = $("#nextexternaldiameter").val();
+	var nextmaterial = $("#nextmaterial").val();
+	var nextwallthickness = $("#nextwallthickness").val();
 	$("#junctionHourTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#junctionHour_btn").height(),
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getJunctionHour?item="+item+"&material="+material+"&externalDiameter="+externalDiameter+"&wallThickness="+wallThickness+"&nextexternaldiameter="+nextexternaldiameter,
+		url : "junctionChart/getJunctionHour?item="+item+"&material="+encodeURI(material)+"&externalDiameter="+encodeURI(externalDiameter)+"&wallThickness="+encodeURI(wallThickness)+"&nextexternaldiameter="+encodeURI(nextexternaldiameter)+"&nextmaterial="+encodeURI(nextmaterial)+"&nextwallthickness="+encodeURI(nextwallthickness),
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -29,11 +31,20 @@ function itemjunctionDatagrid(){
 		showPageList : false,
 		pagination : true,
 		columns : [ [ {
+			field : 'iname',
+			title : '项目部',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
 			field : 'name',
 			title : '焊口',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			formatter: function(value,row,index){
+				return '<a href="junctionChart/goJunctionDetail?id='+row.itemid+'&item='+item+'">'+value+'</a>';
+			}
 		}, {
 			field : 'manhour',
 			title : '焊接工时',
@@ -44,6 +55,24 @@ function itemjunctionDatagrid(){
 			field : 'dyne',
 			title : '达因',
 			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'starttime',
+			title : '开始时间',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'endtime',
+			title : '完成时间',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'welder',
+			title : '焊工',
+			width : 150,
 			halign : "center",
 			align : "left"
 		}, {
@@ -75,7 +104,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#junctionHourTable").datagrid('resize', {
-		height : $("#body").height() - $("#junctionHour_btn").height(),
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }

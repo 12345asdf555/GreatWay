@@ -34,4 +34,8 @@
 	<select id="findweld" parameterType="String" resultType="String">
 		select tb_welder.fname from tb_welder where tb_welder.fwelder_no=#{fci} 
 	</select>
+	
+	<select id="findPosition" parameterType="String" resultType="String">
+		select fposition from tb_welding_machine where fequipment_no=#{equip}
+	</select>
 </mapper>

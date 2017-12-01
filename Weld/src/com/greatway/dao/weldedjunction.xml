@@ -25,6 +25,8 @@
         <result property="endTime" column="fend_time"></result>
         <result property="material" column="fmaterial"></result>
         <result property="nextexternaldiameter" column="fnextExternal_diameter"></result>
+        <result property="nextwall_thickness" column="fnextwall_thickness"></result>
+        <result property="next_material" column="fnext_material"></result>
         <result property="creatTime" column="fcreatetime"></result>
         <result property="updateTime" column="fupdatetime"></result>
         <result property="updatecount" column="fupdatecount"></result>
@@ -43,5 +45,9 @@
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
+	</select>
+	
+	<select id="getWeldedJunctionById" resultMap="wjMap" parameterType="java.lang.String">
+		SELECT j. * , i.fid iid, i.fname iname FROM tb_welded_junction j INNER JOIN tb_insframework i ON j.fitemId = i.fid WHERE j.fid = #{id}
 	</select>
 </mapper>

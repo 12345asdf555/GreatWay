@@ -1,10 +1,11 @@
 package com.greatway.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.greatway.page.Page;
+import com.greatway.dto.WeldDto;
 import com.spring.model.User;
 
 public interface UserMapper {
@@ -16,7 +17,7 @@ public interface UserMapper {
 	User findById(Integer id);
 	int findByName(String name);
 	String findByRoleId(Integer id);
-	List<User> findAll(@Param("str")String str);
+	List<User> findAll(@Param("parent")BigInteger parent,@Param("str")String str);
 	int getUsernameCount(@Param("userName")String userName);
 	List<User> findRole(Integer id);
 	List<User> findAllRole();

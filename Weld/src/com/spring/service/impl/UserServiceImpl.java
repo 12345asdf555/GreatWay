@@ -1,5 +1,6 @@
 package com.spring.service.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.greatway.dao.UserMapper;
+import com.greatway.dto.WeldDto;
 import com.greatway.page.Page;
 import com.spring.model.User;
 import com.spring.service.UserService;
@@ -36,9 +38,9 @@ public class UserServiceImpl implements UserService {
 		return mapper.getUsernameCount(userName);
 	}
 
-	public List<User> findAll(Page page,String str) {
+	public List<User> findAll(Page page,BigInteger parent,String str) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		List<User> findAllList = mapper.findAll(str);
+		List<User> findAllList = mapper.findAll(parent,str);
 		return findAllList;
 	}
 	

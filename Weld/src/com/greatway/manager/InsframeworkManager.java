@@ -5,8 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
-
+import com.greatway.dto.WeldDto;
 import com.greatway.model.Insframework;
 import com.greatway.page.Page;
 
@@ -16,7 +15,7 @@ public interface InsframeworkManager {
 	 * @param str
 	 * @return
 	 */
-	List<Insframework> getInsframeworkAll(Page page, String str);
+	List<Insframework> getInsframeworkAll(Page page,BigInteger parent, String str,WeldDto dto);
 	
 	/**
 	 * 获取组织机构
@@ -63,6 +62,11 @@ public interface InsframeworkManager {
 	 */
 	Insframework getInsfAllById(BigInteger id);
 	
+	/**
+	 * 查看集团
+	 * @return
+	 */
+	Insframework getBloc();
 	/**
 	 * 查看公司级
 	 * @return
@@ -116,5 +120,10 @@ public interface InsframeworkManager {
 	 */
 	BigInteger getUserInsfId(BigInteger uid);
 	
-	
+	/**
+	 * 根据id获取类型
+	 * @param id
+	 * @return
+	 */
+	int getTypeById(BigInteger id);
 }

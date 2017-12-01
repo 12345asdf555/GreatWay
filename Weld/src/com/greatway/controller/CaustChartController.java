@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
@@ -146,10 +147,10 @@ public class CaustChartController {
 	 */
 	@RequestMapping("/goCaustEfficiency")
 	public String goCaustEfficiency(HttpServletRequest request){
-		String parent = request.getParameter("parent");
-		insm.showParent(request, parent);
+		String nextparent = request.getParameter("nextparent");
+		insm.showParent(request, nextparent);
 		lm.getUserId(request);
-		request.setAttribute("parent",parent);
+		request.setAttribute("nextparent",nextparent);
 		return "caustchart/caustefficiency";
 	}
 	
@@ -170,6 +171,7 @@ public class CaustChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String search = request.getParameter("search");
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(parentId)){
 			//数据权限处理
@@ -186,6 +188,10 @@ public class CaustChartController {
 			}
 		}
 		BigInteger parent = null;
+		String s = (String)request.getSession().getAttribute("s");
+		if(iutil.isNull(s)){
+			dto.setSearch(s);
+		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -195,18 +201,27 @@ public class CaustChartController {
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
 		}
+		if(iutil.isNull(search)){
+			dto.setSearch(search);
+		}
 		page = new Page(pageIndex,pageSize,total);
-		List<LiveData> list = lm.getCausehour(page,dto,parent);
+		List<ModelDto> list = lm.getCausehour(page,dto,parent);
 		long total = 0;
 		if(list != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(list);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			for(LiveData l:list){
+			for(ModelDto l:list){
+				String[] str = l.getJidgather().split(",");
+				if(l.getJidgather().equals("0")){
+					json.put("jidgather", "0");
+				}else{
+					json.put("jidgather", str.length);
+				}
 				json.put("manhour", l.getHous());
 				json.put("dyne", l.getDyne());
 				json.put("name",l.getFname());
@@ -878,21 +893,8 @@ public class CaustChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String nextparent = request.getParameter("nextparent");
 		WeldDto dto = new WeldDto();
-		if(!iutil.isNull(parentId)){
-			//处理用户数据权限
-			BigInteger uid = lm.getUserId(request);
-			String afreshLogin = (String)request.getAttribute("afreshLogin");
-			if(iutil.isNull(afreshLogin)){
-				return "0";
-			}
-			int types = insm.getUserInsfType(uid);
-			if(types==21){
-				parentId = insm.getUserInsfId(uid).toString();
-			}else if(types==22){
-				parentId = insm.getUserInsfId(uid).toString();
-			}
-		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -900,13 +902,15 @@ public class CaustChartController {
 		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
 		}
-		if(iutil.isNull(parentId)){
+		if(iutil.isNull(nextparent)){
+			parent = new BigInteger(nextparent);
+		}else if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
 		}
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.geCaustEfficiency(page, parent, dto);
+		List<ModelDto> list = lm.caustEfficiency(page, parent, dto);
 		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 		long total = pageinfo.getTotal();
 		JSONObject json = new JSONObject();
@@ -914,6 +918,7 @@ public class CaustChartController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(ModelDto m : list){
+				json.put("id",m.getFid());
 				json.put("iname",m.getIname());
 				json.put("wname",m.getWname());
 				json.put("wid",m.getFwelder_id());
@@ -930,4 +935,69 @@ public class CaustChartController {
 		return obj.toString();
 	}
 
+	/**
+	 * 获取工效图表信息
+	 * @param request
+	 * @param parent
+	 * @return
+	 */
+	@RequestMapping("/getCaustEfficiencyChart")
+	@ResponseBody
+	public String getCaustEfficiency(HttpServletRequest request,@RequestParam BigInteger parent){
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+			String time1 = request.getParameter("dtoTime1");
+			String time2 = request.getParameter("dtoTime2");
+			String nextparent = request.getParameter("nextparent");
+			WeldDto dto = new WeldDto();
+			if(iutil.isNull(time1)){
+				dto.setDtoTime1(time1);
+			}
+			if(iutil.isNull(time2)){
+				dto.setDtoTime2(time2);
+			}
+			if(iutil.isNull(nextparent)){
+				parent = new BigInteger(nextparent);
+			}
+			List<ModelDto> list = lm.getEfficiencyChartNum(dto, parent);
+			List<ModelDto> efficiency = null;
+			String[] num1 = new String[10];
+			double[] num2 = new double[10];
+			for(ModelDto m:list){
+				if(m!=null){
+					num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+					int oldnum = 0,newnum = 0,maxnum = 0;
+					for(int i=1;i<9;i++){
+						oldnum = m.getMinnum()+m.getAvgnum()*i+1;
+						newnum = m.getMinnum()+m.getAvgnum()*(i+1);
+						num1[i] = oldnum+"-"+newnum;
+					}
+					maxnum = m.getMinnum()+m.getAvgnum()*10+10;
+					num1[9] = newnum+"-"+maxnum;
+					efficiency = lm.getEfficiencyChart(dto, parent, m.getMinnum(), m.getAvgnum());
+					for(ModelDto e:efficiency){
+						double sum = e.getSum1()+e.getSum2()+e.getSum3()+e.getSum4()+e.getSum5()+e.getSum6()+e.getSum7()+e.getSum8()+e.getSum9()+e.getSum10();
+						num2[0] = e.getSum1()/sum*100;num2[1] = e.getSum2()/sum*100;
+						num2[2] = e.getSum3()/sum*100;num2[3] = e.getSum4()/sum*100;
+						num2[4] = e.getSum5()/sum*100;num2[5] = e.getSum6()/sum*100;
+						num2[6] = e.getSum7()/sum*100;num2[7] = e.getSum7()/sum*100;
+						num2[8] = e.getSum9()/sum*100;num2[9] = e.getSum10()/sum*100;
+					}
+					for(int i=0;i<num2.length;i++){
+						num2[i] = (double)Math.round(num2[i]*100)/100;
+					}
+					json.put("num1", num1);
+					json.put("num2", num2);
+					ary.add(json);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
+	
 }

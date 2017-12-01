@@ -54,7 +54,7 @@ function newSearch(){
 			        		da = eval(data.rows);
 			        	}
 			        }
-				})
+				});
 				$.ajax({  
 			        type : "post",  
 			        async : false,
@@ -157,7 +157,7 @@ function newSearch(){
 
 }
 	function show(value){
-		window.location.href="/CMS/td/AllTddp?value="+value;
+		window.location.href="/CMS/td/AllTddp?value="+encodeURI(value);
 	}
 	
 

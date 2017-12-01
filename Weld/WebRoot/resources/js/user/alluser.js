@@ -2,6 +2,22 @@
  * 
  */
         $(function(){
+        	var width = $("#treeDiv").width();
+    		$(".easyui-layout").layout({
+    			onCollapse:function(){
+    				$("#dg").datagrid({
+    					height : $("#body").height(),
+    					width : $("#body").width()
+    				})
+    			},
+    			onExpand:function(){
+    				$("#dg").datagrid({
+    					height : $("#body").height(),
+    					width : $("#body").width()
+    				})
+    			}
+    		});
+        	insframeworkTree();
 	    $("#tt").datagrid( {
 		fitColumns : true,
 		height : ($("#body").height() - $('#toolbar').height()),
@@ -119,6 +135,7 @@
 	        $("a[id='role']").linkbutton({text:'角色列表',plain:true,iconCls:'icon-Role'});
 	        }
 	});
+
 })
      
        function removeUser(id){
@@ -210,3 +227,41 @@
  		        }  
  		   }); 
          }
+        
+        function insframeworkTree(){
+        	$("#myTree").tree({  
+        		onClick : function(node){
+        			$("#dg").datagrid('load',{
+        				"parent" : node.id
+        			})
+        		 }
+        	})
+        }
+        
+        function addUser(){
+        	var node = $('#myTree').tree('getSelected');
+        	if(node==null || node==""){
+        		alert("请先选择该用户所属组织机构(部门)！");
+        	}else{
+				var url = "user/toAddUser";
+				var img = new Image();
+			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+			    url = img.src;  // 此时相对路径已经变成绝对路径
+			    img.src = null; // 取消请求
+				window.location.href = encodeURI(url+"?name="+node.text);
+        	}
+        }
+        
+
+        //监听窗口大小变化
+          window.onresize = function() {
+          	setTimeout(domresize, 500);
+          }
+
+          //改变表格高宽
+          function domresize() {
+          	$("#dg").datagrid('resize', {
+          		height : $("#body").height(),
+          		width : $("#body").width()
+          	});
+          }

@@ -5,7 +5,7 @@ $(function(){
 function mainDatagrid(){
 	$("#maintainTable").datagrid( {
 		fitColumns : true,
-		height : ($("#body").height() - $('#maintainTable_btn').height()),
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -156,8 +156,8 @@ function importclick(){
 }
 
 function importWeldingMachine(){
-	var file = $('input[name="file"][type="file"]').prop('files')[0];
-	if(file == null){
+	var file = $("#file").val();
+	if(file == null || file == ""){
 		$.messager.alert("提示", "请选择要上传的文件！");
 		return false;
 	}else{
@@ -194,7 +194,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#maintainTable").datagrid('resize', {
-		height : $("#body").height() - $("#maintainTable_btn").height() - 5,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }

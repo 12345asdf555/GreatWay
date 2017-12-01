@@ -50,14 +50,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<label region="center" style="font-size:10px;">电压</label>
 			</div>
 			<div style="height:15%;">
-				<input style="height:25px" readly="true">
+				<input id="voltage" name="voltage" style="height:25px" readly="true">
 			</div>
 			<div style="height:15%;"></div>
 			<div>
 				<label region="center" style="font-size:10px;">电流</label>
 			</div>
 			<div style="height:20%;">
-				<input style="height:25px" readly="true">
+				<input id="electricity" name="electricity" style="height:25px" readly="true">
 			</div>
 			<div style="height:25%;"></div>
 		</div>

@@ -4,7 +4,8 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
     <base href="<%=basePath%>">
@@ -23,12 +24,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
 	<script type="text/javascript" src="resources/js/user/alluser.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
 
   </head>
   
 <body class="easyui-layout">
+  	<jsp:include  page="insframeworktree.jsp"/>
    <div id="body" region="center"  hide="true"  split="true" title="用户管理" style="background: #eee; height: 335px;">
 	  	
         <table id="dg" style="table-layout:fixed;width:100%"></table>
@@ -38,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
 
         <div id="toolbar" style="margin-bottom: 5px;">
-        	<a href="user/toAddUser" class="easyui-linkbutton" iconCls="icon-add">新增</a>
+        	<a href="javascript:addUser()" class="easyui-linkbutton" iconCls="icon-add">新增</a>
         	<a href="javascript:insertSearchUser();" class="easyui-linkbutton" iconCls="icon-search">查找</a>   
         	
 <%-- 			<c:url value="j_spring_security_logout" var="logoutUrl"/>
@@ -54,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<input class="content" id="content"/>
 		    	<select class="joint" id="joint"></select>
 		    	<a href="javascript:newSearchUser();" class="easyui-linkbutton" iconCls="icon-add"></a>
-		    	<a href="javascript:removeSerach();" class="easyui-linkbutton" iconCls="icon-remove"></a>
+		    	<a href="javascript:removeSerachByUser();" class="easyui-linkbutton" iconCls="icon-remove"></a>
 	    	</div>
 	    </div>
 	    <div id="searchButton">

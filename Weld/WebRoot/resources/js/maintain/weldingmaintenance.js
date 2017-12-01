@@ -70,7 +70,7 @@ function maintainDatagrid(){
 			align : "left"
 		}]],
 		toolbar : '#maintainTable_btn',
-		pagination : true,
+		pagination : true
 	});
 }
 

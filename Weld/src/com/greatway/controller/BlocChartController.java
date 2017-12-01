@@ -115,6 +115,21 @@ public class BlocChartController {
 		return "blocchart/blocuse";
 	}
 	
+
+	/**
+	 * 跳转集团工效页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goBlocEfficiency")
+	public String goCompanyEfficiency(HttpServletRequest request){
+		String parent = request.getParameter("parent");
+		insm.showParent(request, parent);
+		lm.getUserId(request);
+		request.setAttribute("parent",parent);
+		return "blocchart/blocefficiency";
+	}
+	
 	/**
 	 * 集团工时报表信息查询
 	 * @param request
@@ -129,27 +144,41 @@ public class BlocChartController {
 		if(iutil.isNull(request.getParameter("rows"))){
 			pageSize = Integer.parseInt(request.getParameter("rows"));
 		}
+		String search = request.getParameter("search");
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		WeldDto dto = new WeldDto();
+		String s = (String)request.getSession().getAttribute("s");
+		if(iutil.isNull(s)){
+			dto.setSearch(s);
+		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
 		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
 		}
+		if(iutil.isNull(search)){
+			dto.setSearch(search);
+		}
 		page = new Page(pageIndex,pageSize,total);
-		List<LiveData> list = lm.getBlochour(page,dto);
+		List<ModelDto> list = lm.getBlochour(page,dto);
 		long total = 0;
 		if(list != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(list);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			for(LiveData l:list){
+			for(ModelDto l:list){
+				String[] str = l.getJidgather().split(",");
+				if(l.getJidgather().equals("0")){
+					json.put("jidgather", "0");
+				}else{
+					json.put("jidgather", str.length);
+				}
 				json.put("manhour", l.getHous());
 				json.put("dyne", l.getDyne());
 				json.put("name",l.getFname());
@@ -656,7 +685,7 @@ public class BlocChartController {
 	}
 	
 	/**
-	 * 事业部下拉框
+	 * 公司下拉框
 	 * @return
 	 */
 	@RequestMapping("getCaust")
@@ -678,4 +707,99 @@ public class BlocChartController {
 		obj.put("ary", ary);
 		return obj.toString();
 	}
+	
+	/**
+	 * 集团工效报表信息查询
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getBlocEfficiency")
+	@ResponseBody
+	public String getBlocEfficiency(HttpServletRequest request){
+		System.out.println(request.getParameter("page"));
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("parent");
+		BigInteger parent = null;
+		WeldDto dto = new WeldDto();
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		page = new Page(pageIndex,pageSize,total);
+		List<ModelDto> list = lm.blocEfficiency(page, dto,parent);
+		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+		long total = pageinfo.getTotal();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(ModelDto m : list){
+				json.put("id",m.getFid());
+				json.put("iname",m.getIname());
+				json.put("wname",m.getWname());
+				json.put("wid",m.getFwelder_id());
+				json.put("dyne",m.getDyne());
+				json.put("weldtime",m.getWeldTime());
+				json.put("num",m.getNum());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	/**
+	 * 获取焊口分类信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getBlocHousClassify")
+	@ResponseBody
+	public String getBlocHousClassify(HttpServletRequest request){
+		String searchStr = request.getParameter("searchStr");
+		
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		page = new Page(pageIndex,pageSize,total);
+		List<ModelDto> list = lm.getHousClassify(page, null, searchStr);
+		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+		long total = pageinfo.getTotal();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			String s = "";
+			for(ModelDto m : list){
+				json.put("fid",m.getFid());
+				json.put("material",m.getMaterial());
+				json.put("nextmaterial",m.getNextmaterial());
+				json.put("wall_thickness",m.getWallThickness());
+				json.put("nextwall_thickness",m.getNextwallThickness());
+				json.put("external_diameter",m.getExternalDiameter());
+				json.put("nextExternal_diameter",m.getNextexternaldiameter());
+				ary.add(json);
+				s = " (fmaterial='"+list.get(0).getMaterial()+"' and fexternal_diameter='"+list.get(0).getExternalDiameter()+
+						"' and fwall_thickness='"+list.get(0).getWallThickness()+"' and fnextExternal_diameter='"+list.get(0).getNextexternaldiameter()+
+						"' and fnextwall_thickness ='"+list.get(0).getNextwallThickness()+"' and Fnext_material ='"+list.get(0).getNextmaterial()+"')";
+			}
+			request.getSession().setAttribute("s", s);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+
+
 }

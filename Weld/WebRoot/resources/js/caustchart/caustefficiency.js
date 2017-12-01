@@ -1,4 +1,5 @@
 $(function(){
+	typecombobox();
 	CaustEfficiencyDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
@@ -11,44 +12,49 @@ $(function(){
 })
 var chartStr = "";
 $(document).ready(function(){
-//	showcaustEfficiencyChart();
+	showcaustEfficiencyChart();
 })
 
 function showcaustEfficiencyChart(){
 	var array1 = new Array();
 	var array2 = new Array();
-	var parent = $("#parent").val();
-	var otype = $("input[name='otype']:checked").val();
+	var parent = $('#parent').combobox('getValue');
+	var nextparent = $("#nextparent").val();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustLoads?otype="+otype+"&parent="+parent+chartStr,
+         url : "caustChart/getCaustEfficiencyChart?parent="+parent+"&nextparent="+nextparent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
              if (result) {
-            	 for(var i=0;i<result.arys.length;i++){
-                  	array1.push(result.arys[i].weldTime);
-            	 }
-                 for(var i=0;i<result.arys1.length;i++){
-                 	array2.push(result.arys1[i].name);
-                 	Series.push({
-                 		name : result.arys1[i].name,
-                 		type :'line',//折线图
-                 		data : result.arys1[i].loads,
-                 		itemStyle : {
-                 			normal: {
-                 				label : {
-                 					show: true//显示每个折点的值
-                 				}
-                 			}
-                 		}
-                 	});
-                 }
-                 
-             }  
-         },  
+            	 if(result.ary.length>0){
+            		 for(var i=0;i<result.ary.length;i++){
+                       	array1 = result.ary[i].num1;
+                       	Series.push({
+                       		name : '工效(1:1)',
+                       		type :'line',//折线图
+                       		smooth: true,//是否平滑曲线显示
+                       		data : result.ary[i].num2,
+                       		itemStyle : {
+                       			normal: {
+                       				label : {
+                       					show: true//显示每个折点的值
+                       				}
+                       			}
+                       		}
+                       	});
+                      }
+                  }else{
+                	  Series.push({
+                     		name : '工效(1:1)',
+                     		type :'line',//折线图
+                     		data : ''
+                      });
+                  }
+            }
+         },
         error : function(errorMsg) {  
              alert("图表请求数据失败啦!");  
          }  
@@ -68,7 +74,7 @@ function showcaustEfficiencyChart(){
 			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
 		},
 		legend:{
-			data:array2
+			data:['工效(1:1)']
 		},
 		grid:{
 			left:'10%',//组件距离容器左边的距离
@@ -99,9 +105,9 @@ function showcaustEfficiencyChart(){
 	charts.hideLoading();
 }
 
-
 function CaustEfficiencyDatagrid(){
-	var parent = $("#parent").val();
+	var parent = $('#parent').combobox('getValue');
+	var nextparent = $("#nextparent").val();
 	$("#caustEfficiencyTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#caustEfficiencyChart").height()-$("#caustEfficiency_btn").height()-40,
@@ -109,16 +115,26 @@ function CaustEfficiencyDatagrid(){
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "caustChart/getCaustEfficiency?parent="+parent+chartStr,
+		url : "caustChart/getCaustEfficiency?parent="+parent+"&nextparent="+nextparent+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
 		columns : [ [ {
+			field : 'id',
+			title : '项目部id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden : true
+		}, {
 			field : 'iname',
 			title : '项目部',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			formatter : function(value,row,index){
+				return "<a href='itemChart/goItemEfficiency?nextparent="+row.id+"'>"+value+"</a>";
+			}
 		}, {
 			field : 'wname',
 			title : '焊工姓名',
@@ -154,11 +170,37 @@ function CaustEfficiencyDatagrid(){
 	});
 }
 
+function typecombobox(){
+	$.ajax({  
+      type : "post",  
+      async : false,
+      url : "caustChart/getItem",  
+      data : {},  
+      dataType : "json", //返回数据形式为json  
+      success : function(result) {  
+          if (result) {
+              var optionStr = '';
+              for (var i = 0; i < result.ary.length; i++) {  
+                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+                          + result.ary[i].name + "</option>";
+              }
+              $("#parent").html(optionStr);
+          }  
+      },  
+      error : function(errorMsg) {  
+          alert("数据请求失败，请联系系统管理员!");  
+      }  
+	}); 
+	$("#parent").combobox();
+	var data = $("#parent").combobox('getData');
+	$("#parent").combobox('select',data[0].value);
+}
+
 function serachEfficiencyCaust(){
+	$("#nextparent").val("");
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
+	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 	showcaustEfficiencyChart();
 	CaustEfficiencyDatagrid();
 }

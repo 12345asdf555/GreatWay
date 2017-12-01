@@ -1,5 +1,5 @@
 $(function(){
-	CaustHourDatagrid();
+	classifyDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
@@ -10,9 +10,6 @@ $(function(){
 	}
 })
 var chartStr = "";
-$(document).ready(function(){
-	showCompanyHourChart();
-})
 function showCompanyHourChart(){
 	var array1 = new Array();
 	var array2 = new Array();
@@ -20,16 +17,19 @@ function showCompanyHourChart(){
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "companyChart/getCompanyHour?parent="+parent+chartStr,
+         url : encodeURI("companyChart/getCompanyHour?parent="+parent+chartStr),
          data : {},  
          dataType : "json", //返回数据形式为json
          success : function(result) {  
-//        	 $.messager.progress('close');
-
              if (result) {
                  for(var i=0;i<result.rows.length;i++){
                  	array1.push(result.rows[i].name);
-                 	array2.push(result.rows[i].manhour);
+                 	if(result.rows[i].jidgather==0){
+                     	array2.push(0);
+                 	}else{
+                     	var num = (result.rows[i].manhour/result.rows[i].jidgather).toFixed(2);
+                     	array2.push(num);
+                 	}
                  }
              }  
          },  
@@ -87,8 +87,7 @@ function showCompanyHourChart(){
 	charts.hideLoading();
 }
 
-
-function CaustHourDatagrid(){
+function CompanyHourDatagrid(){
 	var parent = $("#parent").val();
 	$("#companyHourTable").datagrid( {
 		fitColumns : true,
@@ -112,11 +111,23 @@ function CaustHourDatagrid(){
 				return  '<a href="caustChart/goCaustHour?parent='+row.itemid+'">'+value+'</a>';
 			}
 		}, {
+			field : 'jidgather',
+			title : '焊口数量',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
 			field : 'manhour',
 			title : '焊接工时',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			formatter:function(value,row,index){
+				if(row.jidgather==0){
+                 	return 0;
+             	}
+				return (value/row.jidgather).toFixed(2);
+			}
 		}, {
 			field : 'dyne',
 			title : '达因',
@@ -135,13 +146,85 @@ function CaustHourDatagrid(){
 }
 
 function serachcompanyHour(){
+	commitChecked();
+}
+
+function classifyDatagrid(){
+	var parent = $("#parent").val();
+	$("#classify").datagrid( {
+		fitColumns : true,
+		height : $("#classifydiv").height(),
+		width : $("#body").width()/2,
+		idField : 'fid',
+		url : "itemChart/getItemHousClassify?item="+parent,
+		singleSelect : true,
+		pageSize : 5,
+		pageList : [ 5, 10, 15, 20, 25],
+		rownumbers : true,
+		showPageList : false,
+		pagination : true,
+		columns : [ [{
+			field : 'fid',
+			hidden : true
+		},{
+			field : 'material',
+			title : '上游材质',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'nextmaterial',
+			title : '下游材质',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'wall_thickness',
+			title : '上游璧厚',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'nextwall_thickness',
+			title : '下游璧厚',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'external_diameter',
+			title : '上游外径',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'nextExternal_diameter',
+			title : '下游外径',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}] ],
+		toolbar : '#classify_btn',
+		onLoadSuccess: function(){
+			$("#classify").datagrid("selectRow",0);
+			CompanyHourDatagrid();
+			showCompanyHourChart();
+		}
+	});
+}
+
+function commitChecked(){
+	search = "";
+	var rows = $("#classify").datagrid("getSelected");
+	search += " (fmaterial='"+rows.material+"' and fexternal_diameter='"+rows.external_diameter+"' and fwall_thickness='"+rows.wall_thickness+"' and fnextExternal_diameter='"+rows.nextExternal_diameter+
+	"' and fnextwall_thickness ='"+rows.nextwall_thickness+"' and fnext_material ='"+rows.nextmaterial+"')";
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	$('#companyHourTable').datagrid('load', {
 		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2
+		"dtoTime2" : dtoTime2,
+		"search" : search
 	});
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
 	showCompanyHourChart();
 }
 

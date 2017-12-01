@@ -128,7 +128,7 @@ function detailOverproofDatagrid(){
 			halign : "livecount",
 			align : "left",
 			hidden:true
-		}] ],
+		}] ]
 	});
 }
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.greatway.dto.WeldDto;
 import com.greatway.enums.WeldEnum;
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.model.Insframework;
@@ -86,11 +87,26 @@ public class InsframeworkController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String searchStr = request.getParameter("searchStr");
+		String parentId = request.getParameter("parent");
 		request.getSession().setAttribute("searchStr", searchStr);
-		
+		BigInteger parent = null;
+		WeldDto dto = new WeldDto();
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+			int type = im.getTypeById(parent);
+			if(type==20){
+				dto.setBloc("bloc");
+			}else if(type==21){
+				dto.setCompany("company");
+			}else if(type==22){
+				dto.setCaust("caust");
+			}else if(type==23){
+				dto.setItem("item");
+			}
+		}
 		page = new Page(pageIndex,pageSize,total);
 		
-		List<Insframework> list = im.getInsframeworkAll(page, searchStr);
+		List<Insframework> list = im.getInsframeworkAll(page, parent,searchStr,dto);
 		long total = 0;
 		
 		if(list != null){
@@ -279,35 +295,38 @@ public class InsframeworkController {
         String str ="";  
         StringBuilder json = new StringBuilder();  
         // 拼接根节点  
-        json.append("[");  
-        json.append("{\"id\":" +String.valueOf(0));
-        json.append(",\"text\":\"" +"集团" + "\"");
-        json.append(",\"state\":\"open\"");  
-        // 获取根节点下的所有子节点  
-        List<Insframework> treeList = im.getConmpany();
-        // 遍历子节点下的子节点  
-        if(treeList!=null && treeList.size()!=0){  
-            json.append(",\"children\":[");  
-            for (Insframework t : treeList) {  
-                  
-                json.append("{\"id\":" +String.valueOf(t.getId()));   
-                json.append(",\"text\":\"" +t.getName() + "\"");   
-                json.append(",\"state\":\"open\"");   
-                  
-                // 该节点有子节点  
-                // 设置为关闭状态,而从构造异步加载tree  
-              
-                List<Insframework> tList = im.getCause(t.getId());  
-                if(tList!=null && tList.size()!=0){// 存在子节点  
-                     json.append(",\"children\":[");  
-                     json.append(dealJsonFormat(tList));// 存在子节点的都放在一个工具类里面处理了
-                     json.append("]");  
-                }  
-                json.append("},");  
-            }  
-            str = json.toString();  
-            str = str.substring(0, str.length()-1);  
-            str+="]}]";  
+        Insframework b = im.getBloc();
+        if(b!=null){  
+	        json.append("[");  
+	        json.append("{\"id\":" +b.getId());
+	        json.append(",\"text\":\"" +b.getName()+ "\"");
+	        json.append(",\"state\":\"open\"");  
+	        // 获取根节点下的所有子节点  
+	        List<Insframework> treeList = im.getConmpany();
+	        // 遍历子节点下的子节点  
+	        if(treeList!=null && treeList.size()!=0){  
+	            json.append(",\"children\":[");  
+	            for (Insframework t : treeList) {  
+	                  
+	                json.append("{\"id\":" +String.valueOf(t.getId()));   
+	                json.append(",\"text\":\"" +t.getName() + "\"");   
+	                json.append(",\"state\":\"open\"");   
+	                  
+	                // 该节点有子节点  
+	                // 设置为关闭状态,而从构造异步加载tree  
+	              
+	                List<Insframework> tList = im.getCause(t.getId());  
+	                if(tList!=null && tList.size()!=0){// 存在子节点  
+	                     json.append(",\"children\":[");  
+	                     json.append(dealJsonFormat(tList));// 存在子节点的都放在一个工具类里面处理了
+	                     json.append("]");  
+	                }  
+	                json.append("},");  
+	            }  
+	            str = json.toString();  
+	            str = str.substring(0, str.length()-1);  
+	            str+="]}]";
+	        }
               
         }  
         try {

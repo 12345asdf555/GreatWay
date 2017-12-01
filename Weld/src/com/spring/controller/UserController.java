@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.greatway.dto.WeldDto;
 import com.greatway.enums.WeldEnum;
+import com.greatway.manager.InsframeworkManager;
 import com.greatway.page.Page;
-import com.spring.model.MyUser;
+import com.greatway.util.IsnullUtil;
 import com.spring.model.User;
 import com.spring.service.UserService;
 
@@ -35,6 +38,11 @@ public class UserController {
 	private int total = 0;
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private InsframeworkManager im;
+	
+	IsnullUtil iutil = new IsnullUtil();
 	
 	/**
 	 * 获取所有用户列表
@@ -79,9 +87,13 @@ public class UserController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String search = request.getParameter("searchStr");
-		
+		String parentId = request.getParameter("parent");
+		BigInteger parent = null;
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
 		page = new Page(pageIndex,pageSize,total);
-		List<User> findAll = userService.findAll(page,search);
+		List<User> findAll = userService.findAll(page,parent,search);
 		long total = 0;
 		
 		if(findAll != null){
@@ -125,7 +137,8 @@ public class UserController {
 	 */
 	@RequestMapping("/toAddUser")
 	public String toAddUser(HttpServletRequest request){
-		
+		String insfname = request.getParameter("name");
+		request.setAttribute("insfname", insfname);
 		return "/addUser";
 	}
 	/**

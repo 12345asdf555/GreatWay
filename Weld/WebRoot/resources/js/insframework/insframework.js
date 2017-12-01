@@ -1,10 +1,27 @@
 $(function(){
 	insframeworkDatagrid();
+	insframeworkTree();
+	var width = $("#treeDiv").width();
+	$(".easyui-layout").layout({
+		onCollapse:function(){
+			$("#insframeworkTable").datagrid( {
+				height : $("#body").height(),
+				width : $("#body").width()
+			})
+		},
+		onExpand:function(){
+			$("#insframeworkTable").datagrid( {
+				height : $("#body").height(),
+				width : $("#body").width()
+			})
+		}
+	});
 });
+
 function insframeworkDatagrid(){
 	$("#insframeworkTable").datagrid( {
 		fitColumns : true,
-		height : ($("#body").height() - $('#insframework_btn').height()),
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -72,6 +89,16 @@ function insframeworkDatagrid(){
 	});
 }
 
+function insframeworkTree(){
+	$("#myTree").tree({  
+		onClick : function(node){
+			$("#insframeworkTable").datagrid('load',{
+				"parent" : node.id
+			})
+		 }
+	})
+}
+
 //监听窗口大小变化
 window.onresize = function() {
 	setTimeout(domresize, 500);
@@ -80,8 +107,10 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#insframeworkTable").datagrid('resize', {
-		height : $("#body").height() - $("#insframework_btn").height() - 5,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }
+
+
 

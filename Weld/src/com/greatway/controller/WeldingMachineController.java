@@ -125,9 +125,14 @@ public class WeldingMachineController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String searchStr = request.getParameter("searchStr");
+		String parentId = request.getParameter("parent");
+		BigInteger parent = null;
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
 		request.getSession().setAttribute("searchStr", searchStr);
 		page = new Page(pageIndex,pageSize,total);
-		List<WeldingMachine> list = wmm.getWeldingMachineAll(page,searchStr);
+		List<WeldingMachine> list = wmm.getWeldingMachineAll(page,parent,searchStr);
 		long total = 0;
 		
 		if(list != null){

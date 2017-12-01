@@ -1,28 +1,4 @@
 $(function(){
-	$('#accordiondiv').accordion('add', {
-		title: '<i class="iconfont icon-ren"></i>    管理员',
-		content: $("#admin").html()
-	});
-	$('#accordiondiv').accordion('add', {
-		title: '<i class="iconfont icon-ren"></i>    集团',
-		content: $("#bloc").html(),
-		selected: false
-	});
-	$('#accordiondiv').accordion('add', {
-		title: '<i class="iconfont icon-ren"></i>    公司',
-		content: $("#company").html(),
-		selected: false
-	});
-	$('#accordiondiv').accordion('add', {
-		title: '<i class="iconfont icon-ren"></i>    事业部',
-		content: $("#caust").html(),
-		selected: false
-	});
-	 $('#accordiondiv').accordion('add', {
-			title: '<i class="iconfont icon-ren"></i>    项目部',
-			content: $("#item").html(),
-			selected: false
-		});
 	openUser();
 	tabsIncident();
 //	hierarchyLoding();
@@ -182,7 +158,11 @@ function openCompanyIdle(){
 }
 
 function openCompanyTd(){
-	addTab("实时监测","td/AllTd");
+	addTab("公司实时监测","td/AllTd");
+}
+
+function openItemEfficiency(){
+	addTab("项目部工效","itemChart/goItemEfficiency");
 }
 
 function openItemHour(){
@@ -206,7 +186,11 @@ function openItemNoLoads(){
 }
 
 function openDetailoverproofs(){
-	addTab("焊接工艺超标明细","itemChart/goDetailoverproof");
+	addTab("项目部焊接工艺超标明细","itemChart/goDetailoverproof");
+}
+
+function openBlocEfficiency(){
+	addTab("集团工效","blocChart/goBlocEfficiency");
 }
 
 function openBlocUse(){
@@ -236,8 +220,6 @@ function openBlocNoLoads(){
 function openBlocIdle(){
 	addTab("集团设备闲置率","blocChart/goBlocIdle");
 }
-
-
 
 function addTab(title,url){
 	//该面板是否已打开

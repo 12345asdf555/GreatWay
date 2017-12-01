@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.greatway.dto.WeldDto;
 import com.greatway.model.Insframework;
 
 import tk.mybatis.mapper.common.Mapper;
 
 public interface InsframeworkMapper extends Mapper<Insframework>{
-	List<Insframework> getInsframeworkAll(@Param("str")String str);
+	List<Insframework> getInsframeworkAll(@Param("parent")BigInteger parent,@Param("str")String str,@Param("dto")WeldDto dto);
 	
 	List<Insframework> getInsframework();
 	
@@ -39,4 +40,8 @@ public interface InsframeworkMapper extends Mapper<Insframework>{
 	int getUserInsfType(@Param("uid")BigInteger uid);
 	
 	BigInteger  getUserInsfId(@Param("uid")BigInteger uid);
+	
+	int getTypeById(@Param("id")BigInteger id);
+	
+	Insframework getBloc();
 }

@@ -32,7 +32,175 @@ public class ModelDto {
 	private String type;
 	private BigInteger dyne;
 	private BigInteger num;
+	private int sum1;
+	private int sum2;
+	private int sum3;
+	private int sum4;
+	private int sum5;
+	private int sum6;
+	private int sum7;
+	private int sum8;
+	private int sum9;
+	private int sum10;
+	private int maxnum;
+	private int minnum;
+	private int avgnum;
+	private String externalDiameter;//外径
+	private String wallThickness;//璧厚
+	private String material;//材质
+	private String nextexternaldiameter;//下游外径
+	private String nextwallThickness;//下游璧厚
+	private String nextmaterial;//下游材质
+	private BigInteger itemid;//项目id
+	private String jidgather;
+	private BigInteger hous;//用来获取工时的总值
+	private String starttime;
+	private String endtime;
 	
+	public String getNextwallThickness() {
+		return nextwallThickness;
+	}
+	public void setNextwallThickness(String nextwallThickness) {
+		this.nextwallThickness = nextwallThickness;
+	}
+	public String getNextmaterial() {
+		return nextmaterial;
+	}
+	public void setNextmaterial(String nextmaterial) {
+		this.nextmaterial = nextmaterial;
+	}
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+	public BigInteger getHous() {
+		return hous;
+	}
+	public void setHous(BigInteger hous) {
+		this.hous = hous;
+	}
+	public String getExternalDiameter() {
+		return externalDiameter;
+	}
+	public void setExternalDiameter(String externalDiameter) {
+		this.externalDiameter = externalDiameter;
+	}
+	public String getWallThickness() {
+		return wallThickness;
+	}
+	public void setWallThickness(String wallThickness) {
+		this.wallThickness = wallThickness;
+	}
+	public String getMaterial() {
+		return material;
+	}
+	public void setMaterial(String material) {
+		this.material = material;
+	}
+	public String getNextexternaldiameter() {
+		return nextexternaldiameter;
+	}
+	public void setNextexternaldiameter(String nextexternaldiameter) {
+		this.nextexternaldiameter = nextexternaldiameter;
+	}
+	public BigInteger getItemid() {
+		return itemid;
+	}
+	public void setItemid(BigInteger itemid) {
+		this.itemid = itemid;
+	}
+	public String getJidgather() {
+		return jidgather;
+	}
+	public void setJidgather(String jidgather) {
+		this.jidgather = jidgather;
+	}	
+	public int getSum1() {
+		return sum1;
+	}
+	public void setSum1(int sum1) {
+		this.sum1 = sum1;
+	}
+	public int getSum2() {
+		return sum2;
+	}
+	public void setSum2(int sum2) {
+		this.sum2 = sum2;
+	}
+	public int getSum3() {
+		return sum3;
+	}
+	public void setSum3(int sum3) {
+		this.sum3 = sum3;
+	}
+	public int getSum4() {
+		return sum4;
+	}
+	public void setSum4(int sum4) {
+		this.sum4 = sum4;
+	}
+	public int getSum5() {
+		return sum5;
+	}
+	public void setSum5(int sum5) {
+		this.sum5 = sum5;
+	}
+	public int getSum6() {
+		return sum6;
+	}
+	public void setSum6(int sum6) {
+		this.sum6 = sum6;
+	}
+	public int getSum7() {
+		return sum7;
+	}
+	public void setSum7(int sum7) {
+		this.sum7 = sum7;
+	}
+	public int getSum8() {
+		return sum8;
+	}
+	public void setSum8(int sum8) {
+		this.sum8 = sum8;
+	}
+	public int getSum9() {
+		return sum9;
+	}
+	public void setSum9(int sum9) {
+		this.sum9 = sum9;
+	}
+	public int getSum10() {
+		return sum10;
+	}
+	public void setSum10(int sum10) {
+		this.sum10 = sum10;
+	}
+	public int getMaxnum() {
+		return maxnum;
+	}
+	public void setMaxnum(int maxnum) {
+		this.maxnum = maxnum;
+	}
+	public int getMinnum() {
+		return minnum;
+	}
+	public void setMinnum(int minnum) {
+		this.minnum = minnum;
+	}
+	public int getAvgnum() {
+		return avgnum;
+	}
+	public void setAvgnum(int avgnum) {
+		this.avgnum = avgnum;
+	}
 	public BigInteger getDyne() {
 		return dyne;
 	}

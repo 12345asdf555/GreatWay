@@ -1,5 +1,4 @@
 $(function(){
-	updatetext();
 	protocolCombobox();
 	statusCombobox();
 	$("#fm").form("disableValidation");
@@ -61,12 +60,6 @@ function saveGather(){
 	        alert("数据请求失败，请联系系统管理员!");  
 	    } 
 	});
-}
-
-function updatetext(){
-	//隐藏文本框
-	$("#id").next().hide();
-	$("#validgatherno").next().hide();
 }
 
 //采集模块状态

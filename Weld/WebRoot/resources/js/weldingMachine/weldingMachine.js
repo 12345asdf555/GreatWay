@@ -1,10 +1,26 @@
 $(function(){
+	insframeworkTree();
 	weldingMachineDatagrid();
+	var width = $("#treeDiv").width();
+	$(".easyui-layout").layout({
+		onCollapse:function(){
+			$("#weldingmachineTable").datagrid( {
+				height : $("#body").height(),
+				width : $("#body").width()
+			})
+		},
+		onExpand:function(){
+			$("#weldingmachineTable").datagrid( {
+				height : $("#body").height(),
+				width : $("#body").width()
+			})
+		}
+	});
 });
 
 function weldingMachineDatagrid(){
 	$("#weldingmachineTable").datagrid( {
-		height : ($("#body").height() - $('#weldingmachineTable_btn').height()),
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -154,8 +170,8 @@ function importclick(){
 }
 
 function importWeldingMachine(){
-	var file = $('input[name="file"][type="file"]').prop('files')[0];
-	if(file == null){
+	var file = $("#file").val();
+	if(file == null || file == ""){
 		$.messager.alert("提示", "请选择要上传的文件！");
 		return false;
 	}else{
@@ -184,6 +200,16 @@ function importWeldingMachine(){
 	}
 }
 
+function insframeworkTree(){
+	$("#myTree").tree({  
+		onClick : function(node){
+			$("#weldingmachineTable").datagrid('load',{
+				"parent" : node.id
+			})
+		 }
+	})
+}
+
 //监听窗口大小变化
 window.onresize = function() {
 	setTimeout(domresize, 500);
@@ -192,7 +218,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#weldingmachineTable").datagrid('resize', {
-		height : $("#body").height() - $("#weldingmachineTable_btn").height() - 5,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }
