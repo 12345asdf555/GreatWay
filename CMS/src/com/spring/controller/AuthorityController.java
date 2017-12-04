@@ -105,8 +105,9 @@ public class AuthorityController {
 		JSONObject obj = new JSONObject();
 		try{
 		authority.setStatus(Integer.parseInt(request.getParameter("status")));
-        String str = request.getParameter("rid");
         authority.setAuthorityName("ROLE_"+authority.getAuthorityName());
+        authorityService.save(authority);
+        String str = request.getParameter("rid");
         if(null!=str&&""!=str)
         {
         String[] s = str.split(",");
@@ -115,12 +116,13 @@ public class AuthorityController {
         	au="ROLE_"+authority.getAuthorityName();
         	System.out.println(au);*/
             Integer id = Integer.parseInt(s[i]);
+            authority.setId(authorityService.findAuthId(authority.getAuthorityName()));
             authority.setResourceName(authorityService.findByResourceId(id));
             /*authority.setAuthorityName(au);*/
+            authority.setResourceId(id);
             authorityService.saveResource(authority);
         }
         }
-		authorityService.save(authority);
 		obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
@@ -143,7 +145,7 @@ public class AuthorityController {
         authority.setStatus(Integer.parseInt(request.getParameter("status")));
 		String str = request.getParameter("sid");
 		Integer aid = Integer.parseInt(request.getParameter("aid"));
-		authorityService.deleteResource(authorityService.updateAuthorityResource(aid));
+		authorityService.deleteResource(aid);
 		authority.setAuthorityName("ROLE_"+authority.getAuthorityName());
 		if(null!=str&&""!=str)
 		{
@@ -152,6 +154,7 @@ public class AuthorityController {
             Integer id = Integer.parseInt(s[i]);
            /* authorityService.deleteResource(authorityService.updateAuthorityResource(aid));*/
             authority.setResourceName(authorityService.findByResourceId(id));
+            authority.setResourceId(id);
             authorityService.saveResource(authority);
         }
 		}
@@ -200,7 +203,7 @@ public class AuthorityController {
 		try{
 			Authority authority = authorityService.findById(new Integer(id));
 			authorityService.delete2(new Integer(authority.getId()));	
-			authorityService.delete1(authority.getAuthorityName());
+			authorityService.delete1(new Integer(authority.getId()));
 			authorityService.delete(new Integer(authority.getId()));
 				obj.put("success", true);
 		}catch(Exception e){
@@ -240,7 +243,7 @@ public class AuthorityController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(Authority authority:findResource){
-				json.put("id", authority.getId());
+				json.put("id", authority.getResourceId());
 				json.put("resources_name", authority.getResourceName());
 				ary.add(json);
 			}

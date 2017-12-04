@@ -11,6 +11,11 @@ var name;
 var pos;
 var i = 0;
 var data1;
+var mm=new Array();
+/*var num0 = 0;
+var num1 = 0;
+var num2 = 0;
+var num3 = 0;*/
 $(function(){
 	$.ajax({  
 	      type : "post",  
@@ -78,13 +83,31 @@ function newSearch(){
 			            	var num3 = 0;
 			            	var r = result.rows;
 			            	var c = eval(r);
+/*			            	if(mm.length==0){
+			            		var n=1;
+			            	}else{
+			            		n=mm.length;
+			            	}
+			            		for(var x = 0;x < dd.length;x+=53){
+			            			if(dd.substring(8+x, 12+x)!="0000"){
+				            			for(var m=0;m<n;m++){
+			            				if(mm.length==0){
+			            					mm.push(dd.substring(4+x, 8+x));
+			            				}else{
+					            		if(mm[m]!=dd.substring(4+x, 8+x)){
+					            			mm.push(dd.substring(4+x, 8+x));
+					            		}
+			            				}
+			            			}
+			            		}
+			            	}*/
 			            	
 			            	for(var index = 0;index < c.length;index=index+3)
 			            	{
 			            	/*var i = Math.floor(index/3);*/
 			            		if(c[index].finsframework_id == da[0].fid){
 			            			i++;
-			            		if(c[index].fstatus_id=="31"||c[index].fstatus_id=="32"){
+			            		if(c[index].fstatus_id=="03"||c[index].fstatus_id=="05"){
 		            			if($("#div"+i+"").length<=0)
 		            			{
 			            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
@@ -109,7 +132,7 @@ function newSearch(){
 			            	$("#body").append(str);
 		            		}
 			            	}
-			            		else if(c[index].maxvol>c[index].voltage||c[index].maxele>c[index].electricity){
+			            		if(c[index].fstatus_id=="07"){
 			            			if($("#div"+i+"").length<=0)
 			            			{
 				            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
@@ -134,7 +157,7 @@ function newSearch(){
 				            	$("#body").append(str);
 			            		}
 			            		}
-			            		else if(c[index].fstatus_id=="33"){
+			            		if(c[index].fstatus_id=="00"){
 			            			if($("#div"+i+"").length<=0)
 			            			{
 				            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
@@ -159,7 +182,7 @@ function newSearch(){
 				            	$("#body").append(str);
 			            		}
 			            		}
-			            		else{
+			            		if(c[index].fstatus_id=="09"){
 			            			if($("#div"+i+"").length<=0)
 			            			{
 				            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
@@ -218,20 +241,24 @@ function newSearch(){
 		            		}
 				            document.getElementById("statusn").value=i;
 				            	/*if(c[l].finsframework_id==document.getElementById("project").value){*/
-				            		if(c[index].fstatus_id=="31"||c[index].fstatus_id=="32"){
-				            			num0=num0+1;
+				            		if(c[index].fstatus_id=="03"||c[index].fstatus_id=="05"){
+				            			if(num0<mm.length){
+				            			num0=num0+1;}
 				            			document.getElementById("onn").value=num0;
 				            		}
-				            		if(c[index].maxvol>c[index].voltage||c[index].maxele>c[index].electricity){
-				            			num1=num1+1;
+				            		if(c[index].fstatus_id=="07"){
+				            			if(num0<mm.length){
+				            			num1=num1+1;}
 				            			document.getElementById("warningn").value=num1;
 				            		}
-				            		if(c[index].fstatus_id=="33"){
-				            			num2=num2+1;
+				            		if(c[index].fstatus_id=="00"){
+				            			if(num0<mm.length){
+				            			num2=num2+1;}
 				            			document.getElementById("waitn").value=num2;
 				            		}
-				            		if(c[index].fstatus_id=="00"){
-				            			num3=num3+1;
+				            		if(c[index].fstatus_id=="09"){
+				            			if(num0<mm.length){
+				            			num3=num3+1;}
 				            			document.getElementById("offn").value=num3;
 				            		}
 				            		/*}*/
@@ -265,7 +292,7 @@ function newSearch(){
 	});
 }
    	function show(value){
-   		window.location.href="/CMS/td/AllTda?value="+encodeURI(value);
+   		window.location.href="/CMS/td/AllTda?value="+value;
 	}
    	
  

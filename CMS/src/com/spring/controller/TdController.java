@@ -53,7 +53,7 @@ public class TdController {
 		long uid = myuser.getId();
 		String insname = tdService.findInsname(tdService.findIns(uid));
 		request.setAttribute("insname", insname);
-		return "/company";
+		return "/BackUp";
 	}
 	
 	@RequestMapping("/AllTdd")
@@ -187,6 +187,8 @@ public class TdController {
 				json.put("finsframework_id", da.substring(2+i, 4+i));
 				json.put("fequipment_no", da.substring(4+i, 8+i));
 				json.put("fwelder_no", da.substring(8+i, 12+i));
+				String weldname = tdService.findweld(da.substring(8+i, 12+i));
+				json.put("fname", weldname);
 				json.put("voltage", da.substring(12+i, 16+i));
 				json.put("electricity", da.substring(16+i, 20+i));
 				json.put("time", da.substring(20+i, 41+i));
@@ -194,9 +196,8 @@ public class TdController {
 				json.put("minele", da.substring(44+i, 47+i));
 				json.put("maxvol", da.substring(47+i, 50+i));
 				json.put("minvol", da.substring(50+i, 53+i));
-/*				String position = tdService.findPosition(da.substring(4+i,8+i));
-				System.out.print(position);
-				json.put("fposition", position);*/
+				String position = tdService.findPosition(da.substring(4+i,8+i));
+				json.put("fposition", position);
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -351,6 +352,96 @@ public class TdController {
 		try{
 				json.put("fpositin",eee);
 				ary.add(json);
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/getAllPosition")
+	@ResponseBody
+	public String getAllPosition(HttpServletRequest request){
+		
+		List<Td> getAP = tdService.getAllPosition();		
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+			for(Td td:getAP){
+				json.put("fpositin",td.getPosition());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/isnull")
+	@ResponseBody
+	public String isnull(HttpServletRequest request){
+		
+		JSONObject obj = new JSONObject();
+		String da = request.getParameter("dd");
+		String po = request.getParameter("posit");
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+			for(int i = 0;i < da.length();i+=159)
+			{
+				String pos = tdService.findPosition(da.substring(4+i, 8+i));
+				if(pos.equals(po)){
+				json.put("fstatus_id", da.substring(0+i, 2+i));
+				json.put("fequipment_no", da.substring(4+i, 8+i));
+				json.put("fwelder_no", da.substring(8+i, 12+i));
+				String weldname = tdService.findweld(da.substring(8+i, 12+i));
+				json.put("fname", weldname);
+				json.put("fposition", pos);
+				ary.add(json);
+				}
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/geInsname")
+	@ResponseBody
+	public String geInsname(HttpServletRequest request){
+		
+		int iid =  Integer.parseInt(request.getParameter("iid"));
+		String insname = tdService.findInsname(iid);;
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+				json.put("fid", insname);
+				ary.add(json);
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/allWeldname")
+	@ResponseBody
+	public String allWeldname(HttpServletRequest request){
+		
+		List<Td> fwn = tdService.allWeldname();	
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+			for(Td td:fwn){
+				json.put("fname",td.getFname());
+				json.put("fwelder_no", td.getFwelder_no());
+				ary.add(json);
+			}
 		}catch(Exception e){
 			e.getMessage();
 		}

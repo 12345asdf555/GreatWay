@@ -38,6 +38,7 @@
 	var minvol;
 	var socket;
 	var data1;
+	var namex;
 	$(function(){
 		$.ajax({  
 		      type : "post",  
@@ -48,6 +49,21 @@
 		      success : function(result) {
 		          if (result) {
 		        	  data1 = eval(result.web_socket);
+		          }  
+		      },
+		      error : function(errorMsg) {  
+		          alert("数据请求失败，请联系系统管理员!");  
+		      }  
+		 });
+		$.ajax({  
+		      type : "post",  
+		      async : false,
+		      url : "td/allWeldname",  
+		      data : {},  
+		      dataType : "json", //返回数据形式为json  
+		      success : function(result) {
+		          if (result) {
+		        	  namex=eval(result.rows);
 		          }  
 		      },
 		      error : function(errorMsg) {  
@@ -347,8 +363,12 @@
 					modiflyNum1(6,parseInt(vol2.charAt(1)));
 					modiflyNum1(7,parseInt(vol2.charAt(2)));
 					modiflyNum1(8,parseInt(vol2.charAt(3)));
-/*					document.getElementById("electricity1").value=ele[jj];
-					document.getElementById("voltage1").value=vol[jj];*/
+					document.getElementById("macname").value=hq;
+					for(var k=0;k<namex.length;k++){
+						if(namex[k].fwelder_no==dd.substring(8+i, 12+i)){
+							document.getElementById("welname").value=namex[k].fname;
+						}
+					}
 					jj++;
 					if(jj<=1){
 						curve(); 
@@ -395,6 +415,8 @@
 		timer1=window.setInterval(function(){
     		if(t<back.length){
     		rece2(back[t]);
+    		datatable();
+    		back.length=0;
     		t++;
     		}else{
     			t=0;
@@ -402,13 +424,20 @@
     		}
     	}, 300000);
     	timer2=window.setInterval(function (){
-    		var columns = $('#dg').datagrid("options").columns;
+    		/*var columns = $('#dg').datagrid("options").columns;*/
     		var rows = $('#dg').datagrid("getRows"); 
-    		for(var dex=0;dex<rows.length;dex++){
     			/*alert(rows[dex][columns[0][0].field]);*/
-    			for(var g = 0;g < dd.length;g+=53){
-    		    if((dd.substring(8+g, 12+g)!="0000")&&(dd.substring(4+g, 8+g)==rows[dex][columns[0][0].field])){
-    			rows[dex][columns[0][1].field]=dd.substring(8+g, 12+g);
+    			for(var g = 0;g < dd.length;g+=53*3){
+    			for(var dex=0;dex<rows.length;dex++){
+    				/*alert(rows[dex][columns[0][1].field]);*/
+    		    if((dd.substring(8+g, 12+g)!="0000")&&(dd.substring(4+g, 8+g)==rows[dex].fequipment_no)){
+    			rows[dex].fwelder_no=dd.substring(8+g, 12+g);
+    			rows[dex].fstatus_id=dd.substring(0+g, 2+g);
+				for(var k=0;k<namex.length;k++){
+					if(namex[k].fwelder_no==dd.substring(8+g, 12+g)){
+						rows[dex].fname=namex[k].fname;
+					}
+				}
     			$('#dg').datagrid('refreshRow', dex);
     			$("a[id='view']").linkbutton({text:'查看',plain:true,iconCls:'icon-view'});
     		    }
@@ -436,26 +465,12 @@
 				width : 100,
 				halign : "center",
 				align : "left"
-/*				formatter:function(value,row,index){
-						return mach;
-				}*/
 			}, {
 				field : 'fwelder_no',
 				title : '焊工编号',
 				width : 100,
 				halign : "center",
 				align : "left"
-/*				formatter:function(value,row,index){
-	                	setInterval(function () {
-	            			for(var n = 0;n < stri.length;n+=53){
-	            				if((stri.substring(4+n, 8+n)==row.fequipment_no)&&stri.substring(8+n, 12+n)!="0000"){
-	            					var no=stri.substring(8+n, 12+n);
-	            					return no;
-	            				}else{
-	            					return "";
-	            				}}
-  		                }, 3000);
-				}*/
 			}, {
 				field : 'fname',
 				title : '焊工姓名',

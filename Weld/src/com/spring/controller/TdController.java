@@ -427,4 +427,25 @@ public class TdController {
 		obj.put("rows", ary);
 		return obj.toString();
 	}
+	
+	@RequestMapping("/allWeldname")
+	@ResponseBody
+	public String allWeldname(HttpServletRequest request){
+		
+		List<Td> fwn = tdService.allWeldname();	
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+			for(Td td:fwn){
+				json.put("fname",td.getFname());
+				json.put("fwelder_no", td.getFwelder_no());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
 }

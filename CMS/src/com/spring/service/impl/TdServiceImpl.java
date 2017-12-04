@@ -39,6 +39,10 @@ import com.spring.service.TdService;
 			return mapper.findAlldiv(ins);
 		}
 		
+		public List<Td> getAllPosition(){
+			return mapper.getAllPosition();
+		}
+		
 		public long findIns(long uid){
 			return mapper.findAllIns(uid);
 		}
@@ -57,5 +61,9 @@ import com.spring.service.TdService;
 		
 		public String findPosition(String equip){
 			return mapper.findPosition(equip);
+		}
+		
+		public List<Td> allWeldname(){
+			return mapper.allWeldname();
 		}
 	}

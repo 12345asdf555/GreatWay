@@ -112,6 +112,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    field:'ck',
 			checkbox:true
 		},{
+			field : 'id',
+			title : 'id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden:true
+		},{
 			field : 'resources_name',
 			title : '资源名',
 			width : 100,
@@ -141,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						c = eval(b);
 					for(var i=0;i<c.length;i++)
 					{
-			        if(item.resources_name==c[i].resources_name){
+			        if(item.id==c[i].id){
 			        $('#tt').datagrid('checkRow', index);
 			        }
 			        }

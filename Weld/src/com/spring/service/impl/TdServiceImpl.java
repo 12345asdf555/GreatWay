@@ -62,4 +62,8 @@ import com.spring.service.TdService;
 		public String findPosition(String equip){
 			return mapper.findPosition(equip);
 		}
+		
+		public List<Td> allWeldname(){
+			return mapper.allWeldname();
+		}
 	}

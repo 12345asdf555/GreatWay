@@ -42,4 +42,8 @@
 	<select id="getAllPosition" parameterType="String" resultType="Td">
 		select DISTINCT fposition fposition from tb_welding_machine
 	</select>
+	
+	<select id="allWeldname" resultType="Td">
+		select fname fname,fwelder_no fwelder_no from tb_welder
+	</select>
 </mapper>

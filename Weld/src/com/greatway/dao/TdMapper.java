@@ -17,4 +17,5 @@ public interface TdMapper {
 	String findweld(String weldid);
 	String findInsname(long uid);
 	String findPosition(String equip);
+	List<Td> allWeldname();
 }

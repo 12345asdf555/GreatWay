@@ -7,6 +7,7 @@ package com.spring.model;
  */
 public class Authority {
 	private int id;
+	private int resourceId;
 	private String roleName;
 	private String authorityName;
 	private String authorityDesc;
@@ -20,6 +21,12 @@ public class Authority {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getResourceId(){
+		return resourceId;
+	}
+	public void setResourceId(int resourceId){
+		this.resourceId = resourceId;
 	}
 	public String getAuthorityName() {
 		return authorityName;
@@ -51,9 +58,10 @@ public class Authority {
 	public void setResourceName(String resourceName) {
 		this.resourceName = resourceName;
 	}
-	public Authority(int id, String authorityName, String resourceName,int status,String roleName,String authorityDesc) {
+	public Authority(int id,int resourceId, String authorityName, String resourceName,int status,String roleName,String authorityDesc) {
 		super();
 		this.id = id;
+		this.resourceId = resourceId;
 		this.roleName = roleName;
 		this.authorityName = authorityName;
 		this.authorityDesc = authorityDesc;

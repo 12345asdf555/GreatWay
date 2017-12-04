@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">资源信息</div>
             <div class="fitem">
 				<lable>资源名</lable>
-                <input name="resourceName" class="easyui-textbox" data-options="validType:'resourceValidate',required:true" >
+                <input name="resourceName" class="easyui-textbox" data-options="required:true" >
             </div>
             <div class="fitem">
 				<lable>类型</lable>
