@@ -716,7 +716,6 @@ public class BlocChartController {
 	@RequestMapping("/getBlocEfficiency")
 	@ResponseBody
 	public String getBlocEfficiency(HttpServletRequest request){
-		System.out.println(request.getParameter("page"));
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String time1 = request.getParameter("dtoTime1");
