@@ -197,7 +197,7 @@ function searchWeldingmachine(){
 			}else if(content=="埋弧焊"){
 				content=44;
 			}else{
-				contend="9999";
+				content="9999";
 			}
 		}
 		//如果类型发生变化，需要修改这里的值
@@ -211,7 +211,7 @@ function searchWeldingmachine(){
 			}else if(content=="报废"){
 				content=34;
 			}else{
-				contend="9999";
+				content="9999";
 			}
 		}
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
@@ -460,7 +460,7 @@ function searchUser(){
 			}else if(content=="维护中"){
 				content=33;
 			}else{
-				contend="9999";
+				content="9999";
 			}
 		}
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
@@ -506,7 +506,7 @@ function searchRole(){
 			}else if(content=="维护中"){
 				content=33;
 			}else{
-				contend="9999";
+				content="9999";
 			}
 		}
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
@@ -552,7 +552,7 @@ function searchAuthority(){
 			}else if(content=="维护中"){
 				content=33;
 			}else{
-				contend="9999";
+				content="9999";
 			}
 		}
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
@@ -598,7 +598,7 @@ function searchResource(){
 			}else if(content=="维护中"){
 				content=33;
 			}else{
-				contend="9999";
+				content="9999";
 			}
 		}
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
