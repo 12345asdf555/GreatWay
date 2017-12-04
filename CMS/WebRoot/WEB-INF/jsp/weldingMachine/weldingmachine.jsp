@@ -26,7 +26,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
 	<script type="text/javascript" src="resources/js/weldingMachine/weldingMachine.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
-	
   </head>
   
   <body  class="easyui-layout">
@@ -44,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<form id="importfm" method="post" class="easyui-form" data-options="novalidate:true" enctype="multipart/form-data"> 
 				<div>
 					<span><input type="file" name="file" id="file"></span>
-					<input type="button" value="上传" onclick="importWeldingMachine()" class="upButton"/> 
+					<input type="button" value="上传" onclick="importWeldingMachine()" class="upButton"/>
 				</div>
 			</form>
 		</div>
