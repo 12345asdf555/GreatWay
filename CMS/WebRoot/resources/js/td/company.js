@@ -3,10 +3,27 @@
  */
 var da;
 var dd;
+var dat;
 var dd1;
 var ddd;
 var num = 0;
+var num0 = 0;
+var num1 = 0;
+var num2 = 0;
+var num3 = 0;
+var warningn=0;
+var onn1=0;
+var waitn=0;
 var data1;
+var ti=0;
+var on=new Array();
+var warn=new Array();
+var wait=new Array();
+var off=new Array();
+var on1=new Array();
+var warn1=new Array();
+var wait1=new Array();
+var off1=new Array();
 $(function(){
 	$.ajax({  
 	      type : "post",  
@@ -23,21 +40,20 @@ $(function(){
 	          alert("数据请求失败，请联系系统管理员!");  
 	      }  
 	 });
+	$.ajax({ 
+		type : "post",  
+        async : false,
+        url : "td/getAllTddiv",  
+        data : {},  
+        dataType : "json", //返回数据形式为json  
+        success : function(data) {
+        	dd = eval(data.rows);
+        }})
 	newSearch();
 })
 function newSearch(){
   	$(function() {
 		var socket;
-//		$.ajax({ 
-//			type : "post",  
-//	        async : false,
-//	        url : "td/AllTdbf",  
-//	        data : {},  
-//	        dataType : "json", //返回数据形式为json  
-//	        success : function(data) {
-//	        	data1 = eval(data.web_socket);
-//	        	alert(data1);
-//	        }})
 		if(typeof(WebSocket) == "undefined") {
 			alert("您的浏览器不支持WebSocket");
 			return;
@@ -52,41 +68,87 @@ function newSearch(){
 			};
 			//获得消息事件
 			socket.onmessage = function(msg) {
-/*				alert(msg.data);
-				dd = msg.data;*/
-				$.ajax({ 
-					type : "post",  
-			        async : false,
-			        url : "td/getAllTddiv",  
-			        data : {},  
-			        dataType : "json", //返回数据形式为json  
-			        success : function(data) {
-			        	dd = eval(data.rows);
-			        }})
-				$.ajax({  
-			        type : "post",  
-			        async : false,
-			        url : "td/getAllTdp?data="+msg.data,  
-			        data : {},  
-			        dataType : "json", //返回数据形式为json  
-			        success : function(result) {
-		            if (result) {
-		            	var num0 = 0;
-		            	var num1 = 0;
-		            	var num2 = 0;
-		            	var num3 = 0;
-		            	var r = result.rows;
-		            	var c = eval(r);
-/*			            	var array=new Array(dd.length);  
-			            	for(var v=0;v<dd.length;v++){
-			            		array[v] = 0;
-			            	}*/
-		            	console.log(result.rows);
+				dat = msg.data;
+/*				if(ti==0){
+					ti++;
+		                setInterval(function () {
+		                	for(var index = 0;index < dd.length;index++){
+		                		if($("#div"+index+"").length<=0){}else{
+		        					document.getElementById("on"+index+"").value=0;
+			            			document.getElementById("warning"+index+"").value=0;
+			            			document.getElementById("wait"+index+"").value=0;
+			            			document.getElementById("off"+index+"").value=0;
+		                		}
+		                	}
+		                	warningn=0;
+		                	onn1=0;
+		                	waitn=0;
+		                	document.getElementById("onn").value=0;
+	            			document.getElementById("warningn").value=0;
+	            			document.getElementById("waitn").value=0;
+	            			document.getElementById("offn").value=0;
+  		                }, 3000);
+				} */    
+				
+				for(var n = 0;n < dat.length;n+=159){
+					if((dat.substring(0+n, 2+n)=="03")||(dat.substring(0+n, 2+n)=="05")||(dat.substring(0+n, 2+n)=="07")||(dat.substring(0+n, 2+n)=="00")){		
+						if(on1.length==0){
+							var l1=1;
+							var lo=0;
+							for(var a1=0;a1<l1;a1++){
+								if(dat.substring(4+n, 8+n)!=on1[a1]){
+									on1.push(dat.substring(4+n, 8+n));		
+								}else{
+				                	for(var index = 0;index < dd.length;index++){
+				                		if($("#div"+index+"").length<=0){}else{
+				        					document.getElementById("on"+index+"").value=0;
+					            			document.getElementById("warning"+index+"").value=0;
+					            			document.getElementById("wait"+index+"").value=0;
+					            			document.getElementById("off"+index+"").value=0;
+				                		}
+				                	}
+				                	warningn=0;
+				                	onn1=0;
+				                	waitn=0;
+								}
+							}
+						}else{
+						l1=on1.length;
+						var lo=0;
+						for(var a1=0;a1<l1;a1++){
+							/*alert(dd.substring(4+n, 8+n));*/
+							if(dat.substring(4+n, 8+n)!=on1[a1]){
+								lo++;	
+								if(lo==on1.length){
+								on1.push(dat.substring(4+n, 8+n));
+								}		
+							}else{
+			                	for(var index = 0;index < dd.length;index++){
+			                		if($("#div"+index+"").length<=0){}else{
+			        					document.getElementById("on"+index+"").value=0;
+				            			document.getElementById("warning"+index+"").value=0;
+				            			document.getElementById("wait"+index+"").value=0;
+				            			document.getElementById("off"+index+"").value=0;
+			                		}
+			                	}
+			                	warningn=0;
+			                	onn1=0;
+			                	waitn=0;
+			                	on1.length=0;
+			                	on1.push(dat.substring(4+n, 8+n));
+			                	break;
+							}
+						}
+						}					
+					}
+					};
+				
 		            	for(var index = 0;index < dd.length;index++)
 		            	{
 		            		num=0;num0 = 0;num1 = 0;num2 = 0;num3 = 0;
 	            			if($("#div"+index+"").length<=0)
             				{
+
 			    var str = "<div id='div"+index+"' style='width:270px;heigth:250px;float:left;'>" +
 				"<div>" +
 				"<input class='liveInput' id='btnReg"+index+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
@@ -122,59 +184,49 @@ function newSearch(){
 			        	ddd = eval(data.rows);
 			        }})
 					for(var h = 0;h<ddd.length;h++){
-			        for(var k=0;k<c.length;k=k+3){
-				if(c[k].finsframework_id==ddd[h].fid){
+			        for(var k=0;k<dat.length;k=k+159){
+				if(dat.substring(2+k, 4+k)==ddd[h].fid){
 					num++;
-        				if(c[k].fstatus_id=="03"||c[k].fstatus_id=="05"){
-        					num0 = num0+1;
-        					document.getElementById("on"+index+"").value=num0;
+        				if(dat.substring(0+k, 2+k)=="03"||dat.substring(0+k, 2+k)=="05"){
+        					num0++;
+        					var oni=parseInt(document.getElementById("on"+index+"").value);
+        					document.getElementById("on"+index+"").value=oni+num0;
         				}
-        				if(c[k].fstatus_id=="07"){
-	            			num1=num1+1;
-	            			document.getElementById("warning"+index+"").value=num1;
+        				else if(dat.substring(0+k, 2+k)=="07"){
+        					num1++;
+        					var wni=parseInt(document.getElementById("warning"+index+"").value);
+	            			document.getElementById("warning"+index+"").value=wni+num1;
 	            		}
-	            		if(c[k].fstatus_id=="00"){
-	            			num2=num2+1;
-	            			document.getElementById("wait"+index+"").value=num2;
+        				else if(dat.substring(0+k, 2+k)=="00"){
+	            			num2++;
+	            			var wai=parseInt(document.getElementById("wait"+index+"").value);
+	            			document.getElementById("wait"+index+"").value=wai+num2;	            		
 	            		}
-	            		if(c[k].fstatus_id=="09"){
-	            			num3=num3+1;
-	            			document.getElementById("off"+index+"").value=num3;
-	            		}
-        			}
-        							
+        				else{
+	            			document.getElementById("off"+index+"").value=num-parseInt(document.getElementById("on"+index+"").value)-parseInt(document.getElementById("warning"+index+"").value)-parseInt(document.getElementById("wait"+index+"").value);
+	            		}	            		
+        			}       							
 				}
-				/*num0 = 0;num1 = 0;num2 = 0;num3 = 0;*/
 				}
-				document.getElementById("status"+index+"").value = num;
-				
-		}				
-		            	num0 = 0;num1 = 0;num2 = 0;num3 = 0;
-		            	for(var q=0;q<c.length;q=q+3){
-        				if(c[q].fstatus_id=="03"||c[q].fstatus_id=="05"){
-        					num0 = num0+1;
-        					document.getElementById("onn").value=num0;
+				document.getElementById("status"+index+"").value = num;	
+		}					
+		            	for(var q=0;q<dat.length;q=q+159){
+        				if(dat.substring(0+q, q+2)=="03"||dat.substring(0+q, 2+q)=="05"){
+        					onn1++;
+        					document.getElementById("onn").value=onn1;
         				}
-        				if(c[q].fstatus_id=="07"){
-	            			num1=num1+1;
-	            			document.getElementById("warningn").value=num1;
+        				if(dat.substring(0+q, q+2)=="07"){
+        					warningn++;
+	            			document.getElementById("warningn").value=warningn;
 	            		}
-	            		if(c[q].fstatus_id=="00"){
-	            			num2=num2+1;
-	            			document.getElementById("waitn").value=num2;
+	            		if(dat.substring(0+q, q+2)=="00"){
+	            			waitn++;
+	            			document.getElementById("waitn").value=waitn;
 	            		}
-	            		if(c[q].fstatus_id=="09"){
-	            			num3=num3+1;
-	            			document.getElementById("offn").value=num3;
-	            		}  	
+	            		document.getElementById("offn").value=(dat.length)/159-onn1-warningn-waitn;     	
+		    			document.getElementById("statusn").value=Math.ceil((dat.length)/159);
 		            	}
-		    			document.getElementById("statusn").value=Math.ceil((c.length)/3);
-		}  
-		},  
-		error : function(errorMsg) {  
-		alert("数据请求失败，请联系系统管理员!");  
-		}  
-		})
+
 		};
 		//关闭事件
 		socket.onclose = function() {

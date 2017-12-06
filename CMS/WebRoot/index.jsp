@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openCaustNoLoads()"><i class="iconfont icon-bijiben"></i>事业部设备空载率</a></li>
     		<li><a href="javascript:openCaustIdle()"><i class="iconfont icon-bijiben"></i>事业部设备闲置率</a></li>
     		<li><a href="javascript:openCaustUse()"><i class="iconfont icon-bijiben"></i>事业部单台设备运行数据统计</a></li>
-    		<li><a href="javascript:openTd()"><i class="iconfont icon-bijiben"></i>事业部实时监测</a></li>
+    		<li><a href="javascript:openCaustTd()"><i class="iconfont icon-bijiben"></i>事业部实时监测</a></li>
     	</ul>
     </div>
 	<!-- 项目部 -->
@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openItemovertime()"><i class="iconfont icon-bijiben"></i>项目部超时待机统计</a></li>
     		<li><a href="javascript:openItemLoads()"><i class="iconfont icon-bijiben"></i>项目部设备负荷率</a></li>
     		<li><a href="javascript:openItemNoLoads()"><i class="iconfont icon-bijiben"></i>项目部设备空载率</a></li>
-    		<li><a href="javascript:openTd()"><i class="iconfont icon-bijiben"></i>项目部实时监测</a></li>
+    		<li><a href="javascript:openItemTd()"><i class="iconfont icon-bijiben"></i>项目部实时监测</a></li>
     	</ul>
     </div>
 	<div id="mainPanle" region="center" style="background: white; overflow-y: hidden">

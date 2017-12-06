@@ -129,6 +129,10 @@ function openCaustUse(){
 	addTab("事业部单台设备运行数据统计","caustChart/goCaustUse");
 }
 
+function openCaustTd(){
+	addTab("事业部实时监测","td/AllTddi");
+}
+
 function openCompanytEfficiency(){
 	addTab("公司工效","companyChart/goCompanyEfficiency");
 }
@@ -187,6 +191,10 @@ function openItemLoads(){
 
 function openItemNoLoads(){
 	addTab("项目部设备空载率","itemChart/goItemNoLoads");
+}
+
+function openItemTd(){
+	addTab("项目部实时监测","td/AllTdp");
 }
 
 function openDetailoverproofs(){
