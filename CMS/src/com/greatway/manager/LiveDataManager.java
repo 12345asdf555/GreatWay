@@ -125,7 +125,7 @@ public interface LiveDataManager {
 	 * @param parent上级id
 	 * @return
 	 */
-	List<ModelDto> getItemOvertime(WeldDto dto , String num,BigInteger parent);
+	List<ModelDto> getItemOvertime(WeldDto dto , String num);
 	
 	/**
 	 * 获取所有焊口
@@ -138,10 +138,10 @@ public interface LiveDataManager {
 	 * 待机明细
 	 * @param dto扩展参数类
 	 * @param num超时点
-	 * @param junction 焊口编号
+	 * @param parent 项目id
 	 * @return
 	 */
-	List<ModelDto> getDetailovertime(Page page,WeldDto dto , String num,String junctionno);
+	List<ModelDto> getDetailovertime(Page page,WeldDto dto , String num,String parent);
 	
 	/**
 	 * 公司负荷率
@@ -377,4 +377,5 @@ public interface LiveDataManager {
 	 */
 	List<ModelDto> getHousClassify(Page page,BigInteger parent,String searchStr);
 	
+	List<ModelDto> getDetailNoLoads(Page page,WeldDto dto);
 }

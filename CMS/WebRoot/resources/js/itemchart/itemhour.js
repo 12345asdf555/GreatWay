@@ -25,7 +25,7 @@ function showItemHourChart(){
          success : function(result) {  
              if (result) {  
                  for(var i=0;i<result.rows.length;i++){
-                 	array1.push(result.rows[i].material+"+"+rows[i].nextmaterial+"+"+result.rows[i].externalDiameter+"+"+result.rows[i].nextexternaldiameter)+"+"+result.rows[i].wallThickness+"+"+result.rows[i].nextwall_thickness;
+                 	array1.push(result.rows[i].material+"+"+result.rows[i].nextmaterial+"+"+result.rows[i].externalDiameter+"+"+result.rows[i].nextexternaldiameter+"+"+result.rows[i].wallThickness+"+"+result.rows[i].nextwall_thickness);
                  	if(result.rows[i].jidgather==0){
                      	array2.push(0);
                  	}else{

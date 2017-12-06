@@ -11,17 +11,15 @@ $(function(){
 })
 
 function junctionOvertimeDatagrid(){
-	var junctionno = $("#junctionno").val();
-	var time1 = $("#time1").val();
-	var time2 = $("#time2").val();
-	var type = $("#type").val();
+	var parent = $("#parent").val();
+	var weldtime = $("#weldtime").val();
 	var number = $("#number").val();
 	$("#junctionOvertimeTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#junctionOvertime_btn").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getjunctionovertime?junctionno="+junctionno+"&time1="+time1+"&time2="+time2+"&type="+type+"&number="+number,
+		url : "junctionChart/getjunctionovertime?parent="+parent+"&weldtime="+weldtime+"&number="+number,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],

@@ -35,17 +35,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="body" region="center"  hide="true"  split="true" title="焊机空载率明细" style="background: witch; height: 335px;">
 	  	<div id="detailNoLoad_btn">
 			<div style="margin-bottom: 5px;">
-				<input  name="machineno" id="machineno" type="hidden" value="${machineno }"/>
+				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
+				<input  name="weldtime" id="weldtime" type="hidden" value="${weldtime }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
-				时间：
-				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
-				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
-				时间跨度:
-				<input type="radio" class="radioStyle" name="otype" value="1" />年
-				<input type="radio" class="radioStyle" name="otype" value="2" checked="checked" />月
-				<input type="radio" class="radioStyle" name="otype" value="3" />日
-				<input type="radio" class="radioStyle" name="otype" value="4" />周
-				<a href="javascript:serachdetailnoloads();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
