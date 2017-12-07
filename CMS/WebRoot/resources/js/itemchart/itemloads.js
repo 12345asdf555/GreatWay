@@ -116,7 +116,7 @@ function ItemloadsDatagrid(){
          success : function(result) {  
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
-                 column.push({field:"weldTime",title:"时间跨度(年/月/日)",width:width,halign : "center",align : "left"});
+                 column.push({field:"weldTime",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  
                  for(var m=0;m<result.arys.length;m++){
                 	 column.push({field:"loads",title:result.arys[m].name,width:width,halign : "center",align : "left",

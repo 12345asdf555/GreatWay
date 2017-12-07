@@ -13,12 +13,15 @@ $(function(){
 function detailnoloadsDatagrid(){
 	var parent = $("#parent").val();
 	var weldtime = $("#weldtime").val();
+	var time1 = $("#time1").val();
+	var time2 = $("#time2").val();
+	alert(time1+","+time2);
 	$("#detailNoLoadsTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#detailNoLoad_btn").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getDetailNoLoads?parent="+parent+"&weldtime="+weldtime,
+		url : "junctionChart/getDetailNoLoads?parent="+parent+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],

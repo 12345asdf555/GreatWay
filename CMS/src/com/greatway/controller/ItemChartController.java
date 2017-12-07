@@ -371,6 +371,7 @@ public class ItemChartController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		JSONArray arys = new JSONArray();
+		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getItemOvertime(dto, number);
 			String[] num = new String[time.size()];
@@ -387,11 +388,10 @@ public class ItemChartController {
 					json.put("id", list.get(0).getIid());
 					ary.add(json);
 				}
-				JSONObject object = new JSONObject();
-				object.put("num", num);
 				object.put("name", list.get(0).getFname());
-				arys.add(object);
 			}
+			object.put("num", num);
+			arys.add(object);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -456,6 +456,7 @@ public class ItemChartController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		JSONArray arys = new JSONArray();
+		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getItemLoads(dto, parent);
 			double[] num = new double[time.size()];
@@ -472,11 +473,10 @@ public class ItemChartController {
 					json.put("itemid", list.get(0).getIid());
 					ary.add(json);
 				}
-				JSONObject object = new JSONObject();
-				object.put("num", num);
 				object.put("name", list.get(0).getFname());
-				arys.add(object);
 			}
+			object.put("num", num);
+			arys.add(object);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -541,6 +541,7 @@ public class ItemChartController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		JSONArray arys = new JSONArray();
+		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getItemNOLoads(dto, parent,null);
 			double[] num = new double[time.size()];
@@ -557,11 +558,10 @@ public class ItemChartController {
 					json.put("itemid", list.get(0).getFid());
 					ary.add(json);
 				}
-				JSONObject object = new JSONObject();
-				object.put("num", num);
 				object.put("name", list.get(0).getFname());
-				arys.add(object);
 			}
+			object.put("num", num);
+			arys.add(object);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

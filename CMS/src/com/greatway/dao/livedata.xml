@@ -475,21 +475,7 @@
 		)k1
 		)
 		as K 
-		group by fid,
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
+		group by fid,weldtime
 		) temp
 	</select>
 	
@@ -538,21 +524,7 @@
 		)k1
 		)
 		as K 
-		group by fid,
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
+		group by fid,weldtime
 		) temp
 	</select>
 	
@@ -607,21 +579,7 @@
 	</if>
 	)k1
 	) AS K
-	GROUP BY fid,
-	<if test="dto!=null and dto!=''">
-		<if test="dto.year!=null and dto.year!=''">
-			DATE_FORMAT( fweldtime,  '%Y' )
-		</if>
-		<if test="dto.month!=null and dto.month!=''">
-			DATE_FORMAT( fweldtime,  '%Y-%m' )
-		</if>
-		<if test="dto.day!=null and dto.day!=''">
-			DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-		</if>
-		<if test="dto.week!=null and dto.week!=''">
-			weekofyear(fweldtime)
-		</if>
-	</if>
+	GROUP BY fid,weldTime
 	)temp
 	</select>
 	
@@ -652,21 +610,7 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by 
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
+		group by weldTime
 		) temp
 	</select>
 	
@@ -1007,7 +951,7 @@
 		FROM (
 		SELECT l.fid lid, fweldtime, fwelder_id, fname, fmachine_id,fjunction_id
 		FROM tb_live_data l
-		INNER JOIN tb_welder w ON l.fwelder_id = w.fwelder_no
+		LEFT JOIN tb_welder w ON l.fwelder_id = w.fwelder_no
 		WHERE  fstatus =3
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -1019,7 +963,7 @@
 		INNER JOIN tb_insframework i ON j.fitemid = i.fid
 		WHERE i.ftype =23
 		AND i.fid =   #{parent}
-        group by fmachine_id
+        group by fmachine_id,fwelder_id
 		<if test="num!=null and num!=''">
 				HAVING COUNT( * ) >= #{num}
 		</if>
@@ -1046,13 +990,10 @@
 				weekofyear(fweldtime)
 			</if>
 		</if>
-		AS weldTime,fname,iid
+		AS weldTime,insf.fid iid, insf.fname
 		FROM  
 		(
-		SELECT insf.fid iid, lid,fweldtime, insf.fname
-		FROM 
-		(
-		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime
+		SELECT fid lid,  fjunction_id, fweldtime
 		FROM tb_live_data
 		WHERE fstatus &lt; 3 
 		<if test="dto!=null and dto!=''">
@@ -1064,13 +1005,11 @@
 			</if>
 		</if>
 		) AS k0
-		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
-		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id 
+        INNER JOIN tb_insframework i ON j.fitemId = i.fid 
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
 		WHERE i.ftype =23
-		AND k0.fstatus &lt; 3
-		) AS A
 		GROUP BY  iid, 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
@@ -1111,13 +1050,10 @@
 				weekofyear(fweldtime)
 			</if>
 		</if>
-		AS weldTime,fname,iid
+		AS weldTime,ins.fid iid, ins.fname
 		FROM  
 		(
-		SELECT ins.fid iid, lid,fweldtime, ins.fname
-		FROM 
-		(
-		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime
+		SELECT fid lid, fjunction_id, fweldtime
 		FROM tb_live_data
 		WHERE fstatus &lt; 3 
 		<if test="dto!=null and dto!=''">
@@ -1129,15 +1065,13 @@
 			</if>
 		</if>
 		) AS k0
-		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
-		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id 
+        INNER JOIN tb_insframework i ON j.fitemId = i.fid 
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE i.ftype =23
-		AND k0.fstatus &lt; 3
 		<if test="parent!=null and parent!=''">
 			AND ins.fparent = #{parent}
 		</if>
-		) AS A
 		GROUP BY  iid, 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
@@ -1178,13 +1112,10 @@
 				weekofyear(fweldtime)
 			</if>
 		</if>
-		AS weldTime,fname,iid
+		AS weldTime,i.fname,i.fid iid
 		FROM  
 		(
-		SELECT i.fid iid, lid,fweldtime, i.fname
-		FROM 
-		(
-		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime
+		SELECT fid lid,fjunction_id, fweldtime
 		FROM tb_live_data
 		WHERE fstatus &lt; 3 
 		<if test="dto!=null and dto!=''">
@@ -1196,15 +1127,13 @@
 			</if>
 		</if>
 		) AS k0
-		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
-		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id 
+        INNER JOIN tb_insframework i ON j.fitemId = i.fid 
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent 
 		WHERE i.ftype =23
-		AND k0.fstatus &lt; 3
 		<if test="parent!=null and parent!=''">
 			AND (i.fparent = #{parent} or ins.fparent = #{parent})
 		</if>
-		) AS A
 		GROUP BY  iid, 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
@@ -1346,11 +1275,9 @@
 				weekofyear(fweldtime)
 			</if>
 		</if>
-		weldTime, fname, iid
+		weldTime, insf.fname, insf.fid iid
 		FROM (
-		SELECT insf.fid iid, lid, fweldtime, insf.fname,start
-		FROM (
-		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime,
+		SELECT fid lid, fjunction_id, fweldtime,
 		(SELECT count(fid)
 		FROM tb_live_data WHERE 1=1 
 		<if test="dto!=null and dto!=''">
@@ -1374,28 +1301,12 @@
 		</if>
 		AND fstatus =3
 		) AS k0
-		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
-		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+        INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
+        INNER JOIN tb_insframework i ON j.fitemId = i.fid 
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
 		WHERE i.ftype =23
-		AND k0.fstatus =3
-		)k1
-		GROUP BY iid, 
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
+		GROUP BY iid, weldTime
 		)temp
 	</select>
 	
@@ -1418,11 +1329,9 @@
 				weekofyear(fweldtime)
 			</if>
 		</if>
-		weldTime, fname, iid
+		weldTime, ins.fname, ins.fid iid
 		FROM (
-		SELECT ins.fid iid, lid, fweldtime, ins.fname,start
-		FROM (
-		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime,
+		SELECT fid lid, fjunction_id, fweldtime,
 		(SELECT count(fid)
 		FROM tb_live_data WHERE 1=1 
 		<if test="dto!=null and dto!=''">
@@ -1446,30 +1355,14 @@
 		</if>
 		AND fstatus =3
 		) AS k0
-		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
-		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+        INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
+        INNER JOIN tb_insframework i ON j.fitemId = i.fid 
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE i.ftype =23
-		AND k0.fstatus =3
 		<if test="parent!=null and parent!=''">
 			AND ins.fparent = #{parent}
 		</if>
-		)k1
-		GROUP BY iid, 
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
+		GROUP BY iid, weldTime
 		)temp
 	</select>
 
@@ -1492,11 +1385,9 @@
 				weekofyear(fweldtime)
 			</if>
 		</if>
-		weldTime, fname, iid
+		weldTime, i.fname,  i.fid iid
 		FROM (
-		SELECT i.fid iid, lid, fweldtime, i.fname,start
-		FROM (
-		SELECT fid lid, felectricity, fstatus, fmachine_id, fweldtime,
+		SELECT fid lid,fjunction_id, fweldtime,
 		(SELECT count(fid)
 		FROM tb_live_data WHERE 1=1 
 		<if test="dto!=null and dto!=''">
@@ -1520,30 +1411,14 @@
 		</if>
 		AND fstatus =3
 		) AS k0
-		INNER JOIN tb_welding_machine m ON m.fequipment_no = k0.fmachine_id
-		INNER JOIN tb_insframework i ON m.finsframework_id = i.fid
+        INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
+        INNER JOIN tb_insframework i ON j.fitemId = i.fid 
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent 
 		WHERE i.ftype =23
-		AND k0.fstatus =3
 		<if test="parent!=null and parent!=''">
 			AND (i.fparent = #{parent} or ins.fparent = #{parent})
 		</if>
-		)k1
-		GROUP BY iid, 
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
+		GROUP BY iid, weldTime
 		)temp
 	</select>
 	
@@ -1607,10 +1482,13 @@
 		weldTime,fname,fid,fmachine_id
 		FROM (
 		SELECT i.fid, l.fid lid, fweldtime, i.fname,fmachine_id,(SELECT count(fid)
-		FROM tb_live_data WHERE fstatus &lt; 3 
+		FROM tb_live_data WHERE 1=1
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime like #{dto.dtoTime1}
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
 		) as start
@@ -1623,8 +1501,8 @@
 			<if test="dto.parent!=null and dto.parent!=''">
 				AND i.fid = #{dto.parent}
 			</if>
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime like #{dto.dtoTime1}
+			<if test="dto.time!=null and dto.time!=''">
+				and fweldtime like #{dto.time}
 			</if>
 		</if>
 		)k1

@@ -106,6 +106,8 @@ function ItemnoloadsDatagrid(){
 	var otype = $("input[name='otype']:checked").val();
 	var parent = $("#parent").val();
 	var item = $("#item").combobox("getValue");
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
@@ -116,12 +118,12 @@ function ItemnoloadsDatagrid(){
          success : function(result) {  
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
-                 column.push({field:"weldTime",title:"时间跨度(年/月/日)",width:width,halign : "center",align : "left"});
+                 column.push({field:"weldTime",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  
                  for(var m=0;m<result.arys.length;m++){
                 	 column.push({field:"loads",title:result.arys[m].name,width:width,halign : "center",align : "left",
                 		 formatter : function(value,row,index){
-                			 return "<a href='junctionChart/goDetailNoLoads?itemid="+row.itemid+"&weldtime="+row.weldTime+"'>"+value+"%"+"</a>";
+                			 return "<a href='junctionChart/goDetailNoLoads?itemid="+row.itemid+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"'>"+value+"%"+"</a>";
                 		 }
                 	 },{field:"itemid",title:"项目id",width:width,halign : "center",align : "left",hidden : true});
                  }
