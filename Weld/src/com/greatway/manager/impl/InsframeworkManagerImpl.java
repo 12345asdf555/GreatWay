@@ -153,4 +153,9 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 		return im.getTypeById(id);
 	}
 
+	@Override
+	public BigInteger getParentById(BigInteger id) {
+		return im.getParentById(id);
+	}
+
 }

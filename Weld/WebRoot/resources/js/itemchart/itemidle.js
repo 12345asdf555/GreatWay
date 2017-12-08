@@ -112,7 +112,7 @@ function ItemidleDatagrid(){
          success : function(result) {  
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
-                 column.push({field:"w",title:"时间跨度(年/月/日)",width:width,halign : "center",align : "left"});
+                 column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  column.push({field:"a",title:"闲置数量",width:width,halign : "center",align : "left"});
              }  
          },  

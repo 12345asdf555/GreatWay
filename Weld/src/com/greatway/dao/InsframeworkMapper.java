@@ -23,6 +23,8 @@ public interface InsframeworkMapper extends Mapper<Insframework>{
 	
 	String getInsframeworkById(@Param("id")BigInteger id);
 	
+	BigInteger getParentById(@Param("id")BigInteger id);
+	
 	void addInsframework(Insframework ins);
 	
 	void editInsframework(Insframework ins);

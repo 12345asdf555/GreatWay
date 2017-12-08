@@ -21,7 +21,7 @@ import com.greatway.model.LiveData;
 import com.greatway.model.WeldedJunction;
 import com.greatway.page.Page;
 import com.spring.model.MyUser;
-@WebService
+
 @Service
 @Transactional
 public class LiveDataManagerImpl implements LiveDataManager {
@@ -106,8 +106,8 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getItemOvertime(WeldDto dto, String num, BigInteger parent) {
-		return live.getItemOvertime(dto, num, parent);
+	public List<ModelDto> getItemOvertime(WeldDto dto, String num) {
+		return live.getItemOvertime(dto, num);
 	}
 
 	@Override
@@ -300,5 +300,11 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	public List<ModelDto> getHousClassify(Page page, BigInteger parent, String searchStr) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
 		return live.getHousClassify(parent,searchStr);
+	}
+
+	@Override
+	public List<ModelDto> getDetailNoLoads(Page page, WeldDto dto) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.getDetailNoLoads(dto);
 	}
 }

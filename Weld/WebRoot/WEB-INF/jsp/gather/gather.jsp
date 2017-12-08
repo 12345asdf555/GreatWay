@@ -23,12 +23,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
 	<script type="text/javascript" src="resources/js/gather/gather.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
 	
   </head>
   
   <body  class="easyui-layout">
+  	<jsp:include  page="../insframeworktree.jsp"/>
   	<div id="body" region="center"  hide="true"  split="true" title="采集模块管理" style="background: witch; height: 335px;">
 	  	
 	  	<div id="gather_btn">

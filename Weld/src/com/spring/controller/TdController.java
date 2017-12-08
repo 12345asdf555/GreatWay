@@ -53,7 +53,7 @@ public class TdController {
 		long uid = myuser.getId();
 		String insname = tdService.findInsname(tdService.findIns(uid));
 		request.setAttribute("insname", insname);
-		return "/BackUp";
+		return "/company";
 	}
 	
 	@RequestMapping("/AllTdd")
@@ -68,8 +68,25 @@ public class TdController {
 		return "/project";
 	}
 	
+	@RequestMapping("/AllTddi")
+	public String AllTddi(HttpServletRequest request){
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		long uid = myuser.getId();
+		String insname = tdService.findInsname(tdService.findIns(uid));
+		request.setAttribute("divi", insname);
+		return "/division";
+	}
+	
 	@RequestMapping("/AllTdp")
 	public String AllTdp(HttpServletRequest request){
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		long uid = myuser.getId();
+		String insname = tdService.findInsname(tdService.findIns(uid));
+		request.setAttribute("proj", insname);
 		return "/project";
 	}
 	

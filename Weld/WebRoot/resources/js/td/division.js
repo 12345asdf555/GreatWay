@@ -3,6 +3,17 @@
  */
 var da;
 var data1;
+var dat;
+var num = 0;
+var num0 = 0;
+var num1 = 0;
+var num2 = 0;
+var num3 = 0;
+var on1=new Array();
+var on=new Array();
+var warn=new Array();
+var wait=new Array();
+var off=new Array();
 $(function(){
 	$.ajax({  
 	      type : "post",  
@@ -19,6 +30,19 @@ $(function(){
 	          alert("数据请求失败，请联系系统管理员!");  
 	      }  
 	 });
+	var div = document.getElementById("division").value;
+	$.ajax({  
+        type : "post",  
+        async : false,
+        url : "td/getAllTdd?div="+div,  
+        data : {},  
+        dataType : "json", //返回数据形式为json  
+        success : function(data){
+        	if(data){
+        		da = eval(data.rows);
+        	}
+        }
+	})
 	newSearch();
 })
 
@@ -40,39 +64,55 @@ function newSearch(){
 			};
 			//获得消息事件
 			socket.onmessage = function(msg) {
-				/*alert(msg.data);*/
-				/*dd = msg.data;*/
-				var div = document.getElementById("division").value;
-				$.ajax({  
-			        type : "post",  
-			        async : false,
-			        url : "td/getAllTdd?div="+div,  
-			        data : {},  
-			        dataType : "json", //返回数据形式为json  
-			        success : function(data){
-			        	if(data){
-			        		da = eval(data.rows);
-			        	}
-			        }
-				});
-				$.ajax({  
-			        type : "post",  
-			        async : false,
-			        url : "td/getAllTdp?data="+msg.data,  
-			        data : {},  
-			        dataType : "json", //返回数据形式为json  
-			        success : function(result) {
-			            if (result) {
-			            	var num0 = 0;
-			            	var num1 = 0;
-			            	var num2 = 0;
-			            	var num3 = 0;
-			            	var num = 0;
-			            	var r = result.rows;
-			            	var c = eval(r);
-			            	var array=new Array(da.length);  
-
-			            	console.log(result.rows);
+				dat = msg.data;
+				
+				for(var n = 0;n < dat.length;n+=159){
+					if((dat.substring(0+n, 2+n)=="03")||(dat.substring(0+n, 2+n)=="05")||(dat.substring(0+n, 2+n)=="07")||(dat.substring(0+n, 2+n)=="00")){		
+						if(on1.length==0){
+							var l1=1;
+							var lo=0;
+							for(var a1=0;a1<l1;a1++){
+								if(dat.substring(4+n, 8+n)!=on1[a1]){
+									on1.push(dat.substring(4+n, 8+n));		
+								}else{
+				                	for(var index = 0;index < da.length;index++){
+				                		if($("#div"+index+"").length<=0){}else{
+				        					document.getElementById("on"+index+"").value=0;
+					            			document.getElementById("warning"+index+"").value=0;
+					            			document.getElementById("wait"+index+"").value=0;
+					            			document.getElementById("off"+index+"").value=0;
+				                		}
+				                	}
+								}
+							}
+						}else{
+						l1=on1.length;
+						var lo=0;
+						for(var a1=0;a1<l1;a1++){
+							/*alert(dd.substring(4+n, 8+n));*/
+							if(dat.substring(4+n, 8+n)!=on1[a1]){
+								lo++;	
+								if(lo==on1.length){
+								on1.push(dat.substring(4+n, 8+n));
+								}		
+							}else{
+			                	for(var index = 0;index < da.length;index++){
+			                		if($("#div"+index+"").length<=0){}else{
+			        					document.getElementById("on"+index+"").value=0;
+				            			document.getElementById("warning"+index+"").value=0;
+				            			document.getElementById("wait"+index+"").value=0;
+				            			document.getElementById("off"+index+"").value=0;
+			                		}
+			                	}
+			                	on1.length=0;
+			                	on1.push(dat.substring(4+n, 8+n));
+			                	break;
+							}
+						}
+						}					
+					}
+					};
+				
 			            	for(var index = 0;index < da.length;index++)
 			            	{
 			            		num=0;num0 = 0;num1 = 0;num2 = 0;num3 = 0;
@@ -106,35 +146,32 @@ function newSearch(){
             				$("#body").append(str);
 			            		}
 			            	document.getElementById("btnReg"+index+"").value=da[index].fname;
-		            		for(var l=0;l<c.length;l=l+3){
-		            			if(da[index].fid==c[l].finsframework_id){
-		            				num++;
-		            				if(c[l].fstatus_id=="03"||c[l].fstatus_id=="05"){
-		            					num0 = num0+1;
-		            					document.getElementById("on"+index+"").value=num0;
+		            		for(var l=0;l<dat.length;l=l+159){
+		            			if(da[index].fid==dat.substring(l+2, l+4)){
+		        					num++;
+		            				if(dat.substring(0+l, 2+l)=="03"||dat.substring(0+l, 2+l)=="05"){
+		            					num0++;
+		            					var oni=parseInt(document.getElementById("on"+index+"").value);
+		            					document.getElementById("on"+index+"").value=oni+num0;
 		            				}
-		            				if(c[q].fstatus_id=="07"){
-				            			num1=num1+1;
-				            			document.getElementById("warning"+index+"").value=num1;
-				            		}
-				            		if(c[l].fstatus_id=="00"){
-				            			num2=num2+1;
-				            			document.getElementById("wait"+index+"").value=num2;
-				            		}
-				            		if(c[l].fstatus_id=="09"){
-				            			num3=num3+1;
-				            			document.getElementById("off"+index+"").value=num3;
-				            		}
+		            				else if(dat.substring(0+l, 2+l)=="07"){
+		            					num1++;
+		            					var wni=parseInt(document.getElementById("warning"+index+"").value);
+		    	            			document.getElementById("warning"+index+"").value=wni+num1;
+		    	            		}
+		            				else if(dat.substring(0+l, 2+l)=="00"){
+		    	            			num2++;
+		    	            			var wai=parseInt(document.getElementById("wait"+index+"").value);
+		    	            			document.getElementById("wait"+index+"").value=wai+num2;	            		
+		    	            		}
+		            				else{
+		    	            			document.getElementById("off"+index+"").value=num-parseInt(document.getElementById("on"+index+"").value)-parseInt(document.getElementById("warning"+index+"").value)-parseInt(document.getElementById("wait"+index+"").value);
+		    	            		}	            		
 		            			}
 		            		}
 		            		document.getElementById("status"+index+"").value=num;
 			            }
-			            }  
-			        },  
-			        error : function(errorMsg) {  
-			            alert("数据请求失败，请联系系统管理员!");  
-			        }  
-			   })
+
 			};
 			//关闭事件
 			socket.onclose = function() {
@@ -157,7 +194,7 @@ function newSearch(){
 
 }
 	function show(value){
-		window.location.href="/CMS/td/AllTddp?value="+encodeURI(value);
+		window.location.href="/CMS/td/AllTddp?value="+value;
 	}
 	
 
