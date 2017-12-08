@@ -10,6 +10,21 @@ public class Gather {
 	private String ipurl;
 	private String macurl;
 	private String leavetime;
+	private BigInteger itemid;
+	private String itemname;
+	
+	public String getItemname() {
+		return itemname;
+	}
+	public void setItemname(String itemname) {
+		this.itemname = itemname;
+	}
+	public BigInteger getItemid() {
+		return itemid;
+	}
+	public void setItemid(BigInteger itemid) {
+		this.itemid = itemid;
+	}
 	public BigInteger getId() {
 		return id;
 	}

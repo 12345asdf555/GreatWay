@@ -14,14 +14,14 @@ public interface GatherManager {
 	 * @param str 查询信息
 	 * @return
 	 */
-	List<Gather> getGatherPageAll(Page page,String str);
+	List<Gather> getGatherPageAll(Page page,String str,BigInteger parent);
 	
 	/**
 	 * 查询采集列表
 	 * @param str 查询信息
 	 * @return
 	 */
-	List<Gather> getGatherAll(String str);
+	List<Gather> getGatherAll(String str,BigInteger parent);
 	
 	/**
 	 * 根据编号查询id
@@ -35,7 +35,7 @@ public interface GatherManager {
 	 * @param gatherno采集编号
 	 * @return
 	 */
-	int getGatherNoCount(String gatherno);
+	int getGatherNoCount(String gatherno,BigInteger item);
 	
 	/**
 	 * 根据id查询采集信息

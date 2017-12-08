@@ -45,6 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="radio" class="radioStyle" name="otype" value="2" checked="checked" />月
 				<input type="radio" class="radioStyle" name="otype" value="3" />日
 				<input type="radio" class="radioStyle" name="otype" value="4" />周
+				<input class="easyui-combobox" name="item" id="item">
 				<a href="javascript:serachitemloads();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>

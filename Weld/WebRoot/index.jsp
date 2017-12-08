@@ -65,23 +65,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <li><a href="javascript:openMachine()"><i class="iconfont icon-bijiben"></i>维修记录管理</a></li>
 			        <li><a href="javascript:openWedJunction()"><i class="iconfont icon-bijiben"></i>焊口管理</a></li>
 			        <li><a href="javascript:openWelder()"><i class="iconfont icon-bijiben"></i>焊工管理</a></li>
-			        <li><a href="javascript:openInsframework()"><i class="iconfont icon-bijiben"></i>组织机构管理</a></li>
+<!-- 			        <li><a href="javascript:openInsframework()"><i class="iconfont icon-bijiben"></i>组织机构管理</a></li> -->
 			        <li><a href="javascript:openGather()"><i class="iconfont icon-bijiben"></i>采集模块管理</a></li>
 		        </ul>
 		    </div>
 			<!-- 集团 -->
-			<div id="bloc" title="集团">
-		    	<ul>
-		    		<li><a href="javascript:openBlocEfficiency()"><i class="iconfont icon-bijiben"></i>集团工效</a></li>
-		    		<li><a href="javascript:openBlocHour()"><i class="iconfont icon-bijiben"></i>集团焊口焊接工时</a></li>
-		    		<li><a href="javascript:openBlocoverproof()"><i class="iconfont icon-bijiben"></i>集团焊接工艺超标统计</a></li>
-		    		<li><a href="javascript:openBlocovertime()"><i class="iconfont icon-bijiben"></i>集团超时待机统计</a></li>
-		    		<li><a href="javascript:openBlocLoads()"><i class="iconfont icon-bijiben"></i>集团设备负荷率</a></li>
-		    		<li><a href="javascript:openBlocNoLoads()"><i class="iconfont icon-bijiben"></i>集团设备空载率</a></li>
-		    		<li><a href="javascript:openBlocIdle()"><i class="iconfont icon-bijiben"></i>集团设备闲置率</a></li>
-		    		<li><a href="javascript:openBlocUse()"><i class="iconfont icon-bijiben"></i>集团单台设备运行数据统计</a></li>
-		    	</ul>
-		    </div>
+<!-- 			<div id="bloc" title="集团"> -->
+<!-- 		    	<ul> -->
+<!-- 		    		<li><a href="javascript:openBlocEfficiency()"><i class="iconfont icon-bijiben"></i>集团工效</a></li> -->
+<!-- 		    		<li><a href="javascript:openBlocHour()"><i class="iconfont icon-bijiben"></i>集团焊口焊接工时</a></li> -->
+<!-- 		    		<li><a href="javascript:openBlocoverproof()"><i class="iconfont icon-bijiben"></i>集团焊接工艺超标统计</a></li> -->
+<!-- 		    		<li><a href="javascript:openBlocovertime()"><i class="iconfont icon-bijiben"></i>集团超时待机统计</a></li> -->
+<!-- 		    		<li><a href="javascript:openBlocLoads()"><i class="iconfont icon-bijiben"></i>集团设备负荷率</a></li> -->
+<!-- 		    		<li><a href="javascript:openBlocNoLoads()"><i class="iconfont icon-bijiben"></i>集团设备空载率</a></li> -->
+<!-- 		    		<li><a href="javascript:openBlocIdle()"><i class="iconfont icon-bijiben"></i>集团设备闲置率</a></li> -->
+<!-- 		    		<li><a href="javascript:openBlocUse()"><i class="iconfont icon-bijiben"></i>集团单台设备运行数据统计</a></li> -->
+<!-- 		    	</ul> -->
+<!-- 		    </div> -->
 			<!-- 公司 -->
 		    <div id="company" title="公司">
 		    	<ul>
@@ -97,31 +97,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</ul>
 		    </div>
 			<!-- 事业部 -->
-		    <div id="caust" title="事业部">
-		    	<ul>
-		    		<li><a href="javascript:openCaustEfficiency()"><i class="iconfont icon-bijiben"></i>事业部工效</a></li>
-		    		<li><a href="javascript:openCaustHour()"><i class="iconfont icon-bijiben"></i>事业部焊口焊接工时</a></li>
-		    		<li><a href="javascript:openCaustoverproof()"><i class="iconfont icon-bijiben"></i>事业部焊接工艺超标统计</a></li>
-		    		<li><a href="javascript:openCaustovertime()"><i class="iconfont icon-bijiben"></i>事业部超时待机统计</a></li>
-		    		<li><a href="javascript:openCaustLoads()"><i class="iconfont icon-bijiben"></i>事业部设备负荷率</a></li>
-		    		<li><a href="javascript:openCaustNoLoads()"><i class="iconfont icon-bijiben"></i>事业部设备空载率</a></li>
-		    		<li><a href="javascript:openCaustIdle()"><i class="iconfont icon-bijiben"></i>事业部设备闲置率</a></li>
-		    		<li><a href="javascript:openCaustUse()"><i class="iconfont icon-bijiben"></i>事业部单台设备运行数据统计</a></li>
-		    		<li><a href="javascript:openTd()"><i class="iconfont icon-bijiben"></i>事业部实时监测</a></li>
-		    	</ul>
-		    </div>
+<!-- 		    <div id="caust" title="事业部"> -->
+<!-- 		    	<ul> -->
+<!-- 		    		<li><a href="javascript:openCaustEfficiency()"><i class="iconfont icon-bijiben"></i>事业部工效</a></li> -->
+<!-- 		    		<li><a href="javascript:openCaustHour()"><i class="iconfont icon-bijiben"></i>事业部焊口焊接工时</a></li> -->
+<!-- 		    		<li><a href="javascript:openCaustoverproof()"><i class="iconfont icon-bijiben"></i>事业部焊接工艺超标统计</a></li> -->
+<!-- 		    		<li><a href="javascript:openCaustovertime()"><i class="iconfont icon-bijiben"></i>事业部超时待机统计</a></li> -->
+<!-- 		    		<li><a href="javascript:openCaustLoads()"><i class="iconfont icon-bijiben"></i>事业部设备负荷率</a></li> -->
+<!-- 		    		<li><a href="javascript:openCaustNoLoads()"><i class="iconfont icon-bijiben"></i>事业部设备空载率</a></li> -->
+<!-- 		    		<li><a href="javascript:openCaustIdle()"><i class="iconfont icon-bijiben"></i>事业部设备闲置率</a></li> -->
+<!-- 		    		<li><a href="javascript:openCaustUse()"><i class="iconfont icon-bijiben"></i>事业部单台设备运行数据统计</a></li> -->
+<!-- 		    		<li><a href="javascript:openTd()"><i class="iconfont icon-bijiben"></i>事业部实时监测</a></li> -->
+<!-- 		    	</ul> -->
+<!-- 		    </div> -->
 			<!-- 项目部 -->
-		    <div  id="item" title="项目部">
-		    	<ul>
-		    		<li><a href="javascript:openItemEfficiency()"><i class="iconfont icon-bijiben"></i>项目部工效</a></li>
-		    		<li><a href="javascript:openItemHour()"><i class="iconfont icon-bijiben"></i>项目部焊口焊接工时</a></li>
-		    		<li><a href="javascript:openDetailoverproofs()"><i class="iconfont icon-bijiben"></i>项目部焊接工艺超标明细</a></li>
-		    		<li><a href="javascript:openItemovertime()"><i class="iconfont icon-bijiben"></i>项目部超时待机统计</a></li>
-		    		<li><a href="javascript:openItemLoads()"><i class="iconfont icon-bijiben"></i>项目部设备负荷率</a></li>
-		    		<li><a href="javascript:openItemNoLoads()"><i class="iconfont icon-bijiben"></i>项目部设备空载率</a></li>
-		    		<li><a href="javascript:openTd()"><i class="iconfont icon-bijiben"></i>项目部实时监测</a></li>
-		    	</ul>
-		    </div>
+<!-- 		    <div  id="item" title="项目部"> -->
+<!-- 		    	<ul> -->
+<!-- 		    		<li><a href="javascript:openItemEfficiency()"><i class="iconfont icon-bijiben"></i>项目部工效</a></li> -->
+<!-- 		    		<li><a href="javascript:openItemHour()"><i class="iconfont icon-bijiben"></i>项目部焊口焊接工时</a></li> -->
+<!-- 		    		<li><a href="javascript:openDetailoverproofs()"><i class="iconfont icon-bijiben"></i>项目部焊接工艺超标明细</a></li> -->
+<!-- 		    		<li><a href="javascript:openItemovertime()"><i class="iconfont icon-bijiben"></i>项目部超时待机统计</a></li> -->
+<!-- 		    		<li><a href="javascript:openItemLoads()"><i class="iconfont icon-bijiben"></i>项目部设备负荷率</a></li> -->
+<!-- 		    		<li><a href="javascript:openItemNoLoads()"><i class="iconfont icon-bijiben"></i>项目部设备空载率</a></li> -->
+<!-- 		    		<li><a href="javascript:openTd()"><i class="iconfont icon-bijiben"></i>项目部实时监测</a></li> -->
+<!-- 		    	</ul> -->
+<!-- 		    </div> -->
 	  	</div>
 	</div>
 	<div id="mainPanle" region="center" style="background: white; overflow-y: hidden">

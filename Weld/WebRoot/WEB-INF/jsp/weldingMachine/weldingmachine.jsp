@@ -23,14 +23,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
+<!-- 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script> -->
 	<script type="text/javascript" src="resources/js/weldingMachine/weldingMachine.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
-	
   </head>
   
   <body  class="easyui-layout">
-  	<jsp:include  page="../insframeworktree.jsp"/>
+<%--   	<jsp:include  page="../insframeworktree.jsp"/> --%>
   	<div id="body" region="center"  hide="true"  split="true" title="焊机设备管理" style="background: #eee;height: 335px;">
 	  	<div id="weldingmachineTable_btn">
 			<div style="margin-bottom: 5px;">
@@ -44,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<form id="importfm" method="post" class="easyui-form" data-options="novalidate:true" enctype="multipart/form-data"> 
 				<div>
 					<span><input type="file" name="file" id="file"></span>
-					<input type="button" value="上传" onclick="importWeldingMachine()" class="upButton"/> 
+					<input type="button" value="上传" onclick="importWeldingMachine()" class="upButton"/>
 				</div>
 			</form>
 		</div>

@@ -16,6 +16,7 @@ import com.greatway.dto.ModelDto;
 import com.greatway.dto.WeldDto;
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.LiveDataManager;
+import com.greatway.model.Insframework;
 import com.greatway.model.LiveData;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
@@ -326,30 +327,10 @@ public class ItemChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String item = request.getParameter("item");
 		String type = request.getParameter("otype");
 		String number = request.getParameter("number");
 		WeldDto dto = new WeldDto();
-		BigInteger pid = null;
-		if(!iutil.isNull(parentId)){
-			//处理用户数据权限
-			BigInteger uid = lm.getUserId(request);
-			String afreshLogin = (String)request.getAttribute("afreshLogin");
-			if(iutil.isNull(afreshLogin)){
-				return "0";
-			}
-			int types = insm.getUserInsfType(uid);
-			if(types==21){
-				dto.setParent(insm.getUserInsfId(uid));
-				pid = dto.getParent();
-			}else if(types==22){
-				dto.setParent(insm.getUserInsfId(uid));
-				pid = dto.getParent();
-			}else if(types==23){
-				parentId = insm.getUserInsfId(uid).toString();
-				pid = new BigInteger(parentId);
-			}
-		}
-		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -357,8 +338,9 @@ public class ItemChartController {
 			dto.setDtoTime2(time2);
 		}
 		if(iutil.isNull(parentId)){
-			parent = new BigInteger(parentId);
-			pid = new BigInteger(parentId);
+			dto.setParent(new BigInteger(parentId));
+		}else{
+			dto.setParent(new BigInteger(item));
 		}
 		if(iutil.isNull(type)){
 			if(type.equals("1")){
@@ -389,49 +371,33 @@ public class ItemChartController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		JSONArray arys = new JSONArray();
-		JSONArray arys1 = new JSONArray();
+		JSONObject object = new JSONObject();
 		try{
-			List<ModelDto> list = lm.getItemOvertime(dto, number, parent);
-			List<LiveData> jun = lm.getJunction(pid);
-			int[] num = null;
-			for(LiveData live :time){
-				json.put("weldTime",live.getWeldTime());
-				arys.add(json);
-			}
-			for(int i=0;i<jun.size();i++){
-				num = new int[time.size()];
-				for(int j=0;j<time.size();j++){
-					num[j] = 0;
-					for(ModelDto l:list){
-						if(jun.get(i).getFname().equals(l.getFjunction_id()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = Integer.parseInt(l.getOvertime().toString());
+			List<ModelDto> list = lm.getItemOvertime(dto, number);
+			String[] num = new String[time.size()];
+			if(list.size()>0){
+				for(int i=0;i<time.size();i++){
+					num[i] = "0";
+					for(ModelDto m:list){
+						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
+							num[i] = m.getOvertime();
 						}
 					}
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("overtime",num[i]);
+					json.put("id", list.get(0).getIid());
+					ary.add(json);
 				}
-				json.put("overtime",num);
-				json.put("name",jun.get(i).getFname());
-				json.put("itemid",jun.get(i).getItemid());
-				arys1.add(json);
+				object.put("name", list.get(0).getFname());
 			}
-			JSONObject object = new JSONObject();
-			
-			for(int i=0;i<time.size();i++){
-				for(int j=0;j<arys1.size();j++){
-					JSONObject js = (JSONObject)arys1.get(j);
-					String overproof = js.getString("overtime").substring(1, js.getString("overtime").length()-1);
-					String[] str = overproof.split(",");
-					object.put("a"+j, str[i]);
-				}
-				object.put("w",time.get(i).getWeldTime());
-				ary.add(object);
-			}
+			object.put("num", num);
+			arys.add(object);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		obj.put("total", total);
 		obj.put("rows", ary);
 		obj.put("arys", arys);
-		obj.put("arys1", arys1);
 		return obj.toString();
 	}
 
@@ -446,28 +412,9 @@ public class ItemChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String item = request.getParameter("item");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
-		BigInteger pid = null;
-		if(!iutil.isNull(parentId)){
-			//处理用户数据权限
-			BigInteger uid = lm.getUserId(request);
-			String afreshLogin = (String)request.getAttribute("afreshLogin");
-			if(iutil.isNull(afreshLogin)){
-				return "0";
-			}
-			int types = insm.getUserInsfType(uid);
-			if(types==21){
-				dto.setParent(insm.getUserInsfId(uid));
-				pid = dto.getParent();
-			}else if(types==22){
-				dto.setParent(insm.getUserInsfId(uid));
-				pid = dto.getParent();
-			}else if(types==23){
-				parentId = insm.getUserInsfId(uid).toString();
-				pid = new BigInteger(parentId);
-			}
-		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -477,7 +424,8 @@ public class ItemChartController {
 		}
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
-			pid = new BigInteger(parentId);
+		}else{
+			parent = new BigInteger(item);
 		}
 		if(iutil.isNull(type)){
 			if(type.equals("1")){
@@ -508,49 +456,33 @@ public class ItemChartController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		JSONArray arys = new JSONArray();
-		JSONArray arys1 = new JSONArray();
+		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getItemLoads(dto, parent);
-			List<LiveData> machine = lm.getMachine(pid);
-			double[] num = null;
-			for(LiveData live :time){
-				json.put("weldTime",live.getWeldTime());
-				arys.add(json);
-			}
-			for(int i=0;i<machine.size();i++){
-				num = new double[time.size()];
-				for(int j=0;j<time.size();j++){
-					num[j] = 0;
-					for(ModelDto l:list){
-						if(machine.get(i).getFname().equals(l.getFmachine_id()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = (double)Math.round(l.getLoads()*100)/100;
+			double[] num = new double[time.size()];
+			if(list.size()>0){
+				for(int i=0;i<time.size();i++){
+					num[i] = 0;
+					for(ModelDto m:list){
+						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
+							num[i] = (double)Math.round(m.getLoads()*100)/100;
 						}
 					}
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("loads",num[i]);
+					json.put("itemid", list.get(0).getIid());
+					ary.add(json);
 				}
-				json.put("loads",num);
-				json.put("name",machine.get(i).getFname());
-				json.put("itemid",machine.get(i).getItemid());
-				arys1.add(json);
+				object.put("name", list.get(0).getFname());
 			}
-			JSONObject object = new JSONObject();
-			
-			for(int i=0;i<time.size();i++){
-				for(int j=0;j<arys1.size();j++){
-					JSONObject js = (JSONObject)arys1.get(j);
-					String loads = js.getString("loads").substring(1, js.getString("loads").length()-1);
-					String[] str = loads.split(",");
-					object.put("a"+j, str[i]+"%");
-				}
-				object.put("w",time.get(i).getWeldTime());
-				ary.add(object);
-			}
+			object.put("num", num);
+			arys.add(object);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		obj.put("total", total);
 		obj.put("rows", ary);
 		obj.put("arys", arys);
-		obj.put("arys1", arys1);
 		return obj.toString();
 	}
 
@@ -565,28 +497,9 @@ public class ItemChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String item = request.getParameter("item");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
-		BigInteger pid = null;
-		if(!iutil.isNull(parentId)){
-			//处理用户数据权限
-			BigInteger uid = lm.getUserId(request);
-			String afreshLogin = (String)request.getAttribute("afreshLogin");
-			if(iutil.isNull(afreshLogin)){
-				return "0";
-			}
-			int types = insm.getUserInsfType(uid);
-			if(types==21){
-				dto.setParent(insm.getUserInsfId(uid));
-				pid = dto.getParent();
-			}else if(types==22){
-				dto.setParent(insm.getUserInsfId(uid));
-				pid = dto.getParent();
-			}else if(types==23){
-				parentId = insm.getUserInsfId(uid).toString();
-				pid = new BigInteger(parentId);
-			}
-		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -596,7 +509,8 @@ public class ItemChartController {
 		}
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
-			pid = new BigInteger(parentId);
+		}else{
+			parent = new BigInteger(item);
 		}
 		if(iutil.isNull(type)){
 			if(type.equals("1")){
@@ -627,49 +541,33 @@ public class ItemChartController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		JSONArray arys = new JSONArray();
-		JSONArray arys1 = new JSONArray();
+		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getItemNOLoads(dto, parent,null);
-			List<LiveData> machine = lm.getMachine(pid);
-			double[] num = null;
-			for(LiveData live :time){
-				json.put("weldTime",live.getWeldTime());
-				arys.add(json);
-			}
-			for(int i=0;i<machine.size();i++){
-				num = new double[time.size()];
-				for(int j=0;j<time.size();j++){
-					num[j] = 0;
-					for(ModelDto l:list){
-						if(machine.get(i).getFname().equals(l.getFmachine_id()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = (double)Math.round(l.getLoads()*100)/100;
+			double[] num = new double[time.size()];
+			if(list.size()>0){
+				for(int i=0;i<time.size();i++){
+					num[i] = 0;
+					for(ModelDto m:list){
+						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
+							num[i] = (double)Math.round(m.getLoads()*100)/100;
 						}
 					}
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("loads",num[i]);
+					json.put("itemid", list.get(0).getFid());
+					ary.add(json);
 				}
-				json.put("loads",num);
-				json.put("name",machine.get(i).getFname());
-				json.put("itemid",machine.get(i).getItemid());
-				arys1.add(json);
+				object.put("name", list.get(0).getFname());
 			}
-			JSONObject object = new JSONObject();
-			
-			for(int i=0;i<time.size();i++){
-				for(int j=0;j<arys1.size();j++){
-					JSONObject js = (JSONObject)arys1.get(j);
-					String loads = js.getString("loads").substring(1, js.getString("loads").length()-1);
-					String[] str = loads.split(",");
-					object.put("a"+j, str[i]+"%");
-				}
-				object.put("w",time.get(i).getWeldTime());
-				ary.add(object);
-			}
+			object.put("num", num);
+			arys.add(object);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		obj.put("total", total);
 		obj.put("rows", ary);
 		obj.put("arys", arys);
-		obj.put("arys1", arys1);
 		return obj.toString();
 	}
 
@@ -912,4 +810,45 @@ public class ItemChartController {
 		return obj.toString();
 	}
 
+	@RequestMapping("/getAllItem")
+	@ResponseBody
+	public String getAllItem(HttpServletRequest request){
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		String parentid = request.getParameter("parent");
+		BigInteger parent = null;
+		if(iutil.isNull(parentid)){
+			parent = insm.getParentById(new BigInteger(parentid));
+		}else{
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				json.put("id", 0);
+				json.put("name", "无");
+				ary.add(json);
+				obj.put("ary", ary);
+				return obj.toString();
+			}
+			int type = insm.getUserInsfType(uid);
+			if(type==21){
+				parent = insm.getUserInsfId(uid);
+			}else if(type==22){
+				parent = insm.getUserInsfId(uid);
+			}
+		}
+		try{
+			List<Insframework> list = insm.getInsByType(23,parent);
+			for(Insframework i:list){
+				json.put("id", i.getId());
+				json.put("name", i.getName());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
 }

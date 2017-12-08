@@ -27,7 +27,7 @@ public interface WeldingMachineMapper extends Mapper<WeldingMachine>{
 	
 	int getEquipmentidCount(@Param("eid")String eid);
 	
-	int getGatheridCount(@Param("gatherid")BigInteger gatherid);
+	int getGatheridCount(@Param("itemid")BigInteger itemid,@Param("gather")String gather);
 	
 	WeldingMachine getWeldingMachineById(@Param("wid")BigInteger wid);
 	

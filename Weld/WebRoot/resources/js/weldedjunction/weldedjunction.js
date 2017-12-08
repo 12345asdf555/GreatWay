@@ -154,7 +154,8 @@ function weldedJunctionDatagrid(){
 			title : '所属项目',
 			width : 150,
 			halign : "center",
-			align : "left"
+			align : "left",
+			hidden : true
 		}, {
 			field : 'startTime',
 			title : '开始时间',

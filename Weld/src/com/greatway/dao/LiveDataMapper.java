@@ -38,13 +38,13 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<ModelDto> getCaustOvertime(@Param("dto") WeldDto dto,@Param("num") String num,@Param("parent") BigInteger parent);
 	
-	List<ModelDto> getItemOvertime(@Param("dto") WeldDto dto,@Param("num") String num,@Param("parent") BigInteger parent);
+	List<ModelDto> getItemOvertime(@Param("dto") WeldDto dto,@Param("num") String num);
 	
 	List<LiveData> getJunction(@Param("parent") BigInteger parent);
 	
 	List<LiveData> getMachine(@Param("parent") BigInteger parent);
 	
-	List<ModelDto> getDetailovertime(@Param("dto") WeldDto dto,@Param("num") String num,@Param("junctionno") String junctionno);
+	List<ModelDto> getDetailovertime(@Param("dto") WeldDto dto,@Param("num") String num,@Param("parent") String parent);
 	
 	List<ModelDto> getCompanyLoads(@Param("dto")WeldDto dto,@Param("parent") BigInteger parent);
 	
@@ -55,6 +55,8 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	List<ModelDto> getDetailLoads(@Param("dto")WeldDto dto,@Param("machineno")String machineno);
 	
 	List<ModelDto> getCompanyNoLoads(@Param("dto")WeldDto dto,@Param("parent") BigInteger parent);
+	
+	List<ModelDto> getDetailNoLoads(@Param("dto")WeldDto dto);
 	
 	List<ModelDto> getCaustNoLoads(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
 	

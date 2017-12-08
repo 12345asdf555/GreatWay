@@ -4,6 +4,12 @@ $(function(){
 	manuCombobox();
 	statusRadio();
 	gatherCombobox();
+	$("#iId").combobox({
+        onChange:function(){  
+        	itemid = $("#iId").combobox("getValue");
+        	gatherCombobox();
+        } 
+     });
 	editText();
 	$("#fm").form("disableValidation");
 })
@@ -75,18 +81,8 @@ function saveWeldingMachine(){
 	});
 }
 
-function editText(){
-	//这三个文本处理提交验证是区分修改值未变动时，不进行验证
-	$("#valideno").next().hide();
-	$("#validgid").next().hide();
-	
+function editText(){	
 	//隐藏文本处理传值
-	$("#wid").next().hide();
-	$("#isnw").next().hide();
-	$("#status").next().hide();
-	$("#type").next().hide();
-	$("#insframework").next().hide();
-	$("#manu").next().hide();
 	var isnw = $("#isnw").val();
 	var status = $("#status").val();
 	var type = $("#type").val();
@@ -106,36 +102,42 @@ function editText(){
 	$('#tId').combobox('select',type);
 	$('#iId').combobox('select',insframework);
 	$('#manuno').combobox('select',manu);
-
-	if(gid==null||gid==""){
-	}else{
-		$("#gatherId").combobox({disabled: true});  
-		$('#gatherId').combobox('select',gid);
-	}
+	
+	$('#gatherId').combobox('select',gid);
+//	if(gid==null||gid==""){
+//	}else{
+//		$("#gatherId").combobox({disabled: true});
+//		$('#gatherId').combobox('select',gid);
+//	}
 }
 
-//设备类型
+var itemid = "";
+//采集序号
 function gatherCombobox(){
 	$.ajax({  
       type : "post",  
       async : false,
-      url : "weldingMachine/getGatherAll",  
+      url : "weldingMachine/getGatherAll?itemid="+itemid,  
       data : {},  
       dataType : "json", //返回数据形式为json  
       success : function(result) {
+          var optionStr = "";
           if (result) {
-              var optionStr = '';  
-              for (var i = 0; i < result.ary.length; i++) {  
-                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
-                          + result.ary[i].name + "</option>";  
-              }  
+        	  if(result.ary.length<=0){
+        		  optionStr += "<option></option>";  
+        	  }else{
+	              for (var i = 0; i < result.ary.length; i++) {  
+	                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+	                          + result.ary[i].name + "</option>";  
+	              }
+        	  }
               $("#gatherId").html(optionStr);
           }  
       },  
       error : function(errorMsg) {  
           alert("数据请求失败，请联系系统管理员!");  
       }  
- }); 
+	}); 
 	$("#gatherId").combobox();
 }
 
@@ -188,7 +190,6 @@ function InsframeworkCombobox(){
 	}); 
 	$("#iId").combobox();
 }
-
 
 //厂商
 function manuCombobox(){
