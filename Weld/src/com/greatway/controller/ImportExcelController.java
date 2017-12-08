@@ -93,7 +93,9 @@ public class ImportExcelController {
 				BigInteger gid = null;
 				int count2 = 0;
 				if(gather!=null){
-					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gather.getGatherNo());
+					gid = g.getGatherByNo(gather.getGatherNo());
+					gather.setId(gid);
+					count2 = wmm.getGatheridCount(gid);
 				}
 				wm.setGatherId(gather);
 				//编码唯一

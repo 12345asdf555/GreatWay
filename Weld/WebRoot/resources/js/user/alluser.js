@@ -51,7 +51,7 @@
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
 		url : "user/getAllUser",
-		singleSelect : true,
+		singleSelect : false,
 		rownumbers : true,
 		pagination : true,
 		showPageList : false,
@@ -183,7 +183,6 @@
 		url : "user/getRole?id="+id,
 		rownumbers : false,
 		showPageList : false,
-		singleSelect : true,
 		columns : [ [ {
 			field : 'id',
 			title : 'id',

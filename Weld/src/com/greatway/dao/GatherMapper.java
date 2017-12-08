@@ -10,11 +10,11 @@ import com.greatway.model.Gather;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface GatherMapper extends Mapper<Gather>{
-	List<Gather> getGatherAll(@Param("str")String str,@Param("parent")BigInteger parent);
+	List<Gather> getGatherAll(@Param("str")String str);
 	
 	BigInteger getGatherByNo(@Param("gatherno")String gatherno);
 	
-	int getGatherNoCount(@Param("gatherno")String gatherno,@Param("item")BigInteger item);
+	int getGatherNoCount(@Param("gatherno")String gatherno);
 	
 	Gather getGatherById(@Param("id")BigInteger id);
 	

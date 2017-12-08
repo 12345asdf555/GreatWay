@@ -36,7 +36,7 @@
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],  
 		url : "role/getAllRole",
-		singleSelect : true,
+		singleSelect : false,
 		rownumbers : true,
 		pagination : true,
 		showPageList : false,
@@ -220,7 +220,6 @@
 		url : "role/getAuthority?id="+id,
 		rownumbers : false,
 		showPageList : false,
-		singleSelect : true,
 		columns : [ [ {
 			field : 'authorities_desc',
 			title : '权限描述',

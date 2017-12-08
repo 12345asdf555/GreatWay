@@ -126,11 +126,4 @@ public interface InsframeworkManager {
 	 * @return
 	 */
 	int getTypeById(BigInteger id);
-	
-	/**
-	 * 根据id获取父类
-	 * @param id 自己的id
-	 * @return
-	 */
-	BigInteger getParentById(BigInteger id);
 }

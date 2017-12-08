@@ -1,16 +1,6 @@
 $(function(){
-	itemidCombobox();
 	protocolCombobox();
 	statusCombobox();
-	var item = $("#item").val();
-	$("#itemid").combobox("select",item);
-	$("#itemid").combobox({
-        onChange:function(){
-        	//处理项目部发生改变时采集序号无法进行验证问题
-        	var gatherno = $("#gatherNo").val();
-        	$("#gatherNo").textbox("setValue",gatherno);
-        } 
-     });
 	$("#fm").form("disableValidation");
 })
 
@@ -31,6 +21,8 @@ function editGather(){
 }
 //提交
 function saveGather(){
+	var status = $("#status").combobox('getValue');
+	var protocol = $("#protocol").combobox('getValue');
 	var url2 = "";
 	if(flag==1){
 		messager = "新增成功！";
@@ -77,31 +69,6 @@ function statusCombobox(){
     		"<option value='维修'>维修</option>";  
     $("#status").html(optionStr);
 	$("#status").combobox();
-}
-
-//所属项目
-function itemidCombobox(){
-	$.ajax({  
-      type : "post",  
-      async : false,
-      url : "weldingMachine/getInsframeworkAll",  
-      data : {},  
-      dataType : "json", //返回数据形式为json  
-      success : function(result) {  
-          if (result) {
-              var optionStr = '';
-              for (var i = 0; i < result.ary.length; i++) {  
-                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
-                          + result.ary[i].name + "</option>";
-              }
-              $("#itemid").html(optionStr);
-          }  
-      },  
-      error : function(errorMsg) {  
-          alert("数据请求失败，请联系系统管理员!");  
-      }  
-	}); 
-	$("#itemid").combobox();
 }
 
 //采集模块通讯协议

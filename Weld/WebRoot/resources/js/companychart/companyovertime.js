@@ -113,7 +113,7 @@ function CompanytimeDatagrid(){
          success : function(result) {  
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
-                 column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
+                 column.push({field:"w",title:"时间跨度(年/月/日)",width:width,halign : "center",align : "left"});
                  
                  for(var m=0;m<result.arys1.length;m++){
                 	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustOvertime?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});

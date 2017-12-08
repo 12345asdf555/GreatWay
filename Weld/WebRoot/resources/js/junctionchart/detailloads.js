@@ -11,14 +11,14 @@ $(function(){
 })
 
 function detailloadsDatagrid(){
-	var parent = $("#parent").val();
-	var weldtime = $("#weldtime").val();
+	var machineno = $("#machineno").val();
+	var otype = $("input[name='otype']:checked").val();
 	$("#detailLoadsTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#detailLoad_btn").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getDetailLoads?parent="+parent+"&weldtime="+weldtime,
+		url : "junctionChart/getDetailLoads?machineno="+machineno+"&otype="+otype+serachField,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -26,6 +26,12 @@ function detailloadsDatagrid(){
 		showPageList : false,
 		pagination : true,
 		columns : [ [ {
+			field : 'iname',
+			title : '事业部',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
 			field : 'name',
 			title : '项目部',
 			width : 100,
@@ -52,6 +58,14 @@ function detailloadsDatagrid(){
 		}] ],
 		toolbar : '#detailLoad_btn',
 	});
+}
+
+var serachField = "";
+function serachdetailloads(){
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	serachField = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	detailloadsDatagrid();
 }
 
 //监听窗口大小变化

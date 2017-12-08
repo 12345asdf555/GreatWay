@@ -60,7 +60,7 @@ public interface WeldingMachineManager {
 	 * @param gatherid
 	 * @return
 	 */
-	int getGatheridCount(BigInteger itemid,String gather);
+	int getGatheridCount(BigInteger gatherid);
 	
 	/**
 	 * 根据厂商值查找厂商id

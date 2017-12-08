@@ -98,10 +98,6 @@
 		SELECT ftype FROM tb_insframework  where fid= #{id}
 	</select>
 	
-	<select id="getParentById" resultType="java.math.BigInteger">
-		SELECT fparent FROM tb_insframework  where fid= #{id}
-	</select>
-	
 	<select id="getInsByType" resultMap="insMap">
 		select i.fid,i.fname from tb_insframework i
 		inner join tb_insframework ins on ins.fid = i.fparent 

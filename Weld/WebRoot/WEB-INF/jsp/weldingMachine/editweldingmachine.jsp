@@ -38,13 +38,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
 					<lable>设固定资产编号</lable>
-					<input type="hidden" id="wid" value="${w.id }">
-					<input type="hidden" id="valideno" value="${w.equipmentNo }">
+					<input class="easyui-textbox" id="wid" value="${w.id }">
+					<input class="easyui-textbox" id="valideno" value="${w.equipmentNo }">
 					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  value="${w.equipmentNo }" data-options="validType:['wmEnoValidate','length[4,4]'],required:true"/>
 				</div>
 				<div class="fitem">
 					<lable>设备类型</lable>
-					<input type="hidden"  id="type" value="${w.typeId }">
+					<input class="easyui-textbox" id="type" value="${w.typeId }">
 					<select class="easyui-combobox" name="typeId" id="tId" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
@@ -53,17 +53,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>所属项目</lable>
-					<input type="hidden"  id="insframework" value="${w.insframeworkId.id }">
+					<input class="easyui-textbox" id="insframework" value="${w.insframeworkId.id }">
 					<select class="easyui-combobox" name="insframeworkId" id="iId" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>生产厂商</lable>
-					<input type="hidden"  id="manu" value="${w.manufacturerId.id }">
+					<input class="easyui-textbox" id="manu" value="${w.manufacturerId.id }">
 					<select class="easyui-combobox" name="manuno" id="manuno" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>采集序号</lable>
-					<input type="hidden" id="validgid" value="${w.gatherId.gatherNo }">
+					<input class="easyui-textbox" id="validgid" value="${w.gatherId.id }">
 					<select class="easyui-combobox" name="gatherId" id="gatherId" value="${w.gatherId.gatherNo }" data-options="validType:['checkNumber','wmGatheridValidate']"></select>
 				</div>
 				<div class="fitem">
@@ -72,12 +72,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem" >
 					<lable>是否联网</lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="hidden" id="isnw" value="${w.isnetworking }"/>
+					<input class="easyui-textbox" id="isnw" value="${w.isnetworking }"/>
 					<input type="radio" class="radioStyle" name="isnetworking" value="0"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" class="radioStyle" name="isnetworking" value="1"/>否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</div>
 				<div class="fitem">
-					<input type="hidden"  id="status" value="${w.statusId }"/>
+					<input class="easyui-textbox" id="status" value="${w.statusId }"/>
 					<lable>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</lable>
 	   				<span id="radios"></span>
 				</div>

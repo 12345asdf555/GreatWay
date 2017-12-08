@@ -3,7 +3,7 @@
 body{background: #ccc;}
 .wrap{width: 1024px;margin: auto;}
 .head-wrap{position: relative;width: 100%;height: 120px;background: #fff;}
-.head-wrap .logo{display: inline-block;position: absolute;top: 15px;left:60px;width: 430px;height: 80px;background:url("../images/th.png") no-repeat;background-size:contain;}
+.head-wrap .logo{display: inline-block;position: absolute;top: 3px;left:10px;width: 430px;height: 80px;background:url("../images/logo-01.png") no-repeat;background-size:contain ;}
 .head-wrap .search-wrap{position: absolute;top: 30px;right: 50px;width: 180px;height: 30px;border:1px solid #ddd;border-radius:20px;}
 .head-wrap .search{text-align: center;margin: 3px;}
 .head-wrap .search input{width: 171px;height: 21px;border:1px solid #ccc;border-radius:15px;font-size: 12px;text-indent: 1em;box-shadow:1px 1px 4px #666;}
@@ -14,7 +14,6 @@ body{background: #ccc;}
 .head-wrap .box-rig{width: 80%;height: 40px;background-image: -webkit-linear-gradient(left,#4CA5E7,#6AE7FD);}
 .head-wrap .box-rig{width: 80%;height: 40px;background-image: -ms-linear-gradient(left,#4CA5E7,#6AE7FD);/*For IE*/}
 .head-wrap .box-rig a{display: inline-block;height: 100%;line-height: 40px;font-size: 16px;color: #fff;padding: 0 10px;border-right:1px solid #fff;}
-
 
 
 /* 导航栏 */
@@ -28,7 +27,6 @@ body{background: #ccc;}
 .nav-wrap ul li a.ls3{padding-left: 10px;}
 .nav-wrap ul li a.ls3 i{padding-right: 5px;}
 .nav-wrap ul li a.ls4{padding-left: 45px;}
-
 
 
 

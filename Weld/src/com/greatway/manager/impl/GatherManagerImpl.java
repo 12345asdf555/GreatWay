@@ -26,9 +26,9 @@ public class GatherManagerImpl implements GatherManager {
 	private WeldingMachineMapper wmm;
 	
 	@Override
-	public List<Gather> getGatherPageAll(Page page, String str,BigInteger parent) {
+	public List<Gather> getGatherPageAll(Page page, String str) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return gm.getGatherAll(str,parent);
+		return gm.getGatherAll(str);
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public class GatherManagerImpl implements GatherManager {
 	}
 
 	@Override
-	public int getGatherNoCount(String gatherno,BigInteger item) {
-		return gm.getGatherNoCount(gatherno,item);
+	public int getGatherNoCount(String gatherno) {
+		return gm.getGatherNoCount(gatherno);
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public class GatherManagerImpl implements GatherManager {
 	}
 
 	@Override
-	public List<Gather> getGatherAll(String str,BigInteger parent) {
-		return gm.getGatherAll(str,parent);
+	public List<Gather> getGatherAll(String str) {
+		return gm.getGatherAll(str);
 	}
 
 }

@@ -12,7 +12,7 @@
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],  
 		url : "resource/getAllResource",
-		singleSelect : true,
+		singleSelect : false,
 		rownumbers : true,
 		pagination : true,
 		showPageList : false,

@@ -80,15 +80,11 @@ public class GatherController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String searchStr = request.getParameter("searchStr");
-		String parentid = request.getParameter("parent");
 		request.getSession().setAttribute("searchStr", searchStr);
-		BigInteger parent = null;
-		if(iutil.isNull(parentid)){
-			parent = new BigInteger(parentid);
-		}
+		
 		page = new Page(pageIndex,pageSize,total);
 		
-		List<Gather> list = gm.getGatherPageAll(page, searchStr, parent);
+		List<Gather> list = gm.getGatherPageAll(page, searchStr);
 		long total = 0;
 		
 		if(list != null){
@@ -103,8 +99,6 @@ public class GatherController {
 			for(Gather g:list){
 				json.put("id", g.getId());
 				json.put("gatherNo", g.getGatherNo());
-				json.put("itemid",g.getItemid());
-				json.put("itemname",g.getItemname());
 				json.put("status",g.getStatus());
 				json.put("protocol", g.getProtocol());
 				json.put("ipurl", g.getIpurl());
@@ -160,9 +154,6 @@ public class GatherController {
 			if(!iutil.isNull(gather.getIpurl())){
 				gather.setLeavetime(null);
 			}
-			if(!iutil.isNull(gather.getLeavetime())){
-				gather.setLeavetime(null);
-			}
 			gm.editGather(gather);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -194,14 +185,9 @@ public class GatherController {
 	 */
 	@RequestMapping("/gathernoValidate")
 	@ResponseBody
-	public String gathernoValidate(HttpServletRequest request,@RequestParam String gatherno){
+	public String gathernoValidate(@RequestParam String gatherno){
 		boolean flag = true;
-		String itemid = request.getParameter("itemid");
-		BigInteger item = null;
-		if(iutil.isNull(itemid)){
-			item = new BigInteger(itemid);
-		}
-		int count = gm.getGatherNoCount(gatherno,item);
+		int count = gm.getGatherNoCount(gatherno);
 		if(count > 0){
 			flag = false;
 		}

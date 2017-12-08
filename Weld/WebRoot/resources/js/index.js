@@ -1,5 +1,4 @@
 $(function(){
-	addTab("欢迎使用","welcome.jsp");
 	openUser();
 	tabsIncident();
 //	hierarchyLoding();

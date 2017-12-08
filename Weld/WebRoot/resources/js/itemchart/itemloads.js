@@ -1,4 +1,5 @@
 $(function(){
+	ItemloadsDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
@@ -7,8 +8,6 @@ $(function(){
 			}
 		});
 	}
-	ItemtimeCombobox();
-	ItemloadsDatagrid();
 })
 var chartStr = "";
 $(document).ready(function(){
@@ -19,26 +18,25 @@ function showitemLoadsChart(){
 	var array1 = new Array();
 	var array2 = new Array();
 	var parent = $("#parent").val();
-	var item = $("#item").combobox("getValue");
 	var otype = $("input[name='otype']:checked").val();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+"&item="+item+chartStr,
+         url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
              if (result) {
-            	 for(var i=0;i<result.rows.length;i++){
-                   	array1.push(result.rows[i].weldTime);
-             	 }
-                  for(var i=0;i<result.arys.length;i++){
-                  	array2.push(result.arys[i].name);
+            	 for(var i=0;i<result.arys.length;i++){
+                  	array1.push(result.arys[i].weldTime);
+            	 }
+                 for(var i=0;i<result.arys1.length;i++){
+                 	array2.push(result.arys1[i].name);
                  	Series.push({
-                 		name : result.arys[i].name,
+                 		name : result.arys1[i].name,
                  		type :'line',//折线图
-                 		data : result.arys[i].num,
+                 		data : result.arys1[i].loads,
                  		itemStyle : {
                  			normal: {
                  				label : {
@@ -105,25 +103,20 @@ function showitemLoadsChart(){
 function ItemloadsDatagrid(){
 	var otype = $("input[name='otype']:checked").val();
 	var parent = $("#parent").val();
-	var item = $("#item").combobox("getValue");
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+"&item="+item+chartStr,
+         url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
-                 column.push({field:"weldTime",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
+                 column.push({field:"w",title:"时间跨度(年/月/日)",width:width,halign : "center",align : "left"});
                  
-                 for(var m=0;m<result.arys.length;m++){
-                	 column.push({field:"loads",title:result.arys[m].name,width:width,halign : "center",align : "left",
-                		 formatter : function(value,row,index){
-                			 return "<a href='junctionChart/goDetailLoads?itemid="+row.itemid+"&weldtime="+row.weldTime+"'>"+value+"%"+"</a>";
-                		 }
-                	 },{field:"itemid",title:"项目id",width:width,halign : "center",align : "left",hidden : true});
+                 for(var m=0;m<result.arys1.length;m++){
+                	 column.push({field:"a"+m,title:"<a href='junctionChart/goDetailLoads?itemid="+result.arys1[m].itemid+"&machineno="+result.arys1[m].name+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
                  }
              }  
          },  
@@ -138,7 +131,7 @@ function ItemloadsDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+"&item="+item+chartStr,
+			url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -146,34 +139,6 @@ function ItemloadsDatagrid(){
 			columns :[column]
 	 })
 }
-
-function ItemtimeCombobox(){
-	var parent = $("#parent").val();
-	$.ajax({  
-      type : "post",  
-      async : false,
-      url : "itemChart/getAllItem?parent="+parent,  
-      data : {},  
-      dataType : "json", //返回数据形式为json  
-      success : function(result) {  
-          if (result) {
-              var optionStr = '';
-              for (var i = 0; i < result.ary.length; i++) {  
-                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
-                          + result.ary[i].name + "</option>";
-              }
-              $("#item").html(optionStr);
-          }  
-      },  
-      error : function(errorMsg) {  
-          alert("数据请求失败，请联系系统管理员!");  
-      }  
-	}); 
-	$("#item").combobox();
-	var data = $("#item").combobox('getData');
-	$("#item").combobox('select',data[0].value);
-}
-
 
 function serachitemloads(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');

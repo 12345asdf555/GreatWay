@@ -8,19 +8,9 @@
 })*/
 var dd;
 var name;
-var num0 = 0;
-var num1 = 0;
-var num2 = 0;
-var num3 = 0;
-var xxx=0;
 var pos;
 var i = 0;
 var data1;
-var on=new Array();
-var on1=new Array();
-var warn=new Array();
-var wait=new Array();
-var off=new Array();
 $(function(){
 	$.ajax({  
 	      type : "post",  
@@ -37,19 +27,6 @@ $(function(){
 	          alert("数据请求失败，请联系系统管理员!");  
 	      }  
 	 });
-	var pro = document.getElementById("project").value;
-	$.ajax({  
-        type : "post",  
-        async : false,
-        url : "td/getAllTdp2?div="+pro,  
-        data : {},  
-        dataType : "json", //返回数据形式为json  
-        success : function(data){
-        	if(data){
-        		da = eval(data.rows);
-        	}
-        }
-	})
 	newSearch();
 })
 
@@ -73,94 +50,145 @@ function newSearch(){
 			socket.onmessage = function(msg) {
 				/*alert(msg.data);*/
 				dd = msg.data;
-				if(num3==0){
-				for(var dex = 0;dex < dd.length;dex=dex+159)
-            	{
-            		if(dd.substring(2+dex, 4+dex) == da[0].fid){
-            			xxx++;
-            		document.getElementById("statusn").value=xxx;
-            		}
-            		}
-				num3++;
-				}
-				for(var n = 0;n < dd.length;n+=159){
-					if((dd.substring(0+n, 2+n)=="03")||(dd.substring(0+n, 2+n)=="05")||(dd.substring(0+n, 2+n)=="07")||(dd.substring(0+n, 2+n)=="00")){		
-						if(on1.length==0){
-							var l1=1;
-							var lo=0;
-							for(var a1=0;a1<l1;a1++){
-								if(dd.substring(4+n, 8+n)!=on1[a1]){
-									on1.push(dd.substring(4+n, 8+n));		
-								}
-							}
-						}else{
-						l1=on1.length;
-						var lo=0;
-						for(var a1=0;a1<l1;a1++){
-							/*alert(dd.substring(4+n, 8+n));*/
-							if(dd.substring(4+n, 8+n)!=on1[a1]){
-								lo++;	
-								if(lo==on1.length){
-								on1.push(dd.substring(4+n, 8+n));
-								}		
-							}else{
-								document.getElementById("onn").value=0;
-		            			document.getElementById("warningn").value=0;
-		            			document.getElementById("waitn").value=0;	            		
-		            			document.getElementById("offn").value=0;
-			                	on1.length=0;
-			                	on1.push(dd.substring(4+n, 8+n));
-			                	break;
-							}
-						}
-						}					
-					}
-					};
-				i = 0;	            	
-            	for(var index = 0;index < dd.length;index=index+159)
-            	{
-            		num=0;num0 = 0;num1 = 0;num2 = 0;
-            	/*var i = Math.floor(index/3);*/
-            		if(dd.substring(2+index, 4+index) == da[0].fid){
-            			i++;
-        			if($("#div"+i+"").length<=0)
-        			{
-		            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
-            			"<div>" +
-            			"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='fequipment_no"+i+"'/><div/>&nbsp;" +
-            			"<input class='liveInput' id='btnReg"+i+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
-            			"<div>" +
-            			"<label for='vol' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;压</lable>&nbsp;" +
-            			"<input class='liveInput' type='text' id='voltage"+i+"' readonly='true' value=''/></div>&nbsp;" +
-            			"<div>" +
-            			"<label for='ele' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流</lable>&nbsp;" +
-            			"<input class='liveInput' type='text' id='electricity"+i+"' readonly='true' value=''/></div>&nbsp;" +
-            			"<div>" +
-            			"<label for='num' style='text-align:center;display:inline-block'/>焊工编号</lable>&nbsp;" +
-            			"<input class='liveInput' type='text' id='welderNo"+i+"' readonly='true' value=''/></div>&nbsp;" +
-            			"<div>" +
-            			"<label for='name' style='text-align:center;display:inline-block'/>焊工姓名</lable>&nbsp;" +
-            			"<input class='liveInput' type='text' id='welderName"+i+"' readonly='true' value=''/></div>&nbsp;" +
-            			"<div>" +
-            			"<label for='po' style='text-align:center;display:inline-block'/>设备位置</lable>&nbsp;" +
-            			"<input class='liveInput' type='text' id='position"+i+"' readonly='true' value=''/></div><div/>";
-		            	$("#body").append(str);
-		            }else{
-		            	if(dd.substring(0+index, 2+index)=="03"||dd.substring(0+index, 2+index)=="05"){
-		            		document.getElementById("fequipment_no"+i+"").style.background="#00FF00";
-		            	}
-		            	if(dd.substring(0+index, 2+index)=="07"){
-		            		document.getElementById("fequipment_no"+i+"").style.background="#FF0000";
-		            	}
-		            	if(dd.substring(0+index, 2+index)=="00"){
-		            		document.getElementById("fequipment_no"+i+"").style.background="#0000CD";
-		            	}
-		            }
-		            		if(dd.substring(8+index, 12+index)!="0000"){
+				i = 0;
+				var pro = document.getElementById("project").value;
+				$.ajax({  
+			        type : "post",  
+			        async : false,
+			        url : "td/getAllTdp2?div="+pro,  
+			        data : {},  
+			        dataType : "json", //返回数据形式为json  
+			        success : function(data){
+			        	if(data){
+			        		da = eval(data.rows);
+			        	}
+			        }
+				})
+				$.ajax({  
+			        type : "post",  
+			        async : false,
+			        url : "td/getAllTd?data="+msg.data,  
+			        data : {},  
+			        dataType : "json", //返回数据形式为json  
+			        success : function(result) {
+			            if (result) {
+			            	var num0 = 0;
+			            	var num1 = 0;
+			            	var num2 = 0;
+			            	var num3 = 0;
+			            	var r = result.rows;
+			            	var c = eval(r);
+			            	
+			            	for(var index = 0;index < c.length;index=index+3)
+			            	{
+			            	/*var i = Math.floor(index/3);*/
+			            		if(c[index].finsframework_id == da[0].fid){
+			            			i++;
+			            		if(c[index].fstatus_id=="03"||c[index].fstatus_id=="05"){
+		            			if($("#div"+i+"").length<=0)
+		            			{
+			            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
+			            			"<div>" +
+			            			"<div style=' width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;' id='fequipment_no"+i+"'/><div/>&nbsp;" +
+			            			"<input class='liveInput' id='btnReg"+i+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
+			            			"<div>" +
+			            			"<label for='vol' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;压</lable>&nbsp;" +
+			            			"<input class='liveInput' type='text' id='voltage"+i+"' readonly='true' value=''/></div>&nbsp;" +
+			            			"<div>" +
+			            			"<label for='ele' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流</lable>&nbsp;" +
+			            			"<input class='liveInput' type='text' id='electricity"+i+"' readonly='true' value=''/></div>&nbsp;" +
+			            			"<div>" +
+			            			"<label for='num' style='text-align:center;display:inline-block'/>焊工编号</lable>&nbsp;" +
+			            			"<input class='liveInput' type='text' id='welderNo"+i+"' readonly='true' value=''/></div>&nbsp;" +
+			            			"<div>" +
+			            			"<label for='name' style='text-align:center;display:inline-block'/>焊工姓名</lable>&nbsp;" +
+			            			"<input class='liveInput' type='text' id='welderName"+i+"' readonly='true' value=''/></div>&nbsp;" +
+			            			"<div>" +
+			            			"<label for='po' style='text-align:center;display:inline-block'/>设备位置</lable>&nbsp;" +
+			            			"<input class='liveInput' type='text' id='position"+i+"' readonly='true' value=''/></div><div/>";
+			            	$("#body").append(str);
+		            		}
+			            	}
+			            		else if(c[q].fstatus_id=="07"){
+			            			if($("#div"+i+"").length<=0)
+			            			{
+				            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
+				            			"<div>" +
+				            			"<div style=' width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;' id='fequipment_no"+i+"'/><div/>&nbsp;" +
+				            			"<input class='liveInput' id='btnReg"+i+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='vol' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;压</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='voltage"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='ele' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='electricity"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='num' style='text-align:center;display:inline-block'/>焊工编号</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='welderNo"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='name' style='text-align:center;display:inline-block'/>焊工姓名</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='welderName"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='po' style='text-align:center;display:inline-block'/>设备位置</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='position"+i+"' readonly='true' value=''/></div><div/>";
+				            	$("#body").append(str);
+			            		}
+			            		}
+			            		else if(c[index].fstatus_id=="00"){
+			            			if($("#div"+i+"").length<=0)
+			            			{
+				            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
+				            			"<div>" +
+				            			"<div style=' width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;' id='fequipment_no"+i+"'/><div/>&nbsp;" +
+				            			"<input class='liveInput' id='btnReg"+i+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='vol' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;压</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='voltage"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='ele' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='electricity"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='num' style='text-align:center;display:inline-block'/>焊工编号</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='welderNo"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='name' style='text-align:center;display:inline-block'/>焊工姓名</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='welderName"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='po' style='text-align:center;display:inline-block'/>设备位置</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='position"+i+"' readonly='true' value=''/></div><div/>";
+				            	$("#body").append(str);
+			            		}
+			            		}
+			            		else{
+			            			if($("#div"+i+"").length<=0)
+			            			{
+				            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
+				            			"<div>" +
+				            			"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='fequipment_no"+i+"'/><div/>&nbsp;" +
+				            			"<input class='liveInput' id='btnReg"+i+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='vol' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;压</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='voltage"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='ele' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='electricity"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='num' style='text-align:center;display:inline-block'/>焊工编号</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='welderNo"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='name' style='text-align:center;display:inline-block'/>焊工姓名</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='welderName"+i+"' readonly='true' value=''/></div>&nbsp;" +
+				            			"<div>" +
+				            			"<label for='po' style='text-align:center;display:inline-block'/>设备位置</lable>&nbsp;" +
+				            			"<input class='liveInput' type='text' id='position"+i+"' readonly='true' value=''/></div><div/>";
+				            	$("#body").append(str);
+			            		}
+			            		}
+		            		if(c[index].fwelder_no!="0000"){
 		            		$.ajax({  
 		    			        type : "post",  
 		    			        async : false,
-		    			        url : "td/getWeld?weldid="+dd.substring(8+index, 12+index),  
+		    			        url : "td/getWeld?weldid="+c[index].fwelder_no,  
 		    			        data : {},  
 		    			        dataType : "json", //返回数据形式为json  
 		    			        success : function(result) {
@@ -171,7 +199,7 @@ function newSearch(){
 		    			        $.ajax({  
 		    			        type : "post",  
 		    			        async : false,
-		    			        url : "td/getPosition?equip="+dd.substring(4+index, 8+index),  
+		    			        url : "td/getPosition?equip="+c[index].fequipment_no,  
 		    			        data : {},  
 		    			        dataType : "json", //返回数据形式为json  
 		    			        success : function(result) {
@@ -179,38 +207,43 @@ function newSearch(){
 		    			        		pos = fposition[0].fpositin;
 		    			        	document.getElementById("position"+i+"").value=pos;
 		    			        }})
-			            		document.getElementById("btnReg"+i+"").value=dd.substring(4+index, 8+index);
-			            		document.getElementById("voltage"+i+"").value=parseInt(dd.substring(16+index, 20+index),16);
-			            		document.getElementById("electricity"+i+"").value=parseInt(dd.substring(12+index, 16+index),16);
-			            		document.getElementById("welderNo"+i+"").value=dd.substring(8+index, 12+index);
+			            		document.getElementById("btnReg"+i+"").value=parseInt(c[index].fequipment_no,16);
+			            		document.getElementById("voltage"+i+"").value=parseInt(c[index].electricity,16);
+			            		document.getElementById("electricity"+i+"").value=parseInt(c[index].voltage,16);
+			            		document.getElementById("welderNo"+i+"").value=parseInt(c[index].fwelder_no,16);
 		            		/*document.getElementById("position"+i+"").value=c[index].fposition;*/
 		            		}
 		            		else{
-		            			document.getElementById("btnReg"+i+"").value=dd.substring(4+index, 8+index);
+		            			document.getElementById("btnReg"+i+"").value=parseInt(c[index].fequipment_no,16);
 		            		}
-				            
-			    				if(dd.substring(0+index, 2+index)=="03"||dd.substring(0+index, 2+index)=="05"){
-			    					num0++;
-			    					var oni=parseInt(document.getElementById("onn").value);
-			    					document.getElementById("onn").value=oni+num0;
-			    				}
-			    				else if(dd.substring(0+index, 2+index)=="07"){
-			    					num1++;
-			    					var wni=parseInt(document.getElementById("warningn").value);
-			            			document.getElementById("warningn").value=wni+num1;
-			            		}
-			    				else if(dd.substring(0+index, 2+index)=="00"){
-			            			num2++;
-			            			var wai=parseInt(document.getElementById("waitn").value);
-			            			document.getElementById("waitn").value=wai+num2;	            		
-			            		}
-			    				else{
-			            			document.getElementById("offn").value=xxx-parseInt(document.getElementById("onn").value)-parseInt(document.getElementById("warningn").value)-parseInt(document.getElementById("waitn").value);
-			            		}	            		
-    			
+				            document.getElementById("statusn").value=i;
+				            	/*if(c[l].finsframework_id==document.getElementById("project").value){*/
+				            		if(c[index].fstatus_id=="03"||c[index].fstatus_id=="05"){
+				            			num0=num0+1;
+				            			document.getElementById("onn").value=num0;
+				            		}
+				            		if(c[q].fstatus_id=="07"){
+				            			num1=num1+1;
+				            			document.getElementById("warningn").value=num1;
+				            		}
+				            		if(c[index].fstatus_id=="00"){
+				            			num2=num2+1;
+				            			document.getElementById("waitn").value=num2;
+				            		}
+				            		if(c[index].fstatus_id=="09"){
+				            			num3=num3+1;
+				            			document.getElementById("offn").value=num3;
+				            		}
+				            		/*}*/
 				            }
 			              
 			            }
+			            }  
+			        },  
+			        error : function(errorMsg) {  
+			            alert("数据请求失败，请联系系统管理员!");  
+			        }  
+			   })
 			};
 			//关闭事件
 			socket.onclose = function() {
@@ -232,7 +265,7 @@ function newSearch(){
 	});
 }
    	function show(value){
-   		window.location.href="/CMS/td/AllTda?value="+value;
+   		window.location.href="/CMS/td/AllTda?value="+encodeURI(value);
 	}
    	
  

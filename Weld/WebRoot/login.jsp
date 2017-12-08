@@ -32,7 +32,7 @@
 	            <table>
 	                <tr>
 	                    <td colspan="3">
-	                        <img src="resources/images/th.png" />
+	                        <img src="resources/images/logo-01.png" />
 	                    </td>
 	                </tr>
 	                <tr>

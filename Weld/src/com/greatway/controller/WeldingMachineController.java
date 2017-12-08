@@ -234,17 +234,12 @@ public class WeldingMachineController {
 	 */
 	@RequestMapping("/getGatherAll")
 	@ResponseBody
-	public String getGatherAll(HttpServletRequest request){
+	public String getGatherAll(){
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
-		String itemid = request.getParameter("itemid");
-		BigInteger item = null;
-		if(iutil.isNull(itemid)){
-			item = new BigInteger(itemid);
-		}
 		try{
-			List<Gather> list = gm.getGatherAll(null,item);
+			List<Gather> list = gm.getGatherAll(null);
 			for(Gather g:list){
 				json.put("id", g.getId());
 				json.put("name", g.getGatherNo());
@@ -440,15 +435,9 @@ public class WeldingMachineController {
 	
 	@RequestMapping("/gidvalidate")
 	@ResponseBody
-	private String gidvalidate(HttpServletRequest request){
-		String gather = request.getParameter("gather");
-		String itemid = request.getParameter("itemid");
-		BigInteger item = null;
-		if(iutil.isNull(itemid)){
-			item = new BigInteger(itemid);
-		}
+	private String gidvalidate(@RequestParam String gid){
 		boolean data = true;
-		int count = wmm.getGatheridCount(item,gather);
+		int count = wmm.getGatheridCount(new BigInteger(gid));
 		if(count>0){
 			data = false;
 		}

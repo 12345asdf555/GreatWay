@@ -21,6 +21,7 @@ function searchClassifyCombobox(){
 		"<option value='fexternal_diameter'>上游外径</option>" +
 		"<option value='fnextExternal_diameter'>下游外径</option>";
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
@@ -61,6 +62,7 @@ function searchInsfCombobox(){
 		"<option value='fparent'>上级项目</option>" +
 		"<option value='ftype'>类型</option>";
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
@@ -110,6 +112,7 @@ function searchGatherCombobox(){
 		"<option value='fmacurl'>采集模块MAC地址</option>" +
 		"<option value='fleavetime'>采集模块出厂时间</option>";
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
@@ -155,6 +158,7 @@ function searchWeldingMachineCombobox(){
 		"<option value='fposition'>位置</option>" +
 		"<option value='fgather_id'>采集序号</option>";
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
@@ -170,13 +174,13 @@ function searchWeldingmachine(){
 	fillcontent();
 	for(var i=0;i<=index;i++){
 		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
+		var field = $("#"+fieldId+"").combobox('getValue');
 		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
+		var condition = $("#"+conditionId+"").combobox('getValue');
 		var contentId =$(".content").eq(i).attr("id");
 		var content = $("#"+contentId+"").val();
 		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
+		var joint = $("#"+jointId+"").combobox('getValue');
 		if(field=="fisnetworking"){
 			if(content=="是"){
 				content="0";
@@ -197,21 +201,19 @@ function searchWeldingmachine(){
 			}else if(content=="埋弧焊"){
 				content=44;
 			}else{
-				content="9999";
+				contend="9999";
 			}
 		}
 		//如果类型发生变化，需要修改这里的值
 		if(field=="fstatus_id"){
 			if(content=="启用"){
 				content=31;
-			}else if(content=="封存"){
+			}else if(content=="停用"){
 				content=32;
-			}else if(content=="维修"){
+			}else if(content=="维护中"){
 				content=33;
-			}else if(content=="报废"){
-				content=34;
 			}else{
-				content="9999";
+				contend="9999";
 			}
 		}
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
@@ -256,6 +258,7 @@ function searchMaintainCombobox(){
   		"<option value='fstart_time'>维修起始时间</option>" +
   		"<option value='fend_time'>维修结束时间</option>";
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
@@ -271,13 +274,13 @@ function searchMaintain(){
 	fillcontent();
 	for(var i=0;i<=index;i++){
 		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
+		var field = $("#"+fieldId+"").combobox('getValue');
 		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
+		var condition = $("#"+conditionId+"").combobox('getValue');
 		var contentId =$(".content").eq(i).attr("id");
 		var content = $("#"+contentId+"").val();
 		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
+		var joint = $("#"+jointId+"").combobox('getValue');
 		if(field=="r.ftype_id"){
 			if(content=="日常维修"){
 				content=51;
@@ -354,6 +357,7 @@ function searchWelderCombobox(){
   		"<option value='fname'>名称</option>" +
   		"<option value='fwelder_no'>编号</option>";
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
@@ -366,14 +370,16 @@ function searchUserCombobox(){
   		"<option value='users_position'>部门</option>" +
   		"<option value='status'>状态</option>" ;
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
 function searchRoleCombobox(){
 	var optionFields = "<option value='roles_name'>角色名</option>" +
-  		"<option value='roles_desc'>描述</option>"+
+  		"<option value='users_desc'>描述</option>"+
   		"<option value='status'>状态</option>" ;
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
@@ -382,6 +388,7 @@ function searchAuthorityCombobox(){
   		"<option value='authorities_desc'>描述</option>"+
   		"<option value='status'>状态</option>" ;
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
@@ -392,6 +399,7 @@ function searchResourceCombobox(){
   		"<option value='resources_desc'>描述</option>" +
   		"<option value='status'>状态</option>" ;
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
@@ -442,42 +450,8 @@ function searchWelder(){
 
 function searchUser(){
 	fillcontent();
-	for(var i=0;i<=index;i++){
-		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
-		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
-		var contentId =$(".content").eq(i).attr("id");
-		var content = $("#"+contentId+"").val();
-		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
-		//如果类型发生变化，需要修改这里的值
-		if(field=="status"){
-			if(content=="启用"){
-				content=31;
-			}else if(content=="停用"){
-				content=32;
-			}else if(content=="维护中"){
-				content=33;
-			}else{
-				content="9999";
-			}
-		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
-			alert('请输入完整的查询条件！');
-			return;
-		}
-		if(joint==null || joint==""){
-			joint = "and";
-		}
-		if(condition == "like"){
-			content = "%"+content+"%";
-		}
-		if(i==index){
-			searchStr +=" "+field+" "+condition+" '"+content+"'";
-		}else{
-			searchStr +=" "+field+" "+condition+" '"+content+"' "+joint;
-		}
+	if(!getContent()){
+		return;
 	}
 	$('#dg').datagrid('load', {
 		"searchStr" : searchStr
@@ -488,42 +462,8 @@ function searchUser(){
 
 function searchRole(){
 	fillcontent();
-	for(var i=0;i<=index;i++){
-		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
-		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
-		var contentId =$(".content").eq(i).attr("id");
-		var content = $("#"+contentId+"").val();
-		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
-		//如果类型发生变化，需要修改这里的值
-		if(field=="status"){
-			if(content=="启用"){
-				content=31;
-			}else if(content=="停用"){
-				content=32;
-			}else if(content=="维护中"){
-				content=33;
-			}else{
-				content="9999";
-			}
-		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
-			alert('请输入完整的查询条件！');
-			return;
-		}
-		if(joint==null || joint==""){
-			joint = "and";
-		}
-		if(condition == "like"){
-			content = "%"+content+"%";
-		}
-		if(i==index){
-			searchStr +=" "+field+" "+condition+" '"+content+"'";
-		}else{
-			searchStr +=" "+field+" "+condition+" '"+content+"' "+joint;
-		}
+	if(!getContent()){
+		return;
 	}
 	$('#dg').datagrid('load', {
 		"searchStr" : searchStr
@@ -534,42 +474,8 @@ function searchRole(){
 
 function searchAuthority(){
 	fillcontent();
-	for(var i=0;i<=index;i++){
-		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
-		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
-		var contentId =$(".content").eq(i).attr("id");
-		var content = $("#"+contentId+"").val();
-		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
-		//如果类型发生变化，需要修改这里的值
-		if(field=="status"){
-			if(content=="启用"){
-				content=31;
-			}else if(content=="停用"){
-				content=32;
-			}else if(content=="维护中"){
-				content=33;
-			}else{
-				content="9999";
-			}
-		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
-			alert('请输入完整的查询条件！');
-			return;
-		}
-		if(joint==null || joint==""){
-			joint = "and";
-		}
-		if(condition == "like"){
-			content = "%"+content+"%";
-		}
-		if(i==index){
-			searchStr +=" "+field+" "+condition+" '"+content+"'";
-		}else{
-			searchStr +=" "+field+" "+condition+" '"+content+"' "+joint;
-		}
+	if(!getContent()){
+		return;
 	}
 	$('#dg').datagrid('load', {
 		"searchStr" : searchStr
@@ -580,42 +486,8 @@ function searchAuthority(){
 
 function searchResource(){
 	fillcontent();
-	for(var i=0;i<=index;i++){
-		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
-		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
-		var contentId =$(".content").eq(i).attr("id");
-		var content = $("#"+contentId+"").val();
-		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
-		//如果类型发生变化，需要修改这里的值
-		if(field=="status"){
-			if(content=="启用"){
-				content=31;
-			}else if(content=="停用"){
-				content=32;
-			}else if(content=="维护中"){
-				content=33;
-			}else{
-				content="9999";
-			}
-		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
-			alert('请输入完整的查询条件！');
-			return;
-		}
-		if(joint==null || joint==""){
-			joint = "and";
-		}
-		if(condition == "like"){
-			content = "%"+content+"%";
-		}
-		if(i==index){
-			searchStr +=" "+field+" "+condition+" '"+content+"'";
-		}else{
-			searchStr +=" "+field+" "+condition+" '"+content+"' "+joint;
-		}
+	if(!getContent()){
+		return;
 	}
 	$('#dg').datagrid('load', {
 		"searchStr" : searchStr
@@ -623,6 +495,7 @@ function searchResource(){
 	$("#searchdiv").dialog("close");
 	searchStr="";
 }
+
 //新增焊口查询条件
 function newSearchWJ(){
 	fillcontent();
@@ -661,6 +534,7 @@ function searchWJCombobox(){
 		"<option value='	fupdatetime'>修改时间</option>" +
 		"<option value='fupdatecount'>修改次数</option>";
 	$(".fields").html(optionFields);
+	$(".fields").combobox();
 	createSearchCombobox();
 }
 
@@ -717,10 +591,12 @@ function createSearchCombobox(){
 			"<option value='='>等于</option>" +
 			"<option value='like'>包含</option>";
 	$(".condition").html(optionCondition);
+	$(".condition").combobox();
 	
 	var optionJoint = "<option value='and'>并且</option>" +
 			"<option value='or'>或者</option>";
 	$(".joint").html(optionJoint);
+	$(".joint").combobox();
 }
 
 function fillcontent(){
@@ -731,13 +607,13 @@ function fillcontent(){
 	//此处用来处理页面点击+按钮后自动清空已添加好的条件
 	for(var i=0;i<=index;i++){
 		var fieldId =$(".fields").eq(i).attr("id");
-		field += $("#"+fieldId+"").val()+",";
+		field += $("#"+fieldId+"").combobox('getValue')+",";
 		var conditionId =$(".condition").eq(i).attr("id");
-		condition += $("#"+conditionId+"").val()+",";
+		condition += $("#"+conditionId+"").combobox('getValue')+",";
 		var contentId =$(".content").eq(i).attr("id");
 		content += $("#"+contentId+"").val()+",";
 		var jointId =$(".joint").eq(i).attr("id");
-		joint += $("#"+jointId+"").val()+",";
+		joint += $("#"+jointId+"").combobox('getValue')+",";
 	}
 }
 
@@ -755,16 +631,16 @@ function initSearch(){
 	for(var i=0;i<=index;i++){
 		var fid = field.split(",");
 		var fieldId =$(".fields").eq(i).attr("id");
-		$("#"+fieldId+"").val(fid[i]);
+		$("#"+fieldId+"").combobox('setValue',fid[i]);
 		var cnid = condition.split(",");
 		var conditionId =$(".condition").eq(i).attr("id");
-		$("#"+conditionId+"").val(cnid[i]);
+		$("#"+conditionId+"").combobox('setValue',cnid[i]);
 		var ctid = content.split(",");
 		var contentId =$(".content").eq(i).attr("id");
 		$("#"+contentId+"").val(ctid[i]);
 		var jid = joint.split(",");
 		var jointId =$(".joint").eq(i).attr("id");
-		$("#"+jointId+"").val(jid[i]);
+		$("#"+jointId+"").combobox('setValue',jid[i]);
 	}
 }
 
@@ -772,13 +648,13 @@ function initSearch(){
 function getContent(){
 	for(var i=0;i<=index;i++){
 		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
+		var field = $("#"+fieldId+"").combobox('getValue');
 		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
+		var condition = $("#"+conditionId+"").combobox('getValue');
 		var contentId =$(".content").eq(i).attr("id");
 		var content = $("#"+contentId+"").val();
 		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
+		var joint = $("#"+jointId+"").combobox('getValue');
 		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
 			alert('请输入完整的查询条件！');
 			return;

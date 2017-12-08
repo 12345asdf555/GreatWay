@@ -177,10 +177,9 @@ $(function(){
 				wmGatheridValidate : {
 					validator : function(value, param){
 						if(flag){
-							var iId = $('#iId').combobox('getValue');
+							var gid = $('#gatherId').combobox('getValue');
 							var validgid = $("#validgid").val();
-							var olditem = $("#insframework").val();
-							if((validgid!=null || validgid!="") && validgid == value && iId == olditem){
+							if((validgid!=null || validgid!="") && validgid == gid){
 								return true;
 							}
 							var result = "";
@@ -189,8 +188,7 @@ $(function(){
 								async : false,
 								url : 'weldingMachine/gidvalidate',
 								data : {
-									"gather" : value,
-									"itemid" : iId
+									"gid" : gid
 								},
 								success : function(data){
 									result = data;
@@ -242,9 +240,7 @@ $(function(){
 					validator : function(value, param){
 						if(flag){
 							var validgatherno = $("#validgatherno").val();
-							var itemid = $("#itemid").combobox('getValue');
-							var olditem = $("#item").val();
-							if((validgatherno!=null || validgatherno!="") && validgatherno == value && itemid == olditem){
+							if((validgatherno!=null || validgatherno!="") && validgatherno == value){
 								return true;
 							}
 							var result = "";
@@ -253,8 +249,7 @@ $(function(){
 								async : false,
 								url : 'gather/gathernoValidate',
 								data : {
-									"gatherno" : value,
-									"itemid" : itemid
+									"gatherno" : value
 								},
 								success : function(data){
 									result = data;

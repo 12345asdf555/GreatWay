@@ -1,6 +1,5 @@
 $(function(){
 	GatherDatagrid();
-	insframeworkTree();
 });
 
 function GatherDatagrid(){
@@ -25,19 +24,6 @@ function GatherDatagrid(){
 		}, {
 			field : 'gatherNo',
 			title : '采集模块编号',
-			width : 100,
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'itemid',
-			title : '项目id',
-			width : 100,
-			halign : "center",
-			align : "left",
-			hidden : true
-		}, {
-			field : 'itemname',
-			title : '所属项目',
 			width : 100,
 			halign : "center",
 			align : "left"
@@ -91,17 +77,6 @@ function GatherDatagrid(){
 	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
 		}
 	});
-}
-
-//树形菜单点击事件
-function insframeworkTree(){
-	$("#myTree").tree({  
-		onClick : function(node){
-			$("#gatherTable").datagrid('load',{
-				"parent" : node.id
-			})
-		 }
-	})
 }
 
 //监听窗口大小变化
