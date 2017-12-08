@@ -65,8 +65,8 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 	}
 
 	@Override
-	public int getGatheridCount(BigInteger gatherid) {
-		return wmm.getGatheridCount(gatherid);
+	public int getGatheridCount(BigInteger itemid,String gather) {
+		return wmm.getGatheridCount(itemid,gather);
 	}
 
 	@Override
