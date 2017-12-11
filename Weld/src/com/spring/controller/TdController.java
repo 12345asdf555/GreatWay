@@ -394,7 +394,7 @@ public class TdController {
 				String pos = tdService.findPosition(da.substring(4+i, 8+i));
 				if(pos.equals(po)){
 				json.put("fstatus_id", da.substring(0+i, 2+i));
-				json.put("fequipment_no", da.substring(4+i, 8+i));
+				json.put("fequipment_no", Integer.parseInt(da.substring(4+i, 8+i),16));
 				json.put("fwelder_no", da.substring(8+i, 12+i));
 				String weldname = tdService.findweld(da.substring(8+i, 12+i));
 				json.put("fname", weldname);
