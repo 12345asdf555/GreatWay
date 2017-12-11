@@ -260,7 +260,7 @@
 			</if>
 		</if>
 		GROUP BY i.fname
-		))temp group by fid
+		))temp
 	</select>
 
 	<!-- 公司焊接工时 -->
@@ -331,7 +331,6 @@
 		AND ftype =22
 		)
 		)temp
-		ORDER BY fid
 	</select>
 
 	<!-- 项目部焊口工时 -->

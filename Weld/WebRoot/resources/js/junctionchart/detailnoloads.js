@@ -15,7 +15,6 @@ function detailnoloadsDatagrid(){
 	var weldtime = $("#weldtime").val();
 	var time1 = $("#time1").val();
 	var time2 = $("#time2").val();
-	alert(time1+","+time2);
 	$("#detailNoLoadsTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#detailNoLoad_btn").height(),
