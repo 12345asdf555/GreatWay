@@ -170,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								});
 							} else {
 								$.messager.alert("提示", "删除成功！");
-								var url = "/CMS/authority/AllAuthority";
+								var url = "/Weld/authority/AllAuthority";
 								window.location.href = encodeURI(url);
 							}
 			            }  

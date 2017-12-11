@@ -185,7 +185,7 @@ var flag = 2;
                         });
                     } else {
               			$.messager.alert("提示", "修改成功");
-                    	window.location.href = encodeURI("/CMS/authority/AllAuthority");
+                    	window.location.href = encodeURI("/Weld/authority/AllAuthority");
                     }
                 }
             });

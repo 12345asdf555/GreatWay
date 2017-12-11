@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								});
 							} else {
 								$.messager.alert("提示", "删除成功！");
-								var url = "/CMS/resource/AllResource";
+								var url = "/Weld/resource/AllResource";
 								window.location.href = encodeURI(url);
 							}
 			            }  

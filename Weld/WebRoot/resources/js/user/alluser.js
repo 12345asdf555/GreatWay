@@ -217,7 +217,7 @@
  								msg : result.msg
  							});
  						} else {
- 							var url = "/CMS/login.jsp";
+ 							var url = "/Weld/login.jsp";
  							top.location.href = url;
  						}
  		            }  

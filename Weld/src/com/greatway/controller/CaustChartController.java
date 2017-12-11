@@ -969,6 +969,9 @@ public class CaustChartController {
 				if(m!=null){
 					num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
 					int oldnum = 0,newnum = 0,maxnum = 0;
+					if(m.getAvgnum()<=0){
+						m.setAvgnum(1);
+					}
 					for(int i=1;i<9;i++){
 						oldnum = m.getMinnum()+m.getAvgnum()*i+1;
 						newnum = m.getMinnum()+m.getAvgnum()*(i+1);
