@@ -1,5 +1,5 @@
 $(function(){
-//	typecombobox();
+	typecombobox();
 	CaustUseDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
@@ -14,11 +14,10 @@ var chartStr = "";
 $(document).ready(function(){
 	showcompanyUseChart();
 })
-var type=15;
 function showcompanyUseChart(){
 	var array1 = new Array();
 	var array2 = new Array();
-//	var type = $('#type').combobox('getValue');
+	var type = $('#type').combobox('getValue');
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
@@ -89,7 +88,7 @@ function showcompanyUseChart(){
 
 
 function CaustUseDatagrid(){
-//	var type = $('#type').combobox('getValue'); 
+	var type = $('#type').combobox('getValue'); 
 	$("#companyUseTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#companyUseChart").height()-$("#companyUse_btn").height()-40,

@@ -1,5 +1,6 @@
 $(function(){
 	openUser();
+	getUserInsframework();
 	tabsIncident();
 //	hierarchyLoding();
 })
@@ -45,6 +46,24 @@ function hierarchyLoding(){
 	      }  
 	 }); 
 }
+
+function getUserInsframework(){
+	$.ajax({
+		type : "post",
+		async : true,
+		url : "hierarchy/getUserInsframework",
+		data : {},
+		dataType : "json",
+		success : function(result){
+			var str = "<span>"+result.insframework+": </span><span>"+result.uname+"</span>";
+			$("#userInsframework").append(str);
+		},
+		error : function(errorMsg){
+			alert("数据请求失败，请联系系统管理员!");
+		}
+	})
+}
+
 
 function openUser(){
 	addTab("用户管理","user/AllUser");

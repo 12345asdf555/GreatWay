@@ -103,6 +103,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return mapper.updateUserRole(findByRoleId);
 	}
+
+	@Override
+	public User getUserInsframework(BigInteger id) {
+		return mapper.getUserInsframework(id);
+	}
 	
 	
 

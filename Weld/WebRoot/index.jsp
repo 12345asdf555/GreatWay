@@ -43,11 +43,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="box clearfix">
 				<div class="box-lef fl"></div>
-				<div class="box-rig fl">
-					<a href="javascript:void(0)">首页</a>
-					<a href="javascript:void(0)">实时监控</a>
-					<a href="javascript:void(0)">数据分析</a>
-					<a href="user/logout" style="margin-right:-590px;">注销</a>
+				<div class="box-rig fl" id="boxrig">
+					<a href="javascript:void(0)" style="margin-right:70%">首页</a>
+					<a href="javascript:void(0)" id="userInsframework"></a>
+					<a href="user/logout">注销</a>
 				</div>
 			</div>
 		</div>
@@ -65,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <li><a href="javascript:openMachine()"><i class="iconfont icon-bijiben"></i>维修记录管理</a></li>
 			        <li><a href="javascript:openWedJunction()"><i class="iconfont icon-bijiben"></i>焊口管理</a></li>
 			        <li><a href="javascript:openWelder()"><i class="iconfont icon-bijiben"></i>焊工管理</a></li>
-<!-- 			        <li><a href="javascript:openInsframework()"><i class="iconfont icon-bijiben"></i>组织机构管理</a></li> -->
+			        <li><a href="javascript:openInsframework()"><i class="iconfont icon-bijiben"></i>组织机构管理</a></li>
 			        <li><a href="javascript:openGather()"><i class="iconfont icon-bijiben"></i>采集模块管理</a></li>
 		        </ul>
 		    </div>

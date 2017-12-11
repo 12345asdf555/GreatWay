@@ -97,8 +97,7 @@
 			title : '部门',
 			width : 100,
 			halign : "center",
-			align : "left",
-			hidden:true
+			align : "left"
 		}, {
 			field : 'status',
 			title : '状态',
@@ -239,19 +238,19 @@
         	})
         }
         
-//        function addUser(){
-//        	var node = $('#myTree').tree('getSelected');
-//        	if(node==null || node==""){
-//        		alert("请先选择该用户所属组织机构(部门)！");
-//        	}else{
-//				var url = "user/toAddUser";
-//				var img = new Image();
-//			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-//			    url = img.src;  // 此时相对路径已经变成绝对路径
-//			    img.src = null; // 取消请求
-//				window.location.href = encodeURI(url+"?name="+node.text);
-//        	}
-//        }
+        function addUser(){
+        	var node = $('#myTree').tree('getSelected');
+        	if(node==null || node==""){
+        		alert("请先选择该用户所属组织机构(部门)！");
+        	}else{
+				var url = "user/toAddUser";
+				var img = new Image();
+			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+			    url = img.src;  // 此时相对路径已经变成绝对路径
+			    img.src = null; // 取消请求
+				window.location.href = encodeURI(url+"?name="+node.text);
+        	}
+        }
         
 
         //监听窗口大小变化

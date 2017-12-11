@@ -59,8 +59,7 @@ function weldingMachineDatagrid(){
 			title : '所属项目',
 			width : 80,
 			halign : "center",
-			align : "left",
-			hidden:true
+			align : "left"
 		}, {
 			field : 'statusName',
 			title : '状态',

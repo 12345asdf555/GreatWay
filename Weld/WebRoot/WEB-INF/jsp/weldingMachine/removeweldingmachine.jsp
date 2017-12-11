@@ -26,12 +26,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
-<!-- 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script> -->
+	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
 	<script type="text/javascript" src="resources/js/weldingMachine/removeweldingmachine.js"></script>
   </head>
   
   <body class="easyui-layout">
-<%--   	<jsp:include  page="../insframeworktree.jsp"/> --%>
+  	<jsp:include  page="../insframeworktree.jsp"/>
     <div  id="body" region="center"  hide="true"  split="true" title="删除焊机设备" style="background: white; height: 335px;">
 		<div style="text-align: center ">
 			<div class="fitem">
