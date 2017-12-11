@@ -43,9 +43,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="box clearfix">
 				<div class="box-lef fl"></div>
-				<div class="box-rig fl">
-					<a href="javascript:void(0)">首页</a>
-					<a href="user/logout" style="margin-right:-590px;">注销</a>
+				<div class="box-rig fl" id="boxrig">
+					<a href="javascript:void(0)" style="margin-right:70%">首页</a>
+					<a href="javascript:void(0)" id="userInsframework"></a>
+					<a href="user/logout">注销</a>
 				</div>
 			</div>
 		</div>

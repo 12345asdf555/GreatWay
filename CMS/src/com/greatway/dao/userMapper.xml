@@ -50,6 +50,9 @@
 	
 	<select id="findAll" resultType="User">
 		select tb_users.id id,tb_users.users_name userName,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_insframework.fid insid,tb_insframework.fname insname from tb_users left join tb_insframework on tb_users.users_insframework=tb_insframework.fid  where 1=1
+		<if test="parent!=null and parent!=''">
+			and tb_insframework.fid = #{parent}
+		</if>
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
@@ -88,6 +91,11 @@
          tb_roles o    
          where d.users_id = u.id and d.roles_id = o.id and u.users_login_name = #{userName}    
          )  
+	</select>
+	
+	<select id="getUserInsframework" resultType="User">
+		SELECT id,users_name userName,fname insname FROM tb_users u inner join tb_insframework i on u.users_insframework=i.fid
+		where id = #{id}
 	</select>
 	
 </mapper>

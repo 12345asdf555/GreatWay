@@ -3,6 +3,7 @@ $(function(){
 		title: '<i class="iconfont icon-ren"></i>    管理员',
 		content: $("#admin").html()
 	});
+	getUserInsframework();
 	addTab("欢迎使用","welcome.jsp");
 	tabsIncident();
 	hierarchyLoding();
@@ -48,6 +49,23 @@ function hierarchyLoding(){
 	          alert("数据请求失败，请联系系统管理员!");  
 	      }  
 	 }); 
+}
+
+function getUserInsframework(){
+	$.ajax({
+		type : "post",
+		async : true,
+		url : "hierarchy/getUserInsframework",
+		data : {},
+		dataType : "json",
+		success : function(result){
+			var str = "<span>"+result.insframework+": </span><span>"+result.uname+"</span>";
+			$("#userInsframework").append(str);
+		},
+		error : function(errorMsg){
+			alert("数据请求失败，请联系系统管理员!");
+		}
+	})
 }
 
 function openUser(){

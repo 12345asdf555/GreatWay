@@ -24,4 +24,5 @@ public interface UserService {
 	User LoadUser(String userName);
 	List<String> getAuthoritiesByUsername(String userName);
 	List<User> getIns();
+	User getUserInsframework(BigInteger id);
 }
