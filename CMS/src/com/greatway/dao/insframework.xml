@@ -13,28 +13,10 @@
 	</resultMap>
 	
 	<select id="getInsframeworkAll" resultMap="insMap">
-		SELECT i.fid,i.fname,i.flogogram,i.fcode,i.fparent,i.ftype FROM tb_insframework i
-		<choose>
-			<when test="dto!=null and dto!='' and parent!=null and parent!=''">
-				INNER JOIN tb_insframework ins ON ins.fid = i.fparent 
-				where 1=1
-				<if test="dto.bloc!=null and dto.bloc!=''">
-					and i.ftype != 20
-				</if>
-				<if test="dto.company!=null and dto.company!=''">
-					 and ( ins.fid=#{parent} or ins.fparent=#{parent} )
-				</if>
-				<if test="dto.caust!=null and dto.caust!=''">
-					 and ins.fid=#{parent} 
-				</if>
-				<if test="dto.item!=null and dto.item!=''">
-					 and i.fid=#{parent} 
-				</if>
-			</when>
-			<otherwise>
-				where 1=1
-			</otherwise>
-		</choose>
+		SELECT i.fid,i.fname,i.flogogram,i.fcode,i.fparent,i.ftype FROM tb_insframework i where 1=1
+		<if test="parent!=null and parent!=''">
+			 and i.fparent=#{parent}
+		</if>
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
