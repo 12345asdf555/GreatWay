@@ -119,8 +119,8 @@
 							var l=1;
 							var ll=0;
 							for(var a=0;a<l;a++){
-								if(dd.substring(4+n, 8+n)!=back[a]){
-									back.push(dd.substring(4+n, 8+n));		
+								if(parseInt(dd.substring(4+n, 8+n))!=back[a]){
+									back.push(parseInt(dd.substring(4+n, 8+n)));		
 								}else{
 									continue;
 								}
@@ -130,10 +130,10 @@
 						var ll=0;
 						for(var a=0;a<l;a++){
 							/*alert(dd.substring(4+n, 8+n));*/
-							if(dd.substring(4+n, 8+n)!=back[a]){
+							if(parseInt(dd.substring(4+n, 8+n))!=back[a]){
 								ll++;	
 								if(ll==back.length){
-								back.push(dd.substring(4+n, 8+n));
+								back.push(parseInt(dd.substring(4+n, 8+n)));
 								}		
 							}else{
 								continue;
