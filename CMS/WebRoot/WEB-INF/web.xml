@@ -51,7 +51,7 @@
   <!-- 自定义分层参数  1:集团 2:公司 3:事业部 4:项目部 -->
   <context-param>
   	<param-name>hierarchy</param-name>
-  	<param-value>3</param-value>
+  	<param-value>2</param-value>
   </context-param>
   <context-param>
   	<param-name>websocket</param-name>
