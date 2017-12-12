@@ -119,8 +119,8 @@
 							var l=1;
 							var ll=0;
 							for(var a=0;a<l;a++){
-								if(dd.substring(4+n, 8+n)!=back[a]){
-									back.push(dd.substring(4+n, 8+n));		
+								if(parseInt(dd.substring(4+n, 8+n))!=back[a]){
+									back.push(parseInt(dd.substring(4+n, 8+n)));		
 								}else{
 									continue;
 								}
@@ -130,10 +130,10 @@
 						var ll=0;
 						for(var a=0;a<l;a++){
 							/*alert(dd.substring(4+n, 8+n));*/
-							if(dd.substring(4+n, 8+n)!=back[a]){
+							if(parseInt(dd.substring(4+n, 8+n))!=back[a]){
 								ll++;	
 								if(ll==back.length){
-								back.push(dd.substring(4+n, 8+n));
+								back.push(parseInt(dd.substring(4+n, 8+n)));
 								}		
 							}else{
 								continue;
@@ -151,6 +151,27 @@
 				else{
 					rece2(0);
 				}
+				
+	    		/*var columns = $('#dg').datagrid("options").columns;*/
+	    		var rows = $('#dg').datagrid("getRows"); 
+	    			/*alert(rows[dex][columns[0][0].field]);*/
+	    			for(var g = 0;g < dd.length;g+=53*3){
+	    			for(var dex=0;dex<rows.length;dex++){
+	    				/*alert(rows[dex][columns[0][1].field]);*/
+	    		    if((dd.substring(8+g, 12+g)!="0000")&&(parseInt(dd.substring(4+g, 8+g),16)==rows[dex].fequipment_no)){
+	    			rows[dex].fwelder_no=dd.substring(8+g, 12+g);
+	    			rows[dex].fstatus_id=dd.substring(0+g, 2+g);
+					for(var k=0;k<namex.length;k++){
+						if(namex[k].fwelder_no==dd.substring(8+g, 12+g)){
+							rows[dex].fname=namex[k].fname;
+						}
+					}
+	    			$('#dg').datagrid('refreshRow', dex);
+	    			$("a[id='view']").linkbutton({text:'查看',plain:true,iconCls:'icon-view'});
+	    		    }
+	    		}
+	    	    }
+	    	
 			};
 			//关闭事件
 			socket.onclose = function() {
@@ -183,36 +204,12 @@
 			bhq = value2;
 			$("#body3").empty();
 			window.clearInterval(timer);
-			datatable();
+			window.clearInterval(timer1);
+			$('#dg').datagrid('loadData', { total: 0, rows: [] }); 
 		}
-/*		if(a==0){
-			var vaa;
-			for(var n = 0;n < dd.length;n+=53){
-		        $.ajax({  
-		            type : "post",  
-		            async : false,
-		            url : "td/getPosition?equip="+dd.substring(4+n, 8+n),  
-		            data : {},  
-		            dataType : "json", //返回数据形式为json  
-		            success : function(result) {
-		            	var fposition = eval(result.rows);
-		            		vaa = fposition[0].fpositin;
-		            }})
-				if((dd.substring(8+n, 12+n)!="0000")&&(vaa==bhq)){
-					stri = dd.substring(4+n,8+n);
-				}
-				else{
-					var r=0;
-					if(vaa==bhq&&r==0){
-						stri = dd.substring(4+n,8+n);
-						r++;
-					}
-				}};
-		a++;
-		}*/
-		for(var j = 0;j < 1;j++){
-			for(var i = 0;i < dd.length;i+=53){
-		        $.ajax({  
+		/*online(position[0].fpositin);*/
+    	for(var i = 0;i < dd.length;i+=53){
+   		 $.ajax({  
 		            type : "post",  
 		            async : false,
 		            url : "td/getPosition?equip="+dd.substring(4+i, 8+i),  
@@ -222,85 +219,24 @@
 		            	var fposition = eval(result.rows);
 		            		va = fposition[0].fpositin;
 		            }})
-				if((va==bhq)){
-				po=va;
-			    if(h<3){
-				    status = parseInt(dd.substring(0+i, 2+i),16);
-					mach = parseInt(dd.substring(4+i, 8+i),16);
-					weld = dd.substring(8+i, 12+i);
-					maxele = parseInt(dd.substring(41+i, 44+i));
-					minele = parseInt(dd.substring(44+i, 47+i));
-					maxvol = parseInt(dd.substring(47+i, 50+i));
-					minvol = parseInt(dd.substring(50+i, 53+i));
-					var xx = dd.substring(12+i, 16+i);
-					ele[jj] = parseInt(xx,16);
-					vol[jj] = parseInt(dd.substring(16+i, 20+i),16);
-					var dati = dd.substring(20+i, 39+i);
-					var val = Date.parse(dati);
-					time1[jj] = val;
-					var ele1=parseInt(dd.substring(12+i, 16+i),16);
-					var ele2=ele1.toString();
-					if(ele2.length<4){
-						var len=ele2.length;
-						for(var na=0;na<4-len;na++){
-							ele2="0"+ele2;
-						}
-					}
-					var vol1=parseInt(dd.substring(16+i, 20+i),16);
-					var vol2=vol1.toString();
-					if(vol2.length<4){
-						var len1=vol2.length;
-						for(var nan=0;nan<4-len1;nan++){
-							vol2="0"+vol2;
-						}
-					}
-					modiflyNum(1,parseInt(ele2.charAt(0)));
-					modiflyNum(2,parseInt(ele2.charAt(1)));
-					modiflyNum(3,parseInt(ele2.charAt(2)));
-					modiflyNum(4,parseInt(ele2.charAt(3)));
-					modiflyNum1(5,parseInt(vol2.charAt(0)));
-					modiflyNum1(6,parseInt(vol2.charAt(1)));
-					modiflyNum1(7,parseInt(vol2.charAt(2)));
-					modiflyNum1(8,parseInt(vol2.charAt(3)));
-/*					document.getElementById("electricity1").value=ele[jj];
-					document.getElementById("voltage1").value=vol[jj];*/
-					h++;
-					jj++;
-					if(jj==1){
-						curve();
-						/*datatable();*/
-					}
-			    }
-				}	
-			}
-			if(jj%3==1){
-				ele[jj] = ele[jj-1];
-				ele[jj+1] = ele[jj-1];
-				vol[jj] = vol[jj-1];
-				vol[jj+1] = vol[jj-1];
-				time1[jj] = time1[jj-1]+1000;
-				time1[jj+1] = time1[jj-1]+2000;
-				jj=jj+2;
-			}
-			if(jj%3==2){
-				ele[jj] = ele[jj-1];
-				vol[jj] = vol[jj-1];
-				time1[jj] = time1[jj-1]+1000;
-				jj++;
-			}
-			}
-		var columns = $('#dg').datagrid("options").columns;
-		var rows = $('#dg').datagrid("getRows"); 
-		for(var dex=0;dex<rows.length;dex++){
-			/*alert(rows[dex][columns[0][0].field]);*/
-			for(var g = 0;g < dd.length;g+=53){
-		    if((dd.substring(8+g, 12+g)!="0000")&&(dd.substring(4+g, 8+g)==rows[dex][columns[0][0].field])){
-			rows[dex][columns[0][1].field]=dd.substring(8+g, 12+g);
-			$('#dg').datagrid('refreshRow', dex);
-			$("a[id='view']").linkbutton({text:'查看',plain:true,iconCls:'icon-view'});
-		    }
-		}
-	    }
+		            if(va==bhq){
+		            po=va;
+		            }
+    	}
+		datatable();
+		rece2(back[0]);
+		var t=1;
+		timer1=window.setInterval(function(){
+    		if(t<back.length){
+    		rece2(back[t]);
+    		datatable();
+    		back.length=0;
+    		t++;
+    		}else{
+    			t=0;
+    			/*rece2(back[t]);*/
+    		}
+    	}, 300000);
 	}
 	function rece2(value1){
 		bb=2;
@@ -313,20 +249,10 @@
 			time1=[];
 			$("#body3").empty();
 			window.clearInterval(timer);
-/*            $.ajax({  
-            type : "post",  
-            async : false,
-            url : "td/getPosition?equip="+hq,  
-            data : {},  
-            dataType : "json", //返回数据形式为json  
-            success : function(result) {
-            	var ffposition = eval(result.rows);
-            		vaa1 = ffposition[0].fpositin;
-            }})*/
 		}
 		for(var j = 0;j < 1;j++){
 			for(var i = 0;i < dd.length;i+=53){
-					if(hq == parseInt(dd.substring(4+i, 8+i),16)&&dd.substring(8+i, 12+i)!="0000"){
+					if(hq == parseInt(dd.substring(4+i, 8+i),16)&&parseInt(dd.substring(8+i, 12+i))!=0){
 					var mach = parseInt(dd.substring(4+i, 8+i),16);
 					var weld = dd.substring(8+i, 12+i);
 					var xx = dd.substring(12+i, 16+i);
@@ -423,14 +349,14 @@
     			/*rece2(back[t]);*/
     		}
     	}, 300000);
-    	timer2=window.setInterval(function (){
-    		/*var columns = $('#dg').datagrid("options").columns;*/
+/*    	timer2=window.setInterval(function (){
+    		var columns = $('#dg').datagrid("options").columns;
     		var rows = $('#dg').datagrid("getRows"); 
-    			/*alert(rows[dex][columns[0][0].field]);*/
+    			alert(rows[dex][columns[0][0].field]);
     			for(var g = 0;g < dd.length;g+=53*3){
     			for(var dex=0;dex<rows.length;dex++){
-    				/*alert(rows[dex][columns[0][1].field]);*/
-    		    if((dd.substring(8+g, 12+g)!="0000")&&(dd.substring(4+g, 8+g)==rows[dex].fequipment_no)){
+    				alert(rows[dex][columns[0][1].field]);
+    		    if((dd.substring(8+g, 12+g)!="0000")&&(parseInt(dd.substring(4+g, 8+g),16)==rows[dex].fequipment_no)){
     			rows[dex].fwelder_no=dd.substring(8+g, 12+g);
     			rows[dex].fstatus_id=dd.substring(0+g, 2+g);
 				for(var k=0;k<namex.length;k++){
@@ -443,7 +369,7 @@
     		    }
     		}
     	    }
-    	},1000);
+    	},1000);*/
 	}
 	
 	function datatable(){
@@ -510,13 +436,13 @@
 	            if ((row.fstatus_id=="03")||(row.fstatus_id=="05")){
 	                return 'background-color:#00FF00;color:black;';
 	            }
-	            if (row.fstatus_id=="07"){
+	            else if (row.fstatus_id=="07"){
 	                return 'background-color:#FF0000;color:black;';
 	            }
-	            if (row.fstatus_id=="00"){
+	            else if (row.fstatus_id=="00"){
 	                return 'background-color:#0000CD;color:black;';
 	            }
-	            if (row.fstatus_id=="09"){
+	            else{
 	                return 'background-color:#A9A9A9;color:black;';
 	            }
 	        }
@@ -656,6 +582,9 @@
   		    },
   		    exporting: {
   		        enabled: false
+  		    },
+  		    credits:{
+  		      enabled:false // 禁用版权信息
   		    },
   		    series: [{
   		    	color:'#A020F0',

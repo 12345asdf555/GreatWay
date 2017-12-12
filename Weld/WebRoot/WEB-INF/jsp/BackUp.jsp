@@ -22,6 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/iconfont.css">
 	
+	<script type="text/javascript" src="resources/js/load.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
@@ -39,8 +40,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <div id="body11" title="设备位置" ></div>
 			</div>
 		</div>
-		<div id="body2" style="width:20%;height:15%;float:left;">
-		<div style="position:absolute;left:16%;top:10%;"><label>电流：</label></div>
+		<div id="body2" style="width:15%;height:15%;float:left;position:absolute;left:15.5%;top:8%;">
+		<div style="position:absolute;left:5%;top:30%;"><label>电流：</label></div>
 		<div class="wrap">
 		<div class="clock">
 <!-- 			<div style="height:25%;"></div>
@@ -48,147 +49,138 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<label region="center" style="font-size:15px;">电压</label>
 			</div>
 			<div style="height:15%;">
-				<input id="voltage1" name="voltage1" style="height:25px;width:200px" type="text" readonly="readonly">
+				<input id="voltage1" name="voltage1" style="height:25px;width:200px" type="text" 
+readonly="readonly">
 			</div>
 			<div style="height:15%;"></div>
 			<div>
 				<label region="center" style="font-size:15px;">电流</label>
 			</div>
 			<div style="height:20%;" region="center">
-				<input id="electricity1" name="electricity1" style="height:25px;width:200px" type="text" readonly="readonly">
+				<input id="electricity1" name="electricity1" style="height:25px;width:200px" type="text" 
+readonly="readonly">
 			</div>
 			<div style="height:25%;"></div> -->
 			
 			<ul>
 			<li>
 				<ul id="time1">
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
 					<li>
 				<ul id="time2">
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
 				<li>
 				<ul id="time3">
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
 			<li>
 				<ul id="time4">
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
 		</ul>
 		</div>
 		</div>
 		</div>
-		<div id="body3" style="width:65%;height:250px;float:left">
-			<!-- <label style="text-align:center;display:inline-block">设备采集id</label> <input class="liveInput" name="machid" id="machid" value="" type="text"/> -->
-			<div id="body33"></div>
+		<div id="body3" style="width:65%;height:50%;position:absolute;left:36%;">
+			<!-- <div id="body31" style="width:100%;height:50%;"></div>
+			<div id="body32" style="width:100%;height:50%;"></div> -->
 		</div>
-		<div id="body5" style="width:15%;height:15%;position:absolute;left:14.9%;top:18%;">
+<!-- 		<div id="body32" style="width:65%;height:25%;position:absolute;left:36%;top:61;">
+			<div id="body31" style="width:100%;height:50%;"></div>
+			<div id="body32" style="width:100%;height:50%;"></div>
+		</div> -->
+		<div id="body5" style="width:15%;height:15%;position:absolute;left:15.5%;top:20%;">
 		<div style="position:absolute;left:7%;top:35%;"><label>电压：</label></div>
 		<div class="wrap">
 		<div class="clock">
-<!-- 			<div style="height:25%;"></div>
-			<div>
-				<label region="center" style="font-size:15px;">电压</label>
-			</div>
-			<div style="height:15%;">
-				<input id="voltage1" name="voltage1" style="height:25px;width:200px" type="text" readonly="readonly">
-			</div>
-			<div style="height:15%;"></div>
-			<div>
-				<label region="center" style="font-size:15px;">电流</label>
-			</div>
-			<div style="height:20%;" region="center">
-				<input id="electricity1" name="electricity1" style="height:25px;width:200px" type="text" readonly="readonly">
-			</div>
-			<div style="height:25%;"></div> -->
 			
 			<ul>
 			<li>
 				<ul id="time5">
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
 					<li>
 				<ul id="time6">
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
 				<li>
 				<ul id="time7">
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
 			<li>
 				<ul id="time8">
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
-					<li><img src="resources/images/front.png" width="30%" height="30%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
+					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
 		</ul>
 		</div>
 		</div>
 		</div>
-		<div id="body6" style="position:absolute;left:16%;top:34%;"><label>焊机编号：</label>
+		<div id="body6" style="position:absolute;left:16%;top:35%;"><label>焊机编号：</label>
 		<input name="macname" id="macname" readonly="true" style="text-align:center">
 		</div>
-		<div id="body7" style="position:absolute;left:16%;top:40%;"><label>焊工姓名：</label>
+		<div id="body7" style="position:absolute;left:16%;top:45%;"><label>焊工姓名：</label>
 		<input name="welname" id="welname" readonly="true" style="text-align:center">
 		</div>
-		<div id="body4" style="width:84%;height:55%;float:left">
-			 <table id="dg" style="table-layout:fixed;width:100%"></table>
+		<div id="body4" style="width:85%;height:45%;position:absolute;left:15.2%;top:54.5%;">
+			<table id="dg" style="table-layout:fixed;width:100%"></table>
 		</div>
 	</div>
 </body>
