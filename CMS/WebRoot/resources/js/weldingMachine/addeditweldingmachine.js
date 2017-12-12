@@ -204,7 +204,7 @@ function manuCombobox(){
 	          var optionStr = '';
 	          for (var i = 0; i < result.ary.length; i++) {  
 	              optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
-	                      + result.ary[i].name + "</option>";
+	                      + result.ary[i].name + " - " +result.ary[i].type + "</option>";
 	          }
 	          $("#manuno").html(optionStr);
 	      }  

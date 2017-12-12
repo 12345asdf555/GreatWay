@@ -1845,12 +1845,12 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by e.fname
+		group by  e.fid,e.ftype
 		union
 		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
-		where fname not in
+		where fid not in
 		(
-		select fname from tb_live_data l 
+		select e.fid from tb_live_data l 
 		inner join tb_welding_machine w  on l.fmachine_id = w.fequipment_no
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
 		where w.finsframework_id in 
@@ -1863,7 +1863,7 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by e.fname
+		group by  e.fid,e.ftype
 		)
 		)temp
 	</select>
@@ -1883,12 +1883,12 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by e.fname
+		group by e.fid,e.ftype
 		union
 		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
-		where fname not in
+		where fid not in
 		(
-		select fname from tb_live_data l 
+		select e.fid from tb_live_data l 
 		inner join tb_welding_machine w  on l.fmachine_id = w.fequipment_no
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
 		where w.finsframework_id in (select fid from tb_insframework where fparent=#{parent})
@@ -1900,7 +1900,7 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by e.fname
+		group by e.fid,e.ftype
 		)
 		)temp
 	</select>
@@ -1920,12 +1920,12 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by e.fname
+		group by e.fid,e.ftype
 		union
 		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
-		where fname not in
+		where fid not in
 		(
-		select fname from tb_live_data l 
+		select e.fid from tb_live_data l 
 		inner join tb_welding_machine w  on l.fmachine_id = w.fequipment_no
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
 		where w.finsframework_id =#{insid}
@@ -1937,10 +1937,11 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by e.fname
+		group by e.fid,e.ftype
 		)
 		)temp
 	</select>
+	
 	<select id="companyEfficiency" resultMap="dtoMap">
 		select * from (
 		select *,count(wname) num from (
