@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;  
  
-
 public class MyAccessDecisionManager implements AccessDecisionManager {  
  
     //检查用户是否够权限访问资源  
