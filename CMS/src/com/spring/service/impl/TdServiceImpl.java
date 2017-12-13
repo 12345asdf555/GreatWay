@@ -66,4 +66,8 @@ import com.spring.service.TdService;
 		public List<Td> allWeldname(){
 			return mapper.allWeldname();
 		}
+		
+		public int findDic(long uid){
+			return mapper.findDic(uid);
+		}
 	}

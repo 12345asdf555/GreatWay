@@ -39,7 +39,7 @@ public class AuthorityController {
 	 */
 	@RequestMapping("/AllAuthority")
 	public String AllAuthority(HttpServletRequest request){
-		return "/allAuthority";
+		return "authority/allAuthority";
 	}
 	@RequestMapping("/getAllAuthority")
 	@ResponseBody
@@ -91,7 +91,7 @@ public class AuthorityController {
 	@RequestMapping("/toAddAuthority")
 	public String toAddUser(HttpServletRequest request){
 		
-		return "/addAuthority";
+		return "authority/addAuthority";
 	}
 	/**
 	 * 添加用户并重定向
@@ -178,7 +178,7 @@ public class AuthorityController {
 		String str = a.getAuthorityName().substring(5);
 		a.setAuthorityName(str);
 		request.setAttribute("authority", a);
-		return "/editAuthority";
+		return "authority/editAuthority";
 	}
 	
 	@RequestMapping("/desAuthority")
@@ -187,7 +187,7 @@ public class AuthorityController {
 /*		String str = a.getAuthorityName().substring(5);
 		a.setAuthorityName(str);*/
 		request.setAttribute("authority", a);
-		return "/destroyAuthority";
+		return "authority/destroyAuthority";
 	}
 	/**
 	 * 删除用户

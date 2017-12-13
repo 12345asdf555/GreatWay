@@ -62,6 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
             	<lable>部门</lable>
+            	<input name="userInsframeworks" id="userInsframeworks" type="hidden" value="${user.userInsframework}" data-options="required:true">
             	<select class="easyui-combobox" name="userInsframework" id="userInsframework" value="${user.userInsframework}"></select>
             </div>
 			<div class="fitem">
@@ -199,7 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			         alert('部门加载失败');
 			      }
 			      $("#userInsframework").combobox();
-			      $("#userInsframework").combobox('select',document.getElementById("userInsframework").value);
+			      $("#userInsframework").combobox('select',document.getElementById("userInsframeworks").value);
 			   },
 			   error: function () {
 			      alert('error');

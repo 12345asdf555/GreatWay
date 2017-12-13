@@ -18,4 +18,5 @@ public interface TdService {
 	long findIns(long uid);
 	String findPosition(String equip);
 	List<Td> allWeldname();
+	int findDic(long uid);
 }

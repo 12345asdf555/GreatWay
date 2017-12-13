@@ -32,38 +32,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div  id="body" region="center"  hide="true"  split="true" title="新增角色" style="background: white; height: 335px;">
    
     <div style="text-align: center ">
-       <form id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
+       <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">添加角色</div>
-            <div style="margin-bottom:10px">
-                <input id="roleName" name="roleName" class="easyui-textbox" data-options="validType:'roleValidate',required:true" label="角色名:">
+            <div class="fitem">
+            	<lable>角色名</lable>
+                <input id="roleName" name="roleName" class="easyui-textbox" data-options="validType:'roleValidate',required:true">
             </div>
-            <div style="margin-bottom:10px">
-                <input name="roleDesc" class="easyui-textbox" data-options="required:false" label="描&nbsp;&nbsp;&nbsp;&nbsp;述:">
+            <div class="fitem">
+            	<lable>描述</lable>
+                <input name="roleDesc" class="easyui-textbox" data-options="required:false">
             </div>
-        	<div style="margin-bottom:20px">
-	            <select class="easyui-combobox" id="roleStatus" name="roleStatus" data-options="required:true" label="状态:" labelPosition="left">
-	                <option value="0">--请选择--</option>
-	                <option value="1">1</option>
-	                <option value="2">0</option>
-	            </select>
-        	</div>
-            <div style="margin-bottom:20px" align="center">
+			<div class="fitem">
+				<lable>状态</lable>&nbsp;&nbsp;
+   				<span id="radios"></span>
+			</div>
+            <div style="margin-bottom:20px;margin-left:100px;" align="center">
                 <table id="tt" title="权限列表" checkbox="true" style="table-layout:fixed"></table>
             </div>
+		    <div class="buttonoption">
+			    <lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="javascript:saveRole();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="role/AllRole" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+				</lable>
+		   </div> 
     </form>
-    </div>
-         
-    <div id="fitem" align="center">
-        <a href="javascript:saveRole();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="role/AllRole" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
-   </div>  
+    </div> 
     <script type="text/javascript">
-               $(function(){
+        $(function(){
+        statusRadio();
 	    $("#tt").datagrid( {
 		fitColumns : true,
 		height : '250px',
 		width : '15%',
-		idField : 'authorities_name',
+		idField : 'authorities_desc',
 		url : "role/getAllAuthority",
 		rownumbers : false,
 		showPageList : false,
@@ -71,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		selectOnCheck:true,
 		columns : [ [ {
 		    field:'ck',
-			checkbox:true,
+			checkbox:true
 		},{
 			field : 'id',
 			title : 'id',
@@ -80,28 +81,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			align : "left",
 			hidden: true
 		},{
-			field : 'authorities_name',
-			title : '权限名',
+			field : 'authorities_desc',
+			title : '权限描述',
 			width : 100,
 			halign : "center",
 			align : "left"
-		}]],
-		
+		}]]
 	});
 })
+$("#fm").form("disableValidation");
+var flag = 1;
 
-		 $("#fm").form("disableValidation");
-        var flag=1;
         function saveRole(){
         flag = 1;
-         var status = $('#roleStatus').combobox('getValue');
+       /*   var status = $('#roleStatus').combobox('getValue'); */
          var rows = $('#tt').datagrid('getSelections');
+         var sid = $("input[name='statusId']:checked").val();
           var str="";
          for(var i=0; i<rows.length; i++){
 			str += rows[i].id+",";
 			}
          var url;
-          url = "role/addRole"+"?status="+status+"&aid="+str;
+         /*  url = "role/addRole"+"?status="+status+"&aid="+str; */
+          url = "role/addRole"+"?status="+sid+"&aid="+str;
             $('#fm').form('submit',{
                 url: url,
                 onSubmit: function(){
@@ -126,6 +128,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
             });
         }
+        function statusRadio(){
+		$.ajax({  
+		    type : "post",  
+		    async : false,
+		    url : "role/getStatusAll",  
+		    data : {},  
+		    dataType : "json", //返回数据形式为json  
+		    success : function(result) {
+		    	if (result) {
+		    		var str = "";
+		    		for (var i = 0; i < result.ary.length; i++) {
+		    			str += "<input type='radio' class='radioStyle' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+	                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		    		}
+		            $("#radios").html(str);
+		            $("input[name='statusId']").eq(0).attr("checked",true);
+		        }  
+		    },  
+		    error : function(errorMsg) {  
+		        alert("数据请求失败，请联系系统管理员!");  
+		    }  
+		});
+	}
     </script>
     </div>
 </body>

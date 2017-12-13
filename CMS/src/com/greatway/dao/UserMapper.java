@@ -26,5 +26,5 @@ public interface UserMapper {
 	List<String> getAuthoritiesByUsername(String userName);
 	List<User> getIns();
 	User getUserInsframework(@Param("id")BigInteger id);
-	
+	List<User> getInsUser(int ins);
 }

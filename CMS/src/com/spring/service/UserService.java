@@ -25,4 +25,5 @@ public interface UserService {
 	List<String> getAuthoritiesByUsername(String userName);
 	List<User> getIns();
 	User getUserInsframework(BigInteger id);
+	List<User> getInsUser(int ins);
 }

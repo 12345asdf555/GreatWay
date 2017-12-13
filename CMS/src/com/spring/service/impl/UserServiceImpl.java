@@ -109,6 +109,9 @@ public class UserServiceImpl implements UserService {
 		return mapper.getUserInsframework(id);
 	}
 	
-	
+	public List<User> getInsUser(int ins) {
+		List<User> getInsUser = mapper.getInsUser(ins);
+		return getInsUser;
+	}
 
 }

@@ -14,6 +14,7 @@
 	var minvol;
 	var socket;
 	var data1;
+	var namex;
 	$(function(){
 		$.ajax({  
 		      type : "post",  
@@ -24,6 +25,21 @@
 		      success : function(result) {
 		          if (result) {
 		        	  data1 = eval(result.web_socket);
+		          }  
+		      },
+		      error : function(errorMsg) {  
+		          alert("数据请求失败，请联系系统管理员!");  
+		      }  
+		 });
+		$.ajax({  
+		      type : "post",  
+		      async : false,
+		      url : "td/allWeldname",  
+		      data : {},  
+		      dataType : "json", //返回数据形式为json  
+		      success : function(result) {
+		          if (result) {
+		        	  namex=eval(result.rows);
 		          }  
 		      },
 		      error : function(errorMsg) {  
@@ -263,19 +279,11 @@
 						jj++;
 					}
             		if(weld!="0000"){
-            		$.ajax({  
-    			        type : "post",  
-    			        async : false,
-    			        url : "td/getWeld?weldid="+weld,  
-    			        data : {},  
-    			        dataType : "json", //返回数据形式为json  
-    			        success : function(result) {
-    			        	var weldname = eval(result.rows);
-    			        	for(var b = 0;b < weldname.length;b++){
-    			        		name = weldname[b].fweldname;
-    			        	}
-    			        	document.getElementById("weldname").value=name;
-    			        }})
+            			for(var k=0;k<namex.length;k++){
+    						if(namex[k].fwelder_no==dd.substring(8+index, 12+index)){
+    							document.getElementById("weldname").value=namex[k].fname;
+    						}
+    					}
             		}
 					}	
 				/*document.getElementById("machid").value = mach;*/

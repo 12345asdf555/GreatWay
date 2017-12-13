@@ -75,7 +75,11 @@ public class UserController {
 	
 	@RequestMapping("/AllUser")
 	public String AllUser(HttpServletRequest request){
-		return "/allUser";
+		return "user/allUser";
+	}
+	@RequestMapping("/Error")
+	public String Error(HttpServletRequest request){
+		return "/Error";
 	}
 	@RequestMapping("/getAllUser")
 	@ResponseBody
@@ -139,7 +143,7 @@ public class UserController {
 	public String toAddUser(HttpServletRequest request){
 		String insfname = request.getParameter("name");
 		request.setAttribute("insfname", insfname);
-		return "/addUser";
+		return "user/addUser";
 	}
 	/**
 	 * 添加用户并重定向
@@ -231,13 +235,13 @@ public class UserController {
 	@RequestMapping("/getUser")
 	public String getUser(@RequestParam int id,HttpServletRequest request){
 		request.setAttribute("user", userService.findById(new Integer(id)));
-		return "/editUser";
+		return "user/editUser";
 	}
 	
 	@RequestMapping("/desUser")
 	public String desUser(@RequestParam int id,HttpServletRequest request){
 		request.setAttribute("user", userService.findById(new Integer(id)));
-		return "/destroyUser";
+		return "user/destroyUser";
 	}
 	/**
 	 * 删除用户
@@ -354,6 +358,37 @@ public class UserController {
 				ary.add(json);
 			}
 		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/getInsUser")
+	@ResponseBody
+	public String getInsUser(HttpServletRequest request){
+		int ins = Integer.parseInt(request.getParameter("ins"));
+		List<User> getIns = userService.getInsUser(ins);
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{			
+			for(User user:getIns){
+			json.put("id", user.getId());
+			json.put("users_name", user.getUserName());
+			json.put("users_Login_Name", user.getUserLoginName());
+			json.put("users_phone", user.getUserPhone());
+			json.put("users_email",user.getUserEmail());
+			json.put("users_position", user.getUserPosition());
+			json.put("users_insframework", user.getInsname());
+			if(31==user.getStatus()){
+			json.put("status", "启用");
+			}
+			else{
+			json.put("status", "停用");
+			}
+			ary.add(json);
+		}}catch(Exception e){
 			e.printStackTrace();
 		}
 		obj.put("ary", ary);

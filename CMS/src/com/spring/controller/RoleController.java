@@ -43,7 +43,7 @@ public class RoleController {
 	 */
 	@RequestMapping("/AllRole")
 	public String AllUser(HttpServletRequest request){
-		return "/allRole";
+		return "role/allRole";
 	}
 	@RequestMapping("/getAllRole")
 	@ResponseBody
@@ -94,13 +94,13 @@ public class RoleController {
 	@RequestMapping("/toAddRole")
 	public String toAddRole(HttpServletRequest request){
 		
-		return "/addRole";
+		return "role/addRole";
 	}
 	
 	@RequestMapping("/todtbUser")
 	public String todtbUser(@RequestParam int id,HttpServletRequest request){
 		request.setAttribute("role", roleService.findById(new Integer(id)));
-		return "/dtbUser";
+		return "role/dtbUser";
 	}
 
 	/**
@@ -202,14 +202,14 @@ public class RoleController {
 	public String getRole(@RequestParam int id,HttpServletRequest request){
 		
 		request.setAttribute("role", roleService.findById(new Integer(id)));
-		return "/editRole";
+		return "role/editRole";
 	}
 	
 	@RequestMapping("/desRole")
 	public String desRole(@RequestParam int id,HttpServletRequest request){
 		
 		request.setAttribute("role", roleService.findById(new Integer(id)));
-		return "/destroyRole";
+		return "role/destroyRole";
 	}
 	/**
 	 * 删除用户

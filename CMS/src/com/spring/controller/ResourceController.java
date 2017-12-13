@@ -40,7 +40,7 @@ public class ResourceController {
 	 */
 	@RequestMapping("/AllResource")
 	public String AllResource(HttpServletRequest request){
-		return "/allResource";
+		return "resource/allResource";
 	}
 	@RequestMapping("/getAllResource")
 	@ResponseBody
@@ -93,7 +93,7 @@ public class ResourceController {
 	@RequestMapping("/toAddResource")
 	public String toAddResource(HttpServletRequest request){
 		
-		return "/addResource";
+		return "resource/addResource";
 	}
 	/**
 	 * 添加用户并重定向
@@ -146,13 +146,13 @@ public class ResourceController {
 	@RequestMapping("/getResource")
 	public String getResource(@RequestParam int id,HttpServletRequest request){
 		request.setAttribute("resource", resourceService.findById(new Integer(id)));
-		return "/editResource";
+		return "resource/editResource";
 	}
 	
 	@RequestMapping("/desResource")
 	public String desResource(@RequestParam int id,HttpServletRequest request){
 		request.setAttribute("resource", resourceService.findById(new Integer(id)));
-		return "/destroyResource";
+		return "resource/destroyResource";
 	}
 	/**
 	 * 删除用户

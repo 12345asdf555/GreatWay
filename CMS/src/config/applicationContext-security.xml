@@ -26,6 +26,7 @@
             <concurrency-control max-sessions="1" 
                 error-if-maximum-exceeded="false" />  
         </session-management>  
+        <access-denied-handler error-page="/user/Error"/>
         <custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR" />  
     </http>
     

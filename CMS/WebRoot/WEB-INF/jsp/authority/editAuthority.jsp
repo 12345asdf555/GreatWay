@@ -32,38 +32,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
             <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">权限信息</div>
-            <div style="margin-bottom:10px;display: none;">
-                <input name="id" id="id" class="easyui-textbox" type="hidden" value="${authority.id}">
+            <div class="fitem">
+                <input name="id" id="id" type="hidden" value="${authority.id}">
             </div>
-           <div style="margin-bottom:10px">
-                <input name="authorityName" class="easyui-textbox" readonly="true" data-options="required:true" label="权限:" value="${authority.authorityName}" style="width:100%">
+            <div class="fitem">
+				<lable>权限</lable>
+           		<input id="validName" type="hidden" value="${authority.authorityName}">
+                <input name="authorityName" class="easyui-textbox"  data-options="validType:'authorityValidate',required:true" value="${authority.authorityName}" style="width:100%">
             </div>
-            <div style="margin-bottom:10px">
-                <input name="authorityDesc" class="easyui-textbox" required="true" label="描述:" value="${authority.authorityDesc}" style="width:100%">
+            <div class="fitem">
+				<lable>描述</lable>
+                <input name="authorityDesc" class="easyui-textbox" data-options="required:true" value="${authority.authorityDesc}" style="width:100%">
             </div>
-        <div style="margin-bottom:20px">
-            <select class="easyui-combobox" id="status" name="status" value="${authority.status}" label="状态:" labelPosition="left">
-                <option value="${authority.status}">${authority.status}</option>
-                <option value="Status1">1</option>
-                <option value="Status2">0</option>
-            </select>
-        </div>
-
-        <div style="margin-bottom:20px" align="center">
-        <table id="tt" title="资源列表" checkbox="true" style="table-layout:fixed;width:100%"></table>
-        </div>
+			<div class="fitem">
+				<input id="status" type="hidden" value="${authority.status }"/>
+				<lable>状态</lable>&nbsp;&nbsp;
+   				<span id="radios"></span>
+			</div>
+	        <div style="margin-bottom:20px;margin-left:100px;" align="center">
+	        <table id="tt" title="资源列表" checkbox="true" style="table-layout:fixed;width:100%"></table>
+	        </div>
+		    <div class="buttonoption">
+				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="javascript:saveAuthority();" class="easyui-linkbutton c6" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="authority/AllAuthority" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+		        </lable>
+		    </div>
         </form>
-    </div> 
-    
-    <div id="dlg-buttons" align="center">
-        <a href="javascript:saveAuthority()" class="easyui-linkbutton c6" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="authority/AllAuthority" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
     </div>
     </div>
     <script type="text/javascript">
            $(function(){
 		    showdatagrid();
+		   statusRadio();
+		var status = $("#status").val();
+		$('[name="statusId"]:radio').each(function() { 
+		if (this.value ==status ) { 
+			this.checked = true;
+		} 
+		});
 		})
+    
+    		function statusRadio(){
+			$.ajax({  
+			    type : "post",  
+			    async : false,
+			    url : "role/getStatusAll",  
+			    data : {},  
+			    dataType : "json", //返回数据形式为json  
+			    success : function(result) {
+			    	if (result) {
+			    		var str = "";
+			    		for (var i = 0; i < result.ary.length; i++) {
+			    			str += "<input type='radio' class='radioStyle' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
+		                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			    		}
+			            $("#radios").html(str);
+			            $("input[name='statusId']").eq(0).attr("checked",true);
+			        }  
+			    },  
+			    error : function(errorMsg) {  
+			        alert("数据请求失败，请联系系统管理员!");  
+			    }  
+			});
+		}
     
         function showdatagrid(){
 	    $("#tt").datagrid( {
@@ -78,7 +110,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		selectOnCheck:true,
 		columns : [ [ {
 		    field:'ck',
-			checkbox:true,
+			checkbox:true
+		},{
+			field : 'id',
+			title : 'id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden:true
 		},{
 			field : 'resources_name',
 			title : '资源名',
@@ -109,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						c = eval(b);
 					for(var i=0;i<c.length;i++)
 					{
-			        if(item.resources_name==c[i].resources_name){
+			        if(item.id==c[i].id){
 			        $('#tt').datagrid('checkRow', index);
 			        }
 			        }
@@ -119,8 +158,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 }
 
+var flag = 2;
        function saveAuthority(){
-         var status = $('#status').combobox('getValue');
+       flag = 2;
+         var status;
+          var sid = $("input[name='statusId']:checked").val();
          var aid = $('#id').val();
          var rows = $("#tt").datagrid("getSelections");
          var str="";
@@ -128,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			str += rows[i].id+",";
 			}
          var url;
-          url = "authority/updateAuthority"+"?status="+status+"&sid="+str+"&aid="+aid;
+          url = "authority/updateAuthority"+"?status="+sid+"&sid="+str+"&aid="+aid;
             $('#fm').form('submit',{
                 url: url,
                 onSubmit: function(){
@@ -143,12 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         });
                     } else {
               			$.messager.alert("提示", "修改成功");
-              			var url = "authority/AllAuthority";
-						var img = new Image();
-					    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-					    url = img.src;  // 此时相对路径已经变成绝对路径
-					    img.src = null; // 取消请求
-						window.location.href = encodeURI(url);
+                    	window.location.href = encodeURI("/CMS/authority/AllAuthority");
                     }
                 }
             });

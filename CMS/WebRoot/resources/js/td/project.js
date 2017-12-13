@@ -13,6 +13,7 @@ var num1 = 0;
 var num2 = 0;
 var num3 = 0;
 var xxx=0;
+var namex;
 var pos;
 var i = 0;
 var data1;
@@ -37,6 +38,23 @@ $(function(){
 	          alert("数据请求失败，请联系系统管理员!");  
 	      }  
 	 });
+	
+	$.ajax({  
+	      type : "post",  
+	      async : false,
+	      url : "td/allWeldname",  
+	      data : {},  
+	      dataType : "json", //返回数据形式为json  
+	      success : function(result) {
+	          if (result) {
+	        	  namex=eval(result.rows);
+	          }  
+	      },
+	      error : function(errorMsg) {  
+	          alert("数据请求失败，请联系系统管理员!");  
+	      }  
+	 });
+	
 	var pro = document.getElementById("project").value;
 	$.ajax({  
         type : "post",  
@@ -157,17 +175,11 @@ function newSearch(){
 		            	}
 		            }
 		            		if(dd.substring(8+index, 12+index)!="0000"){
-		            		$.ajax({  
-		    			        type : "post",  
-		    			        async : false,
-		    			        url : "td/getWeld?weldid="+dd.substring(8+index, 12+index),  
-		    			        data : {},  
-		    			        dataType : "json", //返回数据形式为json  
-		    			        success : function(result) {
-		    			        	var weldname = eval(result.rows);
-		    			        		name = weldname[0].fweldname;
-		    			        	document.getElementById("welderName"+i+"").value=name;
-		    			        }})
+		    					for(var k=0;k<namex.length;k++){
+		    						if(namex[k].fwelder_no==dd.substring(8+index, 12+index)){
+		    							document.getElementById("welderName"+i+"").value=namex[k].fname;
+		    						}
+		    					}
 		    			        $.ajax({  
 		    			        type : "post",  
 		    			        async : false,
