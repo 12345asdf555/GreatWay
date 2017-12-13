@@ -301,6 +301,7 @@ public class WeldingMachineController {
 			for(EquipmentManufacturer es:list){
 				json.put("id", es.getId());
 				json.put("name", es.getName());
+				json.put("type", es.getType());
 				ary.add(json);
 			}
 		}catch(Exception e){

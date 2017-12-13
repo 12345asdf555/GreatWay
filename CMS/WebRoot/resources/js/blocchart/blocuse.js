@@ -10,6 +10,7 @@ $(document).ready(function(){
 function showblocUseChart(){
 	var array1 = new Array();
 	var array2 = new Array();
+	var array3 = new Array();
 	var type = $('#type').combobox('getValue');
 	 $.ajax({  
          type : "post",  
@@ -22,6 +23,7 @@ function showblocUseChart(){
                  for(var i=0;i<result.rows.length;i++){
                  	array1.push(result.rows[i].fname);
                  	array2.push(result.rows[i].time);
+                 	array3.push(result.rows[i].type);
                  }
              }  
          },  
@@ -41,7 +43,10 @@ function showblocUseChart(){
 			text: "公司部单台设备运行数据统计"
 		},
 		tooltip:{
-			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
+			trigger: 'axis',//坐标轴触发，即是否跟随鼠标集中显示数据
+			formatter : function(params){//处理鼠标集中显示的数据格式,显示类型
+				return params[0].axisValue+" - "+array3[params[0].dataIndex]+"<br/>"+params[0].seriesName+"："+params[0].value;
+			}
 		},
 		legend:{
 			data:['时长(h)']
