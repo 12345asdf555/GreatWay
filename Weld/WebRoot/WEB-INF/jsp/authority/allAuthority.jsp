@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <div style="margin:20px 0;"></div>
     <div id="toolbar">
-        <a href="authority/toAddAuthority" class="easyui-linkbutton" iconCls="icon-add" onclick="newAuthority()">新增</a>
+        <a href="authority/toAddAuthority" class="easyui-linkbutton" iconCls="icon-add">新增</a>
         <a href="javascript:insertSearchAuthority();" class="easyui-linkbutton" iconCls="icon-search">查找</a> 
     </div>
    		<div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">

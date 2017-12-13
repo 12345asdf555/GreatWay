@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
 <body class="easyui-layout">
-	<div id="body" region="center"  hide="true"  split="true" title="备份界面" style="background: #eee; height: 335px;">
+	<div id="body" region="center"  hide="true"  split="true" title="实时界面" style="background: #eee; height: 335px;">
 		<div id="body1" style="width:15%;height:100%;float:left">
 			<div class="easyui-accordion" fit="true" border="false" id="accordiondiv">
 			    <div id="body11" title="设备位置" ></div>
@@ -111,14 +111,10 @@ readonly="readonly">
 		</div>
 		</div>
 		</div>
-		<div id="body3" style="width:65%;height:50%;position:absolute;left:36%;">
-			<!-- <div id="body31" style="width:100%;height:50%;"></div>
-			<div id="body32" style="width:100%;height:50%;"></div> -->
+		<div id="body31" style="width:65%;height:25%;position:absolute;left:36%;">
 		</div>
-<!-- 		<div id="body32" style="width:65%;height:25%;position:absolute;left:36%;top:61;">
-			<div id="body31" style="width:100%;height:50%;"></div>
-			<div id="body32" style="width:100%;height:50%;"></div>
-		</div> -->
+		<div id="body32" style="width:65%;height:25%;position:absolute;left:36%;top:29%;">
+		</div>
 		<div id="body5" style="width:15%;height:15%;position:absolute;left:15.5%;top:20%;">
 		<div style="position:absolute;left:7%;top:35%;"><label>电压：</label></div>
 		<div class="wrap">

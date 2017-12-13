@@ -75,7 +75,11 @@ public class UserController {
 	
 	@RequestMapping("/AllUser")
 	public String AllUser(HttpServletRequest request){
-		return "/allUser";
+		return "user/allUser";
+	}
+	@RequestMapping("/Error")
+	public String Error(HttpServletRequest request){
+		return "/Error";
 	}
 	@RequestMapping("/getAllUser")
 	@ResponseBody
@@ -139,7 +143,7 @@ public class UserController {
 	public String toAddUser(HttpServletRequest request){
 		String insfname = request.getParameter("name");
 		request.setAttribute("insfname", insfname);
-		return "/addUser";
+		return "user/addUser";
 	}
 	/**
 	 * 添加用户并重定向
@@ -231,13 +235,13 @@ public class UserController {
 	@RequestMapping("/getUser")
 	public String getUser(@RequestParam int id,HttpServletRequest request){
 		request.setAttribute("user", userService.findById(new Integer(id)));
-		return "/editUser";
+		return "user/editUser";
 	}
 	
 	@RequestMapping("/desUser")
 	public String desUser(@RequestParam int id,HttpServletRequest request){
 		request.setAttribute("user", userService.findById(new Integer(id)));
-		return "/destroyUser";
+		return "user/destroyUser";
 	}
 	/**
 	 * 删除用户

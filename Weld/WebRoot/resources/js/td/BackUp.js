@@ -7,7 +7,7 @@
 	var param = new Array();
 	var back = new Array();
 	var led=["0,1,2,4,5,6","2,5","0,2,3,4,6","0,2,3,5,6","1,2,3,5","0,1,3,5,6","0,1,3,4,5,6","0,2,5","0,1,2,3,4,5,6","0,1,2,3,5,6"];
-	var timer,timer1,timer2;
+	var timer,timer1,timer2,timer5;
 	var vaa1;
 	var e=0;
 	var stri;
@@ -28,6 +28,7 @@
 	var position;
 	var z=0;
 	var jj=0;
+	var zz=0;
 	var dd;
 	var bb=0;
 	var tt=0;
@@ -119,8 +120,8 @@
 							var l=1;
 							var ll=0;
 							for(var a=0;a<l;a++){
-								if(parseInt(dd.substring(4+n, 8+n))!=back[a]){
-									back.push(parseInt(dd.substring(4+n, 8+n)));		
+								if(parseInt(dd.substring(4+n, 8+n),16)!=back[a]){
+									back.push(parseInt(dd.substring(4+n, 8+n),16));		
 								}else{
 									continue;
 								}
@@ -130,10 +131,10 @@
 						var ll=0;
 						for(var a=0;a<l;a++){
 							/*alert(dd.substring(4+n, 8+n));*/
-							if(parseInt(dd.substring(4+n, 8+n))!=back[a]){
+							if(parseInt(dd.substring(4+n, 8+n),16)!=back[a]){
 								ll++;	
 								if(ll==back.length){
-								back.push(parseInt(dd.substring(4+n, 8+n)));
+								back.push(parseInt(dd.substring(4+n, 8+n),16));
 								}		
 							}else{
 								continue;
@@ -198,6 +199,7 @@
 			a=0;
 			jj=0;
 			z=0;
+			zz=0;
 			ele=[];
 			vol=[];
 			time1=[];
@@ -205,6 +207,7 @@
 			$("#body3").empty();
 			window.clearInterval(timer);
 			window.clearInterval(timer1);
+			window.clearInterval(timer5);
 			$('#dg').datagrid('loadData', { total: 0, rows: [] }); 
 		}
 		/*online(position[0].fpositin);*/
@@ -244,11 +247,13 @@
 			hq=value1;
 			jj=0;
 			z=0;
+			zz=0
 			ele=[];
 			vol=[];
 			time1=[];
 			$("#body3").empty();
 			window.clearInterval(timer);
+			window.clearInterval(timer5);
 		}
 		for(var j = 0;j < 1;j++){
 			for(var i = 0;i < dd.length;i+=53){
@@ -298,6 +303,7 @@
 					jj++;
 					if(jj<=1){
 						curve(); 
+						curve1();
 					}
 					}	
 			}
@@ -457,7 +463,6 @@
   		});
   		function activeLastPointToolip(chart) {
   		    var points = chart.series[0].points;
-  		    var	points1 = chart.series[1].points;
 /*  		    chart.tooltip.refresh(points[points.length -1]);
   		    chart.tooltip.refresh(points1[points1.length -1]);*/
   		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
@@ -483,35 +488,10 @@
     		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
     		            x:10                     //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
     		        }
-  		  	})
-  		  	chart.yAxis[1].addPlotLine({ //在y轴上增加 
-  		  		value:maxvol, //在值为2的地方 
-  		  		width:2, //标示线的宽度为2px 
-  		  		color: 'black', //标示线的颜色 
-  		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-		          label:{
-    		            text:'最高电压',     //标签的内容
-    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-    		            x:10  
-    		        }
-  		  	})
-  		  	chart.yAxis[1].addPlotLine({ //在y轴上增加 
-  		  		value:minvol, //在值为2的地方 
-  		  		width:2, //标示线的宽度为2px 
-  		  		color: 'black', //标示线的颜色 
-  		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-		          label:{
-    		            text:'最低电压',     //标签的内容
-    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-    		        }
-  		  	})
-  		  	  		  	
+  		  	})	  	
   		}
  
-  		$('#body3').highcharts({
+  		$('#body31').highcharts({
   		    chart: {
   		        type: 'spline',
   		        animation: false, // don't animate in old IE
@@ -520,16 +500,13 @@
   		            load: function () {
   		                // set up the updating of the chart each second
   		                var series = this.series[0],
-  		                	series1 = this.series[1],
   		                    chart = this;
   		                	timer=window.setInterval(function () {
   		                    /*var x = (new Date()).getTime()+t,*/ // current time
   		                  var x = time1[z],
   		                        y = ele[z];
-  		                    var y1 = vol[z];
   		                    z++;
   		                    series.addPoint([x, y], true, true);
-  		                    series1.addPoint([x, y1], true, true);
   		                    activeLastPointToolip(chart);
   		                }, 1000);
   		            }
@@ -540,7 +517,12 @@
   		    },
   		    xAxis: {
   		        type: 'datetime',
-  		        tickPixelInterval: 150
+  		        tickPixelInterval: 150,
+  		        lineColor:'#FFFFFF',
+  		        tickWidth:0,
+	  		    labels:{
+	  		    	enabled:false
+	  		    }
   		    },
   		    yAxis: [{
                 max:280, // 定义Y轴 最大值  
@@ -555,20 +537,6 @@
   	                    color: '#A020F0'  
   	                }  
   		        }
-  		    },{
-                max:105, // 定义Y轴 最大值  
-                min:0, // 定义最小值  
-                minPadding: 0.2,   
-                maxPadding: 0.2,  
-                tickInterval:15,
-                color:'#87CEFA',
-  		    	title: {
-  		            text: '电压',
-  	                style: {  
-  	                    color: '#87CEFA'  
-  	                }  
-  		        },
-  		      opposite: true  
   		    }],
   		    tooltip: {
   		        formatter: function () {
@@ -578,7 +546,7 @@
   		        },
   		    },
   		    legend: {
-  		        enabled: true
+  		        enabled: false
   		    },
   		    exporting: {
   		        enabled: false
@@ -605,10 +573,109 @@
   		            }
   		            return data;
   		        }())
-  		    },{
-
+  		    }]
+  		}, function(c) {
+  		    activeLastPointToolip(c)
+  		});
+	}
+	
+	function curve1(){
+  		Highcharts.setOptions({
+  		    global: {
+  		        useUTC: false
+  		    }
+  		});
+  		function activeLastPointToolip(chart) {
+  		    var points = chart.series[0].points;
+/*  		    chart.tooltip.refresh(points[points.length -1]);
+  		    chart.tooltip.refresh(points1[points1.length -1]);*/
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:maxvol, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最高电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10  
+    		        }
+  		  	})
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:minvol, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最低电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	})
+  		  	  		  	
+  		}
+ 
+  		$('#body32').highcharts({
+  		    chart: {
+  		        type: 'spline',
+  		        animation: false, // don't animate in old IE
+  		        marginRight: 70,
+  		        events: {
+  		            load: function () {
+  		                // set up the updating of the chart each second
+  		                var series = this.series[0],
+  		                    chart = this;
+  		                	timer5=window.setInterval(function () {
+  		                    /*var x = (new Date()).getTime()+t,*/ // current time
+  		                  var x = time1[zz],
+  		                        y = vol[zz];
+  		                    zz++;
+  		                    series.addPoint([x, y], true, true);
+  		                    activeLastPointToolip(chart);
+  		                }, 1000);
+  		            }
+  		        }
+  		    },
+  		    title: {
+  		        text: false
+  		    },
+  		    xAxis: {
+  		        type: 'datetime',
+  		        tickPixelInterval: 150
+  		    },
+  		    yAxis: [{
+                max:105, // 定义Y轴 最大值  
+                min:0, // 定义最小值  
+                minPadding: 0.2,   
+                maxPadding: 0.2,  
+                tickInterval:15,
+                color:'#87CEFA',
+  		    	title: {
+  		            text: '电压',
+  	                style: {  
+  	                    color: '#87CEFA'  
+  	                }  
+  		        },
+  		    }],
+  		    tooltip: {
+  		        formatter: function () {
+  		            return '<b>' + this.series.name + '</b><br/>' +
+  		                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+  		                Highcharts.numberFormat(this.y, 2);
+  		        },
+  		    },
+  		    legend: {
+  		        enabled: false
+  		    },
+  		    exporting: {
+  		        enabled: false
+  		    },
+  		    credits:{
+  		      enabled:false // 禁用版权信息
+  		    },
+  		    series: [{
   		        name: '电压',
-  		        yAxis: 1,
   		        data: (function () {
   		            // generate an array of random data
   		            var data = [],
@@ -628,6 +695,7 @@
   		}, function(c) {
   		    activeLastPointToolip(c)
   		});
+	
 	}
 	
 	function modiflyNum(id,value)

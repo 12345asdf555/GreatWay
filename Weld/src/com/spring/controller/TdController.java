@@ -53,7 +53,7 @@ public class TdController {
 		long uid = myuser.getId();
 		String insname = tdService.findInsname(tdService.findIns(uid));
 		request.setAttribute("insname", insname);
-		return "/BackUp";
+		return "td/BackUp";
 	}
 	
 	@RequestMapping("/AllTdd")
