@@ -47,11 +47,18 @@ public interface LiveDataManager {
 	/**
 	 * 事业部工艺超标统计
 	 * @param dto 扩展参数类
-	 * @param type 时间跨度
 	 * @param parent 父id
 	 * @return
 	 */
 	List<ModelDto> getCauseOverproof(WeldDto dto,BigInteger parent);
+	
+	/**
+	 * 项目部工艺超标统计
+	 * @param dto 扩展参数类
+	 * @param id 项目id
+	 * @return
+	 */
+	List<ModelDto> getItemOverproof(WeldDto dto,BigInteger id);
 	
 	/**
 	 * 获取当前所包含的项目
@@ -89,7 +96,7 @@ public interface LiveDataManager {
 	 * @param time时间
 	 * @return
 	 */
-	int getCountTime(String welderno,String machineno,String junctionno,String time);
+	int getCountTime(String welderno,String machineno,String junctionno,String time,BigInteger id);
 	
 	/**
 	 * 获取焊机超标
@@ -99,7 +106,7 @@ public interface LiveDataManager {
 	 * @param time时间
 	 * @return
 	 */
-	List<ModelDto> getjunctionoverproof(String welderno,String machineno,String junctionno,String time);
+	List<ModelDto> getjunctionoverproof(String welderno,String machineno,String junctionno,String time,BigInteger itemid);
 	
 	/**
 	 * 获取公司超时待机统计

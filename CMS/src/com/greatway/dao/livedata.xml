@@ -452,12 +452,10 @@
 		</if>
 		weldtime ,fname,fid from 
 		(
-		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end as OverFlage,fweldtime,fname,fid
+		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end as OverFlage,fweldtime,insf.fname, insf.fid
 		FROM 
 		(
-		select insf.fid,fmax_electricity,fmin_electricity,felectricity,fweldtime,insf.fname  from
-		(
-		select fid,felectricity,fstatus,fjunction_id,fweldtime from tb_live_data where fstatus &lt; 3
+		select fid,felectricity,fstatus,fjunction_id,fweldtime from tb_live_data where fstatus = 0
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -470,10 +468,8 @@
 		inner join tb_insframework i on j.fitemid = i.fid
 		inner join tb_insframework ins on ins.fid = i.fparent
 		inner join tb_insframework insf on insf.fid = ins.fparent
-		 where i.ftype=23 and  k0.fstatus &lt; 3 
-		)k1
-		)
-		as K 
+		 where i.ftype=23
+		) as K 
 		group by fid,weldtime
 		) temp
 	</select>
@@ -499,12 +495,10 @@
 		</if>
 		weldtime ,fname,fid from 
 		(
-		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end as OverFlage,fweldtime,fname,fid
+		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end as OverFlage,fweldtime,ins.fname, ins.fid
 		FROM 
 		(
-		select ins.fid,fmax_electricity,fmin_electricity,felectricity,fweldtime,ins.fname  from
-		(
-		select fid,felectricity,fstatus,fjunction_id,fweldtime from tb_live_data where fstatus &lt; 3
+		select fid,felectricity,fstatus,fjunction_id,fweldtime from tb_live_data where fstatus = 0
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -516,13 +510,11 @@
 		) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id
 		inner join tb_insframework i on j.fitemid = i.fid
 		inner join tb_insframework ins on ins.fid = i.fparent
-		where i.ftype=23 and  k0.fstatus &lt; 3 
+		where i.ftype=23
 		<if test="parent!=null and parent!=''">
 			AND ins.fparent = #{parent}
 		</if>
-		)k1
-		)
-		as K 
+		) as K 
 		group by fid,weldtime
 		) temp
 	</select>
@@ -547,13 +539,11 @@
 	</if> weldTime,fid,fname
 	FROM (
 	SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end
-	AS OverFlage, fweldtime, fname, fid
-	FROM (
-	SELECT i.fid, fmax_electricity, fmin_electricity, felectricity, fweldtime, i.fname
+	AS OverFlage, fweldtime, i.fname, i.fid
 	FROM (
 	SELECT fid, felectricity, fstatus, fjunction_id, fweldtime
 	FROM tb_live_data
-	WHERE fstatus &lt; 3
+	WHERE fstatus = 0
 	<if test="dto!=null and dto!=''">
 		<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 			and fweldtime &gt;= #{dto.dtoTime1}
@@ -567,7 +557,6 @@
 	INNER JOIN tb_insframework i ON j.fitemid = i.fid
 	INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 	WHERE i.ftype =23
-	AND k0.fstatus &lt; 3
 	<if test="parent!=null and parent!=''">
 		AND i.fparent = #{parent}
 	</if>
@@ -576,10 +565,54 @@
 			 AND ins.fparent = #{dto.companyid}
 		</if>
 	</if>
-	)k1
 	) AS K
 	GROUP BY fid,weldTime
 	)temp
+	</select>
+	
+	<!-- 项目部超标统计 -->
+	<select id="getItemOverproof" resultMap="dtoMap">
+		SELECT * FROM (
+		SELECT sum( OverFlage ) AS overproof, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if> weldTime,fid,fname
+		FROM (
+		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end
+		AS OverFlage, fweldtime, i.fname, i.fid
+		FROM (
+		SELECT fid, felectricity, fstatus, fjunction_id, fweldtime
+		FROM tb_live_data
+		WHERE fstatus = 0
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		) AS k0
+		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
+		INNER JOIN tb_insframework i ON j.fitemid = i.fid
+		WHERE i.ftype =23 
+		<if test="id!=null and id!=''">
+			AND i.fid = #{id}
+		</if>
+		) AS K
+		GROUP BY fid,weldTime
+		)temp
 	</select>
 	
 	<!-- 查询所有在范围内的时间 -->
@@ -625,58 +658,41 @@
 	
 	<!-- 超标明细 -->
 	<select id="getDatailOverproof" resultMap="dtoMap">
-		select * from (
-		select sum(OverFlage) as overproof , DATE_FORMAT(fweldtime,'%Y-%m-%d') weldtime ,iid,jid,fwelder_id,fmachine_id,felectricity,fjunction_id,iname,wname,fmax_electricity,fmin_electricity from 
-		(
-		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end  as OverFlage,
-		fweldtime,iid,jid,fwelder_id,fmachine_id,felectricity,fjunction_id,iname,wname,fmax_electricity,fmin_electricity
-		FROM 
-		(
-		select i.fid iid,j.fid jid,fmax_electricity,fmin_electricity,felectricity,fweldtime,i.fname iname,fwelder_id,fmachine_id ,fjunction_id,k0.fname wname  from
-		(
-		select felectricity,fstatus,fjunction_id,fweldtime,fwelder_id,fmachine_id,w.fname from tb_live_data l 
-		inner join tb_welder w on l.fwelder_id = w.fwelder_no
-		where fstatus=0
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id
-		inner join tb_insframework i on j.fitemid = i.fid
-		inner join tb_insframework ins on ins.fid = i.fparent  where i.ftype=23 and  k0.fstatus=0
-		<if test="dto!=null and dto!=''">
-			<if test="dto.parent!=null and dto.parent!=''">
-				AND i.fparent = #{dto.parent}
-			</if>
-			<if test="dto.companyid!=null and dto.companyid!=''">
-				AND ins.fparent = #{dto.companyid}
-			</if>
-		</if>
+		select * from(
+		select sum(OverFlage) overproof,k.* from (
+		select case when felectricity &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0 end as OverFlage, 
+		i.fid iid,j.fid jid,fmax_electricity,fmin_electricity,felectricity,DATE_FORMAT(fweldtime,'%Y-%m-%d') weldtime ,
+		i.fname iname,fwelder_id,fmachine_id ,fjunction_id,k0.fname wname from ( 
+		select felectricity,fjunction_id,fweldtime,fwelder_id,fmachine_id,w.fname from tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no where fstatus=0 ) as k0 
+		inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id 
+		inner join tb_insframework i on j.fitemid = i.fid 
+		where i.ftype=23
 		<if test="parent!=null and parent!=''">
 			AND i.fid = #{parent}
 		</if>
-		)k1
-		)
-		as K 
-		group by fwelder_id,jid,fmachine_id,DATE_FORMAT(fweldtime,'%Y-%m-%d')
-		) temp
+		<if test="dto!=null and dto!=''"> 
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime like #{dto.dtoTime1}
+			</if>
+		</if>
+		)k group by fwelder_id,jid,fmachine_id,weldtime
+		)temp
 	</select>
 	
 	<select id="getCountTime" resultType="java.lang.Integer" >
 		 select count(l.fid) from tb_live_data l inner join tb_welded_junction j on j.fwelded_junction_no = l.fjunction_id 
-		 where fwelder_id=#{welderno} and fmachine_id=#{machineno} and fjunction_id=#{junctionno} and DATE_FORMAT(fweldtime,'%Y-%m-%d') =DATE_FORMAT(#{time},'%Y-%m-%d')
+		 inner join tb_insframework i on i.fid = j.fitemId
+		 where i.fid = #{id} and fwelder_id=#{welderno} and fmachine_id=#{machineno} and fjunction_id=#{junctionno} and DATE_FORMAT(fweldtime,'%Y-%m-%d') = #{time}
 	</select>
 	
+	<!-- 超标回溯 -->
 	<select id="getjunctionoverproof" resultMap="dtoMap">
 		SELECT case when felectricity  &gt; fmax_electricity then 1
 		when felectricity &lt; fmin_electricity then 1 else 0  end  as overproof,fweldtime weldtime,fjunction_id
 		FROM tb_live_data l inner join tb_welded_junction j on l.fjunction_id=j.fwelded_junction_no 
+		inner join tb_insframework i on i.fid = j.fitemId
 		where DATE_FORMAT(fweldtime,'%Y-%m-%d')  = DATE_FORMAT(#{time},'%Y-%m-%d')
- 		and fjunction_id=#{junctionno} and fwelder_id=#{welderno} and fmachine_id=#{machineno}  group by fweldtime
+ 		and fjunction_id=#{junctionno} and fwelder_id=#{welderno} and fmachine_id=#{machineno} and i.fid = #{id}  group by fweldtime
 	</select>
 	
 	<!-- 集团超时待机统计 -->

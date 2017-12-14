@@ -21,6 +21,7 @@ function showjunctionOverproofChart(){
 	Series.push({
   		name : array2,
   		type :'line',//折线图
+   		smooth: true,//是否平滑曲线显示
   		data : data2,
   		itemStyle : {
   			normal: {
@@ -80,8 +81,9 @@ var setTime = 1000;
 var data1 = new Array();
 var data2 = new Array();
 
+var timer;
 function refresh(){
-	var timer=window.setInterval(function () {
+	timer=window.setInterval(function () {
 		data1.splice(0,data1.length);//清空数组 
 		data2.splice(0,data2.length);
 		if(array1.length==0){
@@ -94,7 +96,8 @@ function refresh(){
 			array1 = array1.slice(9, array1.length-1);
 			array3 = array3.slice(9, array3.length-1);
 			showjunctionOverproofChart();
-		}	
+		}
+		
 	}, setTime);
 }
 //加速
@@ -103,6 +106,7 @@ function addtime(){
 	if(setTime<=100){
 		setTime = 100;
 	}
+	window.clearInterval(timer);
 	refresh();
 }
 
@@ -112,6 +116,7 @@ function reducetime(){
 	if(setTime>=10000){
 		setTime = 10000;
 	}
+	window.clearInterval(timer);
 	refresh();
 }
 
@@ -120,10 +125,11 @@ function getAjax(){
 	var machineno = $("#machineno").val();
 	var junctionno = $("#junctionno").val();
 	var time = $("#time").val();
+	var itemid = $("#itemid").val();
 	$.ajax({  
         type : "post",  
         async : false,
-        url : "junctionChart/getjunctionoverproof?welderno="+welderno+"&machineno="+machineno+"&junctionno="+junctionno+"&time="+time,
+        url : "junctionChart/getjunctionoverproof?welderno="+welderno+"&machineno="+machineno+"&junctionno="+junctionno+"&time="+time+"&itemid="+itemid,
         data : {},  
         dataType : "json", //返回数据形式为json  
         success : function(result) {  

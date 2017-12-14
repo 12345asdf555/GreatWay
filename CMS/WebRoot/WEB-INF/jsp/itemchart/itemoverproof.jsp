@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>焊机焊接工艺超标统计</title>
+    <title>项目部焊接工艺超标统计</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -28,23 +28,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/echarts.js"></script>
-	<script type="text/javascript" src="resources/js/junctionchart/junctionoverproof.js"></script>
+	<script type="text/javascript" src="resources/js/itemchart/itemoverproof.js"></script>
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" title="焊机焊接工艺超标统计" style="background: witch; height: 335px;">
-		<div style="margin-bottom: 5px; "align="center">
-			<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
-			<input  name="welderno" id="welderno" type="hidden" value="${welderno }"/>
-			<input  name="machineno" id="machineno" type="hidden" value="${machineno }"/>
-			<input  name="junctionno" id="junctionno" type="hidden" value="${junctionno }"/>
-			<input  name="time" id="time" type="hidden" value="${time }"/>
-			<input  name="itemid" id="itemid" type="hidden" value="${itemid }"/>
-			<a class="easyui-linkbutton"  href="javascript:addtime()" iconCls="icon-add">加速</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a class="easyui-linkbutton" href="javascript:reducetime()" iconCls="icon-remove">减速</a>
+    <div id="body" region="center"  hide="true"  split="true" title="项目部焊接工艺超标统计" style="background: witch; height: 335px;">
+	  	<div id="itemOverproof_btn">
+			<div style="margin-bottom: 5px;">
+				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
+				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
+				时间：
+				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
+				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
+				时间跨度:
+				<input type="radio" class="radioStyle" name="otype" value="1" />年
+				<input type="radio" class="radioStyle" name="otype" value="2" checked="checked" />月
+				<input type="radio" class="radioStyle" name="otype" value="3" />日
+				<input type="radio" class="radioStyle" name="otype" value="4" />周
+				<input class="easyui-combobox" name="item" id="item">
+				<a href="javascript:serachitemloads();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
+			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="junctionOverproofChart" style="height:500px;width:800px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		<div id="itemOverproofChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		
+	    <table id="itemOverproofTable" style="table-layout: fixed; width:100%;"></table>
+	    
 	</div>
   </body>
 </html>

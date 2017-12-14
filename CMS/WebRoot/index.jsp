@@ -115,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<ul>
     		<li><a href="javascript:openItemEfficiency()"><i class="iconfont icon-bijiben"></i>项目部工效</a></li>
     		<li><a href="javascript:openItemHour()"><i class="iconfont icon-bijiben"></i>项目部焊口焊接工时</a></li>
-    		<li><a href="javascript:openDetailoverproofs()"><i class="iconfont icon-bijiben"></i>项目部焊接工艺超标明细</a></li>
+    		<li><a href="javascript:openItemoverproofs()"><i class="iconfont icon-bijiben"></i>项目部焊接工艺超标统计</a></li>
     		<li><a href="javascript:openItemovertime()"><i class="iconfont icon-bijiben"></i>项目部超时待机统计</a></li>
     		<li><a href="javascript:openItemLoads()"><i class="iconfont icon-bijiben"></i>项目部设备负荷率</a></li>
     		<li><a href="javascript:openItemNoLoads()"><i class="iconfont icon-bijiben"></i>项目部设备空载率</a></li>

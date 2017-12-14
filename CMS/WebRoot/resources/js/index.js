@@ -199,10 +199,6 @@ function openItemovertime(){
 	addTab("项目部超时待机统计","itemChart/goItemOvertime");
 }
 
-function openItemovertime(){
-	addTab("项目部超时待机统计","itemChart/goItemOvertime");
-}
-
 function openItemLoads(){
 	addTab("项目部设备负荷率","itemChart/goItemLoads");
 }
@@ -215,8 +211,8 @@ function openItemTd(){
 	addTab("项目部实时监测","td/AllTdp");
 }
 
-function openDetailoverproofs(){
-	addTab("项目部焊接工艺超标明细","itemChart/goDetailoverproof");
+function openItemoverproofs(){
+	addTab("项目部焊接工艺超标统计","itemChart/goItemoverproof");
 }
 
 function openBlocEfficiency(){

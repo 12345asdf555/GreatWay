@@ -245,18 +245,18 @@ public class BlocChartController {
 		try{
 			List<ModelDto> list = lm.getBlocOverproof(dto);
 			List<LiveData> ins = lm.getBlocChildren();
-			int[] num = null;
+			BigInteger[] num = null;
 			for(LiveData live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
 			for(int i=0;i<ins.size();i++){
-				num = new int[time.size()];
+				num = new BigInteger[time.size()];
 				for(int j=0;j<time.size();j++){
-					num[j] = 0;
+					num[j] = new BigInteger("0");
 					for(ModelDto l:list){
 						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = Integer.parseInt(l.getOverproof().toString());;
+							num[j] = l.getOverproof();
 						}
 					}
 				}

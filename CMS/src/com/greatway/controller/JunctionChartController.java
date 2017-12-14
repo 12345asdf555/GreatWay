@@ -107,6 +107,7 @@ public class JunctionChartController {
 		request.setAttribute("junctionno", request.getParameter("junctionno"));
 		request.setAttribute("time", request.getParameter("time"));
 		String itemid = request.getParameter("itemid");
+		request.setAttribute("itemid", itemid);
 		insm.showParent(request,itemid);
 		lm.getUserId(request);
 		return "junctionchart/junctionoverproof";
@@ -299,13 +300,13 @@ public class JunctionChartController {
 	@RequestMapping("/getjunctionoverproof")
 	@ResponseBody
 	public String getjunctionoverproof(HttpServletRequest request,@RequestParam String welderno,
-			@RequestParam String machineno,@RequestParam String junctionno,@RequestParam String time){
+			@RequestParam String machineno,@RequestParam String junctionno,@RequestParam String time,@RequestParam BigInteger itemid){
 		JSONObject obj = new JSONObject();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONArray ary1 = new JSONArray();
 		try{
-			List<ModelDto> causeoverproof = lm.getjunctionoverproof(welderno, machineno, junctionno, time);
+			List<ModelDto> causeoverproof = lm.getjunctionoverproof(welderno, machineno, junctionno, time, itemid);
 			int[] num = new int[causeoverproof.size()];
 			for(int i=0;i<causeoverproof.size();i++){
 				num[i] = Integer.parseInt(causeoverproof.get(i).getOverproof().toString());
