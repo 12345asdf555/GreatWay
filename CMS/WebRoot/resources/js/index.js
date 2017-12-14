@@ -207,6 +207,10 @@ function openItemNoLoads(){
 	addTab("项目部设备空载率","itemChart/goItemNoLoads");
 }
 
+function openItemIdle(){
+	addTab("项目部设备闲置率","itemChart/goItemIdle");
+}
+
 function openItemTd(){
 	addTab("项目部实时监测","td/AllTdp");
 }

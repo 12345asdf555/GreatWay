@@ -15,17 +15,24 @@ $(document).ready(function(){
 	showItemOverptimeChart();
 })
 
-function showItemOverptimeChart(){
-	var array1 = new Array();
-	var array2 = new Array();
-	var parent = $("#parent").val();
+function setParam(){
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var item = $("#item").combobox("getValue");
 	var otype = $("input[name='otype']:checked").val();
+	chartStr += "&item="+item+"&otype="+otype+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function showItemOverptimeChart(){
+	setParam();
+	var array1 = new Array();
+	var array2 = new Array();
 	var Series = [];
+	var parent = $("#parent").val();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemOvertime?parent="+parent+"&item="+item+"&otype="+otype+chartStr,
+         url : "itemChart/getItemOvertime?parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -101,17 +108,14 @@ function showItemOverptimeChart(){
 	charts.hideLoading();
 }
 
-
 function ItemtimeDatagrid(){
-	var item = $("#item").combobox("getValue");
+	setParam();
 	var parent = $("#parent").val();
-	var otype = $("input[name='otype']:checked").val();
-	var number = $("#number").val();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemOvertime?item="+item+"&parent="+parent+"&otype="+otype+chartStr,
+         url : "itemChart/getItemOvertime?parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -139,7 +143,7 @@ function ItemtimeDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "itemChart/getItemOvertime?item="+item+"&parent="+parent+"&otype="+otype+chartStr,
+			url : "itemChart/getItemOvertime?parent="+parent+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -176,10 +180,8 @@ function ItemtimeCombobox(){
 }
 
 function serachItemOvertime(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var number = $("#number").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&number="+number;
+	chartStr += "&number="+number;
 	showItemOverptimeChart();
 	ItemtimeDatagrid();
 }

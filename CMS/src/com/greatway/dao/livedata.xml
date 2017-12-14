@@ -1796,7 +1796,9 @@
 	
 	<!-- 项目部闲置率 -->
 	<select id="getItemidle" resultMap="dtoMap">
-		SELECT fmachine_id, 
+		SELECT * FROM(
+		SELECT (SELECT count(fid) from tb_welding_machine where finsframework_id = #{itemid} )-count(fmachine_id) num,weldTime,fname from(
+        SELECT fmachine_id, 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
 				DATE_FORMAT( fweldtime,  '%Y' )
@@ -1811,11 +1813,10 @@
 				weekofyear(fweldtime)
 			</if>
 		</if>
-		weldTime
-		FROM tb_live_data l
+		weldTime ,i.fname FROM tb_live_data l
 		INNER JOIN tb_welding_machine m ON m.fequipment_no = l.fmachine_id
 		INNER JOIN tb_insframework i ON i.fid = m.finsframework_id
-		WHERE  i.fid = #{itemid}
+		WHERE  i.fid = #{itemid} 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -1824,21 +1825,8 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		GROUP BY fmachine_id, 
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
+		GROUP BY weldTime,fmachine_id )k group by weldTime
+		) TEMP
 	</select>
 	
 	<select id="getMachineCount" resultType="java.lang.Integer">

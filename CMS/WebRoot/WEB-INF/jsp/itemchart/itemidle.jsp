@@ -28,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/echarts.js"></script>
+	<script type="text/javascript" src="resources/js/getTimeByYear.js"></script>
 	<script type="text/javascript" src="resources/js/itemchart/itemidle.js"></script>
   </head>
   
@@ -42,6 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
 				闲置时长：
 				<select class="easyui-combobox" name="otype" id="otype"></select>
+				<input class="easyui-combobox" name="item" id="item">
 				<a href="javascript:serachitemIdle();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>

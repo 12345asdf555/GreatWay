@@ -669,22 +669,9 @@ public class ItemChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String item = request.getParameter("item");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
-		if(!iutil.isNull(parentId)){
-			//处理用户数据权限
-			BigInteger uid = lm.getUserId(request);
-			String afreshLogin = (String)request.getAttribute("afreshLogin");
-			if(iutil.isNull(afreshLogin)){
-				return "0";
-			}
-			int types = insm.getUserInsfType(uid);
-			if(types==22){
-				parentId = insm.getUserInsfId(uid).toString();
-			}else if(types==23){
-				dto.setParent(insm.getUserInsfId(uid));
-			}
-		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -694,6 +681,8 @@ public class ItemChartController {
 		}
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
+		}else{
+			parent = new BigInteger(item);
 		}
 		if(iutil.isNull(type)){
 			if(type.equals("1")){
@@ -722,50 +711,32 @@ public class ItemChartController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		JSONArray arys = new JSONArray();
-		JSONArray arys1 = new JSONArray();
+		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getItemIdle(dto, parent);
-			List<LiveData> machine = lm.getMachine(parent);
-			double[] num = null;
-			for(LiveData live :time){
-				json.put("weldTime",live.getWeldTime());
-				arys.add(json);
-			}
-			num = new double[time.size()];
-			for(int j=0;j<time.size();j++){
-				int machineCount = lm.getMachineCount(parent);
-				for(int i=0;i<machine.size();i++){
-					if(list.size()>0){
-						for(ModelDto l:list){
-							if(machine.get(i).getFname().equals(l.getFmachine_id()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-								machineCount = machineCount-1;
-							}
+			BigInteger[] num = new BigInteger[time.size()];
+			if(list.size()>0){
+				for(int i=0;i<time.size();i++){
+					num[i] = new BigInteger("0");
+					for(ModelDto m:list){
+						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
+							num[i] = m.getNum();
 						}
 					}
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("num",num[i]);
+					ary.add(json);
 				}
-				num[j] = machineCount;
+				object.put("name", list.get(0).getFname());
 			}
-			json.put("num",num);
-			json.put("name", insm.getInsframeworkById(parent));
-			arys1.add(json);
-			JSONObject object = new JSONObject();
-			for(int i=0;i<time.size();i++){
-				for(int j=0;j<arys1.size();j++){
-					JSONObject js = (JSONObject)arys1.get(j);
-					String loads = js.getString("num").substring(1, js.getString("num").length()-1);
-					String[] str = loads.split(",");
-					object.put("a", str[i]);
-				}
-				object.put("w",time.get(i).getWeldTime());
-				ary.add(object);
-			}
+			object.put("num", num);
+			arys.add(object);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		obj.put("total", total);
 		obj.put("rows", ary);
 		obj.put("arys", arys);
-		obj.put("arys1", arys1);
 		return obj.toString();
 	}
 	

@@ -28,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/echarts.js"></script>
+	<script type="text/javascript" src="resources/js/getTime.js"></script>
 	<script type="text/javascript" src="resources/js/itemchart/itemnoloads.js"></script>
   </head>
   
@@ -42,8 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
 				时间跨度:
 				<input type="radio" class="radioStyle" name="otype" value="1" />年
-				<input type="radio" class="radioStyle" name="otype" value="2" checked="checked" />月
-				<input type="radio" class="radioStyle" name="otype" value="3" />日
+				<input type="radio" class="radioStyle" name="otype" value="2" />月
+				<input type="radio" class="radioStyle" name="otype" value="3" checked="checked" />日
 				<input type="radio" class="radioStyle" name="otype" value="4" />周
 				<input class="easyui-combobox" name="item" id="item">
 				<a href="javascript:serachitemnoloads();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
