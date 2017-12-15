@@ -10,11 +10,17 @@ import com.greatway.model.Dictionarys;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface DictionaryMapper extends Mapper<Dictionarys> {
-	List<Dictionarys> getDictionaryAll(@Param("dto") Dictionarys dto);
+	List<Dictionarys> getDictionaryAll(@Param("str")String str);
 	
 	void addDictionary(Dictionarys d);
 	
 	void editDictionary(Dictionarys d);
+	
+	int getDictionaryMaxValue(int typeid);
+	
+	Dictionarys getDictionaryByFid(int id);
+	
+	void deleteDictionary(int id);
 	
 	BigInteger getDictionaryByValue(@Param("value")int value);
 	

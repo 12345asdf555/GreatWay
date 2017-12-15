@@ -67,6 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <li><a href="javascript:openWelder()"><i class="iconfont icon-bijiben"></i>焊工管理</a></li>
 	        <li><a href="javascript:openInsframework()"><i class="iconfont icon-bijiben"></i>组织机构管理</a></li>
 	        <li><a href="javascript:openGather()"><i class="iconfont icon-bijiben"></i>采集模块管理</a></li>
+	        <li><a href="javascript:openDictionary()"><i class="iconfont icon-bijiben"></i>字典管理</a></li>
         </ul>
     </div>
 	<!-- 集团 -->
