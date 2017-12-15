@@ -4,12 +4,14 @@ $(function(){
 var chartStr = "";
 
 function showblocHourChart(){
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var array1 = new Array();
 	var array2 = new Array();
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : encodeURI("blocChart/getBlocHour"+chartStr),
+         url : encodeURI("blocChart/getBlocHour?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+chartStr),
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -80,12 +82,14 @@ function showblocHourChart(){
 }
 
 function BlocHourDatagrid(){
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	$("#blocHourTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#blocHourChart").height()-$("#blocHour_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "blocChart/getBlocHour",
+		url : "blocChart/getBlocHour?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+chartStr,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -203,14 +207,8 @@ function commitChecked(){
 	var rows = $("#classify").datagrid("getSelected");
 	search += " (fmaterial='"+rows.material+"' and fexternal_diameter='"+rows.external_diameter+"' and fwall_thickness='"+rows.wall_thickness+"' and fnextExternal_diameter='"+rows.nextExternal_diameter+
 	"' and fnextwall_thickness ='"+rows.nextwall_thickness+"' and fnext_material ='"+rows.nextmaterial+"')";
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#blocHourTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2,
-		"search" : search
-	});
-	chartStr = "?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
+	chartStr += "&search="+search;
+	BlocHourDatagrid();
 	showblocHourChart();
 }
 

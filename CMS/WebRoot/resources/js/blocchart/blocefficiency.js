@@ -15,15 +15,23 @@ $(document).ready(function(){
 	showblocEfficiencyChart();
 })
 
+function setParam(){
+	var parent = $('#parent').combobox('getValue');
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	var otype = $("input[name='otype']:checked").val();
+	chartStr = "?parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
+}
+
 function showblocEfficiencyChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
-	var parent = $('#parent').combobox('getValue');
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustEfficiencyChart?parent="+parent+chartStr,
+         url : "caustChart/getCaustEfficiencyChart"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -131,7 +139,7 @@ function typecombobox(){
 }
 
 function BlocEfficiencyDatagrid(){
-	var parent = $('#parent').combobox('getValue');
+	setParam();
 	$("#blocEfficiencyTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#blocEfficiencyChart").height()-$("#blocEfficiency_btn").height()-40,
@@ -139,7 +147,7 @@ function BlocEfficiencyDatagrid(){
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "blocChart/getBlocEfficiency?parent="+parent+chartStr,
+		url : "blocChart/getBlocEfficiency"+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
@@ -195,10 +203,6 @@ function BlocEfficiencyDatagrid(){
 }
 
 function serachEfficiencyBloc(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
 	showblocEfficiencyChart();
 	BlocEfficiencyDatagrid();
 }

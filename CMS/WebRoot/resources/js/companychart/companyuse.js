@@ -15,15 +15,22 @@ $(document).ready(function(){
 	showcompanyUseChart();
 })
 
+function setParam(){
+	var type = $('#type').combobox('getValue');
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?type="+type+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
 function showcompanyUseChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
 	var array3 = new Array();
-	var type = $('#type').combobox('getValue');
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "companyChart/getCompanyUse?type="+type+chartStr,
+         url : "companyChart/getCompanyUse"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -92,15 +99,14 @@ function showcompanyUseChart(){
 	charts.hideLoading();
 }
 
-
 function CaustUseDatagrid(){
-	var type = $('#type').combobox('getValue'); 
+	setParam();
 	$("#companyUseTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#companyUseChart").height()-$("#companyUse_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "companyChart/getCompanyUse?type="+type+chartStr,
+		url : "companyChart/getCompanyUse"+chartStr,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -162,10 +168,7 @@ function typecombobox(){
 }
 
 function serachcompanyUse(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	CaustUseDatagrid();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 	showcompanyUseChart();
 }
 

@@ -14,16 +14,24 @@ $(document).ready(function(){
 	showCompanyOverptimeChart();
 })
 
+function setParam(){
+	var otype = $("input[name='otype']:checked").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	var number = $("#number").val();
+	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype="+otype;
+}
+
 function showCompanyOverptimeChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
 	var parent = $("#parent").val();
-	var otype = $("input[name='otype']:checked").val();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyOvertime?otype="+otype+"&parent="+parent+chartStr,
+         url : "companyChart/getCompanyOvertime?parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -99,15 +107,14 @@ function showCompanyOverptimeChart(){
 	charts.hideLoading();
 }
 
-
 function CompanytimeDatagrid(){
-	var otype = $("input[name='otype']:checked").val();
+	setParam();
 	var parent = $("#parent").val();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyOvertime?otype="+otype+"&parent="+parent+chartStr,
+         url : "companyChart/getCompanyOvertime?parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -131,7 +138,7 @@ function CompanytimeDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "companyChart/getCompanyOvertime?otype="+otype+"&parent="+parent+chartStr,
+			url : "companyChart/getCompanyOvertime?parent="+parent+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -141,11 +148,8 @@ function CompanytimeDatagrid(){
 }
 
 function serachCompanyOvertime(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
 	var number = $("#number").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype+"&number="+number;
+	chartStr += "&number="+number;
 	showCompanyOverptimeChart();
 	CompanytimeDatagrid();
 }

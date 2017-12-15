@@ -7,14 +7,21 @@ $(document).ready(function(){
 	showblocIdleChart();
 })
 
+function setParam(){
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	var otype = $('#otype').combobox('getValue');
+	chartStr = "?otype="+otype+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
 function showblocIdleChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
-	var otype = $('#otype').combobox('getValue');
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "blocChart/getBlocIdle?otype="+otype+chartStr,
+         url : "blocChart/getBlocIdle"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -79,15 +86,14 @@ function showblocIdleChart(){
 	charts.hideLoading();
 }
 
-
 function BlocIdleDatagrid(){
-	var otype = $('#otype').combobox('getValue');
+	setParam();
 	$("#blocIdleTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#blocIdle_btn").height()-$("#blocIdle_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "blocChart/getBlocIdle?otype="+otype,
+		url : "blocChart/getBlocIdle"+chartStr,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -130,13 +136,7 @@ function otypecombobox(){
 }
 
 function serachBlocIdle(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#blocIdleTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2
-	});
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	BlocIdleDatagrid();
 	showblocIdleChart();
 }
 
