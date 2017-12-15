@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>集团工效</title>
+    <title>项目部焊接工艺超标统计</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -29,24 +29,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/echarts.js"></script>
 	<script type="text/javascript" src="resources/js/getTime.js"></script>
-	<script type="text/javascript" src="resources/js/blocchart/blocefficiency.js"></script>
+	<script type="text/javascript" src="resources/js/itemchart/itemoverproof.js"></script>
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" title="集团工效" style="background: witch; height: 335px;">
-	  	<div id="blocEfficiency_btn">
+    <div id="body" region="center"  hide="true"  split="true" title="项目部焊接工艺超标统计" style="background: witch; height: 335px;">
+	  	<div id="itemOverproof_btn">
 			<div style="margin-bottom: 5px;">
+				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
-				<select class="easyui-combobox" name="parent" id="parent"></select>
-				<a href="javascript:serachEfficiencyBloc();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
+				时间跨度:
+				<input type="radio" class="radioStyle" name="otype" value="1" />年
+				<input type="radio" class="radioStyle" name="otype" value="2"/>月
+				<input type="radio" class="radioStyle" name="otype" value="3"  checked="checked" />日
+				<input type="radio" class="radioStyle" name="otype" value="4" />周
+				<input class="easyui-combobox" name="item" id="item">
+				<a href="javascript:serachitemloads();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
-		<div id="blocEfficiencyChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		<div><h2>${str }</h2></div>
+		<div id="itemOverproofChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
 		
-	    <table id="blocEfficiencyTable" style="table-layout: fixed; width:100%;"></table>
+	    <table id="itemOverproofTable" style="table-layout: fixed; width:100%;"></table>
 	    
 	</div>
   </body>

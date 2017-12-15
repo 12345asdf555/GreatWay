@@ -15,17 +15,25 @@ $(document).ready(function(){
 	showitemLoadsChart();
 })
 
-function showitemLoadsChart(){
-	var array1 = new Array();
-	var array2 = new Array();
+function setParam(){
 	var parent = $("#parent").val();
 	var item = $("#item").combobox("getValue");
 	var otype = $("input[name='otype']:checked").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	var otype = $("input[name='otype']:checked").val();
+	chartStr = "?otype="+otype+"&parent="+parent+"&item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function showitemLoadsChart(){
+	setParam();
+	var array1 = new Array();
+	var array2 = new Array();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+"&item="+item+chartStr,
+         url : "itemChart/getItemLoads"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -101,16 +109,13 @@ function showitemLoadsChart(){
 	charts.hideLoading();
 }
 
-
 function ItemloadsDatagrid(){
-	var otype = $("input[name='otype']:checked").val();
-	var parent = $("#parent").val();
-	var item = $("#item").combobox("getValue");
+	setParam();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+"&item="+item+chartStr,
+         url : "itemChart/getItemLoads"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -138,7 +143,7 @@ function ItemloadsDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "itemChart/getItemLoads?otype="+otype+"&parent="+parent+"&item="+item+chartStr,
+			url : "itemChart/getItemLoads"+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -174,12 +179,7 @@ function ItemtimeCombobox(){
 	$("#item").combobox('select',data[0].value);
 }
 
-
 function serachitemloads(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
 	showitemLoadsChart();
 	ItemloadsDatagrid();
 }

@@ -1,4 +1,5 @@
 $(function(){
+	ItemtimeCombobox();
 	otypecombobox();
 	ItemidleDatagrid();
 	var afresh = $("#afresh").val();
@@ -15,28 +16,36 @@ $(document).ready(function(){
 	showitemidleChart();
 })
 
-function showitemidleChart(){
-	var array1 = new Array();
-	var array2 = new Array();
+function setParam(){
 	var parent = $("#parent").val();
 	var otype = $('#otype').combobox('getValue');
+	var item = $("#item").combobox("getValue");
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?otype="+otype+"&parent="+parent+"&item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function showitemidleChart(){
+	setParam();
+	var array1 = new Array();
+	var array2 = new Array();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemIdle?otype="+otype+"&parent="+parent+chartStr,
+         url : "itemChart/getItemIdle"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
              if (result) {
-            	 for(var i=0;i<result.arys.length;i++){
-                  	array1.push(result.arys[i].weldTime);
-            	 }
-             	array2.push(result.arys1[0].name);
+            	 for(var i=0;i<result.rows.length;i++){
+                  	array1.push(result.rows[i].weldTime);
+            	 } 
+             	array2.push(result.arys[0].name);
              	Series.push({
-             		name : result.arys1[0].name,
+             		name : result.arys[0].name,
              		type :'line',//折线图
-             		data : result.arys1[0].num,
+             		data : result.arys[0].num,
              		itemStyle : {
              			normal: {
              				label : {
@@ -98,22 +107,47 @@ function showitemidleChart(){
 	charts.hideLoading();
 }
 
+function ItemtimeCombobox(){
+	var parent = $("#parent").val();
+	$.ajax({  
+      type : "post",  
+      async : false,
+      url : "itemChart/getAllItem?parent="+parent,  
+      data : {},  
+      dataType : "json", //返回数据形式为json  
+      success : function(result) {  
+          if (result) {
+              var optionStr = '';
+              for (var i = 0; i < result.ary.length; i++) {  
+                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+                          + result.ary[i].name + "</option>";
+              }
+              $("#item").html(optionStr);
+          }  
+      },  
+      error : function(errorMsg) {  
+          alert("数据请求失败，请联系系统管理员!");  
+      }  
+	}); 
+	$("#item").combobox();
+	var data = $("#item").combobox('getData');
+	$("#item").combobox('select',data[0].value);
+}
 
 function ItemidleDatagrid(){
-	var otype = $('#otype').combobox('getValue');
-	var parent = $("#parent").val();
+	setParam();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemIdle?otype="+otype+"&parent="+parent+chartStr,
+         url : "itemChart/getItemIdle"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
-                 column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
-                 column.push({field:"a",title:"闲置数量",width:width,halign : "center",align : "left"});
+                 column.push({field:"weldTime",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
+                 column.push({field:"num",title:"闲置数量",width:width,halign : "center",align : "left"});
              }  
          },  
         error : function(errorMsg) {  
@@ -127,7 +161,7 @@ function ItemidleDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "itemChart/getItemIdle?otype="+otype+"&parent="+parent+chartStr,
+			url : "itemChart/getItemIdle"+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -146,9 +180,6 @@ function otypecombobox(){
 }
 
 function serachitemIdle(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 	showitemidleChart();
 	ItemidleDatagrid();
 }

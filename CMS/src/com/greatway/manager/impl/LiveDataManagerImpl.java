@@ -85,14 +85,14 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public int getCountTime(String welderno, String machineno, String junctionno, String time) {
-		return live.getCountTime(welderno, machineno, junctionno, time);
+	public int getCountTime(String welderno, String machineno, String junctionno, String time,BigInteger id) {
+		return live.getCountTime(welderno, machineno, junctionno, time, id);
 	}
 
 	@Override
 	public List<ModelDto> getjunctionoverproof(String welderno, String machineno, String junctionno,
-			String time) {
-		return live.getjunctionoverproof(welderno, machineno, junctionno, time);
+			String time, BigInteger itemid) {
+		return live.getjunctionoverproof(welderno, machineno, junctionno, time, itemid);
 	}
 
 	@Override
@@ -306,5 +306,10 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	public List<ModelDto> getDetailNoLoads(Page page, WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
 		return live.getDetailNoLoads(dto);
+	}
+
+	@Override
+	public List<ModelDto> getItemOverproof(WeldDto dto, BigInteger id) {
+		return live.getItemOverproof(dto, id);
 	}
 }

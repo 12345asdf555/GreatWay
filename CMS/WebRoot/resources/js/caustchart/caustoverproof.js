@@ -14,16 +14,24 @@ $(document).ready(function(){
 	showCaustOverproofChart();
 })
 
-function showCaustOverproofChart(){
-	var array1 = new Array();
-	var array2 = new Array();
+function setParam(){
 	var parent = $("#parent").val();
 	var otype = $("input[name='otype']:checked").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	var otype = $("input[name='otype']:checked").val();
+	chartStr = "?parent="+parent+"&otype="+otype+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
+}
+
+function showCaustOverproofChart(){
+	setParam();
+	var array1 = new Array();
+	var array2 = new Array();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustOverproof?parent="+parent+"&otype="+otype+chartStr,
+         url : "caustChart/getCaustOverproof"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -99,15 +107,13 @@ function showCaustOverproofChart(){
 	charts.hideLoading();
 }
 
-
 function CaustHourDatagrid(){
-	var otype = $("input[name='otype']:checked").val();
-	var parent = $("#parent").val();
+	setParam();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustOverproof?otype="+otype+"&parent="+parent+chartStr,
+         url : "caustChart/getCaustOverproof"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) { 
@@ -116,7 +122,7 @@ function CaustHourDatagrid(){
             	 width = parseInt(width);
                  column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='itemChart/goDetailoverproof?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:"<a href='itemChart/goItemoverproof?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
                  }
              }  
          },  
@@ -131,7 +137,7 @@ function CaustHourDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "caustChart/getCaustOverproof?otype="+otype+"&parent="+parent+chartStr,
+			url : "caustChart/getCaustOverproof"+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -141,10 +147,6 @@ function CaustHourDatagrid(){
 }
 
 function serachCaustHour(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
 	showCaustOverproofChart();
 	CaustHourDatagrid();
 }

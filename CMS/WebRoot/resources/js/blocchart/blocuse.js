@@ -7,15 +7,22 @@ $(document).ready(function(){
 	showblocUseChart();
 })
 
+function setParam(){
+	var type = $('#type').combobox('getValue');
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?type="+type+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
 function showblocUseChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
 	var array3 = new Array();
-	var type = $('#type').combobox('getValue');
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "blocChart/getBlocUse?type="+type+chartStr,
+         url : "blocChart/getBlocUse"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -84,15 +91,14 @@ function showblocUseChart(){
 	charts.hideLoading();
 }
 
-
 function CaustUseDatagrid(){
-	var type = $('#type').combobox('getValue'); 
+	setParam();
 	$("#blocUseTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#blocUseChart").height()-$("#blocUse_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "blocChart/getBlocUse?type="+type+chartStr,
+		url : "blocChart/getBlocUse"+chartStr,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -154,10 +160,7 @@ function typecombobox(){
 }
 
 function serachblocUse(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	CaustUseDatagrid();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 	showblocUseChart();
 }
 

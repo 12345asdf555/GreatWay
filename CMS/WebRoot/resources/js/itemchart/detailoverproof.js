@@ -12,12 +12,13 @@ $(function(){
 
 function detailOverproofDatagrid(){
 	var parent = $("#parent").val();
+	var weldtime = $("#weldtime").val();
 	$("#DetailOverproofTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#DetailOverproof_btn").height()-20,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "itemChart/getDatailOverproof?parent="+parent,
+		url : "itemChart/getDatailOverproof?parent="+parent+"&weldtime="+weldtime,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -91,7 +92,8 @@ function detailOverproofDatagrid(){
 			        	"welderno":row.fwelder_id,
 			        	"machineno":row.fmachine_id,
 			        	"junctionno":row.fjunction_id,
-			        	"time":row.weldtime
+			        	"time":row.weldtime,
+			        	"id" : row.iid
 			        },  
 			        dataType : "json", 
 			        success : function(result) {
@@ -121,23 +123,7 @@ function detailOverproofDatagrid(){
 			halign : "center",
 			align : "left",
 			hidden:true
-		}, {
-			field : 'iid',
-			title : '总数据',
-			width : 100,
-			halign : "livecount",
-			align : "left",
-			hidden:true
 		}] ]
-	});
-}
-
-function serachDetailOverproof(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#DetailOverproofTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2
 	});
 }
 

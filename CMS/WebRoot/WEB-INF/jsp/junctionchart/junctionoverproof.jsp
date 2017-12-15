@@ -39,6 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<input  name="machineno" id="machineno" type="hidden" value="${machineno }"/>
 			<input  name="junctionno" id="junctionno" type="hidden" value="${junctionno }"/>
 			<input  name="time" id="time" type="hidden" value="${time }"/>
+			<input  name="itemid" id="itemid" type="hidden" value="${itemid }"/>
 			<a class="easyui-linkbutton"  href="javascript:addtime()" iconCls="icon-add">加速</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a class="easyui-linkbutton" href="javascript:reducetime()" iconCls="icon-remove">减速</a>
 		</div>

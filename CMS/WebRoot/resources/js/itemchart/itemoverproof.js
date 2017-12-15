@@ -1,5 +1,4 @@
 $(function(){
-	CompanyloadsDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
@@ -8,21 +7,24 @@ $(function(){
 			}
 		});
 	}
+	ItemtimeCombobox();
+	ItemoverproofDatagrid();
 })
 var chartStr = "";
 $(document).ready(function(){
-	showCompanyLoadsChart();
+	showitemOverproofChart();
 })
 
 function setParam(){
 	var parent = $("#parent").val();
+	var item = $("#item").combobox("getValue");
 	var otype = $("input[name='otype']:checked").val();
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	chartStr = "?otype="+otype+"&parent="+parent+"&item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
-function showCompanyLoadsChart(){
+function showitemOverproofChart(){
 	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
@@ -30,20 +32,20 @@ function showCompanyLoadsChart(){
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyLoads"+chartStr,
+         url : "itemChart/getItemOverproof"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
              if (result) {
-            	 for(var i=0;i<result.arys.length;i++){
-                  	array1.push(result.arys[i].weldTime);
-            	 }
-                 for(var i=0;i<result.arys1.length;i++){
-                 	array2.push(result.arys1[i].name);
+            	 for(var i=0;i<result.rows.length;i++){
+                   	array1.push(result.rows[i].weldTime);
+             	 }
+                  for(var i=0;i<result.arys.length;i++){
+                  	array2.push(result.arys[i].name);
                  	Series.push({
-                 		name : result.arys1[i].name,
+                 		name : result.arys[i].name,
                  		type :'line',//折线图
-                 		data : result.arys1[i].loads,
+                 		data : result.arys[i].num,
                  		itemStyle : {
                  			normal: {
                  				label : {
@@ -61,7 +63,7 @@ function showCompanyLoadsChart(){
          }  
     }); 
    	//初始化echart实例
-	charts = echarts.init(document.getElementById("companyLoadsChart"));
+	charts = echarts.init(document.getElementById("itemOverproofChart"));
 	//显示加载动画效果
 	charts.showLoading({
 		text: '稍等片刻,精彩马上呈现...',
@@ -106,22 +108,26 @@ function showCompanyLoadsChart(){
 	charts.hideLoading();
 }
 
-function CompanyloadsDatagrid(){
+function ItemoverproofDatagrid(){
 	setParam();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyLoads"+chartStr,
+         url : "itemChart/getItemOverproof"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
-                 column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
+                 column.push({field:"weldTime",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  
-                 for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustLoads?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
+                 for(var m=0;m<result.arys.length;m++){
+                	 column.push({field:"overproof",title:result.arys[m].name,width:width,halign : "center",align : "left",
+                		 formatter : function(value,row,index){
+                			 return "<a href='itemChart/goDetailoverproof?parent="+row.itemid+"&weldtime="+row.weldTime+"'>"+value+"</a>";
+                		 }
+                	 },{field:"itemid",title:"项目id",width:width,halign : "center",align : "left",hidden : true});
                  }
              }  
          },  
@@ -129,14 +135,14 @@ function CompanyloadsDatagrid(){
              alert("请求数据失败啦,请联系系统管理员!");  
          }  
     }); 
-	 $("#companyLoadsTable").datagrid( {
+	 $("#itemOverproofTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#companyLoadsChart").height()-$("#companyLoads_btn").height()-40,
+			height : $("#body").height() - $("#itemOverproofChart").height()-$("#itemOverproof_btn").height()-40,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "companyChart/getCompanyLoads"+chartStr,
+			url : "itemChart/getItemOverproof"+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -145,9 +151,36 @@ function CompanyloadsDatagrid(){
 	 })
 }
 
-function serachCompanyloads(){
-	showCompanyLoadsChart();
-	CompanyloadsDatagrid();
+function ItemtimeCombobox(){
+	var parent = $("#parent").val();
+	$.ajax({  
+      type : "post",  
+      async : false,
+      url : "itemChart/getAllItem?parent="+parent,  
+      data : {},  
+      dataType : "json", //返回数据形式为json  
+      success : function(result) {  
+          if (result) {
+              var optionStr = '';
+              for (var i = 0; i < result.ary.length; i++) {  
+                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+                          + result.ary[i].name + "</option>";
+              }
+              $("#item").html(optionStr);
+          }  
+      },  
+      error : function(errorMsg) {  
+          alert("数据请求失败，请联系系统管理员!");  
+      }  
+	}); 
+	$("#item").combobox();
+	var data = $("#item").combobox('getData');
+	$("#item").combobox('select',data[0].value);
+}
+
+function serachitemoverproof(){
+	showitemOverproofChart();
+	ItemoverproofDatagrid();
 }
 
 //监听窗口大小变化
@@ -157,8 +190,8 @@ window.onresize = function() {
 
 //改变表格高宽
 function domresize() {
-	$("#companyLoadsTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyLoadsChart").height()-$("#companyLoads_btn").height()-10,
+	$("#itemOverproofTable").datagrid('resize', {
+		height : $("#body").height() - $("#itemOverproofChart").height()-$("#itemOverproof_btn").height()-10,
 		width : $("#body").width()
 	});
 }
