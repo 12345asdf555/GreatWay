@@ -14,16 +14,24 @@ $(document).ready(function(){
 	showcaustNoLoadsChart();
 })
 
+function setParam(){
+	var otype = $("input[name='otype']:checked").val();
+	var parent = $("#parent").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	var otype = $("input[name='otype']:checked").val();
+	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
 function showcaustNoLoadsChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
-	var parent = $("#parent").val();
-	var otype = $("input[name='otype']:checked").val();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustNoLoads?otype="+otype+"&parent="+parent+chartStr,
+         url : "caustChart/getCaustNoLoads"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -101,13 +109,12 @@ function showcaustNoLoadsChart(){
 
 
 function CaustnoloadsDatagrid(){
-	var otype = $("input[name='otype']:checked").val();
-	var parent = $("#parent").val();
+	setParam();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustNoLoads?otype="+otype+"&parent="+parent+chartStr,
+         url : "caustChart/getCaustNoLoads"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -131,7 +138,7 @@ function CaustnoloadsDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "caustChart/getCaustNoLoads?otype="+otype+"&parent="+parent+chartStr,
+			url : "caustChart/getCaustNoLoads"+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -141,10 +148,6 @@ function CaustnoloadsDatagrid(){
 }
 
 function serachCaustNoloads(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
 	showcaustNoLoadsChart();
 	CaustnoloadsDatagrid();
 }

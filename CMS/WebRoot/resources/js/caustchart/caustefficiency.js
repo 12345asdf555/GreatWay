@@ -15,16 +15,23 @@ $(document).ready(function(){
 	showcaustEfficiencyChart();
 })
 
-function showcaustEfficiencyChart(){
-	var array1 = new Array();
-	var array2 = new Array();
+function setParam(){
 	var parent = $('#parent').combobox('getValue');
 	var nextparent = $("#nextparent").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?parent="+parent+"&nextparent="+nextparent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function showcaustEfficiencyChart(){
+	setParam();
+	var array1 = new Array();
+	var array2 = new Array();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustEfficiencyChart?parent="+parent+"&nextparent="+nextparent+chartStr,
+         url : "caustChart/getCaustEfficiencyChart"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -106,8 +113,7 @@ function showcaustEfficiencyChart(){
 }
 
 function CaustEfficiencyDatagrid(){
-	var parent = $('#parent').combobox('getValue');
-	var nextparent = $("#nextparent").val();
+	setParam();
 	$("#caustEfficiencyTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#caustEfficiencyChart").height()-$("#caustEfficiency_btn").height()-40,
@@ -115,7 +121,7 @@ function CaustEfficiencyDatagrid(){
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "caustChart/getCaustEfficiency?parent="+parent+"&nextparent="+nextparent+chartStr,
+		url : "caustChart/getCaustEfficiency"+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
@@ -198,9 +204,6 @@ function typecombobox(){
 
 function serachEfficiencyCaust(){
 	$("#nextparent").val("");
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 	showcaustEfficiencyChart();
 	CaustEfficiencyDatagrid();
 }
