@@ -6,16 +6,22 @@ $(document).ready(function(){
 	showBlocnoLoadsChart();
 })
 
+function setParam(){
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	var otype = $("input[name='otype']:checked").val();
+	chartStr = "?otype="+otype+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
 function showBlocnoLoadsChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
-	var parent = $("#parent").val();
-	var otype = $("input[name='otype']:checked").val();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "blocChart/getBlocNoLoads?otype="+otype+chartStr,
+         url : "blocChart/getBlocNoLoads"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -91,14 +97,14 @@ function showBlocnoLoadsChart(){
 	charts.hideLoading();
 }
 
-
 function BlocnoloadsDatagrid(){
+	setParam();
 	var otype = $("input[name='otype']:checked").val();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "blocChart/getBlocNoLoads?otype="+otype+chartStr,
+         url : "blocChart/getBlocNoLoads"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -122,7 +128,7 @@ function BlocnoloadsDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "blocChart/getBlocNoLoads?otype="+otype+chartStr,
+			url : "blocChart/getBlocNoLoads"+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -132,10 +138,6 @@ function BlocnoloadsDatagrid(){
 }
 
 function serachBlocnoloads(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
 	showBlocnoLoadsChart();
 	BlocnoloadsDatagrid();
 }

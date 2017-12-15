@@ -24,15 +24,17 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<ModelDto> getCauseOverproof(@Param("dto") WeldDto dto,@Param("parent") BigInteger parent);
 	
+	List<ModelDto> getItemOverproof(@Param("dto") WeldDto dto,@Param("id") BigInteger id);
+	
 	List<ModelDto> getDatailOverproof(@Param("dto") WeldDto dto,@Param("parent") BigInteger parent);
 	
 	List<LiveData> getAllInsf(@Param("parent") BigInteger parent,@Param("type") int type);
 	
 	List<LiveData> getAllTime(@Param("dto") WeldDto dto);
 	
-	int getCountTime(@Param("welderno") String welderno,@Param("machineno") String machineno,@Param("junctionno") String junctionno,@Param("time") String time);
+	int getCountTime(@Param("welderno") String welderno,@Param("machineno") String machineno,@Param("junctionno") String junctionno,@Param("time") String time,@Param("id") BigInteger id);
 
-	List<ModelDto> getjunctionoverproof(@Param("welderno") String welderno,@Param("machineno") String machineno,@Param("junctionno") String junctionno,@Param("time") String time);
+	List<ModelDto> getjunctionoverproof(@Param("welderno") String welderno,@Param("machineno") String machineno,@Param("junctionno") String junctionno,@Param("time") String time,@Param("id") BigInteger id);
 
 	List<ModelDto> getcompanyOvertime(@Param("dto") WeldDto dto,@Param("num") String num,@Param("parent") BigInteger parent);
 	

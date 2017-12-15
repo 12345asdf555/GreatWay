@@ -4,7 +4,7 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
@@ -13,12 +13,14 @@ $(function(){
 function detailloadsDatagrid(){
 	var parent = $("#parent").val();
 	var weldtime = $("#weldtime").val();
+	var time1 = $("#time1").val();
+	var time2 = $("#time2").val();
 	$("#detailLoadsTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#detailLoad_btn").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getDetailLoads?parent="+parent+"&weldtime="+weldtime,
+		url : "junctionChart/getDetailLoads?parent="+parent+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],

@@ -4,7 +4,7 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
@@ -16,10 +16,12 @@ function showItemHourChart(){
 	var array1 = new Array();
 	var array2 = new Array();
 	var item = $("#item").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行
-         url : encodeURI("itemChart/getitemHour?item="+item+chartStr),
+         url : encodeURI("itemChart/getitemHour?item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+chartStr),
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -92,12 +94,14 @@ function showItemHourChart(){
 
 function itemHourDatagrid(){
 	var item = $("#item").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	$("#itemHourTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#itemHourChart").height()-$("#itemHour_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "itemChart/getitemHour?item="+item,
+		url : "itemChart/getitemHour?item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+chartStr,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -271,15 +275,9 @@ function commitChecked(){
 			search += " (fmaterial='"+rows[i].material+"' and fexternal_diameter='"+rows[i].external_diameter+"' and fwall_thickness='"+rows[i].wall_thickness+"' and fnextExternal_diameter='"+rows[i].nextExternal_diameter+
 			"' and fnextwall_thickness ='"+rows[i].nextwall_thickness+"' and Fnext_material ='"+rows[i].nextmaterial+"')";
 		}
-		var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-		var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-		$('#itemHourTable').datagrid('load', {
-			"dtoTime1" : dtoTime1,
-			"dtoTime2" : dtoTime2,
-			"search" : search
-		});
-		chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
+		chartStr = "&search="+search;
 		showItemHourChart();
+		itemHourDatagrid();
 	}
 }
 

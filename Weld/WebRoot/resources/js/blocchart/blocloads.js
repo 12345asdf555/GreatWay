@@ -6,16 +6,22 @@ $(document).ready(function(){
 	showblocLoadsChart();
 })
 
+function setParam(){
+	var otype = $("input[name='otype']:checked").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?otype="+otype+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
 function showblocLoadsChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
-	var parent = $("#parent").val();
-	var otype = $("input[name='otype']:checked").val();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "blocChart/getBlocLoads?otype="+otype+chartStr,
+         url : "blocChart/getBlocLoads"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -91,14 +97,13 @@ function showblocLoadsChart(){
 	charts.hideLoading();
 }
 
-
 function BlocloadsDatagrid(){
-	var otype = $("input[name='otype']:checked").val();
+	setParam();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "blocChart/getBlocLoads?otype="+otype+chartStr,
+         url : "blocChart/getBlocLoads"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -122,7 +127,7 @@ function BlocloadsDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "blocChart/getBlocLoads?otype="+otype+chartStr,
+			url : "blocChart/getBlocLoads"+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -132,10 +137,6 @@ function BlocloadsDatagrid(){
 }
 
 function serachBlocloads(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
 	showblocLoadsChart();
 	BlocloadsDatagrid();
 }

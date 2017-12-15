@@ -5,7 +5,7 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
@@ -15,15 +15,22 @@ $(document).ready(function(){
 	showcaustIdleTable();
 })
 
-function showcaustIdleTable(){
-	var array1 = new Array();
-	var array2 = new Array();
+function setParam(){
 	var otype = $('#otype').combobox('getValue');
 	var parent = $("#parent").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function showcaustIdleTable(){
+	setParam();
+	var array1 = new Array();
+	var array2 = new Array();
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "caustChart/getCaustIdle?otype="+otype+"&parent="+parent+chartStr,
+         url : "caustChart/getCaustIdle"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -90,6 +97,7 @@ function showcaustIdleTable(){
 
 
 function CaustIdleDatagrid(){
+	setParam();
 	var parent = $("#parent").val();
 	var otype = $('#otype').combobox('getValue');
 	$("#caustIdleTable").datagrid( {
@@ -140,13 +148,7 @@ function otypecombobox(){
 }
 
 function serachcaustIdle(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#caustIdleTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2
-	});
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	CaustIdleDatagrid();
 	showcaustIdleTable();
 }
 

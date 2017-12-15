@@ -4,7 +4,7 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
@@ -14,16 +14,23 @@ $(document).ready(function(){
 	showCaustOverptimeChart();
 })
 
+function setParam(){
+	var otype = $("input[name='otype']:checked").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype="+otype;
+}
+
 function showCaustOverptimeChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
 	var parent = $("#parent").val();
-	var otype = $("input[name='otype']:checked").val();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustOvertime?otype="+otype+"&parent="+parent+chartStr,
+         url : "caustChart/getCaustOvertime?parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -99,15 +106,14 @@ function showCaustOverptimeChart(){
 	charts.hideLoading();
 }
 
-
 function CausttimeDatagrid(){
-	var otype = $("input[name='otype']:checked").val();
+	setParam();
 	var parent = $("#parent").val();
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustOvertime?otype="+otype+"&parent="+parent+chartStr,
+         url : "caustChart/getCaustOvertime?parent="+parent+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -131,7 +137,7 @@ function CausttimeDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "caustChart/getCaustOvertime?otype="+otype+"&parent="+parent+chartStr,
+			url : "caustChart/getCaustOvertime?parent="+parent+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -141,11 +147,8 @@ function CausttimeDatagrid(){
 }
 
 function serachCaustOvertime(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
 	var number = $("#number").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype+"&number="+number;
+	chartStr += "&number="+number;
 	showCaustOverptimeChart();
 	CausttimeDatagrid();
 }

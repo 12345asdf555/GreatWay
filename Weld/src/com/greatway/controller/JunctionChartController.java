@@ -107,6 +107,7 @@ public class JunctionChartController {
 		request.setAttribute("junctionno", request.getParameter("junctionno"));
 		request.setAttribute("time", request.getParameter("time"));
 		String itemid = request.getParameter("itemid");
+		request.setAttribute("itemid", itemid);
 		insm.showParent(request,itemid);
 		lm.getUserId(request);
 		return "junctionchart/junctionoverproof";
@@ -121,10 +122,15 @@ public class JunctionChartController {
 	public String goDetailLoads(HttpServletRequest request){
 		String weldtime = request.getParameter("weldtime");
 		String itemid = request.getParameter("itemid");
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
 		insm.showParent(request,itemid);
 		lm.getUserId(request);
 		request.setAttribute("parent",itemid);
 		request.setAttribute("weldtime",weldtime);
+		request.setAttribute("weldtime",weldtime);
+		request.setAttribute("time1",time1);
+		request.setAttribute("time2",time2);
 		return "junctionchart/detailloads";
 	}
 	
@@ -299,13 +305,13 @@ public class JunctionChartController {
 	@RequestMapping("/getjunctionoverproof")
 	@ResponseBody
 	public String getjunctionoverproof(HttpServletRequest request,@RequestParam String welderno,
-			@RequestParam String machineno,@RequestParam String junctionno,@RequestParam String time){
+			@RequestParam String machineno,@RequestParam String junctionno,@RequestParam String time,@RequestParam BigInteger itemid){
 		JSONObject obj = new JSONObject();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONArray ary1 = new JSONArray();
 		try{
-			List<ModelDto> causeoverproof = lm.getjunctionoverproof(welderno, machineno, junctionno, time);
+			List<ModelDto> causeoverproof = lm.getjunctionoverproof(welderno, machineno, junctionno, time, itemid);
 			int[] num = new int[causeoverproof.size()];
 			for(int i=0;i<causeoverproof.size();i++){
 				num[i] = Integer.parseInt(causeoverproof.get(i).getOverproof().toString());
@@ -339,9 +345,17 @@ public class JunctionChartController {
 		}
 		String parent = request.getParameter("parent");
 		String weldtime = request.getParameter("weldtime");
+		String time1 = request.getParameter("time1");
+		String time2 = request.getParameter("time2");
 		WeldDto dto = new WeldDto();
 		if(iutil.isNull(weldtime)){
-			dto.setDtoTime1("%"+weldtime+"%");
+			dto.setTime("%"+weldtime+"%");
+		}
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
 		}
 		if(iutil.isNull(parent)){
 			dto.setParent(new BigInteger(parent));

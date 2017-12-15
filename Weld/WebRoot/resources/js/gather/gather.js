@@ -40,8 +40,7 @@ function GatherDatagrid(){
 			title : '所属项目',
 			width : 100,
 			halign : "center",
-			align : "left",
-			hidden : true
+			align : "left"
 		}, {
 			field : 'status',
 			title : '采集模块状态',

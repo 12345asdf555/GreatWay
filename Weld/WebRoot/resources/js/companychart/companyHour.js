@@ -4,13 +4,20 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
 })
 var chartStr = "";
+function setParam(){
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
 function showCompanyHourChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
 	var parent = $("#parent").val();
@@ -88,13 +95,14 @@ function showCompanyHourChart(){
 }
 
 function CompanyHourDatagrid(){
+	setParam();
 	var parent = $("#parent").val();
 	$("#companyHourTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "companyChart/getCompanyHour?parent="+parent,
+		url : "companyChart/getCompanyHour?parent="+parent+chartStr,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -217,14 +225,8 @@ function commitChecked(){
 	var rows = $("#classify").datagrid("getSelected");
 	search += " (fmaterial='"+rows.material+"' and fexternal_diameter='"+rows.external_diameter+"' and fwall_thickness='"+rows.wall_thickness+"' and fnextExternal_diameter='"+rows.nextExternal_diameter+
 	"' and fnextwall_thickness ='"+rows.nextwall_thickness+"' and fnext_material ='"+rows.nextmaterial+"')";
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#companyHourTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2,
-		"search" : search
-	});
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&search="+search;
+	chartStr += "&search="+search;
+	CompanyHourDatagrid();
 	showCompanyHourChart();
 }
 

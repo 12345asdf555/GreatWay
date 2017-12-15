@@ -5,7 +5,7 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
@@ -15,14 +15,22 @@ $(document).ready(function(){
 	showcaustUseChart();
 })
 
+function setParam(){
+	var type = $("#type").combobox('getValue');
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?type="+type+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
 function showcaustUseChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
-	var type = $('#type').combobox('getValue');
+	var array3 = new Array();
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "caustChart/getCaustUse?type="+type+chartStr,
+         url : "caustChart/getCaustUse"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -30,6 +38,7 @@ function showcaustUseChart(){
                  for(var i=0;i<result.rows.length;i++){
                  	array1.push(result.rows[i].fname);
                  	array2.push(result.rows[i].time);
+                 	array3.push(result.rows[i].type);
                  }
              }  
          },  
@@ -49,7 +58,10 @@ function showcaustUseChart(){
 			text: "事业部单台设备运行数据统计"
 		},
 		tooltip:{
-			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
+			trigger: 'axis',//坐标轴触发，即是否跟随鼠标集中显示数据
+			formatter : function(params){//处理鼠标集中显示的数据格式,显示类型
+				return params[0].axisValue+" - "+array3[params[0].dataIndex]+"<br/>"+params[0].seriesName+"："+params[0].value;
+			}
 		},
 		legend:{
 			data:['时长(h)']
@@ -89,13 +101,13 @@ function showcaustUseChart(){
 
 
 function CaustUseDatagrid(){
-	var type = $('#type').combobox('getValue');
+	setParam();
 	$("#caustUseTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#caustUseChart").height()-$("#caustUse_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "caustChart/getCaustUse?type="+type+chartStr,
+		url : "caustChart/getCaustUse"+chartStr,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -157,10 +169,7 @@ function typecombobox(){
 }
 
 function serachcaustUse(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	CaustUseDatagrid();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 	showcaustUseChart();
 }
 

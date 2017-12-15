@@ -4,7 +4,7 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
@@ -14,16 +14,23 @@ $(document).ready(function(){
 	showCompanyOverproofChart();
 })
 
-function showCompanyOverproofChart(){
-	var array1 = new Array();
-	var array2 = new Array();
+function setParam(){
 	var parent = $("#parent").val();
 	var otype = $("input[name='otype']:checked").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function showCompanyOverproofChart(){
+	setParam();
+	var array1 = new Array();
+	var array2 = new Array();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyOverproof?otype="+otype+"&parent="+parent+chartStr,
+         url : "companyChart/getCompanyOverproof"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -99,15 +106,13 @@ function showCompanyOverproofChart(){
 	charts.hideLoading();
 }
 
-
 function CompanyHourDatagrid(){
-	var otype = $("input[name='otype']:checked").val();
+	setParam();
 	var column = new Array();
-	var parent = $("#parent").val();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "companyChart/getCompanyOverproof?otype="+otype+"&parent="+parent+chartStr,
+         url : "companyChart/getCompanyOverproof"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -130,7 +135,7 @@ function CompanyHourDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "companyChart/getCompanyOverproof?otype="+otype+"&parent="+parent+chartStr,
+			url : "companyChart/getCompanyOverproof"+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -140,10 +145,6 @@ function CompanyHourDatagrid(){
 }
 
 function serachCompanyOverproof(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
 	showCompanyOverproofChart();
 	CompanyHourDatagrid();
 }

@@ -5,7 +5,7 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
@@ -15,16 +15,23 @@ $(document).ready(function(){
 	showcompanyEfficiencyChart();
 })
 
-function showcompanyEfficiencyChart(){
-	var array1 = new Array();
-	var array2 = new Array();
+function setParam(){
 	var parent = $('#parent').combobox('getValue');
 	var nextparent = $("#nextparent").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?parent="+parent+"&nextparent="+nextparent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function showcompanyEfficiencyChart(){
+	setParam();
+	var array1 = new Array();
+	var array2 = new Array();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "caustChart/getCaustEfficiencyChart?parent="+parent+"&nextparent="+nextparent+chartStr,
+         url : "caustChart/getCaustEfficiencyChart"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -132,8 +139,7 @@ function typecombobox(){
 }
 
 function CompanyEfficiencyDatagrid(){
-	var parent = $('#parent').combobox('getValue');
-	var nextparent = $("#nextparent").val();
+	setParam();
 	$("#companyEfficiencyTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-40,
@@ -141,7 +147,7 @@ function CompanyEfficiencyDatagrid(){
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "companyChart/getCompanyEfficiency?parent="+parent+"&nextparent="+nextparent+chartStr,
+		url : "companyChart/getCompanyEfficiency"+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
@@ -198,9 +204,6 @@ function CompanyEfficiencyDatagrid(){
 
 function serachEfficiencyCompany(){
 	$("#nextparent").val("");
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 	showcompanyEfficiencyChart();
 	CompanyEfficiencyDatagrid();
 }

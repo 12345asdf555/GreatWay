@@ -6,10 +6,16 @@ $(document).ready(function(){
 	showBlocOverptimeChart();
 })
 
+function setParam(){
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
 function showBlocOverptimeChart(){
+	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
-	var parent = $("#parent").val();
 	var otype = $("input[name='otype']:checked").val();
 	var Series = [];
 	 $.ajax({  
@@ -91,8 +97,8 @@ function showBlocOverptimeChart(){
 	charts.hideLoading();
 }
 
-
 function BloctimeDatagrid(){
+	setParam();
 	var otype = $("input[name='otype']:checked").val();
 	var column = new Array();
 	 $.ajax({  
@@ -132,11 +138,8 @@ function BloctimeDatagrid(){
 }
 
 function serachBlocOvertime(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
 	var number = $("#number").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype+"&number="+number;
+	chartStr += "&number="+number;
 	showBlocOverptimeChart();
 	BloctimeDatagrid();
 }

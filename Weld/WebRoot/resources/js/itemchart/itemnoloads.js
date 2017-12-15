@@ -3,7 +3,7 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
@@ -15,17 +15,25 @@ $(document).ready(function(){
 	showitemNoLoadsChart();
 })
 
-function showitemNoLoadsChart(){
-	var array1 = new Array();
-	var array2 = new Array();
+function setParam(){
 	var parent = $("#parent").val();
 	var otype = $("input[name='otype']:checked").val();
 	var item = $("#item").combobox("getValue");
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	var otype = $("input[name='otype']:checked").val();
+	chartStr = "?otype="+otype+"&parent="+parent+"&item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function showitemNoLoadsChart(){
+	setParam();
+	var array1 = new Array();
+	var array2 = new Array();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemNoLoads?otype="+otype+"&parent="+parent+"&item="+item+chartStr,
+         url : "itemChart/getItemNoLoads"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -103,16 +111,14 @@ function showitemNoLoadsChart(){
 
 
 function ItemnoloadsDatagrid(){
-	var otype = $("input[name='otype']:checked").val();
-	var parent = $("#parent").val();
-	var item = $("#item").combobox("getValue");
+	setParam();
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
          async : false,
-         url : "itemChart/getItemNoLoads?otype="+otype+"&parent="+parent+"&item="+item+chartStr,
+         url : "itemChart/getItemNoLoads"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -140,7 +146,7 @@ function ItemnoloadsDatagrid(){
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
-			url : "itemChart/getItemNoLoads?otype="+otype+"&parent="+parent+"&item="+item+chartStr,
+			url : "itemChart/getItemNoLoads"+chartStr,
 			singleSelect : true,
 			rownumbers : true,
 			showPageList : false,
@@ -178,10 +184,6 @@ function ItemtimeCombobox(){
 
 
 function serachitemnoloads(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
 	showitemNoLoadsChart();
 	ItemnoloadsDatagrid();
 }

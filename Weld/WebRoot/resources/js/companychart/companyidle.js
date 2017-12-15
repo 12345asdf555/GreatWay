@@ -5,7 +5,7 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
@@ -15,15 +15,22 @@ $(document).ready(function(){
 	showCompanyIdleChart();
 })
 
-function showCompanyIdleChart(){
-	var array1 = new Array();
-	var array2 = new Array();
+function setParam(){
 	var otype = $('#otype').combobox('getValue');
 	var parent = $("#parent").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function showCompanyIdleChart(){
+	setParam();
+	var array1 = new Array();
+	var array2 = new Array();
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
-         url : "companyChart/getCompanyIdle?otype="+otype+"&parent="+parent+chartStr,
+         url : "companyChart/getCompanyIdle"+chartStr,
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
@@ -88,16 +95,14 @@ function showCompanyIdleChart(){
 	charts.hideLoading();
 }
 
-
 function CaustIdleDatagrid(){
-	var otype = $('#otype').combobox('getValue');
-	var parent = $("#parent").val();
+	setParam();
 	$("#companyIdleTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "companyChart/getCompanyIdle?otype="+otype+"&parent="+parent,
+		url : "companyChart/getCompanyIdle"+chartStr,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -140,13 +145,7 @@ function otypecombobox(){
 }
 
 function serachcompanyIdle(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#companyIdleTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2
-	});
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	CaustIdleDatagrid();
 	showCompanyIdleChart();
 }
 

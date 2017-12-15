@@ -3,7 +3,6 @@ $(function(){
 	protocolCombobox();
 	statusCombobox();
 	var item = $("#item").val();
-	$("#itemid").combobox("select",item);
 	$("#itemid").combobox({
         onChange:function(){
         	//处理项目部发生改变时采集序号无法进行验证问题
@@ -11,6 +10,7 @@ $(function(){
         	$("#gatherNo").textbox("setValue",gatherno);
         } 
      });
+	$("#itemid").combobox("select",item);
 	$("#fm").form("disableValidation");
 })
 

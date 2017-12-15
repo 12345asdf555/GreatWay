@@ -4,15 +4,22 @@ $(function(){
 	if(afresh!=null && afresh!=""){
 		$.messager.confirm("提示",afresh,function(result){
 			if(result){
-				top.location.href = "/Weld/login.jsp";
+				top.location.href = "/CMS/login.jsp";
 			}
 		});
 	}
 })
 var chartStr = "";
 
-function ItemEfficiencyDatagrid(){
+function setParam(){
 	var nextparent = $("#nextparent").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?nextparent="+nextparent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function ItemEfficiencyDatagrid(){
+	setParam();
 	$("#itemEfficiencyTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height(),
@@ -20,7 +27,7 @@ function ItemEfficiencyDatagrid(){
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "itemChart/getItemEfficiency?nextparent="+nextparent+chartStr,
+		url : "itemChart/getItemEfficiency"+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
@@ -67,9 +74,6 @@ function ItemEfficiencyDatagrid(){
 }
 
 function serachEfficiencyItem(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 	ItemEfficiencyDatagrid();
 }
 

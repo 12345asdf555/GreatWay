@@ -62,10 +62,26 @@ public class ItemChartController {
 	@RequestMapping("/goDetailoverproof")
 	public String goDetailoverproof(HttpServletRequest request){
 		String parent = request.getParameter("parent");
+		String weldtime = request.getParameter("weldtime");
 		insm.showParent(request, parent);
 		lm.getUserId(request);
 		request.setAttribute("parent", parent);
+		request.setAttribute("weldtime", weldtime);
 		return "itemchart/detailoverproof";
+	}
+	
+	/**
+	 * 跳转项目部超标页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goItemoverproof")
+	public String goItemoverproof(HttpServletRequest request){
+		String parent = request.getParameter("parent");
+		insm.showParent(request, parent);
+		lm.getUserId(request);
+		request.setAttribute("parent", parent);
+		return "itemchart/itemoverproof";
 	}
 	
 	/**
@@ -225,6 +241,177 @@ public class ItemChartController {
 	}
 	
 	/**
+	 * 项目部负荷率报表信息查询
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getItemLoads")
+	@ResponseBody
+	public String getItemLoads(HttpServletRequest request){
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("parent");
+		String item = request.getParameter("item");
+		String type = request.getParameter("otype");
+		WeldDto dto = new WeldDto();
+		BigInteger parent = null;
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}else{
+			parent = new BigInteger(item);
+		}
+		if(iutil.isNull(type)){
+			if(type.equals("1")){
+				dto.setYear("year");
+			}else if(type.equals("2")){
+				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
+			}else if(type.equals("4")){
+				dto.setWeek("week");
+			}
+		}
+		List<LiveData> time = null;
+		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+			page = new Page(pageIndex,pageSize,total);
+			time = lm.getAllTime(page,dto);
+		}else{
+			time = lm.getAllTimes(dto);
+		}
+		long total = 0;
+		if(time != null){
+			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			total = pageinfo.getTotal();
+		}
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		JSONArray arys = new JSONArray();
+		JSONObject object = new JSONObject();
+		try{
+			List<ModelDto> list = lm.getItemLoads(dto, parent);
+			double[] num = new double[time.size()];
+			if(list.size()>0){
+				for(int i=0;i<time.size();i++){
+					num[i] = 0;
+					for(ModelDto m:list){
+						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
+							num[i] = (double)Math.round(m.getLoads()*100)/100;
+						}
+					}
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("loads",num[i]);
+					json.put("itemid", list.get(0).getIid());
+					ary.add(json);
+				}
+				object.put("name", list.get(0).getFname());
+			}
+			object.put("num", num);
+			arys.add(object);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		obj.put("arys", arys);
+		return obj.toString();
+	}
+
+	/**
+	 * 项目部超标统计
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getItemOverproof")
+	@ResponseBody
+	public String getItemOverproof(HttpServletRequest request){
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("parent");
+		String item = request.getParameter("item");
+		String type = request.getParameter("otype");
+		WeldDto dto = new WeldDto();
+		BigInteger id = null;
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			id = new BigInteger(parentId);
+		}else{
+			id = new BigInteger(item);
+		}
+		if(iutil.isNull(type)){
+			if(type.equals("1")){
+				dto.setYear("year");
+			}else if(type.equals("2")){
+				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
+			}else if(type.equals("4")){
+				dto.setWeek("week");
+			}
+		}
+		List<LiveData> time = null;
+		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+			page = new Page(pageIndex,pageSize,total);
+			time = lm.getAllTime(page,dto);
+		}else{
+			time = lm.getAllTimes(dto);
+		}
+		long total = 0;
+		if(time != null){
+			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			total = pageinfo.getTotal();
+		}
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		JSONArray arys = new JSONArray();
+		JSONObject object = new JSONObject();
+		try{
+			List<ModelDto> list = lm.getItemOverproof(dto, id);
+			BigInteger[] num = new BigInteger[time.size()];
+			if(list.size()>0){
+				for(int i=0;i<time.size();i++){
+					num[i] = new BigInteger("0");
+					for(ModelDto m:list){
+						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
+							num[i] = m.getOverproof();
+						}
+					}
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("overproof",num[i]);
+					json.put("itemid", list.get(0).getFid());
+					ary.add(json);
+				}
+				object.put("name", list.get(0).getFname());
+			}
+			object.put("num", num);
+			arys.add(object);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		obj.put("arys", arys);
+		return obj.toString();
+	}
+
+	
+	/**
 	 * 查询超标明细
 	 * @param request
 	 * @return
@@ -238,32 +425,17 @@ public class ItemChartController {
 		if(iutil.isNull(request.getParameter("rows"))){
 			pageSize = Integer.parseInt(request.getParameter("rows"));
 		}
-		String time1 = request.getParameter("dtoTime1");
-		String time2 = request.getParameter("dtoTime2");
 		String parentid = request.getParameter("parent");
+		String weldtime = request.getParameter("weldtime");
 		WeldDto dto = new WeldDto();
-		if(!iutil.isNull(parentid)){
-			//处理用户数据权限
-			BigInteger uid = lm.getUserId(request);
-			String afreshLogin = (String)request.getAttribute("afreshLogin");
-			if(iutil.isNull(afreshLogin)){
-				return "0";
-			}
-			int type = insm.getUserInsfType(uid);
-			if(type==21){
-				dto.setCompanyid(insm.getUserInsfId(uid));
-			}else if(type==22){
-				dto.setParent(insm.getUserInsfId(uid));
-			}else if(type==23){
-				parentid = insm.getUserInsfId(uid).toString();
-			}
+		//处理用户数据权限
+		String afreshLogin = (String)request.getAttribute("afreshLogin");
+		if(iutil.isNull(afreshLogin)){
+			return "0";
 		}
 		BigInteger parent = null;
-		if(iutil.isNull(time1)){
-			dto.setDtoTime1(time1);
-		}
-		if(iutil.isNull(time2)){
-			dto.setDtoTime2(time2);
+		if(iutil.isNull(weldtime)){
+			dto.setDtoTime1("%"+weldtime+"%");
 		}
 		if(iutil.isNull(parentid)){
 			parent = new BigInteger(parentid);
@@ -305,10 +477,10 @@ public class ItemChartController {
 	@RequestMapping("/getCountTime")
 	@ResponseBody
 	public String getCountTime(HttpServletRequest request,@RequestParam String welderno,
-			@RequestParam String machineno,@RequestParam String junctionno,@RequestParam String time){
+			@RequestParam String machineno,@RequestParam String junctionno,@RequestParam String time,@RequestParam BigInteger id){
 		JSONObject json = new JSONObject();
 		try{
-			int count = lm.getCountTime(welderno, machineno, junctionno, time);
+			int count = lm.getCountTime(welderno, machineno, junctionno, time, id);
 			json.put("count", count);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -386,91 +558,6 @@ public class ItemChartController {
 					json.put("weldTime",time.get(i).getWeldTime());
 					json.put("overtime",num[i]);
 					json.put("id", list.get(0).getIid());
-					ary.add(json);
-				}
-				object.put("name", list.get(0).getFname());
-			}
-			object.put("num", num);
-			arys.add(object);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		obj.put("total", total);
-		obj.put("rows", ary);
-		obj.put("arys", arys);
-		return obj.toString();
-	}
-
-	/**
-	 * 项目部负荷率报表信息查询
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/getItemLoads")
-	@ResponseBody
-	public String getItemLoads(HttpServletRequest request){
-		String time1 = request.getParameter("dtoTime1");
-		String time2 = request.getParameter("dtoTime2");
-		String parentId = request.getParameter("parent");
-		String item = request.getParameter("item");
-		String type = request.getParameter("otype");
-		WeldDto dto = new WeldDto();
-		BigInteger parent = null;
-		if(iutil.isNull(time1)){
-			dto.setDtoTime1(time1);
-		}
-		if(iutil.isNull(time2)){
-			dto.setDtoTime2(time2);
-		}
-		if(iutil.isNull(parentId)){
-			parent = new BigInteger(parentId);
-		}else{
-			parent = new BigInteger(item);
-		}
-		if(iutil.isNull(type)){
-			if(type.equals("1")){
-				dto.setYear("year");
-			}else if(type.equals("2")){
-				dto.setMonth("month");
-			}else if(type.equals("3")){
-				dto.setDay("day");
-			}else if(type.equals("4")){
-				dto.setWeek("week");
-			}
-		}
-		List<LiveData> time = null;
-		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-			page = new Page(pageIndex,pageSize,total);
-			time = lm.getAllTime(page,dto);
-		}else{
-			time = lm.getAllTimes(dto);
-		}
-		long total = 0;
-		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
-			total = pageinfo.getTotal();
-		}
-		JSONObject json = new JSONObject();
-		JSONArray ary = new JSONArray();
-		JSONObject obj = new JSONObject();
-		JSONArray arys = new JSONArray();
-		JSONObject object = new JSONObject();
-		try{
-			List<ModelDto> list = lm.getItemLoads(dto, parent);
-			double[] num = new double[time.size()];
-			if(list.size()>0){
-				for(int i=0;i<time.size();i++){
-					num[i] = 0;
-					for(ModelDto m:list){
-						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-							num[i] = (double)Math.round(m.getLoads()*100)/100;
-						}
-					}
-					json.put("weldTime",time.get(i).getWeldTime());
-					json.put("loads",num[i]);
-					json.put("itemid", list.get(0).getIid());
 					ary.add(json);
 				}
 				object.put("name", list.get(0).getFname());
@@ -582,22 +669,9 @@ public class ItemChartController {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String item = request.getParameter("item");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
-		if(!iutil.isNull(parentId)){
-			//处理用户数据权限
-			BigInteger uid = lm.getUserId(request);
-			String afreshLogin = (String)request.getAttribute("afreshLogin");
-			if(iutil.isNull(afreshLogin)){
-				return "0";
-			}
-			int types = insm.getUserInsfType(uid);
-			if(types==22){
-				parentId = insm.getUserInsfId(uid).toString();
-			}else if(types==23){
-				dto.setParent(insm.getUserInsfId(uid));
-			}
-		}
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -607,6 +681,8 @@ public class ItemChartController {
 		}
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
+		}else{
+			parent = new BigInteger(item);
 		}
 		if(iutil.isNull(type)){
 			if(type.equals("1")){
@@ -635,50 +711,32 @@ public class ItemChartController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		JSONArray arys = new JSONArray();
-		JSONArray arys1 = new JSONArray();
+		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getItemIdle(dto, parent);
-			List<LiveData> machine = lm.getMachine(parent);
-			double[] num = null;
-			for(LiveData live :time){
-				json.put("weldTime",live.getWeldTime());
-				arys.add(json);
-			}
-			num = new double[time.size()];
-			for(int j=0;j<time.size();j++){
-				int machineCount = lm.getMachineCount(parent);
-				for(int i=0;i<machine.size();i++){
-					if(list.size()>0){
-						for(ModelDto l:list){
-							if(machine.get(i).getFname().equals(l.getFmachine_id()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-								machineCount = machineCount-1;
-							}
+			BigInteger[] num = new BigInteger[time.size()];
+			if(list.size()>0){
+				for(int i=0;i<time.size();i++){
+					num[i] = new BigInteger("0");
+					for(ModelDto m:list){
+						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
+							num[i] = m.getNum();
 						}
 					}
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("num",num[i]);
+					ary.add(json);
 				}
-				num[j] = machineCount;
+				object.put("name", list.get(0).getFname());
 			}
-			json.put("num",num);
-			json.put("name", insm.getInsframeworkById(parent));
-			arys1.add(json);
-			JSONObject object = new JSONObject();
-			for(int i=0;i<time.size();i++){
-				for(int j=0;j<arys1.size();j++){
-					JSONObject js = (JSONObject)arys1.get(j);
-					String loads = js.getString("num").substring(1, js.getString("num").length()-1);
-					String[] str = loads.split(",");
-					object.put("a", str[i]);
-				}
-				object.put("w",time.get(i).getWeldTime());
-				ary.add(object);
-			}
+			object.put("num", num);
+			arys.add(object);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		obj.put("total", total);
 		obj.put("rows", ary);
 		obj.put("arys", arys);
-		obj.put("arys1", arys1);
 		return obj.toString();
 	}
 	
