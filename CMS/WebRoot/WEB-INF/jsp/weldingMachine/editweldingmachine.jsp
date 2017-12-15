@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>设固定资产编号</lable>
 					<input type="hidden" id="wid" value="${w.id }">
 					<input type="hidden" id="valideno" value="${w.equipmentNo }">
-					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  value="${w.equipmentNo }" data-options="validType:['wmEnoValidate','length[4,4]'],required:true"/>
+					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  value="${w.equipmentNo }" data-options="validType:['wmEnoValidate'],required:true"/>
 				</div>
 				<div class="fitem">
 					<lable>设备类型</lable>

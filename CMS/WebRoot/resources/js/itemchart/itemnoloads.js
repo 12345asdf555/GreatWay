@@ -112,6 +112,8 @@ function showitemNoLoadsChart(){
 
 function ItemnoloadsDatagrid(){
 	setParam();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
