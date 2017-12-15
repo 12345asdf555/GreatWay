@@ -250,7 +250,9 @@ function openBlocNoLoads(){
 function openBlocIdle(){
 	addTab("集团设备闲置率","blocChart/goBlocIdle");
 }
-
+function openDictionary(){
+	addTab("字典管理",'Dictionary/goDictionary')
+}
 function addTab(title,url){
 	//该面板是否已打开
 	if(!$("#tabs").tabs('exists',title)){
