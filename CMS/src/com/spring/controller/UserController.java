@@ -142,7 +142,9 @@ public class UserController {
 	@RequestMapping("/toAddUser")
 	public String toAddUser(HttpServletRequest request){
 		String insfname = request.getParameter("name");
+		String insid = request.getParameter("insid");
 		request.setAttribute("insfname", insfname);
+		request.setAttribute("insid", insid);
 		return "user/addUser";
 	}
 	/**
