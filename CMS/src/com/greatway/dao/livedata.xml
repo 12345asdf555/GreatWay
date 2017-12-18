@@ -652,7 +652,7 @@
 		inner join tb_insframework insf on insf.fid = ins.fparent
 		where i.ftype=#{type}
 		<if test="parent!=null and parent!=''">
-			and (ins.fparent = #{parent} or i.fparent=#{parent})
+			and (i.fid = #{parent} or ins.fparent = #{parent} or i.fparent=#{parent})
 		</if>
 	</select>
 	
@@ -1534,283 +1534,8 @@
 	
 	<!-- 集团闲置率 -->
 	<select id="getBlocIdle" resultMap="dtoMap">
-		select * from (
-		select count(*)  idle,insf.fname fname,insf.fid fid from tb_welding_machine m
-		inner join  tb_insframework i on i.fid = m.finsframework_id
-		inner join tb_insframework ins on ins.fid = i.fparent
-		inner join tb_insframework insf on insf.fid = ins.fparent 
-		where fequipment_no not in(
-		select fequipment_no from (
-		select fgather_no from tb_live_data
-		where 1=1
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		group by fgather_no,
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
-		) A
-        INNER JOIN tb_gather g on g.fgather_no = A.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
-		inner join tb_insframework i on i.fid = m.finsframework_id
-		group by ins.fname,fequipment_no
-		)
-		group by ins.fid
-		union
-		SELECT 0 AS idle, ins.fname,ins.fid
-		FROM tb_insframework i
-		inner join tb_insframework ins on ins.fid = i.fparent
-		WHERE ins.fid NOT IN
-		(
-		select insf.fid from tb_welding_machine m
-		inner join  tb_insframework i on i.fid = m.finsframework_id
-		inner join tb_insframework ins on ins.fid = i.fparent
-		inner join tb_insframework insf on insf.fid = ins.fparent 
-		where fequipment_no not in(
-		select fequipment_no from (
-		select fgather_no from tb_live_data
-		where 1=1
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		group by fgather_no,
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
-		) A
-        INNER JOIN tb_gather g on g.fgather_no = A.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
-		inner join tb_insframework i on i.fid = m.finsframework_id
-		group by ins.fname,fequipment_no
-		)
-		group by ins.fid
-		)
-		and i.ftype=22
-		) temp order by fid
-	</select>
-
-	<!-- 公司闲置率 -->
-	<select id="getCompanyIdle" resultMap="dtoMap">
-		select * from (
-		select count(*)  idle,ins.fname fname,ins.fid fid from tb_welding_machine m
-		inner join  tb_insframework i on i.fid = m.finsframework_id
-		inner join tb_insframework ins on ins.fid = i.fparent
-		where fequipment_no not in(
-		select fequipment_no from (
-		select fgather_no from tb_live_data
-		where 1=1
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		group by fgather_no,
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
-		) A
-        INNER JOIN tb_gather g on g.fgather_no = A.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
-		inner join tb_insframework i on i.fid = m.finsframework_id
-		group by ins.fname,fequipment_no
-		)
-		<if test="parent!=null and parent!=''">
-			and ins.fparent = #{parent}
-		</if>
-		group by ins.fid
-		union
-		SELECT 0 AS idle, fname,fid
-		FROM tb_insframework
-		WHERE fid NOT IN
-		(
-		select ins.fid from tb_welding_machine m
-		inner join  tb_insframework i on i.fid = m.finsframework_id
-		inner join tb_insframework ins on ins.fid = i.fparent
-		where fequipment_no not in(
-		select fequipment_no from (
-		select fgather_no from tb_live_data
-		where 1=1
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		group by fgather_no,
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
-		) A
-        INNER JOIN tb_gather g on g.fgather_no = A.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
-		inner join tb_insframework i on i.fid = m.finsframework_id
-		group by ins.fname,fequipment_no
-		)
-		group by ins.fid
-		)
-		and ftype=22
-		<if test="parent!=null and parent!=''">
-			and fparent = #{parent}
-		</if>
-		) temp order by fid
-	</select>
-
-	<!-- 事业部闲置率 -->
-	<select id="getCaustIdle" resultMap="dtoMap">
-		select * from (
-		select count(*)  idle,i.fname fname,i.fid fid from tb_welding_machine m
-		inner join  tb_insframework i on i.fid = m.finsframework_id
-		inner join tb_insframework ins on ins.fid = i.fparent
-		where fequipment_no not in(
-		select fequipment_no from (
-		select fgather_no from tb_live_data
-		where 1=1
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		group by fgather_no,
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
-		) A
-        INNER JOIN tb_gather g on g.fgather_no = A.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
-		inner join tb_insframework i on i.fid = m.finsframework_id
-		group by i.fname,fequipment_no
-		)
-		<if test="parent!=null and parent!=''">
-			and (i.fparent = #{parent} or ins.fparent = #{parent})
-		</if>
-		group by i.fid
-		union 
-		SELECT 0 AS idle, i.fname,i.fid
-		FROM tb_insframework  i inner join tb_insframework ins on ins.fid = i.fparent
-		WHERE i.fid NOT
-		IN(
-		select i.fid from tb_welding_machine m
-		inner join  tb_insframework i on i.fid = m.finsframework_id
-		where fequipment_no not in(
-		select fequipment_no from (
-		select fgather_no from tb_live_data
-		where 1=1
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		group by fgather_no,
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>	
-		) A
-        INNER JOIN tb_gather g on g.fgather_no = A.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
-		inner join tb_insframework i on i.fid = m.finsframework_id
-		group by i.fname,fequipment_no
-		)
-		group by i.fid
-		)
-		and i.ftype=23
-		<if test="parent!=null and parent!=''">
-			and (i.fparent = #{parent} or ins.fparent=#{parent})
-		</if>
-		) temp order by fid
-	</select>
-	
-	<!-- 项目部闲置率 -->
-	<select id="getItemidle" resultMap="dtoMap">
 		SELECT * FROM(
-		SELECT (SELECT count(fid) from tb_welding_machine where finsframework_id = #{itemid} )-count(fequipment_no) num,weldTime,fname from(
+		SELECT count(fequipment_no) num,weldTime,fname,fid from(
         SELECT m.fequipment_no, 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
@@ -1819,8 +1544,111 @@
 			<if test="dto.month!=null and dto.month!=''">
 				DATE_FORMAT( fweldtime,  '%Y-%m' )
 			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if> weldTime ,insf.fname,insf.fid FROM tb_live_data l
+        INNER JOIN tb_gather g on g.fgather_no = l.fgather_no
+		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
+		INNER JOIN tb_insframework i ON i.fid = m.finsframework_id
+		inner join tb_insframework ins on ins.fid = i.fparent
+		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
+		WHERE  1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY weldTime,fequipment_no )k group by weldTime
+		) TEMP
+	</select>
+
+	<!-- 公司闲置率 -->
+	<select id="getCompanyIdle" resultMap="dtoMap">
+		SELECT * FROM(
+		SELECT count(fequipment_no) num,weldTime,fname,fid from(
+        SELECT m.fequipment_no, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if> weldTime ,ins.fname,ins.fid FROM tb_live_data l
+        INNER JOIN tb_gather g on g.fgather_no = l.fgather_no
+		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
+		INNER JOIN tb_insframework i ON i.fid = m.finsframework_id
+		inner join tb_insframework ins on ins.fid = i.fparent
+		WHERE  1=1
+		<if test="parent!=null and parent!=''">
+			and (i.fid = #{parent} OR ins.fid = #{parent} OR ins.fparent=#{parent}) 
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY weldTime,fequipment_no )k group by weldTime
+		) TEMP
+	</select>
+
+	<!-- 事业部闲置率 -->
+	<select id="getCaustIdle" resultMap="dtoMap">
+		SELECT * FROM(
+		SELECT count(fequipment_no) num,weldTime,fname,fid from(
+        SELECT m.fequipment_no, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime)
+			</if>
+		</if> weldTime ,i.fname,i.fid FROM tb_live_data l
+        INNER JOIN tb_gather g on g.fgather_no = l.fgather_no
+		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
+		INNER JOIN tb_insframework i ON i.fid = m.finsframework_id
+		INNER JOIN tb_insframework ins on ins.fid = i.fparent
+		WHERE 1=1
+		<if test="parent!=null and parent!=''">
+			    and (i.fparent=#{parent} or ins.fparent=#{parent})
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY weldTime,fequipment_no )k group by weldTime
+		) TEMP
+	</select>
+	
+	<!-- 项目部闲置率 -->
+	<select id="getItemidle" resultMap="dtoMap">
+		SELECT * FROM(
+		SELECT count(fequipment_no) num,weldTime,fname from(
+        SELECT m.fequipment_no, 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' )
 			</if>
 			<if test="dto.week!=null and dto.week!=''">
 				weekofyear(fweldtime)
@@ -1844,7 +1672,13 @@
 	</select>
 	
 	<select id="getMachineCount" resultType="java.lang.Integer">
-		SELECT count(fid) from tb_welding_machine where finsframework_id=#{id}
+		SELECT count(w.fid) from tb_welding_machine w
+		INNER JOIN tb_insframework i on i.fid = w.finsframework_id
+		INNER JOIN tb_insframework ins on ins.fid = i.fparent
+		where 1=1
+		<if test="id!=null and id!=''">
+			and (i.fid=#{id} or ins.fid=#{id} or ins.fparent=#{id})
+		</if>
 	</select>
 	
 	<!-- 集团单台设备运行数据统计 -->
@@ -2045,6 +1879,7 @@
 	<select id="getBlocChildren" resultMap="liveMap">
 		SELECT fid,fname from tb_insframework where ftype=21
 	</select>
+	
 	<!-- 查询工效最大值，最小值以及平均跨度 -->
 	<select id="getEfficiencyChartNum" resultMap="dtoMap">
 		select * from (select max(num) maxnum,min(num) minnum,round((max(num)-min(num))/10) avgnum,sum(num) num from (select round(count(l.fid)/60/60) num

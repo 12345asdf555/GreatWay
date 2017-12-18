@@ -6,7 +6,7 @@ $(function(){
 function getOldTime(){
 	//获取当前时间
 	var now = new Date();  
-	now.setFullYear(now.getFullYear()-1);//获取一年前的日期 
+	now.setMonth(now.getMonth()-6);//获取6个月前的日期 
     var year = now.getFullYear();//年  
     var month = now.getMonth() + 1;//月  
     var day = now.getDate();//日

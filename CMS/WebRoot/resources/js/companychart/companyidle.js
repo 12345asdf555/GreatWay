@@ -27,6 +27,7 @@ function showCompanyIdleChart(){
 	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
+	var Series = [];
 	 $.ajax({  
          type : "post",  
          async : false, //同步执行  
@@ -34,12 +35,26 @@ function showCompanyIdleChart(){
          data : {},  
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
-             if (result) {  
-                 for(var i=0;i<result.rows.length;i++){
-                 	array1.push(result.rows[i].fname);
-                 	array2.push(result.rows[i].idle);
+        	 if (result) {
+            	 for(var i=0;i<result.arys.length;i++){
+                  	array1.push(result.arys[i].weldTime);
+            	 }
+                 for(var i=0;i<result.arys1.length;i++){
+                 	array2.push(result.arys1[i].name);
+                 	Series.push({
+                 		name : result.arys1[i].name,
+                 		type :'line',//折线图
+                 		data : result.arys1[i].idle,
+                 		itemStyle : {
+                 			normal: {
+                 				label : {
+                 					show: true//显示每个折点的值
+                 				}
+                 			}
+                 		}
+                 	});
                  }
-             }  
+             }
          },  
         error : function(errorMsg) {  
              alert("图表请求数据失败啦!");  
@@ -54,13 +69,13 @@ function showCompanyIdleChart(){
 	});
 	option = {
 		title:{
-			text: "焊机闲置率"
+			text: ""
 		},
 		tooltip:{
 			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
 		},
 		legend:{
-			data:['数量']
+			data:array2
 		},
 		grid:{
 			left:'10%',//组件距离容器左边的距离
@@ -82,13 +97,9 @@ function showCompanyIdleChart(){
 			type: 'value'//value:数值轴，category:类目轴，time:时间轴，log:对数轴
 		},
 		series:[
-			{
-				name:'工时',
-				type:'bar',
-				data:array2
-			}
 		]
 	}
+	option.series = Series;
 	//为echarts对象加载数据
 	charts.setOption(option);
 	//隐藏动画加载效果
@@ -97,42 +108,41 @@ function showCompanyIdleChart(){
 
 function CaustIdleDatagrid(){
 	setParam();
-	$("#companyIdleTable").datagrid( {
-		fitColumns : true,
-		height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-40,
-		width : $("#body").width(),
-		idField : 'id',
-		url : "companyChart/getCompanyIdle"+chartStr,
-		singleSelect : true,
-		pageSize : 10,
-		pageList : [ 10, 20, 30, 40, 50],
-		rownumbers : true,
-		showPageList : false,
-		pagination : true,
-		columns : [ [ {
-			field : 'fname',
-			title : '事业部',
-			width : 100,
-			halign : "center",
-			align : "left",
-			formatter:function(value,row,index){
-				return  '<a href="caustChart/goCaustIdle?parent='+row.fid+'">'+value+'</a>';
-			}
-		}, {
-			field : 'idle',
-			title : '数量',
-			width : 100,
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'fid',
-			title : '事业id',
-			width : 100,
-			halign : "center",
-			align : "left",
-			hidden: true
-		}] ]
-	});
+	var column = new Array();
+	 $.ajax({  
+         type : "post",  
+         async : false,
+		 url : "companyChart/getCompanyIdle"+chartStr,
+         data : {},  
+         dataType : "json", //返回数据形式为json  
+         success : function(result) {  
+             if (result) {
+            	 var width=$("#body").width()/result.rows.length;
+                 column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
+                 
+                 for(var m=0;m<result.arys1.length;m++){
+                	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustIdle?parent="+result.arys1[m].id+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
+                 }
+             }  
+         },  
+        error : function(errorMsg) {  
+             alert("请求数据失败啦,请联系系统管理员!");  
+         }  
+    }); 
+	 $("#companyIdleTable").datagrid( {
+			fitColumns : true,
+			height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-40,
+			width : $("#body").width(),
+			idField : 'id',
+			pageSize : 10,
+			pageList : [ 10, 20, 30, 40, 50],
+			url : "companyChart/getCompanyIdle"+chartStr,
+			singleSelect : true,
+			rownumbers : true,
+			showPageList : false,
+			pagination : true,
+			columns :[column]
+	 })
 }
 
 function otypecombobox(){

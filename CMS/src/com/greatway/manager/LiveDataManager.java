@@ -217,7 +217,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> getCompanyIdle(Page page,WeldDto dto,BigInteger parent);
+	List<ModelDto> getCompanyIdle(WeldDto dto,BigInteger parent);
 	
 	/**
 	 * 事业部闲置率
@@ -225,7 +225,7 @@ public interface LiveDataManager {
 	 * @param parent上级id
 	 * @return
 	 */
-	List<ModelDto> getCaustIdle(Page page,WeldDto dto,BigInteger parent);
+	List<ModelDto> getCaustIdle(WeldDto dto,BigInteger parent);
 	
 	/**
 	 * 项目部闲置率
@@ -312,7 +312,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> getBlocIdle(Page page,WeldDto dto);
+	List<ModelDto> getBlocIdle(WeldDto dto);
 	
 	/**
 	 * 集团单台设备运行数据统计

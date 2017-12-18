@@ -714,13 +714,15 @@ public class ItemChartController {
 		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getItemIdle(dto, parent);
-			BigInteger[] num = new BigInteger[time.size()];
+			List<LiveData> ins = lm.getAllInsf(parent,23);
+			double[] num = new double[time.size()];
 			if(list.size()>0){
 				for(int i=0;i<time.size();i++){
-					num[i] = new BigInteger("0");
+					int count = lm.getMachineCount(ins.get(0).getFid());
+					num[i] = count;
 					for(ModelDto m:list){
 						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-							num[i] = m.getNum();
+							num[i] = count - m.getNum().doubleValue();
 						}
 					}
 					json.put("weldTime",time.get(i).getWeldTime());
@@ -728,9 +730,20 @@ public class ItemChartController {
 					ary.add(json);
 				}
 				object.put("name", list.get(0).getFname());
+				object.put("num", num);
+				arys.add(object);
+			}else{
+				int count = lm.getMachineCount(ins.get(0).getFid());
+				for(int i=0;i<time.size();i++){
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("num",count);
+					num[i] = count;
+					ary.add(json);
+				}
+				object.put("name", ins.get(0).getFname());
+				object.put("num", num);
+				arys.add(object);
 			}
-			object.put("num", num);
-			arys.add(object);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
