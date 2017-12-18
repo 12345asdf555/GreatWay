@@ -828,7 +828,7 @@ public class CompanyChartController {
 			for(ModelDto l:list){
 				double time = (double)Math.round(l.getTime()*100)/100;
 				json.put("time", time);
-				json.put("fname", l.getFname());
+				json.put("fname", l.getFname()+" - "+l.getType());
 				json.put("type", l.getType());
 				json.put("fid",l.getFid());
 				WeldDto dtos = new WeldDto();

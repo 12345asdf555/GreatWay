@@ -1719,7 +1719,7 @@
 		</if>
 		group by  e.fid,e.ftype
 		)
-		)temp
+		)temp  order by fname,time desc
 	</select>
 	
 	<!-- 公司单台设备运行数据统计 -->
@@ -1758,7 +1758,7 @@
 		</if>
 		group by e.fid,e.ftype
 		)
-		)temp
+		)temp order by fname ,time desc
 	</select>
 	
 	<!-- 事业部单台设备运行数据统计 -->
@@ -1797,7 +1797,7 @@
 		</if>
 		group by e.fid,e.ftype
 		)
-		)temp
+		)temp order by fname,time desc
 	</select>
 	
 	<select id="companyEfficiency" resultMap="dtoMap">

@@ -864,7 +864,7 @@ public class CaustChartController {
 		try{
 			for(ModelDto l:list){
 				json.put("time", Math.round((l.getTime()*100)/100));
-				json.put("fname", l.getFname());
+				json.put("fname", l.getFname()+" - "+l.getType());
 				json.put("type", l.getType());
 				json.put("fid",l.getFid());
 				WeldDto dtos = new WeldDto();
