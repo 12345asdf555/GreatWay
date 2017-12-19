@@ -146,7 +146,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         function saveUser(){
         flag = 1;
          var insframework = $("#insid").val();
-         alert(insframework);
          var sid = $("input[name='statusId']:checked").val();
          var rows = $("#tt").datagrid("getSelections");
          var str="";
