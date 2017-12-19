@@ -661,18 +661,26 @@
 		select * from(
 		select sum(OverFlage) overproof,k.* from (
 		select case when felectricity &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0 end as OverFlage, 
-		i.fid iid,j.fid jid,fmax_electricity,fmin_electricity,felectricity,DATE_FORMAT(fweldtime,'%Y-%m-%d') weldtime ,
-		i.fname iname,fwelder_id,fmachine_id ,fjunction_id,k0.fname wname from ( 
-		select felectricity,fjunction_id,fweldtime,fwelder_id,fmachine_id,w.fname from tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no where fstatus=0 ) as k0 
+		i.fid iid,j.fid jid,fmax_electricity,fmin_electricity,felectricity,DATE_FORMAT(fweldtime,'%Y-%m-%d') weldtime ,fgather_no jidgather,
+		i.fname iname,fwelder_id,fequipment_no fmachine_id,fjunction_id,k0.fname wname from ( 
+		select felectricity,fjunction_id,fweldtime,fwelder_id,fequipment_no,l.fgather_no,w.fname from tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
+        LEFT JOIN tb_gather g on g.fgather_no =l.fgather_no
+        LEFT JOIN tb_welding_machine m on m.fgather_id = g.fid where l.fstatus=0 ) as k0 
 		inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id 
 		inner join tb_insframework i on j.fitemid = i.fid 
 		where i.ftype=23
 		<if test="parent!=null and parent!=''">
 			AND i.fid = #{parent}
 		</if>
-		<if test="dto!=null and dto!=''"> 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.time!=null and dto.time!=''">
+				and fweldtime like #{dto.time}
+			</if>
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime like #{dto.dtoTime1}
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
 		)k group by fwelder_id,jid,fmachine_id,weldtime
@@ -682,7 +690,7 @@
 	<select id="getCountTime" resultType="java.lang.Integer" >
 		 select count(l.fid) from tb_live_data l inner join tb_welded_junction j on j.fwelded_junction_no = l.fjunction_id 
 		 inner join tb_insframework i on i.fid = j.fitemId
-		 where i.fid = #{id} and fwelder_id=#{welderno} and fmachine_id=#{machineno} and fjunction_id=#{junctionno} and DATE_FORMAT(fweldtime,'%Y-%m-%d') = #{time}
+		 where i.fid = #{id} and fwelder_id=#{welderno} and fgather_no=#{machineno} and fjunction_id=#{junctionno} and DATE_FORMAT(fweldtime,'%Y-%m-%d') = #{time}
 	</select>
 	
 	<!-- 超标回溯 -->
@@ -692,7 +700,7 @@
 		FROM tb_live_data l inner join tb_welded_junction j on l.fjunction_id=j.fwelded_junction_no 
 		inner join tb_insframework i on i.fid = j.fitemId
 		where DATE_FORMAT(fweldtime,'%Y-%m-%d')  = DATE_FORMAT(#{time},'%Y-%m-%d')
- 		and fjunction_id=#{junctionno} and fwelder_id=#{welderno} and fmachine_id=#{machineno} and i.fid = #{id}  group by fweldtime
+ 		and fjunction_id=#{junctionno} and fwelder_id=#{welderno} and fgather_no=#{machineno} and i.fid = #{id}  group by fweldtime
 	</select>
 	
 	<!-- 集团超时待机统计 -->
@@ -964,10 +972,12 @@
 		SELECT * FROM (
 		SELECT i.fid iid, COUNT( lid ) AS overtime, fweldtime, i.fname, k0.fname wname, fwelder_id, fmachine_id
 		FROM (
-		SELECT l.fid lid, fweldtime, fwelder_id, fname, fmachine_id,fjunction_id
+		SELECT l.fid lid, fweldtime, fwelder_id, fname, fequipment_no fmachine_id,fjunction_id
 		FROM tb_live_data l
 		LEFT JOIN tb_welder w ON l.fwelder_id = w.fwelder_no
-		WHERE  fstatus =3
+		LEFT JOIN tb_gather g on g.fgather_no =l.fgather_no
+        LEFT JOIN tb_welding_machine m on m.fgather_id = g.fid
+		WHERE  l.fstatus =3
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime like #{dto.dtoTime1}

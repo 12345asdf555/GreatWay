@@ -242,9 +242,9 @@ $(function(){
 					validator : function(value, param){
 						if(flag){
 							var validgatherno = $("#validgatherno").val();
-							var itemid = $("#itemid").combobox('getValue');
+//							var itemid = $("#itemid").combobox('getValue');
 							var olditem = $("#item").val();
-							if((validgatherno!=null || validgatherno!="") && validgatherno == value && itemid == olditem){
+							if((validgatherno!=null || validgatherno!="") && validgatherno == value){// && itemid == olditem
 								return true;
 							}
 							var result = "";
@@ -254,7 +254,7 @@ $(function(){
 								url : 'gather/gathernoValidate',
 								data : {
 									"gatherno" : value,
-									"itemid" : itemid
+//									"itemid" : itemid
 								},
 								success : function(data){
 									result = data;

@@ -63,10 +63,14 @@ public class ItemChartController {
 	public String goDetailoverproof(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		String weldtime = request.getParameter("weldtime");
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
 		insm.showParent(request, parent);
 		lm.getUserId(request);
 		request.setAttribute("parent", parent);
 		request.setAttribute("weldtime", weldtime);
+		request.setAttribute("time1", time1);
+		request.setAttribute("time2", time2);
 		return "itemchart/detailoverproof";
 	}
 	
@@ -427,6 +431,8 @@ public class ItemChartController {
 		}
 		String parentid = request.getParameter("parent");
 		String weldtime = request.getParameter("weldtime");
+		String time1 = request.getParameter("time1");
+		String time2 = request.getParameter("time2");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
 		String afreshLogin = (String)request.getAttribute("afreshLogin");
@@ -435,7 +441,13 @@ public class ItemChartController {
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(weldtime)){
-			dto.setDtoTime1("%"+weldtime+"%");
+			dto.setTime("%"+weldtime+"%");
+		}
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
 		}
 		if(iutil.isNull(parentid)){
 			parent = new BigInteger(parentid);
@@ -464,6 +476,7 @@ public class ItemChartController {
 				json.put("livecount", c.getLivecount());
 				json.put("fmax_electricity", c.getFmax_electricity());
 				json.put("fmin_electricity", c.getFmin_electricity());
+				json.put("jidgather", c.getJidgather());
 				ary.add(json);
 			}
 		}catch(Exception e){

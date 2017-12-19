@@ -88,7 +88,7 @@ function editText(){
 	var type = $("#type").val();
 	var insframework = $("#insframework").val();
 	var manu = $("#manu").val();
-	var gid = $("#validgid").val();
+	var gid = $("#gid").val();
 	$('[name="isnetworking"]:radio').each(function() { 
 		if (this.value ==isnw ) { 
 			this.checked = true;

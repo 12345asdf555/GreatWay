@@ -13,12 +13,14 @@ $(function(){
 function detailOverproofDatagrid(){
 	var parent = $("#parent").val();
 	var weldtime = $("#weldtime").val();
+	var time1 = $("#time1").val();
+	var time2 = $("#time2").val();
 	$("#DetailOverproofTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#DetailOverproof_btn").height()-20,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "itemChart/getDatailOverproof?parent="+parent+"&weldtime="+weldtime,
+		url : "itemChart/getDatailOverproof?parent="+parent+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -56,7 +58,7 @@ function detailOverproofDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter:function(value,row,index){
-				return "<a href='junctionChart/gojunctionoverproof?welderno="+row.fwelder_id+"&machineno="+row.fmachine_id+"&junctionno="+row.fjunction_id+"&time="+row.weldtime+"&itemid="+row.iid+"'>"+value+"</a>"
+				return "<a href='junctionChart/gojunctionoverproof?welderno="+row.fwelder_id+"&machineno="+row.jidgather+"&junctionno="+row.fjunction_id+"&time="+row.weldtime+"&itemid="+row.iid+"'>"+value+"</a>"
 			}
 		}, {
 			field : 'weldtime',
@@ -64,6 +66,13 @@ function detailOverproofDatagrid(){
 			width : 100,
 			halign : "center",
 			align : "left"
+		}, {
+			field : 'jidgather',
+			title : '采集编号',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden : true
 		}, {
 			field : 'fmax_electricity',
 			title : '最大电流',
@@ -90,7 +99,7 @@ function detailOverproofDatagrid(){
 			        url : "itemChart/getCountTime",  
 			        data : {
 			        	"welderno":row.fwelder_id,
-			        	"machineno":row.fmachine_id,
+			        	"machineno":row.jidgather,
 			        	"junctionno":row.fjunction_id,
 			        	"time":row.weldtime,
 			        	"id" : row.iid
