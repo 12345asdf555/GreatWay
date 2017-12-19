@@ -110,6 +110,8 @@ function showItemOverptimeChart(){
 
 function ItemtimeDatagrid(){
 	setParam();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var parent = $("#parent").val();
 	var column = new Array();
 	 $.ajax({  
@@ -126,7 +128,7 @@ function ItemtimeDatagrid(){
                  for(var m=0;m<result.arys.length;m++){
                 	 column.push({field:"overtime",title:result.arys[m].name,width:width,halign : "center",align : "left",
                 		 formatter : function(value,row,index){
-                			 return "<a href='junctionChart/goJunctionOvertime?parent="+row.id+"&weldtime="+row.weldTime+"&number="+number+"'>"+value+"</a>";
+                			 return "<a href='junctionChart/goJunctionOvertime?parent="+row.id+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&number="+number+"'>"+value+"</a>";
                 		 }
                 	 },{field:"id",title:"项目id",width:width,halign : "center",align : "left",hidden : true});
                  }

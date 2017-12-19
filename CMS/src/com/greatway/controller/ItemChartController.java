@@ -489,10 +489,11 @@ public class ItemChartController {
 	
 	@RequestMapping("/getCountTime")
 	@ResponseBody
-	public String getCountTime(HttpServletRequest request,@RequestParam String welderno,
-			@RequestParam String machineno,@RequestParam String junctionno,@RequestParam String time,@RequestParam BigInteger id){
+	public String getCountTime(HttpServletRequest request,@RequestParam String welderno
+			,@RequestParam String junctionno,@RequestParam String time,@RequestParam BigInteger id){
 		JSONObject json = new JSONObject();
 		try{
+			String machineno = request.getParameter("machineno");
 			int count = lm.getCountTime(welderno, machineno, junctionno, time, id);
 			json.put("count", count);
 		}catch(Exception e){

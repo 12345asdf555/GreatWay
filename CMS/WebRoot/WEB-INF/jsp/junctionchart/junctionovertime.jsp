@@ -38,6 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				<input  name="weldtime" id="weldtime" type="hidden" value="${weldtime }"/>
+				<input  name="time1" id="time1" type="hidden" value="${time1 }"/>
+				<input  name="time2" id="time2" type="hidden" value="${time2 }"/>
 				<input  name="number" id="number" type="hidden" value="${number }"/>
 			</div>
 		</div>

@@ -656,7 +656,7 @@
 		</if>
 	</select>
 	
-	<!-- 超标明细 -->
+	<!-- 超标明细 &-->
 	<select id="getDatailOverproof" resultMap="dtoMap">
 		select * from(
 		select sum(OverFlage) overproof,k.* from (
@@ -664,8 +664,7 @@
 		i.fid iid,j.fid jid,fmax_electricity,fmin_electricity,felectricity,DATE_FORMAT(fweldtime,'%Y-%m-%d') weldtime ,fgather_no jidgather,
 		i.fname iname,fwelder_id,fequipment_no fmachine_id,fjunction_id,k0.fname wname from ( 
 		select felectricity,fjunction_id,fweldtime,fwelder_id,fequipment_no,l.fgather_no,w.fname from tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
-        LEFT JOIN tb_gather g on g.fgather_no =l.fgather_no
-        LEFT JOIN tb_welding_machine m on m.fgather_id = g.fid where l.fstatus=0 ) as k0 
+        LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id where l.fstatus=0 ) as k0 
 		inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id 
 		inner join tb_insframework i on j.fitemid = i.fid 
 		where i.ftype=23
@@ -690,7 +689,8 @@
 	<select id="getCountTime" resultType="java.lang.Integer" >
 		 select count(l.fid) from tb_live_data l inner join tb_welded_junction j on j.fwelded_junction_no = l.fjunction_id 
 		 inner join tb_insframework i on i.fid = j.fitemId
-		 where i.fid = #{id} and fwelder_id=#{welderno} and fgather_no=#{machineno} and fjunction_id=#{junctionno} and DATE_FORMAT(fweldtime,'%Y-%m-%d') = #{time}
+         INNER join tb_welding_machine m on m.fid = l.fmachine_id
+		 where i.fid = #{id} and fwelder_id=#{welderno} and fequipment_no=#{machineno} and fjunction_id=#{junctionno} and DATE_FORMAT(fweldtime,'%Y-%m-%d') = #{time}
 	</select>
 	
 	<!-- 超标回溯 -->
@@ -699,8 +699,9 @@
 		when felectricity &lt; fmin_electricity then 1 else 0  end  as overproof,fweldtime weldtime,fjunction_id
 		FROM tb_live_data l inner join tb_welded_junction j on l.fjunction_id=j.fwelded_junction_no 
 		inner join tb_insframework i on i.fid = j.fitemId
+        LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id
 		where DATE_FORMAT(fweldtime,'%Y-%m-%d')  = DATE_FORMAT(#{time},'%Y-%m-%d')
- 		and fjunction_id=#{junctionno} and fwelder_id=#{welderno} and fgather_no=#{machineno} and i.fid = #{id}  group by fweldtime
+ 		and fjunction_id=#{junctionno} and fwelder_id=#{welderno} and fequipment_no=#{machineno} and i.fid = #{id}  group by fweldtime
 	</select>
 	
 	<!-- 集团超时待机统计 -->
@@ -967,7 +968,7 @@
 		</if>
 	</select>
 	
-	<!-- 待机明细 -->
+	<!-- 待机明细 &-->
 	<select id="getDetailovertime" resultMap="dtoMap">
 		SELECT * FROM (
 		SELECT i.fid iid, COUNT( lid ) AS overtime, fweldtime, i.fname, k0.fname wname, fwelder_id, fmachine_id
@@ -975,12 +976,17 @@
 		SELECT l.fid lid, fweldtime, fwelder_id, fname, fequipment_no fmachine_id,fjunction_id
 		FROM tb_live_data l
 		LEFT JOIN tb_welder w ON l.fwelder_id = w.fwelder_no
-		LEFT JOIN tb_gather g on g.fgather_no =l.fgather_no
-        LEFT JOIN tb_welding_machine m on m.fgather_id = g.fid
+        LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id
 		WHERE  l.fstatus =3
 		<if test="dto!=null and dto!=''">
+			<if test="dto.time!=null and dto.time!=''">
+				and fweldtime like #{dto.time}
+			</if>
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime like #{dto.dtoTime1}
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
 		) AS k0
@@ -1250,14 +1256,14 @@
 		</if>
 	</select>
 	
-	<!-- 负载率明细 -->
+	<!-- 负载率明细 &-->
 	<select id="getDetailLoads" resultMap="dtoMap">
 		SELECT * FROM (
 		SELECT AVG( ovl ) loads ,fweldtime weldTime,fid,fname,fmachine_id FROM (
-		SELECT COUNT( lid ) / ( 8 *60 *60 ) AS ovl,fweldtime,i.fid,i.fname,g.fgather_no , m.fequipment_no fmachine_id
+		SELECT COUNT( lid ) / ( 8 *60 *60 ) AS ovl,fweldtime,i.fid,i.fname,fgather_no , m.fequipment_no fmachine_id
 		FROM  
 		(
-		SELECT fid lid, fjunction_id, fweldtime,fgather_no
+		SELECT fid lid, fjunction_id, fweldtime,fgather_no,fmachine_id
 		FROM tb_live_data
 		WHERE fstatus &lt; 3 
 		<if test="dto!=null and dto!=''">
@@ -1274,8 +1280,7 @@
 		) AS k0
 		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id
 		INNER JOIN tb_insframework i ON j.fitemId = i.fid
-		INNER JOIN tb_gather g ON g.fgather_no = k0.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
+		LEFT JOIN tb_welding_machine m ON m.fid = k0.fmachine_id
 		WHERE i.ftype =23 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
@@ -1506,7 +1511,7 @@
 		)temp
 	</select>
 	
-	<!-- 空载率明细 -->
+	<!-- 空载率明细& -->
 	<select id="getDetailNoLoads" resultMap="dtoMap">
 		SELECT * 
 		FROM (
@@ -1526,8 +1531,7 @@
 		FROM tb_live_data l
         INNER JOIN tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON j.fitemId = i.fid
-		INNER JOIN tb_gather g ON g.fgather_no = l.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
+		LEFT JOIN tb_welding_machine m ON m.fid = l.fmachine_id
 		WHERE i.ftype =23 and l.fstatus =3 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
@@ -1558,8 +1562,7 @@
 				weekofyear(fweldtime)
 			</if>
 		</if> weldTime ,insf.fname,insf.fid FROM tb_live_data l
-        INNER JOIN tb_gather g on g.fgather_no = l.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
+		INNER JOIN tb_welding_machine m ON m.fid = l.fmachine_id
 		INNER JOIN tb_insframework i ON i.fid = m.finsframework_id
 		inner join tb_insframework ins on ins.fid = i.fparent
 		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
@@ -1592,8 +1595,7 @@
 				weekofyear(fweldtime)
 			</if>
 		</if> weldTime ,ins.fname,ins.fid FROM tb_live_data l
-        INNER JOIN tb_gather g on g.fgather_no = l.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
+		INNER JOIN tb_welding_machine m ON m.fid = l.fmachine_id
 		INNER JOIN tb_insframework i ON i.fid = m.finsframework_id
 		inner join tb_insframework ins on ins.fid = i.fparent
 		WHERE  1=1
@@ -1628,8 +1630,7 @@
 				weekofyear(fweldtime)
 			</if>
 		</if> weldTime ,i.fname,i.fid FROM tb_live_data l
-        INNER JOIN tb_gather g on g.fgather_no = l.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
+		INNER JOIN tb_welding_machine m ON m.fid = l.fmachine_id
 		INNER JOIN tb_insframework i ON i.fid = m.finsframework_id
 		INNER JOIN tb_insframework ins on ins.fid = i.fparent
 		WHERE 1=1
@@ -1665,8 +1666,7 @@
 			</if>
 		</if>
 		weldTime ,i.fname FROM tb_live_data l
-            INNER JOIN tb_gather g on g.fgather_no = l.fgather_no
-		INNER JOIN tb_welding_machine m ON m.fgather_id = g.fid
+		INNER JOIN tb_welding_machine m ON m.fid = l.fmachine_id
 		INNER JOIN tb_insframework i ON i.fid = m.finsframework_id
 		WHERE  i.fid = #{itemid}
 		<if test="dto!=null and dto!=''">
@@ -1695,8 +1695,7 @@
 	<select id="getBlocUse" resultMap="dtoMap">
 		select * from(
 		select count(l.fid)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_live_data l 
-		inner join tb_gather g on l.fgather_no = g.fgather_no
-		inner join tb_welding_machine w on w.fgather_id = g.fid
+		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
 		where w.finsframework_id in 
 		(select i.fid from tb_insframework  i inner join  tb_insframework ins on ins.fid = i.fparent where ins.fparent=#{parent})
@@ -1714,8 +1713,7 @@
 		where fid not in
 		(
 		select e.fid from tb_live_data l 
-		inner join tb_gather g on l.fgather_no = g.fgather_no
-		inner join tb_welding_machine w on w.fgather_id = g.fid
+		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
 		where w.finsframework_id in 
 		(select i.fid from tb_insframework i inner join  tb_insframework ins on ins.fid = i.fparent where ins.fparent=#{parent})
@@ -1736,8 +1734,7 @@
 	<select id="getCompanyUse" resultMap="dtoMap">
 		select * from(
 		select count(l.fid)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_live_data l 
-		inner join tb_gather g on l.fgather_no = g.fgather_no
-		inner join tb_welding_machine w on w.fgather_id = g.fid
+		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
 		where w.finsframework_id in (select fid from tb_insframework where fparent=#{parent})
 		<if test="dto!=null and dto!=''">
@@ -1754,8 +1751,7 @@
 		where fid not in
 		(
 		select e.fid from tb_live_data l 
-		inner join tb_gather g on l.fgather_no = g.fgather_no
-		inner join tb_welding_machine w on w.fgather_id = g.fid
+		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
 		where w.finsframework_id in (select fid from tb_insframework where fparent=#{parent})
 		<if test="dto!=null and dto!=''">
@@ -1775,8 +1771,7 @@
 	<select id="getCaustUse" resultMap="dtoMap">
 		select * from (
 		select count(l.fid)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_live_data l 
-		inner join tb_gather g on l.fgather_no = g.fgather_no
-		inner join tb_welding_machine w on w.fgather_id = g.fid
+		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
 		where w.finsframework_id =#{insid}
 		<if test="dto!=null and dto!=''">
@@ -1793,8 +1788,7 @@
 		where fid not in
 		(
 		select e.fid from tb_live_data l 
-		inner join tb_gather g on l.fgather_no = g.fgather_no
-		inner join tb_welding_machine w on w.fgather_id = g.fid
+		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
 		where w.finsframework_id =#{insid}
 		<if test="dto!=null and dto!=''">

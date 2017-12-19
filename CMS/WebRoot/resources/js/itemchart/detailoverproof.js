@@ -58,7 +58,7 @@ function detailOverproofDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter:function(value,row,index){
-				return "<a href='junctionChart/gojunctionoverproof?welderno="+row.fwelder_id+"&machineno="+row.jidgather+"&junctionno="+row.fjunction_id+"&time="+row.weldtime+"&itemid="+row.iid+"'>"+value+"</a>"
+				return "<a href='junctionChart/gojunctionoverproof?welderno="+row.fwelder_id+"&machineno="+row.fmachine_id+"&junctionno="+row.fjunction_id+"&time="+row.weldtime+"&itemid="+row.iid+"'>"+value+"</a>"
 			}
 		}, {
 			field : 'weldtime',
@@ -99,17 +99,17 @@ function detailOverproofDatagrid(){
 			        url : "itemChart/getCountTime",  
 			        data : {
 			        	"welderno":row.fwelder_id,
-			        	"machineno":row.jidgather,
+			        	"machineno":row.fmachine_id,
 			        	"junctionno":row.fjunction_id,
 			        	"time":row.weldtime,
 			        	"id" : row.iid
 			        },  
 			        dataType : "json", 
 			        success : function(result) {
-			            if (result) {
-			            	count =  ((value/result.count)*100).toFixed(2) + "%";
-			            }else{
+			        	if(result.count<=0){
 			            	count =  "0%";
+			        	}else if (result) {
+			            	count =  ((value/result.count)*100).toFixed(2) + "%";
 			            }
 			        },  
 			        error : function(errorMsg) {  
