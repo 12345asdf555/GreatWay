@@ -158,7 +158,7 @@ public class WeldingMachineController {
 				json.put("statusId", wm.getStatusId());
 				json.put("insframeworkName", wm.getInsframeworkId().getName());
 				json.put("insframeworkId", wm.getInsframeworkId().getId());
-				json.put("manufacturerName", wm.getManufacturerId().getName());
+				json.put("manufacturerName", wm.getManufacturerId().getName()+" - "+wm.getManufacturerId().getType());
 				json.put("manufacturerId", wm.getManufacturerId().getId());
 				if(wm.getGatherId()!=null ||("").equals(wm.getGatherId())){
 					json.put("gatherId", wm.getGatherId().getGatherNo());

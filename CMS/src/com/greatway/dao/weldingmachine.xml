@@ -22,7 +22,7 @@
         <association property="manufacturerId" column="fmanufacturer_id" javaType="com.greatway.model.EquipmentManufacturer">  
             <id property="id" column="mid"></id> 
             <result property="name" column="mname"></result>  
-            <result property="type" column="ftype"></result>  
+            <result property="type" column="mtype"></result>  
             <result property="typeValue" column="ftypevalue"></result>
         </association>
         <association property="gatherId" column="fgather_id" javaType="com.greatway.model.Gather">  
@@ -39,7 +39,7 @@
 	<select id="getWeldingMachineAll" resultMap="wmMap"  parameterType="java.lang.String">
 		SELECT 
 		w.fid fid,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
-		,m.fname mname,fisnetworking,fposition
+		,m.fname mname,fisnetworking,fposition,m.ftype mtype
 		FROM tb_welding_machine w
 		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent

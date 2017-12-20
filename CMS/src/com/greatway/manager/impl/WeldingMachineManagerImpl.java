@@ -70,8 +70,8 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 	}
 
 	@Override
-	public BigInteger getManuidByValue(String value) {
-		return em.getManuidByValue(value);
+	public BigInteger getManuidByValue(String value,String type) {
+		return em.getManuidByValue(value,type);
 	}
 
 	@Override

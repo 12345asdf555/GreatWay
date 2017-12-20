@@ -86,11 +86,11 @@ public class ImportExcelController {
 			for(WeldingMachine wm : list){
 				wm.setTypeId(WeldEnum.getKey(wm.getTypename()));
 				wm.setStatusId(WeldEnum.getKey(wm.getStatusname()));
-				wm.getManufacturerId().setId(wmm.getManuidByValue(wm.getManufacturerId().getName()));
+				wm.getManufacturerId().setId(wmm.getManuidByValue(wm.getManufacturerId().getName(),wm.getManufacturerId().getType()));
 				String name = wm.getInsframeworkId().getName();
 				wm.getInsframeworkId().setId(wmm.getInsframeworkByName(name));
 				Gather gather = wm.getGatherId();
-				BigInteger gid = null;
+//				BigInteger gid = null;
 				int count2 = 0;
 				if(gather!=null){
 					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gather.getGatherNo());
@@ -108,6 +108,7 @@ public class ImportExcelController {
 			obj.put("success",true);
 			obj.put("msg","导入成功！");
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.put("msg","导入失败，请检查您的文件格式以及数据是否符合要求！");
 			obj.put("success",false);
 		}
@@ -284,6 +285,7 @@ public class ImportExcelController {
 			int cellStart = row.getFirstCellNum();
 			int cellEnd = row.getLastCellNum();
 			WeldingMachine dit = new WeldingMachine();
+			EquipmentManufacturer manu = new EquipmentManufacturer();
 			for(int k = cellStart; k<= cellEnd;k++){
 				Cell cell = row.getCell(k);
 				if(null == cell){
@@ -321,7 +323,7 @@ public class ImportExcelController {
 						break;
 					}
 					//采集序号机设备序号只能是数字
-					if(k == 7){
+					if(k == 8){
 						Gather g = new Gather();
 						g.setGatherNo(cellValue);
 						dit.setGatherId(g);//采集序号
@@ -349,12 +351,16 @@ public class ImportExcelController {
 						break;
  					}
  					if(k == 5){
- 						EquipmentManufacturer manu = new EquipmentManufacturer();
  						manu.setName(cellValue);
  						dit.setManufacturerId(manu);//厂家
 						break;
  					}
-					if(k == 6){
+ 					if(k == 6){
+ 						manu.setType(cellValue);
+ 						dit.setManufacturerId(manu);//厂家类型
+						break;
+ 					}
+					if(k == 7){
 						if(cellValue.equals("是")){
 	 						dit.setIsnetworking(0);//是否在网
 						}else{
@@ -362,7 +368,7 @@ public class ImportExcelController {
 						}
 						break;
  					}
-					if(k == 8){
+					if(k == 9){
 						dit.setPosition(cellValue);//位置
 						break;
 					}

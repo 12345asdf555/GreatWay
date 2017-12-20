@@ -16,6 +16,6 @@
 	</select>
 	
 	<select id="getManuidByValue" resultType="java.math.BigInteger">
-		SELECT fid FROM tb_equipment_manufacturer WHERE fname = #{value}
+		SELECT fid FROM tb_equipment_manufacturer WHERE fname = #{value}  and ftype=#{type}
 	</select>
 </mapper>

@@ -59,8 +59,8 @@ public class ExportExcelController {
 			String str=(String) request.getSession().getAttribute("searchStr");
 			List<WeldingMachine> list = wmm.getWeldingMachine(str);
 			
-			String[] titles = new String[]{"序号","设备编码","设备类型","入厂时间","所属项目","状态","厂家","是否在网","采集序号","位置"};
-			Object[][] data = new Object[list.size()][10];
+			String[] titles = new String[]{"序号","设备编码","设备类型","入厂时间","所属项目","状态","厂家","厂家类型","是否在网","采集序号","位置"};
+			Object[][] data = new Object[list.size()][11];
 			for(int i =0; i<list.size();i++){
 				data[i][0] = list.get(i).getId();
 				data[i][1] = list.get(i).getEquipmentNo();
@@ -69,14 +69,15 @@ public class ExportExcelController {
 				data[i][4] = list.get(i).getInsframeworkId().getName();
 				data[i][5] = WeldEnum.getValue(list.get(i).getStatusId());
 				data[i][6] = list.get(i).getManufacturerId().getName();
-				data[i][7] = WeldEnum.getValue(list.get(i).getIsnetworking());
+				data[i][7] = list.get(i).getManufacturerId().getType();
+				data[i][8] = WeldEnum.getValue(list.get(i).getIsnetworking());
 				Gather gather = list.get(i).getGatherId();
 				if(gather!=null){
-					data[i][8] = gather.getGatherNo();
+					data[i][9] = gather.getGatherNo();
 				}else{
-					data[i][8] = null;
+					data[i][9] = null;
 				}
-				data[i][9] = list.get(i).getPosition();
+				data[i][10] = list.get(i).getPosition();
 			}
 			filename = "焊机设备" + sdf.format(new Date()) + ".xls";
 

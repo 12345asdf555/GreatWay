@@ -12,5 +12,5 @@ import tk.mybatis.mapper.common.Mapper;
 public interface EquipmentManufacturerMapper extends Mapper<EquipmentManufacturer> {
 	List<EquipmentManufacturer> getmanuAll();
 
-	BigInteger getManuidByValue(@Param("value")String value);
+	BigInteger getManuidByValue(@Param("value")String value,@Param("type")String type);
 }
