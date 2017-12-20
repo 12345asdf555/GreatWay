@@ -73,16 +73,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 	        <div style="margin-bottom:20px;margin-left:100px;" align="center">
 	        <table id="tt" title="角色列表" checkbox="true" style="table-layout:fixed;width:100%"></table>
-	    	<div class="buttonoption">
+	        <br/>
+	    	<div>
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			        <a href="javascript:saveUser();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			        <a href="user/AllUser" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 		        </lable>
 	    	</div>
         </div>
-
-        </form>
-    </div> 
+	</form>
+</div> 
     
     <script type="text/javascript">
             $(function(){
