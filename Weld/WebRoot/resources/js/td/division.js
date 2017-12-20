@@ -157,7 +157,7 @@ function newSearch(){
 
 }
 	function show(value){
-		window.location.href="/CMS/td/AllTddp?value="+encodeURI(value);
+		window.location.href="/Weld/td/AllTddp?value="+encodeURI(value);
 	}
 	
 

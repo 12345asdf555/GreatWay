@@ -95,7 +95,6 @@ function showCompanyHourChart(){
 }
 
 function CompanyHourDatagrid(){
-	alert(chartStr);
 	setParam();
 	var parent = $("#parent").val();
 	$("#companyHourTable").datagrid( {
