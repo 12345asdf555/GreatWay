@@ -203,6 +203,7 @@ function typecombobox(){
 }
 
 function serachEfficiencyCaust(){
+	chartStr = "";
 	$("#nextparent").val("");
 	showcaustEfficiencyChart();
 	CaustEfficiencyDatagrid();

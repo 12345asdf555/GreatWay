@@ -147,6 +147,7 @@ function CaustHourDatagrid(){
 }
 
 function serachCaustHour(){
+	chartStr = "";
 	showCaustOverproofChart();
 	CaustHourDatagrid();
 }

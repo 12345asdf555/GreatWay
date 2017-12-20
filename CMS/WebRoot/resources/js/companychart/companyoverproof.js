@@ -145,6 +145,7 @@ function CompanyHourDatagrid(){
 }
 
 function serachCompanyOverproof(){
+	chartStr = "";
 	showCompanyOverproofChart();
 	CompanyHourDatagrid();
 }

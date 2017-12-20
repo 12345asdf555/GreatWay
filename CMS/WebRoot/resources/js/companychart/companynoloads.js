@@ -146,6 +146,7 @@ function CompanynoloadsDatagrid(){
 }
 
 function serachCompanynoloads(){
+	chartStr = "";
 	showCompanynoLoadsChart();
 	CompanynoloadsDatagrid();
 }

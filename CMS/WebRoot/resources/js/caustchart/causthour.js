@@ -218,6 +218,7 @@ function classifyDatagrid(){
 }
 
 function commitChecked(){
+	chartStr = "";
 	search = "";
 	var rows = $("#classify").datagrid("getSelected");
 	search += " (fmaterial='"+rows.material+"' and fexternal_diameter='"+rows.external_diameter+"' and fwall_thickness='"+rows.wall_thickness+"' and fnextExternal_diameter='"+rows.nextExternal_diameter+

@@ -155,6 +155,7 @@ function otypecombobox(){
 }
 
 function serachcompanyIdle(){
+	chartStr = "";
 	CaustIdleDatagrid();
 	showCompanyIdleChart();
 }

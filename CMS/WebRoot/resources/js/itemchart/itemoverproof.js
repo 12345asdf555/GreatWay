@@ -181,6 +181,7 @@ function ItemtimeCombobox(){
 }
 
 function serachitemoverproof(){
+	chartStr = "";
 	showitemOverproofChart();
 	ItemoverproofDatagrid();
 }

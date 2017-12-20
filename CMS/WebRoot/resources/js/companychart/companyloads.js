@@ -146,6 +146,7 @@ function CompanyloadsDatagrid(){
 }
 
 function serachCompanyloads(){
+	chartStr = "";
 	showCompanyLoadsChart();
 	CompanyloadsDatagrid();
 }

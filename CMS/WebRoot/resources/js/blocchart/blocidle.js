@@ -146,6 +146,7 @@ function otypecombobox(){
 }
 
 function serachBlocIdle(){
+	chartStr = "";
 	BlocIdleDatagrid();
 	showblocIdleChart();
 }

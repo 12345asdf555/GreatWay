@@ -148,6 +148,7 @@ function CaustloadsDatagrid(){
 }
 
 function serachCaustloads(){
+	chartStr = "";
 	showcaustLoadsChart();
 	CaustloadsDatagrid();
 }

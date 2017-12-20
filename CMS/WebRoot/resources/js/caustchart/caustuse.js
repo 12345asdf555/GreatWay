@@ -166,6 +166,7 @@ function typecombobox(){
 }
 
 function serachcaustUse(){
+	chartStr = "";
 	CaustUseDatagrid();
 	showcaustUseChart();
 }

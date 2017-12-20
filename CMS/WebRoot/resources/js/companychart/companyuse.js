@@ -165,6 +165,7 @@ function typecombobox(){
 }
 
 function serachcompanyUse(){
+	chartStr = "";
 	CaustUseDatagrid();
 	showcompanyUseChart();
 }

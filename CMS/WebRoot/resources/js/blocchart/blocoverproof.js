@@ -137,6 +137,7 @@ function BlocHourDatagrid(){
 }
 
 function serachBlocOverproof(){
+	chartStr = "";
 	showBlocOverproofChart();
 	BlocHourDatagrid();
 }

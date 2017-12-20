@@ -138,6 +138,7 @@ function BloctimeDatagrid(){
 }
 
 function serachBlocOvertime(){
+	chartStr = "";
 	var number = $("#number").val();
 	chartStr += "&number="+number;
 	showBlocOverptimeChart();

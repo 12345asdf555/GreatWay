@@ -182,6 +182,7 @@ function ItemtimeCombobox(){
 }
 
 function serachitemloads(){
+	chartStr = "";
 	showitemLoadsChart();
 	ItemloadsDatagrid();
 }

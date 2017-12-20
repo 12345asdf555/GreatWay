@@ -147,6 +147,7 @@ function CausttimeDatagrid(){
 }
 
 function serachCaustOvertime(){
+	chartStr = "";
 	var number = $("#number").val();
 	chartStr += "&number="+number;
 	showCaustOverptimeChart();

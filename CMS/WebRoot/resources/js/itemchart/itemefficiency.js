@@ -74,6 +74,7 @@ function ItemEfficiencyDatagrid(){
 }
 
 function serachEfficiencyItem(){
+	chartStr = "";
 	ItemEfficiencyDatagrid();
 }
 

@@ -138,6 +138,7 @@ function BlocnoloadsDatagrid(){
 }
 
 function serachBlocnoloads(){
+	chartStr = "";
 	showBlocnoLoadsChart();
 	BlocnoloadsDatagrid();
 }
