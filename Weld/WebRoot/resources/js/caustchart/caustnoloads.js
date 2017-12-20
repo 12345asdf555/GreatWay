@@ -148,6 +148,7 @@ function CaustnoloadsDatagrid(){
 }
 
 function serachCaustNoloads(){
+	chartStr = "";
 	showcaustNoLoadsChart();
 	CaustnoloadsDatagrid();
 }

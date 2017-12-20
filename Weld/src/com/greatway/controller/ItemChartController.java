@@ -63,10 +63,14 @@ public class ItemChartController {
 	public String goDetailoverproof(HttpServletRequest request){
 		String parent = request.getParameter("parent");
 		String weldtime = request.getParameter("weldtime");
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
 		insm.showParent(request, parent);
 		lm.getUserId(request);
 		request.setAttribute("parent", parent);
 		request.setAttribute("weldtime", weldtime);
+		request.setAttribute("time1", time1);
+		request.setAttribute("time2", time2);
 		return "itemchart/detailoverproof";
 	}
 	
@@ -427,6 +431,8 @@ public class ItemChartController {
 		}
 		String parentid = request.getParameter("parent");
 		String weldtime = request.getParameter("weldtime");
+		String time1 = request.getParameter("time1");
+		String time2 = request.getParameter("time2");
 		WeldDto dto = new WeldDto();
 		//处理用户数据权限
 		String afreshLogin = (String)request.getAttribute("afreshLogin");
@@ -435,7 +441,13 @@ public class ItemChartController {
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(weldtime)){
-			dto.setDtoTime1("%"+weldtime+"%");
+			dto.setTime("%"+weldtime+"%");
+		}
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
 		}
 		if(iutil.isNull(parentid)){
 			parent = new BigInteger(parentid);
@@ -464,6 +476,7 @@ public class ItemChartController {
 				json.put("livecount", c.getLivecount());
 				json.put("fmax_electricity", c.getFmax_electricity());
 				json.put("fmin_electricity", c.getFmin_electricity());
+				json.put("jidgather", c.getJidgather());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -476,10 +489,11 @@ public class ItemChartController {
 	
 	@RequestMapping("/getCountTime")
 	@ResponseBody
-	public String getCountTime(HttpServletRequest request,@RequestParam String welderno,
-			@RequestParam String machineno,@RequestParam String junctionno,@RequestParam String time,@RequestParam BigInteger id){
+	public String getCountTime(HttpServletRequest request,@RequestParam String welderno
+			,@RequestParam String junctionno,@RequestParam String time,@RequestParam BigInteger id){
 		JSONObject json = new JSONObject();
 		try{
+			String machineno = request.getParameter("machineno");
 			int count = lm.getCountTime(welderno, machineno, junctionno, time, id);
 			json.put("count", count);
 		}catch(Exception e){
@@ -714,13 +728,15 @@ public class ItemChartController {
 		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getItemIdle(dto, parent);
-			BigInteger[] num = new BigInteger[time.size()];
+			List<LiveData> ins = lm.getAllInsf(parent,23);
+			double[] num = new double[time.size()];
 			if(list.size()>0){
 				for(int i=0;i<time.size();i++){
-					num[i] = new BigInteger("0");
+					int count = lm.getMachineCount(ins.get(0).getFid());
+					num[i] = count;
 					for(ModelDto m:list){
 						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-							num[i] = m.getNum();
+							num[i] = count - m.getNum().doubleValue();
 						}
 					}
 					json.put("weldTime",time.get(i).getWeldTime());
@@ -728,9 +744,20 @@ public class ItemChartController {
 					ary.add(json);
 				}
 				object.put("name", list.get(0).getFname());
+				object.put("num", num);
+				arys.add(object);
+			}else{
+				int count = lm.getMachineCount(ins.get(0).getFid());
+				for(int i=0;i<time.size();i++){
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("num",count);
+					num[i] = count;
+					ary.add(json);
+				}
+				object.put("name", ins.get(0).getFname());
+				object.put("num", num);
+				arys.add(object);
 			}
-			object.put("num", num);
-			arys.add(object);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

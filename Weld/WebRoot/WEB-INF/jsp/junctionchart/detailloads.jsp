@@ -37,6 +37,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				<input  name="weldtime" id="weldtime" type="hidden" value="${weldtime }"/>
+				<input  name="weldtime" id="time1" type="hidden" value="${time1 }"/>
+				<input  name="weldtime" id="time2" type="hidden" value="${time2 }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 			</div>
 		</div>

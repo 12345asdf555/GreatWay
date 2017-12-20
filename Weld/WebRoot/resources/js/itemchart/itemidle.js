@@ -180,6 +180,7 @@ function otypecombobox(){
 }
 
 function serachitemIdle(){
+	chartStr = "";
 	showitemidleChart();
 	ItemidleDatagrid();
 }

@@ -261,6 +261,7 @@ function classifyDatagrid(){
 	});
 }
 function commitChecked(){
+	chartStr = "";
 	search = "";
 	var rows = $("#classify").datagrid("getSelections");
 	if(rows==null || rows==""){

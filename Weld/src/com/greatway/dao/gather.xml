@@ -37,7 +37,7 @@
 	</select>
 	
 	<select id="getGatherNoCount" resultType="java.lang.Integer">
-		select count(*) from tb_gather where fgather_no = #{gatherno} and fitemid = #{item}
+		select count(*) from tb_gather where fgather_no = #{gatherno}
 	</select>
 	
 	<insert id="addGather" parameterType="com.greatway.model.Gather" useGeneratedKeys="true" keyProperty="id">

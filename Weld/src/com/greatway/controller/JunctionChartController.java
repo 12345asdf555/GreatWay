@@ -86,10 +86,14 @@ public class JunctionChartController {
 	public String goJunctionOvertime(HttpServletRequest request){
 		String weldtime = request.getParameter("weldtime");
 		String parentId = request.getParameter("parent");
+		String dtoTime1 = request.getParameter("dtoTime1");
+		String dtoTime2 = request.getParameter("dtoTime2");
 		String number = request.getParameter("number");
 		request.setAttribute("weldtime", weldtime);
 		request.setAttribute("parent", parentId);
 		request.setAttribute("number",number );
+		request.setAttribute("time1",dtoTime1 );
+		request.setAttribute("time2",dtoTime2 );
 		insm.showParent(request, parentId);
 		lm.getUserId(request);
 		return "junctionchart/junctionovertime";
@@ -264,8 +268,16 @@ public class JunctionChartController {
 			@RequestParam String weldtime,@RequestParam String number){
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String time1 = request.getParameter("time1");
+		String time2 = request.getParameter("time2");
 		WeldDto dto = new WeldDto();
-		dto.setDtoTime1("%"+weldtime+"%");
+		dto.setTime("%"+weldtime+"%");
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
 		page = new Page(pageIndex,pageSize,total);
 		List<ModelDto> list = lm.getDetailovertime(page,dto, number, parent);
 		long total = 0;

@@ -13,12 +13,14 @@ $(function(){
 function detailOverproofDatagrid(){
 	var parent = $("#parent").val();
 	var weldtime = $("#weldtime").val();
+	var time1 = $("#time1").val();
+	var time2 = $("#time2").val();
 	$("#DetailOverproofTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#DetailOverproof_btn").height()-20,
 		width : $("#body").width(),
 		idField : 'id',
-		url : "itemChart/getDatailOverproof?parent="+parent+"&weldtime="+weldtime,
+		url : "itemChart/getDatailOverproof?parent="+parent+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -65,6 +67,13 @@ function detailOverproofDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
+			field : 'jidgather',
+			title : '采集编号',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden : true
+		}, {
 			field : 'fmax_electricity',
 			title : '最大电流',
 			width : 100,
@@ -97,10 +106,10 @@ function detailOverproofDatagrid(){
 			        },  
 			        dataType : "json", 
 			        success : function(result) {
-			            if (result) {
-			            	count =  ((value/result.count)*100).toFixed(2) + "%";
-			            }else{
+			        	if(result.count<=0){
 			            	count =  "0%";
+			        	}else if (result) {
+			            	count =  ((value/result.count)*100).toFixed(2) + "%";
 			            }
 			        },  
 			        error : function(errorMsg) {  

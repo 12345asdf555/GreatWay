@@ -137,6 +137,7 @@ function BlocloadsDatagrid(){
 }
 
 function serachBlocloads(){
+	chartStr = "";
 	showblocLoadsChart();
 	BlocloadsDatagrid();
 }

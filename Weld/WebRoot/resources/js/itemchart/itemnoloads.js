@@ -184,6 +184,7 @@ function ItemtimeCombobox(){
 
 
 function serachitemnoloads(){
+	chartStr = "";
 	showitemNoLoadsChart();
 	ItemnoloadsDatagrid();
 }

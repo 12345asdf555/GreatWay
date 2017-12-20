@@ -203,6 +203,7 @@ function BlocEfficiencyDatagrid(){
 }
 
 function serachEfficiencyBloc(){
+	chartStr = "";
 	showblocEfficiencyChart();
 	BlocEfficiencyDatagrid();
 }

@@ -26,8 +26,6 @@ function showCompanynoLoadsChart(){
 	setParam();
 	var array1 = new Array();
 	var array2 = new Array();
-	var parent = $("#parent").val();
-	var otype = $("input[name='otype']:checked").val();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
@@ -148,6 +146,7 @@ function CompanynoloadsDatagrid(){
 }
 
 function serachCompanynoloads(){
+	chartStr = "";
 	showCompanynoLoadsChart();
 	CompanynoloadsDatagrid();
 }

@@ -680,12 +680,6 @@ public class CompanyChartController {
 	@RequestMapping("/getCompanyIdle")
 	@ResponseBody
 	public String getCompanyIdle(HttpServletRequest request){
-		if(iutil.isNull(request.getParameter("page"))){
-			pageIndex = Integer.parseInt(request.getParameter("page"));
-		}
-		if(iutil.isNull(request.getParameter("rows"))){
-			pageSize = Integer.parseInt(request.getParameter("rows"));
-		}
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String type = request.getParameter("otype");
@@ -722,28 +716,68 @@ public class CompanyChartController {
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
 		}
-		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.getCompanyIdle(page, dto, parent);
+		List<LiveData> time = null;
+		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+			page = new Page(pageIndex,pageSize,total);
+			time = lm.getAllTime(page,dto);
+		}else{
+			time = lm.getAllTimes(dto);
+		}
 		long total = 0;
-		if(list != null){
-			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+		if(time != null){
+			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
+		JSONArray arys = new JSONArray();
+		JSONArray arys1 = new JSONArray();
 		try{
-			for(ModelDto l:list){
-				json.put("idle", l.getIdle());
-				json.put("fname", l.getFname());
-				json.put("fid",l.getFid());
-				ary.add(json);
+			List<ModelDto> list = lm.getCompanyIdle(dto,parent);
+			List<LiveData> ins = lm.getAllInsf(parent,22);
+			double[] num = null;
+			for(LiveData live :time){
+				json.put("weldTime",live.getWeldTime());
+				arys.add(json);
+			}
+			for(int i=0;i<ins.size();i++){
+				num = new double[time.size()];
+				int count = lm.getMachineCount(ins.get(i).getFid());
+				for(int j=0;j<time.size();j++){
+					num[j] = count;
+					for(ModelDto l:list){
+						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
+							num[j] = count - l.getNum().doubleValue();
+						}
+					}
+				}
+				json.put("idle",num);
+				json.put("name",ins.get(i).getFname());
+				json.put("id",ins.get(i).getFid());
+				arys1.add(json);
+			}
+			JSONObject object = new JSONObject();
+			
+			for(int i=0;i<time.size();i++){
+				for(int j=0;j<arys1.size();j++){
+					JSONObject js = (JSONObject)arys1.get(j);
+					String overproof = js.getString("idle").substring(1, js.getString("idle").length()-1);
+					String[] str = overproof.split(",");
+					object.put("a"+j, str[i]);
+				}
+				object.put("w",time.get(i).getWeldTime());
+				ary.add(object);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		obj.put("total", total);
 		obj.put("rows", ary);
+		obj.put("arys", arys);
+		obj.put("arys1", arys1);
 		return obj.toString();
 	}
 	
@@ -794,7 +828,7 @@ public class CompanyChartController {
 			for(ModelDto l:list){
 				double time = (double)Math.round(l.getTime()*100)/100;
 				json.put("time", time);
-				json.put("fname", l.getFname());
+				json.put("fname", l.getFname()+" - "+l.getType());
 				json.put("type", l.getType());
 				json.put("fid",l.getFid());
 				WeldDto dtos = new WeldDto();

@@ -3,13 +3,13 @@ $(function(){
 	protocolCombobox();
 	statusCombobox();
 	var item = $("#item").val();
-	$("#itemid").combobox({
-        onChange:function(){
+//	$("#itemid").combobox({
+//        onChange:function(){
         	//处理项目部发生改变时采集序号无法进行验证问题
-        	var gatherno = $("#gatherNo").val();
-        	$("#gatherNo").textbox("setValue",gatherno);
-        } 
-     });
+//        	var gatherno = $("#gatherNo").val();
+//        	$("#gatherNo").textbox("setValue",gatherno);
+//        } 
+//     });
 	$("#itemid").combobox("select",item);
 	$("#fm").form("disableValidation");
 })

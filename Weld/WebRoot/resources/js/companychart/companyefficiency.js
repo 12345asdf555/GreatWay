@@ -203,6 +203,7 @@ function CompanyEfficiencyDatagrid(){
 }
 
 function serachEfficiencyCompany(){
+	chartStr = "";
 	$("#nextparent").val("");
 	showcompanyEfficiencyChart();
 	CompanyEfficiencyDatagrid();

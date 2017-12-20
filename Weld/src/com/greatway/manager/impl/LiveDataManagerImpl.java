@@ -163,14 +163,12 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getCompanyIdle(Page page,WeldDto dto,BigInteger parent) {
-		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+	public List<ModelDto> getCompanyIdle(WeldDto dto,BigInteger parent) {
 		return live.getCompanyIdle(dto,parent);
 	}
 
 	@Override
-	public List<ModelDto> getCaustIdle(Page page,WeldDto dto, BigInteger parent) {
-		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+	public List<ModelDto> getCaustIdle(WeldDto dto, BigInteger parent) {
 		return live.getCaustIdle(dto, parent);
 	}
 
@@ -247,8 +245,7 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getBlocIdle(Page page,WeldDto dto) {
-		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+	public List<ModelDto> getBlocIdle(WeldDto dto) {
 		return live.getBlocIdle(dto);
 	}
 

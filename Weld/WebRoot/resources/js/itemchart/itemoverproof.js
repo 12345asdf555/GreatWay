@@ -110,6 +110,8 @@ function showitemOverproofChart(){
 
 function ItemoverproofDatagrid(){
 	setParam();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var column = new Array();
 	 $.ajax({  
          type : "post",  
@@ -125,7 +127,7 @@ function ItemoverproofDatagrid(){
                  for(var m=0;m<result.arys.length;m++){
                 	 column.push({field:"overproof",title:result.arys[m].name,width:width,halign : "center",align : "left",
                 		 formatter : function(value,row,index){
-                			 return "<a href='itemChart/goDetailoverproof?parent="+row.itemid+"&weldtime="+row.weldTime+"'>"+value+"</a>";
+                			 return "<a href='itemChart/goDetailoverproof?parent="+row.itemid+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"'>"+value+"</a>";
                 		 }
                 	 },{field:"itemid",title:"项目id",width:width,halign : "center",align : "left",hidden : true});
                  }
@@ -179,6 +181,7 @@ function ItemtimeCombobox(){
 }
 
 function serachitemoverproof(){
+	chartStr = "";
 	showitemOverproofChart();
 	ItemoverproofDatagrid();
 }

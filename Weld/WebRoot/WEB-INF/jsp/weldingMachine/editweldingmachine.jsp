@@ -37,10 +37,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
-					<lable>设固定资产编号</lable>
+					<lable>固定资产编号</lable>
 					<input type="hidden" id="wid" value="${w.id }">
 					<input type="hidden" id="valideno" value="${w.equipmentNo }">
-					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  value="${w.equipmentNo }" data-options="validType:['wmEnoValidate','length[4,4]'],required:true"/>
+					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  value="${w.equipmentNo }" data-options="validType:['wmEnoValidate'],required:true"/>
 				</div>
 				<div class="fitem">
 					<lable>设备类型</lable>
@@ -64,6 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>采集序号</lable>
 					<input type="hidden" id="validgid" value="${w.gatherId.gatherNo }">
+					<input type="hidden" id="gid" value="${w.gatherId.id }">
 					<select class="easyui-combobox" name="gatherId" id="gatherId" value="${w.gatherId.gatherNo }" data-options="validType:['checkNumber','wmGatheridValidate']"></select>
 				</div>
 				<div class="fitem">
