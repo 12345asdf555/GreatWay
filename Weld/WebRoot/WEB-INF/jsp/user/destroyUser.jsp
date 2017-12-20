@@ -167,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								});
 							} else {
 								$.messager.alert("提示", "删除成功！");
-								var url = "/CMS/user/AllUser";
+								var url = "/Weld/user/AllUser";
 								window.location.href = encodeURI(url);
 							}
 			            }  

@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>首页</title>
+    <title>云智能焊接管控系统</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="box clearfix">
 				<div class="box-lef fl"></div>
 				<div class="box-rig fl" id="boxrig">
-					<a href="javascript:void(0)" style="margin-right:70%">首页</a>
+					<a href="javascript:void(0)" style="margin-right:70%">&nbsp;</a>
 					<a href="javascript:void(0)" id="userInsframework"></a>
 					<a href="user/logout">注销</a>
 				</div>

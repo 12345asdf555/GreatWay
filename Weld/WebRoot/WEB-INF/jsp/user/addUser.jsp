@@ -61,6 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="fitem">
 				<lable>部门</lable>
 <!-- 				<select class="easyui-combobox" name="userInsframework" id="userInsframework" data-options="required:true"></select> -->
+				<input type="hidden" value="${insid }" id="insid"/>
 				<input class="easyui-textbox" name="userInsframework" id="userInsframework" value="${insfname }" readonly="readonly"/>
         	</div>
 
@@ -144,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  		var flag = 1; 
         function saveUser(){
         flag = 1;
-         var insframework = $('#userInsframework').combobox('getValue');
+         var insframework = $('#insid').val();
          var sid = $("input[name='statusId']:checked").val();
          var rows = $("#tt").datagrid("getSelections");
          var str="";
