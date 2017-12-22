@@ -1,4 +1,5 @@
 $(function(){
+	hourscombobox();
 	CausttimeDatagrid();
 	var afresh = $("#afresh").val();
 	if(afresh!=null && afresh!=""){
@@ -18,7 +19,9 @@ function setParam(){
 	var otype = $("input[name='otype']:checked").val();
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype="+otype;
+	var number = $("#number").val();
+	var hours = $("#hours").combobox('getValue');
+	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype="+otype+"&hours="+hours+"&number="+number;
 }
 
 function showCaustOverptimeChart(){
@@ -146,10 +149,15 @@ function CausttimeDatagrid(){
 	 })
 }
 
+function hourscombobox(){
+	var str = "<option value='hour'>一小时</option><option value='second'>一分钟</option>";
+	$("#hours").html(str);
+	$("#hours").combobox();
+	$("#hours").combobox('setValue','hour');
+}
+
 function serachCaustOvertime(){
 	chartStr = "";
-	var number = $("#number").val();
-	chartStr += "&number="+number;
 	showCaustOverptimeChart();
 	CausttimeDatagrid();
 }

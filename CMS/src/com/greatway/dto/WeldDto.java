@@ -27,7 +27,21 @@ public class WeldDto {
 	private String search;
 	private String item;
 	private String time;
-
+	private String hour;
+	private String second;
+	
+	public String getHour() {
+		return hour;
+	}
+	public void setHour(String hour) {
+		this.hour = hour;
+	}
+	public String getSecond() {
+		return second;
+	}
+	public void setSecond(String second) {
+		this.second = second;
+	}
 	public String getTime() {
 		return time;
 	}

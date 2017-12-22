@@ -365,6 +365,7 @@ public class CaustChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		String number = request.getParameter("number");
+		String hours = request.getParameter("hours");
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
 		if(!iutil.isNull(parentId)){
@@ -405,7 +406,16 @@ public class CaustChartController {
 				dto.setWeek("week");
 			}
 		}
-
+		if(iutil.isNull(hours)){
+			if(hours.equals("hour")){
+				dto.setHour("hour");
+			}else if(hours.equals("second")){
+				dto.setSecond("second");
+			}
+		}
+		if(!iutil.isNull(number)){
+			number = "0";
+		}
 		List<LiveData> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
