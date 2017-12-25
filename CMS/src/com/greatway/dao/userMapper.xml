@@ -67,7 +67,10 @@
 	</select>
 	
 	<select id="getIns" resultType="User">
-		select fid insid,fname insname from tb_insframework
+		select i.fid insid,i.fname insname from tb_insframework i 
+		INNER JOIN tb_insframework ins on ins.fid = i.fparent
+		INNER JOIN tb_insframework insf on insf.fid = ins.fparent
+		where (i.fid=#{parent} or ins.fid=#{parent} or insf.fid=#{parent})
 	</select>
 	
 	<select id="findAllRole" resultType="User">

@@ -73,7 +73,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 	        <div style="margin-bottom:20px;margin-left:100px;" align="center">
 	        <table id="tt" title="角色列表" checkbox="true" style="table-layout:fixed;width:100%"></table>
-	    	<div class="buttonoption">
+	        <br/>
+	    	<div style="margin-left:-20px">
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			        <a href="javascript:saveUser();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			        <a href="user/AllUser" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
@@ -189,11 +190,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			         optionstring += "<option value=\"" + result.rows[k].insid + "\" >" + result.rows[k].insname + "</option>";
 			         }
 			         $("#userInsframework").html(optionstring);
-			      } else {
-			         alert('部门加载失败');
+			      	$("#userInsframework").combobox();
+			      	$("#userInsframework").combobox('select',document.getElementById("userInsframeworks").value);
 			      }
-			      $("#userInsframework").combobox();
-			      $("#userInsframework").combobox('select',document.getElementById("userInsframeworks").value);
 			   },
 			   error: function () {
 			      alert('error');

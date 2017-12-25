@@ -63,6 +63,13 @@
 			align : "left",
 			hidden: true
 		}, {
+			field : 'insid',
+			title : '组织机构id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden: true
+		}, {
 			field : 'users_name',
 			title : '用户名',
 			width : 100,
@@ -123,8 +130,8 @@
 			align : "left",
 			formatter:function(value,row,index){
 			var str = "";
-			str += '<a id="edit" class="easyui-linkbutton" href="user/getUser?id='+row.id+'"/>';
-			str += '<a id="remove" class="easyui-linkbutton" href="user/desUser?id='+row.id+'"/>';
+			str += '<a id="edit" class="easyui-linkbutton" href="javascript:deleteUser('+row.insid+','+row.id+','+true+')"/>';
+			str += '<a id="remove" class="easyui-linkbutton" href="javascript:deleteUser('+row.insid+','+row.id+','+false+')"/>';
 			return str;
 			}
 		}]],
@@ -244,15 +251,90 @@
         	if(node==null || node==""){
         		alert("请先选择该用户所属组织机构(部门)！");
         	}else{
-				var url = "user/toAddUser";
-				var img = new Image();
-			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-			    url = img.src;  // 此时相对路径已经变成绝对路径
-			    img.src = null; // 取消请求
-				window.location.href = encodeURI(url+"?name="+node.text+"&insid="+node.id);
+     			$.ajax({  
+     		        type : "post",  
+     		        async : false,
+     		        url : "insframework/getUserAuthority?id="+node.id,  
+     		        data : {},  
+     		        dataType : "json", //返回数据形式为json  
+     		        success : function(result) {
+     		            if (result) {
+ 		            		if(result.afreshLogin==null || result.afreshLogin==""){
+     		            		if(result.flag){
+	     		       				var url = "user/toAddUser";
+	     		       				var img = new Image();
+	     		       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+	     		       			    url = img.src;  // 此时相对路径已经变成绝对路径
+	     		       			    img.src = null; // 取消请求
+	     		       				window.location.href = encodeURI(url+"?name="+node.text+"&insid="+node.id);
+     		            		}else{
+     		            			alert("对不起，您不能对你的上级或同级部门的数据进行编辑");
+     		            		}
+     		            	}else{
+     		            		$.messager.confirm("提示",result.afreshLogin,function(data){
+     	     		        		 if(data){
+     	     		        			var url = "login.jsp";
+     	     		       				var img = new Image();
+     	     		       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+     	     		       			    url = img.src;  // 此时相对路径已经变成绝对路径
+     	     		       			    img.src = null; // 取消请求
+     	      		     				 top.location.href = url;
+     	      		     			 }
+     	     		     		 });
+     	     		        }
+     		           }
+     		        },  
+     		        error : function(errorMsg) {  
+     		            alert("数据请求失败，请联系系统管理员!");  
+     		        }  
+     		   }); 
         	}
         }
         
+        function deleteUser(id,uid,flags){
+ 			$.ajax({  
+ 		        type : "post",  
+ 		        async : false,
+ 		        url : "insframework/getUserAuthority?id="+id,  
+ 		        data : {},  
+ 		        dataType : "json", //返回数据形式为json  
+ 		        success : function(result) {
+ 		            if (result) {
+		            		if(result.afreshLogin==null || result.afreshLogin==""){
+ 		            		if(result.flag){
+ 		            			var url = "";
+ 		            			if(flags){
+ 		            				url = "user/getUser?id="+uid;
+ 		            			}else{
+ 		            				url = "user/desUser?id="+uid;
+ 		            			}
+     		       				var img = new Image();
+     		       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+     		       			    url = img.src;  // 此时相对路径已经变成绝对路径
+     		       			    img.src = null; // 取消请求
+     		       				window.location.href = encodeURI(url);
+ 		            		}else{
+ 		            			alert("对不起，您不能对你的上级或同级部门的数据进行编辑");
+ 		            		}
+ 		            	}else{
+ 		            		$.messager.confirm("提示",result.afreshLogin,function(data){
+ 	     		        		 if(data){
+ 	     		        			var url = "login.jsp";
+ 	     		       				var img = new Image();
+ 	     		       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+ 	     		       			    url = img.src;  // 此时相对路径已经变成绝对路径
+ 	     		       			    img.src = null; // 取消请求
+ 	      		     				 top.location.href = url;
+ 	      		     			 }
+ 	     		     		 });
+ 	     		        }
+ 		           }
+ 		        },  
+ 		        error : function(errorMsg) {  
+ 		            alert("数据请求失败，请联系系统管理员!");  
+ 		        }  
+ 		   });
+        }
 
         //监听窗口大小变化
           window.onresize = function() {

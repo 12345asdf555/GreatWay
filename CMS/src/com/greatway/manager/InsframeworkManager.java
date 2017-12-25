@@ -133,4 +133,31 @@ public interface InsframeworkManager {
 	 * @return
 	 */
 	BigInteger getParentById(BigInteger id);
+	
+	/**
+	 * 根据id查找所有下级id
+	 * @param parent 上级id
+	 * @return
+	 */
+	List<Insframework> getInsIdByParent(BigInteger parent);
+	
+	/**
+	 * 根据用户id查找组织机构id及类型
+	 * @param uid
+	 * @return
+	 */
+	List<Insframework> getInsByUserid(BigInteger uid);
+	
+	/**
+	 * 根据id查找名称
+	 * @param id
+	 * @return
+	 */
+	Insframework getInsById(BigInteger id);
+	
+	/**
+	 * 查找所有的id，name
+	 * @return
+	 */
+	List<Insframework> getInsAll();
 }

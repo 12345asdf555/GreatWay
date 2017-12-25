@@ -158,4 +158,24 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 		return im.getParentById(id);
 	}
 
+	@Override
+	public List<Insframework> getInsIdByParent(BigInteger parent) {
+		return im.getInsIdByParent(parent);
+	}
+
+	@Override
+	public List<Insframework> getInsByUserid(BigInteger uid) {
+		return im.getInsByUserid(uid);
+	}
+
+	@Override
+	public Insframework getInsById(BigInteger id) {
+		return im.getInsById(id);
+	}
+
+	@Override
+	public List<Insframework> getInsAll() {
+		return im.getInsAll();
+	}
+
 }

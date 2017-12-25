@@ -23,7 +23,7 @@ public interface UserService {
 	int getUsernameCount(String userName);
 	User LoadUser(String userName);
 	List<String> getAuthoritiesByUsername(String userName);
-	List<User> getIns();
+	List<User> getIns(BigInteger parent);
 	User getUserInsframework(BigInteger id);
 	List<User> getInsUser(int ins);
 }

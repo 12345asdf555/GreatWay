@@ -62,8 +62,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
             	<lable>部门</lable>
-            	<input name="userInsframeworks" id="userInsframeworks" type="hidden" value="${user.userInsframework}" data-options="required:true">
-            	<select class="easyui-combobox" name="userInsframework" id="userInsframework" value="${user.userInsframework}"></select>
+<%--             	<input name="userInsframeworks" id="userInsframeworks" type="hidden" value="${user.userInsframework}" data-options="required:true"> --%>
+            	<input class="easyui-textbox" name="userInsframework" id="userInsframework" value="${user.insname}" readonly="true" />
             </div>
 			<div class="fitem">
 				<input id="status" type="hidden" value="${role.roleStatus }"/>
@@ -181,32 +181,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
         }
         
-        	   $(function(){
-			   $.ajax({
-			   type: "post", 
-			   url: "user/getIns",
-			   dataType: "json",
-			   data: {},
-			   success: function (result) {
-			      if (result) {
-			         var optionstring = "";
-			         optionstring = "<option value='请选择'>请选择...</option>";
-			         //循环遍历 下拉框绑定
-			         for(var k=0;k<result.rows.length;k++){
-			         optionstring += "<option value=\"" + result.rows[k].insid + "\" >" + result.rows[k].insname + "</option>";
-			         }
-			         $("#userInsframework").html(optionstring);
-			      } else {
-			         alert('部门加载失败');
-			      }
-			      $("#userInsframework").combobox();
-			      $("#userInsframework").combobox('select',document.getElementById("userInsframeworks").value);
-			   },
-			   error: function () {
-			      alert('error');
-			   }
-			});
-		})
+//         	   $(function(){
+// 			   $.ajax({
+// 			   type: "post", 
+// 			   url: "user/getIns",
+// 			   dataType: "json",
+// 			   data: {},
+// 			   success: function (result) {
+// 			      if (result) {
+// 			         var optionstring = "";
+// 			         optionstring = "<option value='请选择'>请选择...</option>";
+// 			         //循环遍历 下拉框绑定
+// 			         for(var k=0;k<result.rows.length;k++){
+// 			         optionstring += "<option value=\"" + result.rows[k].insid + "\" >" + result.rows[k].insname + "</option>";
+// 			         }
+// 			         $("#userInsframework").html(optionstring);
+// 			      } else {
+// 			         alert('部门加载失败');
+// 			      }
+// 			      $("#userInsframework").combobox();
+// 			      $("#userInsframework").combobox('select',document.getElementById("userInsframeworks").value);
+// 			   },
+// 			   error: function () {
+// 			      alert('error');
+// 			   }
+// 			});
+// 		})
         
         		function statusRadio(){
 			$.ajax({  

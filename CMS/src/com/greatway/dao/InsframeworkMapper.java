@@ -46,4 +46,12 @@ public interface InsframeworkMapper extends Mapper<Insframework>{
 	int getTypeById(@Param("id")BigInteger id);
 	
 	Insframework getBloc();
+	
+	List<Insframework> getInsIdByParent(@Param("parent")BigInteger parent);
+	
+	List<Insframework> getInsByUserid(@Param("uid")BigInteger uid);
+	
+	Insframework getInsById(@Param("id")BigInteger id);
+	
+	List<Insframework> getInsAll();
 }

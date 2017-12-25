@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
 		return mapper.findByName(name);
 	}
 	
-	public List<User> getIns() {
-		return mapper.getIns();
+	public List<User> getIns(BigInteger parent) {
+		return mapper.getIns(parent);
 	}
 	
 	public List<String> getAuthoritiesByUsername(String userName) {

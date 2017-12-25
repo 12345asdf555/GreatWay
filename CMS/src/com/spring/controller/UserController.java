@@ -17,11 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.greatway.dto.WeldDto;
 import com.greatway.enums.WeldEnum;
 import com.greatway.manager.InsframeworkManager;
+import com.greatway.model.Insframework;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 import com.spring.model.User;
 import com.spring.service.UserService;
 
@@ -118,6 +119,7 @@ public class UserController {
 				json.put("users_email",user.getUserEmail());
 				json.put("users_position", user.getUserPosition());
 				json.put("users_insframework", user.getInsname());
+				json.put("insid", user.getInsid());
 				if(31==user.getStatus()){
 				json.put("status", "启用");
 				}
@@ -322,21 +324,34 @@ public class UserController {
 	@RequestMapping("/getIns")
 	@ResponseBody
 	public String getIns(HttpServletRequest request){
-       
-		List<User> getIns = userService.getIns();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			for(User user:getIns){
-				json.put("insid", user.getInsid());
-				json.put("insname", user.getInsname());
+			//获取用户id
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			List<Insframework> instype = im.getInsByUserid(new BigInteger(myuser.getId()+""));
+			List<Insframework> ins = null;
+			for(Insframework i:instype){
+				if(i.getType()==20){
+					ins = im.getInsAll();
+				}else if(i.getType()==21){
+					ins = im.getInsIdByParent(i.getId());
+					Insframework insf = im.getInsById(i.getId());
+					ins.add(ins.size(),insf);
+				}else{
+					ins = im.getInsIdByParent(i.getId());
+				}
+			}
+			for(Insframework i:ins){
+				json.put("insid", i.getId());
+				json.put("insname", i.getName());
 				ary.add(json);
 			}
 		}catch(Exception e){
-			e.getMessage();
+			e.printStackTrace();
 		}
-		obj.put("total", total);
 		obj.put("rows", ary);
 		return obj.toString();
 /*		return "redirect:/user/AllUser";*/

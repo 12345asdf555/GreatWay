@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import com.greatway.manager.InsframeworkManager;
 import com.greatway.model.Insframework;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -370,4 +372,75 @@ public class InsframeworkController {
         str = str.substring(0, str.length()-1); 
         return str;  
     } 
+	
+	/**
+	 * 判断用户操作权限
+	 * @param request
+	 * @param id 操作节点id
+	 * @return
+	 */
+	@RequestMapping("/getUserAuthority")
+	@ResponseBody
+	public String getUserAuthority(HttpServletRequest request,BigInteger id){
+		JSONObject obj = new JSONObject();
+		obj.put("flag", false);
+		obj.put("afreshLogin", "");
+		try{
+			//获取用户id
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			List<Insframework> ins = im.getInsByUserid(new BigInteger(myuser.getId()+""));
+			for(Insframework i:ins){
+				//如果用户为集团层或点击的是自己的层级时不做判断
+				if(i.getType()==20 || id.equals(i.getId())){
+					obj.put("flag", true);
+				}else{
+					List<Insframework> list = im.getInsIdByParent(i.getId());
+					for(Insframework insf:list){
+						if(id.equals(insf.getId())){
+							obj.put("flag",true);
+							break;
+						}
+					}
+				}
+			}
+			return obj.toString();
+		}catch(Exception e){
+			obj.put("afreshLogin", "您的Session已过期，请重新登录！");
+			return obj.toString();
+		}
+	}
+	
+	@RequestMapping("/getUserAdd")
+	@ResponseBody
+	public String getUserAdd(HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		obj.put("flag", false);
+		obj.put("afreshLogin", "");
+		try{
+			BigInteger nodeId = new BigInteger(request.getParameter("nodeId"));
+			//获取用户id
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			List<Insframework> ins = im.getInsByUserid(new BigInteger(myuser.getId()+""));
+			for(Insframework i:ins){
+				//如果用户为集团层或点击的是自己的层级时不做判断
+				if(i.getType()==20 || nodeId.equals(i.getId())){
+					obj.put("flag", true);
+				}else{
+					List<Insframework> list = im.getInsIdByParent(i.getId());
+					for(Insframework insf:list){
+						if(nodeId.equals(insf.getId())){
+							obj.put("flag",true);
+							break;
+						}
+					}
+				}
+			}
+			return obj.toString();
+		}catch(Exception e){
+			obj.put("afreshLogin", "您的Session已过期，请重新登录！");
+			return obj.toString();
+		}
+	}
 }

@@ -1,14 +1,6 @@
 $(function(){
 	hourscombobox();
 	CompanytimeDatagrid();
-	var afresh = $("#afresh").val();
-	if(afresh!=null && afresh!=""){
-		$.messager.confirm("提示",afresh,function(result){
-			if(result){
-				top.location.href = "/CMS/login.jsp";
-			}
-		});
-	}
 })
 var chartStr = "";
 $(document).ready(function(){
