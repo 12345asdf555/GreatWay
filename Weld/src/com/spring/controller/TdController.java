@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.page.Page;
+import com.greatway.util.IsnullUtil;
 import com.spring.model.MyUser;
 import com.spring.model.Td;
 import com.spring.model.User;
@@ -26,10 +28,16 @@ import net.sf.json.JSONObject;
 @RequestMapping(value = "/td",produces = { "text/json;charset=UTF-8" })
 public class TdController {
 	
+	private Page page;
+	private int pageIndex = 1;
+	private int pageSize = 10;
+	private int total = 0;
+	
 	@Autowired
 	private TdService tdService;
 	private Td td;
 	
+	IsnullUtil iutil = new IsnullUtil();
 	/**
 	 * 获取所有用户列表
 	 * @param request
@@ -47,12 +55,12 @@ public class TdController {
 	
 	@RequestMapping("/AllTd")
 	public String Alltd(HttpServletRequest request){
-		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+/*		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
 			    .getAuthentication()  
 			    .getPrincipal();
 		long uid = myuser.getId();
 		String insname = tdService.findInsname(tdService.findIns(uid));
-		request.setAttribute("insname", insname);
+		request.setAttribute("insname", insname);*/
 		return "td/BackUp";
 	}
 	
@@ -382,10 +390,21 @@ public class TdController {
 	@RequestMapping("/isnull")
 	@ResponseBody
 	public String isnull(HttpServletRequest request){
-		
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String parentId = request.getParameter("parent");
+		BigInteger parent = null;
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		page = new Page(pageIndex,pageSize,total);
+		long total = 0;
 		JSONObject obj = new JSONObject();
 		String da = request.getParameter("dd");
 		String po = request.getParameter("posit");
+		if(da.length()>0){
+			total = da.length()/159;
+		}
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
@@ -405,6 +424,7 @@ public class TdController {
 		}catch(Exception e){
 			e.getMessage();
 		}
+		obj.put("total", total);
 		obj.put("rows", ary);
 		return obj.toString();
 	}

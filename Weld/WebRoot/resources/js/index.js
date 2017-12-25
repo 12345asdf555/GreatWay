@@ -177,7 +177,8 @@ function openCompanyIdle(){
 }
 
 function openCompanyTd(){
-	addTab("公司实时监测","td/AllTd");
+	/*addTab("公司实时监测","td/AllTd");*/
+	window.open("td/AllTd");
 }
 
 function openItemEfficiency(){

@@ -8,6 +8,7 @@
 	var back = new Array();
 	var led=["0,1,2,4,5,6","2,5","0,2,3,4,6","0,2,3,5,6","1,2,3,5","0,1,3,5,6","0,1,3,4,5,6","0,2,5","0,1,2,3,4,5,6","0,1,2,3,5,6"];
 	var timer,timer1,timer2,timer5;
+	var rowdex=0;
 	var vaa1;
 	var e=0;
 	var stri;
@@ -170,8 +171,20 @@
 	    			$('#dg').datagrid('refreshRow', dex);
 	    			$("a[id='view']").linkbutton({text:'查看',plain:true,iconCls:'icon-view'});
 	    		    }
-	    		}
-	    	    }
+		    		}
+		    	    }
+	    			if((rowdex<back.length)&&(rows.length!=0)){
+	    			for(var dex1=0;dex1<rows.length;dex1++){
+	    				if(back[rowdex]==rows[dex1].fequipment_no){    
+	    				        $('#dg').datagrid('insertRow', {  
+	    				            index:0,  
+	    				            row:rows[dex1],  
+	    				        });     
+	    				        $('#dg').datagrid('deleteRow', dex1+1);//删除一行
+	    				}
+	    			}
+	    			rowdex++;
+	    			}
 	    	
 			};
 			//关闭事件
@@ -257,7 +270,7 @@
 		}
 		for(var j = 0;j < 1;j++){
 			for(var i = 0;i < dd.length;i+=53){
-					if(hq == parseInt(dd.substring(4+i, 8+i),16)&&parseInt(dd.substring(8+i, 12+i))!=0){
+					if(hq == parseInt(dd.substring(4+i, 8+i),16)&&(dd.substring(8+i, 12+i))!="0000"){
 					var mach = parseInt(dd.substring(4+i, 8+i),16);
 					var weld = dd.substring(8+i, 12+i);
 					var xx = dd.substring(12+i, 16+i);
@@ -349,6 +362,7 @@
     		rece2(back[t]);
     		datatable();
     		back.length=0;
+    		rowdex=0;
     		t++;
     		}else{
     			t=0;
