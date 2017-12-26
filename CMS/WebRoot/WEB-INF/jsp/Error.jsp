@@ -19,15 +19,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
+	<style type="text/css">
+		body{background-color: white;
+		}
+	</style>
   </head>
   
   <body>
-	<div style="text-align:center;padding-top: 100px"> 
-		<ul id="time1">
-				<li><img src="resources/images/auth.png" width="50%" height="50%"></li>
-		</ul>
-		<h1>没有权限还想访问!!!</h1> 
+	<div style="text-align:center;padding-top: 100px;"> 
+		<img src="resources/images/error.gif" width="50%" height="50%">
+		<h3>您还未开通此页面权限哦～～～</h3> 
 	</div> 
   </body>
 </html>

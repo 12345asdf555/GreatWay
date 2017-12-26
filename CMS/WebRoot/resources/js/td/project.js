@@ -244,7 +244,12 @@ function newSearch(){
 	});
 }
    	function show(value){
-   		window.location.href="/CMS/td/AllTda?value="+value;
+		var utl = "td/AllTda?value="+value;
+		var img = new Image();
+	    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+	    url = img.src;  // 此时相对路径已经变成绝对路径
+	    img.src = null; // 取消请求
+		window.location.href = encodeURI(url);
 	}
    	
  
