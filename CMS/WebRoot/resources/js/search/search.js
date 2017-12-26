@@ -291,7 +291,8 @@ function newSearchResource(){
 function searchWelderCombobox(){
 	var optionFields = 
   		"<option value='fname'>名称</option>" +
-  		"<option value='fwelder_no'>编号</option>";
+  		"<option value='fwelder_no'>编号</option>" +
+  		"<option value='i.fname'>所属项目</option>";
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
@@ -458,6 +459,8 @@ function searchWJCombobox(){
 		"<option value='fmin_electricity'>电流下限</option>" +
 		"<option value='fmax_valtage'>电压上限</option>" +
 		"<option value='fmin_valtage'>电压下限</option>" +
+		"<option value='felectricity_unit'>电流单位</option>" +
+		"<option value='fvaltage_unit'>电压单位</option>" +
 		"<option value='fstart_time'>开始时间</option>" +
 		"<option value='fend_time'>完成时间</option>" +
 		"<option value='fcreatetime'>创建时间</option>" +

@@ -30,6 +30,8 @@
         <result property="creatTime" column="fcreatetime"></result>
         <result property="updateTime" column="fupdatetime"></result>
         <result property="updatecount" column="fupdatecount"></result>
+        <result property="valtage_unit" column="fvaltage_unit"></result>
+        <result property="electricity_unit" column="felectricity_unit"></result>
         <association property="itemid" column="fitemId" javaType="com.greatway.model.Insframework">  
             <id property="id" column="iid"></id> 
             <result property="name" column="iname"></result>  

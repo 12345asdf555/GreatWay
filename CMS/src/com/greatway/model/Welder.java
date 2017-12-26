@@ -11,7 +11,14 @@ public class Welder {
 	private BigInteger id;
 	private String welderno;
 	private String name;
+	private String iname;
 	
+	public String getIname() {
+		return iname;
+	}
+	public void setIname(String iname) {
+		this.iname = iname;
+	}
 	public BigInteger getId() {
 		return id;
 	}

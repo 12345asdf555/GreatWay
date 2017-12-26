@@ -39,9 +39,23 @@ public class WeldedJunction {
 	private int updatecount;
 	private String nextwall_thickness;
 	private String next_material;
+	private String electricity_unit;
+	private String valtage_unit;
 	@Transient
 	private Insframework itemid;//所属项目（新增字段）
 	
+	public String getElectricity_unit() {
+		return electricity_unit;
+	}
+	public void setElectricity_unit(String electricity_unit) {
+		this.electricity_unit = electricity_unit;
+	}
+	public String getValtage_unit() {
+		return valtage_unit;
+	}
+	public void setValtage_unit(String valtage_unit) {
+		this.valtage_unit = valtage_unit;
+	}
 	public BigInteger getId() {
 		return id;
 	}

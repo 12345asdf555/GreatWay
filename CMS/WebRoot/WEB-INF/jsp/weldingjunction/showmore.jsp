@@ -92,6 +92,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-textbox" readonly="readonly" value="${minValtage }"/>
 			</div>
 			<div class="fitem">
+				<lable>电流单位</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${electricity_unit }"/>
+				<lable>电压单位</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${valtage_unit }"/>
+			</div>
+			<div class="fitem">
 				<lable>所属项目</lable>
 				<input class="easyui-textbox" readonly="readonly" value="${itemname }"/>
 				<lable>开始时间</lable>

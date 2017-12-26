@@ -86,6 +86,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${w.minValtage }"/>
 			</div>
 			<div class="fitem">
+				<lable>电流单位</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${electricity_unit }"/>
+				<lable>电压单位</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${valtage_unit }"/>
+			</div>
+			<div class="fitem">
 				<lable>下游外径</lable>
 				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${w.nextexternaldiameter }"/>
 				<lable>开始时间</lable>

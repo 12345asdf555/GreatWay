@@ -58,6 +58,7 @@ public class WeldedJunctionControll {
 			request.setAttribute("endTime", str[20]);request.setAttribute("creatTime", str[21]);
 			request.setAttribute("updateTime", str[22]);request.setAttribute("updatecount", str[23]); 
 			request.setAttribute("nextwall_thickness", str[24]);request.setAttribute("next_material", str[25]);
+			request.setAttribute("electricity_unit", str[26]);request.setAttribute("valtage_unit", str[27]);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -112,6 +113,8 @@ public class WeldedJunctionControll {
 				json.put("updatecount", w.getUpdatecount());
 				json.put("nextwall_thickness", w.getNextwall_thickness());
 				json.put("next_material", w.getNext_material());
+				json.put("electricity_unit", w.getElectricity_unit());
+				json.put("valtage_unit", w.getValtage_unit());
 				ary.add(json);
 			}
 		}catch(Exception e){

@@ -61,6 +61,7 @@ public class WelderController {
 				json.put("id", we.getId());
 				json.put("name", we.getName());
 				json.put("welderno", we.getWelderno());
+				json.put("itemname", we.getIname());
 				ary.add(json);
 			}
 		}catch(Exception e){

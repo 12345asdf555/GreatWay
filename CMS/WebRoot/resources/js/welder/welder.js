@@ -32,6 +32,12 @@ function weldDatagrid(){
 			width : 100,
 			halign : "center",
 			align : "left"
+		}, {
+			field : 'itemname',
+			title : '所属项目',
+			width : 100,
+			halign : "center",
+			align : "left"
 		}] ],
 		toolbar : '#welderTable_btn',
 		pagination : true,

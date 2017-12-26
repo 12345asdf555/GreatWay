@@ -191,6 +191,20 @@ function weldedJunctionDatagrid(){
 			align : "left",
 			hidden:true
 		}, {
+			field : 'valtage_unit',
+			title : '电压单位',
+			width : 90,
+			halign : "center",
+			align : "left",
+			hidden:true
+		}, {
+			field : 'electricity_unit',
+			title : '电流单位',
+			width : 90,
+			halign : "center",
+			align : "left",
+			hidden:true
+		}, {
 			field : 'edit',
 			title : '编辑',
 			width : 120,
@@ -200,7 +214,7 @@ function weldedJunctionDatagrid(){
 				var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
 				+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
 				row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+
-				","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material;
+				","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material+","+row.valtage_unit+","+row.electricity_unit;
 				var str = '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
 				return str;
 			}
