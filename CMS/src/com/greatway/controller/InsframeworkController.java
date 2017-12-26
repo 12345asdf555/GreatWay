@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.greatway.dto.WeldDto;
 import com.greatway.enums.WeldEnum;
+import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.InsframeworkManager;
+import com.greatway.model.Dictionarys;
 import com.greatway.model.Insframework;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
@@ -37,6 +39,9 @@ public class InsframeworkController {
 	
 	@Autowired
 	private InsframeworkManager im;
+	
+	@Autowired
+	private DictionaryManager dm;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -126,7 +131,7 @@ public class InsframeworkController {
 				json.put("logogram", i.getLogogram());
 				json.put("code", i.getCode());
 				json.put("parent", im.getInsframeworkById(i.getParent()));
-				json.put("type",WeldEnum.getValue(i.getType()));
+				json.put("type", i.getTypename());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -272,23 +277,20 @@ public class InsframeworkController {
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
 			List<Insframework> instype = im.getInsByUserid(new BigInteger(myuser.getId()+""));
+			List<Dictionarys> dictionary = null;
 			//获取枚举值
-			List<Integer> key = new ArrayList<Integer>();
 			for(Insframework i:instype){
 				if(i.getType()==20){
-					key.add(21);
-					key.add(22);
-					key.add(23);
+					dictionary = dm.getDictionaryValue(2);
 				}else if(i.getType()==21){
-					key.add(22);
-					key.add(23);
+					dictionary = dm.getDicValueByValue(2, 21);
 				}else{
-					key.add(23);
+					dictionary = dm.getDicValueByValue(2, 22);
 				}
 			}
-			for(Integer k:key){
-				json.put("id", k);
-				json.put("name", WeldEnum.getValue(k));
+			for(Dictionarys d:dictionary){
+				json.put("id", d.getValue());
+				json.put("name", d.getValueName());
 				ary.add(json);
 			}
 		}catch(Exception e){

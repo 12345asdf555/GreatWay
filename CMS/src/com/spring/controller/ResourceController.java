@@ -1,6 +1,5 @@
 package com.spring.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.greatway.enums.WeldEnum;
+import com.greatway.manager.DictionaryManager;
+import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
 import com.spring.model.Resources;
-import com.spring.model.User;
 import com.spring.service.ResourceService;
-import com.spring.service.UserService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -32,7 +30,9 @@ public class ResourceController {
 	private int total = 0;
 	@Autowired
 	private ResourceService resourceService;
-	
+
+	@Autowired
+	private DictionaryManager dm;
 	/**
 	 * 获取所有用户列表
 	 * @param request
@@ -69,12 +69,7 @@ public class ResourceController {
 				json.put("resources_type", resource.getResourceType());
 				json.put("resources_address", resource.getResourceAddress());
 				json.put("resources_desc",resource.getResourceDesc());
-				if(31==resource.getStatus()){
-				json.put("status", "启用");
-				}
-				else{
-				json.put("status", "停用");
-				}
+				json.put("status", resource.getStatusname());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -195,14 +190,10 @@ public class ResourceController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			//获取枚举值
-			List<Integer> key = new ArrayList<Integer>();
-			key.add(31);
-			key.add(32);
-			/*key.add(33);*/
-			for(Integer k:key){
-				json.put("id", k);
-				json.put("name", WeldEnum.getValue(k));
+			List<Dictionarys> dictionary = dm.getDictionaryValue(6);
+			for(Dictionarys d:dictionary){
+				json.put("id", d.getValue());
+				json.put("name", d.getValueName());
 				ary.add(json);
 			}
 		}catch(Exception e){

@@ -33,7 +33,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.greatway.enums.WeldEnum;
+import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.GatherManager;
 import com.greatway.manager.MaintainManager;
 import com.greatway.manager.WeldingMachineManager;
@@ -62,6 +62,8 @@ public class ImportExcelController {
 	private MaintainManager mm;
 	@Autowired
 	private GatherManager g;
+	@Autowired
+	private DictionaryManager dm;
 	IsnullUtil iutil = new IsnullUtil();
 	
 	/**
@@ -84,13 +86,12 @@ public class ImportExcelController {
 			File file  = new File(path);
 			file.delete();
 			for(WeldingMachine wm : list){
-				wm.setTypeId(WeldEnum.getKey(wm.getTypename()));
-				wm.setStatusId(WeldEnum.getKey(wm.getStatusname()));
+				wm.setTypeId(dm.getvaluebyname(4,wm.getTypename()));
+				wm.setStatusId(dm.getvaluebyname(3,wm.getStatusname()));
 				wm.getManufacturerId().setId(wmm.getManuidByValue(wm.getManufacturerId().getName(),wm.getManufacturerId().getType()));
 				String name = wm.getInsframeworkId().getName();
 				wm.getInsframeworkId().setId(wmm.getInsframeworkByName(name));
 				Gather gather = wm.getGatherId();
-//				BigInteger gid = null;
 				int count2 = 0;
 				if(gather!=null){
 					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gather.getGatherNo());
@@ -134,7 +135,7 @@ public class ImportExcelController {
 			File file  = new File(path);
 			file.delete();
 			for(int i=0;i<wt.size();i++){
-				wt.get(i).getMaintenance().setTypeId(WeldEnum.getKey(wt.get(i).getMaintenance().getTypename()));
+				wt.get(i).getMaintenance().setTypeId(dm.getvaluebyname(5,wt.get(i).getMaintenance().getTypename()));
 				BigInteger wmid = wmm.getWeldingMachineByEno(wt.get(i).getWelding().getEquipmentNo());
 				wt.get(i).getWelding().setId(wmid);
 				//插入数据库

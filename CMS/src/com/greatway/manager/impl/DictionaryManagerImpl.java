@@ -52,9 +52,18 @@ public class DictionaryManagerImpl implements DictionaryManager {
 	@Override
 	public void deleteDictionary(int id) {
 		dictionaryMapper.deleteDictionary(id);
-		
 	}
 	
-	
-	
+	@Override
+	public List<Dictionarys> getDictionaryValue(int typeid) {
+		return dictionaryMapper.getDictionaryValue(typeid);
+	}
+	@Override
+	public List<Dictionarys> getDicValueByValue(int typeid, int value) {
+		return dictionaryMapper.getDicValueByValue(typeid, value);
+	}
+	@Override
+	public int getvaluebyname(int typeid,String valuename) {
+		return dictionaryMapper.getvaluebyname(typeid,valuename);
+	}
 }

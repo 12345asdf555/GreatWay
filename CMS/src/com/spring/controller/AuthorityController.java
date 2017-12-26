@@ -1,6 +1,5 @@
 package com.spring.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.greatway.enums.WeldEnum;
+import com.greatway.manager.DictionaryManager;
+import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
 import com.spring.model.Authority;
-import com.spring.model.User;
 import com.spring.service.AuthorityService;
 
 import net.sf.json.JSONArray;
@@ -31,6 +30,8 @@ public class AuthorityController {
 	private int total = 0;
 	@Autowired
 	private AuthorityService authorityService;
+	@Autowired
+	private DictionaryManager dm;
 	
 	/**
 	 * 获取所有用户列表
@@ -272,14 +273,10 @@ public class AuthorityController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			//获取枚举值
-			List<Integer> key = new ArrayList<Integer>();
-			key.add(31);
-			key.add(32);
-			/*key.add(33);*/
-			for(Integer k:key){
-				json.put("id", k);
-				json.put("name", WeldEnum.getValue(k));
+			List<Dictionarys> dictionary = dm.getDictionaryValue(6);
+			for(Dictionarys d:dictionary){
+				json.put("id", d.getValue());
+				json.put("name", d.getValueName());
 				ary.add(json);
 			}
 		}catch(Exception e){

@@ -10,10 +10,13 @@
             <result property="code" column="fcode"></result>
         	<result property="parent" column="fparent"></result>
         	<result property="type" column="ftype"></result>
+        	<result property="typename" column="typename"></result>
 	</resultMap>
 	
 	<select id="getInsframeworkAll" resultMap="insMap">
-		SELECT i.fid,i.fname,i.flogogram,i.fcode,i.fparent,i.ftype FROM tb_insframework i where 1=1
+		SELECT i.fid,i.fname,i.flogogram,i.fcode,i.fparent,i.ftype,d.fvaluename typename FROM tb_insframework i 
+		INNER JOIN tb_dictionary d on d.fvalue = i.ftype
+		where 1=1
 		<if test="parent!=null and parent!=''">
 			 and i.fparent=#{parent}
 		</if>

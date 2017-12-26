@@ -27,7 +27,8 @@
 	</select>
 	
 	<select id="findAll" resultType="Resources">
-		select id id,resources_name resourceName,resources_type resourceType,resources_address resourceAddress,resources_desc resourceDesc,status status from tb_resources where 1=1
+		select id id,resources_name resourceName,resources_type resourceType,resources_address resourceAddress,resources_desc resourceDesc,status status,d.fvaluename statusname from tb_resources 
+		INNER JOIN tb_dictionary d on d.fvalue = tb_resources.status where 1=1
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>

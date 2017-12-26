@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.enums.WeldEnum;
+import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.MaintainManager;
+import com.greatway.model.Dictionarys;
 import com.greatway.model.MaintenanceRecord;
 import com.greatway.model.WeldingMachine;
 import com.greatway.model.WeldingMaintenance;
@@ -36,7 +38,9 @@ public class MaintainController {
 	@Autowired
 	private MaintainManager mm;
 	IsnullUtil iutil = new IsnullUtil();
-	
+
+	@Autowired
+	private DictionaryManager dm;
 	/**
 	 * 跳转维修记录页面
 	 * @return
@@ -125,7 +129,7 @@ public class MaintainController {
 				json.put("starttime",wm.getMaintenance().getStartTime());
 				json.put("endtime", wm.getMaintenance().getEndTime());
 				json.put("typeid", wm.getMaintenance().getTypeId());
-				json.put("typename", WeldEnum.getValue(wm.getMaintenance().getTypeId()));
+				json.put("typename", wm.getMaintenance().getTypename());
 				json.put("desc", wm.getMaintenance().getDesc());
 				ary.add(json);
 			}
@@ -152,14 +156,10 @@ public class MaintainController {
 				json.put("mid", wm.getId());
 				ary1.add(json);
 			}
-			//获取枚举值
-			List<Integer> key = new ArrayList<Integer>();
-			key.add(51);
-			key.add(52);
-			key.add(53);
-			for(Integer k:key){
-				json.put("typeid", k);
-				json.put("typename", WeldEnum.getValue(k));
+			List<Dictionarys> dictionary = dm.getDictionaryValue(5);
+			for(Dictionarys d:dictionary){
+				json.put("typeid", d.getValue());
+				json.put("typename", d.getValueName());
 				ary2.add(json);
 			}
 		}catch(Exception e){

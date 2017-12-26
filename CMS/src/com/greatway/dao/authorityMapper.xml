@@ -53,7 +53,8 @@
 	</select>
 	
 	<select id="findAll" resultType="Authority">
-	   select tb_authorities.id id,tb_authorities.authorities_name authorityName,tb_authorities.authorities_desc authorityDesc,tb_authorities.status status from tb_authorities where 1=1
+	   select tb_authorities.id id,tb_authorities.authorities_name authorityName,tb_authorities.authorities_desc authorityDesc,tb_authorities.status status,d.fvaluename statusname from tb_authorities 
+	   INNER JOIN tb_dictionary d on d.fvalue = tb_authorities.status where 1=1
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>

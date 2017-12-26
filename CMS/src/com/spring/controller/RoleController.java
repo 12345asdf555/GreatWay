@@ -1,25 +1,20 @@
 package com.spring.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.greatway.enums.WeldEnum;
+import com.greatway.manager.DictionaryManager;
+import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
 import com.spring.model.Role;
-import com.spring.model.User;
 import com.spring.service.RoleService;
 
 import net.sf.json.JSONArray;
@@ -35,6 +30,9 @@ public class RoleController {
 	private int total = 0;
 	@Autowired
 	private RoleService roleService;
+
+	@Autowired
+	private DictionaryManager dm;
 	
 	/**
 	 * 获取所有用户列表
@@ -70,12 +68,7 @@ public class RoleController {
 				json.put("id", role.getId());
 				json.put("roles_name", role.getRoleName());
 				json.put("roles_desc", role.getRoleDesc());
-				if(31==role.getRoleStatus()){
-				json.put("status", "启用");
-				}
-				else{
-				json.put("status", "停用");
-				}
+				json.put("status", role.getStatusname());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -335,14 +328,10 @@ public class RoleController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			//获取枚举值
-			List<Integer> key = new ArrayList<Integer>();
-			key.add(31);
-			key.add(32);
-			/*key.add(33);*/
-			for(Integer k:key){
-				json.put("id", k);
-				json.put("name", WeldEnum.getValue(k));
+			List<Dictionarys> dictionary = dm.getDictionaryValue(6);
+			for(Dictionarys d:dictionary){
+				json.put("id", d.getValue());
+				json.put("name", d.getValueName());
 				ary.add(json);
 			}
 		}catch(Exception e){

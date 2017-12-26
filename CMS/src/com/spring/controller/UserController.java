@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.enums.WeldEnum;
+import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.InsframeworkManager;
+import com.greatway.model.Dictionarys;
 import com.greatway.model.Insframework;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
@@ -42,6 +44,9 @@ public class UserController {
 	
 	@Autowired
 	private InsframeworkManager im;
+	
+	@Autowired
+	private DictionaryManager dm;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -70,7 +75,6 @@ public class UserController {
 		    if (auth != null){    
 		        new SecurityContextLogoutHandler().logout(request,response,auth);
 		    }
-		    System.out.println(auth);
 		    return "redirect:/login.jsp?logout";
 	}
 	
@@ -120,12 +124,7 @@ public class UserController {
 				json.put("users_position", user.getUserPosition());
 				json.put("users_insframework", user.getInsname());
 				json.put("insid", user.getInsid());
-				if(31==user.getStatus()){
-				json.put("status", "启用");
-				}
-				else{
-				json.put("status", "停用");
-				}
+				json.put("status", user.getStatusname());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -364,14 +363,10 @@ public class UserController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			//获取枚举值
-			List<Integer> key = new ArrayList<Integer>();
-			key.add(31);
-			key.add(32);
-			/*key.add(33);*/
-			for(Integer k:key){
-				json.put("id", k);
-				json.put("name", WeldEnum.getValue(k));
+			List<Dictionarys> dictionary = dm.getDictionaryValue(6);
+			for(Dictionarys d:dictionary){
+				json.put("id", d.getValue());
+				json.put("name", d.getValueName());
 				ary.add(json);
 			}
 		}catch(Exception e){

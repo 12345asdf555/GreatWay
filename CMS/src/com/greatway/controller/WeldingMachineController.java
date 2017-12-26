@@ -1,7 +1,6 @@
 package com.greatway.controller;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.enums.WeldEnum;
+import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.GatherManager;
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.MaintainManager;
 import com.greatway.manager.WeldingMachineManager;
+import com.greatway.model.Dictionarys;
 import com.greatway.model.EquipmentManufacturer;
 import com.greatway.model.Gather;
 import com.greatway.model.Insframework;
@@ -51,6 +52,9 @@ public class WeldingMachineController {
 	@Autowired
 	private GatherManager gm;
 	
+	@Autowired
+	private DictionaryManager dm;
+	
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -72,8 +76,6 @@ public class WeldingMachineController {
 	@RequestMapping("/goMaintain")
 	public String goMaintain(HttpServletRequest request, @RequestParam String wid){
 		WeldingMachine weld = wmm.getWeldingMachineById(new BigInteger(wid));
-		request.setAttribute("typename", WeldEnum.getValue(weld.getTypeId()));
-		request.setAttribute("statusname", WeldEnum.getValue(weld.getStatusId()));
 		request.setAttribute("isnetworking",  WeldEnum.getValue(weld.getIsnetworking()));
 		request.setAttribute("w", weld);
 		return "maintain/weldingmaintenance";
@@ -154,9 +156,9 @@ public class WeldingMachineController {
 				json.put("isnetworking", WeldEnum.getValue(wm.getIsnetworking()));
 				json.put("isnetworkingId", wm.getIsnetworking());
 				json.put("jointime", wm.getJoinTime());
-				json.put("typeName", WeldEnum.getValue(wm.getTypeId()));
+				json.put("typeName",wm.getTypename());
 				json.put("typeId", wm.getTypeId());
-				json.put("statusName", WeldEnum.getValue(wm.getStatusId()));
+				json.put("statusName", wm.getStatusname());
 				json.put("statusId", wm.getStatusId());
 				json.put("insframeworkName", wm.getInsframeworkId().getName());
 				json.put("insframeworkId", wm.getInsframeworkId().getId());
@@ -188,15 +190,10 @@ public class WeldingMachineController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			//获取枚举值
-			List<Integer> key = new ArrayList<Integer>();
-			key.add(41);
-			key.add(42);
-			key.add(43);
-			key.add(44);
-			for(Integer k:key){
-				json.put("id", k);
-				json.put("name", WeldEnum.getValue(k));
+			List<Dictionarys> dictionary = dm.getDictionaryValue(4);
+			for(Dictionarys d:dictionary){
+				json.put("id", d.getValue());
+				json.put("name", d.getValueName());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -281,15 +278,10 @@ public class WeldingMachineController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			//获取枚举值
-			List<Integer> key = new ArrayList<Integer>();
-			key.add(31);
-			key.add(32);
-			key.add(33);
-			key.add(34);
-			for(Integer k:key){
-				json.put("id", k);
-				json.put("name", WeldEnum.getValue(k));
+			List<Dictionarys> dictionary = dm.getDictionaryValue(3);
+			for(Dictionarys d:dictionary){
+				json.put("id", d.getValue());
+				json.put("name", d.getValueName());
 				ary.add(json);
 			}
 		}catch(Exception e){

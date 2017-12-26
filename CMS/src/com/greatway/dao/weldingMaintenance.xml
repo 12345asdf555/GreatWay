@@ -13,6 +13,7 @@
             <result property="startTime" column="fstart_time"></result>
         	<result property="endTime" column="fend_time"></result>
         	<result property="typeId" column="ftype_id"></result>
+        	<result property="typename" column="typename"></result>
         </association>
         <association property="welding" column="fwelding_id" javaType="com.greatway.model.WeldingMachine">  
             <id property="id" column="wid"></id> 
@@ -21,10 +22,11 @@
 	</resultMap>
 	
 	<select id="getWeldingMaintenanceAll" resultMap="mmMap">
-		SELECT m.fid fid,r.fid rid, wm.fid wid, r.ftype_id ftype_id, fequipment_no,fviceman,
+		SELECT m.fid fid,r.fid rid, wm.fid wid, r.ftype_id ftype_id, fequipment_no,fviceman,d.fvaluename typename,
 		fstart_time,fend_time,fdesc
 		FROM tb_welding_maintenance m 
 		inner join tb_maintenance_record r on  fmaintenance_id = r.fid
+        INNER JOIN tb_dictionary d on r.ftype_id = d.fvalue
 		inner join tb_welding_machine wm on m.fwelding_id = wm.fid where 1=1
 		<if test="wid!=null and wid!=''">
 			and wm.fid = #{wid}

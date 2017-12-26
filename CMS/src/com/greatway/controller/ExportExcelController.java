@@ -64,10 +64,10 @@ public class ExportExcelController {
 			for(int i =0; i<list.size();i++){
 				data[i][0] = list.get(i).getId();
 				data[i][1] = list.get(i).getEquipmentNo();
-				data[i][2] = WeldEnum.getValue(list.get(i).getTypeId());
+				data[i][2] = list.get(i).getTypename();
 				data[i][3] = list.get(i).getJoinTime();
 				data[i][4] = list.get(i).getInsframeworkId().getName();
-				data[i][5] = WeldEnum.getValue(list.get(i).getStatusId());
+				data[i][5] = list.get(i).getStatusname();
 				data[i][6] = list.get(i).getManufacturerId().getName();
 				data[i][7] = list.get(i).getManufacturerId().getType();
 				data[i][8] = WeldEnum.getValue(list.get(i).getIsnetworking());
@@ -129,7 +129,7 @@ public class ExportExcelController {
 				data[i][2] = list.get(i).getMaintenance().getViceman();
 				data[i][3] = list.get(i).getMaintenance().getStartTime();
 				data[i][4] = list.get(i).getMaintenance().getEndTime();
-				data[i][5] = WeldEnum.getValue(list.get(i).getMaintenance().getTypeId());
+				data[i][5] = list.get(i).getMaintenance().getTypename();
 				data[i][6] = list.get(i).getMaintenance().getDesc();
 			}
 			filename = "焊机维修" + sdf.format(new Date())+".xls";

@@ -59,7 +59,7 @@ function searchInsfCombobox(){
 		"<option value='flogogram'>简写</option>" +
 		"<option value='fcode'>编码</option>" +
 		"<option value='fparent'>上级项目</option>" +
-		"<option value='ftype'>类型</option>";
+		"<option value='d.fvaluename'>类型</option>";
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
@@ -146,10 +146,10 @@ function newSearchWeldingMachine(){
 function searchWeldingMachineCombobox(){
 	var optionFields = 
 		"<option value='fequipment_no'>固定资产编号</option>" +
-		"<option value='ftype_id'>设备类型</option>" +
+		"<option value='di.fvaluename'>设备类型</option>" +
 		"<option value='fjoin_time'>入厂时间</option>" +
 		"<option value='i.fname'>所属项目</option>" +
-		"<option value='fstatus_id'>状态</option>" +
+		"<option value='d.fvaluename'>状态</option>" +
 		"<option value='m.fname'>厂家</option>" +
 		"<option value='fisnetworking'>是否在网</option>" +
 		"<option value='fposition'>位置</option>" +
@@ -182,34 +182,6 @@ function searchWeldingmachine(){
 				content="0";
 			}else if(content=="否"){
 				content=1;
-			}else{
-				content="9999";
-			}
-		}
-		//如果类型发生变化，需要修改这里的值
-		if(field=="ftype_id"){
-			if(content=="氩弧焊"){
-				content=41;
-			}else if(content=="手工焊"){
-				content=42;
-			}else if(content=="气保焊"){
-				content=43;
-			}else if(content=="埋弧焊"){
-				content=44;
-			}else{
-				content="9999";
-			}
-		}
-		//如果类型发生变化，需要修改这里的值
-		if(field=="fstatus_id"){
-			if(content=="启用"){
-				content=31;
-			}else if(content=="封存"){
-				content=32;
-			}else if(content=="维修"){
-				content=33;
-			}else if(content=="报废"){
-				content=34;
 			}else{
 				content="9999";
 			}
@@ -250,7 +222,7 @@ function newSearchMaintain(){
 function searchMaintainCombobox(){
 	var optionFields = 
 		"<option value='fequipment_no'>固定资产编号</option>" +
-  		"<option value='r.ftype_id'>维修类型</option>" +
+  		"<option value='d.fvaluename'>维修类型</option>" +
   		"<option value='fviceman'>维修人员</option>" +
   		"<option value='fdesc'>维修说明</option>" +
   		"<option value='fstart_time'>维修起始时间</option>" +
@@ -269,41 +241,8 @@ function insertSearchMaintain(){
 //维修记录执行查询
 function searchMaintain(){
 	fillcontent();
-	for(var i=0;i<=index;i++){
-		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
-		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
-		var contentId =$(".content").eq(i).attr("id");
-		var content = $("#"+contentId+"").val();
-		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
-		if(field=="r.ftype_id"){
-			if(content=="日常维修"){
-				content=51;
-			}else if(content=="二级保养"){
-				content=52;
-			}else if(content=="大修"){
-				content=53;
-			}else{
-				content="9999";
-			}
-		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
-			alert('请输入完整的查询条件！');
-			return;
-		}
-		if(joint==null || joint==""){
-			joint = "and";
-		}
-		if(condition == "like"){
-			content = "%"+content+"%";
-		}
-		if(i==index){
-			searchStr +=" "+field+" "+condition+" '"+content+"'";
-		}else{
-			searchStr +=" "+field+" "+condition+" '"+content+"' "+joint;
-		}
+	if(!getContent()){
+		return;
 	}
 	$('#maintainTable').datagrid('load', {
 		"searchStr" : searchStr
@@ -364,7 +303,7 @@ function searchUserCombobox(){
   		"<option value='users_email'>邮箱</option>" +
   		"<option value='users_insframework'>岗位</option>" +
   		"<option value='users_position'>部门</option>" +
-  		"<option value='status'>状态</option>" ;
+  		"<option value='d.fvaluename'>状态</option>" ;
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
@@ -372,7 +311,7 @@ function searchUserCombobox(){
 function searchRoleCombobox(){
 	var optionFields = "<option value='roles_name'>角色名</option>" +
   		"<option value='roles_desc'>描述</option>"+
-  		"<option value='status'>状态</option>" ;
+  		"<option value='d.fvaluename'>状态</option>" ;
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
@@ -380,7 +319,7 @@ function searchRoleCombobox(){
 function searchAuthorityCombobox(){
 	var optionFields = "<option value='authorities_name'>权限名</option>" +
   		"<option value='authorities_desc'>描述</option>"+
-  		"<option value='status'>状态</option>" ;
+  		"<option value='d.fvaluename'>状态</option>" ;
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
@@ -390,7 +329,7 @@ function searchResourceCombobox(){
   		"<option value='resources_type'>类型</option>"+
   		"<option value='resources_address'>地址</option>" +
   		"<option value='resources_desc'>描述</option>" +
-  		"<option value='status'>状态</option>" ;
+  		"<option value='d.fvaluename'>状态</option>" ;
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
@@ -442,42 +381,8 @@ function searchWelder(){
 
 function searchUser(){
 	fillcontent();
-	for(var i=0;i<=index;i++){
-		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
-		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
-		var contentId =$(".content").eq(i).attr("id");
-		var content = $("#"+contentId+"").val();
-		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
-		//如果类型发生变化，需要修改这里的值
-		if(field=="status"){
-			if(content=="启用"){
-				content=31;
-			}else if(content=="停用"){
-				content=32;
-			}else if(content=="维护中"){
-				content=33;
-			}else{
-				content="9999";
-			}
-		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
-			alert('请输入完整的查询条件！');
-			return;
-		}
-		if(joint==null || joint==""){
-			joint = "and";
-		}
-		if(condition == "like"){
-			content = "%"+content+"%";
-		}
-		if(i==index){
-			searchStr +=" "+field+" "+condition+" '"+content+"'";
-		}else{
-			searchStr +=" "+field+" "+condition+" '"+content+"' "+joint;
-		}
+	if(!getContent()){
+		return;
 	}
 	$('#dg').datagrid('load', {
 		"searchStr" : searchStr
@@ -488,42 +393,8 @@ function searchUser(){
 
 function searchRole(){
 	fillcontent();
-	for(var i=0;i<=index;i++){
-		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
-		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
-		var contentId =$(".content").eq(i).attr("id");
-		var content = $("#"+contentId+"").val();
-		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
-		//如果类型发生变化，需要修改这里的值
-		if(field=="status"){
-			if(content=="启用"){
-				content=31;
-			}else if(content=="停用"){
-				content=32;
-			}else if(content=="维护中"){
-				content=33;
-			}else{
-				content="9999";
-			}
-		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
-			alert('请输入完整的查询条件！');
-			return;
-		}
-		if(joint==null || joint==""){
-			joint = "and";
-		}
-		if(condition == "like"){
-			content = "%"+content+"%";
-		}
-		if(i==index){
-			searchStr +=" "+field+" "+condition+" '"+content+"'";
-		}else{
-			searchStr +=" "+field+" "+condition+" '"+content+"' "+joint;
-		}
+	if(!getContent()){
+		return;
 	}
 	$('#dg').datagrid('load', {
 		"searchStr" : searchStr
@@ -534,42 +405,8 @@ function searchRole(){
 
 function searchAuthority(){
 	fillcontent();
-	for(var i=0;i<=index;i++){
-		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
-		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
-		var contentId =$(".content").eq(i).attr("id");
-		var content = $("#"+contentId+"").val();
-		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
-		//如果类型发生变化，需要修改这里的值
-		if(field=="status"){
-			if(content=="启用"){
-				content=31;
-			}else if(content=="停用"){
-				content=32;
-			}else if(content=="维护中"){
-				content=33;
-			}else{
-				content="9999";
-			}
-		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
-			alert('请输入完整的查询条件！');
-			return;
-		}
-		if(joint==null || joint==""){
-			joint = "and";
-		}
-		if(condition == "like"){
-			content = "%"+content+"%";
-		}
-		if(i==index){
-			searchStr +=" "+field+" "+condition+" '"+content+"'";
-		}else{
-			searchStr +=" "+field+" "+condition+" '"+content+"' "+joint;
-		}
+	if(!getContent()){
+		return;
 	}
 	$('#dg').datagrid('load', {
 		"searchStr" : searchStr
@@ -580,42 +417,8 @@ function searchAuthority(){
 
 function searchResource(){
 	fillcontent();
-	for(var i=0;i<=index;i++){
-		var fieldId =$(".fields").eq(i).attr("id");
-		var field = $("#"+fieldId+"").val();
-		var conditionId =$(".condition").eq(i).attr("id");
-		var condition = $("#"+conditionId+"").val();
-		var contentId =$(".content").eq(i).attr("id");
-		var content = $("#"+contentId+"").val();
-		var jointId =$(".joint").eq(i).attr("id");
-		var joint = $("#"+jointId+"").val();
-		//如果类型发生变化，需要修改这里的值
-		if(field=="status"){
-			if(content=="启用"){
-				content=31;
-			}else if(content=="停用"){
-				content=32;
-			}else if(content=="维护中"){
-				content=33;
-			}else{
-				content="9999";
-			}
-		}
-		if(field==null || field=="" || condition==null || condition=="" || content==null || content==""){
-			alert('请输入完整的查询条件！');
-			return;
-		}
-		if(joint==null || joint==""){
-			joint = "and";
-		}
-		if(condition == "like"){
-			content = "%"+content+"%";
-		}
-		if(i==index){
-			searchStr +=" "+field+" "+condition+" '"+content+"'";
-		}else{
-			searchStr +=" "+field+" "+condition+" '"+content+"' "+joint;
-		}
+	if(!getContent()){
+		return;
 	}
 	$('#dg').datagrid('load', {
 		"searchStr" : searchStr

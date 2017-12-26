@@ -29,9 +29,19 @@ public class User{
 	private String authorityName;
 	private String insname;
 	Collection<GrantedAuthority> auths;
+	private String statusname;
 	public User(){
 		super();
 	}
+	
+	public String getStatusname() {
+		return statusname;
+	}
+
+	public void setStatusname(String statusname) {
+		this.statusname = statusname;
+	}
+
 	public int getId() {
 		return id;
 	}

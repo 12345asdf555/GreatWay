@@ -12,9 +12,19 @@ public class Resources {
 	private String resourceAddress;
 	private String resourceDesc;
 	private int status;
+	private String statusname;
 	public Resources(){
 		super();
 	}
+	
+	public String getStatusname() {
+		return statusname;
+	}
+
+	public void setStatusname(String statusname) {
+		this.statusname = statusname;
+	}
+
 	public int getId() {
 		return id;
 	}

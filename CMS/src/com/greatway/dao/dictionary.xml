@@ -10,6 +10,7 @@
         <result property="valueName" column="fvaluename"></result>
         <result property="back" column="fback"></result>
 	</resultMap>
+	
 	<select id="getDictionaryAll" resultMap="dMap">
 		select * from tb_dictionary where 1=1
 		<if test="str!=null and str!=''">
@@ -25,6 +26,19 @@
 	<select id="getDictionaryByFid" resultMap="dMap">
 		select * from tb_dictionary where fid=#{id};
 	</select>
+	
+	<select id="getDictionaryValue" resultMap="dMap">
+		SELECT fvalue, fvaluename FROM tb_dictionary WHERE ftypeid=#{typeid}
+	</select>
+	
+	<select id="getDicValueByValue" resultMap="dMap">
+		SELECT fvalue, fvaluename FROM tb_dictionary WHERE ftypeid=#{typeid} and fvalue>#{value}
+	</select>
+	
+	<select id="getvaluebyname" resultType="java.lang.Integer">
+		SELECT fvalue FROM tb_dictionary WHERE ftypeid=#{typeid} and fvaluename=#{valuename}
+	</select>
+	
 	<update id="editDictionary" parameterType="com.greatway.model.Dictionarys">
 		update tb_dictionary set fvaluename=#{valueName},ftypeid=#{typeid},fback=#{back},fvalue=#{value} where fid=#{id}
 	</update>

@@ -70,7 +70,8 @@
 	</select>
 	
 	<select id="findAll" resultType="Role">
-		select tb_roles.id id,tb_roles.roles_name roleName,tb_roles.roles_desc roleDesc,tb_roles.status roleStatus from tb_roles where 1=1
+		select tb_roles.id id,tb_roles.roles_name roleName,tb_roles.roles_desc roleDesc,tb_roles.status roleStatus,d.fvaluename statusname from tb_roles 
+		INNER JOIN tb_dictionary d on d.fvalue = tb_roles.status where 1=1
 	    <if test="str!=null and str!=''">
 			and ${str}
 		</if>

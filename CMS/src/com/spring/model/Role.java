@@ -18,10 +18,20 @@ public class Role {
 	private String authorityDesc;
 	private String resourceName;
 	private int enabled;
+	private String statusname;
 	
 	public Role(){
 		super();
 	}
+	
+	public String getStatusname() {
+		return statusname;
+	}
+
+	public void setStatusname(String statusname) {
+		this.statusname = statusname;
+	}
+
 	public int getId() {
 		return id;
 	}

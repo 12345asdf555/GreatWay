@@ -13,9 +13,19 @@ public class Authority {
 	private String authorityDesc;
 	private int status;
 	private String resourceName;
+	private String statusname;
 	public Authority(){
 		super();
 	}
+	
+	public String getStatusname() {
+		return statusname;
+	}
+
+	public void setStatusname(String statusname) {
+		this.statusname = statusname;
+	}
+
 	public int getId() {
 		return id;
 	}

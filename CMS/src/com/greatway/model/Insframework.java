@@ -14,6 +14,14 @@ public class Insframework {
 	private String code;
 	private BigInteger parent;
 	private int type;
+	private String typename;
+	
+	public String getTypename() {
+		return typename;
+	}
+	public void setTypename(String typename) {
+		this.typename = typename;
+	}
 	public BigInteger getId() {
 		return id;
 	}
