@@ -28,10 +28,16 @@
 	
 	<select id="getInsAll"  resultMap="insMap">
 		select fid, fname from tb_insframework
+		<if test="type>0">
+			and ftype&lt;#{type}
+		</if>
 	</select>
 	
 	<select id="getInsframework" resultMap="insMap">
-		SELECT fid,fname,flogogram,fcode,fparent,ftype FROM tb_insframework where  ftype>22
+		SELECT i.fid,i.fname,i.ftype FROM tb_insframework i INNER JOIN tb_insframework ins on ins.fid = i.fparent WHERE i.ftype=23 
+		<if test="parent!=null and parent!=''">
+			and (i.fid=#{parent} or ins.fid=#{parent} or ins.fparent=#{parent})
+		</if>
 	</select>
 	
 	<select id="getParent" resultMap="insMap">
@@ -105,6 +111,9 @@
 		SELECT i.fid,i.fname FROM tb_insframework i INNER JOIN tb_insframework ins on ins.fid = i.fparent
 		INNER join tb_insframework insf on insf.fid = ins.fparent
 		where (i.fid = #{parent} or ins.fid = #{parent} or insf.fid = #{parent})
+		<if test="type>0">
+			and i.ftype&lt;#{type}
+		</if>
 	</select>
 	
 	<select id="getInsByUserid" resultMap="insMap">

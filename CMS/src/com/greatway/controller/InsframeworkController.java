@@ -229,8 +229,23 @@ public class InsframeworkController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			List<Insframework> list = im.getInsframework(null);
-			for(Insframework in:list){
+			//获取用户id
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			List<Insframework> instype = im.getInsByUserid(new BigInteger(myuser.getId()+""));
+			List<Insframework> ins = null;
+			for(Insframework i:instype){
+				if(i.getType()==20){
+					ins = im.getInsAll(23);
+				}else if(i.getType()==21){
+					ins = im.getInsIdByParent(i.getId(),23);
+					Insframework insf = im.getInsById(i.getId());
+					ins.add(ins.size(),insf);
+				}else{
+					ins = im.getInsIdByParent(i.getId(),23);
+				}
+			}
+			for(Insframework in:ins){
 				json.put("id", in.getId());
 				json.put("name", in.getName());
 				ary.add(json);
@@ -253,11 +268,24 @@ public class InsframeworkController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
+			//获取用户id
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			List<Insframework> instype = im.getInsByUserid(new BigInteger(myuser.getId()+""));
 			//获取枚举值
 			List<Integer> key = new ArrayList<Integer>();
-			key.add(21);
-			key.add(22);
-			key.add(23);
+			for(Insframework i:instype){
+				if(i.getType()==20){
+					key.add(21);
+					key.add(22);
+					key.add(23);
+				}else if(i.getType()==21){
+					key.add(22);
+					key.add(23);
+				}else{
+					key.add(23);
+				}
+			}
 			for(Integer k:key){
 				json.put("id", k);
 				json.put("name", WeldEnum.getValue(k));
@@ -395,7 +423,7 @@ public class InsframeworkController {
 				if(i.getType()==20 || id.equals(i.getId())){
 					obj.put("flag", true);
 				}else{
-					List<Insframework> list = im.getInsIdByParent(i.getId());
+					List<Insframework> list = im.getInsIdByParent(i.getId(),0);
 					for(Insframework insf:list){
 						if(id.equals(insf.getId())){
 							obj.put("flag",true);
@@ -428,7 +456,7 @@ public class InsframeworkController {
 				if(i.getType()==20 || nodeId.equals(i.getId())){
 					obj.put("flag", true);
 				}else{
-					List<Insframework> list = im.getInsIdByParent(i.getId());
+					List<Insframework> list = im.getInsIdByParent(i.getId(),0);
 					for(Insframework insf:list){
 						if(nodeId.equals(insf.getId())){
 							obj.put("flag",true);

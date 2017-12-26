@@ -60,7 +60,7 @@ function saveWeldingMachine(){
 						title : 'Error',
 						msg : result.errorMsg
 					});
-				} else {
+				}else{
 					$.messager.alert("提示", messager);
 					var url = "weldingMachine/goWeldingMachine";
 					var img = new Image();
@@ -166,7 +166,7 @@ function typeCombobox(){
 	$("#tId").combobox();
 }
 
-//项目类型
+//所属项目
 function InsframeworkCombobox(){
 	$.ajax({  
       type : "post",  

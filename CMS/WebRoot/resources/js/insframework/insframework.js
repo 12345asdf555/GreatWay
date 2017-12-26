@@ -75,8 +75,8 @@ function insframeworkDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 				var str = "";
-				str += '<a id="edit" class="easyui-linkbutton" href="insframework/goeditInsframework?id='+row.id+'"/>';
-				str += '<a id="remove" class="easyui-linkbutton" href="insframework/goremoveInsframework?id='+row.id+'"/>';
+				str += '<a id="edit" class="easyui-linkbutton" href="javascript:editInsf('+row.id+','+true+')"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="javascript:editInsf('+row.id+','+false+')"/>';
 				return str;
 			}
 		}] ],
@@ -88,6 +88,53 @@ function insframeworkDatagrid(){
 		}
 	});
 }
+
+//删除/修改权限处理
+function editInsf(id,flags){
+		$.ajax({  
+	        type : "post",  
+	        async : false,
+	        url : "insframework/getUserAuthority?id="+id,  
+	        data : {},  
+	        dataType : "json", //返回数据形式为json  
+	        success : function(result) {
+	            if (result) {
+            		if(result.afreshLogin==null || result.afreshLogin==""){
+	            		if(result.flag){
+	            			var url = "";
+	            			if(flags){
+	            				url = "insframework/goeditInsframework?id="+id;
+	            			}else{
+	            				url = "insframework/goremoveInsframework?id="+id;
+	            			}
+		       				var img = new Image();
+		       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+		       			    url = img.src;  // 此时相对路径已经变成绝对路径
+		       			    img.src = null; // 取消请求
+		       				window.location.href = encodeURI(url);
+	            		}else{
+	            			alert("对不起，您不能对你的上级或同级部门的数据进行编辑");
+	            		}
+	            	}else{
+	            		$.messager.confirm("提示",result.afreshLogin,function(data){
+  		        		 if(data){
+  		        			var url = "login.jsp";
+  		       				var img = new Image();
+  		       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+  		       			    url = img.src;  // 此时相对路径已经变成绝对路径
+  		       			    img.src = null; // 取消请求
+   		     				 top.location.href = url;
+   		     			 }
+  		     		 });
+  		        }
+	           }
+	        },  
+	        error : function(errorMsg) {  
+	            alert("数据请求失败，请联系系统管理员!");  
+	        }  
+	   });
+}
+
 
 function insframeworkTree(){
 	$("#myTree").tree({  

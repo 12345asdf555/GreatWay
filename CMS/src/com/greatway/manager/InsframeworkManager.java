@@ -83,7 +83,7 @@ public interface InsframeworkManager {
 	 * 焊机获取项目
 	 * @return
 	 */
-	List<Insframework> getWeldingMachineInsf();
+	List<Insframework> getWeldingMachineInsf(BigInteger parent);
 	
 	/**
 	 * 获取父级
@@ -139,7 +139,7 @@ public interface InsframeworkManager {
 	 * @param parent 上级id
 	 * @return
 	 */
-	List<Insframework> getInsIdByParent(BigInteger parent);
+	List<Insframework> getInsIdByParent(BigInteger parent,int type);
 	
 	/**
 	 * 根据用户id查找组织机构id及类型
@@ -159,5 +159,5 @@ public interface InsframeworkManager {
 	 * 查找所有的id，name
 	 * @return
 	 */
-	List<Insframework> getInsAll();
+	List<Insframework> getInsAll(int type);
 }

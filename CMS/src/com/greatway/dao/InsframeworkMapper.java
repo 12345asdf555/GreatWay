@@ -13,7 +13,7 @@ import tk.mybatis.mapper.common.Mapper;
 public interface InsframeworkMapper extends Mapper<Insframework>{
 	List<Insframework> getInsframeworkAll(@Param("parent")BigInteger parent,@Param("str")String str,@Param("dto")WeldDto dto);
 	
-	List<Insframework> getInsframework();
+	List<Insframework> getInsframework(@Param("parent")BigInteger parent);
 	
 	BigInteger getInsframeworkByName(@Param("name")String name);
 	
@@ -47,11 +47,11 @@ public interface InsframeworkMapper extends Mapper<Insframework>{
 	
 	Insframework getBloc();
 	
-	List<Insframework> getInsIdByParent(@Param("parent")BigInteger parent);
+	List<Insframework> getInsIdByParent(@Param("parent")BigInteger parent,@Param("type")int type);
 	
 	List<Insframework> getInsByUserid(@Param("uid")BigInteger uid);
 	
 	Insframework getInsById(@Param("id")BigInteger id);
 	
-	List<Insframework> getInsAll();
+	List<Insframework> getInsAll(@Param("type")int type);
 }

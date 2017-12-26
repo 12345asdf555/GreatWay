@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ import com.greatway.model.WeldingMachine;
 import com.greatway.model.WeldingMaintenance;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -215,7 +217,18 @@ public class WeldingMachineController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			List<Insframework> list = im.getWeldingMachineInsf();
+			//获取用户id
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			List<Insframework> instype = im.getInsByUserid(new BigInteger(myuser.getId()+""));
+			List<Insframework> list = null;
+			for(Insframework i:instype){
+				if(i.getType()==20){
+					list = im.getWeldingMachineInsf(null);
+				}else{
+					list = im.getWeldingMachineInsf(i.getId());
+				}
+			}
 			for(Insframework i:list){
 				json.put("id", i.getId());
 				json.put("name", i.getName());

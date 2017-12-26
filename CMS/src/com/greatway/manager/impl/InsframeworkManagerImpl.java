@@ -98,8 +98,8 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 	}
 
 	@Override
-	public List<Insframework> getWeldingMachineInsf() {
-		return im.getInsframework();
+	public List<Insframework> getWeldingMachineInsf(BigInteger parent) {
+		return im.getInsframework(parent);
 	}
 
 	@Override
@@ -159,8 +159,8 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 	}
 
 	@Override
-	public List<Insframework> getInsIdByParent(BigInteger parent) {
-		return im.getInsIdByParent(parent);
+	public List<Insframework> getInsIdByParent(BigInteger parent,int type) {
+		return im.getInsIdByParent(parent,type);
 	}
 
 	@Override
@@ -174,8 +174,8 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 	}
 
 	@Override
-	public List<Insframework> getInsAll() {
-		return im.getInsAll();
+	public List<Insframework> getInsAll(int type) {
+		return im.getInsAll(type);
 	}
 
 }

@@ -335,13 +335,13 @@ public class UserController {
 			List<Insframework> ins = null;
 			for(Insframework i:instype){
 				if(i.getType()==20){
-					ins = im.getInsAll();
+					ins = im.getInsAll(0);
 				}else if(i.getType()==21){
-					ins = im.getInsIdByParent(i.getId());
+					ins = im.getInsIdByParent(i.getId(),0);
 					Insframework insf = im.getInsById(i.getId());
 					ins.add(ins.size(),insf);
 				}else{
-					ins = im.getInsIdByParent(i.getId());
+					ins = im.getInsIdByParent(i.getId(),0);
 				}
 			}
 			for(Insframework i:ins){
