@@ -36,6 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div  id="body" region="center"  hide="true"  split="true" title="修改组织机构" style="background: white; height: 335px;">
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
+				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">组织机构编辑</div>
 				<div class="fitem">
 					<lable>名称</lable>
 					<input type="hidden" id="id" value="${insf.id }"/>
@@ -53,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>上级项目</lable>
 					<input type="hidden" id="parentid" value="${insf.parent }"/>
-					<select class="easyui-combobox" name="parent" value="${insf.parent }" id="parent"></select>
+					<select class="easyui-combobox" name="parent" value="${insf.parent }" id="parent" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>项目类型</lable>

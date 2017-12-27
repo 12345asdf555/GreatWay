@@ -32,14 +32,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div  id="body" region="center"  hide="true"  split="true" title="新增资源" style="background: white; height: 335px;">
 		<div style="text-align: center ">
        	<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
-            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">资源信息</div>
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">新增资源</div>
             <div class="fitem">
 				<lable>资源名</lable>
                 <input name="resourceName" class="easyui-textbox" data-options="required:true" >
             </div>
             <div class="fitem">
 				<lable>类型</lable>
-                <input name="resourceType" class="easyui-textbox" data-options="required:true">
+                <input name="resourceType" class="easyui-textbox" data-options="validType:['checkNumber'],required:true">
             </div>
             <div class="fitem">
 				<lable>地址</lable>
@@ -64,10 +64,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <script type="text/javascript">
         $(function(){
-        statusRadio();
+        	statusRadio();
+			$("#fm").form("disableValidation");
         })
-
-        $("#fm").form("disableValidation");
         var flag = 1;
         function saveResource(){
         flag = 1;

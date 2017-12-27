@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
     <div style="text-align: center ">
        <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
-            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">添加角色</div>
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">新增角色</div>
             <div class="fitem">
             	<lable>角色名</lable>
                 <input id="roleName" name="roleName" class="easyui-textbox" data-options="validType:'roleValidate',required:true">
@@ -60,6 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
         $(function(){
         statusRadio();
+		$("#fm").form("disableValidation");
 	    $("#tt").datagrid( {
 		fitColumns : true,
 		height : '250px',

@@ -32,29 +32,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div  id="body" region="center"  hide="true"  split="true" title="删除用户" style="background: white; height: 335px;">
     <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
-            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">用户编辑</div>
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">删除用户</div>
             <div class="fitem">
                 <input name="id" id="id" type="hidden" value="${user.id}">
             </div>
             <div class="fitem">
             	<lable>用户名</lable>
-                <input name="userName" id="userName" class="easyui-textbox" value="${user.userName}"  readonly="true" data-options="required:true" style="width:100%">
+                <input name="userName" id="userName" class="easyui-textbox" value="${user.userName}"  readonly="true" style="width:100%">
             </div>
             <div class="fitem">
             	<lable>登录名</lable>
-                <input name="userLoginName" class="easyui-textbox" readonly="true" data-options="required:true"  value="${user.userLoginName}" style="width:100%">
+                <input name="userLoginName" class="easyui-textbox" readonly="true"  value="${user.userLoginName}" style="width:100%">
             </div>
             <div class="fitem">
             	<lable>密码</lable>
-                <input name="userPassword" class="easyui-textbox" type="password" readonly="true" data-options="required:false" value="${user.userPassword}"style="width:100%">
+                <input name="userPassword" class="easyui-textbox" type="password" readonly="true" value="${user.userPassword}"style="width:100%">
             </div>
             <div class="fitem">
             	<lable>电话</lable>
-                <input name="userPhone" class="easyui-textbox" readonly="true" data-options="required:false"  value="${user.userPhone}" style="width:100%">
+                <input name="userPhone" class="easyui-textbox" readonly="true"  value="${user.userPhone}" style="width:100%">
             </div>
             <div class="fitem">
             	<lable>邮箱</lable>
-                <input name="userEmail" class="easyui-textbox" readonly="true" data-options="required:false"  value="${user.userEmail}" style="width:100%">
+                <input name="userEmail" class="easyui-textbox" readonly="true"  value="${user.userEmail}" style="width:100%">
             </div>
             <div class="fitem">
             	<lable>岗位</lable>
@@ -62,13 +62,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
             	<lable>部门</lable>
-<%--             	<input name="userInsframeworks" id="userInsframeworks" type="hidden" value="${user.userInsframework}" data-options="required:true"> --%>
             	<input class="easyui-textbox" name="userInsframework" id="userInsframework" value="${user.insname}" readonly="true" />
             </div>
 			<div class="fitem">
-				<input id="status" type="hidden" value="${role.roleStatus }"/>
-				<lable>状态</lable>&nbsp;&nbsp;
-   				<span id="radios"></span>
+				<lable>状态</lable>
+				<input id="status" class="easyui-textbox" readonly="true"  value="${user.statusname}"/>
 			</div>
 	        <div style="margin-bottom:20px;margin-left:100px;" align="center">
 	        <table id="tt" title="角色列表" checkbox="true" readonly="true" style="table-layout:fixed;width:100%"></table>
@@ -85,13 +83,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
             $(function(){
 		    showdatagrid();
-		    statusRadio();
-			var status = $("#status").val();
-			$('[name="statusId"]:radio').each(function() { 
-			if (this.value ==status ) { 
-				this.checked = true;
-			} 
-			});
 		})
 		
 		function showdatagrid(){
@@ -185,56 +176,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
         }
         
-//         	   $(function(){
-// 			   $.ajax({
-// 			   type: "post", 
-// 			   url: "user/getIns",
-// 			   dataType: "json",
-// 			   data: {},
-// 			   success: function (result) {
-// 			      if (result) {
-// 			         var optionstring = "";
-// 			         optionstring = "<option value='请选择'>请选择...</option>";
-// 			         //循环遍历 下拉框绑定
-// 			         for(var k=0;k<result.rows.length;k++){
-// 			         optionstring += "<option value=\"" + result.rows[k].insid + "\" >" + result.rows[k].insname + "</option>";
-// 			         }
-// 			         $("#userInsframework").html(optionstring);
-// 			      } else {
-// 			         alert('部门加载失败');
-// 			      }
-// 			      $("#userInsframework").combobox();
-// 			      $("#userInsframework").combobox('select',document.getElementById("userInsframeworks").value);
-// 			   },
-// 			   error: function () {
-// 			      alert('error');
-// 			   }
-// 			});
-// 		})
-        
-        		function statusRadio(){
-			$.ajax({  
-			    type : "post",  
-			    async : false,
-			    url : "user/getStatusAll",  
-			    data : {},  
-			    dataType : "json", //返回数据形式为json  
-			    success : function(result) {
-			    	if (result) {
-			    		var str = "";
-			    		for (var i = 0; i < result.ary.length; i++) {
-			    			str += "<input type='radio' class='radioStyle' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
-		                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-			    		}
-			            $("#radios").html(str);
-			            $("input[name='statusId']").eq(0).attr("checked",true);
-			        }  
-			    },  
-			    error : function(errorMsg) {  
-			        alert("数据请求失败，请联系系统管理员!");  
-			    }  
-			});
-		}
          
     </script>
     </div>

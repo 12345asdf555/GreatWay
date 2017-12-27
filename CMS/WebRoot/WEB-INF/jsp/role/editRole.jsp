@@ -65,12 +65,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $(function(){
 		    showdatagrid();
 		    statusRadio();
-		var status = $("#status").val();
-		$('[name="statusId"]:radio').each(function() { 
-		if (this.value ==status ) { 
-			this.checked = true;
-		} 
-		});
+			var status = $("#status").val();
+			$('[name="statusId"]:radio').each(function() { 
+			if (this.value ==status ) { 
+				this.checked = true;
+			} 
+			});
+			$("#fm").form("disableValidation");
 		})
 		
 		

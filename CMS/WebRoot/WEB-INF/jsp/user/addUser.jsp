@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
        	<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             
-            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">添加用户</div>
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">新增用户</div>
             <div class="fitem">
             	<lable>用户名</lable>
                 <input name="userName" id="userName" class="easyui-textbox" data-options="required:true">
@@ -85,6 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
         $(function(){
         statusRadio();
+	    $("#fm").form("disableValidation");
 	    $("#tt").datagrid( {
 		fitColumns : true,
 		height : '250px',
@@ -114,33 +115,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}]]
 	});
 })
-
-		$(function(){
-// 			   $.ajax({
-// 			   type: "post", 
-// 			   url: "user/getIns",
-// 			   dataType: "json",
-// 			   data: {},
-// 			   success: function (result) {
-// 			      if (result) {
-// 			         var optionstring = "";
-// 			         optionstring = "<option value='请选择'>请选择...</option>";
-// 			         //循环遍历 下拉框绑定
-// 			         for(var k=0;k<result.rows.length;k++){
-// 			         optionstring += "<option value=\"" + result.rows[k].insid + "\" >" + result.rows[k].insname + "</option>";
-// 			         }
-// 			         $("#userInsframework").html(optionstring);
-// 			      } else {
-// 			         alert('部门加载失败');
-// 			      }
-// 			      $("#userInsframework").combobox();
-// 			   },
-// 			   error: function () {
-// 			      alert('error');
-// 			   }
-// 			});
-		})
-
         $("#fm").form("disableValidation");
  		var flag = 1; 
         function saveUser(){

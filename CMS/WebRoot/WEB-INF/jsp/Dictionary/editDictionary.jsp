@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div id="body" region="center"  hide="true"  split="true" title="修改字典" style="background: white; height: 335px;">
     		<div style="text-align: center ">
     				<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
-    					<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">修改字典</div>
+    					<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">字典编辑</div>
     					<div>
     						<div class="fitem">
     							<lable>名称</lable>

@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div  id="body" region="center"  hide="true"  split="true" title="修改权限" style="background: white; height: 335px;">
      <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
-            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">权限信息</div>
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">权限编辑</div>
             <div class="fitem">
                 <input name="id" id="id" type="hidden" value="${authority.id}">
             </div>
@@ -64,13 +64,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
            $(function(){
 		    showdatagrid();
-		   statusRadio();
-		var status = $("#status").val();
-		$('[name="statusId"]:radio').each(function() { 
-		if (this.value ==status ) { 
-			this.checked = true;
-		} 
-		});
+		    statusRadio();
+			var status = $("#status").val();
+			$('[name="statusId"]:radio').each(function() { 
+			if (this.value ==status ) { 
+				this.checked = true;
+			} 
+			});
+			$("#fm").form("disableValidation");
 		})
     
     		function statusRadio(){

@@ -34,6 +34,7 @@
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
+		ORDER BY m.fid
 	</select>
 	
 	<select id="getWeldingMaintenanceById" resultMap="mmMap"  parameterType="java.math.BigInteger">

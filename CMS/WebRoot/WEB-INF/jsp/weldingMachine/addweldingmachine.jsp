@@ -35,6 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div  id="body" region="center"  hide="true"  split="true" title="新增焊机设备" style="background: white; height: 335px;">
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
+				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">新增焊机设备</div>
 				<div class="fitem">
 					<lable>固定资产编号</lable>
 					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  data-options="validType:['wmEnoValidate'],required:true"/>

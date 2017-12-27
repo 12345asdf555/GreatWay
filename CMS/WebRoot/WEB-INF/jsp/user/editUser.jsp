@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div> 
     
     <script type="text/javascript">
-            $(function(){
+        $(function(){
 		    showdatagrid();
 		    statusRadio();
 			var status = $("#status").val();
@@ -95,6 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				this.checked = true;
 			} 
 			});
+			$("#fm").form("disableValidation");
 		})
 		
 		function showdatagrid(){

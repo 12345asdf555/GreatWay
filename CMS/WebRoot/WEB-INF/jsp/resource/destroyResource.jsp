@@ -32,30 +32,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div  id="body" region="center"  hide="true"  split="true" title="修改资源" style="background: white; height: 335px;">
     <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
-            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">资源编辑</div>
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">删除资源</div>
             <div class="fitem">
                 <input name="id" id="id" type="hidden" value="${resource.id}">
             </div>
             <div class="fitem">
 				<lable>资源名</lable>
-                <input name="resourceName" id="userName" readonly="true" class="easyui-textbox" value="${resource.resourceName}" data-options="required:true" style="width:100%">
+                <input name="resourceName" id="userName" readonly="true" class="easyui-textbox" value="${resource.resourceName}" style="width:100%">
             </div>
             <div class="fitem">
 				<lable>类型</lable>
-                <input name="resourceType" class="easyui-textbox" readonly="true" data-options="required:true" value="${resource.resourceType}" style="width:100%">
+                <input name="resourceType" class="easyui-textbox" readonly="true" value="${resource.resourceType}" style="width:100%">
             </div>
             <div class="fitem">
 				<lable>资源</lable>
-                <input name="resourceAddress" class="easyui-textbox" readonly="true" data-options="required:true"  value="${resource.resourceAddress}" style="width:100%">
+                <input name="resourceAddress" class="easyui-textbox" readonly="true"  value="${resource.resourceAddress}" style="width:100%">
             </div>
             <div class="fitem">
 				<lable>描述</lable>
-                <input name="resourceDesc" class="easyui-textbox" readonly="true" data-options="required:false"  value="${resource.resourceDesc}" style="width:100%">
+                <input name="resourceDesc" class="easyui-textbox" readonly="true"  value="${resource.resourceDesc}" style="width:100%">
             </div>
 			<div class="fitem">
-				<input id="status" type="hidden" value="${resource.status }"/>
-				<lable>状态</lable>&nbsp;&nbsp;
-   				<span id="radios"></span>
+				<lable>状态</lable>
+				<input id="status" class="easyui-textbox" readonly="true"  value="${resource.statusname}"/>
 			</div>
 		    <div class="buttonoption">
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -68,15 +67,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     
     <script type="text/javascript">
-		$(function(){
-		statusRadio();
-		var status = $("#status").val();
-		$('[name="statusId"]:radio').each(function() { 
-		if (this.value ==status ) { 
-			this.checked = true;
-		} 
-		});
-		})
 		 function saveResource(){
          var id = document.getElementById("id").value;
 		$.messager.confirm('提示', '此操作不可撤销，是否确认删除?', function(flag) {
@@ -114,30 +104,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
         }
         
-        		function statusRadio(){
-			$.ajax({  
-			    type : "post",  
-			    async : false,
-			    url : "role/getStatusAll",  
-			    data : {},  
-			    dataType : "json", //返回数据形式为json  
-			    success : function(result) {
-			    	if (result) {
-			    		var str = "";
-			    		for (var i = 0; i < result.ary.length; i++) {
-			    			str += "<input type='radio' class='radioStyle' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
-		                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-			    		}
-			            $("#radios").html(str);
-			            $("input[name='statusId']").eq(0).attr("checked",true);
-			        }  
-			    },  
-			    error : function(errorMsg) {  
-			        alert("数据请求失败，请联系系统管理员!");  
-			    }  
-			});
-		}
-         
     </script>
     </div>
 </body>

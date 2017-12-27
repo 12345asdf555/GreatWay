@@ -34,6 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<jsp:include  page="../insframeworktree.jsp"/>
     <div  id="body" region="center"  hide="true"  split="true" title="删除焊机设备" style="background: white; height: 335px;">
 		<div style="text-align: center ">
+			<br/>
+			<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">删除焊机设备</div>
 			<div class="fitem">
 				<lable>固定资产编号</lable>
 				<input class="easyui-textbox" id="wid" readonly="readonly" value="${w.id }"/>

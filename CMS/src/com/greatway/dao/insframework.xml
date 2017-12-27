@@ -23,6 +23,7 @@
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
+		ORDER BY i.fid
 	</select>
 	
 	<select id="getInsById"  resultMap="insMap">

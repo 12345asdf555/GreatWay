@@ -57,6 +57,7 @@
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
+		ORDER BY w.fid
 	</select>
 	
 	<select id="getWeldingMachineById"  resultMap="wmMap"  parameterType="java.math.BigInteger">

@@ -36,6 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div  id="body" region="center"  hide="true"  split="true" title="修改采集模块" style="background: white; height: 335px;">
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
+				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">采集模块编辑</div>
 				<div class="fitem">
 					<input type="hidden" id="id" value="${g.id }"/>
 					<input type="hidden" id="validgatherno" value="${g.gatherNo }"/>

@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
 				<lable>类型</lable>
-                <input name="resourceType" class="easyui-textbox" data-options="required:true" value="${resource.resourceType}" style="width:100%">
+                <input name="resourceType" class="easyui-textbox" data-options="validType:['checkNumber'],required:true" value="${resource.resourceType}" style="width:100%">
             </div>
             <div class="fitem">
 				<lable>地址</lable>
@@ -77,6 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			this.checked = true;
 		} 
 		});
+		$("#fm").form("disableValidation");
     })
 		var flag = 2;
 		 function saveResource(){

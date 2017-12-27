@@ -28,27 +28,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
 <body class="easyui-layout">
-	<div  id="body" region="center"  hide="true"  split="true" title="修改权限" style="background: white; height: 335px;">
+	<div  id="body" region="center"  hide="true"  split="true" title="删除权限" style="background: white; height: 335px;">
      <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
-            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">权限信息</div>
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">删除权限</div>
             <div style="margin-bottom:10px;display: none;">
                 <input name="id" id="id" class="easyui-textbox" type="hidden" value="${authority.id}">
             </div>
             <div class="fitem">
 				<lable>权限</lable>
-                <input name="authorityName" class="easyui-textbox" readonly="true" data-options="required:true"  value="${authority.authorityName}" style="width:100%">
+                <input name="authorityName" class="easyui-textbox" readonly="true"  value="${authority.authorityName}" style="width:100%">
             </div>
             <div class="fitem">
 				<lable>描述</lable>
-                <input name="authorityDesc" class="easyui-textbox" readonly="true" data-options="required:true" value="${authority.authorityDesc}" style="width:100%">
+                <input name="authorityDesc" class="easyui-textbox" readonly="true" value="${authority.authorityDesc}" style="width:100%">
             </div>
 			<div class="fitem">
-				<input id="status" type="hidden" value="${authority.status }"/>
-				<lable>状态</lable>&nbsp;&nbsp;
-   				<span id="radios"></span>
+				<lable>状态</lable>
+				<input id="status" class="easyui-textbox" readonly="true"  value="${authority.statusname}"/>
 			</div>
-
 	        <div style="margin-bottom:20px;margin-left:100px;" align="center">
 	        <table id="tt" title="资源列表" checkbox="true" readonly="true" style="table-layout:fixed;width:100%"></table>
 	        </div>
@@ -64,13 +62,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
            $(function(){
 		   showdatagrid();
-		   statusRadio();
-		var status = $("#status").val();
-		$('[name="statusId"]:radio').each(function() { 
-		if (this.value ==status ) { 
-			this.checked = true;
-		} 
-		});
 		})
     
         function showdatagrid(){
@@ -127,29 +118,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 }
 
-		function statusRadio(){
-			$.ajax({  
-			    type : "post",  
-			    async : false,
-			    url : "authority/getStatusAll",  
-			    data : {},  
-			    dataType : "json", //返回数据形式为json  
-			    success : function(result) {
-			    	if (result) {
-			    		var str = "";
-			    		for (var i = 0; i < result.ary.length; i++) {
-			    			str += "<input type='radio' class='radioStyle' name='statusId' id='sId' value=\"" + result.ary[i].id + "\" />"  
-		                    + result.ary[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-			    		}
-			            $("#radios").html(str);
-			            $("input[name='statusId']").eq(0).attr("checked",true);
-			        }  
-			    },  
-			    error : function(errorMsg) {  
-			        alert("数据请求失败，请联系系统管理员!");  
-			    }  
-			});
-		}
 
        function saveAuthority(){
        var id = document.getElementById("id").value;

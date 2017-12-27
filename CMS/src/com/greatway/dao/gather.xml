@@ -26,6 +26,7 @@
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
+		ORDER BY g.fid
 	</select>
 	
 	<select id="getGatherByNo" resultType="java.math.BigInteger">

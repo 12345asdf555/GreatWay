@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div  id="body" region="center"  hide="true"  split="true" title="新增权限" style="background: white; height: 335px;">
     <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
-            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">权限信息</div>
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">新增权限</div>
             <div class="fitem">
 				<lable>权限</lable>
                 <input name="authorityName" class="easyui-textbox" data-options="validType:'authorityValidate',required:true" style="width:100%">
@@ -60,6 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
         $(function(){
         statusRadio();
+		$("#fm").form("disableValidation");
 	    $("#tt").datagrid( {
 		fitColumns : true,
 		height : '250px',
@@ -117,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         });
                     } else {
               			$.messager.alert("提示", "新增成功");
-						var utl = "authority/AllAuthority";
+						var url = "authority/AllAuthority";
 						var img = new Image();
 					    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
 					    url = img.src;  // 此时相对路径已经变成绝对路径

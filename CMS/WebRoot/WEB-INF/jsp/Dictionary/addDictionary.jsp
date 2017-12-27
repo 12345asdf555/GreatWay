@@ -29,9 +29,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" title="新增字典" style="background: #eee; height: 335px;">
+    <div id="body" region="center"  hide="true"  split="true" title="新增字典" style="background: white; height: 335px;">
     	<div style="text-align: center ">
     		<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
+				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">新增字典</div>
     			<div class="fitem">
     				<lable>名称</lable>
     				<input class="easyui-textbox" name="valueName" id="valueName" data-options="required:true"/>
