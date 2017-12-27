@@ -20,7 +20,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.greatway.enums.WeldEnum;
 import com.greatway.manager.MaintainManager;
 import com.greatway.manager.WeldingMachineManager;
 import com.greatway.model.Gather;
@@ -70,7 +69,11 @@ public class ExportExcelController {
 				data[i][5] = list.get(i).getStatusname();
 				data[i][6] = list.get(i).getManufacturerId().getName();
 				data[i][7] = list.get(i).getManufacturerId().getType();
-				data[i][8] = WeldEnum.getValue(list.get(i).getIsnetworking());
+				if(list.get(i).getIsnetworking()==0){
+					data[i][8] = "是";
+				}else{
+					data[i][8] = "否";
+				}
 				Gather gather = list.get(i).getGatherId();
 				if(gather!=null){
 					data[i][9] = gather.getGatherNo();

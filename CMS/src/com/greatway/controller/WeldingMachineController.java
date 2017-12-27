@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.greatway.enums.WeldEnum;
 import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.GatherManager;
 import com.greatway.manager.InsframeworkManager;
@@ -76,7 +75,11 @@ public class WeldingMachineController {
 	@RequestMapping("/goMaintain")
 	public String goMaintain(HttpServletRequest request, @RequestParam String wid){
 		WeldingMachine weld = wmm.getWeldingMachineById(new BigInteger(wid));
-		request.setAttribute("isnetworking",  WeldEnum.getValue(weld.getIsnetworking()));
+		if(weld.getIsnetworking()==0){
+			request.setAttribute("isnetworking", "是");
+		}else{
+			request.setAttribute("isnetworking", "否");
+		}
 		request.setAttribute("w", weld);
 		return "maintain/weldingmaintenance";
 	}
@@ -112,9 +115,11 @@ public class WeldingMachineController {
 	@RequestMapping("/goremoveWeldingMachine")
 	public String goremoveWeldingMahine(HttpServletRequest request, @RequestParam String wid){
 		WeldingMachine weld = wmm.getWeldingMachineById(new BigInteger(wid));
-		request.setAttribute("typename", WeldEnum.getValue(weld.getTypeId()));
-		request.setAttribute("statusname", WeldEnum.getValue(weld.getStatusId()));
-		request.setAttribute("isnetworking",  WeldEnum.getValue(weld.getIsnetworking()));
+		if(weld.getIsnetworking()==0){
+			request.setAttribute("isnetworking", "是");
+		}else{
+			request.setAttribute("isnetworking", "否");
+		}
 		request.setAttribute("w", weld);
 		return "weldingMachine/removeweldingmachine";
 	}
@@ -153,7 +158,11 @@ public class WeldingMachineController {
 				json.put("equipmentNo", wm.getEquipmentNo());
 				json.put("position", wm.getPosition());
 				json.put("gatherId", wm.getGatherId());
-				json.put("isnetworking", WeldEnum.getValue(wm.getIsnetworking()));
+				if(wm.getIsnetworking()==0){
+					json.put("isnetworking", "是");
+				}else{
+					json.put("isnetworking", "否");
+				}
 				json.put("isnetworkingId", wm.getIsnetworking());
 				json.put("jointime", wm.getJoinTime());
 				json.put("typeName",wm.getTypename());

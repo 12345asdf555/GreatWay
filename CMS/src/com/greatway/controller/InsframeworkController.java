@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.dto.WeldDto;
-import com.greatway.enums.WeldEnum;
 import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.model.Dictionarys;
@@ -81,8 +80,7 @@ public class InsframeworkController {
 	@RequestMapping("/goremoveInsframework")
 	public String goremoveInsframework(HttpServletRequest request,@RequestParam String id){
 		Insframework insf = im.getInsfAllById(new BigInteger(id));
-		String type = WeldEnum.getValue(insf.getType());
-		request.setAttribute("typename", type);
+		request.setAttribute("typename", insf.getTypename());
 		request.setAttribute("parent", im.getInsframeworkById(new BigInteger(id)));
 		request.setAttribute("insf", insf);
 		return "insframework/removeinsframework";

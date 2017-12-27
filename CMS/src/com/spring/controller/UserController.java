@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.greatway.enums.WeldEnum;
 import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.model.Dictionarys;
