@@ -873,13 +873,13 @@ public class CaustChartController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(ModelDto l:list){
-				json.put("time", Math.round((l.getTime()*100)/100));
+				double num = wm.getMachineCountByManu(l.getFid(),typeid).doubleValue();
+				double time = (double)Math.round(l.getTime()/num*100)/100;
+				json.put("time", time);
 				json.put("fname", l.getFname()+" - "+l.getType());
 				json.put("type", l.getType());
 				json.put("fid",l.getFid());
-				WeldDto dtos = new WeldDto();
-				dtos.setCaust("23");
-				json.put("num", wm.getMachineCountByManu(l.getFid(),dtos,typeid));
+				json.put("num", num);
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -1015,17 +1015,27 @@ public class CaustChartController {
 			List<ModelDto> efficiency = null;
 			String[] num1 = new String[10];
 			double[] num2 = new double[10];
+			int oldnum = 0,newnum = 0,maxnum = 0;
 			for(ModelDto m:list){
 				if(m!=null){
-					num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
-					int oldnum = 0,newnum = 0,maxnum = 0;
-					for(int i=1;i<9;i++){
-						oldnum = m.getMinnum()+m.getAvgnum()*i+1;
-						newnum = m.getMinnum()+m.getAvgnum()*(i+1);
-						num1[i] = oldnum+"-"+newnum;
+					if(m.getAvgnum()==0){
+						m.setAvgnum(2);
+						num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						for(int i=1;i<10;i++){
+							oldnum = m.getMinnum()+m.getAvgnum()*i+1;
+							newnum = m.getMinnum()+m.getAvgnum()*(i+1);
+							num1[i] = oldnum+"-"+newnum;
+						}
+					}else{
+						num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						for(int i=1;i<9;i++){
+							oldnum = m.getMinnum()+m.getAvgnum()*i+1;
+							newnum = m.getMinnum()+m.getAvgnum()*(i+1);
+							num1[i] = oldnum+"-"+newnum;
+						}
+						maxnum = m.getMinnum()+m.getAvgnum()*10+10;
+						num1[9] = newnum+"-"+maxnum;
 					}
-					maxnum = m.getMinnum()+m.getAvgnum()*10+10;
-					num1[9] = newnum+"-"+maxnum;
 					efficiency = lm.getEfficiencyChart(dto, parent, m.getMinnum(), m.getAvgnum());
 					for(ModelDto e:efficiency){
 						double sum = e.getSum1()+e.getSum2()+e.getSum3()+e.getSum4()+e.getSum5()+e.getSum6()+e.getSum7()+e.getSum8()+e.getSum9()+e.getSum10();

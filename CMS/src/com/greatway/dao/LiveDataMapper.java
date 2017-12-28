@@ -76,6 +76,8 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<ModelDto> getCaustUse(@Param("dto")WeldDto dto,@Param("insid")BigInteger insid);
 	
+	List<ModelDto> getItemUse(@Param("dto")WeldDto dto,@Param("insid")BigInteger insid);
+	
 	List<ModelDto> getBlochour(@Param("dto") WeldDto dto);
 	
 	List<ModelDto> getBlocOverproof(@Param("dto") WeldDto dto);

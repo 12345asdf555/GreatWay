@@ -258,6 +258,15 @@ public interface LiveDataManager {
 	 */
 	List<ModelDto> getCaustUse(Page page,WeldDto dto,BigInteger insid);
 	
+
+	/**
+	 * 项目部单台设备运行数据统计
+	 * @param dto 扩展参数类
+	 * @param insid 项目id
+	 * @return
+	 */
+	List<ModelDto> getItemUse(Page page,WeldDto dto,BigInteger insid);
+	
 	/**
 	 * 获取用户id
 	 * @return

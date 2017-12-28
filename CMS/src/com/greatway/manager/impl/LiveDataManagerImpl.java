@@ -309,4 +309,10 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	public List<ModelDto> getItemOverproof(WeldDto dto, BigInteger id) {
 		return live.getItemOverproof(dto, id);
 	}
+
+	@Override
+	public List<ModelDto> getItemUse(Page page, WeldDto dto, BigInteger insid) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.getItemUse(dto, insid);
+	}
 }

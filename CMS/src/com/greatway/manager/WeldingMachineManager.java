@@ -89,5 +89,5 @@ public interface WeldingMachineManager {
 	 * @param mid 厂商id
 	 * @return
 	 */
-	BigInteger getMachineCountByManu(BigInteger mid,WeldDto dto,BigInteger id);
+	BigInteger getMachineCountByManu(BigInteger mid,BigInteger id);
 }
