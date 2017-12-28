@@ -392,7 +392,7 @@
 		FROM tb_live_data l
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON j.fitemid = i.fid
-		INNER JOIN tb_welder w ON w.fwelder_no = l.fwelder_id
+		Left JOIN tb_welder w ON w.fwelder_no = l.fwelder_id
 		WHERE fstatus &lt; 3
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
@@ -936,35 +936,6 @@
 		group by fmachine_id ,weldTime ,fwelder_id
     	)k group by fequipment_no ,fwelder_id
         )temp
-<!-- 		SELECT * FROM ( -->
-<!-- 		SELECT i.fid iid, COUNT( lid ) AS overtime, fweldtime, i.fname, k0.fname wname, fwelder_id, fmachine_id -->
-<!-- 		FROM ( -->
-<!-- 		SELECT l.fid lid, fweldtime, fwelder_id, fname, fequipment_no fmachine_id,fjunction_id -->
-<!-- 		FROM tb_live_data l -->
-<!-- 		LEFT JOIN tb_welder w ON l.fwelder_id = w.fwelder_no -->
-<!--         LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id -->
-<!-- 		WHERE  l.fstatus =3 -->
-<!-- 		<if test="dto!=null and dto!=''"> -->
-<!-- 			<if test="dto.time!=null and dto.time!=''"> -->
-<!-- 				and fweldtime like #{dto.time} -->
-<!-- 			</if> -->
-<!-- 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''"> -->
-<!-- 				and fweldtime &gt;= #{dto.dtoTime1} -->
-<!-- 			</if> -->
-<!-- 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''"> -->
-<!-- 				and fweldtime &lt;= #{dto.dtoTime2} -->
-<!-- 			</if> -->
-<!-- 		</if> -->
-<!-- 		) AS k0 -->
-<!-- 		INNER JOIN tb_welded_junction j ON j.fwelded_junction_no = k0.fjunction_id -->
-<!-- 		INNER JOIN tb_insframework i ON j.fitemid = i.fid -->
-<!-- 		WHERE i.ftype =23 -->
-<!-- 		AND i.fid =   #{parent} -->
-<!--         group by fmachine_id,fwelder_id -->
-<!-- 		<if test="num!=null and num!=''"> -->
-<!-- 				HAVING COUNT( * ) >= #{num} -->
-<!-- 		</if> -->
-<!-- 		) TEMP -->
 	</select>
 	
 	<!-- 集团负荷率 -->
@@ -1774,7 +1745,7 @@
 		select * from (
 		select *,count(wname) num from (
 		SELECT ins.fid fid,ins.fname iname,w.fname wname,w.fwelder_no fwelder_id,sum(j.fdyne) dyne,round(COUNT(l.fid)/60/60) weldtime
-		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
+		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId
 		inner join tb_insframework ins on ins.fid = i.fparent
@@ -1799,7 +1770,7 @@
 		select * from (
 		select *,count(wname) num from (
 		SELECT insf.fid,insf.fname iname,w.fname wname,w.fwelder_no fwelder_id,sum(j.fdyne) dyne,round(COUNT(l.fid)/60/60) weldtime
-		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
+		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId
 		inner join tb_insframework ins on ins.fid = i.fparent
@@ -1825,7 +1796,7 @@
 		select * from (
 		select *,count(wname) num from (
 		SELECT i.fid fid,i.fname iname,w.fname wname,w.fwelder_no fwelder_id,sum(j.fdyne) dyne,round(COUNT(l.fid)/60/60) weldtime
-		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
+		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId
 		inner join tb_insframework ins on ins.fid = i.fparent
@@ -1853,7 +1824,7 @@
 	<!-- 查询工效最大值，最小值以及平均跨度 -->
 	<select id="getEfficiencyChartNum" resultMap="dtoMap">
 		select * from (select max(num) maxnum,min(num) minnum,round((max(num)-min(num))/10) avgnum,sum(num) num from (select round(count(l.fid)/60/60) num
-		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
+		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId
 		inner join tb_insframework ins on ins.fid = i.fparent
@@ -1886,7 +1857,7 @@
 		case when round(count(l.fid)/60/60)&gt;#{minnum}+#{avgnum}*7 and round(count(l.fid)/60/60)&lt;=#{minnum}+#{avgnum}*8 then 1 else 0 end as num8,
 		case when round(count(l.fid)/60/60)&gt;#{minnum}+#{avgnum}*8 and round(count(l.fid)/60/60)&lt;=#{minnum}+#{avgnum}*9 then 1 else 0 end as num9,
 		case when round(count(l.fid)/60/60)&gt;#{minnum}+#{avgnum}*9 and round(count(l.fid)/60/60)&lt;=#{minnum}+10+#{avgnum}*10 then 1 else 0 end as num10
-		FROM tb_live_data l inner join tb_welder w on l.fwelder_id = w.fwelder_no
+		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId
 		inner join tb_insframework ins on ins.fid = i.fparent
