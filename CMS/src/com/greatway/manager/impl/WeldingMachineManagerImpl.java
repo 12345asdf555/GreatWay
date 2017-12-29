@@ -90,8 +90,8 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 	}
 
 	@Override
-	public BigInteger getMachineCountByManu(BigInteger mid,WeldDto dto,BigInteger id) {
-		return wmm.getMachineCountByManu(mid,dto,id);
+	public BigInteger getMachineCountByManu(BigInteger mid,BigInteger id) {
+		return wmm.getMachineCountByManu(mid,id);
 	}
 
 }

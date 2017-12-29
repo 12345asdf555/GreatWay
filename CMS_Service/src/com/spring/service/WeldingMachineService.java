@@ -1,19 +1,19 @@
-package com.greatway.manager;
+package com.spring.service;
 
 import java.math.BigInteger;
 import java.util.List;
 
-import com.greatway.dto.WeldDto;
-import com.greatway.model.EquipmentManufacturer;
-import com.greatway.model.WeldingMachine;
-import com.greatway.page.Page;
+import com.spring.dto.WeldDto;
+import com.spring.model.EquipmentManufacturer;
+import com.spring.model.Page;
+import com.spring.model.WeldingMachine;
 
-public interface WeldingMachineManager {
+public interface WeldingMachineService {
 	
 	/**
-	 * 查询所有焊机信息:分页
+	 * 查询所有焊机信息
 	 */
-	List<WeldingMachine> getWeldingMachineAll(Page page,BigInteger parent,String str);
+	List<WeldingMachine> getWeldingMachineAll(BigInteger parent,String str);
 	
 	/**
 	 * 查询所有焊机信息
@@ -89,5 +89,5 @@ public interface WeldingMachineManager {
 	 * @param mid 厂商id
 	 * @return
 	 */
-	BigInteger getMachineCountByManu(BigInteger mid,BigInteger id);
+	BigInteger getMachineCountByManu(BigInteger mid,WeldDto dto,BigInteger id);
 }

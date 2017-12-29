@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.greatway.dao.WeldingMachineMapper">
 
-	<resultMap id="wmMap" type="com.greatway.model.WeldingMachine">
+	<resultMap id="wmMap" type="com.spring.model.WeldingMachine">
 		<id column="fid" property="id" />
 		<result property="equipmentNo" column="fequipment_no" />		
 		<result property="position" column="fposition" />
@@ -13,7 +13,7 @@
 		<result property="statusId" column="fstatus_id" />
 		<result property="typename" column="typename" />
 		<result property="statusname" column="statusname" />
-        <association property="insframeworkId" column="finsframework_id" javaType="com.greatway.model.Insframework">  
+        <association property="insframeworkId" column="finsframework_id" javaType="com.spring.model.Insframework">  
             <id property="id" column="iid"></id> 
             <result property="name" column="iname"></result>  
             <result property="logogram" column="flogogram"></result>  
@@ -21,13 +21,13 @@
         	<result property="parent" column="fparent"></result>
         	<result property="type" column="ftype"></result>
         </association>
-        <association property="manufacturerId" column="fmanufacturer_id" javaType="com.greatway.model.EquipmentManufacturer">  
+        <association property="manufacturerId" column="fmanufacturer_id" javaType="com.spring.model.EquipmentManufacturer">  
             <id property="id" column="mid"></id> 
             <result property="name" column="mname"></result>  
             <result property="type" column="mtype"></result>  
             <result property="typeValue" column="ftypevalue"></result>
         </association>
-        <association property="gatherId" column="fgather_id" javaType="com.greatway.model.Gather">  
+        <association property="gatherId" column="fgather_id" javaType="com.spring.model.Gather">  
             <id property="id" column="gid"></id> 
 	        <result property="gatherNo" column="fgather_no"></result>  
 	        <result property="status" column="fstatus"></result>  
@@ -85,7 +85,7 @@
 		SELECT fid FROM tb_welding_machine where finsframework_id = #{insfId}
 	</select>
 	
-	<select id="getEquipmentnoCount" resultType="java.lang.Integer">
+	<select id="getEquipmentnoCount" resultType="java.lang.Integer" parameterType="java.lang.String">
 		SELECT count(*) FROM tb_welding_machine WHERE fequipment_no = #{eno}
 	</select>
 	
@@ -97,14 +97,25 @@
 	<select id="getMachineCountByManu" resultType="java.math.BigInteger">
 		 SELECT count(m.fid) FROM tb_welding_machine m inner join tb_insframework i  on i.fid = m.finsframework_id
 		 inner join tb_insframework ins  on ins.fid = i.fparent
-		 WHERE fmanufacturer_id = #{mid} 	and (ins.fparent = #{id} or ins.fid = #{id} or i.fid = #{id})
+		 WHERE fmanufacturer_id = #{mid}
+		 <if test="dto!=null and dto!=''">
+			 <if test="dto.bloc!=null and dto.bloc!=''">
+			 	and ins.fparent = #{id}
+			 </if>
+			  <if test="dto.company!=null and dto.company!=''">
+			 	and ins.fid = #{id}
+			 </if>
+			  <if test="dto.caust!=null and dto.caust!=''">
+			 	and i.fid = #{id}
+			 </if>
+		 </if>
 	</select>
 	
 	<select id="getIdByGatherid" resultType="java.math.BigInteger">
 		SELECT fid FROM tb_welding_machine WHERE  fgather_id = #{gatherid}
 	</select>
 	
-	<insert id="addWeldingMachine" parameterType="com.greatway.model.WeldingMachine" useGeneratedKeys="true" keyProperty="id">
+	<insert id="addWeldingMachine" parameterType="com.spring.model.WeldingMachine" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO tb_welding_machine(ftype_id, fequipment_no, fstatus_id, fposition, finsframework_id, 
 		fmanufacturer_id,fgather_id, fisnetworking, fjoin_time) VALUES 
 		(#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{isnetworking},#{joinTime})
@@ -114,13 +125,13 @@
 		UPDATE tb_welding_machine SET fgather_id=null  where fid = #{wid}
 	</update>
 	
-	<update id="editWeldingMachine"  parameterType="com.greatway.model.WeldingMachine">
+	<update id="editWeldingMachine"  parameterType="com.spring.model.WeldingMachine">
 		UPDATE tb_welding_machine SET ftype_id=#{typeId},fequipment_no=#{equipmentNo},fstatus_id=#{statusId},
 		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{manufacturerId.id},fgather_id=#{gatherId.id},
 		fisnetworking=#{isnetworking},fjoin_time=#{joinTime} where fid = #{id}
 	</update>
 	
-	<update id="editstatus"  parameterType="com.greatway.model.WeldingMachine">
+	<update id="editstatus"  parameterType="com.spring.model.WeldingMachine">
 		UPDATE tb_welding_machine SET fstatus_id=#{status}  where fid = #{wid}
 	</update>
 	

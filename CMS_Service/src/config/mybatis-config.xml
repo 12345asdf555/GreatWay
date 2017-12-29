@@ -26,6 +26,7 @@
 	-->
 	<mappers>
 		<mapper resource="com/greatway/dao/userMapper.xml" />
+		<mapper resource="com/greatway/dao/weldingmachine.xml" />
 	</mappers>
 
 </configuration>  

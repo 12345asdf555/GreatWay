@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,10 +17,12 @@ import com.greatway.dto.ModelDto;
 import com.greatway.dto.WeldDto;
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.LiveDataManager;
+import com.greatway.manager.WeldingMachineManager;
 import com.greatway.model.Insframework;
 import com.greatway.model.LiveData;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -37,6 +40,9 @@ public class ItemChartController {
 	
 	@Autowired
 	private InsframeworkManager insm;
+	
+	@Autowired
+	private WeldingMachineManager wm;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -142,6 +148,17 @@ public class ItemChartController {
 		lm.getUserId(request);
 		request.setAttribute("parent",parent);
 		return "itemchart/itemidle";
+	}
+	
+	/**
+	 * 跳转项目部单台设备运行数据统计
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goItemUse")
+	public String goItemUse(HttpServletRequest request){
+		lm.getUserId(request);
+		return "itemchart/itemuse";
 	}
 	
 	/**
@@ -777,6 +794,66 @@ public class ItemChartController {
 		obj.put("arys", arys);
 		return obj.toString();
 	}
+
+	
+	/**
+	 * 项目部单台设备运行数据统计信息查询
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getItemUse")
+	@ResponseBody
+	public String getItemUse(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		WeldDto dto = new WeldDto();
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			//获取用户id
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			List<Insframework> insf = insm.getInsByUserid(new BigInteger(myuser.getId()+""));
+			page = new Page(pageIndex,pageSize,total);
+			for(Insframework ins:insf){
+				List<ModelDto> list = lm.getItemUse(page, dto, ins.getId());
+				long total = 0;
+				if(list != null){
+					PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+					total = pageinfo.getTotal();
+				}
+				for(ModelDto l:list){
+					double num = wm.getMachineCountByManu(l.getFid(),ins.getId()).doubleValue();
+					double time = (double)Math.round(l.getTime()/num*100)/100;
+					json.put("time", time);
+					json.put("fname", l.getFname()+" - "+l.getType());
+					json.put("type", l.getType());
+					json.put("fid",l.getFid());
+					json.put("num", num);
+					ary.add(json);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
 	
 	/**
 	 * 项目部工效报表信息查询

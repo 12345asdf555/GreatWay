@@ -219,6 +219,10 @@ function openItemoverproofs(){
 	addTab("项目部焊接工艺超标统计","itemChart/goItemoverproof");
 }
 
+function openItemUse(){
+	addTab("项目部单台设备运行数据统计","itemChart/goItemUse");
+}
+
 function openBlocEfficiency(){
 	addTab("集团工效","blocChart/goBlocEfficiency");
 }

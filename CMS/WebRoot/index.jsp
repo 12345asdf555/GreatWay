@@ -121,6 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openItemLoads()"><i class="iconfont icon-bijiben"></i>项目部设备负荷率</a></li>
     		<li><a href="javascript:openItemNoLoads()"><i class="iconfont icon-bijiben"></i>项目部设备空载率</a></li>
     		<li><a href="javascript:openItemIdle()"><i class="iconfont icon-bijiben"></i>项目部设备闲置率</a></li>
+    		<li><a href="javascript:openItemUse()"><i class="iconfont icon-bijiben"></i>项目部单台设备运行数据统计</a></li>
     		<li><a href="javascript:openItemTd()"><i class="iconfont icon-bijiben"></i>项目部实时监测</a></li>
     	</ul>
     </div>

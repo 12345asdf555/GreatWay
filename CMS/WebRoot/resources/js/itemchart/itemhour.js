@@ -48,7 +48,7 @@ function showItemHourChart(){
 			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
 		},
 		legend:{
-			data:['工时']
+			data:['工时(s)']
 		},
 		grid:{
 			left:'10%',//组件距离容器左边的距离
@@ -71,7 +71,7 @@ function showItemHourChart(){
 		},
 		series:[
 			{
-				name:'工时',
+				name:'工时(s)',
 				type:'bar',
 				data:array2
 			}
@@ -119,7 +119,7 @@ function itemHourDatagrid(){
 			align : "left"
 		}, {
 			field : 'manhour',
-			title : '焊接工时',
+			title : '焊接工时(s)',
 			width : 100,
 			halign : "center",
 			align : "left",

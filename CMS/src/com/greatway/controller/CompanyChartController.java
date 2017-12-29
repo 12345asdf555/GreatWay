@@ -838,14 +838,13 @@ public class CompanyChartController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(ModelDto l:list){
-				double time = (double)Math.round(l.getTime()*100)/100;
+				double num = wm.getMachineCountByManu(l.getFid(),typeid).doubleValue();
+				double time = (double)Math.round(l.getTime()/num*100)/100;
 				json.put("time", time);
 				json.put("fname", l.getFname()+" - "+l.getType());
 				json.put("type", l.getType());
 				json.put("fid",l.getFid());
-				WeldDto dtos = new WeldDto();
-				dtos.setCompany("22");
-				json.put("num", wm.getMachineCountByManu(l.getFid(),dtos,typeid));
+				json.put("num", num);
 				ary.add(json);
 			}
 		}catch(Exception e){
