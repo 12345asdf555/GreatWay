@@ -402,23 +402,26 @@ public class TdController {
 		JSONObject obj = new JSONObject();
 		String da = request.getParameter("dd");
 		String po = request.getParameter("posit");
-		if(da.length()>0){
-			total = da.length()/159;
-		}
+		List<String> list = null;
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
 			for(int i = 0;i < da.length();i+=159)
 			{
+				list.add(da.substring(4+i, 8+i));
 				String pos = tdService.findPosition(da.substring(4+i, 8+i));
 				if(pos.equals(po)){
 				json.put("fstatus_id", da.substring(0+i, 2+i));
 				json.put("fequipment_no", Integer.parseInt(da.substring(4+i, 8+i),16));
-				json.put("fwelder_no", da.substring(8+i, 12+i));
+				json.put("fwelder_no", Integer.parseInt(da.substring(8+i, 12+i),16));
 				String weldname = tdService.findweld(da.substring(8+i, 12+i));
 				json.put("fname", weldname);
 				json.put("fposition", pos);
 				ary.add(json);
+				}
+				if(list != null){
+					PageInfo<String> pageinfo = new PageInfo<String>(list);
+					total = pageinfo.getTotal();
 				}
 			}
 		}catch(Exception e){

@@ -161,7 +161,7 @@
 	    			for(var dex=0;dex<rows.length;dex++){
 	    				/*alert(rows[dex][columns[0][1].field]);*/
 	    		    if((dd.substring(8+g, 12+g)!="0000")&&(parseInt(dd.substring(4+g, 8+g),16)==rows[dex].fequipment_no)){
-	    			rows[dex].fwelder_no=dd.substring(8+g, 12+g);
+	    			rows[dex].fwelder_no=parseInt(dd.substring(8+g, 12+g),16);
 	    			rows[dex].fstatus_id=dd.substring(0+g, 2+g);
 					for(var k=0;k<namex.length;k++){
 						if(namex[k].fwelder_no==dd.substring(8+g, 12+g)){

@@ -60,7 +60,7 @@ public class WelderController {
 			for(Welder we:list){
 				json.put("id", we.getId());
 				json.put("name", we.getName());
-				json.put("welderno", we.getWelderno());
+				json.put("welderno", Integer.parseInt(we.getWelderno(),16));
 				ary.add(json);
 			}
 		}catch(Exception e){

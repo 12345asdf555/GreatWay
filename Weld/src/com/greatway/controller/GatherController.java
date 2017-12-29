@@ -102,7 +102,7 @@ public class GatherController {
 		try{
 			for(Gather g:list){
 				json.put("id", g.getId());
-				json.put("gatherNo", g.getGatherNo());
+				json.put("gatherNo", Integer.parseInt(g.getGatherNo(),16));
 				json.put("itemid",g.getItemid());
 				json.put("itemname",g.getItemname());
 				json.put("status",g.getStatus());
