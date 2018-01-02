@@ -1,4 +1,4 @@
-package com.greatway.dao;
+package com.spring.dao;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -41,5 +41,5 @@ public interface WeldingMachineMapper extends Mapper<WeldingMachine>{
 	
 	void editGatherid(@Param("wid")BigInteger wid);
 	
-	BigInteger getMachineCountByManu(@Param("mid")BigInteger mid,@Param("dto")WeldDto dto,@Param("id")BigInteger id);
+	BigInteger getMachineCountByManu(@Param("mid")BigInteger mid,@Param("id")BigInteger id);
 }

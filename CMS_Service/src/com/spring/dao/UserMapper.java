@@ -1,4 +1,4 @@
-package com.greatway.dao;
+package com.spring.dao;
 
 import java.math.BigInteger;
 

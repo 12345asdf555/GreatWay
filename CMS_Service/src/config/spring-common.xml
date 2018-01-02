@@ -44,7 +44,7 @@
 		basePackage:指定sql映射文件/接口所在的包（自动扫描）
 	-->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.greatway.dao"></property>
+		<property name="basePackage" value="com.spring.dao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
     
@@ -52,7 +52,7 @@
 
 	<aop:config>
 		<aop:pointcut id="appService"
-			expression="execution(* com.greatway.manager..*Manager*.*(..))" />
+			expression="execution(* com.spring.service..*Service*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="appService" />
 	</aop:config>
 

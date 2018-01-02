@@ -6,7 +6,7 @@
 	id:必须与对应接口的某个对应的方法名一致
 	
  -->
-<mapper namespace="com.greatway.dao.UserMapper">	
+<mapper namespace="com.spring.dao.UserMapper">
 	<insert id="AddWeld" parameterType="User">
 		insert into tb_welder(fwelder_no,fname,fItemID) values(#{fwelder_no},#{fname},#{fitemid});
 	</insert>

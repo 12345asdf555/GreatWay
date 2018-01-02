@@ -14,85 +14,68 @@ import com.spring.model.WeldingMachine;
 @WebService
 public interface WeldingMachineWebService {
 
+	/**
+	 * 查询所有焊机信息
+	 */
+	List<WeldingMachine> getWeldingMachineAll(@WebParam(name="object")String object);
 	
 	/**
 	 * 查询所有焊机信息
 	 */
-	List<WeldingMachine> getWeldingMachineAll(@WebParam(name="parent")BigInteger parent,@WebParam(name="str")String str);
-	
-	/**
-	 * 查询所有焊机信息
-	 */
-	List<WeldingMachine> getWeldingMachine(@WebParam(name="str")String str);
+	List<WeldingMachine> getWeldingMachine(@WebParam(name="object")String object);
 	
 	/**
 	 * 查询所有厂商信息
-	 * @return
 	 */
 	List<EquipmentManufacturer> getManuAll();
 	
 	/**
 	 * 新增设备
 	 */
-	boolean addWeldingMachine(@WebParam(name="wm")WeldingMachine wm);
+	boolean addWeldingMachine(@WebParam(name="object")String object);
 	
 	/**
 	 * 修改设备
 	 */
-	boolean editWeldingMachine(@WebParam(name="wm")WeldingMachine wm);
+	boolean editWeldingMachine(@WebParam(name="object")String object);
 	
 	/**
 	 * 删除设备
-	 * @param wid
 	 */
-	boolean deleteWeldingChine(@WebParam(name="wid")BigInteger wid);
+	boolean deleteWeldingChine(@WebParam(name="object")String object);
 	
 	/**
 	 * 根据焊机编号查找id
-	 * @return
 	 */
-	BigInteger getWeldingMachineByEno(@WebParam(name="eno")String eno);
+	BigInteger getWeldingMachineByEno(@WebParam(name="object")String object);
 	
 	/**
 	 * 判断焊机编号是否存在
-	 * @param eno
-	 * @return
 	 */
-	int getEquipmentnoCount(@WebParam(name="eno")String eno);
+	int getEquipmentnoCount(@WebParam(name="object")String object);
 	
 	/**
 	 * 判断采集序号是否存在
-	 * @param gatherid
-	 * @return
 	 */
-	int getGatheridCount(@WebParam(name="itemid")BigInteger itemid,@WebParam(name="gather")String gather);
+	int getGatheridCount(@WebParam(name="object")String object);
 	
 	/**
 	 * 根据厂商值和类型查找厂商id
-	 * @param value 厂商名字
-	 * @param type 厂商类型
-	 * @return
 	 */
-	BigInteger getManuidByValue(@WebParam(name="value")String value,@WebParam(name="type")String type);
+	BigInteger getManuidByValue(@WebParam(name="object")String object);
 	
 	/**
 	 * 根据id查找记录
-	 * @param wid
-	 * @return
 	 */
-	WeldingMachine getWeldingMachineById(@WebParam(name="wid")BigInteger wid);
+	WeldingMachine getWeldingMachineById(@WebParam(name="object")String object);
 	
 	/**
 	 * 根据项目名称获取项目id
-	 * @param name
-	 * @return
 	 */
-	BigInteger getInsframeworkByName(@WebParam(name="name")String name);
+	BigInteger getInsframeworkByName(String object);
 	
 	/**
 	 * 获取某厂商下的焊机总数
-	 * @param mid 厂商id
-	 * @return
 	 */
-	BigInteger getMachineCountByManu(@WebParam(name="mid")BigInteger mid,@WebParam(name="dto")WeldDto dto,@WebParam(name="id")BigInteger id);
+	BigInteger getMachineCountByManu(@WebParam(name="object")String object);
 }

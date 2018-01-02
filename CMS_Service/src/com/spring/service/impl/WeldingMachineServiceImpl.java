@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.pagehelper.PageHelper;
-import com.greatway.dao.WeldingMachineMapper;
-import com.spring.dto.WeldDto;
+import com.spring.dao.EquipmentManufacturerMapper;
+import com.spring.dao.InsframeworkMapper;
+import com.spring.dao.WeldingMachineMapper;
 import com.spring.model.EquipmentManufacturer;
-import com.spring.model.Page;
 import com.spring.model.WeldingMachine;
 import com.spring.service.WeldingMachineService;
 
@@ -21,10 +20,10 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 	
 	@Autowired
 	private WeldingMachineMapper wmm;
-//	@Autowired
-//	private EquipmentManufacturerMapper em;
-//	@Autowired
-//	private InsframeworkMapper im;
+	@Autowired
+	private EquipmentManufacturerMapper em;
+	@Autowired
+	private InsframeworkMapper im;
 	
 	@Override
 	public List<WeldingMachine> getWeldingMachineAll(BigInteger parent,String str) {
@@ -38,7 +37,7 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 	@Override
 	public void addWeldingMachine(WeldingMachine wm) {
 		try{
-		wmm.addWeldingMachine(wm);
+			wmm.addWeldingMachine(wm);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -73,8 +72,12 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 
 	@Override
 	public List<EquipmentManufacturer> getManuAll() {
-//		return em.getmanuAll();
-		return null;
+		try{
+			return em.getmanuAll();
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -98,8 +101,11 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 
 	@Override
 	public BigInteger getManuidByValue(String value,String type) {
-//		return em.getManuidByValue(value,type);
-		return null;
+		try{
+			return em.getManuidByValue(value,type);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
@@ -122,14 +128,18 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 
 	@Override
 	public BigInteger getInsframeworkByName(String name) {
-//		return im.getInsframeworkByName(name);
-		return null;
+		try{
+			return im.getInsframeworkByName(name);
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public BigInteger getMachineCountByManu(BigInteger mid,WeldDto dto,BigInteger id) {
+	public BigInteger getMachineCountByManu(BigInteger mid, BigInteger id) {
 		try{
-			return wmm.getMachineCountByManu(mid,dto,id);
+			return wmm.getMachineCountByManu(mid, id);
 		}catch(Exception e){
 			return null;
 		}

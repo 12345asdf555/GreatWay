@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
-import com.greatway.dao.UserMapper;
+import com.spring.dao.UserMapper;
 import com.spring.model.User;
 import com.spring.service.UserService;
 

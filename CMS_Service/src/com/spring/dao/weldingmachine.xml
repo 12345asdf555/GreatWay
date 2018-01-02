@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.greatway.dao.WeldingMachineMapper">
+<mapper namespace="com.spring.dao.WeldingMachineMapper">
 
 	<resultMap id="wmMap" type="com.spring.model.WeldingMachine">
 		<id column="fid" property="id" />
@@ -98,17 +98,7 @@
 		 SELECT count(m.fid) FROM tb_welding_machine m inner join tb_insframework i  on i.fid = m.finsframework_id
 		 inner join tb_insframework ins  on ins.fid = i.fparent
 		 WHERE fmanufacturer_id = #{mid}
-		 <if test="dto!=null and dto!=''">
-			 <if test="dto.bloc!=null and dto.bloc!=''">
-			 	and ins.fparent = #{id}
-			 </if>
-			  <if test="dto.company!=null and dto.company!=''">
-			 	and ins.fid = #{id}
-			 </if>
-			  <if test="dto.caust!=null and dto.caust!=''">
-			 	and i.fid = #{id}
-			 </if>
-		 </if>
+		 and (i.fid = #{id} or ins.fid = #{id} or ins.fparent = #{id})
 	</select>
 	
 	<select id="getIdByGatherid" resultType="java.math.BigInteger">

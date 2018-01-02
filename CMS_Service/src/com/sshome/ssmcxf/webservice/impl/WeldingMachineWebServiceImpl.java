@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spring.dto.WeldDto;
 import com.spring.model.EquipmentManufacturer;
-import com.spring.model.Page;
+import com.spring.model.Gather;
+import com.spring.model.Insframework;
 import com.spring.model.WeldingMachine;
 import com.spring.service.WeldingMachineService;
 import com.sshome.ssmcxf.webservice.WeldingMachineWebService;
+
+import net.sf.json.JSONObject;
 
 @Transactional
 @Service
@@ -24,8 +26,11 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	private WeldingMachineService wms;
 	
 	@Override
-	public List<WeldingMachine> getWeldingMachineAll(BigInteger parent, String str) {
+	public List<WeldingMachine> getWeldingMachineAll(String object) {
 		try{
+			JSONObject json = JSONObject.fromObject(object);
+			BigInteger parent = new BigInteger(json.getString("insId"));
+			String str = json.getString("str");
 			return wms.getWeldingMachineAll(parent, str);
 		}catch(Exception e){
 			return null;
@@ -33,9 +38,10 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	}
 
 	@Override
-	public List<WeldingMachine> getWeldingMachine(String str) {
+	public List<WeldingMachine> getWeldingMachine(String object) {
 		try{
-			return wms.getWeldingMachine(str);
+			JSONObject json = JSONObject.fromObject(object);
+			return wms.getWeldingMachine(json.getString("str"));
 		}catch(Exception e){
 			return null;
 		}
@@ -46,34 +52,73 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 		try{
 			return wms.getManuAll();
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
 
 	@Override
-	public boolean addWeldingMachine(WeldingMachine wm) {
+	public boolean addWeldingMachine(String object) {
 		try{
+			JSONObject json = JSONObject.fromObject(object);
+			WeldingMachine wm = new WeldingMachine();
+			wm.setEquipmentNo(json.getString("equipmentNo"));
+			wm.setPosition(json.getString("position"));
+			wm.setIsnetworking(json.getInt("isnetworking"));
+			wm.setJoinTime(json.getString("joinTime"));
+			wm.setTypeId(json.getInt("typeId"));
+			wm.setStatusId(json.getInt("statusId"));
+			Gather gather = new Gather();
+			gather.setId(new BigInteger(json.getString("gatherId")));
+			wm.setGatherId(gather);
+			EquipmentManufacturer e = new EquipmentManufacturer();
+			e.setId(new BigInteger(json.getString("manufacturerId")));
+			wm.setManufacturerId(e);
+			Insframework ins = new Insframework();
+			ins.setId(new BigInteger(json.getString("insframeworkId")));
+			wm.setInsframeworkId(ins);
 			wms.addWeldingMachine(wm);
 			return true;
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
 
 	@Override
-	public boolean editWeldingMachine(WeldingMachine wm) {
+	public boolean editWeldingMachine(String object) {
 		try{
+			JSONObject json = JSONObject.fromObject(object);
+			WeldingMachine wm = new WeldingMachine();
+			wm.setId(new BigInteger(json.getString("id")));
+			wm.setEquipmentNo(json.getString("equipmentNo"));
+			wm.setPosition(json.getString("position"));
+			wm.setIsnetworking(json.getInt("isnetworking"));
+			wm.setJoinTime(json.getString("joinTime"));
+			wm.setTypeId(json.getInt("typeId"));
+			wm.setStatusId(json.getInt("statusId"));
+			Gather gather = new Gather();
+			gather.setId(new BigInteger(json.getString("gatherId")));
+			wm.setGatherId(gather);
+			EquipmentManufacturer e = new EquipmentManufacturer();
+			e.setId(new BigInteger(json.getString("manufacturerId")));
+			wm.setManufacturerId(e);
+			Insframework ins = new Insframework();
+			ins.setId(new BigInteger(json.getString("insframeworkId")));
+			wm.setInsframeworkId(ins);
 			wms.editWeldingMachine(wm);
 			return true;
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
 
 	@Override
-	public boolean deleteWeldingChine(BigInteger wid) {
+	public boolean deleteWeldingChine(String object) {
 		try{
-			wms.deleteWeldingChine(wid);
+			JSONObject json = JSONObject.fromObject(object);
+			wms.deleteWeldingChine(new BigInteger(json.getString("wid")));
 			return true;
 		}catch(Exception e){
 			return false;
@@ -81,26 +126,31 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	}
 
 	@Override
-	public BigInteger getWeldingMachineByEno(String eno) {
+	public BigInteger getWeldingMachineByEno(String object) {
 		try{
-			return wms.getWeldingMachineByEno(eno);
+			JSONObject json = JSONObject.fromObject(object);
+			return wms.getWeldingMachineByEno(json.getString("eno"));
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public int getEquipmentnoCount(String eno) {
+	public int getEquipmentnoCount(String object) {
 		try{
-			return wms.getEquipmentnoCount(eno);
+			JSONObject json = JSONObject.fromObject(object);
+			return wms.getEquipmentnoCount(json.getString("eno"));
 		}catch(Exception e){
 			return 0;
 		}
 	}
 
 	@Override
-	public int getGatheridCount(BigInteger itemid, String gather) {
+	public int getGatheridCount(String object) {
 		try{
+			JSONObject json = JSONObject.fromObject(object);
+			BigInteger itemid = new BigInteger(json.getString("insfId"));
+			String gather = json.getString("gatherNo");
 			return wms.getGatheridCount(itemid, gather);
 		}catch(Exception e){
 			return 0;
@@ -108,36 +158,42 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	}
 
 	@Override
-	public BigInteger getManuidByValue(String value, String type) {
+	public BigInteger getManuidByValue(String object) {
 		try{
-			return wms.getManuidByValue(value, type);
+			JSONObject json = JSONObject.fromObject(object);
+			return wms.getManuidByValue(json.getString("manuName"), json.getString("manuType"));
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public WeldingMachine getWeldingMachineById(BigInteger wid) {
+	public WeldingMachine getWeldingMachineById(String object) {
 		try{
-			return wms.getWeldingMachineById(wid);
+			JSONObject json = JSONObject.fromObject(object);
+			return wms.getWeldingMachineById(new BigInteger(json.getString("wid")));
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public BigInteger getInsframeworkByName(String name) {
+	public BigInteger getInsframeworkByName(String object) {
 		try{
-			return wms.getInsframeworkByName(name);
+			JSONObject json = JSONObject.fromObject(object);
+			return wms.getInsframeworkByName(json.getString("insName"));
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public BigInteger getMachineCountByManu(BigInteger mid, WeldDto dto, BigInteger id) {
+	public BigInteger getMachineCountByManu(String object) {
 		try{
-			return wms.getMachineCountByManu(mid, dto, id);
+			JSONObject json = JSONObject.fromObject(object);
+			BigInteger mid = new BigInteger(json.getString("manuId"));
+			BigInteger insid = new BigInteger(json.getString("insId"));
+			return wms.getMachineCountByManu(mid, insid);
 		}catch(Exception e){
 			return null;
 		}
