@@ -35,20 +35,30 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 	}
 
 	@Override
-	public void addWeldingMachine(WeldingMachine wm) {
+	public boolean addWeldingMachine(WeldingMachine wm) {
 		try{
-			wmm.addWeldingMachine(wm);
+			int count = wmm.addWeldingMachine(wm);
+			if(count>0){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
-			e.printStackTrace();
+			return false;
 		}
 	}
 
 	@Override
-	public void editWeldingMachine(WeldingMachine wm) {
+	public boolean editWeldingMachine(WeldingMachine wm) {
 		try{
-			wmm.editWeldingMachine(wm);
+			int count = wmm.editWeldingMachine(wm);
+			if(count>0){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
-			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -118,11 +128,16 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 	}
 
 	@Override
-	public void deleteWeldingChine(BigInteger wid) {
+	public boolean deleteWeldingChine(BigInteger wid) {
 		try{
-			wmm.deleteWeldingMachine(wid);
+			int count = wmm.deleteWeldingMachine(wid);
+			if(count>0){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
-			e.printStackTrace();
+			return false;
 		}
 	}
 

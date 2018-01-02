@@ -15,11 +15,11 @@ public interface WeldingMachineMapper extends Mapper<WeldingMachine>{
 	
 	List<WeldingMachine> getEquipmentno();
 	
-	void addWeldingMachine(WeldingMachine wm);
+	int addWeldingMachine(WeldingMachine wm);
 	
-	void editWeldingMachine(WeldingMachine wm);
+	int editWeldingMachine(WeldingMachine wm);
 	
-	void deleteWeldingMachine(@Param("wid")BigInteger wid);
+	int deleteWeldingMachine(@Param("wid")BigInteger wid);
 	
 	BigInteger getWeldingMachineByEno(@Param("eno")String eno);
 	
@@ -31,15 +31,15 @@ public interface WeldingMachineMapper extends Mapper<WeldingMachine>{
 	
 	WeldingMachine getWeldingMachineById(@Param("wid")BigInteger wid);
 	
-	void editstatus(@Param("wid")BigInteger wid,@Param("status")int status);
+	int editstatus(@Param("wid")BigInteger wid,@Param("status")int status);
 	
-	void deleteByInsf(@Param("insfId")BigInteger insfId);
+	int deleteByInsf(@Param("insfId")BigInteger insfId);
 	
 	List<WeldingMachine> getWeldingMachineByInsf(@Param("insfId")BigInteger insfId);
 	
 	BigInteger getIdByGatherid(@Param("gatherid")BigInteger gatherid);
 	
-	void editGatherid(@Param("wid")BigInteger wid);
+	int editGatherid(@Param("wid")BigInteger wid);
 	
 	BigInteger getMachineCountByManu(@Param("mid")BigInteger mid,@Param("id")BigInteger id);
 }

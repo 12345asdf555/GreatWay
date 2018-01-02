@@ -3,9 +3,7 @@ package com.spring.service;
 import java.math.BigInteger;
 import java.util.List;
 
-import com.spring.dto.WeldDto;
 import com.spring.model.EquipmentManufacturer;
-import com.spring.model.Page;
 import com.spring.model.WeldingMachine;
 
 public interface WeldingMachineService {
@@ -29,18 +27,18 @@ public interface WeldingMachineService {
 	/**
 	 * 新增设备
 	 */
-	void addWeldingMachine(WeldingMachine wm);
+	boolean addWeldingMachine(WeldingMachine wm);
 	
 	/**
 	 * 修改设备
 	 */
-	void editWeldingMachine(WeldingMachine wm);
+	boolean editWeldingMachine(WeldingMachine wm);
 	
 	/**
 	 * 删除设备
 	 * @param wid
 	 */
-	void deleteWeldingChine(BigInteger wid);
+	boolean deleteWeldingChine(BigInteger wid);
 	
 	/**
 	 * 根据焊机编号查找id

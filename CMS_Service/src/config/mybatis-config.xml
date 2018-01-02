@@ -29,6 +29,7 @@
 		<mapper resource="com/spring/dao/weldingmachine.xml" />
 		<mapper resource="com/spring/dao/equipmentmanufacturer.xml" />
 		<mapper resource="com/spring/dao/insframework.xml" />
+		<mapper resource="com/spring/dao/weldingMaintenance.xml" />
 	</mappers>
 
 </configuration>  
