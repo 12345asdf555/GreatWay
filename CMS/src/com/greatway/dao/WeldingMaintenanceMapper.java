@@ -23,8 +23,6 @@ public interface WeldingMaintenanceMapper extends Mapper<WeldingMaintenance> {
 	
 	void addWeldingMaintenance(WeldingMaintenance wm);
 	
-	BigInteger getTypeByName(@Param("name")String name);
-	
 	void updateEndtime(@Param("wid")BigInteger wid);
 	
 	void updateMaintenanceRecord(MaintenanceRecord mr);

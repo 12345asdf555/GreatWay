@@ -142,7 +142,7 @@ function newSearchWeldingMachine(){
 	initSearch();
 }
 
-//焊接设备下拉框
+//焊机设备下拉框
 function searchWeldingMachineCombobox(){
 	var optionFields = 
 		"<option value='fequipment_no'>固定资产编号</option>" +

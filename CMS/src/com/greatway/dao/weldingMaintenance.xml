@@ -46,10 +46,6 @@
 		where m.fid = #{wid}
 	</select>
 	
-	<select id="getTypeByName" resultType="java.math.BigInteger">
-		SELECT  fid  FROM tb_maintenance_type where fname = #{name}
-	</select>
-	
 	<select id="getMaintainByWeldingMachinId" resultMap="mmMap">
 		SELECT fid FROM tb_welding_maintenance WHERE fwelding_id = #{wid}
 	</select>

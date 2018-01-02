@@ -53,11 +53,6 @@ public class MaintainManagerImpl implements MaintainManager {
 	}
 
 	@Override
-	public BigInteger getTypeByName(String name) {
-		return wmm.getTypeByName(name);
-	}
-
-	@Override
 	public void updateEndtime(BigInteger wid) {
 		wmm.updateEndtime(wid);
 	}

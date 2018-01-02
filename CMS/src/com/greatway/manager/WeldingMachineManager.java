@@ -3,7 +3,6 @@ package com.greatway.manager;
 import java.math.BigInteger;
 import java.util.List;
 
-import com.greatway.dto.WeldDto;
 import com.greatway.model.EquipmentManufacturer;
 import com.greatway.model.WeldingMachine;
 import com.greatway.page.Page;

@@ -3,8 +3,6 @@ package com.greatway.manager;
 import java.math.BigInteger;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.greatway.model.MaintenanceRecord;
 import com.greatway.model.WeldingMachine;
 import com.greatway.model.WeldingMaintenance;
@@ -48,11 +46,6 @@ public interface MaintainManager {
 	 * @param wm
 	 */
 	void addMaintian(WeldingMaintenance wm, MaintenanceRecord mr, BigInteger wid);
-	
-	/**
-	 * 根据name查找类型id
-	 */
-	BigInteger getTypeByName(String name);
 	
 	/**
 	 * 修改结束时间为当前时间
