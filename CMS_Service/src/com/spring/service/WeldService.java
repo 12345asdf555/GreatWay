@@ -2,9 +2,9 @@ package com.spring.service;
 
 import java.math.BigInteger;
 
-import com.spring.model.User;
+import com.spring.model.Weld;
 
-public interface UserService {
+public interface WeldService {
 
 	BigInteger FindIns_Id(String insname);
 	Boolean AddWeld(String aweld);

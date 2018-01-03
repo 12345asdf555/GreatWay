@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spring.service.UserService;
+import com.spring.service.WeldService;
 import com.sshome.ssmcxf.webservice.SsWebService;
 @Transactional
 @Service
@@ -16,7 +16,7 @@ import com.sshome.ssmcxf.webservice.SsWebService;
 public class SsWebServiceImpl implements SsWebService {
 
 	@Autowired
-	private UserService userService;
+	private WeldService userService;
 
 	@Override
 	public Boolean AddWeld(String aweld) {

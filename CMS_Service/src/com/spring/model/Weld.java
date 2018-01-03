@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  *
  */
-public class User{
+public class Weld{
 	/**
 	 * 
 	 */
@@ -44,7 +44,7 @@ public class User{
 	private String fnm;
 	private Date fstart_time;
 	private Date fend_time;
-	public User(){
+	public Weld(){
 		super();
 	}
 	public String getFwelder_no(){
@@ -209,7 +209,7 @@ public class User{
 	public void setFend_time(Date fend_time){
 		this.fend_time = fend_time;
 	}
-	public User(String fwelder_no,String fname,String fwjn,String fsn,String fpn,String frn,String funit,String farea,String fsystems,String fchildren,String fed,String fwt,int fdyne,String fspecification,BigDecimal fmaxele,BigDecimal fminele,String fele_unit,BigDecimal fmaxval,BigDecimal fminval,String fval_unit,BigInteger fitemid,String fmaterial,String fnd,String fnt,String fnm,Date fstart_time,Date fend_time){
+	public Weld(String fwelder_no,String fname,String fwjn,String fsn,String fpn,String frn,String funit,String farea,String fsystems,String fchildren,String fed,String fwt,int fdyne,String fspecification,BigDecimal fmaxele,BigDecimal fminele,String fele_unit,BigDecimal fmaxval,BigDecimal fminval,String fval_unit,BigInteger fitemid,String fmaterial,String fnd,String fnt,String fnm,Date fstart_time,Date fend_time){
 			super();
 
 			this.fwelder_no = fwelder_no;

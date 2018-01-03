@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
-import com.spring.dao.UserMapper;
-import com.spring.model.User;
-import com.spring.service.UserService;
+import com.spring.dao.WeldMapper;
+import com.spring.model.Weld;
+import com.spring.service.WeldService;
 
 import net.sf.json.JSONObject;
 
@@ -22,15 +22,15 @@ import net.sf.json.JSONObject;
 
 @Service
 @Transactional  //此处不再进行创建SqlSession和提交事务，都已交由spring去管理了。
-public class UserServiceImpl implements UserService {
+public class WeldServiceImpl implements WeldService {
 	
 	@Resource
-	private UserMapper mapper;
+	private WeldMapper mapper;
 	
 	public Boolean AddWeld(String aweld) {
 		try{
 		JSONObject json = JSONObject.fromObject(aweld);
-		User user = new User();
+		Weld user = new Weld();
 		user.setFitemid(new BigInteger(json.getString("fItemID")));
 		user.setFname(json.getString("fname"));
 		user.setFwelder_no(json.getString("fwelder_no"));
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 	public Boolean UpdateWeld(String uweld) {
 		try{
 		JSONObject json = JSONObject.fromObject(uweld);
-		User user = new User();
+		Weld user = new Weld();
 		user.setFitemid(new BigInteger(json.getString("fItemID")));
 		user.setFname(json.getString("fname"));
 		user.setFwelder_no(json.getString("fwelder_no"));
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 		try{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		JSONObject json = JSONObject.fromObject(ajunction);
-		User user = new User();
+		Weld user = new Weld();
 		user.setFwjn(json.getString("fwelded_junction_no"));
 		user.setFsn(json.getString("fserial_no"));
 		user.setFpn(json.getString("fpipeline_no"));
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 		try{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		JSONObject json = JSONObject.fromObject(ujunction);
-		User user = new User();
+		Weld user = new Weld();
 		user.setFwjn(json.getString("fwelded_junction_no"));
 		user.setFsn(json.getString("fserial_no"));
 		user.setFpn(json.getString("fpipeline_no"));
@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
 	public Boolean DeleteJunction(String djunction) {
 		try{
 		JSONObject json = JSONObject.fromObject(djunction);
-		User user = new User();
+		Weld user = new Weld();
 		user.setFitemid(new BigInteger(json.getString("fItemID")));
 		user.setFsn(json.getString("fserial_no"));
 		mapper.DeleteJunction(user);
@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService {
 
 	public BigInteger FindIns_Id(String insname) {
 		JSONObject json = JSONObject.fromObject(insname);
-		User user = new User();
+		Weld user = new Weld();
 		user.setFname(json.getString("fname"));
 		return mapper.FindIns_Id(user);
 	}
