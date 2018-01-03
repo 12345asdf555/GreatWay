@@ -5,13 +5,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.spring.dto.WeldDto;
 import com.spring.model.Insframework;
 
 import tk.mybatis.mapper.common.Mapper;
 
 public interface InsframeworkMapper extends Mapper<Insframework>{
-	List<Insframework> getInsframeworkAll(@Param("parent")BigInteger parent,@Param("str")String str,@Param("dto")WeldDto dto);
+	List<Insframework> getInsframeworkAll(@Param("parent")BigInteger parent,@Param("str")String str);
 	
 	List<Insframework> getInsframework(@Param("parent")BigInteger parent);
 	
@@ -25,11 +24,11 @@ public interface InsframeworkMapper extends Mapper<Insframework>{
 	
 	BigInteger getParentById(@Param("id")BigInteger id);
 	
-	void addInsframework(Insframework ins);
+	int addInsframework(Insframework ins);
 	
-	void editInsframework(Insframework ins);
+	int editInsframework(Insframework ins);
 	
-	void deleteInsframework(@Param("id")BigInteger id);
+	int deleteInsframework(@Param("id")BigInteger id);
 	
 	List<Insframework> getConmpany();
 	

@@ -17,4 +17,6 @@
 	<jaxws:endpoint id="weldingMachineWebService" address="/weldingMachineWebService"
 		implementor="com.sshome.ssmcxf.webservice.impl.WeldingMachineWebServiceImpl" />
 
+	<jaxws:endpoint id="insfWebService" address="/insfWebService"
+		implementor="com.sshome.ssmcxf.webservice.impl.insfWebServiceImpl" />
 </beans>

@@ -30,6 +30,8 @@
 		<mapper resource="com/spring/dao/equipmentmanufacturer.xml" />
 		<mapper resource="com/spring/dao/insframework.xml" />
 		<mapper resource="com/spring/dao/weldingMaintenance.xml" />
+		<mapper resource="com/spring/dao/dictionary.xml" />
+		<mapper resource="com/spring/dao/gather.xml" />
 	</mappers>
 
 </configuration>  
