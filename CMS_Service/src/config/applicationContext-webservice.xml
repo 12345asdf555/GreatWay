@@ -22,4 +22,7 @@
 		
 	<jaxws:endpoint id="userWebService" address="/userWebService"
 		implementor="com.sshome.ssmcxf.webservice.impl.UserWebServiceImpl" />
+		
+	<jaxws:endpoint id="liveDataWebService" address="/liveDataWebService"
+		implementor="com.sshome.ssmcxf.webservice.impl.LiveDataWebServiceImpl" />
 </beans>

@@ -42,6 +42,7 @@
 		<mapper resource="com/spring/dao/resourceMapper.xml" />
 		<mapper resource="com/spring/dao/tdMapper.xml" />
 		<mapper resource="com/spring/dao/userMapper.xml" />
+		<mapper resource="com/spring/dao/livedata.xml" />
 	</mappers>
 
 </configuration>  

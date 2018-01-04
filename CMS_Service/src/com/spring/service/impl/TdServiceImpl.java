@@ -19,51 +19,98 @@ import com.spring.service.TdService;
 		private TdMapper mapper;
 
 		public List<Td> findAll(String str) {
-			List<Td> findAllList = mapper.findAll(str);
-			return findAllList;
+			try{
+			return mapper.findAll(str);
+			}catch(Exception e){
+				return null;
+			}
 		}
 		
 		public List<Td> findAllpro(long ins){
-			return mapper.findAllpro(ins);
+			try{
+				return mapper.findAllpro(ins);
+			}catch(Exception e){
+				return null;
+			}
 		}
 		
 		public List<Td> findAllcom(){
-			return mapper.findAllcom();
+			try{
+				return mapper.findAllcom();
+			}catch(Exception e){
+				return null;
+			}
 		}
 		
 		public List<Td> findAlldiv(long ins){
-			return mapper.findAlldiv(ins);
+			try{
+				return mapper.findAlldiv(ins);
+			}catch(Exception e){
+				return null;
+			}
 		}
 		
 		public List<Td> getAllPosition(){
-			return mapper.getAllPosition();
+			try{
+				return mapper.getAllPosition();
+			}catch(Exception e){
+				return null;
+			}
 		}
 		
 		public long findIns(long uid){
-			return mapper.findAllIns(uid);
+			try{
+				return mapper.findAllIns(uid);
+			}catch(Exception e){
+				return -1;
+			}
 		}
 		
 		public long findInsid(String insname){
-			return mapper.findInsid(insname);
+			try{
+				return mapper.findInsid(insname);
+			}catch(Exception e){
+				return -1;
+			}
 		}
 		
 		public String findweld(String weldid){
-			return mapper.findweld(weldid);	
+			try{
+				return mapper.findweld(weldid);	
+			}catch(Exception e){
+				return null;
+			}
 		}
 		
 		public String findInsname(long uid){
-			return mapper.findInsname(uid);	
+			try{
+				return mapper.findInsname(uid);		
+			}catch(Exception e){
+				return null;
+			}
 		}
 		
 		public String findPosition(String equip){
-			return mapper.findPosition(equip);
+			try{
+				return mapper.findPosition(equip);
+			}catch(Exception e){
+				return null;
+			}
 		}
 		
 		public List<Td> allWeldname(){
-			return mapper.allWeldname();
+			try{
+				return mapper.allWeldname();
+			}catch(Exception e){
+				return null;
+			}
 		}
 		
 		public int findDic(long uid){
-			return mapper.findDic(uid);
+			try{
+				return mapper.findDic(uid);
+			}catch(Exception e){
+				return -1;
+			}
 		}
 	}

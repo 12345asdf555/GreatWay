@@ -9,26 +9,26 @@
 <mapper namespace="com.spring.dao.TdMapper">
 	
 	<select id="findAll" resultType="Td">
-		select fid id,fwelder_no welderNo,fname welderName from tb_welder where 1=1
+		select fid id,fwelder_no ,fname  from tb_welder where 1=1
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
 	</select>
 	
 	<select id="findAlldiv" parameterType="long" resultType="Td">
-		select fid fdi,fname fdn,fparent fdp,ftype fdt from tb_insframework where tb_insframework.fparent=#{fci} 
+		select fid insfId,fname insfName,fparent insfParent,ftype insfType from tb_insframework where tb_insframework.fparent=#{fci} 
 	</select>
 	
 	<select id="findAllIns" parameterType="long" resultType="long">
-		select tb_users.users_insframework from tb_users where tb_users.id=#{fci} 
+		select tb_users.users_insframework insfId from tb_users where tb_users.id=#{fci} 
 	</select>
 	
 	<select id="findInsid" parameterType="String" resultType="long">
-		select fid fdn from tb_insframework where tb_insframework.fname=#{fdn} 
+		select fid insfId from tb_insframework where tb_insframework.fname=#{fdn} 
 	</select>
 	
 	<select id="findInsname" parameterType="long" resultType="String">
-		select fname fcn from tb_insframework where tb_insframework.fid=#{fci} 
+		select fname insfName from tb_insframework where tb_insframework.fid=#{fci} 
 	</select>
 
 	<select id="findweld" parameterType="String" resultType="String">
@@ -44,7 +44,7 @@
 	</select>
 	
 	<select id="allWeldname" resultType="Td">
-		select fname fname,fwelder_no fwelder_no from tb_welder
+		select fname ,fwelder_no  from tb_welder
 	</select>
 	
 	<select id="findDic" parameterType="long" resultType="int">

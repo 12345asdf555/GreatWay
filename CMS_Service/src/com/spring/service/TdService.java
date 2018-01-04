@@ -5,7 +5,6 @@ import java.util.List;
 import com.spring.model.Td;
 
 public interface TdService {
-
 	List<Td> findAll(String str);
 	List<Td> findAllpro(long ins);
 	List<Td> findAllcom();
