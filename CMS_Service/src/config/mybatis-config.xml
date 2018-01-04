@@ -11,6 +11,11 @@
 	<!-- 实体类,简称 -设置别名 -->
 	<typeAliases>
 		<typeAlias alias="User" type="com.spring.model.User" />
+		<typeAlias alias="Weld" type="com.spring.model.Weld" />
+		<typeAlias alias="Role" type="com.spring.model.Role" />
+		<typeAlias alias="Td" type="com.spring.model.Td" />
+		<typeAlias alias="Authority" type="com.spring.model.Authority" />
+		<typeAlias alias="Resources" type="com.spring.model.Resources" />
 	</typeAliases>
 	
 	<plugins>
@@ -32,6 +37,11 @@
 		<mapper resource="com/spring/dao/weldingMaintenance.xml" />
 		<mapper resource="com/spring/dao/dictionary.xml" />
 		<mapper resource="com/spring/dao/gather.xml" />
+		<mapper resource="com/spring/dao/authorityMapper.xml" />
+		<mapper resource="com/spring/dao/roleMapper.xml" />
+		<mapper resource="com/spring/dao/resourceMapper.xml" />
+		<mapper resource="com/spring/dao/tdMapper.xml" />
+		<mapper resource="com/spring/dao/userMapper.xml" />
 	</mappers>
 
 </configuration>  

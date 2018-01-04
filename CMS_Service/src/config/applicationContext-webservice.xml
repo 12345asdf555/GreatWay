@@ -19,4 +19,7 @@
 
 	<jaxws:endpoint id="insfWebService" address="/insfWebService"
 		implementor="com.sshome.ssmcxf.webservice.impl.insfWebServiceImpl" />
+		
+	<jaxws:endpoint id="userWebService" address="/userWebService"
+		implementor="com.sshome.ssmcxf.webservice.impl.UserWebServiceImpl" />
 </beans>
