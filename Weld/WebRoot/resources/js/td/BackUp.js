@@ -398,12 +398,12 @@
 			height : ($("#body4").height()),
 			width : $("#body4").width(),
 			idField : 'id',
-			pageSize : 10,
-			pageList : [ 10, 20, 30, 40, 50 ],
-			url : 'td/isnull?dd='+dd+'&posit='+po,
+/*			pageSize : 10,
+			pageList : [ 10, 20, 30, 40, 50 ],*/
+			url : 'td/isnull?posit='+po,
 			singleSelect : false,
 			rownumbers : true,
-			pagination : true,
+			pagination : false,
 			showPageList : false,
 			columns : [ [ {
 				field : 'fequipment_no',

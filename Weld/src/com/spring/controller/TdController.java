@@ -390,42 +390,24 @@ public class TdController {
 	@RequestMapping("/isnull")
 	@ResponseBody
 	public String isnull(HttpServletRequest request){
-		pageIndex = Integer.parseInt(request.getParameter("page"));
-		pageSize = Integer.parseInt(request.getParameter("rows"));
-		String parentId = request.getParameter("parent");
-		BigInteger parent = null;
-		if(iutil.isNull(parentId)){
-			parent = new BigInteger(parentId);
-		}
-		page = new Page(pageIndex,pageSize,total);
-		long total = 0;
 		JSONObject obj = new JSONObject();
-		String da = request.getParameter("dd");
 		String po = request.getParameter("posit");
-		List<String> list = null;
+		List<Td> machine = tdService.getAllMachine(po);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
-			for(int i = 0;i < da.length();i+=159)
+			for(Td td:machine)
 			{
-				list.add(da.substring(4+i, 8+i));
-				String pos = tdService.findPosition(da.substring(4+i, 8+i));
-				if(pos.equals(po)){
-				json.put("fstatus_id", da.substring(0+i, 2+i));
-				json.put("fequipment_no", Integer.parseInt(da.substring(4+i, 8+i),16));
-				json.put("fwelder_no", Integer.parseInt(da.substring(8+i, 12+i),16));
-				String weldname = tdService.findweld(da.substring(8+i, 12+i));
-				json.put("fname", weldname);
-				json.put("fposition", pos);
+				String xxx = td.getFequipment_no();
+				json.put("fstatus_id", "09");
+				json.put("fequipment_no", Integer.parseInt(xxx,16));
+				json.put("fwelder_no", "");
+				json.put("fname", "");
+				json.put("fposition", po);
 				ary.add(json);
-				}
-				if(list != null){
-					PageInfo<String> pageinfo = new PageInfo<String>(list);
-					total = pageinfo.getTotal();
-				}
 			}
 		}catch(Exception e){
-			e.getMessage();
+			/*e.getMessage();*/
 		}
 		obj.put("total", total);
 		obj.put("rows", ary);

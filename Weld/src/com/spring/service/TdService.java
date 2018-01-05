@@ -1,5 +1,6 @@
 package com.spring.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import com.greatway.page.Page;
@@ -18,4 +19,5 @@ public interface TdService {
 	long findIns(long uid);
 	String findPosition(String equip);
 	List<Td> allWeldname();
+	List<Td> getAllMachine(String ins);
 }

@@ -34,14 +34,14 @@ public class RoleServiceImpl implements RoleService {
 		return mapper.delete1(id);
 	}
 	
-	public boolean delete2(String roleName) {
+	public boolean delete2(int id) {
 		
-		return mapper.delete2(roleName);
+		return mapper.delete2(id);
 	}
 	
-	public boolean deleteAuthority(String roleName) {
+	public boolean deleteAuthority(int id) {
 		
-		return mapper.deleteAuthority(roleName);
+		return mapper.deleteAuthority(id);
 	}
 	
 	public int getRolenameCount(String roleName) {
@@ -122,6 +122,12 @@ public class RoleServiceImpl implements RoleService {
 	
 	public List<Role> findUser(Integer id) {
 		return mapper.findUser(id);
+	}
+
+	@Override
+	public int findbyid(String roleName) {
+		// TODO Auto-generated method stub
+		return mapper.findbyid(roleName);
 	}
 	
 

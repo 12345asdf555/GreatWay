@@ -84,12 +84,11 @@
          tb_roles r,    
          tb_authorities a,    
          tb_roles_authorities c     
-         where c.roles_name = r.roles_name and c.authority_id = a.id and r.roles_name in     
-         (select o.roles_name from    
+         where c.roles_id = r.id and c.authority_id = a.id and r.id in     
+         (select d.roles_id from    
          tb_users_roles d,    
-         tb_users u,    
-         tb_roles o    
-         where d.users_id = u.id and d.roles_id = o.id and u.users_login_name = #{userName}    
+         tb_users u  
+         where d.users_id = u.id and u.users_login_name = #{userName}    
          )  
 	</select>
 	

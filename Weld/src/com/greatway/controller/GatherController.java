@@ -60,6 +60,7 @@ public class GatherController {
 	public String goeditGather(HttpServletRequest request,@RequestParam String id){
 		Gather gather = gm.getGatherById(new BigInteger(id));
 		request.setAttribute("g", gather);
+		request.setAttribute("gn", Integer.parseInt(gather.getGatherNo(),16));
 		return "gather/editgather";
 	}
 	
@@ -71,6 +72,7 @@ public class GatherController {
 	public String goremoveGather(HttpServletRequest request,@RequestParam String id){
 		Gather gather = gm.getGatherById(new BigInteger(id));
 		request.setAttribute("g", gather);
+		request.setAttribute("gn", Integer.parseInt(gather.getGatherNo(),16));
 		return "gather/removegather";
 	}
 	
@@ -123,6 +125,7 @@ public class GatherController {
 	@RequestMapping("/addGather")
 	@ResponseBody
 	public String addGather(@ModelAttribute("gether")Gather gather){
+		String str;
 		JSONObject obj = new JSONObject();
 		try{
 			//ModelAttribute收集的数据为‘’时插入会有异常
@@ -135,6 +138,14 @@ public class GatherController {
 			if(!iutil.isNull(gather.getIpurl())){
 				gather.setLeavetime(null);
 			}
+			String xxx = Integer.toHexString(Integer.parseInt(gather.getGatherNo()));
+			str = xxx;
+			if(xxx.length()<4){
+				for(int i=0;i<4-xxx.length();i++){
+					str = "0"+str;
+				}
+			}
+			gather.setGatherNo(str);
 			gm.addGather(gather);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -149,6 +160,7 @@ public class GatherController {
 	@ResponseBody
 	public String editGather(@ModelAttribute("gether")Gather gather, @RequestParam String id){
 		JSONObject obj = new JSONObject();
+		String str;
 		try{
 			//ModelAttribute收集的数据为‘’时插入会有异常
 			if(!iutil.isNull(gather.getIpurl())){
@@ -163,6 +175,14 @@ public class GatherController {
 			if(!iutil.isNull(gather.getLeavetime())){
 				gather.setLeavetime(null);
 			}
+			String xxx = Integer.toHexString(Integer.parseInt(gather.getGatherNo()));
+			str = xxx;
+			if(xxx.length()<4){
+				for(int i=0;i<4-xxx.length();i++){
+					str = "0"+str;
+				}
+			}
+			gather.setGatherNo(str);
 			gm.editGather(gather);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -208,3 +228,4 @@ public class GatherController {
 		return flag + "";
 	}
 }
+

@@ -1,5 +1,6 @@
 package com.spring.service.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -65,5 +66,9 @@ import com.spring.service.TdService;
 		
 		public List<Td> allWeldname(){
 			return mapper.allWeldname();
+		}
+
+		public List<Td> getAllMachine(String position) {
+			return mapper.findMachine(position);
 		}
 	}

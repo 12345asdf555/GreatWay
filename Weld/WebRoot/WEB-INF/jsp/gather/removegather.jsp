@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<input class="easyui-textbox" id="id" value="${g.id }"/>
 					<lable>采集模块编号</lable>
-					<input class="easyui-textbox" name="gatherNo" id="gatherNo"  value="${g.gatherNo }"readonly="readonly"/>
+					<input class="easyui-textbox" name="gatherNo" id="gatherNo"  value="${gn }"readonly="readonly"/>
 				</div>
 				<div class="fitem">
 					<lable>所属项目</lable>

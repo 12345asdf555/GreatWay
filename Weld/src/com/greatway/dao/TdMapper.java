@@ -1,5 +1,6 @@
 package com.greatway.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -18,4 +19,5 @@ public interface TdMapper {
 	String findInsname(long uid);
 	String findPosition(String equip);
 	List<Td> allWeldname();
+	List<Td> findMachine(String fposition);
 }

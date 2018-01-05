@@ -15,6 +15,10 @@
 		</if>
 	</select>
 	
+	<select id="findMachine" parameterType="String" resultType="Td">
+		select fequipment_no fequipment_no from tb_welding_machine where fposition=#{fposition}
+	</select>
+	
 	<select id="findAlldiv" parameterType="long" resultType="Td">
 		select fid fdi,fname fdn,fparent fdp,ftype fdt from tb_insframework where tb_insframework.fparent=#{fci} 
 	</select>

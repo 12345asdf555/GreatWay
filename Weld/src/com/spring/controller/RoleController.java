@@ -104,7 +104,7 @@ public class RoleController {
 	}
 
 	/**
-	 * 添加用户并重定向
+	 * 添加角色并重定向
 	 * @param user
 	 * @param request
 	 * @return
@@ -116,6 +116,8 @@ public class RoleController {
 		try{
 		role.setRoleStatus(Integer.parseInt(request.getParameter("status")));
         String str = request.getParameter("aid");
+        roleService.save(role);
+        role.setId(roleService.findbyid(role.getRoleName()));
         if(null!=str&&""!=str)
         {
         String[] s = str.split(",");
@@ -126,7 +128,6 @@ public class RoleController {
             roleService.saveAuthority(role);
         }
         }
-        roleService.save(role);
 		obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
@@ -154,7 +155,7 @@ public class RoleController {
 		String str = request.getParameter("aid");
 		Integer rid = Integer.parseInt(request.getParameter("rid"));
 		role.setId(rid);
-		roleService.deleteAuthority(roleService.updateRoleAuthority(rid));
+		roleService.deleteAuthority(rid);
 		if(null!=str&&""!=str)
 		{
         String[] s = str.split(",");
@@ -223,7 +224,7 @@ public class RoleController {
 		JSONObject obj = new JSONObject();
 		try{
 			 Role role = roleService.findById(new Integer(id));
-			 roleService.delete2(role.getRoleName());
+			 roleService.delete2(role.getRoleId());
 			 roleService.delete1(role.getRoleId());
 			 roleService.delete(new Integer(role.getId()));
 			 obj.put("success", true);
