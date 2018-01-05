@@ -223,7 +223,7 @@ function newSearch(){
 	            			waitn++;
 	            			document.getElementById("waitn").value=waitn;
 	            		}
-	            		document.getElementById("offn").value=(dat.length)/159-onn1-warningn-waitn;     	
+	            		document.getElementById("offn").value=Math.ceil((dat.length)/159)-onn1-warningn-waitn;     	
 		    			document.getElementById("statusn").value=Math.ceil((dat.length)/159);
 		            	}
 

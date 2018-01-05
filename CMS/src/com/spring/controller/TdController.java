@@ -139,7 +139,7 @@ public class TdController {
 	@RequestMapping("/AllTda")
 	public String AllTda(HttpServletRequest request){
 		request.setAttribute("av", request.getParameter("value"));
-		return "/AV";
+		return "td/AV";
 	}
 	
 	@RequestMapping("/getAllTd")

@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.greatway.enums.WeldEnum;
 import com.greatway.manager.DictionaryManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
@@ -109,6 +111,8 @@ public class RoleController {
 		try{
 		role.setRoleStatus(Integer.parseInt(request.getParameter("status")));
         String str = request.getParameter("aid");
+        roleService.save(role);
+        role.setId(roleService.findbyid(role.getRoleName()));
         if(null!=str&&""!=str)
         {
         String[] s = str.split(",");
@@ -119,7 +123,6 @@ public class RoleController {
             roleService.saveAuthority(role);
         }
         }
-        roleService.save(role);
 		obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
@@ -147,7 +150,7 @@ public class RoleController {
 		String str = request.getParameter("aid");
 		Integer rid = Integer.parseInt(request.getParameter("rid"));
 		role.setId(rid);
-		roleService.deleteAuthority(roleService.updateRoleAuthority(rid));
+		roleService.deleteAuthority(rid);
 		if(null!=str&&""!=str)
 		{
         String[] s = str.split(",");
@@ -216,7 +219,7 @@ public class RoleController {
 		JSONObject obj = new JSONObject();
 		try{
 			 Role role = roleService.findById(new Integer(id));
-			 roleService.delete2(role.getRoleName());
+			 roleService.delete2(role.getRoleId());
 			 roleService.delete1(role.getRoleId());
 			 roleService.delete(new Integer(role.getId()));
 			 obj.put("success", true);

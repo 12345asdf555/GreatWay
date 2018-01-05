@@ -69,7 +69,7 @@
 				var va = document.getElementById("hid1").value;
 				for(var j = 0;j < 1;j++){
 					for(var i = 0;i < dd.length;i+=53){
-						if(va == parseInt(dd.substring(4+i, 8+i),16)&&dd.substring(8+i, 12+i)!="0000"){
+						if(va == dd.substring(4+i, 8+i)&&dd.substring(8+i, 12+i)!="0000"){
 						var mach = parseInt(dd.substring(4+i, 8+i),16);
 						var weld = dd.substring(8+i, 12+i);
 						var xx = dd.substring(12+i, 16+i);
@@ -263,7 +263,7 @@
 						}
 						}	
 					}
-					if(jj%3==1){
+/*					if(jj%3==1){
 						num1[jj] = num1[jj-1];
 						num1[jj+1] = num1[jj-1];
 						num2[jj] = num2[jj-1];
@@ -277,7 +277,7 @@
 						num2[jj] = num2[jj-1];
 						time1[jj] = time1[jj-1]+1000;
 						jj++;
-					}
+					}*/
             		if(weld!="0000"){
             			for(var k=0;k<namex.length;k++){
     						if(namex[k].fwelder_no==dd.substring(8+index, 12+index)){
