@@ -15,7 +15,7 @@
 	
 	<insert id="saveAuthority" parameterType="Role">
     	<!-- insert into tb_roles(roles_name,roles_desc,status) values(#{roleName},#{roleDesc},#{roleStatus}); -->
-		insert into tb_roles_authorities(roles_name,authority_id) values(#{roleName},#{authorityId})
+		insert into tb_roles_authorities(roles_id,authority_id) values(#{id},#{authorityId})
 	</insert>
 	
 	<insert id="saveUser" parameterType="Role">
@@ -37,7 +37,7 @@
 	</delete>
 	
 	<delete id="delete2" parameterType="String">
-		delete from tb_roles_authorities where roles_name=#{roleName};
+		delete from tb_roles_authorities where roles_id=#{id};
 	</delete>
 	
 	<select id="updateRoleAuthority" parameterType="int" resultType="String">
@@ -49,7 +49,7 @@
 	</select>
 	
 	<delete id="deleteAuthority" parameterType="String">
-		delete from tb_roles_authorities where roles_name=#{roleName};
+		delete from tb_roles_authorities where roles_id=#{id};
 	</delete>
 	
 	<delete id="deleteUser" parameterType="int">
@@ -82,7 +82,7 @@
 		select id id,authorities_desc authorityDesc from tb_authorities
 	</select>
 	<select id="findAuthority" resultType="Role">
-		select tb_roles.id id,tb_roles.roles_name roleName,tb_roles_authorities.roles_name roleName,tb_roles_authorities.authority_id authorityId,tb_authorities.id authoritiesId,tb_authorities.authorities_desc authorityDesc from tb_roles left join tb_roles_authorities on tb_roles.roles_name=tb_roles_authorities.roles_name left join tb_authorities on tb_roles_authorities.authority_id=tb_authorities.id where tb_roles.id=#{id}
+		select tb_roles.id id,tb_roles.roles_name roleName,tb_authorities.id authoritiesId,tb_authorities.authorities_desc authorityDesc from tb_roles left join tb_roles_authorities on tb_roles.id=tb_roles_authorities.roles_id left join tb_authorities on tb_roles_authorities.authority_id=tb_authorities.id where tb_roles.id=#{id}
 	</select>
 		<select id="findAllUser" resultType="Role">
 		select id id,users_name userName from tb_users

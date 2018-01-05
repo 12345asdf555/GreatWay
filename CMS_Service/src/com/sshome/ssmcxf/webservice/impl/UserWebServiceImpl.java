@@ -286,7 +286,7 @@ public class UserWebServiceImpl implements UserWebService {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
 			Role r = new Role();
-			r.setRoleName(json.getString("roleName"));
+			r.setId(json.getInt("roleId"));
 			r.setAuthorityId(json.getInt("authId"));
 			return ros.saveAuthority(r);
 		}catch(Exception e){
@@ -360,7 +360,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public boolean deleteRolesAuthoritiesByRole(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return ros.delete2(json.getString("roleName"));
+			return ros.delete2(json.getString("roleId"));
 		}catch(Exception e){
 			return false;
 		}

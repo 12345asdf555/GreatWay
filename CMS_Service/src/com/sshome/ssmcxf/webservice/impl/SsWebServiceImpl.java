@@ -21,8 +21,7 @@ public class SsWebServiceImpl implements SsWebService {
 	@Override
 	public Boolean AddWeld(String aweld) {
 		try{
-		userService.AddWeld(aweld);
-		return true;
+			return userService.AddWeld(aweld);
 		}catch(Exception e){
 			return false;
 		}	
@@ -31,8 +30,7 @@ public class SsWebServiceImpl implements SsWebService {
 	@Override
 	public Boolean UpdateWeld(String uweld) {
 		try{
-		userService.UpdateWeld(uweld);
-		return true;
+		return userService.UpdateWeld(uweld);
 	}catch(Exception e){
 		return false;
 	}	
@@ -40,41 +38,33 @@ public class SsWebServiceImpl implements SsWebService {
 
 	@Override
 	public Boolean AddJunction(String ajunction) {
-		// TODO Auto-generated method stub
 		try{
-		System.out.println(ajunction);
-		userService.AddJunction(ajunction);
-		return true;
-	}catch(Exception e){
-		return false;
-	}	
+			return userService.AddJunction(ajunction);
+		}catch(Exception e){
+			return false;
+		}	
 	}
 
 	@Override
 	public Boolean UpdateJunction(String ujunction) {
-		// TODO Auto-generated method stub
 		try{
-		userService.UpdateJunction(ujunction);
-		return true;
-	}catch(Exception e){
-		return false;
-	}	
+			return userService.UpdateJunction(ujunction);
+		}catch(Exception e){
+			return false;
+		}	
 	}
 
 	@Override
 	public Boolean DeleteJunction(String djunction) {
-		// TODO Auto-generated method stub
 		try{
-		userService.DeleteJunction(djunction);
-		return true;
-	}catch(Exception e){
-		return false;
-	}	
+			return userService.DeleteJunction(djunction);
+		}catch(Exception e){
+			return false;
+		}	
 	}
 
 	@Override
 	public BigInteger FindIns_Id(String insname) {
-		// TODO Auto-generated method stub
 		return userService.FindIns_Id(insname);
 	}
 	

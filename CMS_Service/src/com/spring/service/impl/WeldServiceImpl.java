@@ -29,27 +29,36 @@ public class WeldServiceImpl implements WeldService {
 	
 	public Boolean AddWeld(String aweld) {
 		try{
-		JSONObject json = JSONObject.fromObject(aweld);
-		Weld user = new Weld();
-		user.setFitemid(new BigInteger(json.getString("fItemID")));
-		user.setFname(json.getString("fname"));
-		user.setFwelder_no(json.getString("fwelder_no"));
-		mapper.AddWeld(user);
-		return true;
+			JSONObject json = JSONObject.fromObject(aweld);
+			Weld user = new Weld();
+			user.setFitemid(new BigInteger(json.getString("fItemID")));
+			user.setFname(json.getString("fname"));
+			user.setFwelder_no(json.getString("fwelder_no"));
+			int count = mapper.AddWeld(user);
+			if(count>0){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
-		return false;
+			e.printStackTrace();
+			return false;
 		}
 	}
 
 	public Boolean UpdateWeld(String uweld) {
 		try{
-		JSONObject json = JSONObject.fromObject(uweld);
-		Weld user = new Weld();
-		user.setFitemid(new BigInteger(json.getString("fItemID")));
-		user.setFname(json.getString("fname"));
-		user.setFwelder_no(json.getString("fwelder_no"));
-		mapper.UpdateWeld(user);
-		return true;
+			JSONObject json = JSONObject.fromObject(uweld);
+			Weld user = new Weld();
+			user.setFitemid(new BigInteger(json.getString("fItemID")));
+			user.setFname(json.getString("fname"));
+			user.setFwelder_no(json.getString("fwelder_no"));
+			int count = mapper.UpdateWeld(user);
+			if(count>0){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
 			return false;
 		}	
@@ -90,8 +99,12 @@ public class WeldServiceImpl implements WeldService {
 /*		user.setFcreatetime(sdf.parse(json.getString("fcreatetime")));
 		user.setFupdatetime(sdf.parse(json.getString("fupdatetime")));
 		user.setFupdatecount(Integer.parseInt(json.getString("fupdatecount")));*/
-		mapper.AddJunction(user);
-		return true;
+		int count = mapper.AddJunction(user);
+		if(count>0){
+			return true;
+		}else{
+			return false;
+		}
 		}catch(Exception e){
 			return false;
 		}	
@@ -131,8 +144,12 @@ public class WeldServiceImpl implements WeldService {
 /*		user.setFcreatetime(sdf.parse(json.getString("fcreatetime")));
 		user.setFupdatetime(sdf.parse(json.getString("fupdatetime")));
 		user.setFupdatecount(Integer.parseInt(json.getString("fupdatecount")));*/
-		mapper.UpdateJunction(user);
-		return true;
+		int count = mapper.UpdateJunction(user);
+		if(count>0){
+			return true;
+		}else{
+			return false;
+		}
 		}catch(Exception e){
 			return false;
 		}	
@@ -145,8 +162,12 @@ public class WeldServiceImpl implements WeldService {
 		Weld user = new Weld();
 		user.setFitemid(new BigInteger(json.getString("fItemID")));
 		user.setFsn(json.getString("fserial_no"));
-		mapper.DeleteJunction(user);
-		return true;
+		int count = mapper.DeleteJunction(user);
+		if(count>0){
+			return true;
+		}else{
+			return false;
+		}
 		}catch(Exception e){
 			return false;
 		}	

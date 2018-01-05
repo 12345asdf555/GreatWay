@@ -98,9 +98,9 @@ public interface LiveDataService {
 	
 	/**
 	 * 获取焊机超标
-	 * @param welderno焊工编号
-	 * @param machineno焊机编号
-	 * @param junctionno焊口编号
+	 * @param welderno 焊工编号
+	 * @param machineno 焊机编号
+	 * @param junctionno 焊口编号
 	 * @param time时间
 	 * @return
 	 */

@@ -30,247 +30,443 @@ public class LiveDataServiceImpl implements LiveDataService {
 	
 	@Override
 	public List<ModelDto> getCausehour(WeldDto dto, BigInteger parent) {
-		return live.getCausehour(dto,parent);
+		try{
+			return live.getCausehour(dto,parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCompanyhour(WeldDto dto, BigInteger parent) {
-		return live.getCompanyhour(dto, parent);
+		try{
+			return live.getCompanyhour(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getItemhour(WeldDto dto) {
-		return live.getItemhour(dto);
+		try{
+			return live.getItemhour(dto);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getJunctionHous(WeldDto dto) {
-		return live.getJunctionHous(dto);
+		try{
+			return live.getJunctionHous(dto);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCauseOverproof(WeldDto dto, BigInteger parent) {
-		return live.getCauseOverproof(dto, parent);
+		try{
+			return live.getCauseOverproof(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<LiveData> getAllInsf(BigInteger parent,int type) {
-		return live.getAllInsf(parent,type);
+		try{
+			return live.getAllInsf(parent,type);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<LiveData> getAllTime(WeldDto dto) {
-		return live.getAllTime(dto);
+		try{
+			return live.getAllTime(dto);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCompanyOverproof(WeldDto dto,BigInteger parent) {
-		return live.getCompanyOverproof(dto,parent);
+		try{
+			return live.getCompanyOverproof(dto,parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getDatailOverproof(WeldDto dto,BigInteger parent) {
-		return live.getDatailOverproof(dto,parent);
+		try{
+			return live.getDatailOverproof(dto,parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public int getCountTime(String welderno, String machineno, String junctionno, String time,BigInteger id) {
-		return live.getCountTime(welderno, machineno, junctionno, time, id);
+		try{
+			return live.getCountTime(welderno, machineno, junctionno, time, id);
+		}catch(Exception e){
+			return -1;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getjunctionoverproof(String welderno, String machineno, String junctionno,
 			String time, BigInteger itemid) {
-		return live.getjunctionoverproof(welderno, machineno, junctionno, time, itemid);
+		try{
+			return live.getjunctionoverproof(welderno, machineno, junctionno, time, itemid);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getcompanyOvertime(WeldDto dto, String num,BigInteger parent) {
-		return live.getcompanyOvertime(dto, num,parent);
+		try{
+			return live.getcompanyOvertime(dto, num,parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCaustOvertime(WeldDto dto, String num, BigInteger parent) {
-		return live.getCaustOvertime(dto, num, parent);
+		try{
+			return live.getCaustOvertime(dto, num, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getItemOvertime(WeldDto dto, String num) {
-		return live.getItemOvertime(dto, num);
+		try{
+			return live.getItemOvertime(dto, num);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<LiveData> getJunction(BigInteger parent) {
-		return live.getJunction(parent);
+		try{
+			return live.getJunction(parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getDetailovertime(WeldDto dto, String num, String junctionno) {
-		return live.getDetailovertime(dto, num,junctionno);
+		try{
+			return live.getDetailovertime(dto, num,junctionno);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCompanyLoads(WeldDto dto,BigInteger parent) {
-		return live.getCompanyLoads(dto,parent);
+		try{
+			return live.getCompanyLoads(dto,parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCaustLoads(WeldDto dto, BigInteger parent) {
-		return live.getCaustLoads(dto, parent);
+		try{
+			return live.getCaustLoads(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getItemLoads(WeldDto dto, BigInteger parent) {
-		return live.getItemLoads(dto, parent);
+		try{
+			return live.getItemLoads(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<LiveData> getMachine(BigInteger parent) {
-		return live.getMachine(parent);
+		try{
+			return live.getMachine(parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getDetailLoads(WeldDto dto, String machineno) {
-		return live.getDetailLoads(dto, machineno);
+		try{
+			return live.getDetailLoads(dto, machineno);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCompanyNoLoads(WeldDto dto,BigInteger parent) {
-		return live.getCompanyNoLoads(dto,parent);
+		try{
+			return live.getCompanyNoLoads(dto,parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCaustNOLoads(WeldDto dto, BigInteger parent) {
-		return live.getCaustNoLoads(dto, parent);
+		try{
+			return live.getCaustNoLoads(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getItemNOLoads(WeldDto dto, BigInteger parent,String equipmentno) {
-		return live.getItemNOLoads(dto, parent,equipmentno);
+		try{
+			return live.getItemNOLoads(dto, parent,equipmentno);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCompanyIdle(WeldDto dto,BigInteger parent) {
-		return live.getCompanyIdle(dto,parent);
+		try{
+			return live.getCompanyIdle(dto,parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCaustIdle(WeldDto dto, BigInteger parent) {
-		return live.getCaustIdle(dto, parent);
+		try{
+			return live.getCaustIdle(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getItemIdle(WeldDto dto, BigInteger itemid) {
-		return live.getItemidle(dto, itemid);
+		try{
+			return live.getItemidle(dto, itemid);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public int getMachineCount(BigInteger id) {
-		return live.getMachineCount(id);
+		try{
+			return live.getMachineCount(id);
+		}catch(Exception e){
+			return -1;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCompanyUse( WeldDto dto, BigInteger parent) {
-		return live.getCompanyUse(dto, parent);
+		try{
+			return live.getCompanyUse(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getCaustUse( WeldDto dto, BigInteger insid) {
-		return live.getCaustUse(dto, insid);
+		try{
+			return live.getCaustUse(dto, insid);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<LiveData> getAllTimes(WeldDto dto) {
-		return live.getAllTime(dto);
+		try{
+			return live.getAllTime(dto);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getBlochour( WeldDto dto) {
-		return live.getBlochour(dto);
+		try{
+			return live.getBlochour(dto);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getBlocOverproof(WeldDto dto) {
-		return live.getBlocOverproof(dto);
+		try{
+			return live.getBlocOverproof(dto);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getBlocOvertime(WeldDto dto, String num) {
-		return live.getBlocOvertime(dto, num);
+		try{
+			return live.getBlocOvertime(dto, num);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getBlocLoads(WeldDto dto) {
-		return live.getBlocLoads(dto);
+		try{
+			return live.getBlocLoads(dto);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getBlocNoLoads(WeldDto dto) {
-		return live.getBlocNoLoads(dto);
+		try{
+			return live.getBlocNoLoads(dto);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getBlocIdle(WeldDto dto) {
-		return live.getBlocIdle(dto);
+		try{
+			return live.getBlocIdle(dto);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getBlocUse(WeldDto dto, BigInteger parent) {
-		return live.getBlocUse(dto, parent);
+		try{
+			return live.getBlocUse(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<LiveData> getBlocChildren() {
-		return live.getBlocChildren();
+		try{
+			return live.getBlocChildren();
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> caustEfficiency(BigInteger parent, WeldDto dto) {
-		return live.caustEfficiency(dto, parent);
+		try{
+			return live.caustEfficiency(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> companyEfficiency(BigInteger parent, WeldDto dto) {
-		return live.companyEfficiency(dto,parent);
+		try{
+			return live.companyEfficiency(dto,parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> blocEfficiency(WeldDto dto,BigInteger parent) {
-		return live.blocEfficiency(dto,parent);
+		try{
+			return live.blocEfficiency(dto,parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getEfficiencyChartNum(WeldDto dto, BigInteger parent) {
-		return live.getEfficiencyChartNum(dto, parent);
+		try{
+			return live.getEfficiencyChartNum(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getEfficiencyChart(WeldDto dto, BigInteger parent, int minnum, int avgnum) {
-		return live.getEfficiencyChart(dto, parent, minnum, avgnum);
+		try{
+			return live.getEfficiencyChart(dto, parent, minnum, avgnum);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public WeldedJunction getWeldedJunctionById(BigInteger id) {
-		return wm.getWeldedJunctionById(id);
+		try{
+			return wm.getWeldedJunctionById(id);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getHousClassify( BigInteger parent, String searchStr) {
-		return live.getHousClassify(parent,searchStr);
+		try{
+			return live.getHousClassify(parent,searchStr);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getDetailNoLoads(WeldDto dto) {
-		return live.getDetailNoLoads(dto);
+		try{
+			return live.getDetailNoLoads(dto);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getItemOverproof(WeldDto dto, BigInteger id) {
-		return live.getItemOverproof(dto, id);
+		try{
+			return live.getItemOverproof(dto, id);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ModelDto> getItemUse( WeldDto dto, BigInteger insid) {
-		return live.getItemUse(dto, insid);
+		try{
+			return live.getItemUse(dto, insid);
+		}catch(Exception e){
+			return null;
+		}
 	}
 }

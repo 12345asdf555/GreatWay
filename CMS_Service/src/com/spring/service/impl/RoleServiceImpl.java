@@ -42,9 +42,9 @@ public class RoleServiceImpl implements RoleService {
 		}
 	}
 	
-	public boolean deleteAuthority(String roleName) {
+	public boolean deleteAuthority(int id) {
 		try{
-			return mapper.deleteAuthority(roleName);
+			return mapper.deleteAuthority(id);
 		}catch(Exception e){
 			return false;
 		}

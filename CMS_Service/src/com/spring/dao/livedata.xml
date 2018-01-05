@@ -204,12 +204,7 @@
 			)
 		</if>
 		<if test="parent!=null and parent!=''">
-			AND i.fparent = #{parent}
-		</if>
-		<if test="dto!=null and dto!=''">
-			<if test="dto.parent!=null and dto.parent!=''">
-				and ins.fparent=#{dto.parent}
-			</if>
+			AND (i.fparent = #{parent} or ins.fparent=#{parent})
 		</if>
 		GROUP BY i.fname
 		) 
@@ -219,7 +214,7 @@
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		WHERE 1=1
 		<if test="parent!=null and parent!=''">
-			AND i.fparent = #{parent}
+			AND (i.fparent = #{parent} or ins.fparent=#{parent})
 		</if>
 		and i.fid NOT
 		IN (
@@ -249,16 +244,11 @@
 			)
 		</if>
 		<if test="parent!=null and parent!=''">
-			AND i.fparent = #{parent}
+			AND (i.fparent = #{parent} or ins.fparent=#{parent})
 		</if>
 		GROUP BY i.fname
 		)
 		AND i.ftype =23
-		<if test="dto!=null and dto!=''">
-			<if test="dto.parent!=null and dto.parent!=''">
-				and ins.fparent=#{dto.parent}
-			</if>
-		</if>
 		GROUP BY i.fname
 		))temp
 	</select>
@@ -298,11 +288,6 @@
 		<if test="parent!=null and parent!=''">
 			AND fparent = #{parent}
 		</if>
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoId!=null and dto.dtoId!=''">
-				and fid = #{dto.dtoId}
-			</if>
-		</if>
 		and fid NOT
 		IN (
 		SELECT ins.fid
@@ -341,25 +326,16 @@
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON j.fitemid = i.fid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus &lt; 3
+		WHERE fstatus &lt; 3 AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
-				AND i.fparent =#{dto.parent}
+				AND (i.fid =#{dto.parent} or i.fparent =#{dto.parent} or ins.fparent =#{dto.parent})
 			</if>
-			<if test="dto.companyid!=null and dto.companyid!=''">
-				AND ins.fparent =#{dto.companyid}
-			</if>
-		</if>
-		AND i.ftype =23
-		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
 			</if>
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
-				AND j.fitemid =#{dto.dtoItem}
 			</if>
 			<if test="dto.search!=null and dto.search!=''">
 				and (${dto.search})
@@ -422,9 +398,6 @@
 			</if>
 			<if test="dto.dtoItem!=null and dto.dtoItem!=''">
 				AND j.fitemid = #{dto.dtoItem}
-			</if>
-			<if test="dto.parent!=null and dto.parent!=''">
-				and i.fparent = #{dto.parent}
 			</if>
 		</if>
 		group by fjunction_id
@@ -558,12 +531,7 @@
 	INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 	WHERE i.ftype =23
 	<if test="parent!=null and parent!=''">
-		AND i.fparent = #{parent}
-	</if>
-	<if test="dto!=null and dto!=''">
-		<if test="dto.companyid!=null and dto.companyid!=''">
-			 AND ins.fparent = #{dto.companyid}
-		</if>
+		AND (i.fparent = #{parent} or ins.fparent = #{parent})
 	</if>
 	) AS K
 	GROUP BY fid,weldTime

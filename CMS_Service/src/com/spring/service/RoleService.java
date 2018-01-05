@@ -13,7 +13,7 @@ import com.spring.model.Role;
 		boolean delete(int id);
 		boolean delete1(int id);
 		boolean delete2(String roleName);
-		boolean deleteAuthority(String roleName);
+		boolean deleteAuthority(int id);
 		boolean deleteUser(int id);
 		Role findById(int id);
 		String findByAuthorityId(Integer id);
