@@ -3,8 +3,6 @@ package com.spring.service.impl;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +19,6 @@ import com.spring.service.LiveDataService;
 @Transactional
 public class LiveDataServiceImpl implements LiveDataService {
 	@Autowired
-	HttpServletRequest request ;
-	
-	@Autowired
 	private LiveDataMapper live;
 	@Autowired
 	private WeldedJunctionMapper wm;
@@ -33,6 +28,7 @@ public class LiveDataServiceImpl implements LiveDataService {
 		try{
 			return live.getCausehour(dto,parent);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}

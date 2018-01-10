@@ -27,7 +27,6 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 	@Autowired
 	private LiveDataService live;
 	
-
 	@Override
 	public List<ModelDto> getCausehour(String object) {
 		try{
