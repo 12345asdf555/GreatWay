@@ -105,6 +105,7 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 		try{
 			return wmm.getGatheridCount(itemid,gather);
 		}catch(Exception e){
+			e.printStackTrace();
 			return -1;
 		}
 	}

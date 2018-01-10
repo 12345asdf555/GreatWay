@@ -23,6 +23,24 @@
 	<jaxws:endpoint id="userWebService" address="/userWebService"
 		implementor="com.sshome.ssmcxf.webservice.impl.UserWebServiceImpl" />
 		
+	<jaxws:endpoint id="authorityWebService" address="/authorityWebService"
+		implementor="com.sshome.ssmcxf.webservice.impl.AuthorityWebServiceImpl" />
+		
+	<jaxws:endpoint id="dictionaryWebService" address="/dictionaryWebService"
+		implementor="com.sshome.ssmcxf.webservice.impl.DictionaryWebServiceImpl" />
+		
+	<jaxws:endpoint id="gatherWebService" address="/gatherWebService"
+		implementor="com.sshome.ssmcxf.webservice.impl.GatherWebServiceImpl" />
+		
+	<jaxws:endpoint id="resourceWebService" address="/resourceWebService"
+		implementor="com.sshome.ssmcxf.webservice.impl.ResourceWebServiceImpl" />
+		
+	<jaxws:endpoint id="RoleWebService" address="/roleWebService"
+		implementor="com.sshome.ssmcxf.webservice.impl.RoleWebServiceImpl" />
+		
+	<jaxws:endpoint id="TdWebService" address="/tdWebService"
+		implementor="com.sshome.ssmcxf.webservice.impl.TdWebServiceImpl" />
+		
 	<jaxws:endpoint id="liveDataWebService" address="/liveDataWebService"
 		implementor="com.sshome.ssmcxf.webservice.impl.LiveDataWebServiceImpl" />
 </beans>

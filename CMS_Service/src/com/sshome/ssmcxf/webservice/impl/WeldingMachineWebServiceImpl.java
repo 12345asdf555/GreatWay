@@ -144,7 +144,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			JSONObject json = JSONObject.fromObject(object);
 			return wms.getEquipmentnoCount(json.getString("eno"));
 		}catch(Exception e){
-			return 0;
+			return -1;
 		}
 	}
 
@@ -156,7 +156,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			String gather = json.getString("gatherNo");
 			return wms.getGatheridCount(itemid, gather);
 		}catch(Exception e){
-			return 0;
+			return -1;
 		}
 	}
 
@@ -250,7 +250,10 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			MaintenanceRecord mr = new MaintenanceRecord();
 			mr.setViceman(json.getString("viceman"));
 			mr.setStartTime(json.getString("startTime"));
-			mr.setEndTime(json.getString("endTime"));
+			String endTime = json.getString("endTime");
+			if(endTime!=null && !"".equals(endTime)){
+				mr.setEndTime(json.getString("endTime"));
+			}
 			mr.setDesc(json.getString("desc"));
 			mr.setTypeId(json.getInt("typeId"));
 			wm.setMaintenance(mr);
@@ -282,7 +285,10 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			mr.setId(new BigInteger(json.getString("mid")));
 			mr.setViceman(json.getString("viceman"));
 			mr.setStartTime(json.getString("startTime"));
-			mr.setEndTime(json.getString("endTime"));
+			String endTime = json.getString("endTime");
+			if(endTime!=null && !"".equals(endTime)){
+				mr.setEndTime(json.getString("endTime"));
+			}
 			mr.setDesc(json.getString("desc"));
 			mr.setTypeId(json.getInt("typeId"));
 			return ms.updateMaintenanceRecord(mr);
