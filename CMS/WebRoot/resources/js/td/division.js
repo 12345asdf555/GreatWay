@@ -144,7 +144,7 @@ function newSearch(){
 //            				"<label for='off' style='text-align:center;display:inline-block'/>关机总数</lable>&nbsp;" +
 //            				"<input class='liveInput' type='text' name='off"+index+"' id='off"+index+"' value='0'/></div><div/>";
 //            				$("#body").append(str);
-			            			var	str = '<div class="boxls" id="div'+index+'"><ul><li class="lshead"><a href="javascript:show(this.value)" id="btnReg'+index+'">'+dd[index].fname+'</a></li></ul>'+
+			            			var	str = '<div class="boxls" id="div'+index+'"><ul><li class="lshead"><a href="javascript:show('+da[index].fid+')" id="btnReg'+index+'">'+da[index].fname+'</a></li></ul>'+
 		            				'<ul><li><div class="list2">焊接总数</div><div class="list3"><input class="livelist" class="list3" name="status'+index+'" id="status'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
 		            				'<ul><li><div class="triangle-right triangle-right-ls3"></div><div class="list1">工作总数</div><div class="list3"><input class="livelist" class="list3" name="on'+index+'" id="on'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
 		            				'<ul><li><div class="triangle-right triangle-right-ls2"></div><div class="list1">报警总数</div><div class="list3"><input class="livelist" class="list3" name="warning'+index+'" id="warning'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
@@ -152,7 +152,7 @@ function newSearch(){
 		            				'<ul><li><div class="triangle-right triangle-right-ls4"></div><div class="list1">关机总数</div><div class="list3"><input class="livelist" class="list3" name="off'+index+'" id="off'+index+'" value="0" readonly="true" type="text"></div></li></ul></div>';
 		            			$("#box").append(str);
 			            		}
-			            	document.getElementById("btnReg"+index+"").value=da[index].fname;
+			    				$("#btnReg"+index).html(da[index].fname);
 		            		for(var l=0;l<dat.length;l=l+159){
 		            			if(da[index].fid==dat.substring(l+2, l+4)){
 		        					num++;
@@ -201,12 +201,12 @@ function newSearch(){
 
 }
 	function show(value){
-		var url = "td/AllTddp";
+		var url = "td/AllTddp?value="+value;
 		var img = new Image();
 	    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
 	    url = img.src;  // 此时相对路径已经变成绝对路径
 	    img.src = null; // 取消请求
-		window.location.href = encodeURI(url)+"?value="+value;
+		window.location.href = url;
 	}
 	
 

@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>新增用户</title>
+    <title>实时监控</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white;">
     <input name="division" id="division" value="${divi}" type="hidden">
     <div class="content-wrap">
-       		<div class="box" id="box">123456
+       		<div class="box" id="box">
        		</div>
      </div>
 <!--     <div id="body1" style="min-width:300px;height:350px"></div>

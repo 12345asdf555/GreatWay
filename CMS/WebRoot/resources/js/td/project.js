@@ -143,13 +143,26 @@ function newSearch(){
             			i++;
         			if($("#div"+i+"").length<=0)
         			{
-            			var	str = '<div class="boxls" id="div'+index+'"><ul><li class="lshead"><a href="javascript:show(this.value)" id="btnReg'+index+'">'+dd[index].fname+'</a></li></ul>'+
-        				'<ul><li><div class="list2">焊接总数</div><div class="list3"><input class="livelist" class="list3" name="status'+index+'" id="status'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
-        				'<ul><li><div class="triangle-right triangle-right-ls3"></div><div class="list1">工作总数</div><div class="list3"><input class="livelist" class="list3" name="on'+index+'" id="on'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
-        				'<ul><li><div class="triangle-right triangle-right-ls2"></div><div class="list1">报警总数</div><div class="list3"><input class="livelist" class="list3" name="warning'+index+'" id="warning'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
-        				'<ul><li><div class="triangle-right triangle-right-ls1"></div><div class="list1">待机总数</div><div class="list3"><input class="livelist" class="list3" name="wait'+index+'" id="wait'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
-        				'<ul><li><div class="triangle-right triangle-right-ls4"></div><div class="list1">关机总数</div><div class="list3"><input class="livelist" class="list3" name="off'+index+'" id="off'+index+'" value="0" readonly="true" type="text"></div></li></ul></div>';
-        			$("#box").append(str);
+//		            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
+//            			"<div>" +
+//            			"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='fequipment_no"+i+"'/><div/>&nbsp;" +
+//            			"<input class='liveInput' id='btnReg"+i+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
+//            			"<div>" +
+//            			"<label for='vol' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;压</lable>&nbsp;" +
+//            			"<input class='liveInput' type='text' id='voltage"+i+"' readonly='true' value=''/></div>&nbsp;" +
+//            			"<div>" +
+//            			"<label for='ele' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流</lable>&nbsp;" +
+//            			"<input class='liveInput' type='text' id='electricity"+i+"' readonly='true' value=''/></div>&nbsp;" +
+//            			"<div>" +
+//            			"<label for='num' style='text-align:center;display:inline-block'/>焊工编号</lable>&nbsp;" +
+//            			"<input class='liveInput' type='text' id='welderNo"+i+"' readonly='true' value=''/></div>&nbsp;" +
+//            			"<div>" +
+//            			"<label for='name' style='text-align:center;display:inline-block'/>焊工姓名</lable>&nbsp;" +
+//            			"<input class='liveInput' type='text' id='welderName"+i+"' readonly='true' value=''/></div>&nbsp;" +
+//            			"<div>" +
+//            			"<label for='po' style='text-align:center;display:inline-block'/>设备位置</lable>&nbsp;" +
+//            			"<input class='liveInput' type='text' id='position"+i+"' readonly='true' value=''/></div><div/>";
+//		            	$("#body").append(str);
 		            }else{
 		            	if(dd.substring(0+index, 2+index)=="03"||dd.substring(0+index, 2+index)=="05"){
 		            		document.getElementById("fequipment_no"+i+"").style.background="#00FF00";

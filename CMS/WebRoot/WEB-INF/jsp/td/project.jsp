@@ -34,9 +34,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body class="easyui-layout">
     <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white; height: 335px;">
 <!--        <div> -->
-<!--             <div style="margin-bottom:10px;" align="left"> -->
-<%--                <input class='liveInput' name="project" id="project" value="${proj}" readonly="true" class="easyui-textbox"> --%>
-<!--             </div> -->
+            <div style="margin-bottom:10px;" align="left">
+               <input class='liveInput' name="project" id="project" value="${proj}" type="hidden">
+            </div>
 <!--             <div style="margin-bottom:10px" align="left"> -->
 <!--                <label for="status" style="text-align:center;display:inline-block;width:65px">焊机总数</label> <input class='liveInput' name="statusn" id="statusn" value="0" type="text"/> -->
 <!--             </div> -->
@@ -53,12 +53,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--                 <div style=" width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;"></div><label for="off" style="text-align:center;display:inline-block">关机总数</label> <input class='liveInput' name="offn" id="offn" value="0" type="text""/> -->
 <!--             </div> -->
 <!-- 		</div> -->
-       		<div class="content-wrap">
+       		<div class="content1-wrap">
        		<div class="box" id="box">
-				<div class="boxls1">
+				<div class="boxls2">
 					<ul>
 						<li class='lshead'>
-							<a href="javascript:void(0)">${proj}</a>
+							<a href="javascript:void(0)">${fname}</a>
 						</li>
 					</ul>
 					<ul>

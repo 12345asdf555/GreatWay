@@ -24,7 +24,7 @@
 	</select>
 	
 	<select id="findInsid" parameterType="String" resultType="long">
-		select fid fdn from tb_insframework where tb_insframework.fname=#{fdn} 
+		select fid fdn from tb_insframework where fname=#{fdn} 
 	</select>
 	
 	<select id="findInsname" parameterType="long" resultType="String">

@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,17 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.PageInfo;
-import com.greatway.page.Page;
+import com.greatway.manager.InsframeworkManager;
+import com.greatway.manager.WeldingMachineManager;
 import com.spring.model.MyUser;
 import com.spring.model.Td;
-import com.spring.model.User;
 import com.spring.service.TdService;
 
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -28,6 +26,8 @@ public class TdController {
 	
 	@Autowired
 	private TdService tdService;
+	@Autowired
+	private InsframeworkManager insfService;
 	private Td td;
 	
 	/**
@@ -69,7 +69,10 @@ public class TdController {
 	
 	@RequestMapping("/AllTddp")
 	public String AllTddp(HttpServletRequest request){
-		request.setAttribute("proj", request.getParameter("value"));
+		BigInteger insfid = new BigInteger(request.getParameter("value"));
+		String fname = insfService.getInsframeworkById(insfid);
+		request.setAttribute("proj", insfid);
+		request.setAttribute("fname", fname);
 		return "td/project";
 	}
 	
@@ -268,8 +271,8 @@ public class TdController {
 	public String getAllTdp2(HttpServletRequest request){
 		
 		JSONObject obj = new JSONObject();
-		String insname = request.getParameter("div");
-		long insid = tdService.findInsid(insname);
+		int insid = Integer.parseInt(request.getParameter("div"));
+//		long insid = tdService.findInsid(insname);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
@@ -290,8 +293,8 @@ public class TdController {
 		
 		JSONObject obj = new JSONObject();
 		String insname = request.getParameter("div");
-		long insid = tdService.findInsid(insname);
-		List<Td> findAlld = tdService.findAlldiv(insid);
+//		long insid = tdService.findInsid(insname);
+		List<Td> findAlld = tdService.findAlldiv(15);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
