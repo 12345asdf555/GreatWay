@@ -29,6 +29,24 @@ body{background: #ccc;}
 .nav-wrap ul li a.ls3 i{padding-right: 5px;}
 .nav-wrap ul li a.ls4{padding-left: 45px;}
 
+/* 内容页 */
+.content-wrap{min-height: 430px;height:100%;background: #fff;margin: 30px 0 15px 40px;float: left;width: calc(100% - 280px);}
+.content-wrap ul li a{display: block;padding-left: 30px;height: 30px;line-height: 30px;}
+.content-wrap ul li.ls1{width: 100%;color: #fff;font-size: 16px;border-top-left-radius:5px;border-top-right-radius:5px;background-image: -webkit-linear-gradient(left,#4CA5E7,#6AE7FD);}
+.content-wrap ul li.ls1{width: 100%;color: #fff;font-size: 16px;border-top-left-radius:5px;border-top-right-radius:5px;background-image: -ms-linear-gradient(left,#4CA5E7,#6AE7FD);/*For IE*/}
+.content-wrap .box{margin: 30px auto;width: 80%;}
+.content-wrap ul li.lshead{width: 150px;color: #000;font-size: 16px;border-top-left-radius:5px;border-top-right-radius:5px;background-image: -webkit-linear-gradient(top,#75bef5,#6AE7FD);}
+.content-wrap ul li.lshead{width: 150px;color: #000;font-size: 16px;border-top-left-radius:5px;border-top-right-radius:5px;background-image: -ms-linear-gradient(top,#75bef5,#6AE7FD);/*For IE*/}
+.content-wrap ul li div.list1{width: 126px;background-color: #fff;font-size: 14px;border-radius: 5px;line-height: 24px;color: blue;text-align: center;margin-top: 10px;border: 1px solid #ccc;display: inline-block;}
+.content-wrap ul li div.list2{width: 160px;background-color: #fff;font-size: 14px;border-radius: 5px;line-height: 24px;color: blue;text-align: center;margin-top: 10px;border: 1px solid #ccc;display: inline-block;}
+.content-wrap ul li div.list3{width: 60px;background-color: #fff;font-size: 12px;border-radius: 5px;line-height: 24px;color: blue;text-align: center;margin-top: 10px;margin-left: 10px;border: 1px solid #ccc;display: inline-block;}
+.triangle-right {width: 0;height: 0;margin-bottom: -8px;margin-right: 10px;border-radius: 4px;border-top: 12px solid transparent;border-bottom: 12px solid transparent;display: inline-block;}
+.triangle-right-ls1{border-left: 20px solid #75bef5;}
+.triangle-right-ls2{border-left: 20px solid #fa5050;}
+.triangle-right-ls3{border-left: 20px solid #bdfc49;}
+.triangle-right-ls4{border-left: 20px solid rgb(167, 163, 163);}
+.content-wrap .boxls{width: 44%;float: left;margin-bottom: 32px;margin-right: 32px;}
+
 
 
 
