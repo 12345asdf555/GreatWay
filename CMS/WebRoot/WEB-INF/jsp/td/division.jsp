@@ -20,6 +20,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/common.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/iconfont.css">
 	
 	<script type="text/javascript" src="resources/js/load.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
@@ -31,6 +33,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body class="easyui-layout">
     <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white;">
     <input name="division" id="division" value="${divi}" type="hidden">
+    <div class="content-wrap">
+       		<div class="box" id="box">123456
+       		</div>
+     </div>
 <!--     <div id="body1" style="min-width:300px;height:350px"></div>
     <div id="body2" style="min-width:300px;height:350px"></div> -->
  <!--       	<form id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px;">

@@ -101,14 +101,10 @@ function newSearch(){
 								}else{
 				                	for(var index = 0;index < dd.length;index++){
 				                		if($("#div"+index+"").length<=0){}else{
-				        					$("#on"+index).html(0);
-					            			$("#warning"+index).html(0);
-					            			$("#wait"+index).html(0);
-					            			$("#off"+index).html(0);
-//				        					document.getElementById("on"+index+"").value=0;
-//					            			document.getElementById("warning"+index+"").value=0;
-//					            			document.getElementById("wait"+index+"").value=0;
-//					            			document.getElementById("off"+index+"").value=0;
+				        					document.getElementById("on"+index+"").value=0;
+					            			document.getElementById("warning"+index+"").value=0;
+					            			document.getElementById("wait"+index+"").value=0;
+					            			document.getElementById("off"+index+"").value=0;
 				                		}
 				                	}
 				                	warningn=0;
@@ -129,14 +125,10 @@ function newSearch(){
 							}else{
 			                	for(var index = 0;index < dd.length;index++){
 			                		if($("#div"+index+"").length<=0){}else{ 
-			        					$("#on"+index).html(0);
-				            			$("#warning"+index).html(0);
-				            			$("#wait"+index).html(0);
-				            			$("#off"+index).html(0);
-//			        					document.getElementById("on"+index+"").value=0;
-//				            			document.getElementById("warning"+index+"").value=0;
-//				            			document.getElementById("wait"+index+"").value=0;
-//				            			document.getElementById("off"+index+"").value=0;
+			        					document.getElementById("on"+index+"").value=0;
+				            			document.getElementById("warning"+index+"").value=0;
+				            			document.getElementById("wait"+index+"").value=0;
+				            			document.getElementById("off"+index+"").value=0;
 			                		}
 			                	}
 			                	warningn=0;
@@ -156,36 +148,12 @@ function newSearch(){
 		            		num=0;num0 = 0;num1 = 0;num2 = 0;num3 = 0;
 	            			if($("#div"+index+"").length<=0)
             				{
-
-//			    var str = "<div id='div"+index+"' style='width:270px;heigth:250px;float:left;'>" +
-//				"<div>" +
-//				"<input class='liveInput' id='btnReg"+index+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
-//				"<div>" +
-//				"<label for='status' style='text-align:center;display:inline-block;width:20px'/>焊机总数</lable>&nbsp;" +
-//				"<input class='liveInput' type='text' name='status"+index+"' id='status"+index+"' value='0' readonly='true'/></div>&nbsp;" +
-//				"<div>" +
-//				"<div style=' width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-//				"<label for='on' style='text-align:center;display:inline-block'/>工作总数</lable>&nbsp;" +
-//				"<input class='liveInput' type='text' name='on"+index+"' id='on"+index+"' value='0'/ readonly='true'></div>&nbsp;" +
-//				"<div>" +
-//				"<div style=' width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-//				"<label for='warning' style='text-align:center;display:inline-block'/>报警总数</lable>&nbsp;" +
-//				"<input class='liveInput' type='text' name='warning"+index+"' id='warning"+index+"' value='0' readonly='true'/></div>&nbsp;" +
-//				"<div>" +
-//				"<div style=' width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-//				"<label for='wait' style='text-align:center;display:inline-block'/>待机总数</lable>&nbsp;" +
-//				"<input class='liveInput' type='text' name='wait"+index+"' id='wait"+index+"' value='0' readonly='true'/></div>&nbsp;" +
-//				"<div>" +
-//				"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-//				"<label for='off' style='text-align:center;display:inline-block'/>关机总数</lable>&nbsp;" +
-//				"<input class='liveInput' type='text' name='off"+index+"' id='off"+index+"' value='0' readonly='true'/></div><div/>";
-//				$("#body").append(str);
-	            			var	str = '<div class="boxls" id="div'+index+'"><ul><li class="lshead"><a href="javascript:show(this.value)" id="btnReg'+index+'"></a></li></ul>'+
-	            				'<ul><li><div class="list2">焊接总数</div><div class="list3" id="statusn">0</div></li></ul>'+
-	            				'<ul><li><div class="triangle-right triangle-right-ls3"></div><div class="list1">工作总数</div><div class="list3" id="onn'+index+'">0</div></li></ul>'+
-	            				'<ul><li><div class="triangle-right triangle-right-ls2"></div><div class="list1">报警总数</div><div class="list3"  id="warningn'+index+'">0</div></li></ul>'+
-	            				'<ul><li><div class="triangle-right triangle-right-ls1"></div><div class="list1">待机总数</div><div class="list3" id="waitn'+index+'">0</div></li></ul>'+
-	            				'<ul><li><div class="triangle-right triangle-right-ls4"></div><div class="list1">关机总数</div><div class="list3"  id="off'+index+'">0</div></li></ul></div>';
+	            			var	str = '<div class="boxls" id="div'+index+'"><ul><li class="lshead"><a href="javascript:show(this.value)" id="btnReg'+index+'">'+dd[index].fname+'</a></li></ul>'+
+	            				'<ul><li><div class="list2">焊接总数</div><div class="list3"><input class="livelist" class="list3" name="status'+index+'" id="status'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
+	            				'<ul><li><div class="triangle-right triangle-right-ls3"></div><div class="list1">工作总数</div><div class="list3"><input class="livelist" class="list3" name="on'+index+'" id="on'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
+	            				'<ul><li><div class="triangle-right triangle-right-ls2"></div><div class="list1">报警总数</div><div class="list3"><input class="livelist" class="list3" name="warning'+index+'" id="warning'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
+	            				'<ul><li><div class="triangle-right triangle-right-ls1"></div><div class="list1">待机总数</div><div class="list3"><input class="livelist" class="list3" name="wait'+index+'" id="wait'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
+	            				'<ul><li><div class="triangle-right triangle-right-ls4"></div><div class="list1">关机总数</div><div class="list3"><input class="livelist" class="list3" name="off'+index+'" id="off'+index+'" value="0" readonly="true" type="text"></div></li></ul></div>';
 	            			$("#box").append(str);
             	}
 				$("#btnReg"+index).html(dd[index].fname);
@@ -204,56 +172,43 @@ function newSearch(){
 					num++;
         				if(dat.substring(0+k, 2+k)=="03"||dat.substring(0+k, 2+k)=="05"){
         					num0++;
-//        					var oni=parseInt(document.getElementById("on"+index+"").value);
-//        					document.getElementById("on"+index+"").value=oni+num0;
-        					var oni=parseInt($("#on"+index+"").val());
-        					$("#on"+index+"").html(oni+num0);
+        					var oni=parseInt(document.getElementById("on"+index+"").value);
+        					document.getElementById("on"+index+"").value=oni+num0;
         				}
         				else if(dat.substring(0+k, 2+k)=="07"){
         					num1++;
-//        					var wni=parseInt(document.getElementById("warning"+index+"").value);
-//	            			document.getElementById("warning"+index+"").value=wni+num1;
-        					var wni=parseInt($("#warning"+index+"").val());
-        					$("#warning"+index+"").html(wni+num1);
+        					var wni=parseInt(document.getElementById("warning"+index+"").value);
+	            			document.getElementById("warning"+index+"").value=wni+num1;
 	            		}
         				else if(dat.substring(0+k, 2+k)=="00"){
 	            			num2++;
-//	            			var wai=parseInt(document.getElementById("wait"+index+"").value);
-//	            			document.getElementById("wait"+index+"").value=wai+num2;	 
-	            			var wai=parseInt($("#wait"+index).val());
-	            			$("#wait"+index+"").html(wai+num2);	           		
+	            			var wai=parseInt(document.getElementById("wait"+index+"").value);
+	            			document.getElementById("wait"+index+"").value=wai+num2;	 
 	            		}
         				else{
-//	            			document.getElementById("off"+index+"").value=num-parseInt(document.getElementById("on"+index+"").value)-parseInt(document.getElementById("warning"+index+"").value)-parseInt(document.getElementById("wait"+index+"").value);
-        					$("#off"+index+"").html(num-parseInt($("#on"+index+"").val())-parseInt($("#warning"+index+"").val())-parseInt($("#wait"+index+"").val()));
+	            			document.getElementById("off"+index+"").value=num-parseInt(document.getElementById("on"+index+"").value)-parseInt(document.getElementById("warning"+index+"").value)-parseInt(document.getElementById("wait"+index+"").value);
         				
         				}	            		
         			}       							
 				}
 				}
-//				document.getElementById("status"+index+"").value = num;	
-				$("#status"+index+"").html(num);	
+				document.getElementById("status"+index+"").value = num;	
 		}					
 		            	for(var q=0;q<dat.length;q=q+159){
         				if(dat.substring(0+q, q+2)=="03"||dat.substring(0+q, 2+q)=="05"){
         					onn1++;
-//        					document.getElementById("onn").value=onn1;
-        					$("#onn").html(onn1);
+        					document.getElementById("onn").value=onn1;
         				}
         				if(dat.substring(0+q, q+2)=="07"){
         					warningn++;
-//	            			document.getElementById("warningn").value=warningn;
-	            			$("#warningn").html(warningn);
+	            			document.getElementById("warningn").value=warningn;
 	            		}
 	            		if(dat.substring(0+q, q+2)=="00"){
 	            			waitn++;
-//	            			document.getElementById("waitn").value=waitn;
-	            			$("#waitn").html(waitn);
+	            			document.getElementById("waitn").value=waitn;
 	            		}
-//	            		document.getElementById("offn").value=Math.ceil((dat.length)/159)-onn1-warningn-waitn;     	
-//		    			document.getElementById("statusn").value=Math.ceil((dat.length)/159);
-	            		$("#offn").html(Math.ceil((dat.length)/159)-onn1-warningn-waitn);     	
-		    			$("#statusn").html(Math.ceil((dat.length)/159));
+	            		document.getElementById("offn").value=Math.ceil((dat.length)/159)-onn1-warningn-waitn;     	
+		    			document.getElementById("statusn").value=Math.ceil((dat.length)/159);
 		            	}
 
 		};
@@ -279,7 +234,6 @@ function newSearch(){
 	}
 
 	function show(value){
-/*		var xx = document.getElementById("btnReg"+index+"").value;*/
 		var url = "td/AllTdd?value="+value;
 		var img = new Image();
 	    img.src = url;  // 设置相对路径给Image, 此时会发送出请求

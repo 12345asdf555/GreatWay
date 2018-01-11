@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        	<form id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px;">
        		<div class="content-wrap">
        		<div class="box" id="box">
-				<div class="boxls">
+				<div class="boxls1">
 					<ul>
 						<li class='lshead'>
 							<a href="javascript:void(0)">${insname}</a>
@@ -48,35 +48,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<ul>
 						<li>
 							<div class="list2">焊接总数</div>
-							<div class="list3" id="statusn" >0</div>
+							<div class="list3"><input class="livelist" class="list3" name="statusn" id="statusn" value="0" readonly="true" type="text"></div>
 						</li>
 					</ul>
 					<ul>
 						<li>
 							<div class="triangle-right triangle-right-ls3"></div>
 							<div class="list1">工作总数</div>
-							<div class="list3" id="onn">0</div>
+							<div class="list3"> <input class="livelist" name="onn" id="onn" value="0" readonly="true" type="text"></div>
 						</li>
 					</ul>
 					<ul>
 						<li>
 							<div class="triangle-right triangle-right-ls2"></div>
 							<div class="list1">报警总数</div>
-							<div class="list3"  id="warningn">0</div>
+							<div class="list3"><input class="livelist" name="warningn" id="warningn" value="0" readonly="true" type="text"></div>
 						</li>
 					</ul>
 					<ul>
 						<li>
 							<div class="triangle-right triangle-right-ls1"></div>
 							<div class="list1">待机总数</div>
-							<div class="list3" id="waitn">0</div>
+							<div class="list3"><input class="livelist" name="waitn" id="waitn" value="0" readonly="true" type="text"></div>
 						</li>
 					</ul>
 					<ul>
 						<li>
 							<div class="triangle-right triangle-right-ls4"></div>
 							<div class="list1">关机总数</div>
-							<div class="list3"  id="off">0</div>
+							<div class="list3"><input class="livelist" name="offn" id="offn" value="0" readonly="true" type="text"></div>
 						</li>
 					</ul>
 				</div>

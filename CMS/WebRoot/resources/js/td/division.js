@@ -121,29 +121,36 @@ function newSearch(){
 		            		if(index%3==0){*/
 /*		            			if($("#div"+i+"").length<=0)
 		            				{*/
-            				var str = "<div id='div"+index+"' style='width:270px;heigth:240px;float:left;'>" +
-            				"<div>" +
-            				"<input class='liveInput' id='btnReg"+index+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
-            				"<div>" +
-            				"<label for='status' style='text-align:center;display:inline-block;width:20px'/>焊机总数</lable>&nbsp;" +
-            				"<input class='liveInput' type='text' name='status"+index+"' id='status"+index+"' value='0'/></div>&nbsp;" +
-            				"<div>" +
-            				"<div style=' width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-            				"<label for='on' style='text-align:center;display:inline-block'/>工作总数</lable>&nbsp;" +
-            				"<input class='liveInput' type='text' name='on"+index+"' id='on"+index+"' value='0'/></div>&nbsp;" +
-            				"<div>" +
-            				"<div style=' width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-            				"<label for='warning' style='text-align:center;display:inline-block'/>报警总数</lable>&nbsp;" +
-            				"<input class='liveInput' type='text' name='warning"+index+"' id='warning"+index+"' value='0'/></div>&nbsp;" +
-            				"<div>" +
-            				"<div style=' width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-            				"<label for='wait' style='text-align:center;display:inline-block'/>待机总数</lable>&nbsp;" +
-            				"<input class='liveInput' type='text' name='wait"+index+"' id='wait"+index+"' value='0'/></div>&nbsp;" +
-            				"<div>" +
-            				"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
-            				"<label for='off' style='text-align:center;display:inline-block'/>关机总数</lable>&nbsp;" +
-            				"<input class='liveInput' type='text' name='off"+index+"' id='off"+index+"' value='0'/></div><div/>";
-            				$("#body").append(str);
+//            				var str = "<div id='div"+index+"' style='width:270px;heigth:240px;float:left;'>" +
+//            				"<div>" +
+//            				"<input class='liveInput' id='btnReg"+index+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
+//            				"<div>" +
+//            				"<label for='status' style='text-align:center;display:inline-block;width:20px'/>焊机总数</lable>&nbsp;" +
+//            				"<input class='liveInput' type='text' name='status"+index+"' id='status"+index+"' value='0'/></div>&nbsp;" +
+//            				"<div>" +
+//            				"<div style=' width:17px; height:17px; background-color:#00FF00; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
+//            				"<label for='on' style='text-align:center;display:inline-block'/>工作总数</lable>&nbsp;" +
+//            				"<input class='liveInput' type='text' name='on"+index+"' id='on"+index+"' value='0'/></div>&nbsp;" +
+//            				"<div>" +
+//            				"<div style=' width:17px; height:17px; background-color:#FF0000; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
+//            				"<label for='warning' style='text-align:center;display:inline-block'/>报警总数</lable>&nbsp;" +
+//            				"<input class='liveInput' type='text' name='warning"+index+"' id='warning"+index+"' value='0'/></div>&nbsp;" +
+//            				"<div>" +
+//            				"<div style=' width:17px; height:17px; background-color:#0000CD; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
+//            				"<label for='wait' style='text-align:center;display:inline-block'/>待机总数</lable>&nbsp;" +
+//            				"<input class='liveInput' type='text' name='wait"+index+"' id='wait"+index+"' value='0'/></div>&nbsp;" +
+//            				"<div>" +
+//            				"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='electricity"+index+"'/><div/>&nbsp;" +
+//            				"<label for='off' style='text-align:center;display:inline-block'/>关机总数</lable>&nbsp;" +
+//            				"<input class='liveInput' type='text' name='off"+index+"' id='off"+index+"' value='0'/></div><div/>";
+//            				$("#body").append(str);
+			            			var	str = '<div class="boxls" id="div'+index+'"><ul><li class="lshead"><a href="javascript:show(this.value)" id="btnReg'+index+'">'+dd[index].fname+'</a></li></ul>'+
+		            				'<ul><li><div class="list2">焊接总数</div><div class="list3"><input class="livelist" class="list3" name="status'+index+'" id="status'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
+		            				'<ul><li><div class="triangle-right triangle-right-ls3"></div><div class="list1">工作总数</div><div class="list3"><input class="livelist" class="list3" name="on'+index+'" id="on'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
+		            				'<ul><li><div class="triangle-right triangle-right-ls2"></div><div class="list1">报警总数</div><div class="list3"><input class="livelist" class="list3" name="warning'+index+'" id="warning'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
+		            				'<ul><li><div class="triangle-right triangle-right-ls1"></div><div class="list1">待机总数</div><div class="list3"><input class="livelist" class="list3" name="wait'+index+'" id="wait'+index+'" value="0" readonly="true" type="text"></div></li></ul>'+
+		            				'<ul><li><div class="triangle-right triangle-right-ls4"></div><div class="list1">关机总数</div><div class="list3"><input class="livelist" class="list3" name="off'+index+'" id="off'+index+'" value="0" readonly="true" type="text"></div></li></ul></div>';
+		            			$("#box").append(str);
 			            		}
 			            	document.getElementById("btnReg"+index+"").value=da[index].fname;
 		            		for(var l=0;l<dat.length;l=l+159){
@@ -194,12 +201,12 @@ function newSearch(){
 
 }
 	function show(value){
-		var url = "td/AllTddp?value="+value;
+		var url = "td/AllTddp";
 		var img = new Image();
 	    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
 	    url = img.src;  // 此时相对路径已经变成绝对路径
 	    img.src = null; // 取消请求
-		window.location.href = encodeURI(url);
+		window.location.href = encodeURI(url)+"?value="+value;
 	}
 	
 
