@@ -292,9 +292,9 @@ public class TdController {
 	public String getAllTdd(HttpServletRequest request){
 		
 		JSONObject obj = new JSONObject();
-		String insname = request.getParameter("div");
+		long insid = Long.parseLong(request.getParameter("div"));
 //		long insid = tdService.findInsid(insname);
-		List<Td> findAlld = tdService.findAlldiv(15);
+		List<Td> findAlld = tdService.findAlldiv(insid);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
