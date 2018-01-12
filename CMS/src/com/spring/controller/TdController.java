@@ -28,7 +28,6 @@ public class TdController {
 	private TdService tdService;
 	@Autowired
 	private InsframeworkManager insfService;
-	
 	private Td td;
 	
 	/**
@@ -149,6 +148,7 @@ public class TdController {
 	@RequestMapping("/getAllTd")
 	@ResponseBody
 	public String getAllTd(HttpServletRequest request){
+		
 		JSONObject obj = new JSONObject();
 		String da = request.getParameter("data");
 /*		System.out.println(da);*/
@@ -293,8 +293,8 @@ public class TdController {
 		
 		JSONObject obj = new JSONObject();
 		String insname = request.getParameter("div");
-		long insid = tdService.findInsid(insname);
-		List<Td> findAlld = tdService.findAlldiv(insid);
+//		long insid = tdService.findInsid(insname);
+		List<Td> findAlld = tdService.findAlldiv(15);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{

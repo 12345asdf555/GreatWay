@@ -143,26 +143,26 @@ function newSearch(){
             			i++;
         			if($("#div"+i+"").length<=0)
         			{
-//		            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
-//            			"<div>" +
-//            			"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='fequipment_no"+i+"'/><div/>&nbsp;" +
-//            			"<input class='liveInput' id='btnReg"+i+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
-//            			"<div>" +
-//            			"<label for='vol' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;压</lable>&nbsp;" +
-//            			"<input class='liveInput' type='text' id='voltage"+i+"' readonly='true' value=''/></div>&nbsp;" +
-//            			"<div>" +
-//            			"<label for='ele' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流</lable>&nbsp;" +
-//            			"<input class='liveInput' type='text' id='electricity"+i+"' readonly='true' value=''/></div>&nbsp;" +
-//            			"<div>" +
-//            			"<label for='num' style='text-align:center;display:inline-block'/>焊工编号</lable>&nbsp;" +
-//            			"<input class='liveInput' type='text' id='welderNo"+i+"' readonly='true' value=''/></div>&nbsp;" +
-//            			"<div>" +
-//            			"<label for='name' style='text-align:center;display:inline-block'/>焊工姓名</lable>&nbsp;" +
-//            			"<input class='liveInput' type='text' id='welderName"+i+"' readonly='true' value=''/></div>&nbsp;" +
-//            			"<div>" +
-//            			"<label for='po' style='text-align:center;display:inline-block'/>设备位置</lable>&nbsp;" +
-//            			"<input class='liveInput' type='text' id='position"+i+"' readonly='true' value=''/></div><div/>";
-//		            	$("#body").append(str);
+		            	var str = "<div id='div"+i+"' style='width:270px;heigth:300px;float:left;'>" +
+            			"<div>" +
+            			"<div style=' width:17px; height:17px; background-color:#A9A9A9; border-radius:25px; float:left;' id='fequipment_no"+i+"'/><div/>&nbsp;" +
+            			"<input class='liveInput' id='btnReg"+i+"' type='button' value='' onclick='show(this.value)'/></div>&nbsp;" +
+            			"<div>" +
+            			"<label for='vol' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;压</lable>&nbsp;" +
+            			"<input class='liveInput' type='text' id='voltage"+i+"' readonly='true' value=''/></div>&nbsp;" +
+            			"<div>" +
+            			"<label for='ele' style='text-align:center;display:inline-block'/>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流</lable>&nbsp;" +
+            			"<input class='liveInput' type='text' id='electricity"+i+"' readonly='true' value=''/></div>&nbsp;" +
+            			"<div>" +
+            			"<label for='num' style='text-align:center;display:inline-block'/>焊工编号</lable>&nbsp;" +
+            			"<input class='liveInput' type='text' id='welderNo"+i+"' readonly='true' value=''/></div>&nbsp;" +
+            			"<div>" +
+            			"<label for='name' style='text-align:center;display:inline-block'/>焊工姓名</lable>&nbsp;" +
+            			"<input class='liveInput' type='text' id='welderName"+i+"' readonly='true' value=''/></div>&nbsp;" +
+            			"<div>" +
+            			"<label for='po' style='text-align:center;display:inline-block'/>设备位置</lable>&nbsp;" +
+            			"<input class='liveInput' type='text' id='position"+i+"' readonly='true' value=''/></div><div/>";
+		            	$("#body").append(str);
 		            }else{
 		            	if(dd.substring(0+index, 2+index)=="03"||dd.substring(0+index, 2+index)=="05"){
 		            		document.getElementById("fequipment_no"+i+"").style.background="#00FF00";
