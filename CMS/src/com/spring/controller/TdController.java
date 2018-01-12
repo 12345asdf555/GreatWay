@@ -28,6 +28,7 @@ public class TdController {
 	private TdService tdService;
 	@Autowired
 	private InsframeworkManager insfService;
+	
 	private Td td;
 	
 	/**
@@ -148,7 +149,6 @@ public class TdController {
 	@RequestMapping("/getAllTd")
 	@ResponseBody
 	public String getAllTd(HttpServletRequest request){
-		
 		JSONObject obj = new JSONObject();
 		String da = request.getParameter("data");
 /*		System.out.println(da);*/
