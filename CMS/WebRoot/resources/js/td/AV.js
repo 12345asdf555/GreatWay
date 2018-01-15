@@ -72,12 +72,20 @@
 						if(va == dd.substring(4+i, 8+i)&&dd.substring(8+i, 12+i)!="0000"){
 						var mach = parseInt(dd.substring(4+i, 8+i),16);
 						var weld = dd.substring(8+i, 12+i);
+						var dati = dd.substring(20+i, 39+i);
+						var val = Date.parse(dati);
+						if((jj!=0)&&(val-time1[jj-1]>1000)){
+							for(var db=time1[jj-1]+1000;db<val;db=db+1000){
+								time1[jj]=time1[jj-1]+1000;
+								num1[jj]=0;
+								num2[jj]=0;
+								jj++;
+							}
+						}
+						time1[jj] = val;
 						var xx = dd.substring(12+i, 16+i);
 						num1[jj] = parseInt(xx,16);
 						num2[jj] = parseInt(dd.substring(16+i, 20+i),16);
-						var dati = dd.substring(20+i, 39+i);
-						var val = Date.parse(dati);
-						time1[jj] = val;
 						maxele = parseInt(dd.substring(41+i, 44+i));
 						minele = parseInt(dd.substring(44+i, 47+i));
 						maxvol = parseInt(dd.substring(47+i, 50+i));
@@ -157,6 +165,7 @@
 					  		                	series1 = this.series[1],
 					  		                    chart = this;
 					  		                setInterval(function () {
+					  		                	if(z<jj){
 					  		                    /*var x = (new Date()).getTime()+t,*/ // current time
 					  		                  var x = time1[z],
 					  		                        y = num1[z];
@@ -166,6 +175,7 @@
 					  		                    series.addPoint([x, y], true, true);
 					  		                    series1.addPoint([x, y1], true, true);
 					  		                    activeLastPointToolip(chart);
+					  		                	}
 					  		                }, 1000);
 					  		            }
 					  		        }
@@ -262,6 +272,13 @@
 					  		});
 						}
 						}	
+	            		if(weld!="0000"){
+	            			for(var k=0;k<namex.length;k++){
+	    						if(namex[k].fwelder_no==dd.substring(8+i, 12+i)){
+	    							document.getElementById("weldname").value=namex[k].fname;
+	    						}
+	    					}
+	            		}
 					}
 /*					if(jj%3==1){
 						num1[jj] = num1[jj-1];
@@ -278,13 +295,6 @@
 						time1[jj] = time1[jj-1]+1000;
 						jj++;
 					}*/
-            		if(weld!="0000"){
-            			for(var k=0;k<namex.length;k++){
-    						if(namex[k].fwelder_no==dd.substring(8+index, 12+index)){
-    							document.getElementById("weldname").value=namex[k].fname;
-    						}
-    					}
-            		}
 					}	
 				/*document.getElementById("machid").value = mach;*/
 			};
