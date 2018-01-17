@@ -49,7 +49,7 @@ public class WpsController {
 	@Autowired
 	private WpsService wpsService;
 	
-    public static final String IP_ADDR = "192.168.21.129";//服务器地址   
+    public static final String IP_ADDR = "121.196.222.216";//服务器地址   
     public static final int PORT = 5555;//服务器端口号  
 	
 	IsnullUtil iutil = new IsnullUtil();
