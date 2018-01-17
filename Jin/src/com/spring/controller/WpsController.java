@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.awt.Robot;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -48,7 +49,7 @@ public class WpsController {
 	@Autowired
 	private WpsService wpsService;
 	
-    public static final String IP_ADDR = "192.168.8.107";//服务器地址   
+    public static final String IP_ADDR = "192.168.21.129";//服务器地址   
     public static final int PORT = 5555;//服务器端口号  
 	
 	IsnullUtil iutil = new IsnullUtil();
@@ -285,17 +286,6 @@ public class WpsController {
 					wps.setMacid(new BigInteger(mmid[j]));
 					wpsService.give(wps);
 				}
-				Wps w = wpsService.findById(new BigInteger(wfid[i]));
-				json.put("Fweld_I_MAX", w.getFweld_i_max());
-				json.put("Fweld_I_MIN", w.getFweld_i_min());
-				json.put("Fweld_V_MAX", w.getFweld_v_max());
-				json.put("Fweld_I_MIN", w.getFweld_v_min());
-				json.put("Fweld_PreChannel", w.getFweld_prechannel());	
-				ary.add(json);
-			}
-			for(int j=0;j<mmid.length;j++){
-				json1.put("ip", wpsService.findIpById(new BigInteger(mmid[j])));
-				ary1.add(json1);
 			}
 			obj.put("success", true);
 			
@@ -305,8 +295,132 @@ public class WpsController {
                     SocketAddress socketAddress = new InetSocketAddress(IP_ADDR, 5555);    
                      socketChannel.connect(socketAddress);
                 //}
-                String test = "7E0156136A7D";
-				SendAndReceiveUtil.sendData(socketChannel, test); 
+         			for(int ii=0;ii<wfid.length;ii++){
+        				for(int jj=0;jj<mmid.length;jj++){
+            				Wps w = wpsService.findById(new BigInteger(wfid[ii]));
+            				int weld_i=w.getFweld_i();
+            				int weld_v=w.getFweld_v()*10;
+            				int weld_i_tx = (w.getFweld_i_max()-w.getFweld_i_min())/2;
+            				int weld_v_tx = (w.getFweld_v_max()-w.getFweld_v_min())/2*10;
+            				int pre = w.getFweld_prechannel();
+            				String str1;
+            				if(pre<16){
+            					str1 = "7E7C205213010"+Integer.toHexString(pre);
+            				}else{
+            					str1 = "7E7C20521301"+Integer.toHexString(pre);
+            				}
+            				String gather_no = wpsService.findIpById(new BigInteger(mmid[jj]));
+							//String str1 = "7E7C20521301";
+							//01通道
+							String str2;
+							String str22;
+							String str3;
+							String str4;
+							if(w.getFweld_i()<16){
+							str2 = "7C201E7C200A7C20647C20BE7C207C207C20"+"0"+Integer.toHexString(weld_i);
+							}else if(w.getFweld_i()>=16&&w.getFweld_i()<256){
+							str2 = "7C201E7C200A7C20647C20BE7C207C207C20" + Integer.toHexString(weld_i);
+							}else if(w.getFweld_i()==256){
+							str2 = "7C201E7C200A7C20647C20BE7C207C2001" + "7C20";
+							}else{
+							str2 = "7C201E7C200A7C20647C20BE7C207C200" + Integer.toHexString(weld_i);
+							}
+							if(weld_v<16){
+								str22="7C200"+Integer.toHexString(weld_v);
+							}else if(weld_v>=16&&weld_v<256){
+								str22="7C20"+Integer.toHexString(weld_v);
+							}else if(weld_v==256){
+								str22="01"+"7C20";
+							}else{
+								str22="0"+Integer.toHexString(weld_v);
+							}
+							if(weld_i_tx==0){
+								str3 = "7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C20"+"7C20"+"7C20";
+							}else if(weld_i_tx>0&&weld_i_tx<16){
+								str3 = "7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C20"+"0"+Integer.toHexString(weld_i_tx)+"0"+Integer.toHexString(weld_i_tx);
+							}else{
+								str3 = "7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C20"+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_i_tx);
+							}
+							if(weld_v_tx==0){
+								str4="7C20"+"7C20"+"2C7D";
+							}else if(weld_v_tx>0&&weld_v_tx<16){
+								str4="0"+Integer.toHexString(weld_v_tx)+"0"+Integer.toHexString(weld_v_tx)+"2C7D";
+							}else{
+								str4=Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+"2C7D";
+							}
+							//C8 //电流
+							//012C//电压
+//							String str3 = "7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C20";
+							//1E//微调电流
+							//32//微调电压
+//							String str4 = "2C7D";
+							String test;
+/*							if(weld_v<16){
+								if(weld_v_tx<16){
+									if(weld_i_tx<16){
+										test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"7C200"+Integer.toHexString(weld_v)+str3+"0"+Integer.toHexString(weld_i_tx)+"0"+Integer.toHexString(weld_i_tx)+"0"+Integer.toHexString(weld_v_tx)+"0"+Integer.toHexString(weld_v_tx)+str4;
+									}else if(weld_i_tx==0){
+										test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"7C200"+Integer.toHexString(weld_v)+str3+"7C20"+"7C20"+"0"+Integer.toHexString(weld_v_tx)+"0"+Integer.toHexString(weld_v_tx)+str4;
+									}
+									else{
+										test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"7C200"+Integer.toHexString(weld_v)+str3+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+str4;
+									}
+								}else if(weld_v_tx==0){
+									if(weld_i_tx<16){
+										test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"7C200"+Integer.toHexString(weld_v)+str3+"0"+Integer.toHexString(weld_i_tx)+"0"+Integer.toHexString(weld_i_tx)+"7C20"+"7C20"+str4;
+									}else if(weld_i_tx==0){
+										test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"7C200"+Integer.toHexString(weld_v)+str3+"7C20"+"7C20"+"7C20"+"7C20"+str4;
+									}
+									else{
+										test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"7C200"+Integer.toHexString(weld_v)+str3+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+str4;
+									}
+								}else{
+									if(weld_i_tx<16){
+										test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"7C200"+Integer.toHexString(weld_v)+str3+"0"+Integer.toHexString(weld_i_tx)+"0"+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+str4;
+									}else if(weld_i_tx==0){
+										test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"7C200"+Integer.toHexString(weld_v)+str3+"7C20"+"7C20"+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+str4;
+									}else{
+										test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"7C200"+Integer.toHexString(weld_v)+str3+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+str4;
+									}
+									}
+							}else{
+								if(weld_v_tx<256){
+								test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"0"+Integer.toHexString(weld_v)+str3+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+str4;
+								}else if(weld_v_tx>=256){
+									test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"0"+Integer.toHexString(weld_v)+str3+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+str4;
+								}else{
+									test =str1+Integer.toHexString(pre)+str2+Integer.toHexString(weld_i)+"0"+Integer.toHexString(weld_v)+str3+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+str4;
+								}
+								}*/
+							test=str1+str2+str22+str3+str4;
+							String ch=test.substring(2,test.length()-4);
+							String strdata2=ch.replaceAll("7C20", "00");
+		                    String strdata3=strdata2.replaceAll("7C5E", "7E");
+		                    String strdata4=strdata3.replaceAll("7C5C", "7C");
+		                    String strdata =strdata4.replaceAll("7C5D", "7D");
+		                    int check = 0;
+		                    byte[] data1=new byte[strdata.length()/2];
+							for (int i = 0; i < data1.length; i++)
+							{
+								String tstr1=strdata.substring(i*2, i*2+2);
+								Integer k=Integer.valueOf(tstr1, 16);
+								check += k;
+							}
+	       
+							String checksend = Integer.toHexString(check);
+							checksend = checksend.substring(1,3);
+							checksend = checksend.toUpperCase();
+							test=ch+checksend;
+
+		                    strdata="7E"+test+"7D";
+		                    strdata=strdata.toUpperCase();
+//		                    strdata="7E7C20521301027C201E7C200A7C20647C20BE7C207C207C20FA7C20FA7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C201E327C207C202C7D";
+//		                    strdata="7E7C20521301027C201E7C200A7C20647C20BE7C207C207C20FA7C20FA7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C201E327C207C202C7D";
+							SendAndReceiveUtil.sendData(socketChannel, strdata);
+					         Robot  r   =   new   Robot();
+					         r.delay(1000);
+        				}
+        			}
 
                   /*String msg = SendAndReceiveUtil.receiveData(socketChannel);    
                   if(msg != null) 
