@@ -2,12 +2,11 @@ package com.sshome.ssmcxf.webservice.impl;
 
 import java.util.List;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.spring.model.Authority;
 import com.spring.service.AuthorityService;
 import com.sshome.ssmcxf.webservice.AuthorityWebService;
@@ -16,7 +15,6 @@ import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.AuthorityWebService", serviceName = "AuthorityWebService")
 public class AuthorityWebServiceImpl implements AuthorityWebService {
 	@Autowired
 	private AuthorityService as;
@@ -105,39 +103,43 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	}
 
 	@Override
-	public Authority findAuthorityById(String object) {
+	public Object findAuthorityById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return as.findById(json.getInt("authId"));
+			Authority list = as.findById(json.getInt("authId"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Authority> findAllAuthority(String object) {
+	public Object findAllAuthority(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return as.findAll(json.getString("str"));
+			List<Authority> list = as.findAll(json.getString("str"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Authority> findAllResource() {
+	public Object findAllResource() {
 		try{
-			return as.findAllResource();
+			List<Authority> list =  as.findAllResource();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Authority> findAuthorityResource(String object) {
+	public Object findAuthorityResource(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return as.findResource(json.getInt("authId"));
+			List<Authority> list = as.findResource(json.getInt("authId"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -164,9 +166,10 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	}
 
 	@Override
-	public List<Authority> getAllAuthoritys() {
+	public Object getAllAuthoritys() {
 		try{
-			return as.getAllAuthoritys();
+			List<Authority> list = as.getAllAuthoritys();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}

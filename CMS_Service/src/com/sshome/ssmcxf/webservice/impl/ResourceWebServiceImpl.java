@@ -2,12 +2,11 @@ package com.sshome.ssmcxf.webservice.impl;
 
 import java.util.List;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.spring.model.Resources;
 import com.spring.service.ResourceService;
 import com.sshome.ssmcxf.webservice.ResourceWebService;
@@ -16,7 +15,6 @@ import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.ResourceWebService", serviceName = "ResourceWebService")
 public class ResourceWebServiceImpl implements ResourceWebService{
 	@Autowired
 	private ResourceService rs;
@@ -65,20 +63,22 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 	}
 
 	@Override
-	public Resources findResourceById(String object) {
+	public Object findResourceById(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return rs.findById(json.getInt("id"));
+			Resources list = rs.findById(json.getInt("id"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Resources> findResourceAll(String object) {
+	public Object findResourceAll(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return rs.findAll(json.getString("str"));
+			List<Resources> list = rs.findAll(json.getString("str"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -95,10 +95,11 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 	}
 
 	@Override
-	public List<String> getAuthByRes(String object) {
+	public Object getAuthByRes(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return rs.getAuthByRes(json.getString("address"));
+			List<String> list = rs.getAuthByRes(json.getString("address"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}

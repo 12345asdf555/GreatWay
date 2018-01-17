@@ -3,65 +3,63 @@ package com.sshome.ssmcxf.webservice.impl;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spring.model.EquipmentManufacturer;
-import com.spring.model.Gather;
-import com.spring.model.Insframework;
+import com.alibaba.fastjson.JSON;
 import com.spring.model.MaintenanceRecord;
 import com.spring.model.WeldingMachine;
 import com.spring.model.WeldingMaintenance;
 import com.spring.service.MaintainService;
-import com.spring.service.WeldingMachineService;
 import com.sshome.ssmcxf.webservice.MaintainWebService;
 
 import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.MaintainWebService", serviceName = "MaintainWebService")
 public class MaintainWebServiceImpl implements MaintainWebService {
 	@Autowired
 	private MaintainService ms;
 	
 	@Override
-	public List<WeldingMaintenance> getWeldingMaintenanceAll(String object) {
+	public Object getWeldingMaintenanceAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.getWeldingMaintenanceAll(json.getString("str"));
+			List<WeldingMaintenance> list = ms.getWeldingMaintenanceAll(json.getString("str"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<WeldingMaintenance> getEndtime(String object) {
+	public Object getEndtime(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.getEndtime(new BigInteger(json.getString("wid")));
+			List<WeldingMaintenance> list = ms.getEndtime(new BigInteger(json.getString("wid")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public WeldingMaintenance getWeldingMaintenanceById(String object) {
+	public Object getWeldingMaintenanceById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.getWeldingMaintenanceById(new BigInteger(json.getString("wid")));
+			WeldingMaintenance list = ms.getWeldingMaintenanceById(new BigInteger(json.getString("wid")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<WeldingMachine> getEquipmentno() {
+	public Object getEquipmentno() {
 		try{
-			return ms.getEquipmentno();
+			List<WeldingMachine> list = ms.getEquipmentno();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -143,10 +141,11 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	}
 
 	@Override
-	public List<WeldingMaintenance> getMaintainByWeldingMachinId(String object) {
+	public Object getMaintainByWeldingMachinId(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.getMaintainByWeldingMachinId(new BigInteger(json.getString("wid")));
+			List<WeldingMaintenance> list = ms.getMaintainByWeldingMachinId(new BigInteger(json.getString("wid")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}

@@ -3,12 +3,11 @@ package com.sshome.ssmcxf.webservice.impl;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.spring.model.Gather;
 import com.spring.service.GatherService;
 import com.sshome.ssmcxf.webservice.GatherWebService;
@@ -17,16 +16,16 @@ import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.GatherWebService", serviceName = "GatherWebService")
 public class GatherWebServiceImpl implements GatherWebService{
 
 	@Autowired
 	private GatherService gs;
 	@Override
-	public List<Gather> getGatherAll(String object) {
+	public Object getGatherAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return gs.getGatherAll(json.getString("str"), new BigInteger(json.getString("insfId")));
+			List<Gather> list = gs.getGatherAll(json.getString("str"), new BigInteger(json.getString("insfId")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -54,10 +53,11 @@ public class GatherWebServiceImpl implements GatherWebService{
 	}
 
 	@Override
-	public Gather getGatherById(String object) {
+	public Object getGatherById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return gs.getGatherById(new BigInteger(json.getString("id")));
+			Gather list = gs.getGatherById(new BigInteger(json.getString("id")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}

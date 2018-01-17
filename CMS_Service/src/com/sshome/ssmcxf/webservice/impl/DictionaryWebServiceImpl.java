@@ -2,13 +2,11 @@ package com.sshome.ssmcxf.webservice.impl;
 
 import java.math.BigInteger;
 import java.util.List;
-
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.spring.model.Dictionarys;
 import com.spring.service.DictionaryService;
 import com.sshome.ssmcxf.webservice.DictionaryWebService;
@@ -17,17 +15,17 @@ import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.DictionaryWebService", serviceName = "DictionaryWebService")
 public class DictionaryWebServiceImpl implements DictionaryWebService{
 
 	@Autowired
 	private DictionaryService ds;
 	
 	@Override
-	public List<Dictionarys> getAllDictionary(String object) {
+	public Object getAllDictionary(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ds.getAllDictionary(json.getString("str"));
+			List<Dictionarys> list = ds.getAllDictionary(json.getString("str"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -63,10 +61,11 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 	}
 
 	@Override
-	public Dictionarys getDictionaryByFid(String object) {
+	public Object getDictionaryByFid(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ds.getDictionaryByFid(json.getInt("id"));
+			Dictionarys list = ds.getDictionaryByFid(json.getInt("id"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -83,20 +82,22 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 	}
 
 	@Override
-	public List<Dictionarys> getDictionaryValue(String object) {
+	public Object getDictionaryValue(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ds.getDictionaryValue(json.getInt("typeId"));
+			List<Dictionarys> list = ds.getDictionaryValue(json.getInt("typeId"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Dictionarys> getDicValueByValue(String object) {
+	public Object getDicValueByValue(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ds.getDicValueByValue(json.getInt("typeId"), json.getInt("value"));
+			List<Dictionarys> list = ds.getDicValueByValue(json.getInt("typeId"), json.getInt("value"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}

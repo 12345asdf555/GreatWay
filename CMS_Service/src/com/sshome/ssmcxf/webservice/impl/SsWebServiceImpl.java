@@ -2,17 +2,15 @@ package com.sshome.ssmcxf.webservice.impl;
 
 import java.math.BigInteger;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.service.WeldService;
 import com.sshome.ssmcxf.webservice.SsWebService;
+
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.SsWebService", serviceName = "SsWebService")
 public class SsWebServiceImpl implements SsWebService {
 
 	@Autowired

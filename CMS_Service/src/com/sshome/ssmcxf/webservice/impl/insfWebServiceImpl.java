@@ -3,12 +3,11 @@ package com.sshome.ssmcxf.webservice.impl;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.spring.model.Insframework;
 import com.spring.service.InsframeworkService;
 import com.sshome.ssmcxf.webservice.InsfWebService;
@@ -17,16 +16,16 @@ import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.InsfWebService", serviceName = "InsfWebService")
 public class insfWebServiceImpl implements InsfWebService {
 	@Autowired
 	private InsframeworkService is;
 	
 	@Override
-	public List<Insframework> getInsframeworkAll(String object) {
+	public Object getInsframeworkAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return is.getInsframeworkAll(new BigInteger(json.getString("insfId")), json.getString("str"));
+			List<Insframework> list = is.getInsframeworkAll(new BigInteger(json.getString("insfId")), json.getString("str"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -97,68 +96,75 @@ public class insfWebServiceImpl implements InsfWebService {
 	}
 
 	@Override
-	public Insframework getInsfAllById(String object) {
+	public Object getInsfAllById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return is.getInsfAllById(new BigInteger(json.getString("insfId")));
+			Insframework list = is.getInsfAllById(new BigInteger(json.getString("insfId")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public Insframework getBloc() {
+	public Object getBloc() {
 		try{
-			return is.getBloc();
+			Insframework list = is.getBloc();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Insframework> getCompany() {
+	public Object getCompany() {
 		try{
-			return is.getConmpany();
+			 List<Insframework> list = is.getConmpany();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Insframework> getCause(String object) {
-		try{
-			JSONObject json = JSONObject.fromObject(object);
-			return is.getCause(new BigInteger(json.getString("insfId")));
-		}catch(Exception e){
-			return null;
-		}
-	}
-
-	@Override
-	public List<Insframework> getWeldingMachineInsf(String object) {
+	public Object getCause(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return is.getWeldingMachineInsf(new BigInteger(json.getString("insfId")));
+			List<Insframework> list = is.getCause(new BigInteger(json.getString("insfId")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public Insframework getParent(String object) {
+	public Object getWeldingMachineInsf(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return is.getParent(new BigInteger(json.getString("insfId")));
+			List<Insframework> list = is.getWeldingMachineInsf(new BigInteger(json.getString("insfId")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Insframework> getInsByType(String object) {
+	public Object getParent(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return is.getInsByType(json.getInt("typeId"), new BigInteger(json.getString("insfId")));
+			Insframework list =  is.getParent(new BigInteger(json.getString("insfId")));
+			return JSON.toJSONString(list);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	@Override
+	public Object getInsByType(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			List<Insframework> list = is.getInsByType(json.getInt("typeId"), new BigInteger(json.getString("insfId")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -205,10 +211,11 @@ public class insfWebServiceImpl implements InsfWebService {
 	}
 
 	@Override
-	public List<Insframework> getInsByUserid(String object) {
+	public Object getInsByUserid(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return is.getInsByUserid(new BigInteger(json.getString("userId")));
+			List<Insframework> list = is.getInsByUserid(new BigInteger(json.getString("userId")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}

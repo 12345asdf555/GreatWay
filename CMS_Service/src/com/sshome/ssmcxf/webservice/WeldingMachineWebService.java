@@ -1,71 +1,63 @@
 package com.sshome.ssmcxf.webservice;
 
 import java.math.BigInteger;
-import java.util.List;
 
-import javax.jws.WebParam;
-import javax.jws.WebService;
-
-import com.spring.model.EquipmentManufacturer;
-import com.spring.model.WeldingMachine;
-
-@WebService
 public interface WeldingMachineWebService {
 
 	/**
 	 * 查询所有焊机信息
 	 */
-	List<WeldingMachine> getWeldingMachineAll(@WebParam(name="object")String object);
+	Object getWeldingMachineAll(String object);
 	
 	/**
 	 * 查询所有焊机信息
 	 */
-	List<WeldingMachine> getWeldingMachine(@WebParam(name="object")String object);
+	Object getWeldingMachine(String object);
 	
 	/**
 	 * 查询所有厂商信息
 	 */
-	List<EquipmentManufacturer> getManuAll();
+	Object getManuAll();
 	
 	/**
 	 * 新增设备
 	 */
-	boolean addWeldingMachine(@WebParam(name="object")String object);
+	boolean addWeldingMachine(String object);
 	
 	/**
 	 * 修改设备
 	 */
-	boolean editWeldingMachine(@WebParam(name="object")String object);
+	boolean editWeldingMachine(String object);
 	
 	/**
 	 * 删除设备
 	 */
-	boolean deleteWeldingChine(@WebParam(name="object")String object);
+	boolean deleteWeldingChine(String object);
 	
 	/**
 	 * 根据焊机编号查找id
 	 */
-	BigInteger getWeldingMachineByEno(@WebParam(name="object")String object);
+	BigInteger getWeldingMachineByEno(String object);
 	
 	/**
 	 * 判断焊机编号是否存在
 	 */
-	int getEquipmentnoCount(@WebParam(name="object")String object);
+	int getEquipmentnoCount(String object);
 	
 	/**
 	 * 判断采集序号是否存在
 	 */
-	int getGatheridCount(@WebParam(name="object")String object);
+	int getGatheridCount(String object);
 	
 	/**
 	 * 根据厂商值和类型查找厂商id
 	 */
-	BigInteger getManuidByValue(@WebParam(name="object")String object);
+	BigInteger getManuidByValue(String object);
 	
 	/**
 	 * 根据id查找记录
 	 */
-	WeldingMachine getWeldingMachineById(@WebParam(name="object")String object);
+	Object getWeldingMachineById(String object);
 	
 	/**
 	 * 根据项目名称获取项目id
@@ -75,5 +67,5 @@ public interface WeldingMachineWebService {
 	/**
 	 * 获取某厂商下的焊机总数
 	 */
-	BigInteger getMachineCountByManu(@WebParam(name="object")String object);
+	BigInteger getMachineCountByManu(String object);
 }

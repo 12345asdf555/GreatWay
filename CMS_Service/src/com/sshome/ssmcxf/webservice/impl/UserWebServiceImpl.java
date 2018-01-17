@@ -3,12 +3,11 @@ package com.sshome.ssmcxf.webservice.impl;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.spring.model.User;
 import com.spring.service.UserService;
 import com.sshome.ssmcxf.webservice.UserWebService;
@@ -16,7 +15,6 @@ import com.sshome.ssmcxf.webservice.UserWebService;
 import net.sf.json.JSONObject;
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.UserWebService", serviceName = "UserWebService")
 public class UserWebServiceImpl implements UserWebService {
 	@Autowired
 	private UserService us;
@@ -71,10 +69,11 @@ public class UserWebServiceImpl implements UserWebService {
 	}
 
 	@Override
-	public User findById(String object) {
+	public  Object findById(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.findById(json.getInt("uId"));
+			User list = us.findById(json.getInt("uId"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -101,29 +100,32 @@ public class UserWebServiceImpl implements UserWebService {
 	}
 
 	@Override
-	public List<User> findAll(String object) {
+	public Object findAll(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.findAll(new BigInteger(json.getString("insfId")), json.getString("str"));
+			List<User> list = us.findAll(new BigInteger(json.getString("insfId")), json.getString("str"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<User> findRole(String object) {
+	public Object findRole(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.findRole(json.getInt("uId"));
+			List<User> list = us.findRole(json.getInt("uId"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<User> findAllRole() {
+	public Object findAllRole() {
 		try{
-			return us.findAllRole();
+			List<User> list = us.findAllRole();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -140,50 +142,55 @@ public class UserWebServiceImpl implements UserWebService {
 	}
 
 	@Override
-	public User LoadUser(String object) {
+	public Object LoadUser(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.LoadUser(json.getString("loginName"));
+			User list = us.LoadUser(json.getString("loginName"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<String> getAuthoritiesByUsername(String object) {
+	public Object getAuthoritiesByUsername(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.getAuthoritiesByUsername(json.getString("loginName"));
+			List<String> list = us.getAuthoritiesByUsername(json.getString("loginName"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<User> getIns(String object) {
+	public Object getIns(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.getIns(new BigInteger(json.getString("insfId")));
+			List<User> list = us.getIns(new BigInteger(json.getString("insfId")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public User getUserInsframework(String object) {
+	public Object getUserInsframework(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.getUserInsframework(new BigInteger(json.getString("uId")));
+			User list = us.getUserInsframework(new BigInteger(json.getString("uId")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<User> getInsUser(String object) {
+	public Object getInsUser(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.getInsUser(json.getInt("insfId"));
+			List<User> list = us.getInsUser(json.getInt("insfId"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}

@@ -2,12 +2,11 @@ package com.sshome.ssmcxf.webservice.impl;
 
 import java.util.List;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.spring.model.Td;
 import com.spring.service.TdService;
 import com.sshome.ssmcxf.webservice.TdWebService;
@@ -16,35 +15,37 @@ import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.TdWebService", serviceName = "TdWebService")
 public class TdWebServiceImpl implements TdWebService{
 	@Autowired
 	private TdService ts;
 
 	@Override
-	public List<Td> findAll(String object) {
+	public Object findAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ts.findAll(json.getString("str"));
+			List<Td> list = ts.findAll(json.getString("str"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Td> findAlldiv(String object) {
+	public Object findAlldiv(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ts.findAlldiv(json.getLong("insfId"));
+			List<Td> list =  ts.findAlldiv(json.getLong("insfId"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Td> getAllPosition() {
+	public Object getAllPosition() {
 		try{
-			return ts.getAllPosition();
+			List<Td> list = ts.getAllPosition();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -101,9 +102,10 @@ public class TdWebServiceImpl implements TdWebService{
 	}
 
 	@Override
-	public List<Td> allWeldname() {
+	public Object allWeldname() {
 		try{
-			return ts.allWeldname();
+			List<Td> list = ts.allWeldname();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}

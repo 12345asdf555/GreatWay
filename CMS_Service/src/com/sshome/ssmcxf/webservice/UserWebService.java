@@ -1,27 +1,19 @@
 package com.sshome.ssmcxf.webservice;
 
-import java.util.List;
-
-import javax.jws.WebParam;
-import javax.jws.WebService;
-
-import com.spring.model.User;
-
-@WebService
 public interface UserWebService {
-	boolean save(@WebParam(name="object") String object);
-	boolean update(@WebParam(name="object") String object);
-	boolean delete(@WebParam(name="object") String object);
-	User findById(@WebParam(name="object") String object);
-	String findByRoleId(@WebParam(name="object") String object);
-	int findByName(@WebParam(name="object") String object);
-	List<User> findAll(@WebParam(name="object") String object);
-	List<User> findRole(@WebParam(name="object") String object);
-	List<User> findAllRole();
-	int getUsernameCount(@WebParam(name="object") String object);
-	User LoadUser(@WebParam(name="object") String object);
-	List<String> getAuthoritiesByUsername(@WebParam(name="object") String object);
-	List<User> getIns(@WebParam(name="object") String object);
-	User getUserInsframework(@WebParam(name="object") String object);
-	List<User> getInsUser(@WebParam(name="object") String object);
+	boolean save( String object);
+	boolean update(String object);
+	boolean delete(String object);
+	Object findById(String object);
+	String findByRoleId(String object);
+	int findByName(String object);
+	Object findAll(String object);
+	Object findRole(String object);
+	Object findAllRole();
+	int getUsernameCount(String object);
+	Object LoadUser(String object);
+	Object getAuthoritiesByUsername(String object);
+	Object getIns(String object);
+	Object getUserInsframework(String object);
+	Object getInsUser(String object);
 }

@@ -2,12 +2,11 @@ package com.sshome.ssmcxf.webservice.impl;
 
 import java.util.List;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.spring.model.Role;
 import com.spring.service.RoleService;
 import com.sshome.ssmcxf.webservice.RoleWebService;
@@ -16,7 +15,6 @@ import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.RoleWebService", serviceName = "RoleWebService")
 public class RoleWebServiceImpl implements RoleWebService{
 	@Autowired
 	private RoleService ros;
@@ -107,10 +105,11 @@ public class RoleWebServiceImpl implements RoleWebService{
 	}
 
 	@Override
-	public Role findRoleById(String object) {
+	public Object findRoleById(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return ros.findById(json.getInt("roleId"));
+			Role list = ros.findById(json.getInt("roleId"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -137,29 +136,32 @@ public class RoleWebServiceImpl implements RoleWebService{
 	}
 
 	@Override
-	public List<Role> findRoleAll(String object) {
+	public Object findRoleAll(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return ros.findAll(json.getString("str"));
+			List<Role> list = ros.findAll(json.getString("str"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Role> findIdDescByAuthority() {
+	public Object findIdDescByAuthority() {
 		try{
-			return ros.findAllAuthority();
+			List<Role> list = ros.findAllAuthority();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Role> findAuthorityDetail(String object) {
+	public Object findAuthorityDetail(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return ros.findAuthority(json.getInt("roleId"));
+			List<Role> list = ros.findAuthority(json.getInt("roleId"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
@@ -176,19 +178,21 @@ public class RoleWebServiceImpl implements RoleWebService{
 	}
 
 	@Override
-	public List<Role> findAllUser() {
+	public Object findAllUser() {
 		try{
-			return ros.findAllUser();
+			List<Role> list = ros.findAllUser();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Role> findUserRoleDetail(String object) {
+	public Object findUserRoleDetail(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return ros.findUser(json.getInt("roleId"));
+			List<Role> list = ros.findUser(json.getInt("roleId"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}

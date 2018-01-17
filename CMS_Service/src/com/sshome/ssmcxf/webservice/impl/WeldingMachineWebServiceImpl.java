@@ -3,19 +3,15 @@ package com.sshome.ssmcxf.webservice.impl;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.spring.model.EquipmentManufacturer;
 import com.spring.model.Gather;
 import com.spring.model.Insframework;
-import com.spring.model.MaintenanceRecord;
 import com.spring.model.WeldingMachine;
-import com.spring.model.WeldingMaintenance;
-import com.spring.service.MaintainService;
 import com.spring.service.WeldingMachineService;
 import com.sshome.ssmcxf.webservice.WeldingMachineWebService;
 
@@ -23,37 +19,39 @@ import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.WeldingMachineWebService", serviceName = "WeldingMachineWebService")
 public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	@Autowired
 	private WeldingMachineService wms;
 	
 	@Override
-	public List<WeldingMachine> getWeldingMachineAll(String object) {
+	public Object getWeldingMachineAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			BigInteger parent = new BigInteger(json.getString("insId"));
 			String str = json.getString("str");
-			return wms.getWeldingMachineAll(parent, str);
+			List<WeldingMachine> list =  wms.getWeldingMachineAll(parent, str);
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<WeldingMachine> getWeldingMachine(String object) {
+	public Object getWeldingMachine(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return wms.getWeldingMachine(json.getString("str"));
+			List<WeldingMachine> list = wms.getWeldingMachine(json.getString("str"));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<EquipmentManufacturer> getManuAll() {
+	public Object getManuAll() {
 		try{
-			return wms.getManuAll();
+			List<EquipmentManufacturer> list =  wms.getManuAll();
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -168,10 +166,11 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	}
 
 	@Override
-	public WeldingMachine getWeldingMachineById(String object) {
+	public Object getWeldingMachineById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return wms.getWeldingMachineById(new BigInteger(json.getString("wid")));
+			WeldingMachine list = wms.getWeldingMachineById(new BigInteger(json.getString("wid")));
+			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
 		}

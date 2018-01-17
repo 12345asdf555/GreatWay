@@ -16,8 +16,10 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 		
-
+	<!-- 注解扫描包 -->
     <context:component-scan base-package="com.spring.service" />
+    <context:component-scan base-package="com.sshome.ssmcxf" />
+    
 	<!-- 1. 数据源 : DriverManagerDataSource -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -52,7 +54,7 @@
 
 	<aop:config>
 		<aop:pointcut id="appService"
-			expression="execution(* com.spring.service..*Service*.*(..))" />
+			expression="execution(* com.spring.service..*Service*.*(..)) or execution(* com.sshome.ssmcxf.webservice..*Service*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="appService" />
 	</aop:config>
 
