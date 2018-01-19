@@ -1,5 +1,4 @@
 $(function(){
-	hourscombobox();
 	BloctimeDatagrid();
 })
 var chartStr = "";
@@ -11,8 +10,7 @@ function setParam(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var number = $("#number").val();
-	var hours = $("#hours").combobox('getValue');
-	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&hours="+hours+"&number="+number;
+	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&number="+number;
 }
 
 function showBlocOverptimeChart(){
@@ -138,13 +136,6 @@ function BloctimeDatagrid(){
 			pagination : true,
 			columns :[column]
 	 })
-}
-
-function hourscombobox(){
-	var str = "<option value='hour'>一小时</option><option value='second'>一分钟</option>";
-	$("#hours").html(str);
-	$("#hours").combobox();
-	$("#hours").combobox('setValue','hour');
 }
 
 function serachBlocOvertime(){

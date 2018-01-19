@@ -364,7 +364,6 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		String number = request.getParameter("number");
-		String hours = request.getParameter("hours");
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(parentId)){
 			//数据权限处理
@@ -397,13 +396,6 @@ public class CompanyChartController {
 				dto.setDay("day");
 			}else if(type.equals("4")){
 				dto.setWeek("week");
-			}
-		}
-		if(iutil.isNull(hours)){
-			if(hours.equals("hour")){
-				dto.setHour("hour");
-			}else if(hours.equals("second")){
-				dto.setSecond("second");
 			}
 		}
 		if(!iutil.isNull(number)){

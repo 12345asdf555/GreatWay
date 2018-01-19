@@ -42,7 +42,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input  name="time1" id="time1" type="hidden" value="${time1 }"/>
 				<input  name="time2" id="time2" type="hidden" value="${time2 }"/>
 				<input  name="number" id="number" type="hidden" value="${number }"/>
-				<input  name="hours" id="hours" type="hidden" value="${hours }"/>
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>

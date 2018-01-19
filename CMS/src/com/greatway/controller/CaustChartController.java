@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +21,6 @@ import com.greatway.model.Insframework;
 import com.greatway.model.LiveData;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
-import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -375,7 +373,6 @@ public class CaustChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		String number = request.getParameter("number");
-		String hours = request.getParameter("hours");
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
 		if(!iutil.isNull(parentId)){
@@ -414,13 +411,6 @@ public class CaustChartController {
 				dto.setDay("day");
 			}else if(type.equals("4")){
 				dto.setWeek("week");
-			}
-		}
-		if(iutil.isNull(hours)){
-			if(hours.equals("hour")){
-				dto.setHour("hour");
-			}else if(hours.equals("second")){
-				dto.setSecond("second");
 			}
 		}
 		if(!iutil.isNull(number)){

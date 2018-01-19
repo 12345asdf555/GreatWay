@@ -78,6 +78,15 @@ function detailOverproofDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
+			field : 'overnum',
+			title : '超标次数',
+			width : 100,
+			halign : "center",
+			align : "left",
+			formatter:function(value,row,index){
+				return row.overproof;
+			}
+		}, {
 			field : 'overproof',
 			title : '超标率',
 			width : 100,

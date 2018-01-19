@@ -550,7 +550,6 @@ public class ItemChartController {
 		String item = request.getParameter("item");
 		String type = request.getParameter("otype");
 		String number = request.getParameter("number");
-		String hours = request.getParameter("hours");
 		WeldDto dto = new WeldDto();
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -572,13 +571,6 @@ public class ItemChartController {
 				dto.setDay("day");
 			}else if(type.equals("4")){
 				dto.setWeek("week");
-			}
-		}
-		if(iutil.isNull(hours)){
-			if(hours.equals("hour")){
-				dto.setHour("hour");
-			}else if(hours.equals("second")){
-				dto.setSecond("second");
 			}
 		}
 		if(!iutil.isNull(number)){

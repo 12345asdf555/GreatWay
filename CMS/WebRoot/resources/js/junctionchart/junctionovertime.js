@@ -8,13 +8,12 @@ function junctionOvertimeDatagrid(){
 	var time1 = $("#time1").val();
 	var time2 = $("#time2").val();
 	var number = $("#number").val();
-	var hours = $("#hours").val();
 	$("#junctionOvertimeTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#junctionOvertime_btn").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getjunctionovertime?parent="+parent+"&hours="+hours+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2+"&number="+number,
+		url : "junctionChart/getjunctionovertime?parent="+parent+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2+"&number="+number,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],

@@ -722,15 +722,7 @@
 				weekofyear(times)
 			</if>
 		</if> weldTime from (
-        SELECT case when count(l.fid) &gt;= #{num} then 1 else 0 end as num,fmachine_id,insf.fid,insf.fname,
-        <if test="dto!=null and dto!=''">
-			<if test="dto.hour!=null and dto.hour!=''">
-				DATE_FORMAT( fweldtime,'%Y-%m-%d %H')
-			</if>
-			<if test="dto.second!=null and dto.second!=''">
-				DATE_FORMAT( fweldtime,'%Y-%m-%d %H:%i')
-			</if>
-		</if> times
+        SELECT case when count(l.fid)/60 &gt;= #{num} then 1 else 0 end as num,fmachine_id,insf.fid,insf.fname,DATE_FORMAT( fweldtime,'%Y-%m-%d' ) times
 		FROM tb_live_data l 
         INNER JOIN tb_welding_machine m on l.fmachine_id = m.fid
         INNER JOIN tb_insframework i on i.fid = m.finsframework_id
@@ -768,15 +760,7 @@
 				weekofyear(times)
 			</if>
 		</if> weldTime from (
-        SELECT case when count(l.fid) &gt;= #{num} then 1 else 0 end as num,fmachine_id,ins.fid,ins.fname,
-        <if test="dto!=null and dto!=''">
-			<if test="dto.hour!=null and dto.hour!=''">
-				DATE_FORMAT( fweldtime,'%Y-%m-%d %H')
-			</if>
-			<if test="dto.second!=null and dto.second!=''">
-				DATE_FORMAT( fweldtime,'%Y-%m-%d %H:%i')
-			</if>
-		</if> times
+        SELECT case when count(l.fid)/60 &gt;= #{num} then 1 else 0 end as num,fmachine_id,ins.fid,ins.fname,DATE_FORMAT( fweldtime,'%Y-%m-%d' ) times
 		FROM tb_live_data l 
         INNER JOIN tb_welding_machine m on l.fmachine_id = m.fid
         INNER JOIN tb_insframework i on i.fid = m.finsframework_id
@@ -816,15 +800,7 @@
 				weekofyear(times)
 			</if>
 		</if> weldTime from (
-        SELECT case when count(l.fid) &gt;= #{num} then 1 else 0 end as num,fmachine_id,i.fid,i.fname,
-        <if test="dto!=null and dto!=''">
-			<if test="dto.hour!=null and dto.hour!=''">
-				DATE_FORMAT( fweldtime,'%Y-%m-%d %H')
-			</if>
-			<if test="dto.second!=null and dto.second!=''">
-				DATE_FORMAT( fweldtime,'%Y-%m-%d %H:%i')
-			</if>
-		</if> times
+        SELECT case when count(l.fid)/60 &gt;= #{num} then 1 else 0 end as num,fmachine_id,i.fid,i.fname,DATE_FORMAT( fweldtime,'%Y-%m-%d' ) times
 		FROM tb_live_data l 
         INNER JOIN tb_welding_machine m on l.fmachine_id = m.fid
         INNER JOIN tb_insframework i on i.fid = m.finsframework_id
@@ -864,15 +840,7 @@
 				weekofyear(times)
 			</if>
 		</if> weldTime from (
-        SELECT case when count(l.fid) &gt;= #{num} then 1 else 0 end as num,fmachine_id,i.fid,i.fname,
-        <if test="dto!=null and dto!=''">
-			<if test="dto.hour!=null and dto.hour!=''">
-				DATE_FORMAT( fweldtime,'%Y-%m-%d %H')
-			</if>
-			<if test="dto.second!=null and dto.second!=''">
-				DATE_FORMAT( fweldtime,'%Y-%m-%d %H:%i')
-			</if>
-		</if> times
+        SELECT case when count(l.fid)/60 &gt;= #{num} then 1 else 0 end as num,fmachine_id,i.fid,i.fname,DATE_FORMAT( fweldtime,'%Y-%m-%d' ) times
 		FROM tb_live_data l 
         INNER JOIN tb_welding_machine m on l.fmachine_id = m.fid
         INNER JOIN tb_insframework i on i.fid = m.finsframework_id
@@ -909,14 +877,7 @@
 	<select id="getDetailovertime" resultMap="dtoMap">
 		SELECT * from (select sum(num) overtime,fid,fname,wname,fequipment_no fmachine_id, fwelder_id, weldTime from (
 		SELECT case when count(l.fid) &gt;=#{num} then 1 else 0 end as num,fequipment_no,i.fid,i.fname,w.fname wname,fwelder_id,
-		 <if test="dto!=null and dto!=''">
-			<if test="dto.hour!=null and dto.hour!=''">
-				DATE_FORMAT( fweldtime,'%Y-%m-%d %H')
-			</if>
-			<if test="dto.second!=null and dto.second!=''">
-				DATE_FORMAT( fweldtime,'%Y-%m-%d %H:%i')
-			</if>
-		</if> weldTime
+		DATE_FORMAT( fweldtime,'%Y-%m-%d' ) weldTime
 		FROM tb_live_data l 
         inner join tb_welding_machine m on l.fmachine_id = m.fid
         INNER join tb_insframework i on i.fid = m.finsframework_id
@@ -1779,7 +1740,7 @@
 	<select id="companyEfficiency" resultMap="dtoMap">
 		select * from (
 		select * from (
-		SELECT ins.fid fid,ins.fname iname,w.fname wname,w.fwelder_no fwelder_id,round(COUNT(l.fid)/60/60) weldtime,group_concat(DISTINCT(j.fid)) jidgather
+		SELECT ins.fid fid,ins.fname iname,w.fname wname,l.fwelder_id fwelder_id,round(COUNT(l.fid)/60/60) weldtime,group_concat(DISTINCT(j.fid)) jidgather
 		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId
@@ -1809,7 +1770,7 @@
 	<select id="blocEfficiency" resultMap="dtoMap">
 		select * from (
 		select * from (
-		SELECT insf.fid,insf.fname iname,w.fname wname,w.fwelder_no fwelder_id,round(COUNT(l.fid)/60/60) weldtime,group_concat(DISTINCT(j.fid)) jidgather
+		SELECT insf.fid,insf.fname iname,w.fname wname,l.fwelder_id fwelder_id,round(COUNT(l.fid)/60/60) weldtime,group_concat(DISTINCT(j.fid)) jidgather
 		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId
@@ -1840,7 +1801,7 @@
 	<select id="caustEfficiency" resultMap="dtoMap">
 		select * from (
 		select * from (
-		SELECT i.fid fid,i.fname iname,w.fname wname,w.fwelder_no fwelder_id, round(COUNT(l.fid)/60/60) weldtime,group_concat(DISTINCT(j.fid)) jidgather
+		SELECT i.fid fid,i.fname iname,w.fname wname,l.fwelder_id fwelder_id, round(COUNT(l.fid)/60/60) weldtime,group_concat(DISTINCT(j.fid)) jidgather
 		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = j.fitemId

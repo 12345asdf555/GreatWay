@@ -1,5 +1,4 @@
 $(function(){
-	hourscombobox();
 	ItemtimeCombobox();
 	ItemtimeDatagrid();
 })
@@ -13,9 +12,8 @@ function setParam(){
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var item = $("#item").combobox("getValue");
 	var otype = $("input[name='otype']:checked").val();
-	var hours = $("#hours").combobox('getValue');
 	var number = $("#number").val();
-	chartStr += "&item="+item+"&otype="+otype+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&hours="+hours+"&number="+number;
+	chartStr += "&item="+item+"&otype="+otype+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&number="+number;
 }
 
 function showItemOverptimeChart(){
@@ -108,7 +106,6 @@ function ItemtimeDatagrid(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var number = $("#number").val();
-	var hours = $("#hours").combobox('getValue');
 	var parent = $("#parent").val();
 	var column = new Array();
 	 $.ajax({  
@@ -125,7 +122,7 @@ function ItemtimeDatagrid(){
                  for(var m=0;m<result.arys.length;m++){
                 	 column.push({field:"overtime",title:result.arys[m].name+"(次)",width:width,halign : "center",align : "left",
                 		 formatter : function(value,row,index){
-                			 return "<a href='junctionChart/goJunctionOvertime?parent="+row.id+"&hours="+hours+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&number="+number+"'>"+value+"</a>";
+                			 return "<a href='junctionChart/goJunctionOvertime?parent="+row.id+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&number="+number+"'>"+value+"</a>";
                 		 }
                 	 },{field:"id",title:"项目id",width:width,halign : "center",align : "left",hidden : true});
                  }
@@ -178,12 +175,6 @@ function ItemtimeCombobox(){
 	$("#item").combobox('select',data[0].value);
 }
 
-function hourscombobox(){
-	var str = "<option value='hour'>一小时</option><option value='second'>一分钟</option>";
-	$("#hours").html(str);
-	$("#hours").combobox();
-	$("#hours").combobox('setValue','hour');
-}
 
 function serachItemOvertime(){
 	chartStr = "";
