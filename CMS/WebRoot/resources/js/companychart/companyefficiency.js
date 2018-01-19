@@ -7,12 +7,14 @@ $(document).ready(function(){
 	showcompanyEfficiencyChart();
 })
 
+var min="";
+var max ="";
 function setParam(){
 	var parent = $('#parent').combobox('getValue');
 	var nextparent = $("#nextparent").val();
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "?parent="+parent+"&nextparent="+nextparent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	chartStr = "?parent="+parent+"&nextparent="+nextparent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&min="+min+"&max="+max;
 }
 
 function showcompanyEfficiencyChart(){
@@ -102,6 +104,13 @@ function showcompanyEfficiencyChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	//echarts 点击事件
+	charts.on('click', function (param) {
+		var str = new Array();
+		str = param.name.split("-");
+		min = str[0],max=str[1];
+	    CompanyEfficiencyDatagrid();
+	});
 }
 
 function typecombobox(){
@@ -195,7 +204,7 @@ function CompanyEfficiencyDatagrid(){
 }
 
 function serachEfficiencyCompany(){
-	chartStr = "";
+	chartStr = "",min="",max="";
 	$("#nextparent").val("");
 	showcompanyEfficiencyChart();
 	CompanyEfficiencyDatagrid();

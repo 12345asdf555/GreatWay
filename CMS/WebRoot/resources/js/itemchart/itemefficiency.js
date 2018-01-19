@@ -7,7 +7,11 @@ function setParam(){
 	var nextparent = $("#nextparent").val();
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "?nextparent="+nextparent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	var max = $("#max").val();
+	var min = $("#min").val();
+	var time1 = $("#time1").val();
+	var time2 = $("#time2").val();
+	chartStr = "?nextparent="+nextparent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&min="+min+"&max="+max+"&time1="+time1+"&time2="+time2;
 }
 
 function ItemEfficiencyDatagrid(){
@@ -67,6 +71,8 @@ function ItemEfficiencyDatagrid(){
 
 function serachEfficiencyItem(){
 	chartStr = "";
+	var time1 = $("#time1").val("");
+	var time2 = $("#time2").val("");
 	ItemEfficiencyDatagrid();
 }
 

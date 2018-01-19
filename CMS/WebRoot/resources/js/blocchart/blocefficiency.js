@@ -7,12 +7,14 @@ $(document).ready(function(){
 	showblocEfficiencyChart();
 })
 
+var min="";
+var max ="";
 function setParam(){
 	var parent = $('#parent').combobox('getValue');
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var otype = $("input[name='otype']:checked").val();
-	chartStr = "?parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype;
+	chartStr = "?parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype+"&min="+min+"&max="+max;
 }
 
 function showblocEfficiencyChart(){
@@ -102,6 +104,13 @@ function showblocEfficiencyChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	//echarts 点击事件
+	charts.on('click', function (param) {
+		var str = new Array();
+		str = param.name.split("-");
+		min = str[0],max=str[1];
+		BlocEfficiencyDatagrid();
+	});
 }
 
 function typecombobox(){
@@ -195,7 +204,7 @@ function BlocEfficiencyDatagrid(){
 }
 
 function serachEfficiencyBloc(){
-	chartStr = "";
+	chartStr = "",min="",max="";
 	showblocEfficiencyChart();
 	BlocEfficiencyDatagrid();
 }

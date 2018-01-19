@@ -45,6 +45,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input  name="nextexternaldiameter" id="nextexternaldiameter" type="hidden" value="${nextexternaldiameter }"/>
 				<input  name="nextmaterial" id="nextmaterial" type="hidden" value="${nextmaterial }"/>
 				<input  name="nextwallthickness" id="nextwallthickness" type="hidden" value="${nextwall_thickness }"/>
+				<input  name="time1" id="time1" type="hidden" value="${time1 }"/>
+				<input  name="time2" id="time2" type="hidden" value="${time2 }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">

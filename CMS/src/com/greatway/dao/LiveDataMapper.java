@@ -94,15 +94,17 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<LiveData> getBlocChildren();
 	
-	List<ModelDto> caustEfficiency(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+	List<ModelDto> caustEfficiency(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent,@Param("min")int min,@Param("max")int max);
 	
-	List<ModelDto> companyEfficiency(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+	List<ModelDto> companyEfficiency(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent,@Param("min")int min,@Param("max")int max);
 
-	List<ModelDto> blocEfficiency(@Param("dto")WeldDto dto,@Param("parent") BigInteger parent);
+	List<ModelDto> blocEfficiency(@Param("dto")WeldDto dto,@Param("parent") BigInteger parent,@Param("min")int min,@Param("max")int max);
 	
 	List<ModelDto> getEfficiencyChartNum(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
 	
 	List<ModelDto> getEfficiencyChart(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent,@Param("minnum")int minnum,@Param("avgnum")int avgnum);
 	
 	List<ModelDto> getHousClassify(@Param("parent")BigInteger parent,@Param("str")String str);
+	
+	BigInteger getDyneByJunctionno(@Param("str") String str);
 }

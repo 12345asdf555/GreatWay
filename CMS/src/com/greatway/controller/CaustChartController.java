@@ -219,11 +219,21 @@ public class CaustChartController {
 				String[] str = l.getJidgather().split(",");
 				if(l.getJidgather().equals("0")){
 					json.put("jidgather", "0");
+					json.put("dyne",0);
 				}else{
 					json.put("jidgather", str.length);
+					String strsql = "and (";
+					for(int i=0;i<str.length;i++){
+						strsql += " fid = "+str[i];
+						if(i<str.length-1){
+							strsql += " or";
+						}
+					}
+					strsql += " )";
+					BigInteger dyne = lm.getDyneByJunctionno(strsql);
+					json.put("dyne",dyne);
 				}
 				json.put("manhour", l.getHous());
-				json.put("dyne", l.getDyne());
 				json.put("name",l.getFname());
 				json.put("itemid",l.getFid());
 				ary.add(json);
@@ -944,6 +954,13 @@ public class CaustChartController {
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
 		String nextparent = request.getParameter("nextparent");
+		int min = -1,max = -1;
+		if(iutil.isNull(request.getParameter("min"))){
+			min = Integer.parseInt(request.getParameter("min"));
+		}
+		if(iutil.isNull(request.getParameter("max"))){
+			max = Integer.parseInt(request.getParameter("max"));
+		}
 		WeldDto dto = new WeldDto();
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
@@ -960,7 +977,7 @@ public class CaustChartController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.caustEfficiency(page, parent, dto);
+		List<ModelDto> list = lm.caustEfficiency(page, parent, dto, min, max);
 		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 		long total = pageinfo.getTotal();
 		JSONObject json = new JSONObject();
@@ -972,9 +989,19 @@ public class CaustChartController {
 				json.put("iname",m.getIname());
 				json.put("wname",m.getWname());
 				json.put("wid",m.getFwelder_id());
-				json.put("dyne",m.getDyne());
+				String[] str = m.getJidgather().split(",");
+				String search = "and (";
+				for(int i=0;i<str.length;i++){
+					search += " fid = "+str[i];
+					if(i<str.length-1){
+						search += " or";
+					}
+				}
+				search += " )";
+				BigInteger dyne = lm.getDyneByJunctionno(search);
+				json.put("dyne",dyne);
 				json.put("weldtime",m.getWeldTime());
-				json.put("num",m.getNum());
+				json.put("num",str.length);
 				ary.add(json);
 			}
 		}catch(Exception e){

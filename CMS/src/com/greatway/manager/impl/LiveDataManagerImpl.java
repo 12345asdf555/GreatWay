@@ -261,21 +261,22 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> caustEfficiency(Page page, BigInteger parent, WeldDto dto) {
+	public List<ModelDto> caustEfficiency(Page page, BigInteger parent, WeldDto dto, int min, int max) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return live.caustEfficiency(dto, parent);
+		return live.caustEfficiency(dto, parent,min,max);
 	}
 
 	@Override
-	public List<ModelDto> companyEfficiency(Page page, BigInteger parent, WeldDto dto) {
+	public List<ModelDto> companyEfficiency(Page page, BigInteger parent, WeldDto dto, int min, int max) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
-		return live.companyEfficiency(dto,parent);
+		return live.companyEfficiency(dto, parent, min, max);
+		
 	}
 
 	@Override
-	public List<ModelDto> blocEfficiency(Page page, WeldDto dto,BigInteger parent) {
+	public List<ModelDto> blocEfficiency(Page page, WeldDto dto,BigInteger parent, int min, int max) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
-		return live.blocEfficiency(dto,parent);
+		return live.blocEfficiency(dto,parent,min,max);
 	}
 
 	@Override
@@ -314,5 +315,10 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	public List<ModelDto> getItemUse(Page page, WeldDto dto, BigInteger insid) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
 		return live.getItemUse(dto, insid);
+	}
+
+	@Override
+	public BigInteger getDyneByJunctionno(String str) {
+		return live.getDyneByJunctionno(str);
 	}
 }

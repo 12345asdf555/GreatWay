@@ -53,6 +53,8 @@ public class JunctionChartController {
 		String itemid = request.getParameter("itemid");
 		String nextmaterial = request.getParameter("nextmaterial");
 		String nextwall_thickness = request.getParameter("nextwall_thickness");
+		String time1 = request.getParameter("time1");
+		String time2 = request.getParameter("time2");
 		request.setAttribute("item", itemid);
 		request.setAttribute("material", material);
 		request.setAttribute("externalDiameter",externalDiameter );
@@ -60,6 +62,8 @@ public class JunctionChartController {
 		request.setAttribute("nextexternaldiameter",nextexternaldiameter );
 		request.setAttribute("nextmaterial", nextmaterial);
 		request.setAttribute("nextwall_thickness",nextwall_thickness );
+		request.setAttribute("time1", time1);
+		request.setAttribute("time2", time2);
 		lm.getUserId(request);
 		return "junctionchart/junctionhour";
 	}
@@ -183,6 +187,8 @@ public class JunctionChartController {
 		String nextexternaldiameter = request.getParameter("nextexternaldiameter");
 		String nextmaterial = request.getParameter("nextmaterial");
 		String nextwallthickness = request.getParameter("nextwallthickness");
+		String time3 = request.getParameter("time1");
+		String time4 = request.getParameter("time2");
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(item)){
 			//处理用户数据权限
@@ -198,10 +204,11 @@ public class JunctionChartController {
 				item = insm.getUserInsfId(uid).toString();
 			}
 		}
-		if(iutil.isNull(time1)){
+		if(iutil.isNull(time3) || iutil.isNull(time4)){
+			dto.setDtoTime1(time3);
+			dto.setDtoTime2(time4);
+		}else if(iutil.isNull(time1) || iutil.isNull(time2)){
 			dto.setDtoTime1(time1);
-		}
-		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
 		}
 		if(iutil.isNull(item)){
@@ -238,7 +245,9 @@ public class JunctionChartController {
 		try{
 			for(ModelDto l:list){
 				json.put("manhour", l.getHous());
-				json.put("dyne", l.getDyne());
+				String search = "and fid = "+l.getFid();
+				BigInteger dyne = lm.getDyneByJunctionno(search);
+				json.put("dyne",dyne);
 				json.put("name",l.getFname());
 				json.put("itemid",l.getFid());
 				json.put("starttime",l.getStarttime());

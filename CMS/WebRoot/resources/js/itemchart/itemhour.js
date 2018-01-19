@@ -111,7 +111,7 @@ function itemHourDatagrid(){
 			formatter:function(value,row,index){
 				var str = row.material+"+"+row.nextmaterial+"+"+row.externalDiameter+"+"+row.nextexternaldiameter+"+"+row.wallThickness+"+"+row.nextwall_thickness;
 				return '<a href="junctionChart/goJunctionHour?material='+encodeURI(row.material)+'&nextmaterial='+encodeURI(row.nextmaterial)+'&externalDiameter='+encodeURI(row.externalDiameter)+'&nextexternaldiameter='+encodeURI(row.nextexternaldiameter)+
-				'&wallThickness='+encodeURI(row.wallThickness)+'&nextwall_thickness='+encodeURI(row.nextwall_thickness)+'&itemid='+row.itemid+'">'+str+'</a>';
+				'&wallThickness='+encodeURI(row.wallThickness)+'&nextwall_thickness='+encodeURI(row.nextwall_thickness)+'&itemid='+row.itemid+'&time1='+dtoTime1+'&time2='+dtoTime2+'">'+str+'</a>';
 			}
 		}, {
 			field : 'jidgather',

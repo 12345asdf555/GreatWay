@@ -169,7 +169,15 @@ public class ItemChartController {
 	@RequestMapping("/goItemEfficiency")
 	public String goCompanyEfficiency(HttpServletRequest request){
 		String nextparent = request.getParameter("nextparent");
+		String min = request.getParameter("min");
+		String max = request.getParameter("max");
+		String time1 = request.getParameter("time1");
+		String time2 = request.getParameter("time2");
 		request.setAttribute("nextparent", nextparent);
+		request.setAttribute("min", min);
+		request.setAttribute("max", max);
+		request.setAttribute("time1", time1);
+		request.setAttribute("time2", time2);
 		return "itemchart/itemefficiency";
 	}
 	
@@ -243,7 +251,16 @@ public class ItemChartController {
 					json.put("jidgather", str.length);
 				}
 				json.put("manhour", l.getHous());
-				json.put("dyne", l.getDyne());
+				String strsql = "and (";
+				for(int i=0;i<str.length;i++){
+					strsql += " fid = "+str[i];
+					if(i<str.length-1){
+						strsql += " or";
+					}
+				}
+				strsql += " )";
+				BigInteger dyne = lm.getDyneByJunctionno(strsql);
+				json.put("dyne",dyne);
 				json.put("nextexternaldiameter",l.getNextexternaldiameter());
 				json.put("externalDiameter",l.getExternalDiameter());
 				json.put("wallThickness",l.getWallThickness());
@@ -865,7 +882,16 @@ public class ItemChartController {
 	public String getItemEfficiency(HttpServletRequest request){
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
+		String time3 = request.getParameter("time1");
+		String time4 = request.getParameter("time2");
 		String parentId = request.getParameter("nextparent");
+		int min = -1,max = -1;
+		if(iutil.isNull(request.getParameter("min"))){
+			min = Integer.parseInt(request.getParameter("min"));
+		}
+		if(iutil.isNull(request.getParameter("max"))){
+			max = Integer.parseInt(request.getParameter("max"));
+		}
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(parentId)){
 			//处理用户数据权限
@@ -884,10 +910,11 @@ public class ItemChartController {
 			}
 		}
 		BigInteger parent = null;
-		if(iutil.isNull(time1)){
+		if(iutil.isNull(time3) || iutil.isNull(time4)){
+			dto.setDtoTime1(time3);
+			dto.setDtoTime2(time4);
+		}else if(iutil.isNull(time1) || iutil.isNull(time2)){
 			dto.setDtoTime1(time1);
-		}
-		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
 		}
 		if(iutil.isNull(parentId)){
@@ -896,7 +923,7 @@ public class ItemChartController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.caustEfficiency(page, parent, dto);
+		List<ModelDto> list = lm.caustEfficiency(page, parent, dto, min, max);
 		PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 		long total = pageinfo.getTotal();
 		JSONObject json = new JSONObject();
@@ -907,9 +934,19 @@ public class ItemChartController {
 				json.put("iname",m.getIname());
 				json.put("wname",m.getWname());
 				json.put("wid",m.getFwelder_id());
-				json.put("dyne",m.getDyne());
+				String[] str = m.getJidgather().split(",");
+				String search = "and (";
+				for(int i=0;i<str.length;i++){
+					search += " fid = "+str[i];
+					if(i<str.length-1){
+						search += " or";
+					}
+				}
+				search += " )";
+				BigInteger dyne = lm.getDyneByJunctionno(search);
+				json.put("dyne",dyne);
 				json.put("weldtime",m.getWeldTime());
-				json.put("num",m.getNum());
+				json.put("num",str.length);
 				ary.add(json);
 			}
 		}catch(Exception e){

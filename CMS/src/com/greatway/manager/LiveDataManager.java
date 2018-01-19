@@ -342,7 +342,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> caustEfficiency(Page page,BigInteger parent,WeldDto dto);
+	List<ModelDto> caustEfficiency(Page page,BigInteger parent,WeldDto dto,int min,int max);
 	
 	/**
 	 * 公司工效
@@ -351,7 +351,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> companyEfficiency(Page page ,BigInteger parent,WeldDto dto);
+	List<ModelDto> companyEfficiency(Page page ,BigInteger parent,WeldDto dto,int min,int max);
 	
 	/**
 	 * 集团工效
@@ -360,7 +360,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> blocEfficiency(Page page,WeldDto dto,BigInteger parent);
+	List<ModelDto> blocEfficiency(Page page,WeldDto dto,BigInteger parent,int min,int max);
 	
 	/**
 	 * 获取工效最大值最小值以及平均跨度
@@ -392,4 +392,11 @@ public interface LiveDataManager {
 	List<ModelDto> getHousClassify(Page page,BigInteger parent,String searchStr);
 	
 	List<ModelDto> getDetailNoLoads(Page page,WeldDto dto);
+	
+	/**
+	 * 获取焊机id总达因值
+	 * @param str 拼接的焊机id条件
+	 * @return
+	 */
+	BigInteger getDyneByJunctionno(String str);
 }

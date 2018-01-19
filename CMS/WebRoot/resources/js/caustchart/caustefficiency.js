@@ -7,12 +7,13 @@ $(document).ready(function(){
 	showcaustEfficiencyChart();
 })
 
+var min="",max ="";
 function setParam(){
 	var parent = $('#parent').combobox('getValue');
 	var nextparent = $("#nextparent").val();
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "?parent="+parent+"&nextparent="+nextparent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	chartStr = "?parent="+parent+"&nextparent="+nextparent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&min="+min+"&max="+max;
 }
 
 function showcaustEfficiencyChart(){
@@ -102,10 +103,19 @@ function showcaustEfficiencyChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	//echarts 点击事件
+	charts.on('click', function (param) {
+		var str = new Array();
+		str = param.name.split("-");
+		min = str[0],max=str[1];
+		CaustEfficiencyDatagrid();
+	});
 }
 
 function CaustEfficiencyDatagrid(){
 	setParam();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	$("#caustEfficiencyTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#caustEfficiencyChart").height()-$("#caustEfficiency_btn").height()-40,
@@ -131,7 +141,7 @@ function CaustEfficiencyDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter : function(value,row,index){
-				return "<a href='itemChart/goItemEfficiency?nextparent="+row.id+"'>"+value+"</a>";
+				return "<a href='itemChart/goItemEfficiency?nextparent="+row.id+"&min="+min+"&max="+max+"&time1="+dtoTime1+"&time2="+dtoTime2+"'>"+value+"</a>";
 			}
 		}, {
 			field : 'wname',
@@ -195,7 +205,7 @@ function typecombobox(){
 }
 
 function serachEfficiencyCaust(){
-	chartStr = "";
+	chartStr = "",min="",max="";
 	$("#nextparent").val("");
 	showcaustEfficiencyChart();
 	CaustEfficiencyDatagrid();
