@@ -51,7 +51,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="companyOverproofChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		<div id="explain" style="table-layout: fixed; width:240px; float:left;margin-top: 120px;margin-left:10px;">
+		按组织机构和日期对超规范焊接趋势统计：<br/>
+		统计时间段内的超规范焊接趋势；<br/>
+		X轴：日期<br/>
+		Y轴：超标时长(s)<br/></div>
+		<div id="companyOverproofChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 		
 	    <table id="companyOverproofTable" style="table-layout: fixed; width:100%;"></table>
 	    

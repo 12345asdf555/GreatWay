@@ -97,7 +97,8 @@
 	<select id="getMachineCountByManu" resultType="java.math.BigInteger">
 		 SELECT count(m.fid) FROM tb_welding_machine m inner join tb_insframework i  on i.fid = m.finsframework_id
 		 inner join tb_insframework ins  on ins.fid = i.fparent
-		 WHERE fmanufacturer_id = #{mid} 	and (ins.fparent = #{id} or ins.fid = #{id} or i.fid = #{id})
+         inner join tb_insframework insf  on insf.fid = ins.fparent
+		 WHERE fmanufacturer_id = #{mid} 	and (ins.fparent = #{id} or ins.fid = #{id} or i.fid = #{id} or insf.fparent=#{id})
 	</select>
 	
 	<select id="getIdByGatherid" resultType="java.math.BigInteger">

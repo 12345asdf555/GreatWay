@@ -33,85 +33,91 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div style="text-align:center">
 			<div class="fitem">
 				<lable>编号</lable>
-				<input class="easyui-textbox" id="equipmentno" readonly="readonly" value="${w.weldedJunctionno }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.weldedJunctionno }"/>
 				<lable>序列号</lable>
-				<input class="easyui-textbox" id="tId" readonly="readonly" value="${w.serialNo}"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.serialNo}"/>
 			</div>
 			<div class="fitem">
 				<lable>机组</lable>
-				<input class="easyui-textbox" id="manuno" readonly="readonly" value="${w.unit }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.unit }"/>
 				<lable>区域</lable>
-				<input class="easyui-textbox" id="gatherId" readonly="readonly" value="${w.area }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.area }"/>
 			</div>
 			<div class="fitem">
 				<lable>系统</lable>
-				<input class="easyui-textbox" id="position" readonly="readonly" value="${w.systems }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.systems }"/>
 				<lable>子项</lable>
-				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${w.children }"/>
-			</div>
-			<div class="fitem">
-				<lable>外径</lable>
-				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${w.externalDiameter }"/>
-				<lable>璧厚</lable>
-				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${w.wallThickness }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.children }"/>
 			</div>
 			<div class="fitem">
 				<lable>达因</lable>
-				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${w.dyne }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.dyne }"/>
 				<lable>规格</lable>
-				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${w.specification }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.specification }"/>
 			</div>
 			<div class="fitem">
-				<lable>材质</lable>
-				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${w.material }"/>
 				<lable>管线号</lable>
-				<input class="easyui-textbox" id="joinTime" readonly="readonly" value="${w.pipelineNo }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.pipelineNo }"/>
+				<lable>房间号</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${w.roomNo }"/>
 			</div>
 			<div class="fitem">
-				<lable>房间号</lable>
-				<input class="easyui-textbox" id="iId" readonly="readonly" value="${w.roomNo }"/>
-				<lable>所属项目</lable>
-				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${w.itemid.name }"/>
+				<lable>上游外径</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${w.externalDiameter }"/>
+				<lable>下游外径</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${w.nextexternaldiameter }"/>
+			</div>
+			<div class="fitem">
+				<lable>上游璧厚</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${w.wallThickness }"/>
+				<lable>下游璧厚</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${w.nextwall_thickness }"/>
+			</div>
+			<div class="fitem">
+				<lable>上游材质</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${w.material }"/>
+				<lable>下游材质</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${w.next_material }"/>
 			</div>
 			<div class="fitem">
 				<lable>电流上限</lable>
-				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${w.maxElectricity }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.maxElectricity }"/>
 				<lable>电流下限</lable>
-				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${w.minElectricity }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.minElectricity }"/>
 			</div>
 			<div class="fitem">
 				<lable>电压上限</lable>
-				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${w.maxValtage }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.maxValtage }"/>
 				<lable>电压下限</lable>
-				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${w.minValtage }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.minValtage }"/>
 			</div>
 			<div class="fitem">
 				<lable>电流单位</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${electricity_unit }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.electricity_unit }"/>
 				<lable>电压单位</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${valtage_unit }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.valtage_unit }"/>
 			</div>
 			<div class="fitem">
-				<lable>下游外径</lable>
-				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${w.nextexternaldiameter }"/>
+				<lable>所属项目</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${w.itemid.name }"/>
 				<lable>开始时间</lable>
-				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${w.startTime }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.startTime }"/>
 			</div>
 			<div class="fitem">
 				<lable>完成时间</lable>
-				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${w.endTime }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.endTime }"/>
 				<lable>创建时间</lable>
-				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${w.creatTime }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.creatTime }"/>
 			</div>
 			<div class="fitem">
 				<lable>修改时间</lable>
-				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${w.updateTime }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.updateTime }"/>
 				<lable>修改次数</lable>
-				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${w.updatecount }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${w.updatecount }"/>
 			</div>
 			<div style="margin-left:50px">
 				<lable>
-					<a href="junctionChart/goJunctionHour?itemid=${item }" class="easyui-linkbutton" iconCls="icon-cancel">返回</a>
+					<a href="junctionChart/goJunctionHour?itemid=${item }&material=${w.material }&externalDiameter=${w.externalDiameter }&wallThickness=${w.wallThickness }&nextexternaldiameter=${w.nextexternaldiameter }&nextmaterial=${w.next_material }&nextwallthickness=${w.nextwall_thickness }" class="easyui-linkbutton" iconCls="icon-cancel">返回</a>
 				</lable>
 			</div>
 		</div>

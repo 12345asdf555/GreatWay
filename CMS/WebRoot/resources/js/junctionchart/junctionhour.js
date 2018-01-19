@@ -2,7 +2,7 @@ $(function(){
 	itemjunctionDatagrid();
 })
 
-function itemjunctionDatagrid(){
+function setParam(){
 	var item = $("#item").val();
 	var material = $("#material").val();
 	var externalDiameter = $("#externalDiameter").val();
@@ -10,12 +10,20 @@ function itemjunctionDatagrid(){
 	var nextexternaldiameter = $("#nextexternaldiameter").val();
 	var nextmaterial = $("#nextmaterial").val();
 	var nextwallthickness = $("#nextwallthickness").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?item="+item+"&material="+encodeURI(material)+"&externalDiameter="+encodeURI(externalDiameter)+"&wallThickness="+encodeURI(wallThickness)+"&nextexternaldiameter="+encodeURI(nextexternaldiameter)+"&nextmaterial="+encodeURI(nextmaterial)+"&nextwallthickness="+encodeURI(nextwallthickness)+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
+
+function itemjunctionDatagrid(){
+	setParam();
+	var item = $("#item").val();
 	$("#junctionHourTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getJunctionHour?item="+item+"&material="+encodeURI(material)+"&externalDiameter="+encodeURI(externalDiameter)+"&wallThickness="+encodeURI(wallThickness)+"&nextexternaldiameter="+encodeURI(nextexternaldiameter)+"&nextmaterial="+encodeURI(nextmaterial)+"&nextwallthickness="+encodeURI(nextwallthickness),
+		url : "junctionChart/getJunctionHour"+chartStr,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],
@@ -80,12 +88,8 @@ function itemjunctionDatagrid(){
 }
 
 function serachjunctionHour(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	$('#junctionHourTable').datagrid('load', {
-		"dtoTime1" : dtoTime1,
-		"dtoTime2" : dtoTime2
-	});
+	chartStr = "";
+	itemjunctionDatagrid();
 }
 
 //监听窗口大小变化

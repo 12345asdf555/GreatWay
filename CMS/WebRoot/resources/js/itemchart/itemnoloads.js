@@ -73,7 +73,7 @@ function showitemNoLoadsChart(){
 			data:array2
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'6%',//组件距离容器左边的距离
 			right:'4%',
 			bottom:'7%',
 			containLaber:true//区域是否包含坐标轴刻度标签
@@ -119,7 +119,7 @@ function ItemnoloadsDatagrid(){
                  column.push({field:"weldTime",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  
                  for(var m=0;m<result.arys.length;m++){
-                	 column.push({field:"loads",title:result.arys[m].name,width:width,halign : "center",align : "left",
+                	 column.push({field:"loads",title:result.arys[m].name+"(空载率)",width:width,halign : "center",align : "left",
                 		 formatter : function(value,row,index){
                 			 return "<a href='junctionChart/goDetailNoLoads?itemid="+row.itemid+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"'>"+value+"%"+"</a>";
                 		 }

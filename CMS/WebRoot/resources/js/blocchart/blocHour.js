@@ -50,7 +50,7 @@ function showblocHourChart(){
 		},
 		grid:{
 			left:'10%',//组件距离容器左边的距离
-			right:'4%',
+			right:'13%',
 			bottom:'7%',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
@@ -62,10 +62,12 @@ function showblocHourChart(){
 		},
 		xAxis:{
 			type:'category',
-			data: array1
+			data: array1,
+			name:'组织机构'
 		},
 		yAxis:{
-			type: 'value'//value:数值轴，category:类目轴，time:时间轴，log:对数轴
+			type: 'value',//value:数值轴，category:类目轴，time:时间轴，log:对数轴
+			name:'焊接时长(s)'
 		},
 		series:[
 			{

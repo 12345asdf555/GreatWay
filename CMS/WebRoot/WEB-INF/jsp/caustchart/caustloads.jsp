@@ -51,7 +51,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="caustLoadsChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		<div id="explain" style="table-layout: fixed; width:240px; float:left;margin-top: 120px;margin-left:10px;">
+		按组织机构和日期对设备负荷率趋势统计:<br/>
+		统计时间段内的各部门设备负荷率趋势；<br/>
+		负荷率=设备正常工作时间/(8*60*60)<br/>
+		X轴:日期<br/>
+		Y轴:负荷率<br/></div>
+		<div id="caustLoadsChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 		
 	    <table id="caustLoadsTable" style="table-layout: fixed; width:100%;"></table>
 	    

@@ -72,7 +72,7 @@ function showBlocOverptimeChart(){
 			data:array2
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'6%',//组件距离容器左边的距离
 			right:'4%',
 			bottom:'7%',
 			containLaber:true//区域是否包含坐标轴刻度标签
@@ -116,7 +116,7 @@ function BloctimeDatagrid(){
                  column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='companyChart/goCompanyOvertime?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:"<a href='companyChart/goCompanyOvertime?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"(次)</a>",width:width,halign : "center",align : "left"});
                  }
              }  
          },  

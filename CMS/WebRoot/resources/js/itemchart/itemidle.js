@@ -71,7 +71,7 @@ function showitemidleChart(){
 			data:array2
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'6%',//组件距离容器左边的距离
 			right:'4%',
 			bottom:'7%',
 			containLaber:true//区域是否包含坐标轴刻度标签
@@ -139,7 +139,7 @@ function ItemidleDatagrid(){
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
                  column.push({field:"weldTime",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
-                 column.push({field:"num",title:"闲置数量",width:width,halign : "center",align : "left"});
+                 column.push({field:"num",title:"闲置数量(台)",width:width,halign : "center",align : "left"});
              }  
          },  
         error : function(errorMsg) {  

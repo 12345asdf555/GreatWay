@@ -45,7 +45,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:serachEfficiencyBloc();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
-		<div id="blocEfficiencyChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		<div id="explain" style="table-layout: fixed; width:240px; float:left;margin-top: 120px;margin-left:10px;">
+		按组织机构和日期对工效统计:<br/>
+		统计时间段内的员工效率所占百分比；<br/>
+		X轴:时间(小时)<br/>
+		Y轴:工效百分比<br/></div>
+		<div id="blocEfficiencyChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 		
 	    <table id="blocEfficiencyTable" style="table-layout: fixed; width:100%;"></table>
 	    

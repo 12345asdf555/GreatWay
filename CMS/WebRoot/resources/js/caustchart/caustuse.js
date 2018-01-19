@@ -123,7 +123,7 @@ function CaustUseDatagrid(){
 			align : "left"
 		}, {
 			field : 'num',
-			title : '数量',
+			title : '数量(台)',
 			width : 100,
 			halign : "center",
 			align : "left"
