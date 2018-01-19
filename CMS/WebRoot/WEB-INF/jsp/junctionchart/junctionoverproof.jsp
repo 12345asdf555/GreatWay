@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>焊机焊接工艺超标统计</title>
+    <title>焊机焊接工艺超标回溯</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" title="焊机焊接工艺超标统计" style="background: witch; height: 335px;">
+    <div id="body" region="center"  hide="true"  split="true" title="焊机焊接工艺超标回溯" style="background: witch; height: 335px;">
 		<div style="margin-bottom: 5px; "align="center">
 			<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 			<input  name="welderno" id="welderno" type="hidden" value="${welderno }"/>
@@ -45,7 +45,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a class="easyui-linkbutton" href="javascript:reducetime()" iconCls="icon-remove">减速</a>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="junctionOverproofChart" style="height:500px;width:800px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		<div id="explain" style="table-layout: fixed; width:240px; float:left;margin-top: 120px;margin-left:10px;">
+		按组织机构和日期对超规范焊接趋势统计：<br/>
+		统计时间段内的超规范焊接回溯；<br/>
+		X轴：日期<br/>
+		Y轴：超标时长(s)<br/></div>
+		<div id="junctionOverproofChart" style="height:500px;width:80%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 	</div>
   </body>
 </html>

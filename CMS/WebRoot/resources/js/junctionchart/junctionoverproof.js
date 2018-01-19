@@ -40,9 +40,9 @@ function showjunctionOverproofChart(){
 			data:array2
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'8%',//组件距离容器左边的距离
 			right:'4%',
-			bottom:'7%',
+			bottom:'30%',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -54,7 +54,11 @@ function showjunctionOverproofChart(){
 		xAxis:{
 			type:'category',
 			boundaryGap:false,//坐标轴两边是否留白
-			data: data1
+			data: data1,
+			axisLabel: {  
+				  interval:0,  
+				  rotate:60  
+			}
 		},
 		yAxis:{
 			type: 'value'//value:数值轴，category:类目轴，time:时间轴，log:对数轴
