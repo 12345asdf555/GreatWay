@@ -532,6 +532,8 @@ public class CompanyChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getCompanyLoads(dto,parent);
+			List<ModelDto> machine = lm.getCompanyMachineCount(dto, parent);
+			System.out.println(machine);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			double[] num = null;
 			for(LiveData live :time){
@@ -543,8 +545,12 @@ public class CompanyChartController {
 				for(int j=0;j<time.size();j++){
 					num[j] = 0;
 					for(ModelDto l:list){
-						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = (double)Math.round(l.getLoads()*100)/100;
+						for(ModelDto m:machine){
+							if(m.getWeldTime().equals(l.getWeldTime()) && m.getFid() == l.getIid()){
+								if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
+									num[j] = (double)Math.round(l.getLoads()/m.getLoads()*100)/100;
+								}
+							}
 						}
 					}
 				}
@@ -642,6 +648,7 @@ public class CompanyChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getCompanyNoLoads(dto,parent);
+			List<ModelDto> machine = lm.getCompanyNoLoadMachineCount(dto, parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			double[] num = null;
 			for(LiveData live :time){
@@ -653,8 +660,12 @@ public class CompanyChartController {
 				for(int j=0;j<time.size();j++){
 					num[j] = 0;
 					for(ModelDto l:list){
-						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = (double)Math.round(l.getLoads()*100)/100;
+						for(ModelDto m:machine){
+							if(m.getWeldTime().equals(l.getWeldTime()) && m.getFid() == l.getIid()){
+								if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
+									num[j] = (double)Math.round(l.getLoads()/m.getLoads()*100)/100;
+								}
+							}
 						}
 					}
 				}

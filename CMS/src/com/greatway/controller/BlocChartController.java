@@ -445,6 +445,7 @@ public class BlocChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getBlocLoads(dto);
+			List<ModelDto> machine = lm.getBlocMachineCount(dto, null);
 			List<LiveData> ins = lm.getBlocChildren();
 			double[] num = null;
 			for(LiveData live :time){
@@ -456,8 +457,12 @@ public class BlocChartController {
 				for(int j=0;j<time.size();j++){
 					num[j] = 0;
 					for(ModelDto l:list){
-						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = (double)Math.round(l.getLoads()*100)/100;
+						for(ModelDto m:machine){
+							if(m.getWeldTime().equals(l.getWeldTime()) && m.getFid() == l.getIid()){
+								if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
+									num[j] = (double)Math.round(l.getLoads()/m.getLoads()*100)/100;
+								}
+							}
 						}
 					}
 				}
@@ -538,6 +543,7 @@ public class BlocChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getBlocNoLoads(dto);
+			List<ModelDto> machine = lm.getBlocNoLoadMachineCount(dto, null);
 			List<LiveData> ins = lm.getBlocChildren();
 			double[] num = null;
 			for(LiveData live :time){
@@ -549,8 +555,12 @@ public class BlocChartController {
 				for(int j=0;j<time.size();j++){
 					num[j] = 0;
 					for(ModelDto l:list){
-						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = (double)Math.round(l.getLoads()*100)/100;
+						for(ModelDto m:machine){
+							if(m.getWeldTime().equals(l.getWeldTime()) && m.getFid() == l.getIid()){
+								if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
+									num[j] = (double)Math.round(l.getLoads()/m.getLoads()*100)/100;
+								}
+							}
 						}
 					}
 				}

@@ -31,7 +31,7 @@
 	</select>
 	
 	<select id="getInsAll"  resultMap="insMap">
-		select fid, fname from tb_insframework
+		select fid, fname from tb_insframework where 1=1
 		<if test="type>0">
 			and ftype&lt;#{type}
 		</if>
@@ -87,7 +87,7 @@
 	</select>
 	
 	<select id="getInsfAllById" resultMap="insMap">
-		select * from tb_insframework where fid = #{id}
+		select i.*,d.fvaluename typename from tb_insframework i INNER JOIN tb_dictionary d on d.fvalue = i.ftype where i.fid = #{id}
 	</select>
 	
 	<select id="getInsframeworkNameCount" resultType="java.lang.Integer">

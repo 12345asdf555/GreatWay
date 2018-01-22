@@ -55,6 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		按组织机构和日期对设备负荷率趋势统计:<br/>
 		统计时间段内的各部门设备负荷率趋势；<br/>
 		负荷率=设备正常工作时间/(8*60*60)<br/>
+		/正常工作焊机数量<br/>
 		X轴:日期<br/>
 		Y轴:负荷率<br/></div>
 		<div id="caustLoadsChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>

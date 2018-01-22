@@ -80,8 +80,7 @@ public class InsframeworkController {
 	@RequestMapping("/goremoveInsframework")
 	public String goremoveInsframework(HttpServletRequest request,@RequestParam String id){
 		Insframework insf = im.getInsfAllById(new BigInteger(id));
-		request.setAttribute("typename", insf.getTypename());
-		request.setAttribute("parent", im.getInsframeworkById(new BigInteger(id)));
+		request.setAttribute("parent", im.getInsframeworkById(insf.getParent()));
 		request.setAttribute("insf", insf);
 		return "insframework/removeinsframework";
 	}
@@ -254,7 +253,7 @@ public class InsframeworkController {
 				ary.add(json);
 			}
 		}catch(Exception e){
-			e.getMessage();
+			e.printStackTrace();
 		}
 		obj.put("ary", ary);
 		return obj.toString();

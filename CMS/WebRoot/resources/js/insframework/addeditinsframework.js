@@ -30,6 +30,9 @@ function saveInsframework(){
 		url2 = url+"?parent="+parent+"&type="+type;
 	}else{
 		messager = "修改成功！";
+		if($("#parent").combobox('getValue')=='无'){
+			parent = 0;
+		}
 		url2 = url+"&parent="+parent+"&type="+type;
 	}
 	$('#fm').form('submit', {
@@ -68,6 +71,9 @@ function updatetext(){
 	var parent = $("#parentid").val();
 	$("#typeid").combobox('select',type);
 	$("#parent").combobox('select',parent);
+	if($("#parent").combobox('getValue')==0){
+		$("#parent").combobox('setValue','无');
+	}
 }
 
 //父节点

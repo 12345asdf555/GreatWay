@@ -107,4 +107,16 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	List<ModelDto> getHousClassify(@Param("parent")BigInteger parent,@Param("str")String str);
 	
 	BigInteger getDyneByJunctionno(@Param("str") String str);
+	
+	List<ModelDto> getBlocMachineCount(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+	
+	List<ModelDto> getCompanyMachineCount(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+	
+	List<ModelDto> getCaustMachineCount(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+
+	List<ModelDto> getBlocNoLoadMachineCount(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+	
+	List<ModelDto> getCompanyNoLoadMachineCount(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+
+	List<ModelDto> getCaustNoLoadMachineCount(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
 }

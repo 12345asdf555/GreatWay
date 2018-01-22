@@ -321,4 +321,34 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	public BigInteger getDyneByJunctionno(String str) {
 		return live.getDyneByJunctionno(str);
 	}
+
+	@Override
+	public List<ModelDto> getCompanyMachineCount(WeldDto dto, BigInteger parent) {
+		return live.getCompanyMachineCount(dto, parent);
+	}
+
+	@Override
+	public List<ModelDto> getCaustMachineCount(WeldDto dto, BigInteger parent) {
+		return live.getCaustMachineCount(dto, parent);
+	}
+
+	@Override
+	public List<ModelDto> getCompanyNoLoadMachineCount(WeldDto dto, BigInteger parent) {
+		return live.getCompanyNoLoadMachineCount(dto, parent);
+	}
+
+	@Override
+	public List<ModelDto> getCaustNoLoadMachineCount(WeldDto dto, BigInteger parent) {
+		return live.getCaustNoLoadMachineCount(dto, parent);
+	}
+
+	@Override
+	public List<ModelDto> getBlocMachineCount(WeldDto dto, BigInteger parent) {
+		return live.getBlocMachineCount(dto, parent);
+	}
+
+	@Override
+	public List<ModelDto> getBlocNoLoadMachineCount(WeldDto dto, BigInteger parent) {
+		return live.getBlocNoLoadMachineCount(dto, parent);
+	}
 }

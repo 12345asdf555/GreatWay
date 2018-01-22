@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>项目类型</lable>
-					<input class="easyui-textbox" name="typeid" id="typeid" value="${typename }" readonly="readonly"/>
+					<input class="easyui-textbox" name="typeid" id="typeid" value="${insf.typename }" readonly="readonly"/>
 				</div>
 				<div class="weldbutton">
 					<a href="javascript:removeInsframework();" class="easyui-linkbutton" iconCls="icon-ok">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
