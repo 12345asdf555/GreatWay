@@ -345,7 +345,7 @@ public class ItemChartController {
 						for(ModelDto ma:machine){
 							if(ma.getWeldTime().equals(m.getWeldTime()) && ma.getFid().equals(m.getIid())){
 								if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100)/100;
+									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100*100)/100;
 								}
 							}
 						}
@@ -697,7 +697,7 @@ public class ItemChartController {
 						for(ModelDto ma:machine){
 							if(ma.getWeldTime().equals(m.getWeldTime()) && ma.getFid().equals(m.getFid())){
 								if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100)/100;
+									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100*100)/100;
 								}
 							}
 						}

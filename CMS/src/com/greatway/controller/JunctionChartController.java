@@ -393,7 +393,7 @@ public class JunctionChartController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(ModelDto l:list){
-				double loads = (double)Math.round(l.getLoads()*100)/100;
+				double loads = (double)Math.round(l.getLoads()*100*100)/100;
 				json.put("loads", loads+"%");
 				json.put("weldtime", weldtime);
 				json.put("name",l.getFname());
@@ -452,7 +452,7 @@ public class JunctionChartController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(ModelDto l:list){
-				double loads = (double)Math.round(l.getLoads()*100)/100;
+				double loads = (double)Math.round(l.getLoads()*100*100)/100;
 				json.put("loads", loads+"%");
 				json.put("weldtime", weldtime);
 				json.put("name",l.getFname());
