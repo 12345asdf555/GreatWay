@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import com.greatway.model.WeldingMachine;
 import com.greatway.model.WeldingMaintenance;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -173,6 +175,9 @@ public class MaintainController {
 	public String addMaintain(HttpServletRequest request,@ModelAttribute("wm")WeldingMaintenance wm) {
 		JSONObject obj = new JSONObject();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			MaintenanceRecord mr = new MaintenanceRecord();
 			mr.setViceman(request.getParameter("viceman"));
 			if(iutil.isNull(request.getParameter("startTime"))){
@@ -189,6 +194,8 @@ public class MaintainController {
 			WeldingMachine w = new WeldingMachine();
 			w.setId(new BigInteger(request.getParameter("wId")));
 			wm.setWelding(w);
+			wm.setCreator(myuser.getUsername());
+			mr.setCreator(myuser.getUsername());
 			mm.addMaintian(wm,mr,new BigInteger(request.getParameter("wId")));
 			obj.put("success", true);
 		}catch(Exception e){
@@ -204,6 +211,9 @@ public class MaintainController {
 	public String editMaintain(HttpServletRequest request,@RequestParam String mid,@RequestParam String wid) {
 		JSONObject obj = new JSONObject();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			MaintenanceRecord mr = new MaintenanceRecord();
 			mr.setId(new BigInteger(mid));
 			mr.setViceman(request.getParameter("viceman"));
@@ -219,6 +229,7 @@ public class MaintainController {
 				mr.setDesc(request.getParameter("desc"));
 			}
 			mr.setTypeId(Integer.parseInt(request.getParameter("tId")));
+			mr.setModifier(myuser.getUsername());
 			mm.updateMaintenanceRecord(mr);
 			List<WeldingMaintenance> list =  mm.getEndtime(new BigInteger(wid));
 			boolean flag = true;

@@ -674,7 +674,7 @@ public class CaustChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getCaustNOLoads(dto, parent);
-			List<ModelDto> machine = lm.getCaustNoLoadMachineCount(dto, parent);
+			List<ModelDto> machine = lm.getCaustMachineCount(dto, parent);
 			List<LiveData> ins = lm.getAllInsf(pid,23);
 			double[] num = null;
 			for(LiveData live :time){

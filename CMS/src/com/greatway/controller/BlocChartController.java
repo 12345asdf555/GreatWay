@@ -543,7 +543,7 @@ public class BlocChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getBlocNoLoads(dto);
-			List<ModelDto> machine = lm.getBlocNoLoadMachineCount(dto, null);
+			List<ModelDto> machine = lm.getBlocMachineCount(dto, null);
 			List<LiveData> ins = lm.getBlocChildren();
 			double[] num = null;
 			for(LiveData live :time){

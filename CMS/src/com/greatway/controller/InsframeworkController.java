@@ -145,6 +145,9 @@ public class InsframeworkController {
 		JSONObject obj = new JSONObject();
 		Insframework insf = new Insframework();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			String logogram = request.getParameter("logogram");
 			String code = request.getParameter("code");
 			String parent = request.getParameter("parent");
@@ -162,6 +165,7 @@ public class InsframeworkController {
 			if(iutil.isNull(type)){
 				insf.setType(Integer.parseInt(type));
 			}
+			insf.setCreator(myuser.getUsername());
 			im.addInsframework(insf);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -178,6 +182,9 @@ public class InsframeworkController {
 		JSONObject obj = new JSONObject();
 		Insframework insf = new Insframework();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			String logogram = request.getParameter("logogram");
 			String code = request.getParameter("code");
 			String parent = request.getParameter("parent");
@@ -196,6 +203,7 @@ public class InsframeworkController {
 			if(iutil.isNull(type)){
 				insf.setType(Integer.parseInt(type));
 			}
+			insf.setModifier(myuser.getUsername());
 			im.editInsframework(insf);
 			obj.put("success", true);
 		}catch(Exception e){

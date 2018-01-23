@@ -335,6 +335,9 @@ public class WeldingMachineController {
 		WeldingMachine wm = new WeldingMachine();
 		JSONObject obj = new JSONObject();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			wm.setEquipmentNo(request.getParameter("equipmentNo"));
 			if(iutil.isNull(request.getParameter("joinTime"))){
 				wm.setJoinTime(request.getParameter("joinTime"));
@@ -356,6 +359,7 @@ public class WeldingMachineController {
 			EquipmentManufacturer em = new EquipmentManufacturer();
 			em.setId(new BigInteger(request.getParameter("manuno")));
 			wm.setManufacturerId(em);
+			wm.setCreator(myuser.getUsername());
 			wmm.addWeldingMachine(wm);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -375,6 +379,9 @@ public class WeldingMachineController {
 		WeldingMachine wm = new WeldingMachine();
 		JSONObject obj = new JSONObject();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			wm.setId(new BigInteger(request.getParameter("wid")));
 			wm.setEquipmentNo(request.getParameter("equipmentNo"));
 			if(iutil.isNull(request.getParameter("joinTime"))){
@@ -408,6 +415,7 @@ public class WeldingMachineController {
 			EquipmentManufacturer em = new EquipmentManufacturer();
 			em.setId(new BigInteger(request.getParameter("manuno")));
 			wm.setManufacturerId(em);
+			wm.setModifier(myuser.getUsername());
 			wmm.editWeldingMachine(wm);
 			obj.put("success", true);
 		}catch(Exception e){

@@ -333,22 +333,8 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	}
 
 	@Override
-	public List<ModelDto> getCompanyNoLoadMachineCount(WeldDto dto, BigInteger parent) {
-		return live.getCompanyNoLoadMachineCount(dto, parent);
-	}
-
-	@Override
-	public List<ModelDto> getCaustNoLoadMachineCount(WeldDto dto, BigInteger parent) {
-		return live.getCaustNoLoadMachineCount(dto, parent);
-	}
-
-	@Override
 	public List<ModelDto> getBlocMachineCount(WeldDto dto, BigInteger parent) {
 		return live.getBlocMachineCount(dto, parent);
 	}
 
-	@Override
-	public List<ModelDto> getBlocNoLoadMachineCount(WeldDto dto, BigInteger parent) {
-		return live.getBlocNoLoadMachineCount(dto, parent);
-	}
 }

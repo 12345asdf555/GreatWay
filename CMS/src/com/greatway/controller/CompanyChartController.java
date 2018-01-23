@@ -648,7 +648,7 @@ public class CompanyChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getCompanyNoLoads(dto,parent);
-			List<ModelDto> machine = lm.getCompanyNoLoadMachineCount(dto, parent);
+			List<ModelDto> machine = lm.getCompanyMachineCount(dto, parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			double[] num = null;
 			for(LiveData live :time){

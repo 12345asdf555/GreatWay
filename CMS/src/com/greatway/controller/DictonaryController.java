@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import com.greatway.manager.DictionaryManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -99,8 +101,12 @@ public class DictonaryController {
 	public String AddDictionary(Dictionarys dic, HttpServletRequest request){
 		JSONObject obj=new JSONObject();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			String backs=request.getParameter("back");
 			dic.setBack(backs);
+			dic.setCreator(myuser.getUsername());
 			dictionaryManager.addDictionary(dic);
 			obj.put("success",true);
 		}catch(Exception e){
@@ -114,8 +120,12 @@ public class DictonaryController {
 	public String EditDictionary(Dictionarys dic,HttpServletRequest request){
 		JSONObject obj=new JSONObject();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			String backs=request.getParameter("back");
 			dic.setBack(backs);
+			dic.setModifier(myuser.getUsername());
 			dictionaryManager.editDictionary(dic);
 			obj.put("success",true);
 		}catch(Exception e){
