@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import com.greatway.manager.DictionaryManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
 import com.spring.model.Authority;
+import com.spring.model.MyUser;
 import com.spring.service.AuthorityService;
 
 import net.sf.json.JSONArray;
@@ -105,8 +107,12 @@ public class AuthorityController {
 	public String addAuthority(Authority authority,HttpServletRequest request){
 		JSONObject obj = new JSONObject();
 		try{
+		//获取当前用户
+		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MyUser myuser = (MyUser)object;
 		authority.setStatus(Integer.parseInt(request.getParameter("status")));
         authority.setAuthorityName("ROLE_"+authority.getAuthorityName());
+        authority.setCreator(myuser.getUsername());
         authorityService.save(authority);
         String str = request.getParameter("rid");
         if(null!=str&&""!=str)
@@ -143,10 +149,15 @@ public class AuthorityController {
 	public String updateAuthority(Authority authority,HttpServletRequest request){
 		JSONObject obj = new JSONObject();
 		try{
+		//获取当前用户
+		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MyUser myuser = (MyUser)object;
         authority.setStatus(Integer.parseInt(request.getParameter("status")));
 		String str = request.getParameter("sid");
 		Integer aid = Integer.parseInt(request.getParameter("aid"));
 		authorityService.deleteResource(aid);
+		authority.setCreator(myuser.getUsername());
+		authority.setModifier(myuser.getUsername());
 		authority.setAuthorityName("ROLE_"+authority.getAuthorityName());
 		if(null!=str&&""!=str)
 		{
