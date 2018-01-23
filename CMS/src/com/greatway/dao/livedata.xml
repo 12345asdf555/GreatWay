@@ -1134,8 +1134,7 @@
 	<!-- 负载率明细 &-->
 	<select id="getDetailLoads" resultMap="dtoMap">
 		SELECT * FROM (
-		SELECT AVG( ovl ) loads ,fweldtime weldTime,fid,fname,fmachine_id FROM (
-		SELECT COUNT( lid ) / ( 8 *60 *60 ) AS ovl,fweldtime,i.fid,i.fname,fgather_no , m.fequipment_no fmachine_id
+		SELECT COUNT( lid ) / ( 8 *60 *60 ) AS loads,fweldtime,i.fid,i.fname,fgather_no , m.fequipment_no fmachine_id
 		FROM  
 		(
 		SELECT fid lid, fitemid, fweldtime,fgather_no,fmachine_id
@@ -1161,8 +1160,6 @@
 				AND i.fid = #{dto.parent}
 			</if>
 		</if>
-		GROUP BY fmachine_id
-		) AS A
 		GROUP BY fmachine_id
 		)temp
 	</select>
