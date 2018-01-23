@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	namespace：必须与对应的接口全类名一致
+	id:必须与对应接口的某个对应的方法名一致
+	
+ -->
+<mapper namespace="com.greatway.dao.ReportMapper">
+
+	<select id="getWpsid" parameterType="BigInteger" resultType="BigInteger">
+		SELECT FWeldWPSID FROM tb_wps_welddevices WHERE FUpdateDate=(select max(`FUpdateDate`) from tb_wps_welddevices WHERE FWeldDevicesID=#{id} group by FWeldDevicesID LIMIT 1) LIMIT 1
+	</select>
+	
+	<select id="getWps" parameterType="BigInteger" resultType="Report">
+		SELECT `Fweld_I` fstandardele,`Fweld_v` fstandardvol,`Fdiameter` fdiameter FROM tb_mainwps WHERE `FID`=#{id}
+	</select>
+	
+	<select id="getSyspara" resultType="Report">
+		SELECT `fair_flow_volume` fafv,`fspeed` fspeed FROM tb_parameter 
+	</select>
+</mapper>

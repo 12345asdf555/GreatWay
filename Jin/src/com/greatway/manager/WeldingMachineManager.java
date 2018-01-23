@@ -40,7 +40,10 @@ public interface WeldingMachineManager {
 	 * @param wid
 	 */
 	void deleteWeldingChine(BigInteger wid);
-	
+	/**
+	 * 删除对应的工艺记录
+	 */
+	void deleteHistory(BigInteger wid);
 	/**
 	 * 根据焊机编号查找id
 	 * @return

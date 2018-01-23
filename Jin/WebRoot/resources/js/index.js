@@ -67,6 +67,21 @@ function getUserInsframework(){
 		}
 	})
 }
+function openWeldParameter(){
+	addTab("焊接参数维度表","rep/weldpara");
+}
+
+function openWireUse(){
+	addTab("焊丝用量维度表","rep/wireuse");
+}
+
+function openWelderReport(){
+	addTab("焊工维度表","rep/welderreport");
+}
+
+function openWarnReport(){
+	addTab("报警维度表","rep/warnreport");
+}
 
 function openParameter(){
 	addTab("参数设置","Dictionary/goParameter");

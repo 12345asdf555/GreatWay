@@ -100,4 +100,9 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 		return wmm.getMachineCountByManu(mid,id);
 	}
 
+	@Override
+	public void deleteHistory(BigInteger wid) {
+		wmm.deleteHistory(wid);
+	}
+
 }

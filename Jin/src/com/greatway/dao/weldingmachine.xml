@@ -6,6 +6,7 @@
 	<resultMap id="wmMap" type="com.greatway.model.WeldingMachine">
 		<id column="fid" property="id" />
 		<result property="ip" column="fIP" />
+		<result property="model" column="model" />
 		<result property="equipmentNo" column="fequipment_no" />		
 		<result property="position" column="fposition" />
 		<result property="isnetworking" column="fisnetworking" />
@@ -41,7 +42,7 @@
 
 	<select id="getWeldingMachineAll" resultMap="wmMap"  parameterType="java.lang.String">
 		SELECT 
-		w.fid fid,w.fIP fIP,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		w.fid fid,w.fIP fIP,w.fmodel model,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
 		,m.fname mname,fisnetworking,fposition,m.ftype mtype,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w
 		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid
@@ -63,7 +64,7 @@
 	
 	<select id="getWeldingMachineById"  resultMap="wmMap"  parameterType="java.math.BigInteger">
 		SELECT 
-		w.fid fid,w.fIP fIP,fstatus_id, i.fid iid,g.fid gid,ftype_id,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		w.fid fid,w.fIP fIP,fmodel model,fstatus_id, i.fid iid,g.fid gid,ftype_id,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
 		,m.fname mname,fisnetworking,fposition,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w
 		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid
@@ -110,8 +111,8 @@
 	
 	<insert id="addWeldingMachine" parameterType="com.greatway.model.WeldingMachine" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO tb_welding_machine(fIP, ftype_id, fequipment_no, fstatus_id, fposition, finsframework_id, 
-		fmanufacturer_id,fgather_id, fisnetworking, fjoin_time) VALUES 
-		(#{ip},#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{isnetworking},#{joinTime})
+		fmanufacturer_id,fgather_id, fisnetworking, fjoin_time, fmodel) VALUES 
+		(#{ip},#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{isnetworking},#{joinTime},#{model})
 	</insert>
 	
 	<update id="editGatherid"  parameterType="java.math.BigInteger">
@@ -121,7 +122,7 @@
 	<update id="editWeldingMachine"  parameterType="com.greatway.model.WeldingMachine">
 		UPDATE tb_welding_machine SET fIP=#{ip},ftype_id=#{typeId},fequipment_no=#{equipmentNo},fstatus_id=#{statusId},
 		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{manufacturerId.id},fgather_id=#{gatherId.id},
-		fisnetworking=#{isnetworking},fjoin_time=#{joinTime} where fid = #{id}
+		fisnetworking=#{isnetworking},fjoin_time=#{joinTime},fmodel=#{model} where fid = #{id}
 	</update>
 	
 	<update id="editstatus"  parameterType="com.greatway.model.WeldingMachine">
@@ -130,6 +131,10 @@
 	
 	<delete id="deleteWeldingMachine" parameterType="java.math.BigInteger">
 		DELETE FROM tb_welding_machine WHERE fid = #{wid}
+	</delete>
+	
+	<delete id="deleteHistory" parameterType="java.math.BigInteger">
+		DELETE FROM tb_wps_welddevices WHERE  FWeldDevicesID = #{wid}
 	</delete>
 	
 	<delete id="deleteByInsf" parameterType="java.math.BigInteger">

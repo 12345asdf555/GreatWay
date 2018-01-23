@@ -18,4 +18,5 @@ public interface WpsService {
 	Wps findById(BigInteger fid);
 	void delete(BigInteger fid);
 	String findIpById(BigInteger fid);
+	void deleteHistory(BigInteger fid);
 }

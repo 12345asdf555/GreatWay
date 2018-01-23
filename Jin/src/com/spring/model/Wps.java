@@ -29,6 +29,7 @@ public class Wps {
 	private long fowner;
 	private String fback;
 	private String fname;
+	private double fdiameter;
 	public Wps(){
 		super();
 	}
@@ -176,7 +177,13 @@ public class Wps {
 	public void setFname(String fname){
 		this.fname = fname;
 	}
-	public Wps(long fid,BigInteger insid,BigInteger macid,String insname,BigInteger welderid,String weldername,String updatename,String fwpsnum,int fweld_i,int fweld_v,int fweld_i_max,int fweld_i_min,int fweld_v_max,int fweld_v_min,int fweld_alter_i,int fweld_alter_v,int fweld_prechannel,Date fcreatedate,Date fupdatedate,long fcreater,long fupdater,long fowner,String fback,String fname) {
+	public double getFdiameter(){
+		return fdiameter;
+	}
+	public void setFdiameter(double fdiameter){
+		this.fdiameter = fdiameter;
+	}
+	public Wps(long fid,BigInteger insid,BigInteger macid,String insname,BigInteger welderid,String weldername,String updatename,String fwpsnum,int fweld_i,int fweld_v,int fweld_i_max,int fweld_i_min,int fweld_v_max,int fweld_v_min,int fweld_alter_i,int fweld_alter_v,int fweld_prechannel,Date fcreatedate,Date fupdatedate,long fcreater,long fupdater,long fowner,String fback,String fname,double fdiameter) {
 		super();
 		this.macid = macid;
 		this.insname = insname;
@@ -202,5 +209,6 @@ public class Wps {
 		this.fowner = fowner;
 		this.fback = fback;
 		this.fname = fname;
+		this.fdiameter = fdiameter;
 	}
 }

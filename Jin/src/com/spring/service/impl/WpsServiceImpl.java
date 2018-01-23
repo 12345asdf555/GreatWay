@@ -74,4 +74,10 @@ public class WpsServiceImpl implements WpsService{
 		// TODO Auto-generated method stub
 		return mapper.findIpById(fid);
 	}
+
+	@Override
+	public void deleteHistory(BigInteger fid) {
+		// TODO Auto-generated method stub
+		mapper.deleteHistory(fid);
+	}
 }
