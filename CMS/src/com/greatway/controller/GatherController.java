@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import com.greatway.manager.GatherManager;
 import com.greatway.model.Gather;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -125,6 +127,9 @@ public class GatherController {
 	public String addGather(@ModelAttribute("gether")Gather gather){
 		JSONObject obj = new JSONObject();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			//ModelAttribute收集的数据为‘’时插入会有异常
 			if(!iutil.isNull(gather.getIpurl())){
 				gather.setIpurl(null);
@@ -135,6 +140,7 @@ public class GatherController {
 			if(!iutil.isNull(gather.getIpurl())){
 				gather.setLeavetime(null);
 			}
+			gather.setCreator(myuser.getUsername());
 			gm.addGather(gather);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -150,6 +156,9 @@ public class GatherController {
 	public String editGather(@ModelAttribute("gether")Gather gather, @RequestParam String id){
 		JSONObject obj = new JSONObject();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			//ModelAttribute收集的数据为‘’时插入会有异常
 			if(!iutil.isNull(gather.getIpurl())){
 				gather.setIpurl(null);
@@ -163,6 +172,7 @@ public class GatherController {
 			if(!iutil.isNull(gather.getLeavetime())){
 				gather.setLeavetime(null);
 			}
+			gather.setModifier(myuser.getUsername());
 			gm.editGather(gather);
 			obj.put("success", true);
 		}catch(Exception e){

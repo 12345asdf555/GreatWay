@@ -8,6 +8,8 @@
         <result property="welderno" column="fwelder_no"></result>  
         <result property="name" column="fname"></result>
         <result property="iname" column="iname"></result>
+		<result property="creator" column="fcreator" />
+		<result property="modifier" column="fmodifier" />
 	</resultMap>
 	
 	<select id="getWelderAll" resultMap="dMap" parameterType="java.lang.String">

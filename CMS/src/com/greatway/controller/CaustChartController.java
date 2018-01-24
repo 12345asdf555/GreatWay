@@ -568,7 +568,7 @@ public class CaustChartController {
 						for(ModelDto m:machine){
 							if(m.getWeldTime().equals(l.getWeldTime()) && m.getFid().equals(l.getIid())){
 								if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-									num[j] = (double)Math.round(l.getLoads()/m.getLoads()*100)/100;
+									num[j] = (double)Math.round(l.getLoads()/m.getLoads()*100*100)/100;
 								}
 							}
 						}
@@ -674,7 +674,7 @@ public class CaustChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getCaustNOLoads(dto, parent);
-			List<ModelDto> machine = lm.getCaustNoLoadMachineCount(dto, parent);
+			List<ModelDto> machine = lm.getCaustMachineCount(dto, parent);
 			List<LiveData> ins = lm.getAllInsf(pid,23);
 			double[] num = null;
 			for(LiveData live :time){
@@ -689,7 +689,7 @@ public class CaustChartController {
 						for(ModelDto m:machine){
 							if(m.getWeldTime().equals(l.getWeldTime()) && m.getFid().equals(l.getIid())){
 								if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-									num[j] = (double)Math.round(l.getLoads()/m.getLoads()*100)/100;
+									num[j] = (double)Math.round(l.getLoads()/m.getLoads()*100*100)/100;
 								}
 							}
 						}

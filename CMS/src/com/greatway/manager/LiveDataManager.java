@@ -401,7 +401,7 @@ public interface LiveDataManager {
 	BigInteger getDyneByJunctionno(String str);
 	
 	/**
-	 * 查询实时数据公司非待机焊机数量
+	 * 查询实时数据公司焊机数量
 	 * @param dto 扩张参数类
 	 * @param parent 公司id
 	 * @return
@@ -409,42 +409,20 @@ public interface LiveDataManager {
 	List<ModelDto> getCompanyMachineCount(WeldDto dto,BigInteger parent);
 
 	/**
-	 * 查询实时数据事业部/项目部非待机焊机数量
+	 * 查询实时数据事业部/项目部焊机数量
 	 * @param dto 扩张参数类
 	 * @param parent 事业部id
 	 * @return
 	 */
 	List<ModelDto> getCaustMachineCount(WeldDto dto,BigInteger parent);
 	
-	/**
-	 * 查询实时数据公司待机焊机数量
-	 * @param dto 扩张参数类
-	 * @param parent 公司id
-	 * @return
-	 */
-	List<ModelDto> getCompanyNoLoadMachineCount(WeldDto dto,BigInteger parent);
-
-	/**
-	 * 查询实时数据事业部/项目部待机焊机数量
-	 * @param dto 扩张参数类
-	 * @param parent 事业部id
-	 * @return
-	 */
-	List<ModelDto> getCaustNoLoadMachineCount(WeldDto dto,BigInteger parent);
 	
 	/**
-	 * 查询实时数据集团非待机焊机数量
+	 * 查询实时数据集团焊机数量
 	 * @param dto 扩张参数类
 	 * @param parent 事业部id
 	 * @return
 	 */
 	List<ModelDto> getBlocMachineCount(WeldDto dto,BigInteger parent);
 	
-	/**
-	 * 查询实时数据集团待机焊机数量
-	 * @param dto 扩张参数类
-	 * @param parent 事业部id
-	 * @return
-	 */
-	List<ModelDto> getBlocNoLoadMachineCount(WeldDto dto,BigInteger parent);
 }

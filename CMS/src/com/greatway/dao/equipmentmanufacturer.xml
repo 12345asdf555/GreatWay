@@ -8,7 +8,8 @@
 		<result property="name" column="fname" />		
 		<result property="type" column="ftype" />
 		<result property="typeValue" column="ftype_value" />
-		
+		<result property="creator" column="fcreator" />
+		<result property="modifier" column="fmodifier" />
 	</resultMap>
 	
 	<select id="getmanuAll" resultMap="mMap">

@@ -1,7 +1,6 @@
 package com.spring.controller;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -159,8 +158,12 @@ public class UserController {
        
 		JSONObject obj = new JSONObject();
 		try{
+		//获取当前用户
+		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MyUser myuser = (MyUser)object;
 		user.setUserInsframework(Long.parseLong(request.getParameter("userInsframework")));
         user.setStatus(Integer.parseInt(request.getParameter("status")));
+        user.setCreator(myuser.getUsername());
 		userService.save(user);
         String str = request.getParameter("rid");
         if(null!=str&&""!=str)
@@ -196,6 +199,9 @@ public class UserController {
 		User user = new User();
 		JSONObject obj = new JSONObject();
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
 			user.setUserName(request.getParameter("userName"));
 			user.setUserPassword(request.getParameter("userPassword"));
 			user.setUserLoginName(request.getParameter("userLoginName"));
@@ -207,6 +213,8 @@ public class UserController {
 			String str = request.getParameter("rid");
 			Integer uid = Integer.parseInt(request.getParameter("uid"));
 			user.setId(uid);
+			user.setCreator(myuser.getUsername());
+			user.setModifier(myuser.getUsername());
 			userService.deleteRole(uid);
 			if(null!=str&&""!=str)
 			{

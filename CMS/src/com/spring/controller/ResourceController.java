@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import com.greatway.manager.DictionaryManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
+import com.spring.model.MyUser;
 import com.spring.model.Resources;
 import com.spring.service.ResourceService;
 
@@ -101,6 +103,10 @@ public class ResourceController {
 	public String addResource(Resources resource,HttpServletRequest request){
 		JSONObject obj = new JSONObject();
 		try{
+		//获取当前用户
+		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MyUser myuser = (MyUser)object;
+		resource.setCreator(myuser.getUsername());
 		resource.setStatus(Integer.parseInt(request.getParameter("status")));
 		resourceService.save(resource);
 		obj.put("success", true);
@@ -123,6 +129,10 @@ public class ResourceController {
 		JSONObject obj = new JSONObject();
 		resource.setStatus(Integer.parseInt(request.getParameter("status")));
 		try{
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			resource.setModifier(myuser.getUsername());
 			resourceService.update(resource);
 			obj.put("success", true);
 			}catch(Exception e){

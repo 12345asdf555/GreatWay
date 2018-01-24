@@ -32,6 +32,8 @@
         <result property="updatecount" column="fupdatecount"></result>
         <result property="valtage_unit" column="fvaltage_unit"></result>
         <result property="electricity_unit" column="felectricity_unit"></result>
+		<result property="creator" column="fcreator" />
+		<result property="modifier" column="fmodifier" />
         <association property="itemid" column="fitemId" javaType="com.greatway.model.Insframework">  
             <id property="id" column="iid"></id> 
             <result property="name" column="iname"></result>  

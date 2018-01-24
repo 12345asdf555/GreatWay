@@ -345,7 +345,7 @@ public class ItemChartController {
 						for(ModelDto ma:machine){
 							if(ma.getWeldTime().equals(m.getWeldTime()) && ma.getFid().equals(m.getIid())){
 								if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100)/100;
+									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100*100)/100;
 								}
 							}
 						}
@@ -688,7 +688,7 @@ public class ItemChartController {
 		JSONObject object = new JSONObject();
 		try{
 			List<ModelDto> list = lm.getItemNOLoads(dto, parent,null);
-			List<ModelDto> machine = lm.getCaustNoLoadMachineCount(dto, parent);
+			List<ModelDto> machine = lm.getCaustMachineCount(dto, parent);
 			double[] num = new double[time.size()];
 			if(list.size()>0){
 				for(int i=0;i<time.size();i++){
@@ -697,7 +697,7 @@ public class ItemChartController {
 						for(ModelDto ma:machine){
 							if(ma.getWeldTime().equals(m.getWeldTime()) && ma.getFid().equals(m.getFid())){
 								if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100)/100;
+									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100*100)/100;
 								}
 							}
 						}

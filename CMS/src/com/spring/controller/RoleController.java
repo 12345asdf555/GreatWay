@@ -1,21 +1,21 @@
 package com.spring.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.greatway.enums.WeldEnum;
 import com.greatway.manager.DictionaryManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
+import com.spring.model.MyUser;
 import com.spring.model.Role;
 import com.spring.service.RoleService;
 
@@ -109,6 +109,10 @@ public class RoleController {
 	public String addRole(Role role,HttpServletRequest request){
 		JSONObject obj = new JSONObject();
 		try{
+		//获取当前用户
+		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MyUser myuser = (MyUser)object;
+		role.setCreator(myuser.getUsername());
 		role.setRoleStatus(Integer.parseInt(request.getParameter("status")));
         String str = request.getParameter("aid");
         roleService.save(role);
@@ -143,6 +147,11 @@ public class RoleController {
 		Role role = new Role();
 		JSONObject obj = new JSONObject();
 		try{
+		//获取当前用户
+		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MyUser myuser = (MyUser)object;
+		role.setCreator(myuser.getUsername());
+		role.setModifier(myuser.getUsername());
 /*		role.setRoleId(Integer.parseInt(request.getParameter("id")));*/
 		role.setRoleName(request.getParameter("roleName"));
 		role.setRoleDesc(request.getParameter("roleDesc"));
