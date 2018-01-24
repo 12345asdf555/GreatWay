@@ -13,6 +13,8 @@
 		<result property="statusId" column="fstatus_id" />
 		<result property="typename" column="typename" />
 		<result property="statusname" column="statusname" />
+		<result property="creator" column="fcreator" />
+		<result property="modifier" column="fmodifier" />
         <association property="insframeworkId" column="finsframework_id" javaType="com.spring.model.Insframework">  
             <id property="id" column="iid"></id> 
             <result property="name" column="iname"></result>  
@@ -85,7 +87,7 @@
 		SELECT fid FROM tb_welding_machine where finsframework_id = #{insfId}
 	</select>
 	
-	<select id="getEquipmentnoCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+	<select id="getEquipmentnoCount" resultType="java.lang.Integer">
 		SELECT count(*) FROM tb_welding_machine WHERE fequipment_no = #{eno}
 	</select>
 	
@@ -97,8 +99,8 @@
 	<select id="getMachineCountByManu" resultType="java.math.BigInteger">
 		 SELECT count(m.fid) FROM tb_welding_machine m inner join tb_insframework i  on i.fid = m.finsframework_id
 		 inner join tb_insframework ins  on ins.fid = i.fparent
-		 WHERE fmanufacturer_id = #{mid}
-		 and (i.fid = #{id} or ins.fid = #{id} or ins.fparent = #{id})
+         inner join tb_insframework insf  on insf.fid = ins.fparent
+		 WHERE fmanufacturer_id = #{mid} 	and (ins.fparent = #{id} or ins.fid = #{id} or i.fid = #{id} or insf.fparent=#{id})
 	</select>
 	
 	<select id="getIdByGatherid" resultType="java.math.BigInteger">
@@ -107,8 +109,8 @@
 	
 	<insert id="addWeldingMachine" parameterType="com.spring.model.WeldingMachine" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO tb_welding_machine(ftype_id, fequipment_no, fstatus_id, fposition, finsframework_id, 
-		fmanufacturer_id,fgather_id, fisnetworking, fjoin_time) VALUES 
-		(#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{isnetworking},#{joinTime})
+		fmanufacturer_id,fgather_id, fisnetworking, fjoin_time,fcreator,fcreatetime) VALUES 
+		(#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{isnetworking},#{joinTime},#{creator},now())
 	</insert>
 	
 	<update id="editGatherid"  parameterType="java.math.BigInteger">
@@ -118,7 +120,7 @@
 	<update id="editWeldingMachine"  parameterType="com.spring.model.WeldingMachine">
 		UPDATE tb_welding_machine SET ftype_id=#{typeId},fequipment_no=#{equipmentNo},fstatus_id=#{statusId},
 		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{manufacturerId.id},fgather_id=#{gatherId.id},
-		fisnetworking=#{isnetworking},fjoin_time=#{joinTime} where fid = #{id}
+		fisnetworking=#{isnetworking},fjoin_time=#{joinTime},fmodifier=#{modifier},fupdatetime=now() where fid = #{id}
 	</update>
 	
 	<update id="editstatus"  parameterType="com.spring.model.WeldingMachine">

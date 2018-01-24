@@ -27,8 +27,8 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public Object getWeldingMachineAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			BigInteger parent = new BigInteger(json.getString("insId"));
-			String str = json.getString("str");
+			BigInteger parent = new BigInteger(json.getString("INSFID"));
+			String str = json.getString("STR");
 			List<WeldingMachine> list =  wms.getWeldingMachineAll(parent, str);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
@@ -40,7 +40,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public Object getWeldingMachine(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<WeldingMachine> list = wms.getWeldingMachine(json.getString("str"));
+			List<WeldingMachine> list = wms.getWeldingMachine(json.getString("STR"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -63,20 +63,20 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldingMachine wm = new WeldingMachine();
-			wm.setEquipmentNo(json.getString("equipmentNo"));
-			wm.setPosition(json.getString("position"));
-			wm.setIsnetworking(json.getInt("isnetworking"));
-			wm.setJoinTime(json.getString("joinTime"));
-			wm.setTypeId(json.getInt("typeId"));
-			wm.setStatusId(json.getInt("statusId"));
+			wm.setEquipmentNo(json.getString("EQUIPMENTNO"));
+			wm.setPosition(json.getString("POSITION"));
+			wm.setIsnetworking(json.getInt("ISNETWORKING"));
+			wm.setJoinTime(json.getString("JOINTIME"));
+			wm.setTypeId(json.getInt("TYPEID"));
+			wm.setStatusId(json.getInt("STATUSID"));
 			Gather gather = new Gather();
-			gather.setId(new BigInteger(json.getString("gatherId")));
+			gather.setId(new BigInteger(json.getString("GATHERID")));
 			wm.setGatherId(gather);
 			EquipmentManufacturer e = new EquipmentManufacturer();
-			e.setId(new BigInteger(json.getString("manufacturerId")));
+			e.setId(new BigInteger(json.getString("MANUFACTUREID")));
 			wm.setManufacturerId(e);
 			Insframework ins = new Insframework();
-			ins.setId(new BigInteger(json.getString("insframeworkId")));
+			ins.setId(new BigInteger(json.getString("INSFRAMEWORKID")));
 			wm.setInsframeworkId(ins);
 			return wms.addWeldingMachine(wm);
 		}catch(Exception e){
@@ -90,21 +90,21 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldingMachine wm = new WeldingMachine();
-			wm.setId(new BigInteger(json.getString("id")));
-			wm.setEquipmentNo(json.getString("equipmentNo"));
-			wm.setPosition(json.getString("position"));
-			wm.setIsnetworking(json.getInt("isnetworking"));
-			wm.setJoinTime(json.getString("joinTime"));
-			wm.setTypeId(json.getInt("typeId"));
-			wm.setStatusId(json.getInt("statusId"));
+			wm.setId(new BigInteger(json.getString("ID")));
+			wm.setEquipmentNo(json.getString("EQUIPMENTNO"));
+			wm.setPosition(json.getString("POSITION"));
+			wm.setIsnetworking(json.getInt("ISNETWORKING"));
+			wm.setJoinTime(json.getString("JOINTIME"));
+			wm.setTypeId(json.getInt("TYPEID"));
+			wm.setStatusId(json.getInt("STATUSID"));
 			Gather gather = new Gather();
-			gather.setId(new BigInteger(json.getString("gatherId")));
+			gather.setId(new BigInteger(json.getString("GATHERID")));
 			wm.setGatherId(gather);
 			EquipmentManufacturer e = new EquipmentManufacturer();
-			e.setId(new BigInteger(json.getString("manufacturerId")));
+			e.setId(new BigInteger(json.getString("MANUFACTUREID")));
 			wm.setManufacturerId(e);
 			Insframework ins = new Insframework();
-			ins.setId(new BigInteger(json.getString("insframeworkId")));
+			ins.setId(new BigInteger(json.getString("INSFRAMEWORKID")));
 			wm.setInsframeworkId(ins);
 			return wms.editWeldingMachine(wm);
 		}catch(Exception e){
@@ -117,7 +117,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public boolean deleteWeldingChine(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return wms.deleteWeldingChine(new BigInteger(json.getString("wid")));
+			return wms.deleteWeldingChine(new BigInteger(json.getString("WID")));
 		}catch(Exception e){
 			return false;
 		}
@@ -127,7 +127,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public BigInteger getWeldingMachineByEno(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return wms.getWeldingMachineByEno(json.getString("eno"));
+			return wms.getWeldingMachineByEno(json.getString("ENO"));
 		}catch(Exception e){
 			return null;
 		}
@@ -137,7 +137,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public int getEquipmentnoCount(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return wms.getEquipmentnoCount(json.getString("eno"));
+			return wms.getEquipmentnoCount(json.getString("ENO"));
 		}catch(Exception e){
 			return -1;
 		}
@@ -147,8 +147,8 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public int getGatheridCount(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			BigInteger itemid = new BigInteger(json.getString("insfId"));
-			String gather = json.getString("gatherNo");
+			BigInteger itemid = new BigInteger(json.getString("INSFID"));
+			String gather = json.getString("GATHERNO");
 			return wms.getGatheridCount(itemid, gather);
 		}catch(Exception e){
 			return -1;
@@ -159,7 +159,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public BigInteger getManuidByValue(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return wms.getManuidByValue(json.getString("manuName"), json.getString("manuType"));
+			return wms.getManuidByValue(json.getString("MANUNAME"), json.getString("MANUTYPE"));
 		}catch(Exception e){
 			return null;
 		}
@@ -169,7 +169,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public Object getWeldingMachineById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			WeldingMachine list = wms.getWeldingMachineById(new BigInteger(json.getString("wid")));
+			WeldingMachine list = wms.getWeldingMachineById(new BigInteger(json.getString("WID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -180,7 +180,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public BigInteger getInsframeworkByName(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return wms.getInsframeworkByName(json.getString("insName"));
+			return wms.getInsframeworkByName(json.getString("INSNAME"));
 		}catch(Exception e){
 			return null;
 		}
@@ -190,8 +190,8 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public BigInteger getMachineCountByManu(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			BigInteger mid = new BigInteger(json.getString("manuId"));
-			BigInteger insid = new BigInteger(json.getString("insId"));
+			BigInteger mid = new BigInteger(json.getString("MANUID"));
+			BigInteger insid = new BigInteger(json.getString("INSFID"));
 			return wms.getMachineCountByManu(mid, insid);
 		}catch(Exception e){
 			return null;

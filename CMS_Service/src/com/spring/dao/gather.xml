@@ -13,6 +13,8 @@
        	<result property="macurl" column="fmacurl"></result>
        	<result property="leavetime" column="fleavetime"></result>
        	<result property="itemname" column="fname"></result>
+		<result property="creator" column="fcreator" />
+		<result property="modifier" column="fmodifier" />
 	</resultMap>
 	
 	<select id="getGatherAll" resultMap="gatherMap">
@@ -42,12 +44,13 @@
 	</select>
 	
 	<insert id="addGather" parameterType="com.spring.model.Gather" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO tb_gather(fgather_no,fitemId, fstatus, fprotocol, fipurl, fmacurl, fleavetime) VALUES
-		(#{gatherNo},#{itemid},#{status},#{protocol},#{ipurl},#{macurl},#{leavetime})
+		INSERT INTO tb_gather(fgather_no,fitemId, fstatus, fprotocol, fipurl, fmacurl, fleavetime, fcreator, fcreatetime) VALUES
+		(#{gatherNo},#{itemid},#{status},#{protocol},#{ipurl},#{macurl},#{leavetime},#{creator},now())
  	</insert>
 	
 	<update id="editGather" parameterType="com.spring.model.Gather">
-		UPDATE tb_gather SET fgather_no=#{gatherNo},fitemId=#{itemid}, fstatus=#{status}, fprotocol=#{protocol}, fipurl=#{ipurl}, fmacurl=#{macurl}, fleavetime=#{leavetime} WHERE fid=#{id}
+		UPDATE tb_gather SET fgather_no=#{gatherNo},fitemId=#{itemid}, fstatus=#{status}, fprotocol=#{protocol}, fipurl=#{ipurl}, 
+		fmacurl=#{macurl}, fleavetime=#{leavetime},fmodifier=#{modifier},fupdatetime=now()  WHERE fid=#{id}
 	</update>
 	
 	<delete id="deleteGather" parameterType="java.math.BigInteger">

@@ -24,14 +24,14 @@ public class UserWebServiceImpl implements UserWebService {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
 			User user = new User();
-			user.setUserName(json.getString("uname"));
-			user.setUserPassword(json.getString("password"));
-			user.setUserLoginName(json.getString("loginName"));
-			user.setUserEmail(json.getString("email"));
-			user.setUserPhone(json.getString("phone"));
-			user.setUserInsframework(json.getLong("insfId"));
-			user.setUserPosition(json.getString("position"));
-			user.setStatus(json.getInt("statusId"));
+			user.setUserName(json.getString("UNAME"));
+			user.setUserPassword(json.getString("PASSWORD"));
+			user.setUserLoginName(json.getString("LOGINNAME"));
+			user.setUserEmail(json.getString("EMAIL"));
+			user.setUserPhone(json.getString("PHONE"));
+			user.setUserInsframework(json.getLong("INSFID"));
+			user.setUserPosition(json.getString("POSITION"));
+			user.setStatus(json.getInt("STATUSID"));
 			return us.save(user);
 		}catch(Exception e){
 			return false;
@@ -43,15 +43,15 @@ public class UserWebServiceImpl implements UserWebService {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
 			User user = new User();
-			user.setId(json.getInt("uId"));
-			user.setUserName(json.getString("uname"));
-			user.setUserPassword(json.getString("password"));
-			user.setUserLoginName(json.getString("loginName"));
-			user.setUserEmail(json.getString("email"));
-			user.setUserPhone(json.getString("phone"));
-			user.setUserInsframework(json.getLong("insfId"));
-			user.setUserPosition(json.getString("position"));
-			user.setStatus(json.getInt("statusId"));
+			user.setId(json.getInt("UID"));
+			user.setUserName(json.getString("UNAME"));
+			user.setUserPassword(json.getString("PASSWORD"));
+			user.setUserLoginName(json.getString("LOGINNAME"));
+			user.setUserEmail(json.getString("EMAIL"));
+			user.setUserPhone(json.getString("PHONE"));
+			user.setUserInsframework(json.getLong("INSFID"));
+			user.setUserPosition(json.getString("POSITION"));
+			user.setStatus(json.getInt("STATUSID"));
 			return us.update(user);
 		}catch(Exception e){
 			return false;
@@ -62,7 +62,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public boolean delete(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.delete(json.getInt("uId"));
+			return us.delete(json.getInt("UID"));
 		}catch(Exception e){
 			return false;
 		}
@@ -72,7 +72,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public  Object findById(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			User list = us.findById(json.getInt("uId"));
+			User list = us.findById(json.getInt("UID"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -83,7 +83,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public String findByRoleId(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.findByRoleId(json.getInt("roleId"));
+			return us.findByRoleId(json.getInt("ROLEID"));
 		}catch(Exception e){
 			return null;
 		}
@@ -93,7 +93,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public int findByName(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.findByName(json.getString("loginName"));
+			return us.findByName(json.getString("LOGINNAME"));
 		}catch(Exception e){
 			return -1;
 		}
@@ -103,7 +103,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public Object findAll(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			List<User> list = us.findAll(new BigInteger(json.getString("insfId")), json.getString("str"));
+			List<User> list = us.findAll(new BigInteger(json.getString("INSFID")), json.getString("STR"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -114,7 +114,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public Object findRole(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			List<User> list = us.findRole(json.getInt("uId"));
+			List<User> list = us.findRole(json.getInt("UID"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -135,7 +135,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public int getUsernameCount(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return us.getUsernameCount(json.getString("loginname"));
+			return us.getUsernameCount(json.getString("LOGINNAME"));
 		}catch(Exception e){
 			return -1;
 		}
@@ -145,7 +145,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public Object LoadUser(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			User list = us.LoadUser(json.getString("loginName"));
+			User list = us.LoadUser(json.getString("LOGINNAME"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -156,7 +156,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public Object getAuthoritiesByUsername(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			List<String> list = us.getAuthoritiesByUsername(json.getString("loginName"));
+			List<String> list = us.getAuthoritiesByUsername(json.getString("LOGINNAME"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -167,7 +167,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public Object getIns(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			List<User> list = us.getIns(new BigInteger(json.getString("insfId")));
+			List<User> list = us.getIns(new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -178,7 +178,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public Object getUserInsframework(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			User list = us.getUserInsframework(new BigInteger(json.getString("uId")));
+			User list = us.getUserInsframework(new BigInteger(json.getString("UID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -189,7 +189,7 @@ public class UserWebServiceImpl implements UserWebService {
 	public Object getInsUser(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			List<User> list = us.getInsUser(json.getInt("insfId"));
+			List<User> list = us.getInsUser(json.getInt("INSFID"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;

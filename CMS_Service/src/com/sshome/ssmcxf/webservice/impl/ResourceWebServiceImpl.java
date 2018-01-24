@@ -24,11 +24,11 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
 			Resources r = new Resources();
-			r.setResourceName(json.getString("resourceName"));
-			r.setResourceAddress(json.getString("address"));
-			r.setResourceType(json.getString("typeId"));
-			r.setResourceDesc(json.getString("desc"));
-			r.setStatus(json.getInt("statusId"));
+			r.setResourceName(json.getString("RESOURCENAME"));
+			r.setResourceAddress(json.getString("ADDRESS"));
+			r.setResourceType(json.getString("TYPEID"));
+			r.setResourceDesc(json.getString("DESC"));
+			r.setStatus(json.getInt("STATUSID"));
 			return rs.save(r);
 		}catch(Exception e){
 			return false;
@@ -40,12 +40,12 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
 			Resources r = new Resources();
-			r.setId(json.getInt("id"));
-			r.setResourceName(json.getString("name"));
-			r.setResourceAddress(json.getString("address"));
-			r.setResourceType(json.getString("typeId"));
-			r.setResourceDesc(json.getString("desc"));
-			r.setStatus(json.getInt("statusId"));
+			r.setId(json.getInt("ID"));
+			r.setResourceName(json.getString("NAME"));
+			r.setResourceAddress(json.getString("ADDRESS"));
+			r.setResourceType(json.getString("TYPEID"));
+			r.setResourceDesc(json.getString("DESC"));
+			r.setStatus(json.getInt("STATUSID"));
 			return rs.update(r);
 		}catch(Exception e){
 			return false;
@@ -56,7 +56,7 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 	public boolean deleteResource(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return rs.delete(json.getInt("id"));
+			return rs.delete(json.getInt("ID"));
 		}catch(Exception e){
 			return false;
 		}
@@ -66,7 +66,7 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 	public Object findResourceById(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			Resources list = rs.findById(json.getInt("id"));
+			Resources list = rs.findById(json.getInt("ID"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -77,7 +77,7 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 	public Object findResourceAll(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			List<Resources> list = rs.findAll(json.getString("str"));
+			List<Resources> list = rs.findAll(json.getString("STR"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -88,7 +88,7 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 	public int getResourcenameCount(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return rs.getResourcenameCount(json.getString("name"));
+			return rs.getResourcenameCount(json.getString("NAME"));
 		}catch(Exception e){
 			return -1;
 		}
@@ -98,7 +98,7 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 	public Object getAuthByRes(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			List<String> list = rs.getAuthByRes(json.getString("address"));
+			List<String> list = rs.getAuthByRes(json.getString("ADDRESS"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;

@@ -23,7 +23,7 @@ public class TdWebServiceImpl implements TdWebService{
 	public Object findAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<Td> list = ts.findAll(json.getString("str"));
+			List<Td> list = ts.findAll(json.getString("STR"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -34,7 +34,7 @@ public class TdWebServiceImpl implements TdWebService{
 	public Object findAlldiv(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<Td> list =  ts.findAlldiv(json.getLong("insfId"));
+			List<Td> list =  ts.findAlldiv(json.getLong("INSFID"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -55,7 +55,7 @@ public class TdWebServiceImpl implements TdWebService{
 	public long findIns(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ts.findIns(json.getLong("uId"));
+			return ts.findIns(json.getLong("UID"));
 		}catch(Exception e){
 			return -1;
 		}
@@ -65,7 +65,7 @@ public class TdWebServiceImpl implements TdWebService{
 	public long findInsid(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ts.findInsid(json.getString("insfName"));
+			return ts.findInsid(json.getString("INSFNAME"));
 		}catch(Exception e){
 			return -1;
 		}
@@ -75,7 +75,7 @@ public class TdWebServiceImpl implements TdWebService{
 	public String findweld(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ts.findweld(json.getString("weldNo"));
+			return ts.findweld(json.getString("WELDNO"));
 		}catch(Exception e){
 			return null;
 		}
@@ -85,7 +85,7 @@ public class TdWebServiceImpl implements TdWebService{
 	public String findInsname(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ts.findInsname(json.getLong("insfId"));
+			return ts.findInsname(json.getLong("INSFID"));
 		}catch(Exception e){
 			return null;
 		}
@@ -95,7 +95,7 @@ public class TdWebServiceImpl implements TdWebService{
 	public String findPosition(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ts.findPosition(json.getString("machineNo"));
+			return ts.findPosition(json.getString("MACHINENO"));
 		}catch(Exception e){
 			return null;
 		}
@@ -115,7 +115,7 @@ public class TdWebServiceImpl implements TdWebService{
 	public int findDic(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ts.findDic(json.getLong("uId"));
+			return ts.findDic(json.getLong("UID"));
 		}catch(Exception e){
 			return -1;
 		}

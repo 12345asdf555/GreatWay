@@ -1,5 +1,9 @@
 package com.sshome.ssmcxf.webservice;
 
+import java.util.List;
+
+import com.spring.dto.ModelDto;
+
 public interface LiveDataWebService {
 	/**
 	 * 查询事业部焊接工时
@@ -355,4 +359,29 @@ public interface LiveDataWebService {
 	Object getHousClassify(String object);
 	
 	Object getDetailNoLoads(String object);
+	
+
+	/**
+	 * 查询实时数据集团焊机数量
+	 * @param dto 扩张参数类
+	 * @param parent 公司id
+	 * @return
+	 */
+	Object getBlocMachineCount(String object);
+
+	/**
+	 * 查询实时数据公司焊机数量
+	 * @param dto 扩张参数类
+	 * @param parent 公司id
+	 * @return
+	 */
+	Object getCompanyMachineCount(String object);
+
+	/**
+	 * 查询实时数据事业部/项目部焊机数量
+	 * @param dto 扩张参数类
+	 * @param parent 公司id
+	 * @return
+	 */
+	Object getCaustMachineCount(String object);
 }

@@ -43,7 +43,22 @@ public class WeldedJunction {
 	private String valtage_unit;
 	@Transient
 	private Insframework itemid;//所属项目（新增字段）
+
+	private String creator;
+	private String modifier;
 	
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+	public String getModifier() {
+		return modifier;
+	}
+	public void setModifier(String modifier) {
+		this.modifier = modifier;
+	}
 	public String getElectricity_unit() {
 		return electricity_unit;
 	}

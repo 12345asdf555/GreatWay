@@ -6,6 +6,8 @@
 	<resultMap id="mmMap" type="com.spring.model.WeldingMaintenance">
 		<id property="id" column="fid"></id> 
         <result property="back" column="fback"></result>
+		<result property="creator" column="fcreator" />
+		<result property="modifier" column="fmodifier" />
         <association property="maintenance" column="fmaintenance_id" javaType="com.spring.model.MaintenanceRecord">  
             <id property="id" column="rid"></id> 
             <result property="viceman" column="fviceman"></result>  
@@ -55,12 +57,12 @@
 	</select>
 	
 	<insert id="addWeldingMaintenance" parameterType="com.spring.model.WeldingMaintenance" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO tb_welding_maintenance(fwelding_id, fmaintenance_id) VALUES (#{welding.id},#{maintenance.id})
+		INSERT INTO tb_welding_maintenance(fwelding_id, fmaintenance_id,fcreator,fcreatetime) VALUES (#{welding.id},#{maintenance.id},#{creator},now())
 	</insert>
 	
 	<insert id="addMaintenanceRecord" parameterType="com.spring.model.MaintenanceRecord" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO tb_maintenance_record(ftype_id, fviceman, fdesc, fstart_time, fend_time) VALUES 
-		(#{typeId},#{viceman},#{desc},#{startTime},#{endTime})
+		INSERT INTO tb_maintenance_record(ftype_id, fviceman, fdesc, fstart_time, fend_time, fcreator, fcreatetime) VALUES 
+		(#{typeId},#{viceman},#{desc},#{startTime},#{endTime},#{creator},now())
 	</insert>
 	
 	<update id="updateEndtime" parameterType="java.math.BigInteger">
@@ -68,7 +70,7 @@
 	</update>
 	
 	<update id="updateMaintenanceRecord" parameterType="com.spring.model.MaintenanceRecord">
-		UPDATE tb_maintenance_record SET ftype_id=#{typeId},fviceman=#{viceman},fdesc=#{desc},fstart_time=#{startTime},fend_time=#{endTime} WHERE fid=#{id}
+		UPDATE tb_maintenance_record SET ftype_id=#{typeId},fviceman=#{viceman},fdesc=#{desc},fstart_time=#{startTime},fend_time=#{endTime},fmodifier=#{modifier},fupdatetime=now()  WHERE fid=#{id}
 	</update>
 	
 	<delete id="deleteMaintenanceRecord" parameterType="java.math.BigInteger">

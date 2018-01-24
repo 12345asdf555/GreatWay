@@ -20,6 +20,8 @@ public class WeldingMachine {
 	private String joinTime;
 	private int typeId;
 	private int statusId;
+	private String creator;
+	private String modifier;
 	@Transient
 	private Gather gatherId;
 	@Transient
@@ -31,6 +33,19 @@ public class WeldingMachine {
 	private String typename;
 	private String statusname;
 	
+	
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+	public String getModifier() {
+		return modifier;
+	}
+	public void setModifier(String modifier) {
+		this.modifier = modifier;
+	}
 	public BigInteger getId() {
 		return id;
 	}
