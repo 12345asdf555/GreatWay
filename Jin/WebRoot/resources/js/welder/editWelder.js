@@ -30,7 +30,7 @@
 		})
 		
 					$(function(){
-				var we=6;
+				var we=8;
  			   $.ajax({
  			   type: "post", 
  			   url: "welders/getLeve?we="+we,

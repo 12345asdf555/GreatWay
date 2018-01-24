@@ -60,6 +60,7 @@ public class WpsController {
 	 * @param request
 	 * @return
 	 */
+	
 	@RequestMapping("/AllWps")
 	public String AllUser(HttpServletRequest request){
 		return "weldwps/allWps";
@@ -109,6 +110,7 @@ public class WpsController {
 				json.put("Fowner",wps.getInsname());
 				json.put("Fback", wps.getFback());
 				json.put("Fname", wps.getFname());
+				json.put("Fdiameter", wps.getFdiameter());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -171,6 +173,7 @@ public class WpsController {
 			wps.setFowner(Long.parseLong(request.getParameter("ins")));
 			wps.setFcreatedate(sdf.parse(sdf.format((new Date()).getTime())));
 			wps.setFupdatedate(sdf.parse(sdf.format((new Date()).getTime())));
+			wps.setFdiameter(Double.valueOf(request.getParameter("Fdiameter")));
 			wpsService.save(wps);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -207,6 +210,7 @@ public class WpsController {
 	        wps.setFupdatedate(sdf.parse(sdf.format((new Date()).getTime())));
 	        wps.setFback(request.getParameter("Fback"));
 	        wps.setFname(request.getParameter("Fname"));
+	        wps.setFdiameter(Double.valueOf(request.getParameter("Fdiameter")));
 		    wpsService.update(wps);
 			obj.put("success", true);
 			}catch(Exception e){
@@ -224,6 +228,7 @@ public class WpsController {
 			JSONObject obj = new JSONObject();
 			try{
 				wpsService.delete(fid);
+				wpsService.deleteHistory(fid);
 				 obj.put("success", true);
 			}catch(Exception e){
 				obj.put("success", false);
@@ -418,7 +423,7 @@ public class WpsController {
 //		                    strdata="7E7C20521301027C201E7C200A7C20647C20BE7C207C207C20FA7C20FA7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C201E327C207C202C7D";
 							SendAndReceiveUtil.sendData(socketChannel, strdata);
 					         Robot  r   =   new   Robot();
-					         r.delay(1000);
+					         r.delay(500);
         				}
         			}
 

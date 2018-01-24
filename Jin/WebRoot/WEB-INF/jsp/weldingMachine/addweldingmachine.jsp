@@ -68,6 +68,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>ip地址</lable>
 					<input class="easyui-textbox" name="ip" id="ip"/>
 				</div>
+				<div class="fitem">
+					<lable>设备型号</lable>
+					<input class="easyui-textbox" name="model" id="model"/>
+				</div>
 				<div class="fitem" >
 					<lable>是否联网</lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" class="radioStyle" name="isnetworking" value="0" checked="checked"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

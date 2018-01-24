@@ -73,6 +73,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="Fweld_Alter_V" class="easyui-textbox" value="${wps.fweld_alter_v}" readonly="true" data-options="required:true">
             </div>
             <div class="fitem">
+            	<lable>焊丝直径</lable>
+                <input name="Fdiameter" class="easyui-textbox" value="${wps.fdiameter}" data-options="required:true">
+            </div>
+            <div class="fitem">
             	<lable>预置通道</lable>
                 <input name="Fweld_PreChannel" class="easyui-textbox" value="${wps.fweld_prechannel}" readonly="true" data-options="required:true">
             </div>

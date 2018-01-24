@@ -21,6 +21,7 @@ public class WeldingMachine {
 	private String joinTime;
 	private int typeId;
 	private int statusId;
+	private String model;
 	@Transient
 	private Gather gatherId;
 	@Transient
@@ -110,6 +111,11 @@ public class WeldingMachine {
 	public void setStatusname(String statusname) {
 		this.statusname = statusname;
 	}
-	
+	public String getModel() {
+		return model;
+	}
+	public void setModel(String model) {
+		this.model = model;
+	}
 	
 }

@@ -174,6 +174,7 @@ public class WeldingMachineController {
 				json.put("insframeworkId", wm.getInsframeworkId().getId());
 				json.put("manufacturerName", wm.getManufacturerId().getName()+" - "+wm.getManufacturerId().getType());
 				json.put("manufacturerId", wm.getManufacturerId().getId());
+				json.put("model",wm.getModel());
 				if(wm.getGatherId()!=null ||("").equals(wm.getGatherId())){
 					json.put("gatherId", wm.getGatherId().getGatherNo());
 				}else{
@@ -337,6 +338,7 @@ public class WeldingMachineController {
 		JSONObject obj = new JSONObject();
 		try{
 			wm.setIp(request.getParameter("ip"));
+			wm.setModel(request.getParameter("model"));
 			wm.setEquipmentNo(request.getParameter("equipmentNo"));
 			if(iutil.isNull(request.getParameter("joinTime"))){
 				wm.setJoinTime(request.getParameter("joinTime"));
@@ -397,6 +399,7 @@ public class WeldingMachineController {
 			wm.setInsframeworkId(ins);
 			wm.setStatusId(Integer.parseInt(request.getParameter("sId")));
 			wm.setIp(request.getParameter("ip"));
+			wm.setModel(request.getParameter("model"));
 			//修改焊机状态为启用时，结束所有维修任务
 			int sid = wm.getStatusId();
 			if(sid == 31){
@@ -431,6 +434,7 @@ public class WeldingMachineController {
 		JSONObject obj = new JSONObject();
 		try{
 			wmm.deleteWeldingChine(new BigInteger(wid));
+			wmm.deleteHistory(new BigInteger(wid));
 			List<WeldingMaintenance> list = maintain.getMaintainByWeldingMachinId(new BigInteger(wid));
 			for(WeldingMaintenance wm : list){
 				//删除维修记录

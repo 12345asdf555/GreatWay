@@ -130,7 +130,7 @@ public class PersonController {
 		int we = Integer.parseInt(request.getParameter("we"));
 		List<Person> findLeve = welderService.findLeve(we);
 		try{
-			if(we==6){
+			if(we==8){
 			for(Person welder:findLeve){
 				json.put("leveid", welder.getVal());
 				json.put("levename", welder.getValuename());

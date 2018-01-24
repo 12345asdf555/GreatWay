@@ -77,6 +77,12 @@
 			halign : "center",
 			align : "left"
         }, {
+			field : 'Fdiameter',
+			title : '焊丝直径',
+			width : 100,
+			halign : "center",
+			align : "left"
+        },{
 			field : 'Fweld_PreChannel',
 			title : '预置通道',
 			width : 100,

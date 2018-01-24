@@ -19,7 +19,7 @@
 		<typeAlias alias="Person" type="com.spring.model.Person" />
 		<typeAlias alias="Parameter" type="com.spring.model.Parameter" />
 		<typeAlias alias="Wps" type="com.spring.model.Wps"/>
-		
+		<typeAlias alias="Report" type="com.spring.model.Report"/>
 	</typeAliases>
 	
 	<plugins>
@@ -52,6 +52,7 @@
 		<mapper resource="com/greatway/dao/livedata.xml"/>
 		<mapper resource="com/greatway/dao/wpsMapper.xml" />
 		<mapper resource="com/greatway/dao/parameterMapper.xml"/>
+		<mapper resource="com/greatway/dao/reportMapper.xml"/>
 	</mappers>
 
 </configuration>  
