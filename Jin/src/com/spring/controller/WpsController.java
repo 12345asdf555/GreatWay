@@ -60,6 +60,7 @@ public class WpsController {
 	 * @param request
 	 * @return
 	 */
+	
 	@RequestMapping("/AllWps")
 	public String AllUser(HttpServletRequest request){
 		return "weldwps/allWps";
