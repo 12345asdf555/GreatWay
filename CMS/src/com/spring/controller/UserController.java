@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -161,6 +162,9 @@ public class UserController {
 		//获取当前用户
 		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser myuser = (MyUser)object;
+		String fs = user.getUserPassword();
+		String xxx = DigestUtils.md5Hex(fs);
+		user.setUserPassword(xxx);
 		user.setUserInsframework(Long.parseLong(request.getParameter("userInsframework")));
         user.setStatus(Integer.parseInt(request.getParameter("status")));
         user.setCreator(myuser.getUsername());
@@ -202,8 +206,14 @@ public class UserController {
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
+			String fs = request.getParameter("userPassword");
+			if(fs.length()<32){
+				String xxx = DigestUtils.md5Hex(fs);
+				user.setUserPassword(xxx);
+			}else{
+				user.setUserPassword(fs);
+			}
 			user.setUserName(request.getParameter("userName"));
-			user.setUserPassword(request.getParameter("userPassword"));
 			user.setUserLoginName(request.getParameter("userLoginName"));
 			user.setUserPhone(request.getParameter("userPhone"));
 			user.setUserEmail(request.getParameter("userEmail"));
