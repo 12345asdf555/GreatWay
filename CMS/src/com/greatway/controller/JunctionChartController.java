@@ -132,13 +132,14 @@ public class JunctionChartController {
 		String itemid = request.getParameter("itemid");
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
+		String otype = request.getParameter("otype");
 		insm.showParent(request,itemid);
 		lm.getUserId(request);
 		request.setAttribute("parent",itemid);
 		request.setAttribute("weldtime",weldtime);
-		request.setAttribute("weldtime",weldtime);
 		request.setAttribute("time1",time1);
 		request.setAttribute("time2",time2);
+		request.setAttribute("otype",otype);
 		return "junctionchart/detailloads";
 	}
 	
@@ -368,6 +369,7 @@ public class JunctionChartController {
 		String weldtime = request.getParameter("weldtime");
 		String time1 = request.getParameter("time1");
 		String time2 = request.getParameter("time2");
+		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		if(iutil.isNull(weldtime)){
 			dto.setTime("%"+weldtime+"%");
@@ -380,6 +382,17 @@ public class JunctionChartController {
 		}
 		if(iutil.isNull(parent)){
 			dto.setParent(new BigInteger(parent));
+		}
+		if(iutil.isNull(type)){
+			if(type.equals("1")){
+				dto.setYear("year");
+			}else if(type.equals("2")){
+				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
+			}else if(type.equals("4")){
+				dto.setWeek("week");
+			}
 		}
 		page = new Page(pageIndex,pageSize,total);
 		List<ModelDto> list = lm.getDetailLoads(page, dto, null);
@@ -452,7 +465,8 @@ public class JunctionChartController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(ModelDto l:list){
-				double loads = (double)Math.round(l.getLoads()*100*100)/100;
+				BigInteger livecount = lm.getCountByTime(l.getFid(), "%"+weldtime+"%",l.getJid());
+				double loads = (double)Math.round(l.getLoads()/livecount.doubleValue()*100*100)/100;
 				json.put("loads", loads+"%");
 				json.put("weldtime", weldtime);
 				json.put("name",l.getFname());

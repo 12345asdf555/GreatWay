@@ -6,14 +6,13 @@ var chartStr = "";
 $(document).ready(function(){
 	showitemLoadsChart();
 })
-
+var otype = "";
 function setParam(){
 	var parent = $("#parent").val();
 	var item = $("#item").combobox("getValue");
-	var otype = $("input[name='otype']:checked").val();
+	otype = $("input[name='otype']:checked").val();
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var otype = $("input[name='otype']:checked").val();
 	chartStr = "?otype="+otype+"&parent="+parent+"&item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
@@ -127,7 +126,7 @@ function ItemloadsDatagrid(){
                  for(var m=0;m<result.arys.length;m++){
                 	 column.push({field:"loads",title:result.arys[m].name+"(负荷率)",width:width,halign : "center",align : "left",
                 		 formatter : function(value,row,index){
-                			 return "<a href='junctionChart/goDetailLoads?itemid="+row.itemid+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"'>"+value+"%"+"</a>";
+                			 return "<a href='junctionChart/goDetailLoads?itemid="+row.itemid+"&otype="+otype+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"'>"+value+"%"+"</a>";
                 		 }
                 	 },{field:"itemid",title:"项目id",width:width,halign : "center",align : "left",hidden : true});
                  }

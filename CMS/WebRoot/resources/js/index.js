@@ -337,3 +337,7 @@ function tabsIncident(){
 		});
 	});
 }
+
+function pageupclick(){
+	alert("点我干吗");
+}

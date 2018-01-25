@@ -697,7 +697,8 @@ public class ItemChartController {
 						for(ModelDto ma:machine){
 							if(ma.getWeldTime().equals(m.getWeldTime()) && ma.getFid().equals(m.getFid())){
 								if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100*100)/100;
+									BigInteger livecount = lm.getCountByTime(m.getFid(), "%"+m.getWeldTime()+"%",null);
+									num[i] = (double)Math.round(m.getLoads()/livecount.doubleValue()/ma.getLoads()*100*100)/100;
 								}
 							}
 						}

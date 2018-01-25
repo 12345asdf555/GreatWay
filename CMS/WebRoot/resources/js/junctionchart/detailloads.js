@@ -7,12 +7,13 @@ function detailloadsDatagrid(){
 	var weldtime = $("#weldtime").val();
 	var time1 = $("#time1").val();
 	var time2 = $("#time2").val();
+	var otype = $("#otype").val();
 	$("#detailLoadsTable").datagrid( {
 		fitColumns : true,
 		height : $("#body").height() - $("#detailLoad_btn").height(),
 		width : $("#body").width(),
 		idField : 'id',
-		url : "junctionChart/getDetailLoads?parent="+parent+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2,
+		url : "junctionChart/getDetailLoads?parent="+parent+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2+"&otype="+otype,
 		singleSelect : true,
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50],

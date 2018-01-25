@@ -3,7 +3,6 @@ package com.greatway.manager.impl;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.jws.WebService;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -335,6 +334,11 @@ public class LiveDataManagerImpl implements LiveDataManager {
 	@Override
 	public List<ModelDto> getBlocMachineCount(WeldDto dto, BigInteger parent) {
 		return live.getBlocMachineCount(dto, parent);
+	}
+
+	@Override
+	public BigInteger getCountByTime(BigInteger parent, String time, BigInteger mid) {
+		return live.getCountByTime(parent, time, mid);
 	}
 
 }

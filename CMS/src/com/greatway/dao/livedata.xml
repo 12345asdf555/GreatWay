@@ -898,18 +898,22 @@
 	<!-- 集团负荷率 -->
 	<select id="getBlocLoads" resultMap="dtoMap">
 		select * from (
-		SELECT COUNT( lid ) / ( 8 *60 *60 ) AS loads, 
+		SELECT 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
+				COUNT( lid ) / ( 12 *30 *8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y' )
 			</if>
 			<if test="dto.month!=null and dto.month!=''">
+				COUNT( lid ) / ( 30 *8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y-%m' )
 			</if>
 			<if test="dto.day!=null and dto.day!=''">
+				COUNT( lid ) / ( 8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
 			</if>
 			<if test="dto.week!=null and dto.week!=''">
+				COUNT( lid ) / ( 7 *8 *60 *60 ) AS loads, 
 				weekofyear(fweldtime)
 			</if>
 		</if>
@@ -953,18 +957,22 @@
 	<!-- 公司负荷率 -->
 	<select id="getCompanyLoads" resultMap="dtoMap">
 		select * from (
-		SELECT COUNT( lid ) / ( 8 *60 *60 ) AS loads, 
+		SELECT 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
+				COUNT( lid ) / ( 12 *30 *8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y' )
 			</if>
 			<if test="dto.month!=null and dto.month!=''">
+				COUNT( lid ) / ( 30 *8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y-%m' )
 			</if>
 			<if test="dto.day!=null and dto.day!=''">
+				COUNT( lid ) / ( 8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
 			</if>
 			<if test="dto.week!=null and dto.week!=''">
+				COUNT( lid ) / ( 7 *8 *60 *60 ) AS loads, 
 				weekofyear(fweldtime)
 			</if>
 		</if>
@@ -1010,18 +1018,22 @@
 	<!-- 事业部负荷率 -->
 	<select id="getCaustLoads" resultMap="dtoMap">
 		select * from(
-		SELECT COUNT( lid ) / ( 8 *60 *60 ) AS loads, 
+		SELECT 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
+				COUNT( lid ) / ( 12 *30 *8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y' )
 			</if>
 			<if test="dto.month!=null and dto.month!=''">
+				COUNT( lid ) / ( 30 *8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y-%m' )
 			</if>
 			<if test="dto.day!=null and dto.day!=''">
+				COUNT( lid ) / ( 8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
 			</if>
 			<if test="dto.week!=null and dto.week!=''">
+				COUNT( lid ) / ( 7 *8 *60 *60 ) AS loads, 
 				weekofyear(fweldtime)
 			</if>
 		</if>
@@ -1067,18 +1079,22 @@
 	<!-- 获取项目部负荷率 -->
 	<select id="getItemLoads"  resultMap="dtoMap">
 		select * from (
-		SELECT COUNT( lid ) / ( 8 *60 *60 ) AS loads,
+		SELECT 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
+				COUNT( lid ) / ( 12 *30 *8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y' )
 			</if>
 			<if test="dto.month!=null and dto.month!=''">
+				COUNT( lid ) / ( 30 *8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y-%m' )
 			</if>
 			<if test="dto.day!=null and dto.day!=''">
+				COUNT( lid ) / ( 8 *60 *60 ) AS loads, 
 				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
 			</if>
 			<if test="dto.week!=null and dto.week!=''">
+				COUNT( lid ) / ( 7 *8 *60 *60 ) AS loads, 
 				weekofyear(fweldtime)
 			</if>
 		</if> 
@@ -1134,7 +1150,21 @@
 	<!-- 负载率明细 &-->
 	<select id="getDetailLoads" resultMap="dtoMap">
 		SELECT * FROM (
-		SELECT COUNT( lid ) / ( 8 *60 *60 ) AS loads,fweldtime,i.fid,i.fname,fgather_no , m.fequipment_no fmachine_id
+		SELECT
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				COUNT( lid ) / ( 12 *30 *8 *60 *60 ) 
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				COUNT( lid ) / ( 30 *8 *60 *60 )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				COUNT( lid ) / ( 8 *60 *60 ) 
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				COUNT( lid ) / ( 7 *8 *60 *60 ) 
+			</if>
+		</if> loads,fweldtime,i.fid,i.fname,fgather_no , m.fequipment_no fmachine_id
 		FROM  
 		(
 		SELECT fid lid, fitemid, fweldtime,fgather_no,fmachine_id
@@ -1168,7 +1198,7 @@
 	<select id="getBlocNoLoads" resultMap="dtoMap">
 		SELECT * 
 		FROM (
-		SELECT COUNT( lid )/start AS loads, 
+		SELECT COUNT( lid ) AS loads, 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
 				DATE_FORMAT( fweldtime,  '%Y' )
@@ -1185,18 +1215,7 @@
 		</if>
 		weldTime, insf.fname, insf.fid iid
 		FROM (
-		SELECT fid lid, fitemid, fweldtime,
-		(SELECT count(fid)
-		FROM tb_live_data WHERE 1=1 
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		) as start
+		SELECT fid lid, fitemid, fweldtime
 		FROM tb_live_data
 		WHERE 1=1
 		<if test="dto!=null and dto!=''">
@@ -1221,7 +1240,7 @@
 	<select id="getCompanyNoLoads" resultMap="dtoMap">
 		SELECT * 
 		FROM (
-		SELECT COUNT( lid )/start AS loads, 
+		SELECT COUNT( lid ) AS loads, 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
 				DATE_FORMAT( fweldtime,  '%Y' )
@@ -1238,18 +1257,7 @@
 		</if>
 		weldTime, ins.fname, ins.fid iid
 		FROM (
-		SELECT fid lid, fitemid, fweldtime,
-		(SELECT count(fid)
-		FROM tb_live_data WHERE 1=1 
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		) as start
+		SELECT fid lid, fitemid, fweldtime
 		FROM tb_live_data
 		WHERE 1=1
 		<if test="dto!=null and dto!=''">
@@ -1276,7 +1284,7 @@
 	<select id="getCaustNoLoads" resultMap="dtoMap">
 		SELECT * 
 		FROM (
-		SELECT COUNT( lid )/start AS loads, 
+		SELECT COUNT( lid ) AS loads, 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
 				DATE_FORMAT( fweldtime,  '%Y' )
@@ -1293,18 +1301,7 @@
 		</if>
 		weldTime, i.fname,  i.fid iid
 		FROM (
-		SELECT fid lid,fitemid, fweldtime,
-		(SELECT count(fid)
-		FROM tb_live_data WHERE 1=1 
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		) as start
+		SELECT fid lid,fitemid, fweldtime
 		FROM tb_live_data
 		WHERE 1=1
 		<if test="dto!=null and dto!=''">
@@ -1331,7 +1328,7 @@
 	<select id="getItemNOLoads" resultMap="dtoMap">
 		SELECT * 
 		FROM (
-		SELECT COUNT( lid )/start AS loads,	
+		SELECT COUNT( lid ) AS loads,	
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
 				DATE_FORMAT( fweldtime,  '%Y' )
@@ -1348,17 +1345,7 @@
 		</if>
 		weldTime,fname,fid
 		FROM (
-		SELECT i.fid, l.fid lid, fweldtime, i.fname,(SELECT count(fid)
-		FROM tb_live_data WHERE 1=1
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		) as start
+		SELECT i.fid, l.fid lid, fweldtime, i.fname
 		FROM tb_live_data l
         INNER JOIN tb_insframework i ON l.fitemid = i.fid 
 		WHERE i.ftype =23 and fstatus =3  
@@ -1382,19 +1369,9 @@
 	<select id="getDetailNoLoads" resultMap="dtoMap">
 		SELECT * 
 		FROM (
-		SELECT COUNT( lid )/start AS loads,fweldtime weldTime,fname,fid,fmachine_id
+		SELECT COUNT( lid ) AS loads,fweldtime weldTime,fname,fid,fmachine_id
 		FROM (
-		SELECT i.fid, l.fid lid, fweldtime, i.fname,m.fequipment_no fmachine_id,(SELECT count(fid)
-		FROM tb_live_data WHERE 1=1
-		<if test="dto!=null and dto!=''">
-			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
-			</if>
-			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
-			</if>
-		</if>
-		) as start
+		SELECT i.fid, l.fid lid, fweldtime, i.fname,m.fequipment_no fmachine_id,m.fid jid
 		FROM tb_live_data l
         INNER JOIN tb_insframework i ON l.fitemid = i.fid 
 		LEFT JOIN tb_welding_machine m ON m.fid = l.fmachine_id
@@ -1958,5 +1935,18 @@
 		</if> group by weldTime,i.fid
 	</select>
 	
+	<!-- 	根据组织机构及时间点获取工作总时长 -->
+	<select id="getCountByTime" resultType="java.math.BigInteger">
+		select COUNT(l.fid) from tb_live_data l 
+		INNER JOIN tb_insframework i on i.fid = l.fitemid 
+		INNER JOIN tb_insframework ins on ins.fid = i.fparent 
+		where FWeldTime LIKE #{time}
+		<if test="parent!=null and parent!=''">
+			and (i.fid=#{parent} or ins.fid=#{parent} or ins.fparent=#{parent})
+		</if>
+		<if test="mid!=null and mid!=''">
+			and fmachine_id = #{mid}
+		</if>
+	</select>
 
 </mapper>

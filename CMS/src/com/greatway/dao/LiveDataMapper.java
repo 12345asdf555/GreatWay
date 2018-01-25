@@ -113,5 +113,7 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	List<ModelDto> getCompanyMachineCount(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
 	
 	List<ModelDto> getCaustMachineCount(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
+	
+	BigInteger getCountByTime(@Param("parent")BigInteger parent,@Param("time")String time,@Param("mid")BigInteger mid);
 
 }
