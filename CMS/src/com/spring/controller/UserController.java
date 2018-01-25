@@ -181,6 +181,7 @@ public class UserController {
             userService.saveRole(user);
         }
         }
+        
 /*		userService.save(user);*/
 		obj.put("success", true);
 		}catch(Exception e){
