@@ -377,27 +377,27 @@ public class LiveDataServiceImpl implements LiveDataService {
 	}
 
 	@Override
-	public List<ModelDto> caustEfficiency(BigInteger parent, WeldDto dto) {
+	public List<ModelDto> caustEfficiency(BigInteger parent, WeldDto dto, int min, int max) {
 		try{
-			return live.caustEfficiency(dto, parent);
+			return live.caustEfficiency(dto, parent,min,max);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<ModelDto> companyEfficiency(BigInteger parent, WeldDto dto) {
+	public List<ModelDto> companyEfficiency(BigInteger parent, WeldDto dto, int min, int max) {
 		try{
-			return live.companyEfficiency(dto,parent);
+			return live.companyEfficiency(dto,parent,min,max);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<ModelDto> blocEfficiency(WeldDto dto,BigInteger parent) {
+	public List<ModelDto> blocEfficiency(WeldDto dto,BigInteger parent, int min, int max) {
 		try{
-			return live.blocEfficiency(dto,parent);
+			return live.blocEfficiency(dto,parent,min,max);
 		}catch(Exception e){
 			return null;
 		}
@@ -461,6 +461,33 @@ public class LiveDataServiceImpl implements LiveDataService {
 	public List<ModelDto> getItemUse( WeldDto dto, BigInteger insid) {
 		try{
 			return live.getItemUse(dto, insid);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	@Override
+	public List<ModelDto> getBlocMachineCount(WeldDto dto, BigInteger parent) {
+		try{
+			return live.getBlocMachineCount(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	@Override
+	public List<ModelDto> getCompanyMachineCount(WeldDto dto, BigInteger parent) {
+		try{
+			return live.getCompanyMachineCount(dto, parent);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	@Override
+	public List<ModelDto> getCaustMachineCount(WeldDto dto, BigInteger parent) {
+		try{
+			return live.getCaustMachineCount(dto, parent);
 		}catch(Exception e){
 			return null;
 		}

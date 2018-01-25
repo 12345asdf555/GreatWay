@@ -25,9 +25,10 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			Authority auth = new Authority();
-			auth.setAuthorityName(json.getString("authorityName"));
-			auth.setAuthorityDesc(json.getString("authorityDesc"));
-			auth.setStatus(json.getInt("statusId"));
+			auth.setAuthorityName(json.getString("AUTHORITYNAME"));
+			auth.setAuthorityDesc(json.getString("AUTHORITYDESC"));
+			auth.setStatus(json.getInt("STATUSID"));
+			auth.setCreator(json.getString("CREATOR"));
 			return as.save(auth);
 		}catch(Exception e){
 			return false;
@@ -39,8 +40,9 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			Authority auth = new Authority();
-			auth.setId(json.getInt("authId"));
-			auth.setResourceId(json.getInt("resourceId"));
+			auth.setId(json.getInt("AUTHID"));
+			auth.setResourceId(json.getInt("RESOURCEID"));
+			auth.setCreator(json.getString("CREATOR"));
 			return as.saveResource(auth);
 		}catch(Exception e){
 			return false;
@@ -52,10 +54,11 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			Authority auth = new Authority();
-			auth.setId(json.getInt("authId"));
-			auth.setAuthorityName(json.getString("authorityName"));
-			auth.setAuthorityDesc(json.getString("authorityDesc"));
-			auth.setStatus(json.getInt("statusId"));
+			auth.setId(json.getInt("AUTHID"));
+			auth.setAuthorityName(json.getString("AUTHORITYNAME"));
+			auth.setAuthorityDesc(json.getString("AUTHORITYDESC"));
+			auth.setStatus(json.getInt("STATUSID"));
+			auth.setModifier(json.getString("MODIFIER"));
 			return as.update(auth);
 		}catch(Exception e){
 			return false;
@@ -66,7 +69,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public boolean deleteAuthority(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return as.delete(json.getInt("authId"));
+			return as.delete(json.getInt("AUTHID"));
 		}catch(Exception e){
 			return false;
 		}
@@ -76,7 +79,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public boolean deleteAuthoritiesResources(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return as.delete1(json.getInt("authId"));
+			return as.delete1(json.getInt("AUTHID"));
 		}catch(Exception e){
 			return false;
 		}
@@ -86,7 +89,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public boolean deleteRolesAuthorities(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return as.delete2(json.getInt("authId"));
+			return as.delete2(json.getInt("AUTHID"));
 		}catch(Exception e){
 			return false;
 		}
@@ -96,7 +99,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public String findByResourceId(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return as.findByResourceId(json.getInt("resourceId"));
+			return as.findByResourceId(json.getInt("RESOURCEID"));
 		}catch(Exception e){
 			return null;
 		}
@@ -106,7 +109,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public Object findAuthorityById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			Authority list = as.findById(json.getInt("authId"));
+			Authority list = as.findById(json.getInt("AUTHID"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -117,7 +120,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public Object findAllAuthority(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<Authority> list = as.findAll(json.getString("str"));
+			List<Authority> list = as.findAll(json.getString("STR"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -138,7 +141,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public Object findAuthorityResource(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			List<Authority> list = as.findResource(json.getInt("authId"));
+			List<Authority> list = as.findResource(json.getInt("AUTHID"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -149,7 +152,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public String fineAuthorityNameById(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return as.updateAuthorityResource(json.getInt("authId"));
+			return as.updateAuthorityResource(json.getInt("AUTHID"));
 		}catch(Exception e){
 			return null;
 		}
@@ -159,7 +162,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public int getAuthoritynameCount(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return as.getAuthoritynameCount(json.getString("authName"));
+			return as.getAuthoritynameCount(json.getString("AUTHNAME"));
 		}catch(Exception e){
 			return -1;
 		}
@@ -179,7 +182,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public int findAuthId(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
-			return as.findAuthId(json.getString("authName"));
+			return as.findAuthId(json.getString("AUTHNAME"));
 		}catch(Exception e){
 			return -1;
 		}

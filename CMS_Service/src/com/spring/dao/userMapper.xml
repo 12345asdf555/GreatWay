@@ -9,17 +9,17 @@
 <mapper namespace="com.spring.dao.UserMapper">
 
 	<insert id="save" parameterType="User">
-		insert into tb_users(users_name,users_password,users_login_name,users_phone,users_email,users_position,users_insframework,status) values(#{userName},#{userPassword},#{userLoginName},#{userPhone},#{userEmail},#{userPosition},#{userInsframework},#{status});
+		insert into tb_users(users_name,users_password,users_login_name,users_phone,users_email,users_position,users_insframework,status, fcreator, fcreatetime) values(#{userName},#{userPassword},#{userLoginName},#{userPhone},#{userEmail},#{userPosition},#{userInsframework},#{status},#{creator},now());
 <!-- 		insert into tb_users_roles(users_name,roles_name) values(#{userName},#{roleName}) -->
 	</insert>
 	
 	<insert id="saveRole" parameterType="User">
 <!-- 		insert into tb_users(users_name,users_password,users_login_name,users_phone,users_email,users_insframework,users_position,status) values(#{userName},#{userPassword},#{userLoginName},#{userPhone},#{userEmail},#{userInsframework},#{userPosition},#{status}); -->
-		insert into tb_users_roles(users_id,roles_id) values(#{id},#{roleId})
+		insert into tb_users_roles(users_id,roles_id, fcreator, fcreatetime) values(#{id},#{roleId},#{creator},now())
 	</insert>
 	
 	<update id="update" parameterType="User">
-		update tb_users set users_name=#{userName},users_password=#{userPassword},users_login_name=#{userLoginName},users_phone=#{userPhone},users_email=#{userEmail},users_position=#{userPosition},users_insframework=#{userInsframework},status=#{status} where id=#{id};
+		update tb_users set users_name=#{userName},users_password=#{userPassword},users_login_name=#{userLoginName},users_phone=#{userPhone},users_email=#{userEmail},users_position=#{userPosition},users_insframework=#{userInsframework},status=#{status},fmodifier=#{modifier},fupdatetime=now() where id=#{id};
 <!-- 		update tb_users_roles set roles_name=#{roleName} where id=#{id} -->
 	</update>
 	
@@ -82,7 +82,7 @@
 	</select>
 	
 	<select id="getUsernameCount" parameterType="String" resultType="java.lang.Integer">
-		select count(*) from tb_users where users_login_name=#{userName}
+		select count(*) from tb_users where users_name=#{userName}
 	</select>
 	
 	<select id="getAuthoritiesByUsername" parameterType="String" resultType="String">

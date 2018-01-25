@@ -27,10 +27,10 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setSearch(json.getString("str"));
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			List<ModelDto> list = live.getCausehour(dto, new BigInteger(json.getString("insfId")));
+			dto.setSearch(json.getString("STR"));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			List<ModelDto> list = live.getCausehour(dto, new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -43,10 +43,10 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setSearch(json.getString("str"));
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			List<ModelDto> list =  live.getCompanyhour(dto, new BigInteger(json.getString("companyInsfId")));
+			dto.setSearch(json.getString("STR"));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			List<ModelDto> list =  live.getCompanyhour(dto, new BigInteger(json.getString("COMPANYINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -58,10 +58,10 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setSearch(json.getString("str"));
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			dto.setParent(new BigInteger(json.getString("insfId")));
+			dto.setSearch(json.getString("STR"));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			dto.setParent(new BigInteger(json.getString("INSFID")));
 			List<ModelDto>list = live.getItemhour(dto);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
@@ -74,15 +74,15 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			dto.setDtoItem(new BigInteger(json.getString("itemInsfId")));
-			dto.setDtoMaterial(json.getString("material"));
-			dto.setDtoExternalDiameter(json.getString("externalDiameter"));
-			dto.setDtoWallThickness(json.getString("wallThickness"));
-			dto.setDtoNextExternalDiameter(json.getString("nextexternaldiameter"));
-			dto.setNextmaterial(json.getString("nextmaterial"));
-			dto.setNextwallthickness(json.getString("nextwallthickness"));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			dto.setDtoItem(new BigInteger(json.getString("ITEMINSFID")));
+			dto.setDtoMaterial(json.getString("MATERIAL"));
+			dto.setDtoExternalDiameter(json.getString("EXTERNALDIAMETER"));
+			dto.setDtoWallThickness(json.getString("WALLTHICKNESS"));
+			dto.setDtoNextExternalDiameter(json.getString("NEXTEXTERNALDIAMETER"));
+			dto.setNextmaterial(json.getString("NEXTMATERIAL"));
+			dto.setNextwallthickness(json.getString("NEXTWALLTHICKNESS"));
 			List<ModelDto> list = live.getJunctionHous(dto);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
@@ -95,9 +95,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -107,7 +107,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCauseOverproof(dto, new BigInteger(json.getString("insfId")));
+			List<ModelDto> list = live.getCauseOverproof(dto, new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -119,9 +119,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -131,7 +131,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getItemOverproof(dto, new BigInteger(json.getString("itemInsfId")));
+			List<ModelDto> list = live.getItemOverproof(dto, new BigInteger(json.getString("ITEMINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -142,7 +142,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 	public Object getAllInsf(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<LiveData> list = live.getAllInsf(new BigInteger(json.getString("insfId")), json.getInt("typeId"));
+			List<LiveData> list = live.getAllInsf(new BigInteger(json.getString("INSFID")), json.getInt("TYPEID"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -154,9 +154,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -178,9 +178,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -190,7 +190,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCompanyOverproof(dto, new BigInteger(json.getString("companyInsfId")));
+			List<ModelDto> list = live.getCompanyOverproof(dto, new BigInteger(json.getString("COMPANYINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -202,10 +202,10 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			dto.setTime("%"+json.getString("weldTime")+"%");
-			List<ModelDto> list = live.getDatailOverproof(dto, new BigInteger(json.getString("itemInsfId")));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			dto.setTime("%"+json.getString("WELDTIME")+"%");
+			List<ModelDto> list = live.getDatailOverproof(dto, new BigInteger(json.getString("ITEMINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -216,11 +216,11 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 	public int getCountTime(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			String welderno = json.getString("welderNo");
-			String machineno = json.getString("machineNo");
-			String junctionno = json.getString("junctionNo");
-			String time = json.getString("time");
-			BigInteger id = new BigInteger(json.getString("itemInsfId"));
+			String welderno = json.getString("WELDERNO");
+			String machineno = json.getString("MACHINENO");
+			String junctionno = json.getString("JUNCTIONNO");
+			String time = json.getString("TIME");
+			BigInteger id = new BigInteger(json.getString("ITEMINSFID"));
 			return live.getCountTime(welderno, machineno, junctionno, time, id);
 		}catch(Exception e){
 			return -1;
@@ -231,11 +231,11 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 	public Object getjunctionoverproof(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			String welderno = json.getString("welderNo");
-			String machineno = json.getString("machineNo");
-			String junctionno = json.getString("junctionNo");
-			String time = json.getString("time");
-			BigInteger itemid = new BigInteger(json.getString("itemInsfId"));
+			String welderno = json.getString("WELDERNO");
+			String machineno = json.getString("MACHINENO");
+			String junctionno = json.getString("JUNCTIONNO");
+			String time = json.getString("TIME");
+			BigInteger itemid = new BigInteger(json.getString("ITEMINSFID"));
 			List<ModelDto> list = live.getjunctionoverproof(welderno, machineno, junctionno, time, itemid);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
@@ -248,9 +248,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -260,13 +260,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			int overtimetype = json.getInt("overtimetypeId");
-			if(overtimetype==1){
-				dto.setHour("hour");
-			}else if(overtimetype==2){
-				dto.setSecond("second");
-			}
-			List<ModelDto> list = live.getcompanyOvertime(dto, json.getString("number"), new BigInteger(json.getString("companyInsfId")));
+			List<ModelDto> list = live.getcompanyOvertime(dto, json.getString("NUMBER"), new BigInteger(json.getString("COMPANYINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -278,9 +272,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -290,13 +284,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			int overtimetype = json.getInt("overtimetypeId");
-			if(overtimetype==1){
-				dto.setHour("hour");
-			}else if(overtimetype==2){
-				dto.setSecond("second");
-			}
-			List<ModelDto> list = live.getCaustOvertime(dto, json.getString("number"), new BigInteger(json.getString("insfId")));
+			List<ModelDto> list = live.getCaustOvertime(dto, json.getString("NUMBER"), new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -308,10 +296,10 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			dto.setParent(new BigInteger(json.getString("itemInsfId")));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			dto.setParent(new BigInteger(json.getString("ITEMINSFID")));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -321,13 +309,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			int overtimetype = json.getInt("overtimetypeId");
-			if(overtimetype==1){
-				dto.setHour("hour");
-			}else if(overtimetype==2){
-				dto.setSecond("second");
-			}
-			List<ModelDto> list = live.getItemOvertime(dto, json.getString("number"));
+			List<ModelDto> list = live.getItemOvertime(dto, json.getString("NUMBER"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -338,7 +320,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 	public Object getJunction(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<LiveData> list = live.getJunction(new BigInteger(json.getString("insfId")));
+			List<LiveData> list = live.getJunction(new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -350,9 +332,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -362,13 +344,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			int overtimetype = json.getInt("overtimetypeId");
-			if(overtimetype==1){
-				dto.setHour("hour");
-			}else if(overtimetype==2){
-				dto.setSecond("second");
-			}
-			List<ModelDto> list = live.getDetailovertime(dto, json.getString("number"),json.getString("itemInsfId"));
+			List<ModelDto> list = live.getDetailovertime(dto, json.getString("NUMBER"),json.getString("ITEMINSFID"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -380,9 +356,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -392,7 +368,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCompanyLoads(dto, new BigInteger(json.getString("companyInsfId")));
+			List<ModelDto> list = live.getCompanyLoads(dto, new BigInteger(json.getString("COMPANYINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -404,9 +380,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -416,7 +392,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCaustLoads(dto, new BigInteger(json.getString("insfId")));
+			List<ModelDto> list = live.getCaustLoads(dto, new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -428,9 +404,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -440,7 +416,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getItemLoads(dto, new BigInteger(json.getString("itemInsfId")));
+			List<ModelDto> list = live.getItemLoads(dto, new BigInteger(json.getString("ITEMINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -451,7 +427,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 	public Object getMachine(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<LiveData> list = live.getMachine(new BigInteger(json.getString("insfId")));
+			List<LiveData> list = live.getMachine(new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -463,10 +439,10 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			dto.setTime("%"+json.getString("weldTime")+"%");
-			dto.setParent(new BigInteger(json.getString("itemInsfId")));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			dto.setTime("%"+json.getString("WELDTIME")+"%");
+			dto.setParent(new BigInteger(json.getString("ITEMINSFID")));
 			List<ModelDto> list = live.getDetailLoads(dto, null);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
@@ -479,9 +455,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -491,7 +467,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCompanyNoLoads(dto, new BigInteger(json.getString("companyInsfId")));
+			List<ModelDto> list = live.getCompanyNoLoads(dto, new BigInteger(json.getString("COMPANYINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -503,9 +479,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -515,7 +491,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCaustNOLoads(dto, new BigInteger(json.getString("insfId")));
+			List<ModelDto> list = live.getCaustNOLoads(dto, new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -527,9 +503,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -539,7 +515,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getItemNOLoads(dto, new BigInteger(json.getString("itemInsfId")), null);
+			List<ModelDto> list = live.getItemNOLoads(dto, new BigInteger(json.getString("ITEMINSFID")), null);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -551,9 +527,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -561,7 +537,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==3){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCompanyIdle(dto, new BigInteger(json.getString("companyInsfId")));
+			List<ModelDto> list = live.getCompanyIdle(dto, new BigInteger(json.getString("COMPANYINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -573,9 +549,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -583,7 +559,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==3){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCaustIdle(dto, new BigInteger(json.getString("insfId")));
+			List<ModelDto> list = live.getCaustIdle(dto, new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -595,9 +571,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -605,7 +581,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==3){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getItemIdle(dto, new BigInteger(json.getString("itemInsfId")));
+			List<ModelDto> list = live.getItemIdle(dto, new BigInteger(json.getString("ITEMINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -616,7 +592,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 	public int getMachineCount(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return live.getMachineCount(new BigInteger(json.getString("insfId")));
+			return live.getMachineCount(new BigInteger(json.getString("INSFID")));
 		}catch(Exception e){
 			return -1;
 		}
@@ -627,9 +603,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			List<ModelDto> list = live.getCompanyUse(dto, new BigInteger(json.getString("caustInsfId")));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			List<ModelDto> list = live.getCompanyUse(dto, new BigInteger(json.getString("CAUSTINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -641,9 +617,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			List<ModelDto> list = live.getCaustUse(dto, new BigInteger(json.getString("ItemInsfId")));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			List<ModelDto> list = live.getCaustUse(dto, new BigInteger(json.getString("ITEMINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -655,9 +631,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			List<ModelDto> list = live.getItemUse(dto, new BigInteger(json.getString("ItemInsfId")));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			List<ModelDto> list = live.getItemUse(dto, new BigInteger(json.getString("ITEMINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -669,9 +645,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setSearch(json.getString("str"));
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
+			dto.setSearch(json.getString("STR"));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
 			List<ModelDto> list = live.getBlochour(dto);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
@@ -684,9 +660,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -708,9 +684,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -720,13 +696,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			int overtimetype = json.getInt("overtimetypeId");
-			if(overtimetype==1){
-				dto.setHour("hour");
-			}else if(overtimetype==2){
-				dto.setSecond("second");
-			}
-			List<ModelDto> list = live.getBlocOvertime(dto, json.getString("number"));
+			List<ModelDto> list = live.getBlocOvertime(dto, json.getString("NUMBER"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -738,9 +708,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -762,9 +732,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -786,9 +756,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			int type = json.getInt("typeId");
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
 			if(type==1){
 				dto.setYear("year");
 			}else if(type==2){
@@ -808,9 +778,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			List<ModelDto> list = live.getBlocUse(dto, new BigInteger(json.getString("companyInsfId")));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			List<ModelDto> list = live.getBlocUse(dto, new BigInteger(json.getString("COMPANYINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -832,9 +802,11 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			List<ModelDto> list = live.caustEfficiency(new BigInteger(json.getString("itemInsfId")), dto);
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+		    int min = json.getInt("MIN");
+		    int max = json.getInt("MAX");
+			List<ModelDto> list = live.caustEfficiency(new BigInteger(json.getString("ITEMINSFID")), dto,min,max);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -846,9 +818,11 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			List<ModelDto> list = live.companyEfficiency(new BigInteger(json.getString("caustInsfId")), dto);
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+		    int min = json.getInt("MIN");
+		    int max = json.getInt("MAX");
+			List<ModelDto> list = live.companyEfficiency(new BigInteger(json.getString("CAUSTINSFID")), dto,min,max);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -860,9 +834,11 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			List<ModelDto> list = live.blocEfficiency(dto, new BigInteger(json.getString("companyInsfId")));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+		    int min = json.getInt("MIN");
+		    int max = json.getInt("MAX");
+			List<ModelDto> list = live.blocEfficiency(dto, new BigInteger(json.getString("COMPANYINSFID")),min,max);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -874,9 +850,9 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			BigInteger id = new BigInteger(json.getString("insfId"));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			BigInteger id = new BigInteger(json.getString("INSFID"));
 			List<ModelDto> list = live.getEfficiencyChartNum(dto, id);
 			List<ModelDto> efficiency = null;
 			for(ModelDto m:list){
@@ -892,7 +868,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 	public Object getHousClassify(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<ModelDto> list = live.getHousClassify(new BigInteger(json.getString("insfId")), json.getString("str"));
+			List<ModelDto> list = live.getHousClassify(new BigInteger(json.getString("INSFID")), json.getString("STR"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -904,11 +880,83 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldDto dto = new WeldDto();
-			dto.setDtoTime1(json.getString("startTime"));
-			dto.setDtoTime2(json.getString("endTime"));
-			dto.setTime("%"+json.getString("weldTime")+"%");
-			dto.setParent(new BigInteger(json.getString("itemInsfId")));
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			dto.setTime("%"+json.getString("WELDTIME")+"%");
+			dto.setParent(new BigInteger(json.getString("ITEMINSFID")));
 			List<ModelDto> list = live.getDetailNoLoads(dto);
+			return JSON.toJSONString(list);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	@Override
+	public Object getBlocMachineCount(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			WeldDto dto = new WeldDto();
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
+			if(type==1){
+				dto.setYear("year");
+			}else if(type==2){
+				dto.setMonth("month");
+			}else if(type==3){
+				dto.setDay("day");
+			}else if(type==4){
+				dto.setWeek("week");
+			}
+			List<ModelDto> list = live.getCaustMachineCount(dto, new BigInteger(json.getString("PARENT")));
+			return JSON.toJSONString(list);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	@Override
+	public Object getCompanyMachineCount(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			WeldDto dto = new WeldDto();
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
+			if(type==1){
+				dto.setYear("year");
+			}else if(type==2){
+				dto.setMonth("month");
+			}else if(type==3){
+				dto.setDay("day");
+			}else if(type==4){
+				dto.setWeek("week");
+			}
+			List<ModelDto> list = live.getCaustMachineCount(dto, new BigInteger(json.getString("PARENT")));
+			return JSON.toJSONString(list);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	@Override
+	public Object getCaustMachineCount(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			WeldDto dto = new WeldDto();
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			int type = json.getInt("TYPEID");
+			if(type==1){
+				dto.setYear("year");
+			}else if(type==2){
+				dto.setMonth("month");
+			}else if(type==3){
+				dto.setDay("day");
+			}else if(type==4){
+				dto.setWeek("week");
+			}
+			List<ModelDto> list = live.getCaustMachineCount(dto, new BigInteger(json.getString("PARENT")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;

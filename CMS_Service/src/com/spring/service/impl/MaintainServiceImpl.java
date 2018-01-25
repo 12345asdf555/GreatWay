@@ -39,11 +39,11 @@ public class MaintainServiceImpl implements MaintainService {
 			w.getMaintenance().setId(mid);
 			int count2 = wmm.addWeldingMaintenance(w);
 			int count3 = 0;
-			if(mr.getEndTime()!=""||mr.getEndTime()!=null){
+			if(mr.getEndTime()==""||mr.getEndTime()==null){
 				//修焊机状态为维护中
 				count3= wm.editstatus(wid,33);
 			}
-			if(count1>0 && count2>0 && count3>0){
+			if(count1>0 && count2>0 || count3>0){
 				return true;
 			}else{
 				return false;

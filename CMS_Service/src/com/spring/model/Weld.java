@@ -44,9 +44,28 @@ public class Weld{
 	private String fnm;
 	private Date fstart_time;
 	private Date fend_time;
+	private String creator;
+	private String modifier;
 	public Weld(){
 		super();
 	}
+	
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	public String getModifier() {
+		return modifier;
+	}
+
+	public void setModifiter(String modifier) {
+		this.modifier = modifier;
+	}
+
 	public String getFwelder_no(){
 		return fwelder_no;
 	}

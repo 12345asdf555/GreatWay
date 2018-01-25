@@ -26,7 +26,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public Object getWeldingMaintenanceAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<WeldingMaintenance> list = ms.getWeldingMaintenanceAll(json.getString("str"));
+			List<WeldingMaintenance> list = ms.getWeldingMaintenanceAll(json.getString("STR"));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -37,7 +37,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public Object getEndtime(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<WeldingMaintenance> list = ms.getEndtime(new BigInteger(json.getString("wid")));
+			List<WeldingMaintenance> list = ms.getEndtime(new BigInteger(json.getString("WID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -48,7 +48,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public Object getWeldingMaintenanceById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			WeldingMaintenance list = ms.getWeldingMaintenanceById(new BigInteger(json.getString("wid")));
+			WeldingMaintenance list = ms.getWeldingMaintenanceById(new BigInteger(json.getString("WID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -71,17 +71,19 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			JSONObject json = JSONObject.fromObject(object);
 			WeldingMaintenance wm = new WeldingMaintenance();
 			MaintenanceRecord mr = new MaintenanceRecord();
-			mr.setViceman(json.getString("viceman"));
-			mr.setStartTime(json.getString("startTime"));
-			String endTime = json.getString("endTime");
+			mr.setViceman(json.getString("VICEMAN"));
+			mr.setStartTime(json.getString("STARTTIME"));
+			String endTime = json.getString("ENDTIME");
 			if(endTime!=null && !"".equals(endTime)){
-				mr.setEndTime(json.getString("endTime"));
+				mr.setEndTime(json.getString("ENDTIME"));
 			}
-			mr.setDesc(json.getString("desc"));
-			mr.setTypeId(json.getInt("typeId"));
+			mr.setDesc(json.getString("DESC"));
+			mr.setTypeId(json.getInt("TYPEID"));
+			mr.setCreator(json.getString("CREATOR"));
 			wm.setMaintenance(mr);
+			wm.setCreator(json.getString("CREATOR"));
 			WeldingMachine w = new WeldingMachine();
-			BigInteger wid = new BigInteger(json.getString("weldId"));
+			BigInteger wid = new BigInteger(json.getString("WELDID"));
 			w.setId(wid);
 			wm.setWelding(w);
 			return ms.addMaintian(wm,mr,wid);
@@ -94,7 +96,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public boolean updateEndtime(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.updateEndtime(new BigInteger(json.getString("mid")));
+			return ms.updateEndtime(new BigInteger(json.getString("MID")));
 		}catch(Exception e){
 			return false;
 		}
@@ -105,15 +107,16 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			MaintenanceRecord mr = new MaintenanceRecord();
-			mr.setId(new BigInteger(json.getString("mid")));
-			mr.setViceman(json.getString("viceman"));
-			mr.setStartTime(json.getString("startTime"));
-			String endTime = json.getString("endTime");
+			mr.setId(new BigInteger(json.getString("MID")));
+			mr.setViceman(json.getString("VICEMAN"));
+			mr.setStartTime(json.getString("STARTTIME"));
+			String endTime = json.getString("ENDTIME");
 			if(endTime!=null && !"".equals(endTime)){
-				mr.setEndTime(json.getString("endTime"));
+				mr.setEndTime(json.getString("ENDTIME"));
 			}
-			mr.setDesc(json.getString("desc"));
-			mr.setTypeId(json.getInt("typeId"));
+			mr.setDesc(json.getString("DESC"));
+			mr.setTypeId(json.getInt("TYPEID"));
+			mr.setModifier(json.getString("MODIFIER"));
 			return ms.updateMaintenanceRecord(mr);
 		}catch(Exception e){
 			return false;
@@ -124,7 +127,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public boolean deleteMaintenanceRecord(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.deleteMaintenanceRecord(new BigInteger(json.getString("mid")));
+			return ms.deleteMaintenanceRecord(new BigInteger(json.getString("MID")));
 		}catch(Exception e){
 			return false;
 		}
@@ -134,7 +137,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public boolean deleteWeldingMaintenance(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.deleteWeldingMaintenance(new BigInteger(json.getString("wid")));
+			return ms.deleteWeldingMaintenance(new BigInteger(json.getString("WID")));
 		}catch(Exception e){
 			return false;
 		}
@@ -144,7 +147,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public Object getMaintainByWeldingMachinId(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<WeldingMaintenance> list = ms.getMaintainByWeldingMachinId(new BigInteger(json.getString("wid")));
+			List<WeldingMaintenance> list = ms.getMaintainByWeldingMachinId(new BigInteger(json.getString("WID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -155,7 +158,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public boolean editstatus(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.editstatus(new BigInteger(json.getString("wid")), json.getInt("statusId"));
+			return ms.editstatus(new BigInteger(json.getString("WID")), json.getInt("STATUSID"));
 		}catch(Exception e){
 			return false;
 		}

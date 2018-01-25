@@ -9,22 +9,22 @@
 <mapper namespace="com.spring.dao.RoleMapper">
 	
 	<insert id="save" parameterType="Role">
-    	insert into tb_roles(roles_name,roles_desc,status) values(#{roleName},#{roleDesc},#{roleStatus});
+    	insert into tb_roles(roles_name,roles_desc,status,fcreator,fcreatetime) values(#{roleName},#{roleDesc},#{roleStatus},#{creator},now());
 	<!-- 	insert into tb_roles_authorities(roles_name,authiroties_name) values(#{roleName},#{authorityName}) -->
 	</insert>
 	
 	<insert id="saveAuthority" parameterType="Role">
     	<!-- insert into tb_roles(roles_name,roles_desc,status) values(#{roleName},#{roleDesc},#{roleStatus}); -->
-		insert into tb_roles_authorities(roles_id,authority_id) values(#{id},#{authorityId})
+		insert into tb_roles_authorities(roles_id,authority_id,fcreator,fcreatetime) values(#{id},#{authorityId},#{creator},now())
 	</insert>
 	
 	<insert id="saveUser" parameterType="Role">
     	<!-- insert into tb_roles(roles_name,roles_desc,status) values(#{roleName},#{roleDesc},#{roleStatus}); -->
-		insert into tb_users_roles(users_id,roles_id) values(#{userId},#{id})
+		insert into tb_users_roles(users_id,roles_id,fcreator,fcreatetime) values(#{userId},#{id},#{creator},now())
 	</insert>
 	
 	<update id="update" parameterType="Role">
-		update tb_roles set roles_name=#{roleName},roles_desc=#{roleDesc},status=#{roleStatus} where id=#{id};
+		update tb_roles set roles_name=#{roleName},roles_desc=#{roleDesc},status=#{roleStatus},fmodifier=#{modifier},fupdatetime=now() where id=#{id};
 		<!-- update tb_roles_authorities set authorities_name=#{authorityName} where id=#{id} -->
 	</update>
 	
@@ -36,7 +36,7 @@
 		delete from tb_users_roles where roles_id=#{id};
 	</delete>
 	
-	<delete id="delete2" parameterType="String">
+	<delete id="delete2" parameterType="int">
 		delete from tb_roles_authorities where roles_id=#{id};
 	</delete>
 	
@@ -48,7 +48,7 @@
 		select roles_name roleName from tb_roles where tb_roles.id=#{id}
 	</select>
 	
-	<delete id="deleteAuthority" parameterType="String">
+	<delete id="deleteAuthority" parameterType="int">
 		delete from tb_roles_authorities where roles_id=#{id};
 	</delete>
 	
@@ -93,5 +93,9 @@
 	
 	<select id="getRolenameCount" parameterType="String" resultType="java.lang.Integer">
 		select count(*) from tb_roles where roles_name=#{roleName}
+	</select>
+	
+	<select id="findbyid" parameterType="String" resultType="int">
+		select id from tb_roles where roles_name=#{roleName}
 	</select>
 </mapper>

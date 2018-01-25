@@ -24,7 +24,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 	public Object getGatherAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<Gather> list = gs.getGatherAll(json.getString("str"), new BigInteger(json.getString("insfId")));
+			List<Gather> list = gs.getGatherAll(json.getString("STR"), new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -36,7 +36,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 	public BigInteger getGatherByNo(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return gs.getGatherByNo(json.getString("gatherNo"));
+			return gs.getGatherByNo(json.getString("GATHERNO"));
 		}catch(Exception e){
 			return null;
 		}
@@ -46,7 +46,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 	public int getGatherNoCount(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return gs.getGatherNoCount(json.getString("gatherNo"));
+			return gs.getGatherNoCount(json.getString("GATHERNO"));
 		}catch(Exception e){
 			return -1;
 		}
@@ -56,7 +56,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 	public Object getGatherById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			Gather list = gs.getGatherById(new BigInteger(json.getString("id")));
+			Gather list = gs.getGatherById(new BigInteger(json.getString("ID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -68,16 +68,17 @@ public class GatherWebServiceImpl implements GatherWebService{
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			Gather g = new Gather();
-			g.setGatherNo(json.getString("gatherNo"));
-			g.setIpurl(json.getString("ipurl"));
-			g.setItemid(new BigInteger(json.getString("insfId")));
-			String leavetime =json.getString("leavetime");
+			g.setGatherNo(json.getString("GATHERNO"));
+			g.setIpurl(json.getString("IPURL"));
+			g.setItemid(new BigInteger(json.getString("INSFID")));
+			String leavetime =json.getString("LEAVETIME");
 			if(leavetime!=null && !"".equals(leavetime)){
 				g.setLeavetime(leavetime);
 			}
-			g.setMacurl(json.getString("macurl"));
-			g.setProtocol(json.getString("protocol"));
-			g.setStatus(json.getString("status"));
+			g.setMacurl(json.getString("MACURL"));
+			g.setProtocol(json.getString("PROTOCOL"));
+			g.setStatus(json.getString("STATUS"));
+			g.setCreator(json.getString("CREATOR"));
 			return gs.addGather(g);
 		}catch(Exception e){
 			return false;
@@ -89,17 +90,18 @@ public class GatherWebServiceImpl implements GatherWebService{
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			Gather g = new Gather();
-			g.setId(new BigInteger(json.getString("id")));
-			g.setGatherNo(json.getString("gatherNo"));
-			g.setIpurl(json.getString("ipurl"));
-			g.setItemid(new BigInteger(json.getString("insfId")));
-			String leavetime =json.getString("leavetime");
+			g.setId(new BigInteger(json.getString("ID")));
+			g.setGatherNo(json.getString("GATHERNO"));
+			g.setIpurl(json.getString("IPURL"));
+			g.setItemid(new BigInteger(json.getString("INSFID")));
+			String leavetime =json.getString("LEAVETIME");
 			if(leavetime!=null && !"".equals(leavetime)){
 				g.setLeavetime(leavetime);
 			}
-			g.setMacurl(json.getString("macurl"));
-			g.setProtocol(json.getString("protocol"));
-			g.setStatus(json.getString("status"));
+			g.setMacurl(json.getString("MACURL"));
+			g.setProtocol(json.getString("PROTOCOL"));
+			g.setStatus(json.getString("STATUS"));
+			g.setModifier("MODIFIER");
 			return gs.editGather(g);
 		}catch(Exception e){
 			return false;
@@ -110,7 +112,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 	public boolean deleteGather(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return gs.deleteGather(new BigInteger(json.getString("id")));
+			return gs.deleteGather(new BigInteger(json.getString("ID")));
 		}catch(Exception e){
 			return false;
 		}

@@ -15,56 +15,40 @@ public class SsWebServiceImpl implements SsWebService {
 
 	@Autowired
 	private WeldService userService;
-
+	
 	@Override
 	public Boolean AddWeld(String aweld) {
-		try{
-			return userService.AddWeld(aweld);
-		}catch(Exception e){
-			return false;
-		}	
+		Boolean flag = userService.AddWeld(aweld);
+			return flag;	
 	}
 
 	@Override
 	public Boolean UpdateWeld(String uweld) {
-		try{
-		return userService.UpdateWeld(uweld);
-	}catch(Exception e){
-		return false;
-	}	
+		Boolean flag = userService.UpdateWeld(uweld);
+		return flag;
 	}
 
 	@Override
 	public Boolean AddJunction(String ajunction) {
-		try{
-			return userService.AddJunction(ajunction);
-		}catch(Exception e){
-			return false;
-		}	
+		Boolean flag = userService.AddJunction(ajunction);
+		return flag;
 	}
 
 	@Override
 	public Boolean UpdateJunction(String ujunction) {
-		try{
-			return userService.UpdateJunction(ujunction);
-		}catch(Exception e){
-			return false;
-		}	
+		Boolean flag = userService.UpdateJunction(ujunction);
+		return flag;
 	}
 
 	@Override
 	public Boolean DeleteJunction(String djunction) {
-		try{
-			return userService.DeleteJunction(djunction);
-		}catch(Exception e){
-			return false;
-		}	
+		Boolean flag = userService.DeleteJunction(djunction);
+		return flag;
 	}
 
 	@Override
 	public BigInteger FindIns_Id(String insname) {
 		return userService.FindIns_Id(insname);
 	}
-	
 
 }

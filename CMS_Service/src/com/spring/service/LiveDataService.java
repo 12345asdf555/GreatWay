@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.github.pagehelper.Page;
 import com.spring.dto.ModelDto;
 import com.spring.dto.WeldDto;
@@ -336,7 +338,7 @@ public interface LiveDataService {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> caustEfficiency(BigInteger parent,WeldDto dto);
+	List<ModelDto> caustEfficiency(BigInteger parent,WeldDto dto,int min,int max);
 	
 	/**
 	 * 公司工效
@@ -345,7 +347,7 @@ public interface LiveDataService {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> companyEfficiency(BigInteger parent,WeldDto dto);
+	List<ModelDto> companyEfficiency(BigInteger parent,WeldDto dto,int min,int max);
 	
 	/**
 	 * 集团工效
@@ -354,7 +356,7 @@ public interface LiveDataService {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> blocEfficiency(WeldDto dto,BigInteger parent);
+	List<ModelDto> blocEfficiency(WeldDto dto,BigInteger parent,int min,int max);
 	
 	/**
 	 * 获取工效最大值最小值以及平均跨度
@@ -386,4 +388,28 @@ public interface LiveDataService {
 	List<ModelDto> getHousClassify(BigInteger parent,String searchStr);
 	
 	List<ModelDto> getDetailNoLoads(WeldDto dto);
+
+	/**
+	 * 查询实时数据集团焊机数量
+	 * @param dto 扩张参数类
+	 * @param parent 公司id
+	 * @return
+	 */
+	List<ModelDto> getBlocMachineCount(WeldDto dto,BigInteger parent);
+
+	/**
+	 * 查询实时数据公司焊机数量
+	 * @param dto 扩张参数类
+	 * @param parent 公司id
+	 * @return
+	 */
+	List<ModelDto> getCompanyMachineCount(WeldDto dto,BigInteger parent);
+
+	/**
+	 * 查询实时数据事业部/项目部焊机数量
+	 * @param dto 扩张参数类
+	 * @param parent 公司id
+	 * @return
+	 */
+	List<ModelDto> getCaustMachineCount(WeldDto dto,BigInteger parent);
 }
