@@ -16,7 +16,7 @@ import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-public class insfWebServiceImpl implements InsfWebService {
+public class InsfWebServiceImpl implements InsfWebService {
 	@Autowired
 	private InsframeworkService is;
 	
@@ -42,6 +42,7 @@ public class insfWebServiceImpl implements InsfWebService {
 			i.setCode(json.getString("CODE"));
 			i.setParent(new BigInteger(json.getString("PARENT")));
 			i.setType(json.getInt("TYPEID"));
+			i.setCreator(json.getString("CREATOR"));
 			return is.addInsframework(i);
 		}catch(Exception e){
 			return false;
@@ -59,6 +60,7 @@ public class insfWebServiceImpl implements InsfWebService {
 			i.setCode(json.getString("CODE"));
 			i.setParent(new BigInteger(json.getString("PARENT")));
 			i.setType(json.getInt("TYPEID"));
+			i.setModifier(json.getString("MODIFIER"));
 			return is.editInsframework(i);
 		}catch(Exception e){
 			return false;

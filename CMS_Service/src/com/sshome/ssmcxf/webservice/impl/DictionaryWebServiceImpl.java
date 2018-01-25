@@ -39,6 +39,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			d.setBack(json.getString("BACK"));
 			d.setTypeid(json.getInt("TYPEID"));
 			d.setValueName(json.getString("VALUENAME"));
+			d.setCreator(json.getString("CREATOR"));
 			return ds.addDictionary(d);
 		}catch(Exception e){
 			return false;
@@ -54,6 +55,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			d.setBack(json.getString("BACK"));
 			d.setTypeid(json.getInt("TYPEID"));
 			d.setValueName(json.getString("VALUENAME"));
+			d.setModifier(json.getString("MODIFIER"));
 			return ds.editDictionary(d);
 		}catch(Exception e){
 			return false;

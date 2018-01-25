@@ -29,6 +29,7 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 			r.setResourceType(json.getString("TYPEID"));
 			r.setResourceDesc(json.getString("DESC"));
 			r.setStatus(json.getInt("STATUSID"));
+			r.setCreator(json.getString("CREATOR"));
 			return rs.save(r);
 		}catch(Exception e){
 			return false;
@@ -41,13 +42,15 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 			JSONObject json  = JSONObject.fromObject(object);
 			Resources r = new Resources();
 			r.setId(json.getInt("ID"));
-			r.setResourceName(json.getString("NAME"));
+			r.setResourceName(json.getString("RESOURCENAME"));
 			r.setResourceAddress(json.getString("ADDRESS"));
 			r.setResourceType(json.getString("TYPEID"));
 			r.setResourceDesc(json.getString("DESC"));
 			r.setStatus(json.getInt("STATUSID"));
+			r.setModifier(json.getString("MODIFIER"));
 			return rs.update(r);
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}

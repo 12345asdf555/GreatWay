@@ -32,6 +32,7 @@ public class UserWebServiceImpl implements UserWebService {
 			user.setUserInsframework(json.getLong("INSFID"));
 			user.setUserPosition(json.getString("POSITION"));
 			user.setStatus(json.getInt("STATUSID"));
+			user.setCreator(json.getString("CREATOR"));
 			return us.save(user);
 		}catch(Exception e){
 			return false;
@@ -52,6 +53,7 @@ public class UserWebServiceImpl implements UserWebService {
 			user.setUserInsframework(json.getLong("INSFID"));
 			user.setUserPosition(json.getString("POSITION"));
 			user.setStatus(json.getInt("STATUSID"));
+			user.setModifier("MODIFIER");
 			return us.update(user);
 		}catch(Exception e){
 			return false;

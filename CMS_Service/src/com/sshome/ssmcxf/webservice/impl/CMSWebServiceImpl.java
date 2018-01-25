@@ -38,9 +38,9 @@ public class CMSWebServiceImpl implements CMSWebService {
 		try{
 			JSONObject json1 = JSONObject.fromObject(obj1);
 			ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"config/spring-common.xml"});
-			Class<?>  cls = context.getBean(json1.getString("className")).getClass();
-			Method m = cls.getDeclaredMethod(json1.getString("method"));
-			Object obj = m.invoke(context.getBean(json1.getString("className")));
+			Class<?>  cls = context.getBean(json1.getString("CLASSNAME")).getClass();
+			Method m = cls.getDeclaredMethod(json1.getString("METHOD"));
+			Object obj = m.invoke(context.getBean(json1.getString("CLASSNAME")));
 			return obj;
 		} catch (Exception e){
 			e.printStackTrace();

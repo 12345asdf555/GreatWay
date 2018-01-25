@@ -36,6 +36,7 @@ public class WeldServiceImpl implements WeldService {
 		user.setFitemid(insid);
 		user.setFname(json.getString("FNAME"));
 		user.setFwelder_no(json.getString("FWELDER_NO"));
+		user.setCreator(json.getString("CREATOR"));
 		mapper.AddWeld(user);
 		return true;
 		}catch(Exception e){
@@ -52,6 +53,7 @@ public class WeldServiceImpl implements WeldService {
 		user.setFitemid(insid);
 		user.setFname(json.getString("FNAME"));
 		user.setFwelder_no(json.getString("FWELDER_NO"));
+		user.setModifiter(json.getString("MODIFIER"));
 		mapper.UpdateWeld(user);
 		return true;
 		}catch(Exception e){
@@ -98,6 +100,7 @@ public class WeldServiceImpl implements WeldService {
 		user.setFnt(json.getString("FNEXTWALL_THICKNESS"));
 		user.setFnm(json.getString("FNEXTMETERIAL"));
 		user.setFstart_time(sdf.parse(json.getString("FSTART_TIME")));
+		user.setCreator(json.getString("CREATOR"));
 		if(json.getString("FEND_TIME").isEmpty()||json.getString("FEND_TIME")==null){
 		user.setFend_time(null);
 		}else{
@@ -152,6 +155,7 @@ public class WeldServiceImpl implements WeldService {
 		user.setFnt(json.getString("FNEXTWALL_THICKNESS"));
 		user.setFnm(json.getString("FNEXTMETERIAL"));
 		user.setFstart_time(sdf.parse(json.getString("FSTART_TIME")));
+		user.setModifiter(json.getString("MODIFIER"));
 //		user.setFend_time(sdf.parse(json.getString("FEND_TIME")));
 		if(json.getString("FEND_TIME").isEmpty()||json.getString("FEND_TIME")==null){
 		user.setFend_time(null);

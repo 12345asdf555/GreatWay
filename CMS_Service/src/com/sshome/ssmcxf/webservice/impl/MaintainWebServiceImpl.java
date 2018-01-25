@@ -79,7 +79,9 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			}
 			mr.setDesc(json.getString("DESC"));
 			mr.setTypeId(json.getInt("TYPEID"));
+			mr.setCreator(json.getString("CREATOR"));
 			wm.setMaintenance(mr);
+			wm.setCreator(json.getString("CREATOR"));
 			WeldingMachine w = new WeldingMachine();
 			BigInteger wid = new BigInteger(json.getString("WELDID"));
 			w.setId(wid);
@@ -114,6 +116,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			}
 			mr.setDesc(json.getString("DESC"));
 			mr.setTypeId(json.getInt("TYPEID"));
+			mr.setModifier(json.getString("MODIFIER"));
 			return ms.updateMaintenanceRecord(mr);
 		}catch(Exception e){
 			return false;

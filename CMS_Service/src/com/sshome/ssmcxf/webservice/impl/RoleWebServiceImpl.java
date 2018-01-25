@@ -26,6 +26,7 @@ public class RoleWebServiceImpl implements RoleWebService{
 			Role r = new Role();
 			r.setId(json.getInt("ROLEID"));
 			r.setAuthorityId(json.getInt("AUTHID"));
+			r.setCreator(json.getString("CREATOR"));
 			return ros.saveAuthority(r);
 		}catch(Exception e){
 			return false;
@@ -40,6 +41,7 @@ public class RoleWebServiceImpl implements RoleWebService{
 			role.setRoleName(json.getString("ROLENAME"));
 			role.setRoleDesc(json.getString("DESC"));
 			role.setRoleStatus(json.getInt("STATUSID"));
+			role.setCreator(json.getString("CREATOR"));
 			return ros.save(role);
 		}catch(Exception e){
 			return false;
@@ -53,6 +55,7 @@ public class RoleWebServiceImpl implements RoleWebService{
 			Role role = new Role();
 			role.setId(json.getInt("ROLEID"));
 			role.setUserId(json.getInt("USERID"));
+			role.setCreator(json.getString("CREATOR"));
 			return ros.saveUser(role);
 		}catch(Exception e){
 			return false;
@@ -68,6 +71,7 @@ public class RoleWebServiceImpl implements RoleWebService{
 			role.setRoleName(json.getString("ROLENAME"));
 			role.setRoleDesc(json.getString("DESC"));
 			role.setRoleStatus(json.getInt("STATUSID"));
+			role.setModifier(json.getString("MODIFIER"));
 			return ros.update(role);
 		}catch(Exception e){
 			return false;

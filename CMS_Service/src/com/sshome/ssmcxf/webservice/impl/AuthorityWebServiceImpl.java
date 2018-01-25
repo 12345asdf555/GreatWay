@@ -28,6 +28,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 			auth.setAuthorityName(json.getString("AUTHORITYNAME"));
 			auth.setAuthorityDesc(json.getString("AUTHORITYDESC"));
 			auth.setStatus(json.getInt("STATUSID"));
+			auth.setCreator(json.getString("CREATOR"));
 			return as.save(auth);
 		}catch(Exception e){
 			return false;
@@ -41,6 +42,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 			Authority auth = new Authority();
 			auth.setId(json.getInt("AUTHID"));
 			auth.setResourceId(json.getInt("RESOURCEID"));
+			auth.setCreator(json.getString("CREATOR"));
 			return as.saveResource(auth);
 		}catch(Exception e){
 			return false;
@@ -56,6 +58,7 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 			auth.setAuthorityName(json.getString("AUTHORITYNAME"));
 			auth.setAuthorityDesc(json.getString("AUTHORITYDESC"));
 			auth.setStatus(json.getInt("STATUSID"));
+			auth.setModifier(json.getString("MODIFIER"));
 			return as.update(auth);
 		}catch(Exception e){
 			return false;

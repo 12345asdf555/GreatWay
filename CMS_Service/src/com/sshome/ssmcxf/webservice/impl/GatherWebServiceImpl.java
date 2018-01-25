@@ -78,6 +78,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setMacurl(json.getString("MACURL"));
 			g.setProtocol(json.getString("PROTOCOL"));
 			g.setStatus(json.getString("STATUS"));
+			g.setCreator(json.getString("CREATOR"));
 			return gs.addGather(g);
 		}catch(Exception e){
 			return false;
@@ -100,6 +101,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setMacurl(json.getString("MACURL"));
 			g.setProtocol(json.getString("PROTOCOL"));
 			g.setStatus(json.getString("STATUS"));
+			g.setModifier("MODIFIER");
 			return gs.editGather(g);
 		}catch(Exception e){
 			return false;
