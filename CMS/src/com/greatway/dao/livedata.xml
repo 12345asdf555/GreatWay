@@ -1118,21 +1118,7 @@
 		<if test="parent!=null and parent!=''">
 				AND i.fid = #{parent}
 		</if>
-		GROUP BY 
-		<if test="dto!=null and dto!=''">
-			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
-			</if>
-			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
-			</if>
-			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
-			</if>
-			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
-			</if>
-		</if>
+		GROUP BY weldTime
 		)temp
 	</select>
 	

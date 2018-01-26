@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		统计时间段内的各部门设备空载率趋势；<br/>
 		空载率=待机时长/工作时长<br/>/焊机待机数量；<br/>
 		X轴：日期<br/>
-		Y轴：超时待机次数<br/></div>
+		Y轴：空载率<br/></div>
 		<div id="caustNoLoadsChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 		
 	    <table id="caustNoLoadsTable" style="table-layout: fixed; width:100%;"></table>
