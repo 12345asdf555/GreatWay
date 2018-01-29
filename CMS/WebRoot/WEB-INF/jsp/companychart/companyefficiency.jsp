@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="explain" style="table-layout: fixed; width:240px; float:left;margin-top: 120px;margin-left:10px;">
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
 		按组织机构和日期对工效统计:<br/>
 		统计时间段内的员工效率所占百分比；<br/>
 		X轴:时间(小时)<br/>

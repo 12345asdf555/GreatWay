@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="explain" style="table-layout: fixed; width:240px; float:left;margin-top: 120px;margin-left:10px;">
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
 		按组织机构和日期对设备闲置率趋势统计：<br/>
 		统计时间段内的各部门设备闲置趋势；<br/>
 		X轴：日期<br/>

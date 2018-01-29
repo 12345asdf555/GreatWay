@@ -56,7 +56,7 @@ function showblocUseChart(){
 			data:['时长(h)']
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'6%',//组件距离容器左边的距离
 			right:'4%',
 			bottom:'7%',
 			containLaber:true//区域是否包含坐标轴刻度标签
