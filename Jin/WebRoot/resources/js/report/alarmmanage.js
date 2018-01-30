@@ -50,32 +50,44 @@
 			pagination : true,
 			showPageList : false,
 			columns : [ [ {
-				field : 'wsid',
-				title : '车间号',
+				field : 'weldnum',
+				title : '工号',
 				width : 100,
 				halign : "center",
 				align : "left"
 			}, {
-				field : 'teamid',
-				title : '班组号',
+				field : 'weldname',
+				title : '姓名',
 				width : 100,
 				halign : "center",
 				align : "left"
 			}, {
-				field : 'machineid',
-				title : '焊机号',
+				field : 'prodectinfo',
+				title : '产品信息',
 				width : 100,
 				halign : "center",
 				align : "left"
 			}, {
-				field : 'machinestatus',
-				title : '焊机状态',
+				field : 'warninfo',
+				title : '报警信息',
 				width : 100,
 				halign : "center",
 				align : "left"
 			}, {
-				field : 'machinemodel',
-				title : '焊机型号',
+				field : 'boottime',
+				title : '开始时间',
+				width : 100,
+				halign : "center",
+				align : "left"
+			}, {
+				field : 'onlinetime',
+				title : '持续时间',
+				width : 100,
+				halign : "center",
+				align : "left"
+			}, {
+				field : 'back',
+				title : '备注',
 				width : 100,
 				halign : "center",
 				align : "left"
@@ -91,68 +103,46 @@
 				width : 100,
 				halign : "center",
 				align : "left"
-			}, {
-				field : 'realvol',
-				title : '实际电压',
-				width : 100,
-				halign : "center",
-				align : "left"
-			}, {
-				field : 'realele',
-				title : '实际电流',
+	        }, {
+				field : 'wsid',
+				title : '车间',
 				width : 100,
 				halign : "center",
 				align : "left"
 	        }, {
-				field : 'currentwelder',
-				title : '当前焊工',
+				field : 'teamid',
+				title : '班组',
 				width : 100,
 				halign : "center",
 				align : "left"
 	        }, {
-				field : 'weldingtime',
-				title : '焊接时间',
+				field : 'machineid',
+				title : '焊机号',
 				width : 100,
 				halign : "center",
 				align : "left"
 	        }, {
-				field : 'status',
-				title : '群控状态',
+				field : 'machinemodel',
+				title : '型号',
 				width : 100,
 				halign : "center",
 				align : "left"
-	        }, {
-				field : 'inspower',
-				title : '瞬时功率',
-				width : 100,
+	        },{
+				field : 'option',
+				title : '操作',
+				width : 130,
 				halign : "center",
-				align : "left"
-	        }, {
-				field : 'afv',
-				title : '气流量',
-				width : 100,
-				halign : "center",
-				align : "left"
-	        }, {
-				field : 'boottime',
-				title : '开机时间',
-				width : 100,
-				halign : "center",
-				align : "left"
-	        }, {
-				field : 'offtime',
-				title : '关机时间',
-				width : 100,
-				halign : "center",
-				align : "left"
-	        }, {
-				field : 'onlinetime',
-				title : '在线时间',
-				width : 100,
-				halign : "center",
-				align : "left"
-	        }]],
-			toolbar : '#toolbar'
+				align : "left",
+				formatter:function(value,row,index){
+				var str = "";
+				str += '<a id="option" class="easyui-linkbutton" href="javascript:"/>';
+				return str;
+				}
+			}]],
+			toolbar : '#toolbar',
+			onLoadSuccess:function(data){
+		        $("a[id='option']").linkbutton({text:'历史曲线',plain:true,iconCls:'icon-Role'});
+		        }
 		});
 		}
 		

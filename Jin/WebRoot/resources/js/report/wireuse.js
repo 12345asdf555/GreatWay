@@ -21,7 +21,26 @@
         	insframeworkTree();
 		})   
 		
-       $(function(){
+		var chartStr = "";
+		function setParam(){
+			var parent = $("#parent").val();
+			var otype = $("input[name='otype']:checked").val();
+			var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+			var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+			chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+		}
+		
+		function serachCompanyOverproof(){
+			chartStr = "";
+			wireuse();
+		}
+		
+		$(function(){
+			wireuse();
+		})
+		
+       function wireuse(){
+    	setParam();
 	    $("#dg").datagrid( {
 		fitColumns : true,
 		height : ($("#body").height()),
@@ -30,7 +49,7 @@
 		toolbar : "#toolbar",
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "user/getAllUser",
+		url : "rep/getWireUse"+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		pagination : true,
@@ -110,18 +129,57 @@
         }]],
 		toolbar : '#toolbar'
 	});
-
-})
+    }
 
         function insframeworkTree(){
         	$("#myTree").tree({  
         		onClick : function(node){
         			$("#dg").datagrid('load',{
-        				"parent" : node.id
+        				"insid" : node.id
         			})
         		 }
         	})
         }
+        
+    	$(function(){
+			   $.ajax({
+			   type: "post", 
+			   url: "user/getIns",
+			   dataType: "json",
+			   data: {},
+			   success: function (result) {
+			      if (result) {
+			         var optionstring = "";
+			         optionstring = "<option value='请选择...'>请选择...</option>";
+			         //循环遍历 下拉框绑定
+			         for(var k=0;k<result.rows.length;k++){
+			         optionstring += "<option value=\"" + result.rows[k].insid + "\" >" + result.rows[k].insname + "</option>";
+			         }
+			         $("#division").html(optionstring);
+			      } else {
+			         alert('车间号加载失败');
+			      }
+			      $("#division").combobox();
+			      var data = $('#division').combobox('getData');
+			      $("#division ").combobox('select',data[0].value);
+			   },
+			   error: function () {
+			      alert('error');
+			   }
+			});
+	})
+	
+		$(document).ready(function () {
+			$("#division").combobox({
+				onChange: function (n,o) {
+				if(n!="请选择..."){
+    			$("#dg").datagrid('load',{
+    				"insid" : n
+    			})
+				}
+				}
+			});
+		});
         
         //监听窗口大小变化
           window.onresize = function() {

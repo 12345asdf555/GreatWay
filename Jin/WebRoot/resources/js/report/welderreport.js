@@ -20,7 +20,21 @@
         	insframeworkTree();
 		})   
 
-       $(function(){
+		var chartStr = "";
+		function setParam(){
+			var parent = $("#parent").val();
+			var otype = $("input[name='otype']:checked").val();
+			var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+			var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+			chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+		}
+		function serachCompanyOverproof(){
+			chartStr = "";
+			werpt();
+		}
+		
+       function werpt(){
+    	   setParam();
 	    $("#dg").datagrid( {
 		fitColumns : true,
 		height : ($("#body").height()),
@@ -29,24 +43,18 @@
 		toolbar : "#toolbar",
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "user/getAllUser",
+		url : "rep/getWelderReport"+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		pagination : true,
 		showPageList : false,
 		columns : [ [ {
-			field : 'currentwelder',
+			field : 'fname',
 			title : '焊工姓名',
 			width : 100,
 			halign : "center",
 			align : "left"
         }, {
-			field : 'machinestatus',
-			title : '焊机状态',
-			width : 100,
-			halign : "center",
-			align : "left"
-		}, {
 			field : 'phone',
 			title : '手机号',
 			width : 100,
@@ -61,12 +69,6 @@
 		}, {
 			field : 'back',
 			title : '备注信息',
-			width : 100,
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'firsttime',
-			title : '首次焊接时间',
 			width : 100,
 			halign : "center",
 			align : "left"
@@ -100,47 +102,20 @@
 			width : 100,
 			halign : "center",
 			align : "left"
-		}, {
-			field : 'inspower',
-			title : '瞬时功率',
-			width : 100,
-			halign : "center",
-			align : "left"
-        }, {
-			field : 'afv',
-			title : '气流量',
-			width : 100,
-			halign : "center",
-			align : "left"
-        },{
-			field : 'boottime',
-			title : '开机时间',
-			width : 100,
-			halign : "center",
-			align : "left"
-        }, {
-			field : 'offtime',
-			title : '关机时间',
-			width : 100,
-			halign : "center",
-			align : "left"
-        }, {
-			field : 'onlinetime',
-			title : '在线时间',
-			width : 100,
-			halign : "center",
-			align : "left"
-        }]],
+		}]],
 		toolbar : '#toolbar'
 	});
 
-})
+}
+       $(function(){
+    	   werpt();
+       })
         
         function insframeworkTree(){
         	$("#myTree").tree({  
         		onClick : function(node){
         			$("#dg").datagrid('load',{
-        				"parent" : node.id
+        				"insid" : node.id
         			})
         		 }
         	})

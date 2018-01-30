@@ -1,13 +1,17 @@
 package com.spring.service.impl;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pagehelper.PageHelper;
 import com.greatway.dao.ReportMapper;
+import com.greatway.dto.WeldDto;
+import com.greatway.page.Page;
 import com.spring.model.Report;
 import com.spring.service.ReportService;
 
@@ -34,6 +38,41 @@ public class ReportServiceImpl implements ReportService{
 	public Report getSyspara() {
 		// TODO Auto-generated method stub
 		return mapper.getSyspara();
+	}
+
+	@Override
+	public List<Report> findAllWelder(Page page, BigInteger iid, String str) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return mapper.findAllWelder(iid, str);
+	}
+
+	public long getWeldingTime(WeldDto dto, BigInteger machid,String weldid) {
+		// TODO Auto-generated method stub
+		return mapper.getWeldingTime(dto, machid,weldid);
+	}
+
+	@Override
+	public long getOnTime(WeldDto dto, BigInteger machid) {
+		// TODO Auto-generated method stub
+		return mapper.getOnTime(dto, machid);
+	}
+
+	@Override
+	public long getRealEle(WeldDto dto, BigInteger machid) {
+		// TODO Auto-generated method stub
+		return mapper.getRealEle(dto, machid);
+	}
+
+	@Override
+	public long getRealVol(WeldDto dto, BigInteger machid) {
+		// TODO Auto-generated method stub
+		return mapper.getRealVol(dto, machid);
+	}
+
+	@Override
+	public List<Report> findMachine(String weldid) {
+		// TODO Auto-generated method stub
+		return mapper.findMachine(weldid);
 	}
 
 }

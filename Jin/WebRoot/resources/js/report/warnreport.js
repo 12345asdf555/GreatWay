@@ -109,7 +109,7 @@
 		}]],
 		toolbar : '#toolbar',
 		onLoadSuccess:function(data){
-	        $("a[id='option']").linkbutton({text:'历史曲线',plain:true,iconCls:'icon-Role'});
+	        $("a[id='option']").linkbutton({text:'停机',plain:true,iconCls:'icon-Role'});
 	        }
 	});
 

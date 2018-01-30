@@ -21,9 +21,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	
+	<script type="text/javascript" src="resources/js/load.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="resources/js/getTime.js"></script>
 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
 	<script type="text/javascript" src="resources/js/report/weldparameter.js"></script>
 
@@ -37,8 +39,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<lable>车间号</lable>
 				<select class="easyui-combobox" name="division" id="division" onChange="changeValue(current,old)"></select>
 
-				<input  name="parent" id="parent" type="hidden" value=""/>
-				<input  name="afresh" id="afresh" type="hidden" value=""/>
+				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
+				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">

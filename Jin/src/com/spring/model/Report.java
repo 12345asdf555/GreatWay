@@ -13,6 +13,9 @@ public class Report{
 	 * 
 	 */
 	private BigInteger id;
+	private BigInteger insid;
+	private BigInteger machid;
+	private String fname;
 	private String fwsid;
 	private String fteamid;
 	private String fmachineid;
@@ -46,6 +49,24 @@ public class Report{
 	}
 	public void setId(BigInteger id) {
 		this.id = id;
+	}
+	public BigInteger getMachid() {
+		return machid;
+	}
+	public void setMachid(BigInteger machid) {
+		this.machid = machid;
+	}
+	public BigInteger getInsid() {
+		return insid;
+	}
+	public void setInsid(BigInteger insid) {
+		this.insid = insid;
+	}
+	public String getFname() {
+		return fname;
+	}
+	public void setFname(String fname) {
+		this.fname = fname;
 	}
 	public String getFwsid() {
 		return fwsid;

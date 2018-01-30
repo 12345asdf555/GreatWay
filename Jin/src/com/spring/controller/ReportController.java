@@ -1,6 +1,9 @@
 package com.spring.controller;
 
 import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.greatway.dto.WeldDto;
 import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.InsframeworkManager;
+import com.greatway.manager.LiveDataManager;
 import com.greatway.manager.WeldingMachineManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.model.Insframework;
@@ -53,6 +58,13 @@ public class ReportController {
 	
 	@Autowired
 	private DictionaryManager dm;
+	@Autowired
+	private LiveDataManager lm;
+	
+	@Autowired
+	private WeldingMachineManager wm;
+	@Autowired
+	private InsframeworkManager insm;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -72,26 +84,213 @@ public class ReportController {
 	public String WelderRep(HttpServletRequest request){
 		return "report/WelderReport";
 	}
-	
-	@RequestMapping("/getWeldPara")
+
+/*	@RequestMapping("/getWeldPara")
 	@ResponseBody
-	public String getAllUser(HttpServletRequest request){
-/*		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+	public String getWeldPara(HttpServletRequest request){
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
 			    .getAuthentication()  
 			    .getPrincipal();
-		System.out.println(myuser.getId());*/
-		Report rap = new Report();
-		Report rap1 = null;
-		pageIndex = Integer.parseInt(request.getParameter("page"));
-		pageSize = Integer.parseInt(request.getParameter("rows"));
-		String search = request.getParameter("searchStr");
+		System.out.println(myuser.getId());
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
+		String insid = request.getParameter("insid");
+		String type = request.getParameter("otype");
+		WeldDto dto = new WeldDto();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
+		}
 		BigInteger parent = null;
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
 		}
+		if(iutil.isNull(type)){
+			if(type.equals("1")){
+				dto.setYear("year");
+			}else if(type.equals("2")){
+				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
+			}else if(type.equals("4")){
+				dto.setWeek("week");
+			}
+		}
+		Report rap = new Report();
+		Report rap1 = null;
+		BigInteger iid = null;
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String search = request.getParameter("searchStr");
+		if(iutil.isNull(insid)){
+			iid = new BigInteger(insid);
+		}
 		page = new Page(pageIndex,pageSize,total);
-		List<WeldingMachine> list = wmm.getWeldingMachineAll(page,parent,search);
+		List<WeldingMachine> list = wmm.getWeldingMachineAll(page,iid,search);
+		long total = 0;
+		
+		if(list != null){
+			PageInfo<WeldingMachine> pageinfo = new PageInfo<WeldingMachine>(list);
+			total = pageinfo.getTotal();
+		}
+		request.setAttribute("userList", list);
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		String times;
+		String hour1;
+		String minute1;
+		String second1;
+		String times1;
+		String hour2;
+		String minute2;
+		String second2;
+		try{
+			for(WeldingMachine wm:list){
+				BigInteger wpsid=reportService.getWpsid(wm.getId());
+				if(wpsid!=null){
+					rap = reportService.getWps(wpsid);
+				}else{
+					rap.setFstandardele(0);
+					rap.setFstandardvol(0);
+				}
+				long hour = reportService.getWeldingTime(dto, wm.getId())/3600;
+				if(hour<10){
+					hour1 = "0" + String.valueOf(hour) + ":";
+				}else{
+					hour1 = String.valueOf(hour) + ":";
+				}
+				long last = reportService.getWeldingTime(dto, wm.getId())%3600;
+				long minute = last/60;
+				if(minute<10){
+					minute1 = "0" + String.valueOf(minute) + ":";
+				}else{
+					minute1 = String.valueOf(minute) + ":";
+				}
+				long second = last%60;
+				if(second<10){
+					second1 = "0" + String.valueOf(second);
+				}else{
+					second1 = String.valueOf(second);
+				}
+				times = hour1 + minute1 + second1;
+				long ontime = reportService.getOnTime(dto, wm.getId())/3600;
+				if(ontime<10){
+					hour2 = "0" + String.valueOf(ontime) + ":";
+				}else{
+					hour2 = String.valueOf(ontime) + ":";
+				}
+				long last1 = reportService.getWeldingTime(dto, wm.getId())%3600;
+				long minutes = last1/60;
+				if(minutes<10){
+					minute2 = "0" + String.valueOf(minutes) + ":";
+				}else{
+					minute2 = String.valueOf(minutes) + ":";
+				}
+				long seconds = last%60;
+				if(seconds<10){
+					second2 = "0" + String.valueOf(seconds);
+				}else{
+					second2 = String.valueOf(seconds);
+				}
+				times1 = hour2 + minute2 + second2;
+				DecimalFormat df = new DecimalFormat("0.0");
+				String ele = df.format((float)reportService.getRealEle(dto, wm.getId()));
+				String vol = df.format((float)reportService.getRealVol(dto, wm.getId()));
+				rap1 = reportService.getSyspara();
+				json.put("standardvol",rap.getFstandardvol());
+				json.put("standardele",rap.getFstandardele());
+				json.put("machineid", wm.getEquipmentNo());
+				json.put("machinemodel",wm.getModel());
+				json.put("inspower",rap1.getFinspower());
+				json.put("afv",rap1.getFafv());
+				json.put("weldingtime", times);
+				json.put("onlinetime", times1);
+				json.put("realele", ele);
+				json.put("realvol", vol);
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			e.getMessage();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}*/
+	
+/*	@RequestMapping("/getWireUse")
+	@ResponseBody
+	public String getWireUse(HttpServletRequest request){
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		System.out.println(myuser.getId());
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("parent");
+		String insid = request.getParameter("insid");
+		String type = request.getParameter("otype");
+		WeldDto dto = new WeldDto();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
+		}
+		BigInteger parent = null;
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		if(iutil.isNull(type)){
+			if(type.equals("1")){
+				dto.setYear("year");
+			}else if(type.equals("2")){
+				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
+			}else if(type.equals("4")){
+				dto.setWeek("week");
+			}
+		}
+		Report rap = new Report();
+		Report rap1 = null;
+		BigInteger iid = null;
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String search = request.getParameter("searchStr");
+		if(iutil.isNull(insid)){
+			iid = new BigInteger(insid);
+		}
+		page = new Page(pageIndex,pageSize,total);
+		List<WeldingMachine> list = wmm.getWeldingMachineAll(page,iid,search);
 		long total = 0;
 		
 		if(list != null){
@@ -103,22 +302,195 @@ public class ReportController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
+		String times;
+		String hour1;
+		String minute1;
+		String second1;
+		String times1;
+		String hour2;
+		String minute2;
+		String second2;
 		try{
 			for(WeldingMachine wm:list){
-				if(reportService.getWpsid(wm.getId())!=null){
-					BigInteger wpsid=reportService.getWpsid(wm.getId());
+				BigInteger wpsid=reportService.getWpsid(wm.getId());
+				if(wpsid!=null){
 					rap = reportService.getWps(wpsid);
+				}else{
+					rap.setFdiameter(0);
 				}
+				long hour = reportService.getWeldingTime(dto, wm.getId())/3600;
+				if(hour<10){
+					hour1 = "0" + String.valueOf(hour) + ":";
+				}else{
+					hour1 = String.valueOf(hour) + ":";
+				}
+				long last = reportService.getWeldingTime(dto, wm.getId())%3600;
+				long minute = last/60;
+				if(minute<10){
+					minute1 = "0" + String.valueOf(minute) + ":";
+				}else{
+					minute1 = String.valueOf(minute) + ":";
+				}
+				long second = last%60;
+				if(second<10){
+					second1 = "0" + String.valueOf(second);
+				}else{
+					second1 = String.valueOf(second);
+				}
+				times = hour1 + minute1 + second1;
+				long ontime = reportService.getOnTime(dto, wm.getId())/3600;
+				if(ontime<10){
+					hour2 = "0" + String.valueOf(ontime) + ":";
+				}else{
+					hour2 = String.valueOf(ontime) + ":";
+				}
+				long last1 = reportService.getWeldingTime(dto, wm.getId())%3600;
+				long minutes = last1/60;
+				if(minutes<10){
+					minute2 = "0" + String.valueOf(minutes) + ":";
+				}else{
+					minute2 = String.valueOf(minutes) + ":";
+				}
+				long seconds = last%60;
+				if(seconds<10){
+					second2 = "0" + String.valueOf(seconds);
+				}else{
+					second2 = String.valueOf(seconds);
+				}
+				times1 = hour2 + minute2 + second2;
 				rap1 = reportService.getSyspara();
-				json.put("standardvol",rap.getFstandardvol());
-				json.put("standardele",rap.getFstandardele());
 				json.put("machineid", wm.getEquipmentNo());
 				json.put("machinemodel",wm.getModel());
-				json.put("inspower",rap1.getFinspower());
-				json.put("afv",rap1.getFafv());
+				json.put("diameter", rap.getFdiameter());
+				json.put("speed", rap1.getFspeed());
+				json.put("weldingtime", times);
+				json.put("onlinetime", times1);
 				ary.add(json);
 			}
 		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}*/
+	
+	@RequestMapping("/getWelderReport")
+	@ResponseBody
+	public String getWelderReport(HttpServletRequest request){
+/*		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		System.out.println(myuser.getId());*/
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("parent");
+		String insid = request.getParameter("insid");
+		String type = request.getParameter("otype");
+		WeldDto dto = new WeldDto();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
+		}
+		BigInteger parent = null;
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		if(iutil.isNull(type)){
+			if(type.equals("1")){
+				dto.setYear("year");
+			}else if(type.equals("2")){
+				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
+			}else if(type.equals("4")){
+				dto.setWeek("week");
+			}
+		}
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String str = request.getParameter("searchStr");
+		BigInteger iid = null;
+		if(iutil.isNull(insid)){
+			iid = new BigInteger(insid);
+		}
+		page = new Page(pageIndex,pageSize,total);
+		List<Report> list = reportService.findAllWelder(page, iid, str);
+		long total = 0;
+		
+		if(list != null){
+			PageInfo<Report> pageinfo = new PageInfo<Report>(list);
+			total = pageinfo.getTotal();
+		}
+		request.setAttribute("userList", list);
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		String hour1;
+		String minute1;
+		String second1;
+		String times;
+		try{
+			for(Report repo:list){
+				List<Report> mach = reportService.findMachine(repo.getFweldernum());
+				if(mach.isEmpty()){
+					json.put("fname", repo.getFname());
+					json.put("phone", repo.getFphone());
+					json.put("weldernum", repo.getFweldernum());
+					json.put("back", repo.getFback());
+					json.put("machinemodel", "");
+					json.put("machineid", "");
+					json.put("valuetime", "00:00:00");
+					ary.add(json);
+				}else{
+				for(Report report:mach){
+					json.put("machinemodel", report.getFmachinemodel());
+					json.put("machineid", report.getFname());
+					long hour = reportService.getWeldingTime(dto, report.getId(),repo.getFweldernum())/3600;
+					if(hour<10){
+						hour1 = "0" + String.valueOf(hour) + ":";
+					}else{
+						hour1 = String.valueOf(hour) + ":";
+					}
+					long last = reportService.getWeldingTime(dto, report.getId(),repo.getFweldernum())%3600;
+					long minute = last/60;
+					if(minute<10){
+						minute1 = "0" + String.valueOf(minute) + ":";
+					}else{
+						minute1 = String.valueOf(minute) + ":";
+					}
+					long second = last%60;
+					if(second<10){
+						second1 = "0" + String.valueOf(second);
+					}else{
+						second1 = String.valueOf(second);
+					}
+					times = hour1 + minute1 + second1;
+					json.put("valuetime", times);
+					json.put("fname", repo.getFname());
+					json.put("phone", repo.getFphone());
+					json.put("weldernum", repo.getFweldernum());
+					json.put("back", repo.getFback());
+					ary.add(json);
+				}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 			e.getMessage();
 		}
 		obj.put("total", total);
