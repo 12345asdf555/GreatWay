@@ -492,4 +492,13 @@ public class LiveDataServiceImpl implements LiveDataService {
 			return null;
 		}
 	}
+
+	@Override
+	public BigInteger getCountByTime(BigInteger parent, String time, BigInteger mid) {
+		try{
+			return live.getCountByTime(parent, time, mid);
+		}catch(Exception e){
+			return null;
+		}
+	}
 }

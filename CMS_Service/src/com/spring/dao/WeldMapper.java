@@ -6,9 +6,9 @@ import com.spring.model.Weld;
 
 public interface WeldMapper {
 	BigInteger FindIns_Id(Weld user);
-	int AddWeld(Weld user);
-	int UpdateWeld(Weld user);
-	int AddJunction(Weld user);
-	int UpdateJunction(Weld user);
-	int DeleteJunction(Weld user);
+	boolean AddWeld(Weld user);
+	boolean UpdateWeld(Weld user);
+	boolean AddJunction(Weld user);
+	boolean UpdateJunction(Weld user);
+	boolean DeleteJunction(Weld user);
 }

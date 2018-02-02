@@ -1,8 +1,6 @@
 package com.sshome.ssmcxf.webservice;
 
-import java.util.List;
-
-import com.spring.dto.ModelDto;
+import java.math.BigInteger;
 
 public interface LiveDataWebService {
 	/**
@@ -384,4 +382,13 @@ public interface LiveDataWebService {
 	 * @return
 	 */
 	Object getCaustMachineCount(String object);
+	
+	/**
+	 * 根据组织机构及时间点获取工作总时长
+	 * @param parent 组织机构id
+	 * @param time 时间点
+	 * @param mid 焊机id
+	 * @return
+	 */
+	Object getCountByTime(String object);
 }

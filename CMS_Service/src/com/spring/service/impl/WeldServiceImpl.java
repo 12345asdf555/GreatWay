@@ -3,28 +3,22 @@ package com.spring.service.impl;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.pagehelper.PageHelper;
 import com.spring.dao.WeldMapper;
 import com.spring.model.Weld;
 import com.spring.service.WeldService;
 
 import net.sf.json.JSONObject;
 
-
-
 @Service
 @Transactional  //此处不再进行创建SqlSession和提交事务，都已交由spring去管理了。
 public class WeldServiceImpl implements WeldService {
 	
-	@Resource
+	@Autowired
 	private WeldMapper mapper;
 
 	public Boolean AddWeld(String aweld) {
@@ -37,9 +31,9 @@ public class WeldServiceImpl implements WeldService {
 		user.setFname(json.getString("FNAME"));
 		user.setFwelder_no(json.getString("FWELDER_NO"));
 		user.setCreator(json.getString("CREATOR"));
-		mapper.AddWeld(user);
-		return true;
+		return mapper.AddWeld(user);
 		}catch(Exception e){
+			e.printStackTrace();
 		return false;
 		}
 	}
@@ -54,8 +48,7 @@ public class WeldServiceImpl implements WeldService {
 		user.setFname(json.getString("FNAME"));
 		user.setFwelder_no(json.getString("FWELDER_NO"));
 		user.setModifiter(json.getString("MODIFIER"));
-		mapper.UpdateWeld(user);
-		return true;
+		return mapper.UpdateWeld(user);
 		}catch(Exception e){
 			return false;
 		}	
@@ -63,7 +56,6 @@ public class WeldServiceImpl implements WeldService {
 
 	@Override
 	public Boolean AddJunction(String ajunction) {
-		// TODO Auto-generated method stub
 		try{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		JSONObject json = JSONObject.fromObject(ajunction);
@@ -109,8 +101,7 @@ public class WeldServiceImpl implements WeldService {
 /*		user.setFcreatetime(sdf.parse(json.getString("fcreatetime")));
 		user.setFupdatetime(sdf.parse(json.getString("fupdatetime")));
 		user.setFupdatecount(Integer.parseInt(json.getString("fupdatecount")));*/
-		mapper.AddJunction(user);
-		return true;
+		return mapper.AddJunction(user);
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
@@ -165,8 +156,7 @@ public class WeldServiceImpl implements WeldService {
 /*		user.setFcreatetime(sdf.parse(json.getString("fcreatetime")));
 		user.setFupdatetime(sdf.parse(json.getString("fupdatetime")));
 		user.setFupdatecount(Integer.parseInt(json.getString("fupdatecount")));*/
-		mapper.UpdateJunction(user);
-		return true;
+		return mapper.UpdateJunction(user);
 		}catch(Exception e){
 			return false;
 		}	
@@ -187,18 +177,21 @@ public class WeldServiceImpl implements WeldService {
 			}
 		}
 		user.setFwjn(serial);
-		mapper.DeleteJunction(user);
-		return true;
+		return mapper.DeleteJunction(user);
 		}catch(Exception e){
 			return false;
 		}	
 	}
 
 	public BigInteger FindIns_Id(String insname) {
-		JSONObject json = JSONObject.fromObject(insname);
-		Weld user = new Weld();
-		user.setFname(json.getString("FNAME"));
-		return mapper.FindIns_Id(user);
+		try{
+			JSONObject json = JSONObject.fromObject(insname);
+			Weld user = new Weld();
+			user.setFname(json.getString("FNAME"));
+			return mapper.FindIns_Id(user);
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 }

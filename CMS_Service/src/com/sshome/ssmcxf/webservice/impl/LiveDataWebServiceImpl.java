@@ -110,6 +110,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			List<ModelDto> list = live.getCauseOverproof(dto, new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -204,7 +205,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			WeldDto dto = new WeldDto();
 			dto.setDtoTime1(json.getString("STARTTIME"));
 			dto.setDtoTime2(json.getString("ENDTIME"));
-			dto.setTime("%"+json.getString("WELDTIME")+"%");
+			dto.setTime("%"+ json.getString("WELDTIME").replace("/", "-")+"%");
 			List<ModelDto> list = live.getDatailOverproof(dto, new BigInteger(json.getString("ITEMINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
@@ -219,7 +220,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			String welderno = json.getString("WELDERNO");
 			String machineno = json.getString("MACHINENO");
 			String junctionno = json.getString("JUNCTIONNO");
-			String time = json.getString("TIME");
+			String time = json.getString("TIME").replace("/", "-");
 			BigInteger id = new BigInteger(json.getString("ITEMINSFID"));
 			return live.getCountTime(welderno, machineno, junctionno, time, id);
 		}catch(Exception e){
@@ -263,6 +264,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			List<ModelDto> list = live.getcompanyOvertime(dto, json.getString("NUMBER"), new BigInteger(json.getString("COMPANYINSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -441,8 +443,18 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			WeldDto dto = new WeldDto();
 			dto.setDtoTime1(json.getString("STARTTIME"));
 			dto.setDtoTime2(json.getString("ENDTIME"));
-			dto.setTime("%"+json.getString("WELDTIME")+"%");
+			dto.setTime("%"+ json.getString("WELDTIME").replace("/", "-")+"%");
 			dto.setParent(new BigInteger(json.getString("ITEMINSFID")));
+			int type = json.getInt("TYPEID");
+			if(type==1){
+				dto.setYear("year");
+			}else if(type==2){
+				dto.setMonth("month");
+			}else if(type==3){
+				dto.setDay("day");
+			}else if(type==4){
+				dto.setWeek("week");
+			}
 			List<ModelDto> list = live.getDetailLoads(dto, null);
 			return JSON.toJSONString(list);
 		}catch(Exception e){
@@ -882,7 +894,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			WeldDto dto = new WeldDto();
 			dto.setDtoTime1(json.getString("STARTTIME"));
 			dto.setDtoTime2(json.getString("ENDTIME"));
-			dto.setTime("%"+json.getString("WELDTIME")+"%");
+			dto.setTime("%"+ json.getString("WELDTIME").replace("/", "-")+"%");
 			dto.setParent(new BigInteger(json.getString("ITEMINSFID")));
 			List<ModelDto> list = live.getDetailNoLoads(dto);
 			return JSON.toJSONString(list);
@@ -908,7 +920,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCaustMachineCount(dto, new BigInteger(json.getString("PARENT")));
+			List<ModelDto> list = live.getCaustMachineCount(dto, new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -932,7 +944,7 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCaustMachineCount(dto, new BigInteger(json.getString("PARENT")));
+			List<ModelDto> list = live.getCaustMachineCount(dto, new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -956,8 +968,28 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			}else if(type==4){
 				dto.setWeek("week");
 			}
-			List<ModelDto> list = live.getCaustMachineCount(dto, new BigInteger(json.getString("PARENT")));
+			List<ModelDto> list = live.getCaustMachineCount(dto, new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	@Override
+	public Object getCountByTime(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			BigInteger parent = null,mid = null;
+			String parentid = json.getString("INSFID");
+			String time = "%"+ json.getString("TIME").replace("/", "-")+"%";
+			String machineid = json.getString("MACHINEID");
+			if(parentid!=null && !"".equals(parentid)){
+				parent = new BigInteger(parentid);
+			}
+			if(machineid!=null && !"".equals(machineid)){
+				mid = new BigInteger(machineid);
+			}
+			return live.getCountByTime(parent, time, mid);
 		}catch(Exception e){
 			return null;
 		}

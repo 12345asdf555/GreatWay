@@ -19,7 +19,7 @@ public class SsWebServiceImpl implements SsWebService {
 	@Override
 	public Boolean AddWeld(String aweld) {
 		Boolean flag = userService.AddWeld(aweld);
-			return flag;	
+		return flag;	
 	}
 
 	@Override

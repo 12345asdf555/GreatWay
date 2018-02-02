@@ -412,4 +412,13 @@ public interface LiveDataService {
 	 * @return
 	 */
 	List<ModelDto> getCaustMachineCount(WeldDto dto,BigInteger parent);
+	
+	/**
+	 * 根据组织机构及时间点获取工作总时长
+	 * @param parent 组织机构id
+	 * @param time 时间点
+	 * @param mid 焊机id
+	 * @return
+	 */
+	BigInteger getCountByTime(BigInteger parent,String time,BigInteger mid);
 }
