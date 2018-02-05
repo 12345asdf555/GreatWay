@@ -3,6 +3,8 @@ package com.sshome.ssmcxf.webservice.impl;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,10 @@ public class GatherWebServiceImpl implements GatherWebService{
 
 	@Autowired
 	private GatherService gs;
+	
+	private JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+	private Client client = dcf.createClient("http://192.168.73.148:8080/Bloc_Service/blocWebService?wsdl");
+	
 	@Override
 	public Object getGatherAll(String object) {
 		try{

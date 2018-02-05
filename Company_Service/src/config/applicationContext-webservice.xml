@@ -10,7 +10,7 @@
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 	
-	<jaxws:endpoint id="blocWebService" address="/blocWebService"
-		implementor="com.sshome.ssmcxf.webservice.impl.BlocWebServiceImpl" />
+	<jaxws:endpoint id="companyWebService" address="/companyWebService"
+		implementor="com.sshome.ssmcxf.webservice.impl.CompanyWebServiceImpl" />
 		
 </beans>
