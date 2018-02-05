@@ -9,14 +9,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sshome.ssmcxf.webservice.BlocWebService;
+import com.sshome.ssmcxf.webservice.ItemWebService;
 
 import net.sf.json.JSONObject;
 
 @Transactional
 @Service
-@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.BlocWebService", serviceName = "BlocWebService")
-public class BlocWebServiceImpl implements BlocWebService {
+@WebService(endpointInterface = "com.sshome.ssmcxf.webservice.ItemWebService", serviceName = "ItemWebService")
+public class ItemWebServiceImpl implements ItemWebService {
 	@Override
 	public Object enterTheWS(String obj1, String obj2) {
 		try{
