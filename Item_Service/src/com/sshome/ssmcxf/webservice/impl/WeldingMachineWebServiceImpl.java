@@ -63,6 +63,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldingMachine wm = new WeldingMachine();
+			wm.setId(new BigInteger(json.getString("ID")));
 			wm.setEquipmentNo(json.getString("EQUIPMENTNO"));
 			wm.setPosition(json.getString("POSITION"));
 			wm.setIsnetworking(json.getInt("ISNETWORKING"));
@@ -71,7 +72,10 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			wm.setStatusId(json.getInt("STATUSID"));
 			wm.setCreator(json.getString("CREATOR"));
 			Gather gather = new Gather();
-			gather.setId(new BigInteger(json.getString("GATHERID")));
+			String gatherid = json.getString("GATHERID");
+			if(gatherid!=null && !gatherid.equals("")){
+				gather.setId(new BigInteger(gatherid));
+			}
 			wm.setGatherId(gather);
 			EquipmentManufacturer e = new EquipmentManufacturer();
 			e.setId(new BigInteger(json.getString("MANUFACTURERID")));

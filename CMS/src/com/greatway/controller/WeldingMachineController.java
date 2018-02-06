@@ -4,7 +4,10 @@ import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.namespace.QName;
 
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -332,36 +335,59 @@ public class WeldingMachineController {
 	@RequestMapping("/addWeldingMachine")
 	@ResponseBody
 	public String addWeldingMachine(HttpServletRequest request){
-		WeldingMachine wm = new WeldingMachine();
+//		WeldingMachine wm = new WeldingMachine();
 		JSONObject obj = new JSONObject();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			wm.setEquipmentNo(request.getParameter("equipmentNo"));
-			if(iutil.isNull(request.getParameter("joinTime"))){
-				wm.setJoinTime(request.getParameter("joinTime"));
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, new BigInteger(request.getParameter("iId")));
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"addWeldingMachine\"}";
+			String obj2 = "{\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\",\"ISNETWORKING\":\"0\","
+					+ "\"JOINTIME\":\""+request.getParameter("joinTime")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\",\"STATUSID\":\""+request.getParameter("sId")+"\","
+					+ "\"GATHERID\":\""+request.getParameter("gatherId")+"\",\"MANUFACTURERID\":\""+request.getParameter("manuno")+"\","
+					+ "\"INSFRAMEWORKID\":\""+request.getParameter("iId")+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
 			}
-			if(iutil.isNull(request.getParameter("position"))){
-				wm.setPosition(request.getParameter("position"));
-			}
-			if(iutil.isNull(request.getParameter("gatherId"))){
-				Gather g = new Gather();
-				g.setId(new BigInteger(request.getParameter("gatherId")));
-				wm.setGatherId(g);
-			}
-			wm.setIsnetworking(Integer.parseInt(request.getParameter("isnetworking")));
-			wm.setTypeId(Integer.parseInt(request.getParameter("tId")));
-			Insframework ins = new Insframework();
-			ins.setId(new BigInteger(request.getParameter("iId")));
-			wm.setInsframeworkId(ins);
-			wm.setStatusId(Integer.parseInt(request.getParameter("sId")));
-			EquipmentManufacturer em = new EquipmentManufacturer();
-			em.setId(new BigInteger(request.getParameter("manuno")));
-			wm.setManufacturerId(em);
-			wm.setCreator(myuser.getUsername());
-			wmm.addWeldingMachine(wm);
-			obj.put("success", true);
+			//获取当前用户
+//			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//			MyUser myuser = (MyUser)object;
+//			wm.setEquipmentNo(request.getParameter("equipmentNo"));
+//			if(iutil.isNull(request.getParameter("joinTime"))){
+//				wm.setJoinTime(request.getParameter("joinTime"));
+//			}
+//			if(iutil.isNull(request.getParameter("position"))){
+//				wm.setPosition(request.getParameter("position"));
+//			}
+//			if(iutil.isNull(request.getParameter("gatherId"))){
+//				Gather g = new Gather();
+//				g.setId(new BigInteger(request.getParameter("gatherId")));
+//				wm.setGatherId(g);
+//			}
+//			wm.setIsnetworking(Integer.parseInt(request.getParameter("isnetworking")));
+//			wm.setTypeId(Integer.parseInt(request.getParameter("tId")));
+//			Insframework ins = new Insframework();
+//			ins.setId(new BigInteger(request.getParameter("iId")));
+//			wm.setInsframeworkId(ins);
+//			wm.setStatusId(Integer.parseInt(request.getParameter("sId")));
+//			EquipmentManufacturer em = new EquipmentManufacturer();
+//			em.setId(new BigInteger(request.getParameter("manuno")));
+//			wm.setManufacturerId(em);
+//			wm.setCreator(myuser.getUsername());
+//			wmm.addWeldingMachine(wm);
+//			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());

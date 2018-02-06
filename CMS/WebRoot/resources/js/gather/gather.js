@@ -108,7 +108,7 @@ function editGather(id,gid,flags){
             			if(flags){
             				url = "gather/goeditGather?id="+gid;
             			}else{
-            				url = "gather/goremoveGather?id="+gid;
+            				url = "gather/goremoveGather?id="+gid+"&itemid="+id;
             			}
 	       				var img = new Image();
 	       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求

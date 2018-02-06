@@ -4,7 +4,10 @@ import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.namespace.QName;
 
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.manager.GatherManager;
+import com.greatway.manager.InsframeworkManager;
 import com.greatway.model.Gather;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
@@ -33,6 +37,9 @@ public class GatherController {
 	
 	@Autowired
 	private GatherManager gm;
+	
+	@Autowired
+	private InsframeworkManager im;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -70,9 +77,10 @@ public class GatherController {
 	 * @return
 	 */
 	@RequestMapping("/goremoveGather")
-	public String goremoveGather(HttpServletRequest request,@RequestParam String id){
+	public String goremoveGather(HttpServletRequest request,@RequestParam String id,@RequestParam String itemid){
 		Gather gather = gm.getGatherById(new BigInteger(id));
 		request.setAttribute("g", gather);
+		request.setAttribute("itemid", itemid);
 		return "gather/removegather";
 	}
 	
@@ -124,25 +132,30 @@ public class GatherController {
 	
 	@RequestMapping("/addGather")
 	@ResponseBody
-	public String addGather(@ModelAttribute("gether")Gather gather){
+	public String addGather(HttpServletRequest request,@ModelAttribute("gether")Gather gather){
 		JSONObject obj = new JSONObject();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			//ModelAttribute收集的数据为‘’时插入会有异常
-			if(!iutil.isNull(gather.getIpurl())){
-				gather.setIpurl(null);
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, gather.getItemid());
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"addGather\"}";
+			String obj2 = "{\"GATHERNO\":\""+gather.getGatherNo()+"\",\"IPURL\":\""+gather.getIpurl()+"\",\"INSFID\":\""+gather.getItemid()+"\",\"LEAVETIME\":\""+gather.getLeavetime()+"\",\"MACURL\":\""+gather.getMacurl()+"\",\"PROTOCOL\":\""+
+					gather.getProtocol()+"\",\"STATUS\":\""+gather.getStatus()+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
 			}
-			if(!iutil.isNull(gather.getMacurl())){
-				gather.setMacurl(null);
-			}
-			if(!iutil.isNull(gather.getIpurl())){
-				gather.setLeavetime(null);
-			}
-			gather.setCreator(myuser.getUsername());
-			gm.addGather(gather);
-			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
 			obj.put("msg", e.getMessage());
@@ -153,28 +166,30 @@ public class GatherController {
 	
 	@RequestMapping("/editGather")
 	@ResponseBody
-	public String editGather(@ModelAttribute("gether")Gather gather, @RequestParam String id){
+	public String editGather(HttpServletRequest request,@ModelAttribute("gether")Gather gather, @RequestParam String id){
 		JSONObject obj = new JSONObject();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			//ModelAttribute收集的数据为‘’时插入会有异常
-			if(!iutil.isNull(gather.getIpurl())){
-				gather.setIpurl(null);
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, gather.getItemid());
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGather\"}";
+			String obj2 = "{\"ID\":\""+gather.getId()+"\",\"GATHERNO\":\""+gather.getGatherNo()+"\",\"IPURL\":\""+gather.getIpurl()+"\",\"INSFID\":\""+gather.getItemid()+"\",\"LEAVETIME\":\""+gather.getLeavetime()+"\",\"MACURL\":\""+gather.getMacurl()+"\",\"PROTOCOL\":\""+
+					gather.getProtocol()+"\",\"STATUS\":\""+gather.getStatus()+"\",\"MODIFIER\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
 			}
-			if(!iutil.isNull(gather.getMacurl())){
-				gather.setMacurl(null);
-			}
-			if(!iutil.isNull(gather.getIpurl())){
-				gather.setLeavetime(null);
-			}
-			if(!iutil.isNull(gather.getLeavetime())){
-				gather.setLeavetime(null);
-			}
-			gather.setModifier(myuser.getUsername());
-			gm.editGather(gather);
-			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
 			obj.put("msg", e.getMessage());
@@ -184,11 +199,26 @@ public class GatherController {
 	
 	@RequestMapping("/removeGather")
 	@ResponseBody
-	public String removeGather(@RequestParam String id){
+	public String removeGather(HttpServletRequest request,@RequestParam String id,@RequestParam String insfid){
 		JSONObject obj = new JSONObject();
 		try{
-			gm.deleteGather(new BigInteger(id));
-			obj.put("success", true);
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, new BigInteger(insfid));
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"deleteGather\"}";
+			String obj2 = "{\"ID\":\""+id+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\",\"INSFID\":\""+insfid+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			obj.put("success", false);
