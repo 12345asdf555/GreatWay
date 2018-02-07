@@ -75,4 +75,11 @@ public interface MaintainWebService {
 	 * @param status
 	 */
 	boolean editstatus(String object);
+
+	/**
+	 * 根据焊机id获取组织机构id
+	 * @param mid
+	 * @return
+	 */
+	BigInteger getInsfidByMachineid(String object);
 }

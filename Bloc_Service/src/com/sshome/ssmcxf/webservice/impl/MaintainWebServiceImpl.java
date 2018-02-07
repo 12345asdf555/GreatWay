@@ -71,7 +71,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			JSONObject json = JSONObject.fromObject(object);
 			WeldingMaintenance wm = new WeldingMaintenance();
 			MaintenanceRecord mr = new MaintenanceRecord();
-			mr.setId(new BigInteger(json.getString("MID")));
+			mr.setId(new BigInteger(json.getString("RID")));
 			mr.setEndTime(json.getString("ENDTIME"));
 			wm.setMaintenance(mr);
 			wm.setCreator(json.getString("CREATOR"));
@@ -138,7 +138,18 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			mr.setDesc(json.getString("DESC"));
 			mr.setTypeId(json.getInt("TYPEID"));
 			mr.setModifier(json.getString("MODIFIER"));
-			return ms.updateMaintenanceRecord(mr);
+			boolean flag = ms.updateMaintenanceRecord(mr);
+			BigInteger wid = new BigInteger(json.getString("WID"));
+			List<WeldingMaintenance> list =  ms.getEndtime(wid);
+			if(endTime==null || "".equals(endTime)){
+				//修改焊机状态为维修中
+				ms.editstatus(wid, 33);
+			}
+			if(list!=null){
+				//如果维修结束时间没有为空的则修改状态为启用
+				ms.editstatus(wid, 31);
+			}
+			return flag;
 		}catch(Exception e){
 			return false;
 		}
@@ -148,7 +159,14 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public boolean deleteMaintenanceRecord(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.deleteMaintenanceRecord(new BigInteger(json.getString("MID")));
+			WeldingMaintenance wm = ms.getWeldingMaintenanceById(new BigInteger(json.getString("MID")));
+			boolean flag = ms.deleteMaintenanceRecord(wm.getMaintenance().getId());
+			boolean flags = ms.deleteWeldingMaintenance(wm.getId());
+			if(flag && flags){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
 			return false;
 		}
@@ -182,6 +200,16 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			return ms.editstatus(new BigInteger(json.getString("WID")), json.getInt("STATUSID"));
 		}catch(Exception e){
 			return false;
+		}
+	}
+	
+	@Override
+	public BigInteger getInsfidByMachineid(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			return ms.getInsfidByMachineid(new BigInteger(json.getString("WID")));
+		}catch(Exception e){
+			return null;
 		}
 	}
 }
