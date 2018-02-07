@@ -160,5 +160,4 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 			return null;
 		}
 	}
-
 }

@@ -49,7 +49,7 @@
 	</select>
 	
 	<select id="getMaintainByWeldingMachinId" resultMap="mmMap">
-		SELECT fid FROM tb_welding_maintenance WHERE fwelding_id = #{wid}
+		SELECT fid,fmaintenance_id rid FROM tb_welding_maintenance WHERE fwelding_id = #{wid}
 	</select>
 	
 	<select id="getEndtime" resultMap="mmMap">

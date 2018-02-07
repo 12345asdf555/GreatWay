@@ -178,4 +178,20 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 		return im.getInsAll(type);
 	}
 
+	@Override
+	public String webserviceDto(HttpServletRequest request,BigInteger itemid) {
+		//当前层级
+		String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+		String companyurl = "";
+		if(hierarchy.equals("1")){
+			//当前层为集团层时获取插入的项目部的所属公司
+			Insframework ins = im.getParent(itemid);
+			Insframework companyid = im.getParent(ins.getId());
+			companyurl = request.getSession().getServletContext().getInitParameter(companyid.getId().toString());
+		}else{
+			companyurl = request.getSession().getServletContext().getInitParameter("companyurl");
+		}
+		return companyurl;
+	}
+
 }

@@ -12,6 +12,8 @@ import com.spring.model.EquipmentManufacturer;
 import com.spring.model.Gather;
 import com.spring.model.Insframework;
 import com.spring.model.WeldingMachine;
+import com.spring.model.WeldingMaintenance;
+import com.spring.service.MaintainService;
 import com.spring.service.WeldingMachineService;
 import com.sshome.ssmcxf.webservice.WeldingMachineWebService;
 
@@ -22,6 +24,9 @@ import net.sf.json.JSONObject;
 public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	@Autowired
 	private WeldingMachineService wms;
+
+	@Autowired
+	private MaintainService ms;
 	
 	@Override
 	public Object getWeldingMachineAll(String object) {
@@ -63,6 +68,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldingMachine wm = new WeldingMachine();
+			wm.setId(new BigInteger(json.getString("ID")));
 			wm.setEquipmentNo(json.getString("EQUIPMENTNO"));
 			wm.setPosition(json.getString("POSITION"));
 			wm.setIsnetworking(json.getInt("ISNETWORKING"));
@@ -71,7 +77,10 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			wm.setStatusId(json.getInt("STATUSID"));
 			wm.setCreator(json.getString("CREATOR"));
 			Gather gather = new Gather();
-			gather.setId(new BigInteger(json.getString("GATHERID")));
+			String gatherid = json.getString("GATHERID");
+			if(gatherid!=null && !gatherid.equals("")){
+				gather.setId(new BigInteger(gatherid));
+			}
 			wm.setGatherId(gather);
 			EquipmentManufacturer e = new EquipmentManufacturer();
 			e.setId(new BigInteger(json.getString("MANUFACTURERID")));
@@ -100,7 +109,10 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			wm.setStatusId(json.getInt("STATUSID"));
 			wm.setModifier(json.getString("MODIFIER"));
 			Gather gather = new Gather();
-			gather.setId(new BigInteger(json.getString("GATHERID")));
+			String gatherid = json.getString("GATHERID");
+			if(gatherid!=null && !gatherid.equals("")){
+				gather.setId(new BigInteger(gatherid));
+			}
 			wm.setGatherId(gather);
 			EquipmentManufacturer e = new EquipmentManufacturer();
 			e.setId(new BigInteger(json.getString("MANUFACTURERID")));
@@ -108,7 +120,18 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			Insframework ins = new Insframework();
 			ins.setId(new BigInteger(json.getString("INSFRAMEWORKID")));
 			wm.setInsframeworkId(ins);
-			return wms.editWeldingMachine(wm);
+			boolean flag = wms.editWeldingMachine(wm);
+			if(flag){
+				//修改焊机状态为启用时，结束所有维修任务
+				int sid = wm.getStatusId();
+				if(sid == 31){
+					List<WeldingMaintenance> list = ms.getEndtime(wm.getId());
+					for(WeldingMaintenance w : list){
+							ms.updateEndtime(w.getId());
+					}
+				}
+			}
+			return flag;
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
@@ -119,7 +142,17 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public boolean deleteWeldingChine(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return wms.deleteWeldingChine(new BigInteger(json.getString("WID")));
+			if(wms.deleteWeldingChine(new BigInteger(json.getString("WID")))){
+				List<WeldingMaintenance> list = ms.getMaintainByWeldingMachinId(new BigInteger(json.getString("WID")));
+				for(WeldingMaintenance wm : list){
+					//删除维修记录
+					ms.deleteWeldingMaintenance(wm.getId());
+					ms.deleteMaintenanceRecord(wm.getMaintenance().getId());
+				}
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
 			return false;
 		}

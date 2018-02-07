@@ -38,12 +38,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">删除新增采集模块</div>
 				<div class="fitem">
-					<input class="easyui-textbox" id="id" value="${g.id }"/>
+					<input type="hidden" id="id" value="${g.id }"/>
 					<lable>采集模块编号</lable>
 					<input class="easyui-textbox" name="gatherNo" id="gatherNo"  value="${g.gatherNo }"readonly="readonly"/>
 				</div>
 				<div class="fitem">
 					<lable>所属项目</lable>
+					<input type="hidden" id="insfid" value="${itemid }"/>
 					<input class="easyui-textbox" name="itemid" id="itemid" value="${g.itemname }" readonly="readonly"/>
 				</div>
 				<div class="fitem">

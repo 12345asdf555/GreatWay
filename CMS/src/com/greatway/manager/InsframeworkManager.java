@@ -160,4 +160,12 @@ public interface InsframeworkManager {
 	 * @return
 	 */
 	List<Insframework> getInsAll(int type);
+	
+	/**
+	 * 获取公司webservice地址
+	 * @param request
+	 * @param itemid 项目部组织机构id
+	 * @return
+	 */
+	String webserviceDto(HttpServletRequest request,BigInteger itemid);
 }

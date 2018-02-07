@@ -68,6 +68,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			Gather g = new Gather();
+			g.setId(new BigInteger(json.getString("ID")));
 			g.setGatherNo(json.getString("GATHERNO"));
 			g.setIpurl(json.getString("IPURL"));
 			g.setItemid(new BigInteger(json.getString("INSFID")));
@@ -81,6 +82,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setCreator(json.getString("CREATOR"));
 			return gs.addGather(g);
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -101,7 +103,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setMacurl(json.getString("MACURL"));
 			g.setProtocol(json.getString("PROTOCOL"));
 			g.setStatus(json.getString("STATUS"));
-			g.setModifier("MODIFIER");
+			g.setModifier(json.getString("MODIFIER"));
 			return gs.editGather(g);
 		}catch(Exception e){
 			return false;

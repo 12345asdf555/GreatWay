@@ -165,7 +165,7 @@ function editMachine(id,wid,flags){
             			if(flags){
             				url = "weldingMachine/goEditWeldingMachine?wid="+wid;
             			}else{
-            				url = "weldingMachine/goremoveWeldingMachine?wid="+wid;
+            				url = "weldingMachine/goremoveWeldingMachine?wid="+wid+"&insfid="+id;
             			}
 	       				var img = new Image();
 	       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求

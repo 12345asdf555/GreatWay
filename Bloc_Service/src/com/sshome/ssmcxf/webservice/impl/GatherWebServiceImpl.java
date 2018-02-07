@@ -105,7 +105,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setMacurl(json.getString("MACURL"));
 			g.setProtocol(json.getString("PROTOCOL"));
 			g.setStatus(json.getString("STATUS"));
-			g.setModifier("MODIFIER");
+			g.setModifier(json.getString("MODIFIER"));
 			return gs.editGather(g);
 		}catch(Exception e){
 			return false;

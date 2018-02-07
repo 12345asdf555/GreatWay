@@ -3,8 +3,14 @@ package com.sshome.ssmcxf.webservice.impl;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.namespace.QName;
+import javax.xml.ws.handler.MessageContext;
+
 import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
+import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +28,6 @@ public class GatherWebServiceImpl implements GatherWebService{
 
 	@Autowired
 	private GatherService gs;
-	
-	private JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
-	private Client client = dcf.createClient("http://192.168.73.148:8080/Bloc_Service/blocWebService?wsdl");
 	
 	@Override
 	public Object getGatherAll(String object) {
@@ -70,10 +73,28 @@ public class GatherWebServiceImpl implements GatherWebService{
 	}
 
 	@Override
-	public boolean addGather(String object) {
+	public boolean addGather(String obj1,String obj2) {
 		try{
-			JSONObject json = JSONObject.fromObject(object);
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			//向集团层执行插入
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			BigInteger id = new BigInteger(blocobj[0].toString());
+			JSONObject json = JSONObject.fromObject(obj2);
+			//获取层级id
+			String hierarchy = json.getString("HIERARCHY");
+			String itemurl = "";
+			if(hierarchy.equals("4")){
+				itemurl = json.getString("ITEMURL");
+			}else{
+				BigInteger insfid = new BigInteger(json.getString("INSFID"));
+				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			}
 			Gather g = new Gather();
+			g.setId(id);
 			g.setGatherNo(json.getString("GATHERNO"));
 			g.setIpurl(json.getString("IPURL"));
 			g.setItemid(new BigInteger(json.getString("INSFID")));
@@ -85,16 +106,44 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setProtocol(json.getString("PROTOCOL"));
 			g.setStatus(json.getString("STATUS"));
 			g.setCreator(json.getString("CREATOR"));
-			return gs.addGather(g);
+			boolean flag = gs.addGather(g);
+			//向项目执行插入
+			Client itemclient = dcf.createClient(itemurl);
+			obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
+			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+			String result = itemobj[0].toString();
+			if(flag && result.equals("true")){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
 
 	@Override
-	public boolean editGather(String object) {
+	public boolean editGather(String obj1,String obj2) {
 		try{
-			JSONObject json = JSONObject.fromObject(object);
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			//向集团层执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			String blocResult = blocobj[0].toString();
+			JSONObject json = JSONObject.fromObject(obj2);
+			//获取层级id
+			String hierarchy = json.getString("HIERARCHY");
+			String itemurl = "";
+			if(hierarchy.equals("4")){
+				itemurl = json.getString("ITEMURL");
+			}else{
+				BigInteger insfid = new BigInteger(json.getString("INSFID"));
+				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			}
 			Gather g = new Gather();
 			g.setId(new BigInteger(json.getString("ID")));
 			g.setGatherNo(json.getString("GATHERNO"));
@@ -107,19 +156,56 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setMacurl(json.getString("MACURL"));
 			g.setProtocol(json.getString("PROTOCOL"));
 			g.setStatus(json.getString("STATUS"));
-			g.setModifier("MODIFIER");
-			return gs.editGather(g);
+			g.setModifier(json.getString("MODIFIER"));
+			boolean flag = gs.editGather(g);
+			//向项目执行操作
+			Client itemclient = dcf.createClient(itemurl);
+			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+			String result = itemobj[0].toString();
+			if(flag && result.equals("true") && blocResult.equals("true")){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
 
 	@Override
-	public boolean deleteGather(String object) {
+	public boolean deleteGather(String obj1,String obj2) {
 		try{
-			JSONObject json = JSONObject.fromObject(object);
-			return gs.deleteGather(new BigInteger(json.getString("ID")));
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			//向集团层执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			String blocResult = blocobj[0].toString();
+			JSONObject json = JSONObject.fromObject(obj2);
+			//获取层级id
+			String hierarchy = json.getString("HIERARCHY");
+			String itemurl = "";
+			if(hierarchy.equals("4")){
+				itemurl = json.getString("ITEMURL");
+			}else{
+				BigInteger insfid = new BigInteger(json.getString("INSFID"));
+				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			}
+			boolean flag = gs.deleteGather(new BigInteger(json.getString("ID")));
+			//向项目执行操作
+			Client itemclient = dcf.createClient(itemurl);
+			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+			String result = itemobj[0].toString();
+			if(flag && result.equals("true") && blocResult.equals("true")){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
