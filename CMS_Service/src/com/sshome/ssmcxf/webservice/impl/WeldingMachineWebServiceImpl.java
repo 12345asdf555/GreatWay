@@ -103,7 +103,10 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			wm.setStatusId(json.getInt("STATUSID"));
 			wm.setModifier(json.getString("MODIFIER"));
 			Gather gather = new Gather();
-			gather.setId(new BigInteger(json.getString("GATHERID")));
+			String gatherid = json.getString("GATHERID");
+			if(gatherid!=null && !gatherid.equals("")){
+				gather.setId(new BigInteger(gatherid));
+			}
 			wm.setGatherId(gather);
 			EquipmentManufacturer e = new EquipmentManufacturer();
 			e.setId(new BigInteger(json.getString("MANUFACTURERID")));

@@ -116,7 +116,7 @@ public class WeldingMachineController {
 	 * @return
 	 */
 	@RequestMapping("/goremoveWeldingMachine")
-	public String goremoveWeldingMahine(HttpServletRequest request, @RequestParam String wid){
+	public String goremoveWeldingMahine(HttpServletRequest request, @RequestParam String wid,@RequestParam String insfid){
 		WeldingMachine weld = wmm.getWeldingMachineById(new BigInteger(wid));
 		if(weld.getIsnetworking()==0){
 			request.setAttribute("isnetworking", "是");
@@ -124,6 +124,7 @@ public class WeldingMachineController {
 			request.setAttribute("isnetworking", "否");
 		}
 		request.setAttribute("w", weld);
+		request.setAttribute("insfid", insfid);
 		return "weldingMachine/removeweldingmachine";
 	}
 	
@@ -335,7 +336,6 @@ public class WeldingMachineController {
 	@RequestMapping("/addWeldingMachine")
 	@ResponseBody
 	public String addWeldingMachine(HttpServletRequest request){
-//		WeldingMachine wm = new WeldingMachine();
 		JSONObject obj = new JSONObject();
 		try{
 			//当前层级
@@ -361,33 +361,6 @@ public class WeldingMachineController {
 			}else{
 				obj.put("success", false);
 			}
-			//获取当前用户
-//			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//			MyUser myuser = (MyUser)object;
-//			wm.setEquipmentNo(request.getParameter("equipmentNo"));
-//			if(iutil.isNull(request.getParameter("joinTime"))){
-//				wm.setJoinTime(request.getParameter("joinTime"));
-//			}
-//			if(iutil.isNull(request.getParameter("position"))){
-//				wm.setPosition(request.getParameter("position"));
-//			}
-//			if(iutil.isNull(request.getParameter("gatherId"))){
-//				Gather g = new Gather();
-//				g.setId(new BigInteger(request.getParameter("gatherId")));
-//				wm.setGatherId(g);
-//			}
-//			wm.setIsnetworking(Integer.parseInt(request.getParameter("isnetworking")));
-//			wm.setTypeId(Integer.parseInt(request.getParameter("tId")));
-//			Insframework ins = new Insframework();
-//			ins.setId(new BigInteger(request.getParameter("iId")));
-//			wm.setInsframeworkId(ins);
-//			wm.setStatusId(Integer.parseInt(request.getParameter("sId")));
-//			EquipmentManufacturer em = new EquipmentManufacturer();
-//			em.setId(new BigInteger(request.getParameter("manuno")));
-//			wm.setManufacturerId(em);
-//			wm.setCreator(myuser.getUsername());
-//			wmm.addWeldingMachine(wm);
-//			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
@@ -402,48 +375,31 @@ public class WeldingMachineController {
 	@RequestMapping("/editWeldingMachine")
 	@ResponseBody
 	public String editWeldingMachine(HttpServletRequest request){
-		WeldingMachine wm = new WeldingMachine();
 		JSONObject obj = new JSONObject();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			wm.setId(new BigInteger(request.getParameter("wid")));
-			wm.setEquipmentNo(request.getParameter("equipmentNo"));
-			if(iutil.isNull(request.getParameter("joinTime"))){
-				wm.setJoinTime(request.getParameter("joinTime"));
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, new BigInteger(request.getParameter("iId")));
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"editWeldingMachine\"}";
+			String obj2 = "{\"ID\":\""+request.getParameter("wid")+"\",\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\","
+					+ "\"ISNETWORKING\":\""+request.getParameter("isnetworking")+"\",\"JOINTIME\":\""+request.getParameter("joinTime")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\""
+					+ ",\"STATUSID\":\""+request.getParameter("sId")+"\",\"GATHERID\":\""+request.getParameter("gatherId")+"\",\"MANUFACTURERID\":\""+request.getParameter("manuno")+"\","
+					+ "\"INSFRAMEWORKID\":\""+request.getParameter("iId")+"\",\"MODIFIER\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
 			}
-			if(iutil.isNull(request.getParameter("position"))){
-				wm.setPosition(request.getParameter("position"));
-			}
-			if(iutil.isNull(request.getParameter("gatherId"))){
-				Gather g = new Gather();
-				g.setId(new BigInteger(request.getParameter("gatherId")));
-				wm.setGatherId(g);
-			}
-			wm.setIsnetworking(Integer.parseInt(request.getParameter("isnetworking")));
-			wm.setTypeId(Integer.parseInt(request.getParameter("tId")));
-			Insframework ins = new Insframework();
-			ins.setId(new BigInteger(request.getParameter("iId")));
-			wm.setInsframeworkId(ins);
-			wm.setStatusId(Integer.parseInt(request.getParameter("sId")));
-			//修改焊机状态为启用时，结束所有维修任务
-			int sid = wm.getStatusId();
-			if(sid == 31){
-				List<WeldingMaintenance> list =  maintain.getEndtime(wm.getId());
-				for(WeldingMaintenance w : list){
-					if(w.getMaintenance().getEndTime()==null || w.getMaintenance().getEndTime()==""){
-						maintain.updateEndtime(w.getId());
-					}
-				}
-			}
-			
-			EquipmentManufacturer em = new EquipmentManufacturer();
-			em.setId(new BigInteger(request.getParameter("manuno")));
-			wm.setManufacturerId(em);
-			wm.setModifier(myuser.getUsername());
-			wmm.editWeldingMachine(wm);
-			obj.put("success", true);
 		}catch(Exception e){
 			e.printStackTrace();
 			obj.put("success", false);
@@ -458,17 +414,26 @@ public class WeldingMachineController {
 	 */
 	@RequestMapping("/removeWeldingMachine")
 	@ResponseBody
-	private String removeWeldingMachine(@RequestParam String wid){
+	private String removeWeldingMachine(HttpServletRequest request,@RequestParam String wid,@RequestParam String insfid){
 		JSONObject obj = new JSONObject();
 		try{
-			wmm.deleteWeldingChine(new BigInteger(wid));
-			List<WeldingMaintenance> list = maintain.getMaintainByWeldingMachinId(new BigInteger(wid));
-			for(WeldingMaintenance wm : list){
-				//删除维修记录
-				maintain.deleteWeldingMaintenance(wm.getId());
-				maintain.deleteMaintenanceRecord(wm.getMaintenance().getId());
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, new BigInteger(insfid));
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"deleteWeldingChine\"}";
+			String obj2 = "{\"WID\":\""+wid+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\",\"INSFID\":\""+insfid+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
 			}
-			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", true);
 			obj.put("msg", e.getMessage());

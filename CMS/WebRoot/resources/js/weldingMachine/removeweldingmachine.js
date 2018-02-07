@@ -4,12 +4,13 @@ $(function(){
 
 function removeWeldingMachine(){
 	var wid = $("#wid").val();
+	var insfid = $("#insfid").val();
 	$.messager.confirm('提示', '此操作不可撤销并同时删除其维修记录，是否确认删除?', function(flag) {
 		if (flag) {
 			$.ajax({  
 		        type : "post",  
 		        async : false,
-		        url : "weldingMachine/removeWeldingMachine?wid="+wid,  
+		        url : "weldingMachine/removeWeldingMachine?wid="+wid+"&insfid="+insfid,  
 		        data : {},  
 		        dataType : "json", //返回数据形式为json  
 		        success : function(result) {

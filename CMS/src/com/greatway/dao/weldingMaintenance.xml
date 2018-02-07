@@ -53,7 +53,7 @@
 	</select>
 	
 	<select id="getEndtime" resultMap="mmMap">
-		SELECT * FROM tb_maintenance_record r inner join tb_welding_maintenance m on m.fmaintenance_id = r.fid where m.fwelding_id=#{wid}
+		SELECT * FROM tb_maintenance_record r inner join tb_welding_maintenance m on m.fmaintenance_id = r.fid where m.fwelding_id=#{wid} and fend_time is null
 	</select>
 	
 	<insert id="addWeldingMaintenance" parameterType="com.greatway.model.WeldingMaintenance" useGeneratedKeys="true" keyProperty="id">

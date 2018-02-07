@@ -49,11 +49,11 @@
 	</select>
 	
 	<select id="getMaintainByWeldingMachinId" resultMap="mmMap">
-		SELECT fid FROM tb_welding_maintenance WHERE fwelding_id = #{wid}
+		SELECT fid,fmaintenance_id rid FROM tb_welding_maintenance WHERE fwelding_id = #{wid}
 	</select>
 	
 	<select id="getEndtime" resultMap="mmMap">
-		SELECT * FROM tb_maintenance_record r inner join tb_welding_maintenance m on m.fmaintenance_id = r.fid where m.fwelding_id=#{wid}
+		SELECT * FROM tb_maintenance_record r inner join tb_welding_maintenance m on m.fmaintenance_id = r.fid where m.fwelding_id=#{wid} and fend_time is null
 	</select>
 	
 	<insert id="addWeldingMaintenance" parameterType="com.spring.model.WeldingMaintenance">

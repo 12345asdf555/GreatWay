@@ -51,6 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="fitem">
 				<lable>所属项目</lable>
+				<input type="hidden" id="insfid" value="${insfid }"/>
 				<input class="easyui-textbox" id="iId" readonly="readonly" value="${w.insframeworkId.name }"/>
 			</div>
 			<div class="fitem">

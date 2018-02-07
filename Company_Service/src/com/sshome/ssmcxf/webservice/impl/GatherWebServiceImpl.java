@@ -199,7 +199,6 @@ public class GatherWebServiceImpl implements GatherWebService{
 			Client itemclient = dcf.createClient(itemurl);
 			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			String result = itemobj[0].toString();
-			System.out.println("--------公司："+flag+"----------项目部："+result+"-------------------集团："+blocResult+"--------------------");
 			if(flag && result.equals("true") && blocResult.equals("true")){
 				return true;
 			}else{
