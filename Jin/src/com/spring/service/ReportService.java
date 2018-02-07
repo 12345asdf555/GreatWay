@@ -19,4 +19,8 @@ public interface ReportService {
 	long getOnTime(WeldDto dto,BigInteger machid);
 	long getRealEle(WeldDto dto,BigInteger machid);
 	long getRealVol(WeldDto dto,BigInteger machid);
+	long getHjTime(BigInteger machid,String time);
+	long getZxTime(BigInteger machid,String time);
+	String getFirstTime(BigInteger machid,String time);
+	List<Report> getAllPara(Page page, BigInteger parent,String str,String time);
 }

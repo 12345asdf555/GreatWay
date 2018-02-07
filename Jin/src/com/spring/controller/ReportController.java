@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +84,10 @@ public class ReportController {
 	@RequestMapping("/welderreport")
 	public String WelderRep(HttpServletRequest request){
 		return "report/WelderReport";
+	}
+	@RequestMapping("/alarm")
+	public String Alarm(HttpServletRequest request){
+		return "report/AlarmManage";
 	}
 
 /*	@RequestMapping("/getWeldPara")
@@ -375,6 +380,100 @@ public class ReportController {
 		return obj.toString();
 	}*/
 	
+	@RequestMapping("/getTime")
+	@ResponseBody
+	public String getTime(HttpServletRequest request){
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String search = request.getParameter("searchStr");
+		String parentId = request.getParameter("parent");
+		BigInteger parent = null;
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		page = new Page(pageIndex,pageSize,total);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String datetime = "%" + sdf.format(date) + "%";
+//		List<WeldingMachine> list = wmm.getWeldingMachineAll(page,parent,search);
+		List<Report> list = reportService.getAllPara(page, parent, search, datetime);
+		long total = 0;
+		if(list != null){
+			PageInfo<Report> pageinfo = new PageInfo<Report>(list);
+			total = pageinfo.getTotal();
+		}
+		Report r1 = reportService.getSyspara();
+		try{
+		 for(Report wm1:list){
+/*		 long zx = reportService.getZxTime(wm1.getId(), datetime);
+		 long hj = reportService.getHjTime(wm1.getId(), datetime);*/
+		 json.put("afv", r1.getFafv());
+		 json.put("standardele", wm1.getFstandardele());
+		 json.put("standardvol", wm1.getFstandardvol());
+		 json.put("boottime", wm1.getTime());
+		 json.put("machineid", wm1.getEno());
+		 json.put("machinemodel", wm1.getModel());
+		 json.put("macstatus", "关机");
+		 ary.add(json);
+		 }
+		}catch(Exception e){
+			e.printStackTrace();
+			e.getMessage();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+		}
+	
+	@RequestMapping("/getTWeld")
+	@ResponseBody
+	public String getTWeld(HttpServletRequest request){
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String search = request.getParameter("searchStr");
+		String parentId = request.getParameter("parent");
+		BigInteger parent = null;
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		page = new Page(pageIndex,pageSize,total);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String datetime = sdf.format(date);
+		List<Report> list = reportService.getAllPara(page, parent, search, datetime);
+		long total = 0;
+		if(list != null){
+			PageInfo<Report> pageinfo = new PageInfo<Report>(list);
+			total = pageinfo.getTotal();
+		}
+		Report r1 = reportService.getSyspara();
+		try{
+		 for(Report wm1:list){
+/*		 long zx = reportService.getZxTime(wm1.getId(), datetime);
+		 long hj = reportService.getHjTime(wm1.getId(), datetime);*/
+		 json.put("boottime", wm1.getTime());
+		 json.put("machineid", wm1.getEno());
+		 json.put("machinemodel", wm1.getModel());
+		 json.put("diameter", wm1.getDia());
+		 json.put("speed", r1.getFspeed());
+		 json.put("macstatus", "关机");
+		 ary.add(json);
+		 }
+		}catch(Exception e){
+			e.printStackTrace();
+			e.getMessage();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+		}
+	
 	@RequestMapping("/getWelderReport")
 	@ResponseBody
 	public String getWelderReport(HttpServletRequest request){
@@ -424,7 +523,7 @@ public class ReportController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String str = request.getParameter("searchStr");
-		BigInteger iid = null;
+		BigInteger iid = null; 
 		if(iutil.isNull(insid)){
 			iid = new BigInteger(insid);
 		}

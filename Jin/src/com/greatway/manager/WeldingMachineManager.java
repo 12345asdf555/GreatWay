@@ -92,4 +92,5 @@ public interface WeldingMachineManager {
 	 * @return
 	 */
 	BigInteger getMachineCountByManu(BigInteger mid,BigInteger id);
+	List<WeldingMachine> getAllMachine();
 }

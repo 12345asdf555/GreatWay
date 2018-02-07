@@ -78,7 +78,7 @@
 			width : 100,
 			halign : "center",
 			align : "left"
-        }, {
+        }, /*{
 			field : 'wsid',
 			title : '车间号',
 			width : 100,
@@ -90,7 +90,7 @@
 			width : 100,
 			halign : "center",
 			align : "left"
-		}, {
+		},*/ {
 			field : 'machineid',
 			title : '焊机号',
 			width : 100,

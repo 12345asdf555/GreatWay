@@ -105,4 +105,9 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 		wmm.deleteHistory(wid);
 	}
 
+	@Override
+	public List<WeldingMachine> getAllMachine() {
+		return wmm.getAllMachine();
+	}
+
 }

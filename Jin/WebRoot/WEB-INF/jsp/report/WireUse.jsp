@@ -36,8 +36,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <div id="body" region="center"  hide="true"  split="true" title="焊丝用量维度表" style="background: #eee; height: 335px;">	  	
    	  	<div id="companyOverproof_btn">
 			<div style="margin-bottom: 5px;">
-				<lable>车间号</lable>
-				<select class="easyui-combobox" name="division" id="division" onChange="changeValue(current,old)"></select>
+<!-- 				<lable>车间号</lable>
+				<select class="easyui-combobox" name="division" id="division" onChange="changeValue(current,old)"></select> -->
 			
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>

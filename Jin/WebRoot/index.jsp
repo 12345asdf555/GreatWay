@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <!-- 设备管理 -->
 			<div id="equipment" title="设备管理">
 				<ul>
-					<li><a href="javascript:void(0)">设备管理</a></li>
+					<li><a href="javascript:openWeldingMachine()">设备管理</a></li>
 		        </ul>
 		    </div>
 		    <!-- 工艺管理 -->
@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <!-- 质量管理 -->
 			<div id="quality" title="质量管理">
 				<ul>
-					<li><a href="javascript:void(0)">报警管理</a></li>
+					<li><a href="javascript:openAlarm()">报警管理</a></li>
 					<li><a href="javascript:void(0)">历史曲线</a></li>
 		        </ul>
 		    </div>
