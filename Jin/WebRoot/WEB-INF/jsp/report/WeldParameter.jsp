@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body class="easyui-layout">
   	<jsp:include  page="../insframeworktree.jsp"/>
    <div id="body" region="center"  hide="true"  split="true" title="焊接参数维度表" style="background: #eee; height: 335px;">	  	
-   	  	<div id="companyOverproof_btn">
+<%--    	  	<div id="companyOverproof_btn">
 			<div style="margin-bottom: 5px;">
 				<lable>车间号</lable>
 				<select class="easyui-combobox" name="division" id="division" onChange="changeValue(current,old)"></select>
@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="radio" class="radioStyle" name="otype" value="4" />周
 				<a href="javascript:serachCompanyOverproof();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
-		</div>
+		</div> --%>
         <table id="dg" style="table-layout:fixed;width:100%"></table>
     </div>
 </body>

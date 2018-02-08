@@ -18,4 +18,8 @@ public interface ReportMapper {
 	long getOnTime(@Param("dto") WeldDto dto,@Param("machid") BigInteger machid);
 	long getRealEle(@Param("dto") WeldDto dto,@Param("machid") BigInteger machid);
 	long getRealVol(@Param("dto") WeldDto dto,@Param("machid") BigInteger machid);
+	long getHjTime(@Param("machid") BigInteger machid,@Param("time") String time);
+	long getZxTime(@Param("machid") BigInteger machid,@Param("time") String time);
+	String getFirstTime(@Param("machid") BigInteger machid,@Param("time") String time);
+	List<Report> getAllPara(@Param("parent")BigInteger parent,@Param("str")String str,@Param("time") String time);
 }

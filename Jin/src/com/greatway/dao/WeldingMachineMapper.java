@@ -46,4 +46,6 @@ public interface WeldingMachineMapper extends Mapper<WeldingMachine>{
 	BigInteger getMachineCountByManu(@Param("mid")BigInteger mid,@Param("id")BigInteger id);
 	
 	void deleteHistory(@Param("wid")BigInteger wid);
+	
+	List<WeldingMachine> getAllMachine();
 }

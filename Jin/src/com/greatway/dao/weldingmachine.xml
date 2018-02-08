@@ -62,6 +62,22 @@
 		ORDER BY w.fid
 	</select>
 	
+	<select id="getAllMachine" resultMap="wmMap">
+		SELECT 
+		w.fid fid,w.fIP fIP,w.fmodel model,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		,m.fname mname,fisnetworking,fposition,m.ftype mtype,d.fvaluename statusname,di.fvaluename typename
+		FROM tb_welding_machine w
+		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
+		INNER JOIN tb_equipment_manufacturer m ON w.fmanufacturer_id = m.fid
+        INNER JOIN tb_dictionary d ON d.fvalue = w.fstatus_id
+        INNER JOIN tb_dictionary di ON di.fvalue = w.ftype_id
+		left JOIN tb_gather g ON g.fid = w.fgather_id
+		where 1=1 
+		ORDER BY w.fid
+	</select>
+	
 	<select id="getWeldingMachineById"  resultMap="wmMap"  parameterType="java.math.BigInteger">
 		SELECT 
 		w.fid fid,w.fIP fIP,fmodel model,fstatus_id, i.fid iid,g.fid gid,ftype_id,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname

@@ -47,7 +47,7 @@ public class TdController {
 	
 	@RequestMapping("/AllTd")
 	public String Alltd(HttpServletRequest request){
-		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+/*		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
 			    .getAuthentication()  
 			    .getPrincipal();
 		long uid = myuser.getId();
@@ -58,7 +58,8 @@ public class TdController {
 		return "td/company";
 		}else{
 		return "/Error";
-		}
+		}*/
+		return "td/BackUp";
 	}
 	
 	@RequestMapping("/AllTdd")

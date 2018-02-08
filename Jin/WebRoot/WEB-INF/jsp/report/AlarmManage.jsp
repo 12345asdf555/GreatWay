@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/getTime.js"></script>
 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
-	<script type="text/javascript" src="resources/js/report/alarmmanager.js"></script>
+	<script type="text/javascript" src="resources/js/report/alarmmanage.js"></script>
 
   </head>
   

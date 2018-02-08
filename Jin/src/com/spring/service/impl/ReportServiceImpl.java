@@ -75,4 +75,30 @@ public class ReportServiceImpl implements ReportService{
 		return mapper.findMachine(weldid);
 	}
 
+	@Override
+	public long getHjTime(BigInteger machid, String time) {
+		// TODO Auto-generated method stub
+		return mapper.getHjTime(machid, time);
+	}
+
+	@Override
+	public long getZxTime(BigInteger machid, String time) {
+		// TODO Auto-generated method stub
+		return mapper.getZxTime(machid, time);
+	}
+
+	@Override
+	public String getFirstTime(BigInteger machid, String time) {
+		// TODO Auto-generated method stub
+		return mapper.getFirstTime(machid, time);
+	}
+
+	@Override
+	public List<Report> getAllPara(Page page, BigInteger parent, String str, String time) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return mapper.getAllPara(parent, str, time);
+	}
+
+	
 }

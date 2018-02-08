@@ -67,6 +67,11 @@ function getUserInsframework(){
 		}
 	})
 }
+
+function openAlarm(){
+	addTab("报警管理","rep/alarm");
+}
+
 function openWeldParameter(){
 	addTab("焊接参数维度表","rep/weldpara");
 }

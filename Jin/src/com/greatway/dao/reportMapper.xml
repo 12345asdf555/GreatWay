@@ -12,6 +12,18 @@
 		SELECT FWeldWPSID FROM tb_wps_welddevices WHERE FUpdateDate=(select max(`FUpdateDate`) from tb_wps_welddevices WHERE FWeldDevicesID=#{id} group by FWeldDevicesID LIMIT 1) LIMIT 1
 	</select>
 	
+	<select id="getHjTime" resultType="long">
+		SELECT count( DATE_FORMAT( fweldtime,  '%Y-%m-%d' ) ) FROM `tb_live_data` WHERE fstatus!='0' and fmachine_id=#{machid} and fweldtime>=#{time}
+	</select>
+	
+	<select id="getZxTime" resultType="long">
+		SELECT count( DATE_FORMAT( fweldtime,  '%Y-%m-%d' ) ) FROM `tb_live_data` WHERE fmachine_id=#{machid} and fweldtime>=#{time}
+	</select>
+	
+	<select id="getFirstTime" resultType="String">
+		SELECT `FWeldTime` FROM `tb_live_data` WHERE `FWeldTime`>=#{time} and `fmachine_id`=#{machid} ORDER BY `FWeldTime` DESC LIMIT 0,1 
+	</select>
+	
 	<select id="getWps" parameterType="BigInteger" resultType="Report">
 		SELECT `Fweld_I` fstandardele,`Fweld_v` fstandardvol,`Fdiameter` fdiameter FROM tb_mainwps WHERE `FID`=#{id}
 	</select>
@@ -143,5 +155,31 @@
 			</if>
 		</if>
 		)temp
+	</select>
+	
+	<select id="getAllPara" resultType="Report">
+	SELECT * from ( 
+    select * from(SELECT eno,model,time,fstandardele,fstandardvol,dia,id from ( 
+    SELECT m.fid id,m.fmodel model, m.fequipment_no eno,l.FWeldTime time,ms.Fweld_I fstandardele,ms.fweld_v fstandardvol,ms.Fdiameter dia from 
+    tb_live_data l left join tb_welding_machine m on m.fid = l.fmachine_id left JOIN tb_wps_welddevices wpsw on wpsw.FWeldDevicesID = m.fid 
+    left JOIN tb_mainwps ms on ms.FID = wpsw.FWeldWPSID where FWeldTime like #{time}
+    <if test="parent!=null and parent!=''">
+		and (i.fid=#{parent} or ins.fid=#{parent} or insf.fid=#{parent} or insf.fparent=#{parent})
+	</if>
+	<if test="str!=null and str!=''">
+		and ${str}
+	</if>
+    )A group by id ORDER by time)B 
+    UNION select fequipment_no eno,fmodel model,null time,0 fstandardele,0 fstandardvol ,0 dia,fid id from tb_welding_machine
+    where fid not in (SELECT m.fid from tb_live_data l left join tb_welding_machine m on m.fid = l.fmachine_id 
+    left JOIN tb_wps_welddevices wpsw on wpsw.FWeldDevicesID = m.fid left JOIN tb_mainwps ms on ms.FID = wpsw.FWeldWPSID where FWeldTime like  #{time}
+    <if test="parent!=null and parent!=''">
+		and (i.fid=#{parent} or ins.fid=#{parent} or insf.fid=#{parent} or insf.fparent=#{parent})
+	</if>
+	<if test="str!=null and str!=''">
+		and ${str}
+	</if>
+    ) 
+)temp
 	</select>
 </mapper>

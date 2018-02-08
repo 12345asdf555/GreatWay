@@ -41,6 +41,13 @@ public class Report{
 	private String fweldernum;
 	private String fphone;
 	private String fwarn;
+	private String dia;
+	private BigInteger result1;
+	private BigInteger result2;
+	private BigInteger num3;
+	private String eno;
+	private String model;
+	private String time;
 	public Report(){
 		super();
 	}
@@ -49,6 +56,48 @@ public class Report{
 	}
 	public void setId(BigInteger id) {
 		this.id = id;
+	}
+	public BigInteger getResult1() {
+		return result1;
+	}
+	public void setResult1(BigInteger result1) {
+		this.result1 = result1;
+	}
+	public BigInteger getResult2() {
+		return result2;
+	}
+	public void setResult2(BigInteger result2) {
+		this.result2 = result2;
+	}
+	public BigInteger getNum3() {
+		return num3;
+	}
+	public void setNum3(BigInteger num3) {
+		this.num3 = num3;
+	}
+	public String getEno() {
+		return eno;
+	}
+	public void setEno(String eno) {
+		this.eno = eno;
+	}
+	public String getModel() {
+		return model;
+	}
+	public void setModel(String model) {
+		this.model = model;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	public String getDia() {
+		return dia;
+	}
+	public void setDia(String dia) {
+		this.dia = dia;
 	}
 	public BigInteger getMachid() {
 		return machid;
@@ -218,9 +267,16 @@ public class Report{
 	public void setFwarn(String fwarn) {
 		this.fwarn = fwarn;
 	}
-	public Report(BigInteger id,String fwsid,String fteamid,String fmachineid,String fmachinestatus,String fmachinemodel,double fstandardele,double fstandardvol,double frealvol,double frealele,String fcurrentwelder,int fstatus,double finspower,String fafv,Date fweldingtime,Date fboottime,Date fofftime,Date fonlinetime,Date ffirsttime,Date fvalidtime,double fdiameter,String fspeed,String fback,String fweldernum,String fphone,String fwarn) {
+	public Report(BigInteger result1,BigInteger result2,BigInteger num3,String eno,String model,String time,String dia,BigInteger id,String fwsid,String fteamid,String fmachineid,String fmachinestatus,String fmachinemodel,double fstandardele,double fstandardvol,double frealvol,double frealele,String fcurrentwelder,int fstatus,double finspower,String fafv,Date fweldingtime,Date fboottime,Date fofftime,Date fonlinetime,Date ffirsttime,Date fvalidtime,double fdiameter,String fspeed,String fback,String fweldernum,String fphone,String fwarn) {
 		super();
 		this.id = id;
+		this.result1 = result1;
+		this.result2 = result2;
+		this.num3 = num3;
+		this.eno = eno;
+		this.model = model;
+		this.time = time;
+		this.dia = dia;
 			this.fwsid = fwsid;
 			this.fteamid = fteamid;
 			this.fmachineid = fmachineid;
