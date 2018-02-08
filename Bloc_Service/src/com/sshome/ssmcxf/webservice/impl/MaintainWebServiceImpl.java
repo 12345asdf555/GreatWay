@@ -117,7 +117,14 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public boolean updateEndtime(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.updateEndtime(new BigInteger(json.getString("MID")));
+			boolean flag = ms.updateEndtime(new BigInteger(json.getString("MID")));
+			BigInteger weldingid = new BigInteger(json.getString("WELDINGID"));
+			List<WeldingMaintenance> list =  ms.getEndtime(weldingid);
+			if(list.isEmpty()){
+				//如果维修结束时间没有为空的则修改状态为启用
+				ms.editstatus(weldingid, 31);
+			}
+			return flag;
 		}catch(Exception e){
 			return false;
 		}
@@ -145,12 +152,13 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 				//修改焊机状态为维修中
 				ms.editstatus(wid, 33);
 			}
-			if(list!=null){
+			if(list.isEmpty()){
 				//如果维修结束时间没有为空的则修改状态为启用
 				ms.editstatus(wid, 31);
 			}
 			return flag;
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}

@@ -35,26 +35,25 @@ public interface MaintainWebService {
 	 * 新增维修记录
 	 * @param wm
 	 */
-	BigInteger addMaintian(String object);
-	BigInteger addMaintenanceRecord(String object);
+	boolean addMaintian(String obj1,String obj2);
 	
 	/**
 	 * 修改结束时间为当前时间
 	 * @param wid
 	 */
-	boolean updateEndtime(String object);
+	boolean updateEndtime(String obj1,String obj2);
 	
 	/**
 	 * 修改
 	 * @param mr
 	 */
-	boolean updateMaintenanceRecord(String object);
+	boolean updateMaintenanceRecord(String obj1,String obj2);
 	
 	/**
 	 * 删除维修记录
 	 * @param mid
 	 */
-	boolean deleteMaintenanceRecord(String object);
+	boolean deleteMaintenanceRecord(String obj1,String obj2);
 	
 	/**
 	 * 删除焊机维修记录
@@ -75,4 +74,11 @@ public interface MaintainWebService {
 	 * @param status
 	 */
 	boolean editstatus(String object);
+
+	/**
+	 * 根据焊机id获取组织机构id
+	 * @param mid
+	 * @return
+	 */
+	BigInteger getInsfidByMachineid(String object);
 }

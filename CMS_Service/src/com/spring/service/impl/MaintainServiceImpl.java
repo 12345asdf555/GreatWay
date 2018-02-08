@@ -159,4 +159,13 @@ public class MaintainServiceImpl implements MaintainService {
 		}
 	}
 
+	@Override
+	public BigInteger getInsfidByMachineid(BigInteger mid) {
+		try{
+			return wmm.getInsfidByMachineid(mid);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
 }

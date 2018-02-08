@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class WeldingMaintenance {
 	private BigInteger id;
 	private String back;
+	private BigInteger insfid;
 	@Transient
 	private WeldingMachine welding;
 	@Transient
@@ -22,6 +23,12 @@ public class WeldingMaintenance {
 	private String creator;
 	private String modifier;
 	
+	public BigInteger getInsfid() {
+		return insfid;
+	}
+	public void setInsfid(BigInteger insfid) {
+		this.insfid = insfid;
+	}
 	public String getCreator() {
 		return creator;
 	}

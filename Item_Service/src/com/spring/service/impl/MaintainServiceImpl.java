@@ -34,12 +34,9 @@ public class MaintainServiceImpl implements MaintainService {
 	@Override
 	public boolean addMaintian(WeldingMaintenance w, MaintenanceRecord mr,BigInteger wid) {
 		try{
-//			int count1  = wmm.addMaintenanceRecord(mr);
-//			BigInteger mid = mr.getId();
-//			w.getMaintenance().setId(mid);
 			int count2 = wmm.addWeldingMaintenance(w);
 			int count3 = 0;
-			if(mr.getEndTime()==""||mr.getEndTime()==null){
+			if("".equals(mr.getEndTime()) ||mr.getEndTime()==null){
 				//修焊机状态为维护中
 				count3= wm.editstatus(wid,33);
 			}
@@ -171,6 +168,15 @@ public class MaintainServiceImpl implements MaintainService {
 			}
 		}catch(Exception e){
 			return false;
+		}
+	}
+
+	@Override
+	public BigInteger getInsfidByMachineid(BigInteger mid) {
+		try{
+			return wmm.getInsfidByMachineid(mid);
+		}catch(Exception e){
+			return null;
 		}
 	}
 

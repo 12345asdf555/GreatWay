@@ -17,7 +17,8 @@ function addMaintain(){
 function editMaintain(){
 	maintainfalg = false;
 	var mid = $("#mid").val();
-	url = "maintain/editMaintain?mid=" + mid;
+	var insfid = $("#insfid").val();
+	url = "maintain/editMaintain?mid=" + mid+"&insfid="+insfid;
 	saveMaintain();
 }
 //提交

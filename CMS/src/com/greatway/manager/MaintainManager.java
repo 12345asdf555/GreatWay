@@ -3,6 +3,8 @@ package com.greatway.manager;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.greatway.model.MaintenanceRecord;
 import com.greatway.model.WeldingMachine;
 import com.greatway.model.WeldingMaintenance;
@@ -85,4 +87,10 @@ public interface MaintainManager {
 	 */
 	void editstatus(BigInteger wid,int status);
 	
+	/**
+	 * 根据焊机id获取所属组织机构id
+	 * @param mid
+	 * @return
+	 */
+	BigInteger getInsfidByMachineid(BigInteger mid);
 }

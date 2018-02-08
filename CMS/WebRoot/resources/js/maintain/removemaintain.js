@@ -4,12 +4,13 @@ $(function(){
 
 function removeMaintain(){
 	var wid = $("#wid").val();
+	var insfid = $("#insfid").val();
 	$.messager.confirm('提示', '此操作不可撤销，是否确认删除?', function(flag) {
 		if (flag) {
 			$.ajax({  
 		        type : "post",  
 		        async : false,
-		        url : "maintain/removeMaintain?wid="+wid,  
+		        url : "maintain/removeMaintain?wid="+wid+"&insfid="+insfid,  
 		        data : {},  
 		        dataType : "json", //返回数据形式为json  
 		        success : function(result) {

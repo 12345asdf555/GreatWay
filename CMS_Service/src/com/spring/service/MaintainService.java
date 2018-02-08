@@ -78,5 +78,11 @@ public interface MaintainService {
 	 * @param status
 	 */
 	boolean editstatus(BigInteger wid,int status);
-	
+
+	/**
+	 * 根据焊机id获取组织机构id
+	 * @param mid
+	 * @return
+	 */
+	BigInteger getInsfidByMachineid(BigInteger mid);
 }

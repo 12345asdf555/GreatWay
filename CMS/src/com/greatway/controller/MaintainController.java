@@ -4,7 +4,10 @@ import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.namespace.QName;
 
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,9 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.manager.DictionaryManager;
+import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.MaintainManager;
 import com.greatway.model.Dictionarys;
-import com.greatway.model.MaintenanceRecord;
 import com.greatway.model.WeldingMachine;
 import com.greatway.model.WeldingMaintenance;
 import com.greatway.page.Page;
@@ -41,6 +44,10 @@ public class MaintainController {
 
 	@Autowired
 	private DictionaryManager dm;
+	
+	@Autowired
+	private InsframeworkManager im;
+	
 	/**
 	 * 跳转维修记录页面
 	 * @return
@@ -58,10 +65,11 @@ public class MaintainController {
 	 * @return
 	 */
 	@RequestMapping("/goremoveMaintain")
-	public String goremoveWeldingMahine(HttpServletRequest request, @RequestParam String wid,@RequestParam String tname){
+	public String goremoveWeldingMahine(HttpServletRequest request, @RequestParam String wid,@RequestParam String tname,@RequestParam String insfid){
 		WeldingMaintenance maibtain = mm.getWeldingMaintenanceById(new BigInteger(wid));
 		request.setAttribute("m", maibtain);
 		request.setAttribute("tname", tname);
+		request.setAttribute("insfid", insfid);
 		return "maintain/removemaintain";
 	}
 	
@@ -81,9 +89,10 @@ public class MaintainController {
 	 * @return
 	 */
 	@RequestMapping("/goEditMaintain")
-	public String goEditMaintain(HttpServletRequest request, @RequestParam String wid){
+	public String goEditMaintain(HttpServletRequest request, @RequestParam String wid,@RequestParam String insfid){
 		WeldingMaintenance wm = mm.getWeldingMaintenanceById(new BigInteger(wid));
 		request.setAttribute("wm", wm);
+		request.setAttribute("insfid", insfid);
 		return "maintain/editmaintain";
 	}
 	
@@ -131,6 +140,7 @@ public class MaintainController {
 				json.put("typeid", wm.getMaintenance().getTypeId());
 				json.put("typename", wm.getMaintenance().getTypename());
 				json.put("desc", wm.getMaintenance().getDesc());
+				json.put("insfid", wm.getInsfid());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -175,29 +185,29 @@ public class MaintainController {
 	public String addMaintain(HttpServletRequest request,@ModelAttribute("wm")WeldingMaintenance wm) {
 		JSONObject obj = new JSONObject();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			MaintenanceRecord mr = new MaintenanceRecord();
-			mr.setViceman(request.getParameter("viceman"));
-			if(iutil.isNull(request.getParameter("startTime"))){
-				mr.setStartTime(request.getParameter("startTime"));
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			BigInteger insfid = mm.getInsfidByMachineid(new BigInteger(request.getParameter("wId")));
+			String companyurl = im.webserviceDto(request, insfid);
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"addMaintian\"}";
+			String obj2 = "{\"VICEMAN\":\""+request.getParameter("viceman")+"\",\"INSFID\":\""+insfid+"\",\"STARTTIME\":\""+request.getParameter("startTime")+
+					"\",\"ENDTIME\":\""+request.getParameter("endTime")+"\",\"DESC\":\""+request.getParameter("desc")+"\",\"TYPEID\":\""+request.getParameter("tId")+
+					"\",\"WELDID\":\""+request.getParameter("wId")+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
 			}
-			if(iutil.isNull(request.getParameter("endTime"))){
-				mr.setEndTime(request.getParameter("endTime"));
-			}
-			if(iutil.isNull(request.getParameter("desc"))){
-				mr.setDesc(request.getParameter("desc"));
-			}
-			mr.setTypeId(Integer.parseInt(request.getParameter("tId")));
-			wm.setMaintenance(mr);
-			WeldingMachine w = new WeldingMachine();
-			w.setId(new BigInteger(request.getParameter("wId")));
-			wm.setWelding(w);
-			wm.setCreator(myuser.getUsername());
-			mr.setCreator(myuser.getUsername());
-			mm.addMaintian(wm,mr,new BigInteger(request.getParameter("wId")));
-			obj.put("success", true);
 		}catch(Exception e){
 			e.printStackTrace();
 			obj.put("success", false);
@@ -208,40 +218,31 @@ public class MaintainController {
 	
 	@RequestMapping("/editMaintain")
 	@ResponseBody
-	public String editMaintain(HttpServletRequest request,@RequestParam String mid,@RequestParam String wid) {
+	public String editMaintain(HttpServletRequest request,@RequestParam String mid,@RequestParam String wid,@RequestParam String insfid) {
 		JSONObject obj = new JSONObject();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			MaintenanceRecord mr = new MaintenanceRecord();
-			mr.setId(new BigInteger(mid));
-			mr.setViceman(request.getParameter("viceman"));
-			if(iutil.isNull(request.getParameter("startTime"))){
-				mr.setStartTime(request.getParameter("startTime"));
-			}
-			if(iutil.isNull(request.getParameter("endTime"))){
-				mr.setEndTime(request.getParameter("endTime"));
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, new BigInteger(insfid));
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"updateMaintenanceRecord\"}";
+			String obj2 = "{\"MID\":\""+new BigInteger(mid)+"\",\"WID\":\""+new BigInteger(wid)+"\",\"INSFID\":\""+insfid+"\",\"VICEMAN\":\""+request.getParameter("viceman")+"\",\"STARTTIME\":\""+request.getParameter("startTime")+"\","
+					+ "\"ENDTIME\":\""+request.getParameter("endTime")+"\",\"DESC\":\""+request.getParameter("desc")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\","
+					+ "\"MODIFIER\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
 			}else{
-				mm.editstatus(new BigInteger(wid), 33);
+				obj.put("success", false);
 			}
-			if(iutil.isNull(request.getParameter("desc"))){
-				mr.setDesc(request.getParameter("desc"));
-			}
-			mr.setTypeId(Integer.parseInt(request.getParameter("tId")));
-			mr.setModifier(myuser.getUsername());
-			mm.updateMaintenanceRecord(mr);
-			List<WeldingMaintenance> list =  mm.getEndtime(new BigInteger(wid));
-			boolean flag = true;
-			for(WeldingMaintenance wm : list){
-				if(!iutil.isNull(wm.getMaintenance().getEndTime())){
-					flag = false;
-				}
-			}
-			if(flag){
-				mm.editstatus(new BigInteger(wid), 31);
-			}
-			obj.put("success", true);
 		}catch(Exception e){
 			e.printStackTrace();
 			obj.put("success", false);
@@ -257,21 +258,39 @@ public class MaintainController {
 	 */
 	@RequestMapping("/updateEndtime")
 	@ResponseBody
-	public String updateEndtime(@RequestParam String wid,@RequestParam String weldingid){
+	public String updateEndtime(HttpServletRequest request,@RequestParam String wid,@RequestParam String weldingid,@RequestParam String insfid){
 		JSONObject obj = new JSONObject();
 		try{
-			mm.updateEndtime(new BigInteger(wid));
-			List<WeldingMaintenance> list =  mm.getEndtime(new BigInteger(weldingid));
-			boolean flag = true;
-			for(WeldingMaintenance wm : list){
-				if(!iutil.isNull(wm.getMaintenance().getEndTime())){
-					flag = false;
-				}
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, new BigInteger(insfid));
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"updateEndtime\"}";
+			String obj2 = "{\"MID\":\""+wid+"\",\"WELDINGID\":\""+weldingid+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\",\"INSFID\":\""+insfid+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
 			}
-			if(flag){
-				mm.editstatus(new BigInteger(weldingid), 31);
-			}
-			obj.put("success", true);
+			
+//			mm.updateEndtime(new BigInteger(wid));
+//			List<WeldingMaintenance> list =  mm.getEndtime(new BigInteger(weldingid));
+//			boolean flag = true;
+//			for(WeldingMaintenance wm : list){
+//				if(!iutil.isNull(wm.getMaintenance().getEndTime())){
+//					flag = false;
+//				}
+//			}
+//			if(flag){
+//				mm.editstatus(new BigInteger(weldingid), 31);
+//			}
+//			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
@@ -281,13 +300,26 @@ public class MaintainController {
 	
 	@RequestMapping("/removeMaintain")
 	@ResponseBody
-	public String removeMaintain(@RequestParam String wid){
+	public String removeMaintain(HttpServletRequest request,@RequestParam String wid,@RequestParam String insfid){
 		JSONObject obj = new JSONObject();
 		try{
-			WeldingMaintenance wm = mm.getWeldingMaintenanceById(new BigInteger(wid));
-			mm.deleteMaintenanceRecord(wm.getMaintenance().getId());
-			mm.deleteWeldingMaintenance(wm.getId());
-			obj.put("success", true);
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, new BigInteger(insfid));
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"deleteMaintenanceRecord\"}";
+			String obj2 = "{\"MID\":\""+wid+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\",\"INSFID\":\""+insfid+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
+			}
 		}catch(Exception e){
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());

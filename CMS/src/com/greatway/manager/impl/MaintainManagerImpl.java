@@ -92,4 +92,9 @@ public class MaintainManagerImpl implements MaintainManager {
 		wm.editstatus(wid, status);
 	}
 
+	@Override
+	public BigInteger getInsfidByMachineid(BigInteger mid) {
+		return wmm.getInsfidByMachineid(mid);
+	}
+
 }

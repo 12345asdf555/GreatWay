@@ -47,7 +47,7 @@ function mainDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 				if(value == null || value == ""){
-					var str = '<a id="ok" class="easyui-linkbutton" href="javascript:okMaintain();"/>';
+					var str = '<a id="ok" class="easyui-linkbutton" href="javascript:okMaintain('+row.insfid+');"/>';
 					return str;
 				}
 				return value;
@@ -86,6 +86,13 @@ function mainDatagrid(){
 			align : "left",
 			hidden: true
 		}, {
+			field : 'insfid',
+			title : '焊机组织机构id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden: true
+		}, {
 			field : 'edit',
 			title : '编辑',
 			width : 130,
@@ -93,8 +100,8 @@ function mainDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 				var str = "";
-				str += '<a id="edit" class="easyui-linkbutton" href="maintain/goEditMaintain?wid='+row.id+'"/>';
-				str += '<a id="remove" class="easyui-linkbutton" href="maintain/goremoveMaintain?wid='+row.id+'&tname='+row.typename+'"/>';
+				str += '<a id="edit" class="easyui-linkbutton" href="maintain/goEditMaintain?wid='+row.id+'&insfid='+row.insfid+'"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="maintain/goremoveMaintain?wid='+row.id+'&insfid='+row.insfid+'&tname='+row.typename+'"/>';
 				return str;
 			}
 		}]],
@@ -109,12 +116,12 @@ function mainDatagrid(){
 }
 
 //完成维修
-function okMaintain(){
+function okMaintain(insfid){
 	var row = $("#maintainTable").datagrid('getSelected');
 	$.ajax({  
 	      type : "post",  
 	      async : false,
-	      url : "maintain/updateEndtime?wid="+row.mid+"&weldingid="+row.wid,
+	      url : "maintain/updateEndtime?wid="+row.mid+"&weldingid="+row.wid+"&insfid="+insfid,
 	      data : {},  
 	      dataType : "json", 
 	      success : function(result) {  

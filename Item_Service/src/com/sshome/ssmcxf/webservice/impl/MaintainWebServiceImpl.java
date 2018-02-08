@@ -66,34 +66,12 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	}
 	
 	@Override
-	public BigInteger addMaintian(String object) {
+	public boolean addMaintian(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			WeldingMaintenance wm = new WeldingMaintenance();
 			MaintenanceRecord mr = new MaintenanceRecord();
-			mr.setId(new BigInteger(json.getString("MID")));
-			mr.setEndTime(json.getString("ENDTIME"));
-			wm.setMaintenance(mr);
-			wm.setCreator(json.getString("CREATOR"));
-			WeldingMachine w = new WeldingMachine();
-			BigInteger wid = new BigInteger(json.getString("WELDID"));
-			w.setId(wid);
-			wm.setWelding(w);
-			if(ms.addMaintian(wm,mr,wid)){
-				return wm.getId();
-			}else{
-				return null;
-			}
-		}catch(Exception e){
-			return null;
-		}
-	}
-	
-	@Override
-	public BigInteger addMaintenanceRecord(String object){
-		try{
-			JSONObject json = JSONObject.fromObject(object);
-			MaintenanceRecord mr = new MaintenanceRecord();
+			mr.setId(new BigInteger(json.getString("RID")));
 			mr.setViceman(json.getString("VICEMAN"));
 			mr.setStartTime(json.getString("STARTTIME"));
 			String endTime = json.getString("ENDTIME");
@@ -103,14 +81,22 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			mr.setDesc(json.getString("DESC"));
 			mr.setTypeId(json.getInt("TYPEID"));
 			mr.setCreator(json.getString("CREATOR"));
-			
-			if(ms.addMaintenanceRecord(mr)){
-				return mr.getId();
+			wm.setMaintenance(mr);
+			WeldingMachine w = new WeldingMachine();
+			BigInteger wid = new BigInteger(json.getString("WELDID"));
+			w.setId(wid);
+			wm.setWelding(w);
+			wm.setId(new BigInteger(json.getString("MID")));
+			boolean flag = ms.addMaintenanceRecord(mr);
+			boolean flags = ms.addMaintian(wm,mr,wid);
+			if(flag && flags){
+				return true;
 			}else{
-				return null;
+				return false;
 			}
 		}catch(Exception e){
-			return null;
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -118,7 +104,14 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public boolean updateEndtime(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.updateEndtime(new BigInteger(json.getString("MID")));
+			boolean flag = ms.updateEndtime(new BigInteger(json.getString("MID")));
+			BigInteger weldingid = new BigInteger(json.getString("WELDINGID"));
+			List<WeldingMaintenance> list =  ms.getEndtime(weldingid);
+			if(list.isEmpty()){
+				//如果维修结束时间没有为空的则修改状态为启用
+				ms.editstatus(weldingid, 31);
+			}
+			return flag;
 		}catch(Exception e){
 			return false;
 		}
@@ -139,8 +132,20 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			mr.setDesc(json.getString("DESC"));
 			mr.setTypeId(json.getInt("TYPEID"));
 			mr.setModifier(json.getString("MODIFIER"));
-			return ms.updateMaintenanceRecord(mr);
+			boolean flag = ms.updateMaintenanceRecord(mr);
+			BigInteger wid = new BigInteger(json.getString("WID"));
+			List<WeldingMaintenance> list =  ms.getEndtime(wid);
+			if(endTime==null || "".equals(endTime)){
+				//修改焊机状态为维修中
+				ms.editstatus(wid, 33);
+			}
+			if(list.isEmpty()){
+				//如果维修结束时间没有为空的则修改状态为启用
+				ms.editstatus(wid, 31);
+			}
+			return flag;
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -149,7 +154,14 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public boolean deleteMaintenanceRecord(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			return ms.deleteMaintenanceRecord(new BigInteger(json.getString("MID")));
+			WeldingMaintenance wm = ms.getWeldingMaintenanceById(new BigInteger(json.getString("MID")));
+			boolean flag = ms.deleteMaintenanceRecord(wm.getMaintenance().getId());
+			boolean flags = ms.deleteWeldingMaintenance(wm.getId());
+			if(flag && flags){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
 			return false;
 		}
@@ -183,6 +195,16 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			return ms.editstatus(new BigInteger(json.getString("WID")), json.getInt("STATUSID"));
 		}catch(Exception e){
 			return false;
+		}
+	}
+	
+	@Override
+	public BigInteger getInsfidByMachineid(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			return ms.getInsfidByMachineid(new BigInteger(json.getString("WID")));
+		}catch(Exception e){
+			return null;
 		}
 	}
 

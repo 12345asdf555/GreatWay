@@ -30,5 +30,6 @@ public interface WeldingMaintenanceMapper extends Mapper<WeldingMaintenance> {
 	int deleteMaintenanceRecord(@Param("mid")BigInteger mid);
 	
 	int deleteWeldingMaintenance(@Param("wid")BigInteger wid);
-	
+
+	BigInteger getInsfidByMachineid(@Param("mid")BigInteger mid);
 }

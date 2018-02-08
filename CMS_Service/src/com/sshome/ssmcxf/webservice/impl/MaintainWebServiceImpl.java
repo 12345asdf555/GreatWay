@@ -163,5 +163,15 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			return false;
 		}
 	}
+	
+	@Override
+	public BigInteger getInsfidByMachineid(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			return ms.getInsfidByMachineid(new BigInteger(json.getString("WID")));
+		}catch(Exception e){
+			return null;
+		}
+	}
 
 }
