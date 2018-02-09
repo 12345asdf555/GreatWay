@@ -3,11 +3,20 @@ package com.sshome.ssmcxf.webservice.impl;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.namespace.QName;
+import javax.xml.ws.handler.MessageContext;
+
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
+import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.spring.model.Gather;
 import com.spring.model.Insframework;
 import com.spring.service.InsframeworkService;
 import com.sshome.ssmcxf.webservice.InsfWebService;
@@ -33,46 +42,128 @@ public class InsfWebServiceImpl implements InsfWebService {
 	}
 
 	@Override
-	public boolean addInsframework(String object) {
+	public boolean addInsframework(String obj1,String obj2) {
 		try{
-			JSONObject json = JSONObject.fromObject(object);
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			//向集团层执行插入
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			BigInteger id = new BigInteger(blocobj[0].toString());
+			JSONObject json = JSONObject.fromObject(obj2);
 			Insframework i = new Insframework();
+			i.setId(id);
 			i.setName(json.getString("NAME"));
 			i.setLogogram(json.getString("LOGOGRAM"));
 			i.setCode(json.getString("CODE"));
 			i.setParent(new BigInteger(json.getString("PARENT")));
 			i.setType(json.getInt("TYPEID"));
 			i.setCreator(json.getString("CREATOR"));
-			return is.addInsframework(i);
+			boolean flag = is.addInsframework(i);
+			if(flag){
+				return true;
+			}else{
+				return false;
+			}
 		}catch(Exception e){
 			return false;
 		}
 	}
 
 	@Override
-	public boolean editInsframework(String object) {
+	public boolean editInsframework(String obj1,String obj2) {
 		try{
-			JSONObject json = JSONObject.fromObject(object);
-			Insframework i = new Insframework();
-			i.setId(new BigInteger(json.getString("INSFID")));
-			i.setName(json.getString("NAME"));
-			i.setLogogram(json.getString("LOGOGRAM"));
-			i.setCode(json.getString("CODE"));
-			i.setParent(new BigInteger(json.getString("PARENT")));
-			i.setType(json.getInt("TYPEID"));
-			i.setModifier(json.getString("MODIFIER"));
-			return is.editInsframework(i);
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			//向集团层执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			String blocResult = blocobj[0].toString();
+			JSONObject json = JSONObject.fromObject(obj2);
+			//获取层级id
+			String hierarchy = json.getString("HIERARCHY");
+			String itemurl = "";
+			boolean resultflag = false;
+			if(hierarchy.equals("4")){
+				itemurl = json.getString("ITEMURL");
+			}else{
+				int typeid = json.getInt("TYPEID");
+				Insframework i = new Insframework();
+				i.setId(new BigInteger(json.getString("INSFID")));
+				i.setName(json.getString("NAME"));
+				i.setLogogram(json.getString("LOGOGRAM"));
+				i.setCode(json.getString("CODE"));
+				i.setParent(new BigInteger(json.getString("PARENT")));
+				i.setType(json.getInt("TYPEID"));
+				i.setModifier(json.getString("MODIFIER"));
+				boolean flag = is.editInsframework(i);
+				boolean result = true;
+				if(typeid==23){
+					BigInteger insfid = new BigInteger(json.getString("INSFID"));
+					itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+					//向项目执行操作
+					Client itemclient = dcf.createClient(itemurl);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					String str = itemobj[0].toString();
+					if(!str.equals("true")){
+						result = false;
+					}
+				}
+				if(flag && result && blocResult.equals("true")){
+					resultflag = true;
+				}
+			}
+			return resultflag;
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
 
 	@Override
-	public boolean deleteInsframework(String object) {
+	public boolean deleteInsframework(String obj1,String obj2) {
 		try{
-			JSONObject json = JSONObject.fromObject(object);
-			return is.deleteInsframework(new BigInteger(json.getString("INSFID")));
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			//向集团层执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			String blocResult = blocobj[0].toString();
+			JSONObject json = JSONObject.fromObject(obj2);
+			//获取层级id
+			String hierarchy = json.getString("HIERARCHY");
+			String itemurl = "";
+			boolean resultflag = false;
+			if(hierarchy.equals("4")){
+				itemurl = json.getString("ITEMURL");
+			}else{
+				int type = json.getInt("TYPE");
+				boolean flag = is.deleteInsframework(new BigInteger(json.getString("INSFID")));
+				boolean result = true;
+				if(type==23){
+					BigInteger insfid = new BigInteger(json.getString("INSFID"));
+					itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+					//向项目执行操作
+					Client itemclient = dcf.createClient(itemurl);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					String str = itemobj[0].toString();
+					if(!str.equals("true")){
+						result = false;
+					}
+				}
+				if(flag && result && blocResult.equals("true")){
+					resultflag = true;
+				}
+			}
+			return resultflag;
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}

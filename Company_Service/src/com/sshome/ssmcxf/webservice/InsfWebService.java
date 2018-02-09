@@ -14,18 +14,18 @@ public interface InsfWebService {
 	 * 新增组织机构
 	 * @param ins
 	 */
-	boolean addInsframework(String object);
+	boolean addInsframework(String obj1,String obj2);
 	/**
 	 * 修改组织机构
 	 * @param ins
 	 */
-	boolean editInsframework(String object);
+	boolean editInsframework(String obj1,String obj2);
 	
 	/**
 	 * 删除组织机构
 	 * @param id
 	 */
-	boolean deleteInsframework(String object);
+	boolean deleteInsframework(String obj1,String obj2);
 	
 	/**
 	 * 判断name是否存在
