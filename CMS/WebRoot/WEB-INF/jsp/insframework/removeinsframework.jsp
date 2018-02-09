@@ -39,7 +39,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">删除组织机构</div>
 				<div class="fitem">
 					<lable>名称</lable>
-					<input class="easyui-textbox" id="id" value="${insf.id }"/>
+					<input type="hidden" id="id" value="${insf.id }"/>
+					<input type="hidden" id="type" value="${type }"/>
 					<input class="easyui-textbox" name="name" id="name" value="${insf.name }" readonly="readonly"/>
 				</div>
 				<div class="fitem">

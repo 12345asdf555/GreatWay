@@ -1,15 +1,12 @@
-$(function(){
-	$("#id").next().hide();
-})
-
 function removeInsframework(){
 	var id = $("#id").val();
+	var type = $("#type").val();
 	$.messager.confirm('提示', '此操作不可撤销并同时删除其焊机设备，是否确认删除?', function(flag) {
 		if (flag) {
 			$.ajax({  
 		        type : "post",  
 		        async : false,
-		        url : "insframework/removeInsframework?id="+id,  
+		        url : "insframework/removeInsframework?id="+id+"&type="+type,  
 		        data : {},  
 		        dataType : "json", //返回数据形式为json  
 		        success : function(result) {

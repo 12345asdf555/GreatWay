@@ -29,6 +29,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
 	<script type="text/javascript" src="resources/js/insframework/addeditinsframework.js"></script>
 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			if($("#parent").combobox('getValue')==0){
+				$("#parent").combobox('setValue','无');
+			}
+		})
+	</script>
   </head>
   
   <body class="easyui-layout">

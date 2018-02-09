@@ -2,12 +2,14 @@ package com.greatway.controller;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.namespace.QName;
 
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -82,6 +84,7 @@ public class InsframeworkController {
 		Insframework insf = im.getInsfAllById(new BigInteger(id));
 		request.setAttribute("parent", im.getInsframeworkById(insf.getParent()));
 		request.setAttribute("insf", insf);
+		request.setAttribute("type", request.getParameter("type"));
 		return "insframework/removeinsframework";
 	}
 	
@@ -129,6 +132,7 @@ public class InsframeworkController {
 				json.put("code", i.getCode());
 				json.put("parent", im.getInsframeworkById(i.getParent()));
 				json.put("type", i.getTypename());
+				json.put("typeid", i.getType());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -143,31 +147,53 @@ public class InsframeworkController {
 	@ResponseBody
 	public String addInsframework(HttpServletRequest request){
 		JSONObject obj = new JSONObject();
-		Insframework insf = new Insframework();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			String logogram = request.getParameter("logogram");
-			String code = request.getParameter("code");
-			String parent = request.getParameter("parent");
+			String webserviceurl = "";
 			String type = request.getParameter("type");
-			insf.setName(request.getParameter("name"));
-			if(iutil.isNull(logogram)){
-				insf.setLogogram(logogram);
+			String parent = request.getParameter("parent");
+			if(hierarchy.equals("1")){
+				if(type.equals("21")){
+					//集团层插入公司无须同步下去
+					webserviceurl = request.getSession().getServletContext().getInitParameter("blocurl");
+				}else if(type.equals("22")){
+					webserviceurl = request.getSession().getServletContext().getInitParameter(parent);
+				}else if(type.equals("23")){
+					Insframework companyid = im.getParent(new BigInteger(parent));
+					webserviceurl = request.getSession().getServletContext().getInitParameter(companyid.getId().toString());
+				} 
+			}else if(hierarchy.equals("2") || hierarchy.equals("3")){
+				webserviceurl = request.getSession().getServletContext().getInitParameter("companyurl");
+			}else{
+				obj.put("success", false);
+				obj.put("msg", "您没有新增组织机构的权限！");
+				return obj.toString();
 			}
-			if(iutil.isNull(code)){
-				insf.setCode(code);
+			
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(webserviceurl);
+			String obj1 = "{\"CLASSNAME\":\"insfWebServiceImpl\",\"METHOD\":\"addInsframework\"}";
+			String obj2 = "{\"NAME\":\""+request.getParameter("name")+"\",\"LOGOGRAM\":\""+request.getParameter("logogram")+"\",\"CODE\":\""+request.getParameter("code")+"\","
+					+ "\"PARENT\":\""+parent+"\",\"TYPEID\":\""+type+"\",\"CREATOR\":\""+myuser.getUsername()+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+			if(hierarchy.equals("1")){
+				if(objects[0].toString()!=null && !"".equals(objects[0].toString())){
+					obj.put("success", true);
+				}else{
+					obj.put("success", false);
+				}
+			}else{
+				if(objects[0].toString().equals("true")){
+					obj.put("success", true);
+				}else{
+					obj.put("success", false);
+				}
 			}
-			if(iutil.isNull(parent)){
-				insf.setParent(new BigInteger(parent));
-			}
-			if(iutil.isNull(type)){
-				insf.setType(Integer.parseInt(type));
-			}
-			insf.setCreator(myuser.getUsername());
-			im.addInsframework(insf);
-			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
 			obj.put("msg", e.getMessage());
@@ -180,32 +206,51 @@ public class InsframeworkController {
 	@ResponseBody
 	public String editInsframework(HttpServletRequest request, @RequestParam String id){
 		JSONObject obj = new JSONObject();
-		Insframework insf = new Insframework();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			String logogram = request.getParameter("logogram");
-			String code = request.getParameter("code");
-			String parent = request.getParameter("parent");
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			String webserviceurl = "";
 			String type = request.getParameter("type");
-			insf.setId(new BigInteger(id));
-			insf.setName(request.getParameter("name"));
-			if(iutil.isNull(logogram)){
-				insf.setLogogram(logogram);
+			String parent = request.getParameter("parent");
+			if(hierarchy.equals("1")){
+				if(type.equals("20")){//集团层编辑自己
+					webserviceurl = request.getSession().getServletContext().getInitParameter("blocurl");
+				}else if(type.equals("21")){//集团层编辑公司
+					webserviceurl = request.getSession().getServletContext().getInitParameter(id);
+				}else if(type.equals("22")){
+					webserviceurl = request.getSession().getServletContext().getInitParameter(parent);
+				}else if(type.equals("23")){
+					Insframework companyid = im.getParent(new BigInteger(parent));
+					webserviceurl = request.getSession().getServletContext().getInitParameter(companyid.getId().toString());
+				} 
+			}else{
+				webserviceurl = request.getSession().getServletContext().getInitParameter("companyurl");
 			}
-			if(iutil.isNull(code)){
-				insf.setCode(code);
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(webserviceurl);
+			String obj1 = "{\"CLASSNAME\":\"insfWebServiceImpl\",\"METHOD\":\"editInsframework\"}";
+			String obj2 = "{\"INSFID\":\""+id+"\",\"NAME\":\""+request.getParameter("name")+"\",\"LOGOGRAM\":\""+request.getParameter("logogram")+"\",\"CODE\":\""+request.getParameter("code")+"\","
+					+ "\"PARENT\":\""+request.getParameter("parent")+"\",\"TYPEID\":\""+request.getParameter("type")+"\",\"MODIFIER\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(hierarchy.equals("1")){
+				if(objects[0].toString()!=null && !"".equals(objects[0].toString())){
+					obj.put("success", true);
+				}else{
+					obj.put("success", false);
+				}
+			}else{
+				if(objects[0].toString().equals("true")){
+					obj.put("success", true);
+				}else{
+					obj.put("success", false);
+				}
 			}
-			if(iutil.isNull(parent)){
-				insf.setParent(new BigInteger(parent));
-			}
-			if(iutil.isNull(type)){
-				insf.setType(Integer.parseInt(type));
-			}
-			insf.setModifier(myuser.getUsername());
-			im.editInsframework(insf);
-			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
 			obj.put("msg", e.getMessage());
@@ -215,11 +260,48 @@ public class InsframeworkController {
 	
 	@RequestMapping("/removeInsframework")
 	@ResponseBody
-	public String removeInsframework(@RequestParam String id){
+	public String removeInsframework(HttpServletRequest request,@RequestParam String id,@RequestParam String type){
 		JSONObject obj = new JSONObject();
 		try{
-			im.deleteInsframework(new BigInteger(id));
-			obj.put("success", true);
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			String webserviceurl = "";
+			String parent = request.getParameter("parent");
+			if(hierarchy.equals("1")){
+				if(type.equals("20")){//集团层编辑自己
+					webserviceurl = request.getSession().getServletContext().getInitParameter("blocurl");
+				}else if(type.equals("21")){//集团层编辑公司
+					webserviceurl = request.getSession().getServletContext().getInitParameter(id);
+				}else if(type.equals("22")){
+					webserviceurl = request.getSession().getServletContext().getInitParameter(parent);
+				}else if(type.equals("23")){
+					Insframework companyid = im.getParent(new BigInteger(parent));
+					webserviceurl = request.getSession().getServletContext().getInitParameter(companyid.getId().toString());
+				} 
+			}else{
+				webserviceurl = request.getSession().getServletContext().getInitParameter("companyurl");
+			}
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(webserviceurl);
+			String obj1 = "{\"CLASSNAME\":\"insfWebServiceImpl\",\"METHOD\":\"deleteInsframework\"}";
+			String obj2 = "{\"INSFID\":\""+id+"\",\"TYPE\":\""+type+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			if(hierarchy.equals("1")){
+				if(objects[0].toString()!=null && !"".equals(objects[0].toString())){
+					obj.put("success", true);
+				}else{
+					obj.put("success", false);
+				}
+			}else{
+				if(objects[0].toString().equals("true")){
+					obj.put("success", true);
+				}else{
+					obj.put("success", false);
+				}
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			obj.put("success", false);
@@ -286,11 +368,13 @@ public class InsframeworkController {
 			//获取枚举值
 			for(Insframework i:instype){
 				if(i.getType()==20){
-					dictionary = dm.getDictionaryValue(2);
+					dictionary = dm.getDicValueByValue(2, 20);
 				}else if(i.getType()==21){
 					dictionary = dm.getDicValueByValue(2, 21);
-				}else{
+				}else if(i.getType()==22){
 					dictionary = dm.getDicValueByValue(2, 22);
+				}else{
+					dictionary = dm.getDicValueByValue(2, 23);
 				}
 			}
 			for(Dictionarys d:dictionary){

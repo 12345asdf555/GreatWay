@@ -71,9 +71,6 @@ function updatetext(){
 	var parent = $("#parentid").val();
 	$("#typeid").combobox('select',type);
 	$("#parent").combobox('select',parent);
-	if($("#parent").combobox('getValue')==0){
-		$("#parent").combobox('setValue','无');
-	}
 }
 
 //父节点

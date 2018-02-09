@@ -68,6 +68,13 @@ function insframeworkDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
+			field : 'typeid',
+			title : '类型',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden : true
+		}, {
 			field : 'edit',
 			title : '编辑',
 			width : 130,
@@ -75,8 +82,8 @@ function insframeworkDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 				var str = "";
-				str += '<a id="edit" class="easyui-linkbutton" href="javascript:editInsf('+row.id+','+true+')"/>';
-				str += '<a id="remove" class="easyui-linkbutton" href="javascript:editInsf('+row.id+','+false+')"/>';
+				str += '<a id="edit" class="easyui-linkbutton" href="javascript:editInsf('+row.id+','+row.typeid+','+true+')"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="javascript:editInsf('+row.id+','+row.typeid+','+false+')"/>';
 				return str;
 			}
 		}] ],
@@ -90,7 +97,7 @@ function insframeworkDatagrid(){
 }
 
 //删除/修改权限处理
-function editInsf(id,flags){
+function editInsf(id,type,flags){
 		$.ajax({  
 	        type : "post",  
 	        async : false,
@@ -105,7 +112,7 @@ function editInsf(id,flags){
 	            			if(flags){
 	            				url = "insframework/goeditInsframework?id="+id;
 	            			}else{
-	            				url = "insframework/goremoveInsframework?id="+id;
+	            				url = "insframework/goremoveInsframework?id="+id+"&type="+type;
 	            			}
 		       				var img = new Image();
 		       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
