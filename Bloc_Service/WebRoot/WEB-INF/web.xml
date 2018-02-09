@@ -31,6 +31,46 @@
   <listener>
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
+  
+  <!-- 自定义配置参数 ：集团下所有公司及项目部的webservice地址，name:id,value:url-->
+  <!-- 公司 -->
+  <context-param>
+  	<param-name>13</param-name>
+  	<param-value>http://192.168.73.150:8080/Company_Service/companyWebService?wsdl</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>25</param-name>
+  	<param-value>http://192.168.73.150:8080/Company_Service/companyWebService?wsdl</param-value>
+  </context-param>
+  <!-- 项目 -->
+  <context-param>
+  	<param-name>17</param-name>
+  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>18</param-name>
+  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>21</param-name>
+  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>23</param-name>
+  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>24</param-name>
+  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>28</param-name>
+  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>32</param-name>
+  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
+  </context-param>
   <welcome-file-list>
     <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>

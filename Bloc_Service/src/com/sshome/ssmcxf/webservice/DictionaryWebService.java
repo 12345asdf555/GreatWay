@@ -1,7 +1,5 @@
 package com.sshome.ssmcxf.webservice;
 
-import java.math.BigInteger;
-
 public interface DictionaryWebService {
 
 	/**
@@ -12,13 +10,13 @@ public interface DictionaryWebService {
 	 */
 	Object getAllDictionary(String object);
 	
-    BigInteger addDictionary(String object);
+    boolean addDictionary(String obj1,String obj2);
 	
-    boolean editDictionary(String object);
+    boolean editDictionary(String obj1,String obj2);
 	
     Object getDictionaryByFid(String object);
 	
-	boolean deleteDictionary(String object);
+	boolean deleteDictionary(String obj1,String obj2);
 	
 	/**
 	 * 获取字典值及值名称

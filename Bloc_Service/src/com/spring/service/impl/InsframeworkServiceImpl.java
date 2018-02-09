@@ -217,5 +217,14 @@ public class InsframeworkServiceImpl implements InsframeworkService {
 			return null;
 		}
 	}
+
+	@Override
+	public List<Insframework> getInsByType(int type) {
+		try{
+			return im.getInsfByType(type);
+		}catch(Exception e){
+			return null;
+		}
+	}
 	
 }

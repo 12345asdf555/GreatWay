@@ -68,6 +68,12 @@
 		SELECT fid,fname FROM tb_insframework WHERE fparent = #{id}
 	</select>
 	
+	
+	<!-- 查看事业部级 -->
+	<select id="getInsfByType" resultMap="insMap">
+		SELECT fid,fname FROM tb_insframework WHERE ftype = #{type}
+	</select>
+	
 	<!-- 获取用户所属层级 -->
 	<select id="getUserInsfType" resultType="java.lang.Integer">
 		SELECT ftype from tb_users u

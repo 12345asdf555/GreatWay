@@ -36,12 +36,14 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			Dictionarys d = new Dictionarys();
+			d.setId(new BigInteger(json.getString("ID")));
 			d.setBack(json.getString("BACK"));
 			d.setTypeid(json.getInt("TYPEID"));
 			d.setValueName(json.getString("VALUENAME"));
 			d.setCreator(json.getString("CREATOR"));
 			return ds.addDictionary(d);
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -58,6 +60,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			d.setModifier(json.getString("MODIFIER"));
 			return ds.editDictionary(d);
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -79,6 +82,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			JSONObject json = JSONObject.fromObject(object);
 			return ds.deleteDictionary(json.getInt("ID"));
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}

@@ -33,9 +33,9 @@ public class InsfWebServiceImpl implements InsfWebService {
 	}
 
 	@Override
-	public BigInteger addInsframework(String object) {
+	public BigInteger addInsframework(String obj1,String obj2) {
 		try{
-			JSONObject json = JSONObject.fromObject(object);
+			JSONObject json = JSONObject.fromObject(obj2);
 			Insframework i = new Insframework();
 			i.setName(json.getString("NAME"));
 			i.setLogogram(json.getString("LOGOGRAM"));
@@ -54,9 +54,9 @@ public class InsfWebServiceImpl implements InsfWebService {
 	}
 
 	@Override
-	public boolean editInsframework(String object) {
+	public boolean editInsframework(String obj1,String obj2) {
 		try{
-			JSONObject json = JSONObject.fromObject(object);
+			JSONObject json = JSONObject.fromObject(obj2);
 			Insframework i = new Insframework();
 			i.setId(new BigInteger(json.getString("INSFID")));
 			i.setName(json.getString("NAME"));
@@ -72,9 +72,9 @@ public class InsfWebServiceImpl implements InsfWebService {
 	}
 
 	@Override
-	public boolean deleteInsframework(String object) {
+	public boolean deleteInsframework(String obj1,String obj2) {
 		try{
-			JSONObject json = JSONObject.fromObject(object);
+			JSONObject json = JSONObject.fromObject(obj2);
 			return is.deleteInsframework(new BigInteger(json.getString("INSFID")));
 		}catch(Exception e){
 			return false;

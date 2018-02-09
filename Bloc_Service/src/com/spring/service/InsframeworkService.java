@@ -122,4 +122,11 @@ public interface InsframeworkService {
 	 * @return
 	 */
 	List<Insframework> getInsByUserid(BigInteger uid);
+	
+	/**
+	 * 根据类型获取组织机构
+	 * @param uid
+	 * @return
+	 */
+	List<Insframework> getInsByType(int type);
 }

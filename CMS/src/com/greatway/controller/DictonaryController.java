@@ -3,7 +3,10 @@ package com.greatway.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.namespace.QName;
 
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.manager.DictionaryManager;
+import com.greatway.manager.InsframeworkManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
 import com.spring.model.MyUser;
@@ -30,6 +34,8 @@ public class DictonaryController {
 	
 	@Autowired
 	private DictionaryManager dictionaryManager;
+	@Autowired
+	private InsframeworkManager im;
 	
 	@RequestMapping("/goDictionary")
 	public String goDictionary(HttpServletRequest request){
@@ -101,46 +107,84 @@ public class DictonaryController {
 	public String AddDictionary(Dictionarys dic, HttpServletRequest request){
 		JSONObject obj=new JSONObject();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			String backs=request.getParameter("back");
-			dic.setBack(backs);
-			dic.setCreator(myuser.getUsername());
-			dictionaryManager.addDictionary(dic);
-			obj.put("success",true);
+			//获取集团层url
+			String blocurl = request.getSession().getServletContext().getInitParameter("blocurl");
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(blocurl);
+			String obj1 = "{\"CLASSNAME\":\"dictionaryWebServiceImpl\",\"METHOD\":\"addDictionary\"}";
+			String obj2 = "{\"BACK\":\""+request.getParameter("back")+"\",\"TYPEID\":\""+request.getParameter("typeid")+"\",\"VALUENAME\":\""+request.getParameter("valueName")+"\",\"CREATOR\":\""+myuser.getUsername()+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
+			}
 		}catch(Exception e){
 			obj.put("success",false);
 			obj.put("errorMsg",e.getMessage());
 		}
 		return obj.toString();
 	}
+	
 	@RequestMapping("/editDictionary")
 	@ResponseBody
 	public String EditDictionary(Dictionarys dic,HttpServletRequest request){
 		JSONObject obj=new JSONObject();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			String backs=request.getParameter("back");
-			dic.setBack(backs);
-			dic.setModifier(myuser.getUsername());
-			dictionaryManager.editDictionary(dic);
-			obj.put("success",true);
+			//获取集团层url
+			String blocurl = request.getSession().getServletContext().getInitParameter("blocurl");
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(blocurl);
+			String obj1 = "{\"CLASSNAME\":\"dictionaryWebServiceImpl\",\"METHOD\":\"editDictionary\"}";
+			String obj2 = "{\"ID\":\""+dic.getId()+"\",\"BACK\":\""+request.getParameter("back")+"\",\"TYPEID\":\""+request.getParameter("typeid")+"\",\"VALUENAME\":\""+request.getParameter("valueName")+"\",\"MODIFIER\":\""+myuser.getUsername()+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
+			}
 		}catch(Exception e){
 			obj.put("success",false);
 			obj.put("errorMsg",e.getMessage());
 		}
 		return obj.toString();
 	}
+	
 	@RequestMapping("/deleteDictionary")
 	@ResponseBody
-	public String DeleteDictionary(@RequestParam int id){
+	public String DeleteDictionary(HttpServletRequest request,@RequestParam int id){
 		JSONObject obj=new JSONObject();
 		try{
-			dictionaryManager.deleteDictionary(id);
-			obj.put("success",true);
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			//获取集团层url
+			String blocurl = request.getSession().getServletContext().getInitParameter("blocurl");
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(blocurl);
+			String obj1 = "{\"CLASSNAME\":\"dictionaryWebServiceImpl\",\"METHOD\":\"deleteDictionary\"}";
+			String obj2 = "{\"ID\":\""+id+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else{
+				obj.put("success", false);
+			}
 		}catch(Exception e){
 			obj.put("success",false);
 			obj.put("errorMsg",e.getMessage());
