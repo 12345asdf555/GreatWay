@@ -72,13 +72,16 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			wm.setEquipmentNo(json.getString("EQUIPMENTNO"));
 			wm.setPosition(json.getString("POSITION"));
 			wm.setIsnetworking(json.getInt("ISNETWORKING"));
-			wm.setJoinTime(json.getString("JOINTIME"));
+			String jointime = json.getString("JOINTIME");
+			if(jointime!=null && !"".equals(jointime)){
+				wm.setJoinTime(jointime);
+			}
 			wm.setTypeId(json.getInt("TYPEID"));
 			wm.setStatusId(json.getInt("STATUSID"));
 			wm.setCreator(json.getString("CREATOR"));
 			Gather gather = new Gather();
 			String gatherid = json.getString("GATHERID");
-			if(gatherid!=null && !gatherid.equals("")){
+			if(gatherid!=null && !"".equals(gatherid)){
 				gather.setId(new BigInteger(gatherid));
 			}
 			wm.setGatherId(gather);
@@ -104,13 +107,16 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			wm.setEquipmentNo(json.getString("EQUIPMENTNO"));
 			wm.setPosition(json.getString("POSITION"));
 			wm.setIsnetworking(json.getInt("ISNETWORKING"));
-			wm.setJoinTime(json.getString("JOINTIME"));
+			String jointime = json.getString("JOINTIME");
+			if(jointime!=null && !"".equals(jointime)){
+				wm.setJoinTime(jointime);
+			}
 			wm.setTypeId(json.getInt("TYPEID"));
 			wm.setStatusId(json.getInt("STATUSID"));
 			wm.setModifier(json.getString("MODIFIER"));
 			Gather gather = new Gather();
 			String gatherid = json.getString("GATHERID");
-			if(gatherid!=null && !gatherid.equals("")){
+			if(gatherid!=null && !"".equals(gatherid)){
 				gather.setId(new BigInteger(gatherid));
 			}
 			wm.setGatherId(gather);

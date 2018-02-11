@@ -150,15 +150,16 @@ public class GatherController {
 			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"addGather\"}";
 			String obj2 = "{\"GATHERNO\":\""+gather.getGatherNo()+"\",\"IPURL\":\""+gather.getIpurl()+"\",\"INSFID\":\""+gather.getItemid()+"\",\"LEAVETIME\":\""+gather.getLeavetime()+"\",\"MACURL\":\""+gather.getMacurl()+"\",\"PROTOCOL\":\""+
 					gather.getProtocol()+"\",\"STATUS\":\""+gather.getStatus()+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
-			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			obj.put("success", false);
-			obj.put("msg", e.getMessage());
+			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();
 		
@@ -184,15 +185,16 @@ public class GatherController {
 			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGather\"}";
 			String obj2 = "{\"ID\":\""+gather.getId()+"\",\"GATHERNO\":\""+gather.getGatherNo()+"\",\"IPURL\":\""+gather.getIpurl()+"\",\"INSFID\":\""+gather.getItemid()+"\",\"LEAVETIME\":\""+gather.getLeavetime()+"\",\"MACURL\":\""+gather.getMacurl()+"\",\"PROTOCOL\":\""+
 					gather.getProtocol()+"\",\"STATUS\":\""+gather.getStatus()+"\",\"MODIFIER\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
-			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			obj.put("success", false);
-			obj.put("msg", e.getMessage());
+			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();
 	}
@@ -213,16 +215,17 @@ public class GatherController {
 			Client client = dcf.createClient(companyurl);
 			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"deleteGather\"}";
 			String obj2 = "{\"ID\":\""+id+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\",\"INSFID\":\""+insfid+"\"}";
-			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 			obj.put("success", false);
-			obj.put("msg", e.getMessage());
+			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();
 	}

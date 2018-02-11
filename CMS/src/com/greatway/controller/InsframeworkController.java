@@ -170,7 +170,7 @@ public class InsframeworkController {
 				webserviceurl = request.getSession().getServletContext().getInitParameter("companyurl");
 			}else{
 				obj.put("success", false);
-				obj.put("msg", "您没有新增组织机构的权限！");
+				obj.put("errorMsg", "您没有新增组织机构的权限！");
 				return obj.toString();
 			}
 			
@@ -186,17 +186,19 @@ public class InsframeworkController {
 					obj.put("success", true);
 				}else{
 					obj.put("success", false);
+					obj.put("errorMsg", "操作失败！");
 				}
 			}else{
 				if(objects[0].toString().equals("true")){
 					obj.put("success", true);
 				}else{
 					obj.put("success", false);
+					obj.put("errorMsg", "操作失败！");
 				}
 			}
 		}catch(Exception e){
 			obj.put("success", false);
-			obj.put("msg", e.getMessage());
+			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();
 		
@@ -243,17 +245,19 @@ public class InsframeworkController {
 					obj.put("success", true);
 				}else{
 					obj.put("success", false);
+					obj.put("errorMsg", "操作失败！");
 				}
 			}else{
 				if(objects[0].toString().equals("true")){
 					obj.put("success", true);
 				}else{
 					obj.put("success", false);
+					obj.put("errorMsg", "操作失败！");
 				}
 			}
 		}catch(Exception e){
 			obj.put("success", false);
-			obj.put("msg", e.getMessage());
+			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();
 	}
@@ -294,18 +298,20 @@ public class InsframeworkController {
 					obj.put("success", true);
 				}else{
 					obj.put("success", false);
+					obj.put("errorMsg", "操作失败！");
 				}
 			}else{
 				if(objects[0].toString().equals("true")){
 					obj.put("success", true);
 				}else{
 					obj.put("success", false);
+					obj.put("errorMsg", "操作失败！");
 				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 			obj.put("success", false);
-			obj.put("msg", e.getMessage());
+			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();
 	}

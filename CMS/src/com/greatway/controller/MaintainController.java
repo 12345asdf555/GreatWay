@@ -207,6 +207,7 @@ public class MaintainController {
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -242,6 +243,7 @@ public class MaintainController {
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -277,20 +279,8 @@ public class MaintainController {
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
-			
-//			mm.updateEndtime(new BigInteger(wid));
-//			List<WeldingMaintenance> list =  mm.getEndtime(new BigInteger(weldingid));
-//			boolean flag = true;
-//			for(WeldingMaintenance wm : list){
-//				if(!iutil.isNull(wm.getMaintenance().getEndTime())){
-//					flag = false;
-//				}
-//			}
-//			if(flag){
-//				mm.editstatus(new BigInteger(weldingid), 31);
-//			}
-//			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
@@ -319,6 +309,7 @@ public class MaintainController {
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			obj.put("success", false);

@@ -18,7 +18,7 @@ function removeWeldingMachine(){
 		            	if (!result.success) {
 							$.messager.show( {
 								title : 'Error',
-								msg : result.msg
+								msg : result.errorMsg
 							});
 						} else {
 							$.messager.alert("提示", "删除成功！");

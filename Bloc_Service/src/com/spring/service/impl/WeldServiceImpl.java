@@ -54,6 +54,7 @@ public class WeldServiceImpl implements WeldService {
 		user.setModifiter(json.getString("MODIFIER"));
 		return mapper.UpdateWeld(user);
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}	
 	}

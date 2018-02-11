@@ -14,7 +14,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.namespace.QName;
 
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.apache.poi.POIXMLDocument;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -29,12 +32,14 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.GatherManager;
+import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.MaintainManager;
 import com.greatway.manager.WeldingMachineManager;
 import com.greatway.model.EquipmentManufacturer;
@@ -45,6 +50,7 @@ import com.greatway.model.WeldingMachine;
 import com.greatway.model.WeldingMaintenance;
 import com.greatway.util.IsnullUtil;
 import com.greatway.util.UploadUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONObject;
 
@@ -61,9 +67,11 @@ public class ImportExcelController {
 	@Autowired
 	private MaintainManager mm;
 	@Autowired
-	private GatherManager g;
+	private InsframeworkManager im;
 	@Autowired
 	private DictionaryManager dm;
+	@Autowired
+	private GatherManager gm;
 	IsnullUtil iutil = new IsnullUtil();
 	
 	/**
@@ -92,9 +100,11 @@ public class ImportExcelController {
 				String name = wm.getInsframeworkId().getName();
 				wm.getInsframeworkId().setId(wmm.getInsframeworkByName(name));
 				Gather gather = wm.getGatherId();
+				BigInteger gatherid = null;
 				int count2 = 0;
 				if(gather!=null){
 					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gather.getGatherNo());
+					gatherid = gm.getGatherByNo(gather.getGatherNo());
 				}
 				wm.setGatherId(gather);
 				//编码唯一
@@ -104,7 +114,31 @@ public class ImportExcelController {
 					obj.put("success",false);
 					return obj.toString();
 				}
-				wmm.addWeldingMachine(wm);
+				//当前层级
+				String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+				//获取当前用户
+				Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				MyUser myuser = (MyUser)object;
+				//获取项目层url
+				String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+				//获取公司发布地址
+				String companyurl = im.webserviceDto(request, wm.getInsframeworkId().getId());
+				//客户端执行操作
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+				Client client = dcf.createClient(companyurl);
+				String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"addWeldingMachine\"}";
+				String obj2 = "{\"EQUIPMENTNO\":\""+wm.getEquipmentNo()+"\",\"POSITION\":\""+wm.getPosition()+"\",\"ISNETWORKING\":\""+wm.getIsnetworking()+"\","
+						+ "\"JOINTIME\":\""+wm.getJoinTime()+"\",\"TYPEID\":\""+wm.getTypeId()+"\",\"STATUSID\":\""+wm.getStatusId()+"\","
+						+ "\"GATHERID\":\""+gatherid+"\",\"MANUFACTURERID\":\""+wm.getManufacturerId().getId()+"\","
+						+ "\"INSFRAMEWORKID\":\""+wm.getInsframeworkId().getId()+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+				Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
+				if(objects[0].toString().equals("true")){
+					obj.put("success", true);
+				}else{
+					obj.put("success", false);
+					obj.put("msg", "导入失败！");
+					return obj.toString();
+				}
 			};
 			obj.put("success",true);
 			obj.put("msg","导入成功！");
@@ -138,8 +172,31 @@ public class ImportExcelController {
 				wt.get(i).getMaintenance().setTypeId(dm.getvaluebyname(5,wt.get(i).getMaintenance().getTypename()));
 				BigInteger wmid = wmm.getWeldingMachineByEno(wt.get(i).getWelding().getEquipmentNo());
 				wt.get(i).getWelding().setId(wmid);
-				//插入数据库
-				mm.addMaintian( wt.get(i),wt.get(i).getMaintenance(),wmid);
+
+				//当前层级
+				String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+				//获取当前用户
+				Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				MyUser myuser = (MyUser)object;
+				//获取项目层url
+				String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+				//获取公司发布地址
+				BigInteger insfid = mm.getInsfidByMachineid(wt.get(i).getWelding().getId());
+				String companyurl = im.webserviceDto(request, insfid);
+				//客户端执行操作
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+				Client client = dcf.createClient(companyurl);
+				String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"addMaintian\"}";
+				String obj2 = "{\"VICEMAN\":\""+wt.get(i).getMaintenance().getViceman()+"\",\"INSFID\":\""+insfid+"\",\"STARTTIME\":\""+wt.get(i).getMaintenance().getStartTime()+
+						"\",\"ENDTIME\":\""+wt.get(i).getMaintenance().getEndTime()+"\",\"DESC\":\""+wt.get(i).getMaintenance().getDesc()+"\",\"TYPEID\":\""+wt.get(i).getMaintenance().getTypeId()+
+						"\",\"WELDID\":\""+wt.get(i).getWelding().getId()+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+				Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
+				if(objects[0].toString().equals("true")){
+					obj.put("success", true);
+				}else{
+					obj.put("success", false);
+					obj.put("errorMsg", "导入失败！");
+				}
 			};
 			obj.put("success",true);
 			obj.put("msg","导入成功！");

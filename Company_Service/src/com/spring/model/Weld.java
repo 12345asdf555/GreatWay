@@ -11,6 +11,7 @@ public class Weld{
 	/**
 	 * 
 	 */
+	private BigInteger id;
 	private String fwelder_no;
 	private String fname;
 	private String fwjn;
@@ -44,6 +45,14 @@ public class Weld{
 		super();
 	}
 	
+	public BigInteger getId() {
+		return id;
+	}
+
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
+
 	public String getCreator() {
 		return creator;
 	}

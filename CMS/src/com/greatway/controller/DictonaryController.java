@@ -124,6 +124,7 @@ public class DictonaryController {
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			obj.put("success",false);
@@ -154,6 +155,7 @@ public class DictonaryController {
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			obj.put("success",false);
@@ -184,6 +186,7 @@ public class DictonaryController {
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			obj.put("success",false);

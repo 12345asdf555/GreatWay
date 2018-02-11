@@ -351,7 +351,7 @@ public class WeldingMachineController {
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
 			String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"addWeldingMachine\"}";
-			String obj2 = "{\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\",\"ISNETWORKING\":\"0\","
+			String obj2 = "{\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\",\"ISNETWORKING\":\""+request.getParameter("isnetworking")+"\","
 					+ "\"JOINTIME\":\""+request.getParameter("joinTime")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\",\"STATUSID\":\""+request.getParameter("sId")+"\","
 					+ "\"GATHERID\":\""+request.getParameter("gatherId")+"\",\"MANUFACTURERID\":\""+request.getParameter("manuno")+"\","
 					+ "\"INSFRAMEWORKID\":\""+request.getParameter("iId")+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
@@ -360,6 +360,7 @@ public class WeldingMachineController {
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			obj.put("success", false);
@@ -399,6 +400,7 @@ public class WeldingMachineController {
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -433,10 +435,11 @@ public class WeldingMachineController {
 				obj.put("success", true);
 			}else{
 				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
 			obj.put("success", true);
-			obj.put("msg", e.getMessage());
+			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();
 	}

@@ -25,6 +25,7 @@ public class WeldServiceImpl implements WeldService {
 		try{
 		JSONObject json = JSONObject.fromObject(aweld);
 		Weld user = new Weld();
+		user.setId(new BigInteger(json.getString("ID")));
 		user.setFname(json.getString("FITEMID"));
 		BigInteger insid = mapper.FindIns_Id(user);
 		user.setFitemid(insid);
@@ -60,6 +61,7 @@ public class WeldServiceImpl implements WeldService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		JSONObject json = JSONObject.fromObject(ajunction);
 		Weld user = new Weld();
+		user.setId(new BigInteger(json.getString("ID")));
 		user.setFname(json.getString("FITEMID"));
 		BigInteger insid = mapper.FindIns_Id(user);
 		String serial = json.getString("FSERIAL_NO");
