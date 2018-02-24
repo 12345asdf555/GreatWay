@@ -100,11 +100,11 @@ public class ImportExcelController {
 				String name = wm.getInsframeworkId().getName();
 				wm.getInsframeworkId().setId(wmm.getInsframeworkByName(name));
 				Gather gather = wm.getGatherId();
-				BigInteger gatherid = null;
+				String gatherid = "";
 				int count2 = 0;
 				if(gather!=null){
 					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gather.getGatherNo());
-					gatherid = gm.getGatherByNo(gather.getGatherNo());
+					gatherid = gm.getGatherByNo(gather.getGatherNo()).toString();
 				}
 				wm.setGatherId(gather);
 				//编码唯一
