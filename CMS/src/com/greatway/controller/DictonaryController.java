@@ -107,8 +107,6 @@ public class DictonaryController {
 	public String AddDictionary(Dictionarys dic, HttpServletRequest request){
 		JSONObject obj=new JSONObject();
 		try{
-			//当前层级
-			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
@@ -138,8 +136,6 @@ public class DictonaryController {
 	public String EditDictionary(Dictionarys dic,HttpServletRequest request){
 		JSONObject obj=new JSONObject();
 		try{
-			//当前层级
-			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
@@ -169,11 +165,6 @@ public class DictonaryController {
 	public String DeleteDictionary(HttpServletRequest request,@RequestParam int id){
 		JSONObject obj=new JSONObject();
 		try{
-			//当前层级
-			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
-			//获取当前用户
-			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			MyUser myuser = (MyUser)object;
 			//获取集团层url
 			String blocurl = request.getSession().getServletContext().getInitParameter("blocurl");
 			//客户端执行操作
