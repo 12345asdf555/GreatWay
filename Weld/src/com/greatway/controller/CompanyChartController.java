@@ -750,6 +750,7 @@ public class CompanyChartController {
 					num[j] = count;
 					for(ModelDto l:list){
 						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
+							System.out.println("#############count:"+count+" , num:"+l.getNum());
 							num[j] = count - l.getNum().doubleValue();
 						}
 					}

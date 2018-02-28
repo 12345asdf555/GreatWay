@@ -1575,7 +1575,7 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		GROUP BY weldTime,fequipment_no )k group by weldTime
+		GROUP BY weldTime,fequipment_no )k group by weldTime,fid
 		) TEMP
 	</select>
 
@@ -1610,7 +1610,7 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		GROUP BY weldTime,fequipment_no )k group by weldTime
+		GROUP BY weldTime,fequipment_no )k group by weldTime,fid
 		) TEMP
 	</select>
 
@@ -1645,7 +1645,7 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		GROUP BY weldTime,fequipment_no )k group by weldTime
+		GROUP BY weldTime,fequipment_no )k group by weldTime,fid
 		) TEMP
 	</select>
 	
