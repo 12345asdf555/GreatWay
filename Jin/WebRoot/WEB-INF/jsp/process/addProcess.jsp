@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
+	<script type="text/javascript" src="resources/js/process/addprocess.js"></script>
 
   </head>
 <body class="easyui-layout">
@@ -47,11 +48,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
             	<lable>规格</lable>
-                <input name="format" id="format" class="easyui-textbox" data-options="required:false">
+                <input name="format" id="format" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
             	<lable>焊接方法</lable>
-                <input name="method" id="method" class="easyui-textbox" data-options="required:false">
+                <input name="method" id="method" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
             	<lable>焊材烘干条件</lable>
@@ -84,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<div class="buttonoption">
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			        <a href="javascript:saveProcess();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			        <a href="user/AllUser" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+			        <a href="product/AllProcess" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 		        </lable>
 	    	</div>
         </form>

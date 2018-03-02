@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
+	<script type="text/javascript" src="resources/js/weldf/addweldf.js"></script>
 
   </head>
 <body class="easyui-layout">
@@ -43,24 +44,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
             	<lable>备注1</lable>
-                <input name="remark1" id="remark1" class="easyui-textbox" data-options="required:false">
+                <input name="remark1" id="remark1" class="easyui-textbox">
             </div>
             <div class="fitem">
             	<lable>备注2</lable>
-                <input name="remark2" id="remark2" class="easyui-textbox" data-options="required:true">
+                <input name="remark2" id="remark2" class="easyui-textbox">
             </div>
 			<div class="fitem">
             	<lable>备注3</lable>
-                <input name="remark3" id="remark3" class="easyui-textbox" data-options="required:true">
+                <input name="remark3" id="remark3" class="easyui-textbox">
             </div>
 			<div class="fitem">
             	<lable>备注4</lable>
-                <input name="remark4" id="remark4" class="easyui-textbox" data-options="required:true">
+                <input name="remark4" id="remark4" class="easyui-textbox">
             </div>
 	    	<div class="buttonoption">
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			        <a href="javascript:saveProduct();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			        <a href="user/AllUser" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+			        <a href="javascript:saveWeldf();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="product/AllWeldf" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 		        </lable>
 	    	</div>
         </form>

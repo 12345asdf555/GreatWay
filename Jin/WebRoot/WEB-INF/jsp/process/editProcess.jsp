@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
+	<script type="text/javascript" src="resources/js/process/editprocess.js"></script>
 
   </head>
 <body class="easyui-layout">
@@ -38,56 +39,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
             	<lable>工艺名称</lable>
-                <input name="processname" id="processname" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="processname" id="processname" class="easyui-textbox" data-options="required:true" value="${process.processname}">
             </div>
             <div class="fitem">
             	<lable>焊接位态</lable>
-                <input name="weldposition" id="weldposition" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="weldposition" id="weldposition" class="easyui-textbox" data-options="required:true" value="${process.weldposition}">
             </div>
             <div class="fitem">
             	<lable>材质</lable>
-                <input name="material" id="material" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="material" id="material" class="easyui-textbox" data-options="required:true" value="${process.material}">
             </div>
             <div class="fitem">
             	<lable>规格</lable>
-                <input name="format" id="format" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="format" id="format" class="easyui-textbox" data-options="required:true" value="${process.format}">
             </div>
             <div class="fitem">
             	<lable>焊接方法</lable>
-                <input name="method" id="method" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="method" id="method" class="easyui-textbox" data-options="required:true" value="${process.method}">
             </div>
             <div class="fitem">
             	<lable>焊材烘干条件</lable>
-                <input name="drying" id="drying" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="drying" id="drying" class="easyui-textbox" data-options="required:true" value="${process.drying}">
             </div>
 			<div class="fitem">
             	<lable>预热温度</lable>
-                <input name="temperature" id="temperature" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="temperature" id="temperature" class="easyui-textbox" data-options="required:true" value="${process.temperature}">
             </div>
 			<div class="fitem">
             	<lable>后热条件</lable>
-                <input name="factor" id="factor" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="factor" id="factor" class="easyui-textbox" data-options="required:true" value="${process.factor}">
             </div>
             <div class="fitem">
             	<lable>热处理条件</lable>
-                <input name="require" id="require" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="require" id="require" class="easyui-textbox" data-options="required:true" value="${process.frequire}">
             </div>
             <div class="fitem">
             	<lable>无损检测合格级别</lable>
-                <input name="lecel" id="lecel" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="lecel" id="lecel" class="easyui-textbox" data-options="required:true" value="${process.flevel}">
             </div>
             <div class="fitem">
             	<lable>员工资质</lable>
-                <input name="qualify" id="qualify" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="qualify" id="qualify" class="easyui-textbox" data-options="required:true" value="${process.qualify}">
             </div>
             <div class="fitem">
             	<lable>线能量控制范围</lable>
-                <input name="range" id="range" class="easyui-textbox" data-options="required:true" value="${process.id}">
+                <input name="range" id="range" class="easyui-textbox" data-options="required:true" value="${process.frange}">
             </div>
 	    	<div class="buttonoption">
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			        <a href="javascript:saveProcess();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			        <a href="user/AllUser" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+			        <a href="product/AllProcess" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 		        </lable>
 	    	</div>
         </form>

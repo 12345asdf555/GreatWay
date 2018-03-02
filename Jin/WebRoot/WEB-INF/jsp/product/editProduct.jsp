@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
+	<script type="text/javascript" src="resources/js/product/editproduct.js"></script>
 
   </head>
 <body class="easyui-layout">
@@ -38,40 +39,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="fitem">
             	<lable>产品编号</lable>
-                <input name="pronum" id="pronum" value="${product.id}" class="easyui-textbox" data-options="required:true">
+                <input name="pronum" id="pronum" value="${product.pronum}" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
             	<lable>零部件编号</lable>
-                <input name="partnum" id="partnum" value="${product.id}" class="easyui-textbox" data-options="required:true">
+                <input name="partnum" id="partnum" value="${product.partnum}" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>产品详情</lable>
-                <input name="prodet" id="prodet" value="${product.id}" class="easyui-textbox" data-options="required:true">
+            	<lable>产品信息</lable>
+                <input name="proinfo" id="proinfo" value="${product.proinfo}" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>零部件详情</lable>
-                <input name="partdet" id="partdet" value="${product.id}" class="easyui-textbox" data-options="required:false">
+            	<lable>零部件信息</lable>
+                <input name="partinfo" id="partinfo" value="${product.partinfo}" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
             	<lable>备注1</lable>
-                <input name="remark1" id="remark1" value="${product.id}" class="easyui-textbox" data-options="required:false">
+                <input name="remark1" id="remark1" value="${product.backone}" class="easyui-textbox">
             </div>
             <div class="fitem">
             	<lable>备注2</lable>
-                <input name="remark2" id="remark2" value="${product.id}" class="easyui-textbox" data-options="required:true">
+                <input name="remark2" id="remark2" value="${product.backtwo}" class="easyui-textbox">
             </div>
 			<div class="fitem">
             	<lable>备注3</lable>
-                <input name="remark3" id="remark3" value="${product.id}" class="easyui-textbox" data-options="required:true">
+                <input name="remark3" id="remark3" value="${product.backthree}" class="easyui-textbox">
             </div>
 			<div class="fitem">
             	<lable>备注4</lable>
-                <input name="remark4" id="remark4" value="${product.id}" class="easyui-textbox" data-options="required:true">
+                <input name="remark4" id="remark4" value="${product.backfour}" class="easyui-textbox">
             </div>
 	    	<div class="buttonoption">
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			        <a href="javascript:saveProduct();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			        <a href="user/AllUser" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+			        <a href="product/AllProduct" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 		        </lable>
 	    	</div>
         </form>

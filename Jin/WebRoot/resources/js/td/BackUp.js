@@ -278,12 +278,6 @@
 					vol[jj] = parseInt(dd.substring(16+i, 20+i),16);
 					var dati = dd.substring(20+i, 39+i);
 					var val = Date.parse(dati);
-					if((jj!=0)&&(val-time1[jj-1]>1000)){
-						for(var db=time1[jj-1]+1000;db<val;db=db+1000){
-							time1[jj]=time1[jj-1]+1000;
-							jj++;
-						}
-					}
 					time1[jj] = val;
 					maxele = parseInt(dd.substring(41+i, 44+i));
 					minele = parseInt(dd.substring(44+i, 47+i));
@@ -326,7 +320,7 @@
 					}
 					}	
 			}
-/*			if(jj%3==1){
+			if(jj%3==1){
 				ele[jj] = ele[jj-1];
 				ele[jj+1] = ele[jj-1];
 				vol[jj] = vol[jj-1];
@@ -340,7 +334,7 @@
 				vol[jj] = vol[jj-1];
 				time1[jj] = time1[jj-1]+1000;
 				jj++;
-			}*/
+			}
 			}
 	}
 	function rece(){
@@ -523,13 +517,11 @@
   		                    chart = this;
   		                	timer=window.setInterval(function () {
   		                    /*var x = (new Date()).getTime()+t,*/ // current time
-  		                if(z<jj){
-  		                	var x = time1[z],
+  		                  var x = time1[z],
   		                        y = ele[z];
   		                    z++;
   		                    series.addPoint([x, y], true, true);
   		                    activeLastPointToolip(chart);
-  		                	}
   		                }, 1000);
   		            }
   		        }
