@@ -72,6 +72,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>设备型号</lable>
 					<input class="easyui-textbox" name="model" id="model"/>
 				</div>
+					<div class="fitem">
+					<lable>焊件材质</lable>
+					<select class="easyui-combobox" name="material" id="material" data-options="required:true"></select>
+				</div>
+					<div class="fitem">
+					<lable>焊件厚度</lable>
+					<input class="easyui-textbox" name="thickness" id="thickness" data-options="required:true"/>
+				</div>
+					<div class="fitem">
+					<lable>校正系数</lable>
+					<input class="easyui-textbox" name="coefficient" id="coefficient" data-options="required:true"/>
+				</div>
+					<div class="fitem">
+					<lable>地址</lable>
+					<input class="easyui-textbox" name="address" id="address" data-options="required:true"/>
+				</div>
 				<div class="fitem" >
 					<lable>是否联网</lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" class="radioStyle" name="isnetworking" value="0" checked="checked"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

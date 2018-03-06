@@ -22,6 +22,10 @@ public class WeldingMachine {
 	private int typeId;
 	private int statusId;
 	private String model;
+	private int material;
+	private double thickness;
+	private double coefficient;
+	private String address;
 	@Transient
 	private Gather gatherId;
 	@Transient
@@ -117,5 +121,28 @@ public class WeldingMachine {
 	public void setModel(String model) {
 		this.model = model;
 	}
-	
+	public int getMaterial(){
+		return material;
+	}
+	public void setMaterial(int material){
+		this.material = material;
+	}
+	public double getThickness(){
+		return thickness;
+	}
+	public void setThickness(double thickness){
+		this.thickness = thickness;
+	}
+	public double getCoefficient(){
+		return coefficient;
+	}
+	public void setCoefficient(double coefficient){
+		this.coefficient = coefficient;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 }

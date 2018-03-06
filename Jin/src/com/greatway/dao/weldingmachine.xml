@@ -7,6 +7,10 @@
 		<id column="fid" property="id" />
 		<result property="ip" column="fIP" />
 		<result property="model" column="model" />
+		<result property="material" column="material" />
+		<result property="thickness" column="thickness" />
+		<result property="coefficient" column="coefficient" />
+		<result property="address" column="address" />
 		<result property="equipmentNo" column="fequipment_no" />		
 		<result property="position" column="fposition" />
 		<result property="isnetworking" column="fisnetworking" />
@@ -42,7 +46,7 @@
 
 	<select id="getWeldingMachineAll" resultMap="wmMap"  parameterType="java.lang.String">
 		SELECT 
-		w.fid fid,w.fIP fIP,w.fmodel model,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		w.fid fid,w.fIP fIP,w.fmodel model,w.fmaterial material,w.fthickness thickness,w.fcoefficient coefficient,w.faddress address,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
 		,m.fname mname,fisnetworking,fposition,m.ftype mtype,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w
 		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid

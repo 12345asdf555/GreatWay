@@ -27,6 +27,8 @@ import com.greatway.model.WeldingMaintenance;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
 import com.spring.model.MyUser;
+import com.spring.model.Person;
+import com.spring.service.PersonService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -54,6 +56,8 @@ public class WeldingMachineController {
 	@Autowired
 	private DictionaryManager dm;
 	
+	@Autowired
+	private PersonService welderService;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -148,7 +152,7 @@ public class WeldingMachineController {
 			PageInfo<WeldingMachine> pageinfo = new PageInfo<WeldingMachine>(list);
 			total = pageinfo.getTotal();
 		}
-		
+		List<Person> dic = welderService.dic();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
@@ -175,6 +179,16 @@ public class WeldingMachineController {
 				json.put("manufacturerName", wm.getManufacturerId().getName()+" - "+wm.getManufacturerId().getType());
 				json.put("manufacturerId", wm.getManufacturerId().getId());
 				json.put("model",wm.getModel());
+				for(Person dictionary:dic){
+					if(dictionary.getVal()==wm.getMaterial()){
+						json.put("material",dictionary.getValuename());
+					}else{
+						json.put("material", "");
+					}
+				}
+				json.put("thickness", wm.getThickness());
+				json.put("coefficient", wm.getCoefficient());
+				json.put("address",wm.getAddress());
 				if(wm.getGatherId()!=null ||("").equals(wm.getGatherId())){
 					json.put("gatherId", wm.getGatherId().getGatherNo());
 				}else{
@@ -328,6 +342,30 @@ public class WeldingMachineController {
 	}
 	
 	/**
+	 * 获取焊接材质
+	 * @return
+	 */
+	@RequestMapping("/getMaterialAll")
+	@ResponseBody
+	public String getMaterialAll(){
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		List<Person> findLeve = welderService.findLeve(9);
+		try{
+			for(Person welder:findLeve){
+				json.put("materialid", welder.getVal());
+				json.put("materialname", welder.getValuename());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	/**
 	 * 新增
 	 * @return
 	 */
@@ -339,6 +377,10 @@ public class WeldingMachineController {
 		try{
 			wm.setIp(request.getParameter("ip"));
 			wm.setModel(request.getParameter("model"));
+			wm.setAddress(request.getParameter("address"));
+			wm.setCoefficient(Double.parseDouble(request.getParameter("coefficient")));
+			wm.setThickness(Double.parseDouble(request.getParameter("thickness")));
+			wm.setMaterial(Integer.parseInt(request.getParameter("material")));
 			wm.setEquipmentNo(request.getParameter("equipmentNo"));
 			if(iutil.isNull(request.getParameter("joinTime"))){
 				wm.setJoinTime(request.getParameter("joinTime"));
@@ -400,6 +442,10 @@ public class WeldingMachineController {
 			wm.setStatusId(Integer.parseInt(request.getParameter("sId")));
 			wm.setIp(request.getParameter("ip"));
 			wm.setModel(request.getParameter("model"));
+			wm.setAddress(request.getParameter("address"));
+			wm.setCoefficient(Double.parseDouble(request.getParameter("coefficient")));
+			wm.setThickness(Double.parseDouble(request.getParameter("thickness")));
+			wm.setMaterial(Integer.parseInt(request.getParameter("material")));
 			//修改焊机状态为启用时，结束所有维修任务
 			int sid = wm.getStatusId();
 			if(sid == 31){

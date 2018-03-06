@@ -44,7 +44,7 @@
  			         }
  			         $("#leveid").html(optionstring);
  			      } else {
- 			         alert('部门加载失败');
+ 			         alert('焊工级别加载失败');
  			      }
  			      $("#leveid").combobox();
  			   },
@@ -71,7 +71,7 @@
  			         }
  			         $("#quali").html(optionstring);
  			      } else {
- 			         alert('部门加载失败');
+ 			         alert('焊工资质加载失败');
  			      }
  			      $("#quali").combobox();
  			   },

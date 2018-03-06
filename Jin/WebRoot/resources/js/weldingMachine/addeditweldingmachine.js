@@ -208,6 +208,32 @@ function manuCombobox(){
 	$("#manuno").combobox();
 }
 
+//焊材
+$(function(){
+	   $.ajax({
+	   type: "post", 
+	   url: "weldingMachine/getMaterialAll",
+	   dataType: "json",
+	   data: {},
+	   success: function (result) {
+	      if (result) {
+	         var optionstring = "";
+	         optionstring = "<option value='请选择'>请选择...</option>";
+	         //循环遍历 下拉框绑定
+	         for(var k=0;k<result.rows.length;k++){
+	         optionstring += "<option value=\"" + result.rows[k].materialid + "\" >" + result.rows[k].materialname + "</option>";
+	         }
+	         $("#material").html(optionstring);
+	      } else {
+	         alert('焊接材质加载失败');
+	      }
+	      $("#material").combobox();
+	   },
+	   error: function () {
+	      alert('error');
+	   }
+	});
+})
 //焊机状态
 function statusRadio(){
 	$.ajax({  

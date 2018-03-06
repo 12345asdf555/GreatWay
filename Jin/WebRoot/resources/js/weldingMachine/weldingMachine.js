@@ -103,6 +103,30 @@ function weldingMachineDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
+			field : 'material',
+			title : '焊件材质',
+			width : 100,
+			halign : "center",
+			align : "left"
+		},{
+			field : 'thickness',
+			title : '焊件厚度',
+			width : 100,
+			halign : "center",
+			align : "left"
+		},{
+			field : 'coefficient',
+			title : '校正系数',
+			width : 100,
+			halign : "center",
+			align : "left"
+		},{
+			field : 'address',
+			title : '地址',
+			width : 100,
+			halign : "center",
+			align : "left"
+		},{
 			field : 'statusId',
 			title : '状态id',
 			width : 100,
