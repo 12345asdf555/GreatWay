@@ -315,4 +315,14 @@ public class LiveDataManagerImpl implements LiveDataManager {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
 		return live.getItemUse(dto, insid);
 	}
+
+	@Override
+	public List<ModelDto> getWeldingmachineList(WeldDto dto) {
+		return live.getWeldingmachineList(dto);
+	}
+
+	@Override
+	public List<ModelDto> getWelderList(WeldDto dto) {
+		return live.getWelderList(dto);
+	}
 }

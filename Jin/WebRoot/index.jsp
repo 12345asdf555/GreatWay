@@ -164,6 +164,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openCompanyIdle()"><i class="iconfont icon-bijiben"></i>公司设备闲置率</a></li>
     		<li><a href="javascript:openCompanyUse()"><i class="iconfont icon-bijiben"></i>公司单台设备运行数据统计</a></li>
     		<li><a href="javascript:openCompanyTd()"><i class="iconfont icon-bijiben"></i>公司实时监测</a></li>
+		    <li><a href="javascript:openWeldingmachineMax()"><i class="iconfont icon-bijiben"></i>公司焊机工时最高</a></li>
+	        <li><a href="javascript:openWeldingmachineMin()"><i class="iconfont icon-bijiben"></i>公司焊机工时最低</a></li>
+	        <li><a href="javascript:openWelderMax()"><i class="iconfont icon-bijiben"></i>公司焊工工时最高</a></li>
+	        <li><a href="javascript:openWelderMin()"><i class="iconfont icon-bijiben"></i>公司焊工工时最低</a></li>
     	</ul>
     </div>
 	<!-- 事业部 -->

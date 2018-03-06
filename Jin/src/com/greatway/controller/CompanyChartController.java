@@ -151,6 +151,50 @@ public class CompanyChartController {
 	}
 	
 	/**
+	 * 跳转焊机最高排行页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goCompanyWmMax")
+	public String goCompanyWmMax(HttpServletRequest request){
+		lm.getUserId(request);
+		return "companychart/companywmmax";
+	}
+	
+	/**
+	 * 跳转焊机最低排行页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goCompanyWmMin")
+	public String goCompanyWmMin(HttpServletRequest request){
+		lm.getUserId(request);
+		return "companychart/companywmmin";
+	}
+	
+	/**
+	 * 跳转焊工最高排行页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goCompanyWelderMax")
+	public String goCompanyWelderMax(HttpServletRequest request){
+		lm.getUserId(request);
+		return "companychart/companyweldermax";
+	}
+	
+	/**
+	 * 跳转焊工最高排行页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goCompanyWelderMin")
+	public String goCompanyWelderMin(HttpServletRequest request){
+		lm.getUserId(request);
+		return "companychart/companyweldermin";
+	}
+	
+	/**
 	 * 公司工时报表信息查询
 	 * @param request
 	 * @return
@@ -947,4 +991,113 @@ public class CompanyChartController {
 		return obj.toString();
 	}
 
+
+	/**
+	 * 获取焊机最高/低排行
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("getCompanyWmList")
+	@ResponseBody
+	public String getCompanyWmList(HttpServletRequest request){
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("parent");
+		int status = Integer.parseInt(request.getParameter("status"));
+
+		WeldDto dto = new WeldDto();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types>=21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
+		}
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			dto.setParent(new BigInteger(parentId));
+		}
+		dto.setDtoStatus(status);
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		try{
+			List<ModelDto> list = lm.getWeldingmachineList(dto);
+			for(ModelDto m:list){
+				json.put("num", m.getLoads());
+				json.put("equipment", m.getFname());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+
+
+	/**
+	 * 获取焊工最高/低排行
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("getCompanyWerderList")
+	@ResponseBody
+	public String getCompanyWerderList(HttpServletRequest request){
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("parent");
+		int status = Integer.parseInt(request.getParameter("status"));
+
+		WeldDto dto = new WeldDto();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
+		}
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			dto.setParent(new BigInteger(parentId));
+		}
+		dto.setDtoStatus(status);
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		try{
+			List<ModelDto> list = lm.getWelderList(dto);
+			for(ModelDto m:list){
+				json.put("num", m.getLoads());
+				json.put("equipment", m.getFname());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+
+	
 }

@@ -392,4 +392,19 @@ public interface LiveDataManager {
 	List<ModelDto> getHousClassify(Page page,BigInteger parent,String searchStr);
 	
 	List<ModelDto> getDetailNoLoads(Page page,WeldDto dto);
+
+	/**
+	 * 获取焊机排行前10（最高，最低）
+	 * @param dto
+	 * @return
+	 */
+	List<ModelDto> getWeldingmachineList(WeldDto dto);
+	
+
+	/**
+	 * 获取焊工排行前10（最高，最低）
+	 * @param dto
+	 * @return
+	 */
+	List<ModelDto> getWelderList(WeldDto dto);
 }
