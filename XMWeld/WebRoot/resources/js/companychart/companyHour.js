@@ -145,8 +145,8 @@ function CompanyHourDatagrid(){
 			hidden: true
 		}] ],
 		rowStyler: function(index,row){
-            if ((index % 2)==0){
-                return 'background-color:#eaf2ff';
+            if ((index % 2)!=0){
+                return 'background-color:#C4E2FB';
             }
         }
 	});
@@ -215,7 +215,12 @@ function classifyDatagrid(){
 			$("#classify").datagrid("selectRow",0);
 			CompanyHourDatagrid();
 			showCompanyHourChart();
-		}
+		},
+		rowStyler: function(index,row){
+            if ((index % 2)!=0){
+                return 'background-color:#C4E2FB';
+            }
+        }
 	});
 }
 

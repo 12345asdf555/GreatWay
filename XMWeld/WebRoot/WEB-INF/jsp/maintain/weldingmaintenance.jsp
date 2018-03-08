@@ -29,8 +29,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/maintain/weldingmaintenance.js"></script>
   </head>
   
-  <body class="easyui-layout">
-    <div id="body" region="north" hide="true"  split="true" title="焊机设备" style="background: witch; height: 40%;">
+  <body  class="easyui-layout" style="background:#ffffff;">
+  	<div class="divborder">
+  		<div class="divtitle">焊机设备</div>
+  	</div>
+    <div id="body" region="north" hide="true"  split="true" style="background: witch; height: 30%;margin-top: 70px;">
 		<div class="fitem" align="center">
 				<input type="hidden" id="wId" value="${w.id }"/>
 				<lable>固定资产编号</lable>
@@ -63,8 +66,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="text" id="zhanwei" readonly="readonly" style="border: 0px;"/>
 			</div>
 	</div>
-	<div id="body2" region="center"  hide="true"  split="true" title="维修记录" style="background: witch; height: 60%;">
+	<div id="body2" region="center"  hide="true"  split="true" style="background: witch; height: 60%;">
+  	<div class="divborder">
+  		<div class="divtitle">维修记录</div>
+  	</div>
+		<div style="margin-top: 20px;">
 	    <table id="maintainTable" style="table-layout: fixed; width:100%;"></table>
+	    </div>
+<%--   	<jsp:include  page="../tenghanbottom.jsp"/> --%>
 	</div>
   </body>
 </html>

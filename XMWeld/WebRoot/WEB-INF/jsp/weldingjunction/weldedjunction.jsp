@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>焊口管理</title>
+    <title>焊缝管理</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -28,8 +28,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-  <body  class="easyui-layout">
-  	<div id="body" region="center"  hide="true"  split="true" title="焊口" style="background: white; height: 335px;">
+  <body  class="easyui-layout" style="background:#ffffff;">
+  	<div class="divborder">
+  		<div class="divtitle">焊缝管理</div>
+  	</div>
+  	<div id="body" region="center"  hide="true"  split="true" style="background: white; height: 335px;margin-top: 70px;">
 	  	
 	  	<div id="disctionaryTable_btn">
 			<div style="margin-bottom: 5px;">
@@ -38,6 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 	    <table id="weldedJunctionTable" style="table-layout: fixed; width:100%;"></table>
+  		<jsp:include  page="../tenghanbottom.jsp"/>
 	    
 	    <!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">

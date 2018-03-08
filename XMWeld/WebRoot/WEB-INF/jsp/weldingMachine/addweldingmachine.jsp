@@ -26,16 +26,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
-	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
+<!-- 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script> -->
 	<script type="text/javascript" src="resources/js/weldingMachine/addeditweldingmachine.js"></script>
   </head>
   
-  <body class="easyui-layout">
-  	<jsp:include  page="../insframeworktree.jsp"/>
-    <div  id="body" region="center"  hide="true"  split="true" title="新增焊机设备" style="background: white; height: 335px;">
-		<div style="text-align: center ">
+  <body  class="easyui-layout" style="background:#ffffff;">
+  	<div class="divborder">
+  		<div class="divtitle">新增焊机设备</div>
+  	</div>
+<%--   	<jsp:include  page="../insframeworktree.jsp"/> --%>
+    <div  id="body" region="center"  hide="true"  split="true" style="background: #ffffff;margin-top: 70px;">
+		<div style="text-align: center;">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
-				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">新增焊机设备</div>
 				<div class="fitem">
 					<lable>固定资产编号</lable>
 					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  data-options="validType:['wmEnoValidate'],required:true"/>
@@ -89,6 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</form>
 		</div>
+  		<jsp:include  page="../tenghanbottom.jsp"/>
 	</div>
   </body>
 </html>

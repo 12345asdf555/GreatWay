@@ -12,8 +12,8 @@ function getUserInsframework(){
 		data : {},
 		dataType : "json",
 		success : function(result){
-			var str = "<span>"+result.insframework+": </span><span>"+result.uname+"</span>";
-			$("#userInsframework").append(str);
+			var str = "<span>"+result.uname+"</span>";
+			$("#username").append(str);
 		},
 		error : function(errorMsg){
 			alert("数据请求失败，请联系系统管理员!");
@@ -22,62 +22,63 @@ function getUserInsframework(){
 }
 
 function openWeldingmachineMax(){
-	addTab("焊机工时最高","companyChart/goCompanyWmMax");
+	addTab("焊机工时最高","companyChart/goCompanyWmMax","icon-69");
 }
 
 function openWeldingmachineMin(){
-	addTab("焊机工时最低","companyChart/goCompanyWmMin");
+	addTab("焊机工时最低","companyChart/goCompanyWmMin","icon-71");
 }
 
 function openWelderMax(){
-	addTab("焊工工时最高","companyChart/goCompanyWelderMax");
+	addTab("焊工工时最高","companyChart/goCompanyWelderMax","icon-73");
 }
 
 function openWelderMin(){
-	addTab("焊工工时最低","companyChart/goCompanyWelderMin");
+	addTab("焊工工时最低","companyChart/goCompanyWelderMin","icon-75");
 }
 
 function openWeldingMachine(){
-	addTab("焊机设备管理","weldingMachine/goWeldingMachine");
+	addTab("焊机设备管理","weldingMachine/goWeldingMachine",'icon-40');
 }
 
 function openWedJunction(){
-	addTab("焊口列表","weldedjunction/goWeldedJunction");
+	addTab("焊缝列表","weldedjunction/goWeldedJunction","icon-38");
 }
 
 function openPerson(){
-	addTab("焊工列表","welders/AllWelder");
+	addTab("焊工列表","welders/AllWelder","icon-35");
 }
 
 function openGather(){
-	addTab("采集模块管理","gather/goGather");
+	addTab("采集模块管理","gather/goGather","icon-42");
 }
 
 function openCompanyHour(){
-	addTab("焊口焊接工时","companyChart/goCompanyHour");
+	addTab("焊缝焊接工时","companyChart/goCompanyHour","icon-63");
 }
 
 function openCompanyoverproof(){
-	addTab("焊接工艺超标统计","companyChart/goCompanyOverproof");
+	addTab("焊接工艺超标统计","companyChart/goCompanyOverproof","icon-67");
 }
 
 function openCompanyLoads(){
-	addTab("设备负荷率","companyChart/goCompanyLoads");
+	addTab("设备负荷率","companyChart/goCompanyLoads","icon-53");
 }
 
 function openCompanyNoLoads(){
-	addTab("设备空载率","companyChart/goCompanyNoLoads");
+	addTab("设备空载率","companyChart/goCompanyNoLoads","icon-59");
 }
 
 function openCompanyTd(){
-	addTab("实时监测","td/AllTd");
+	addTab("实时监测","td/AllTd","icon-48");
 }
 
-function addTab(title,url){
+function addTab(title,url,icon){
 	//该面板是否已打开
 	if(!$("#tabs").tabs('exists',title)){
 		$("#tabs").tabs('add',{    
-		    title:title,    
+		    title:title,
+		    iconCls:icon,
 		    content:createFrame(url),    
 		    closable:true 
 		});

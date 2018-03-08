@@ -232,16 +232,3 @@ function statusRadio(){
 	    }  
 	});
 }
-
-//监听窗口大小变化
-window.onresize = function() {
-	setTimeout(domresize, 500);
-}
-
-//改变表格高宽
-function domresize() {
-	$("#weldingmachineTable").datagrid('resize', {
-		height : $("#body").height() - $("#weldingmachineTable_btn").height() - 5,
-		width : $("#body").width()
-	});
-}

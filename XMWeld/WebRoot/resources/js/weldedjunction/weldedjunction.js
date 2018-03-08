@@ -5,7 +5,7 @@ $(function(){
 function weldedJunctionDatagrid(){
 	$("#weldedJunctionTable").datagrid( {
 //		fitColumns : true,
-		height : $("#body").height(),
+		height : $("#body").height()-120,
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -222,8 +222,8 @@ function weldedJunctionDatagrid(){
 		toolbar : '#disctionaryTable_btn',
 		pagination : true,
 		rowStyler: function(index,row){
-            if ((index % 2)==0){
-                return 'background-color:#eaf2ff';
+            if ((index % 2)!=0){
+                return 'background-color:#C4E2FB';
             }
         },
 		onLoadSuccess: function(data){
@@ -240,7 +240,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#weldedJunctionTable").datagrid('resize', {
-		height : $("#body").height(),
+		height : $("#body").height()-120,
 		width : $("#body").width()
 	});
 }

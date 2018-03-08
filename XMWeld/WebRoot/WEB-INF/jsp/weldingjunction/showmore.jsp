@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>焊口信息</title>
+    <title>焊缝信息</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="north" hide="true"  split="true" title="焊口信息" style="background: witch; height: 100%;">
+    <div id="body" region="north" hide="true"  split="true" title="焊缝信息" style="background: witch; height: 100%;">
     	<div style="text-align:center">
 			<div class="fitem">
 				<lable>编号</lable>

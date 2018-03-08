@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div style="margin-bottom: 5px;" id="classify_btn">
 				<a href="javascript:serachClassify();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
-				<a href="javascript:commitChecked();" class="easyui-linkbutton">提交选中数据</a>
+				<a href="javascript:commitChecked();" class="easyui-linkbutton"  iconCls="icon-ok" >提交选中数据</a>
 			</div>
 			<table id="classify" style="table-layout: fixed; width:100%;"></table>
 		</div>

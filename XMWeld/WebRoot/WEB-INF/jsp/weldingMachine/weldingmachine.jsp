@@ -23,14 +23,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
+<!-- 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script> -->
 	<script type="text/javascript" src="resources/js/weldingMachine/weldingMachine.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
   </head>
   
-  <body  class="easyui-layout">
-  	<jsp:include  page="../insframeworktree.jsp"/>
-  	<div id="body" region="center"  hide="true"  split="true" title="焊机设备管理" style="background: #eee;height: 335px;">
+  <body  class="easyui-layout" style="background:#ffffff;">
+  	<div class="divborder">
+  		<div class="divtitle">焊机设备管理</div>
+  	</div>
+<%--   	<jsp:include  page="../insframeworktree.jsp"/> --%>
+  	<div id="body" region="center"  hide="true"  split="true" style="background: #ffffff;height: 335px;margin-top: 70px;">
 	  	<div id="weldingmachineTable_btn">
 			<div style="margin-bottom: 5px;">
 				<a href="weldingMachine/goAddWeldingMachine" class="easyui-linkbutton" iconCls="icon-add">新增</a>
@@ -49,6 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 	    <table id="weldingmachineTable" style="table-layout: fixed; width:100%;"></table>
+  		<jsp:include  page="../tenghanbottom.jsp"/>
 		
 		<!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">

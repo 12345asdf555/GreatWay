@@ -142,8 +142,8 @@ function CompanynoloadsDatagrid(){
 			pagination : true,
 			columns :[column],
 			rowStyler: function(index,row){
-	            if ((index % 2)==0){
-	                return 'background-color:#eaf2ff';
+	            if ((index % 2)!=0){
+	                return 'background-color:#C4E2FB';
 	            }
 	        }
 	 })

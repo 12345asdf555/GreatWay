@@ -23,15 +23,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
+<!-- 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script> -->
 	<script type="text/javascript" src="resources/js/gather/gather.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
 	
   </head>
   
-  <body  class="easyui-layout">
-  	<jsp:include  page="../insframeworktree.jsp"/>
-  	<div id="body" region="center"  hide="true"  split="true" title="采集模块管理" style="background: witch; height: 335px;">
+  <body  class="easyui-layout" style="background:#ffffff;">
+  	<div class="divborder">
+  		<div class="divtitle">采集模块管理</div>
+  	</div>
+<%--   	<jsp:include  page="../insframeworktree.jsp"/> --%>
+  	<div id="body" region="center"  hide="true"  split="true" style="background: witch; height: 335px;margin-top: 70px;">
 	  	
 	  	<div id="gather_btn">
 			<div style="margin-bottom: 5px;">
@@ -41,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 	    <table id="gatherTable" style="table-layout: fixed; width:100%;"></table>
+  		<jsp:include  page="../tenghanbottom.jsp"/>
 	    
 	    <!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">

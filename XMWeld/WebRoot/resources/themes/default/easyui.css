@@ -17,7 +17,7 @@
   position: relative;
 }
 .panel-title {
-  background: #48A1E5;/**/
+  background: #328FC4;/*导航菜单title色*/
 }
 .panel-header-noborder {
   border-width: 0 0 1px 0;
@@ -106,17 +106,17 @@
 }
 .panel-header,
 .panel-body {
-  border-color: #84b5ed;/*边框线*/
+  border-color: #a7aaab;/*边框线*/
 }
 .panel-header {
-  background-color: red;
-  background: #2da4d7;/*导航菜单边框色*/
-  /*background: -webkit-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
-  background: -moz-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
-  background: -o-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
+  background-color: #328FC4;
+  background: #328FC4;/*导航菜单边框色*/
+  /*background: -webkit-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
+  background: -moz-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
+  background: -o-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
   background: linear-gradient(to bottom,#2da4d7 0,#2da4d7 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);*/
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#328FC4,GradientType=0);*/
 }
 .panel-body {
   background-color: #ffffff;
@@ -142,6 +142,7 @@
 }
 .accordion .accordion-body {
   border-width: 0 0 1px;
+  background-color: #eaedf0;/*当行菜单展开时背景颜色*/
 }
 .accordion-noborder {
   border-width: 0;
@@ -159,15 +160,15 @@
   background: url('images/accordion_arrows.png') no-repeat -16px 0;
 }
 .accordion {
-  background: #ffffff;
+  background: #eaedf0;/*导航菜单折叠时留白背景色*/
   border-color: #95B8E7;
 }
 .accordion .accordion-header {
-  background: #48A1E5;/*导航菜单边框*/
+  background: #328FC4;/*导航菜单边框*/
   filter: none;
 }
 .accordion .accordion-header-selected {
-  background: #45c2e1;/**/
+  background: #3f9dbf;/*导航菜单选中颜色*/
 }
 .accordion .accordion-header-selected .panel-title {
   color: #ffffff;/**/
@@ -179,7 +180,7 @@
   border-style: solid;
 }
 .window .window-header {
-  background: #48A1E5;/**/
+  background: #328FC4;/**/
   padding: 0px 0px 6px 0px;
 }
 .window .window-body {
@@ -244,14 +245,14 @@
   border-color: #95B8E7;
 }
 .window {
-  background-color: #E0ECFF;
-  background: #2da4d7 /*dialog边框*/
-/*  background: -webkit-linear-gradient(top,#EFF5FF 0,#E0ECFF 20%);
-  background: -moz-linear-gradient(top,#EFF5FF 0,#E0ECFF 20%);
-  background: -o-linear-gradient(top,#EFF5FF 0,#E0ECFF 20%);
+  background-color: #328FC4;
+  background: #328FC4 /*dialog边框*/
+/*  background: -webkit-linear-gradient(top,#EFF5FF 0,#328FC4 20%);
+  background: -moz-linear-gradient(top,#EFF5FF 0,#328FC4 20%);
+  background: -o-linear-gradient(top,#EFF5FF 0,#328FC4 20%);
   background: linear-gradient(to bottom,#3578ca 0,#48A1E5 20%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);*/
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#328FC4,GradientType=0);*/
 }
 .window-proxy {
   border: 1px dashed #95B8E7;
@@ -343,11 +344,11 @@
   background-color: #ffffff;
 }
 .combo {
-  border-color: #48A1E5;/**/
-  background-color: #48A1E5;/**/
+  border-color: #328FC4;/**/
+  background-color: #328FC4;/**/
 }
 .combo-arrow {
-  background-color: #E0ECFF;
+  background-color: #328FC4;
 }
 .combo-arrow-hover {
   background-color: #eaf2ff;
@@ -404,7 +405,7 @@
 }
 .layout-expand .panel-header,
 .layout-expand .panel-body {
-  background: #48A1E5;/*layout扩展边框颜色*/
+  background: #328FC4;/*layout收缩边框颜色*/
   filter: none;
   overflow: hidden;
 }
@@ -449,23 +450,23 @@
 .layout-split-proxy-v {
   background-color: #aac5e7;
 }
-.layout-split-north {
-  border-bottom: 5px solid #48A1E5;/*分割线颜色*/
-}
+/*.layout-split-north {
+  border-bottom: 5px solid #ffffff;分割线颜色
+}*/
 .layout-split-south {
-  border-top: 5px solid #48A1E5;/*分割线颜色*/
+  border-top: 5px solid #f3f3f3;/*分割线颜色*/
 }
 .layout-split-east {
-  border-left: 5px solid #48A1E5;/*分割线颜色*/
+  border-left: 5px solid #f3f3f3;/*分割线颜色*/
 }
 .layout-split-west {
-  border-right: 5px solid #48A1E5;/*分割线颜色*/
+  border-right: 5px solid #f3f3f3;/*分割线颜色*/
 }
 .layout-expand {
-  background-color: #E0ECFF;
+  background-color: #328FC4;
 }
 .layout-expand-over {
-  background-color: #E0ECFF;
+  background-color: #328FC4;
 }
 .tabs-container {
   overflow: hidden;
@@ -481,7 +482,7 @@
 }
 .tabs-header-plain {
   border: 0;
-  background: #48A1E5;/**/
+  background: #328FC4;/**/
 }
 .tabs-scroller-left,
 .tabs-scroller-right {
@@ -729,26 +730,26 @@
   background: transparent;
 }
 .tabs-scroller-left {
-  background: #E0ECFF url('images/tabs_icons.png') no-repeat 1px center;
+  background: #729fcf url('images/tabs_icons.png') no-repeat 1px center;/*tabs过多时左移背景色*/
 }
 .tabs-scroller-right {
-  background: #E0ECFF url('images/tabs_icons.png') no-repeat -15px center;
+  background: #729fcf url('images/tabs_icons.png') no-repeat -15px center;/**/
 }
 .tabs li a.tabs-close {
   background: url('images/tabs_icons.png') no-repeat -34px center;
 }
 .tabs li a.tabs-inner:hover {
-  background: #eaf2ff;
-  color: #000000;
+  background: #729fcf;/*tabs悬停颜色*/
+  color: #ffffff;/**/
   filter: none;
 }
 .tabs li.tabs-selected a.tabs-inner {
-  background-color: #ffffff;
-  color: #0E2D5F;
+  background-color: #328FC4;/**/
+  color: #ffffff;
   background: -webkit-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
   background: -moz-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
   background: -o-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
-  background: linear-gradient(to bottom,#EFF5FF 0,#ffffff 100%);
+  background: #729fcf;/*tabs选中时背景颜色*/
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#ffffff,GradientType=0);
 }
@@ -777,18 +778,18 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#EFF5FF,GradientType=1);
 }
 .tabs li a.tabs-inner {
-  color: #0E2D5F;
-  background-color: #E0ECFF;
-  background: -webkit-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
-  background: -moz-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
-  background: -o-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
-  background: linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 100%);
+  color: #ffffff;/*tab切换时其他tab的字体颜色*/
+  background-color: #328FC4;/**/
+  background: -webkit-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
+  background: -moz-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
+  background: -o-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
+  background: #328FC4;/*tab切换时其他tab的背景颜色*/
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#328FC4,GradientType=0);
 }
 .tabs-header,
 .tabs-tool {
-  background-color: #48A1E5;/**/
+  background-color: #328FC4;/*tabs边框色*/
 }
 .tabs-header-plain {
   background: transparent;
@@ -1121,6 +1122,9 @@
   line-height: 18px;
   font-size: 12px;
 }
+.datagrid-header {
+	color:red;
+}
 .datagrid-header .datagrid-cell {
   height: auto;
 }
@@ -1297,7 +1301,7 @@
   border-color: #dddddd;
 }
 .propertygrid .datagrid-view1 .datagrid-group {
-  border-color: #E0ECFF;
+  border-color: #328FC4;
 }
 .propertygrid .datagrid-view2 .datagrid-group {
   border-color: #dddddd;
@@ -1306,7 +1310,7 @@
 .propertygrid .datagrid-view1 .datagrid-body,
 .propertygrid .datagrid-view1 .datagrid-row-over,
 .propertygrid .datagrid-view1 .datagrid-row-selected {
-  background: #E0ECFF;
+  background: #328FC4;
 }
 .pagination {
   zoom: 1;
@@ -1550,7 +1554,7 @@
   border-color: #95B8E7;
 }
 .calendar-header {
-  background: #E0ECFF;
+  background: #328FC4;
 }
 .calendar-body,
 .calendar-menu {
@@ -1672,7 +1676,7 @@
   border-color: #95B8E7;
 }
 .spinner-arrow {
-  background-color: #E0ECFF;
+  background-color: #328FC4;
 }
 .spinner-arrow-hover {
   background-color: #eaf2ff;
@@ -1777,7 +1781,7 @@
   background-color: #fff;
 }
 .searchbox .l-btn-plain {
-  background: #E0ECFF;
+  background: #328FC4;
 }
 .searchbox .l-btn-plain-disabled,
 .searchbox .l-btn-plain-disabled:hover {
@@ -1876,7 +1880,7 @@
 }
 .slider-inner {
   border-color: #95B8E7;
-  background: #E0ECFF;
+  background: #328FC4;
 }
 .slider-rule span {
   border-color: #95B8E7;
