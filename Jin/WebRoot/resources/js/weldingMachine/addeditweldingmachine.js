@@ -3,6 +3,7 @@ $(function(){
 	InsframeworkCombobox();
 	manuCombobox();
 	statusRadio();
+	materialCombobox();
 	gatherCombobox();
 	$("#iId").combobox({
         onChange:function(){  
@@ -89,6 +90,7 @@ function editText(){
 	var insframework = $("#insframework").val();
 	var manu = $("#manu").val();
 	var gid = $("#gid").val();
+	var material = $("#fmaterial").val();
 	$('[name="isnetworking"]:radio').each(function() { 
 		if (this.value ==isnw ) { 
 			this.checked = true;
@@ -102,7 +104,7 @@ function editText(){
 	$('#tId').combobox('select',type);
 	$('#iId').combobox('select',insframework);
 	$('#manuno').combobox('select',manu);
-	
+	$('#material').combobox('select',material);
 	$('#gatherId').combobox('select',gid);
 }
 
@@ -209,31 +211,57 @@ function manuCombobox(){
 }
 
 //焊材
-$(function(){
-	   $.ajax({
-	   type: "post", 
-	   url: "weldingMachine/getMaterialAll",
-	   dataType: "json",
-	   data: {},
-	   success: function (result) {
-	      if (result) {
-	         var optionstring = "";
-	         optionstring = "<option value='请选择'>请选择...</option>";
-	         //循环遍历 下拉框绑定
-	         for(var k=0;k<result.rows.length;k++){
-	         optionstring += "<option value=\"" + result.rows[k].materialid + "\" >" + result.rows[k].materialname + "</option>";
-	         }
-	         $("#material").html(optionstring);
-	      } else {
-	         alert('焊接材质加载失败');
-	      }
-	      $("#material").combobox();
-	   },
-	   error: function () {
-	      alert('error');
-	   }
-	});
-})
+function materialCombobox(){
+	$.ajax({  
+		  type : "post",  
+		  async : false,
+		  url : "weldingMachine/getMaterialAll",  
+		  data : {},  
+		  dataType : "json", //返回数据形式为json  
+		  success : function(result) {  
+			  if (result) {
+		         var optionstring = "";
+		         optionstring = "<option value='请选择'>请选择...</option>";
+		         //循环遍历 下拉框绑定
+		         for(var k=0;k<result.rows.length;k++){
+		         optionstring += "<option value=\"" + result.rows[k].materialid + "\" >" + result.rows[k].materialname + "</option>";
+		         }
+		         $("#material").html(optionstring);
+		      } 
+		  },  
+		  error : function(errorMsg) {  
+		      alert("数据请求失败，请联系系统管理员!");  
+		  }  
+		}); 
+		$("#material").combobox();
+}
+
+//$(function(){
+//	   $.ajax({
+//	   type: "post", 
+//	   async : false,
+//	   url: "weldingMachine/getMaterialAll",
+//	   dataType: "json",
+//	   data: {},
+//	   success: function (result) {
+//	      if (result) {
+//	         var optionstring = "";
+//	         optionstring = "<option value='请选择'>请选择...</option>";
+//	         //循环遍历 下拉框绑定
+//	         for(var k=0;k<result.rows.length;k++){
+//	         optionstring += "<option value=\"" + result.rows[k].materialid + "\" >" + result.rows[k].materialname + "</option>";
+//	         }
+//	         $("#material").html(optionstring);
+//	      } else {
+//	         alert('焊接材质加载失败');
+//	      }
+//	      $("#material").combobox();
+//	   },
+//	   error: function () {
+//	      alert('error');
+//	   }
+//	});
+//})
 //焊机状态
 function statusRadio(){
 	$.ajax({  

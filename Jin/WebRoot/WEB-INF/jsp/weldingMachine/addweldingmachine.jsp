@@ -50,7 +50,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>所属项目</lable>
-					<select class="easyui-combobox" name="iId" id="iId" data-options="required:true"></select>
+					<input type="hidden"  id="insframework" value="${id}">
+					<select class="easyui-combobox" name="iId" id="iId" data-options="required:true" readonly="readonly"></select>
 				</div>
 				<div class="fitem">
 					<lable>生产厂商</lable>

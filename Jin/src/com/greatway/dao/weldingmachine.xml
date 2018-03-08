@@ -56,7 +56,29 @@
         INNER JOIN tb_dictionary d ON d.fvalue = w.fstatus_id
         INNER JOIN tb_dictionary di ON di.fvalue = w.ftype_id
 		left JOIN tb_gather g ON g.fid = w.fgather_id
-		where 1=1 
+		where w.finsframework_id=#{uid}
+		<if test="parent!=null and parent!=''">
+			and (i.fid=#{parent} or ins.fid=#{parent} or insf.fid=#{parent} or insf.fparent=#{parent})
+		</if>
+		<if test="str!=null and str!=''">
+			and ${str}
+		</if>
+		ORDER BY w.fid
+	</select>
+	
+	<select id="getWeldingMachine" resultMap="wmMap"  parameterType="java.lang.String">
+		SELECT 
+		w.fid fid,w.fIP fIP,w.fmodel model,w.fmaterial material,w.fthickness thickness,w.fcoefficient coefficient,w.faddress address,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		,m.fname mname,fisnetworking,fposition,m.ftype mtype,d.fvaluename statusname,di.fvaluename typename
+		FROM tb_welding_machine w
+		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid
+		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
+		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
+		INNER JOIN tb_equipment_manufacturer m ON w.fmanufacturer_id = m.fid
+        INNER JOIN tb_dictionary d ON d.fvalue = w.fstatus_id
+        INNER JOIN tb_dictionary di ON di.fvalue = w.ftype_id
+		left JOIN tb_gather g ON g.fid = w.fgather_id
+		where 1=1
 		<if test="parent!=null and parent!=''">
 			and (i.fid=#{parent} or ins.fid=#{parent} or insf.fid=#{parent} or insf.fparent=#{parent})
 		</if>
@@ -68,7 +90,7 @@
 	
 	<select id="getAllMachine" resultMap="wmMap">
 		SELECT 
-		w.fid fid,w.fIP fIP,w.fmodel model,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		w.fid fid,w.fIP fIP,w.fmodel model,w.fmaterial material,w.fthickness thickness,w.fcoefficient coefficient,w.faddress address,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
 		,m.fname mname,fisnetworking,fposition,m.ftype mtype,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w
 		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid
@@ -82,9 +104,13 @@
 		ORDER BY w.fid
 	</select>
 	
+	<select id="getUserInsid" resultType="java.math.BigInteger">
+		SELECT `users_insframework` FROM `tb_users` WHERE `id`=#{uid}
+	</select>
+	
 	<select id="getWeldingMachineById"  resultMap="wmMap"  parameterType="java.math.BigInteger">
 		SELECT 
-		w.fid fid,w.fIP fIP,fmodel model,fstatus_id, i.fid iid,g.fid gid,ftype_id,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		w.fid fid,w.fIP fIP,fmodel model,w.fmaterial material,w.fthickness thickness,w.fcoefficient coefficient,w.faddress address,fstatus_id, i.fid iid,g.fid gid,ftype_id,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
 		,m.fname mname,fisnetworking,fposition,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w
 		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid
@@ -131,8 +157,8 @@
 	
 	<insert id="addWeldingMachine" parameterType="com.greatway.model.WeldingMachine" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO tb_welding_machine(fIP, ftype_id, fequipment_no, fstatus_id, fposition, finsframework_id, 
-		fmanufacturer_id,fgather_id, fisnetworking, fjoin_time, fmodel) VALUES 
-		(#{ip},#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{isnetworking},#{joinTime},#{model})
+		fmanufacturer_id,fgather_id, fisnetworking, fjoin_time, fmodel,fmaterial,fthickness,fcoefficient,faddress) VALUES 
+		(#{ip},#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{isnetworking},#{joinTime},#{model},#{material},#{thickness},#{coefficient},#{address})
 	</insert>
 	
 	<update id="editGatherid"  parameterType="java.math.BigInteger">
@@ -142,7 +168,7 @@
 	<update id="editWeldingMachine"  parameterType="com.greatway.model.WeldingMachine">
 		UPDATE tb_welding_machine SET fIP=#{ip},ftype_id=#{typeId},fequipment_no=#{equipmentNo},fstatus_id=#{statusId},
 		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{manufacturerId.id},fgather_id=#{gatherId.id},
-		fisnetworking=#{isnetworking},fjoin_time=#{joinTime},fmodel=#{model} where fid = #{id}
+		fisnetworking=#{isnetworking},fjoin_time=#{joinTime},fmodel=#{model},fmaterial=#{material},fthickness=#{thickness},fcoefficient=#{coefficient},faddress=#{address} where fid = #{id}
 	</update>
 	
 	<update id="editstatus"  parameterType="com.greatway.model.WeldingMachine">

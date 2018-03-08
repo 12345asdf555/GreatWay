@@ -29,12 +29,12 @@ public class SpringTest {
 	}
 	
 	@Test
-	public final void testGetWeldingMachineAll() {
+/*	public final void testGetWeldingMachineAll() {
 		Page page = new Page(1,1,0);
 		List<WeldingMachine> list = w.getWeldingMachineAll(page,null,null);
 		for(WeldingMachine we : list){
 		}
-	}
+	}*/
 	
 	 public static void main(String[] args) {
 		 ApplicationContext ctx = new ClassPathXmlApplicationContext("config/spring-common.xml");

@@ -1,6 +1,8 @@
 package com.greatway.controller;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +30,9 @@ import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
 import com.spring.model.MyUser;
 import com.spring.model.Person;
+import com.spring.model.Wps;
 import com.spring.service.PersonService;
+import com.spring.service.WpsService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -40,6 +44,7 @@ public class WeldingMachineController {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
+	private String mid;
 	
 	@Autowired
 	private WeldingMachineManager wmm;
@@ -58,6 +63,9 @@ public class WeldingMachineController {
 	
 	@Autowired
 	private PersonService welderService;
+	
+	@Autowired
+	private WpsService wpsService;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -93,7 +101,11 @@ public class WeldingMachineController {
 	 * @return
 	 */
 	@RequestMapping("/goAddWeldingMachine")
-	public String goAddWeldingMachine(){
+	public String goAddWeldingMachine(HttpServletRequest request){
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		request.setAttribute("id", wmm.getUserInsid(myuser.getId()));
 		return "weldingMachine/addweldingmachine";
 	}
 	
@@ -129,12 +141,63 @@ public class WeldingMachineController {
 	}
 	
 	/**
+	 * 工艺匹配界面
+	 */
+	@RequestMapping("/goWps")
+	public String goWps(HttpServletRequest request){
+		mid = request.getParameter("wid");
+		return "weldingMachine/wps";
+	}
+	
+	/**
+	 * 给焊机分配工艺参数
+	 */
+	@RequestMapping("/giveWps")
+	@ResponseBody
+	public String giveWps(HttpServletRequest request){
+		Wps wps = new Wps();
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		String wpsfid = request.getParameter("fid");
+		String wpspre = request.getParameter("pre");
+		String[] wfid = wpsfid.split(",");
+		String[] wpre = wpspre.split(",");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(int i=0;i<wfid.length;i++){
+				wps.setFid(Long.parseLong(wfid[i]));
+		        wps.setFweld_prechannel(Integer.parseInt(wpre[i]));
+				wps.setFcreater(myuser.getId());
+				wps.setFupdater(myuser.getId());
+				wps.setInsid(wpsService.findByUid(myuser.getId()));
+				wps.setFcreatedate(sdf.parse(sdf.format((new Date()).getTime())));
+				wps.setFupdatedate(sdf.parse(sdf.format((new Date()).getTime())));
+				wps.setMacid(new BigInteger(mid));
+				wpsService.give(wps);
+			}
+			obj.put("success", true);
+		}catch(Exception e){
+			e.printStackTrace();
+			obj.put("success", false);
+			obj.put("errorMsg", e.getMessage());
+		}
+		return obj.toString();
+	}
+	
+	/**
 	 * 显示焊机列表
 	 * @return
 	 */
 	@RequestMapping("/getWedlingMachineList")
 	@ResponseBody
 	public String getWeldingMachine(HttpServletRequest request){
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String searchStr = request.getParameter("searchStr");
@@ -145,7 +208,7 @@ public class WeldingMachineController {
 		}
 		request.getSession().setAttribute("searchStr", searchStr);
 		page = new Page(pageIndex,pageSize,total);
-		List<WeldingMachine> list = wmm.getWeldingMachineAll(page,parent,searchStr);
+		List<WeldingMachine> list = wmm.getWeldingMachineAll(page,parent,searchStr,wmm.getUserInsid(myuser.getId()));
 		long total = 0;
 		
 		if(list != null){

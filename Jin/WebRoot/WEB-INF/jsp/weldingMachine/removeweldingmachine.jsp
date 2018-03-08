@@ -66,16 +66,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-textbox" id="position" readonly="readonly" value="${w.position }"/>
 			</div>
 			<div class="fitem">
-					<lable>ip地址</lable>
-					<input class="easyui-textbox" name="ip" id="ip" value="${w.ip }"/>
+				<lable>ip地址</lable>
+				<input class="easyui-textbox" name="ip" id="ip" value="${w.ip }"/>
 			</div>
 			<div class="fitem">
-					<lable>设备型号</lable>
-					<input class="easyui-textbox" name="model" id="model" value="${w.model }"/>
+				<lable>设备型号</lable>
+				<input class="easyui-textbox" name="model" id="model" value="${w.model }"/>
 			</div>
 			<div class="fitem">
 				<lable>焊件材质</lable>
-				<input class="easyui-combobox" id="fmaterial" value="${w.material }"
+				<input class="easyui-combobox" id="fmaterial" value="${w.material }"/>
 			</div>
 			<div class="fitem">
 				<lable>焊件厚度</lable>

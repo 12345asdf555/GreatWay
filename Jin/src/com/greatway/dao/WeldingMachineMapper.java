@@ -11,7 +11,9 @@ import com.greatway.model.WeldingMachine;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface WeldingMachineMapper extends Mapper<WeldingMachine>{
-	List<WeldingMachine> getWeldingMachineAll(@Param("parent") BigInteger parent,@Param("str") String str);
+	List<WeldingMachine> getWeldingMachineAll(@Param("parent") BigInteger parent,@Param("str") String str,@Param("uid") BigInteger uid);
+	
+	List<WeldingMachine> getWeldingMachine(@Param("parent") BigInteger parent,@Param("str") String str);
 	
 	List<WeldingMachine> AllMachine(@Param("wid")BigInteger wid);
 	
@@ -48,4 +50,6 @@ public interface WeldingMachineMapper extends Mapper<WeldingMachine>{
 	void deleteHistory(@Param("wid")BigInteger wid);
 	
 	List<WeldingMachine> getAllMachine();
+	
+	BigInteger getUserInsid(@Param("uid") long uid);
 }
