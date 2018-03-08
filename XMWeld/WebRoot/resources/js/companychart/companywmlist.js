@@ -131,7 +131,10 @@ function CompanyloadsDatagrid(){
 			}] ],
 			rowStyler: function(index,row){
 	            if ((index % 2)!=0){
-	                return 'background-color:#C4E2FB';
+                	//处理行代背景色后无法选中
+                	var color=new Object();
+                    color.class="rowColor";
+                    return color;
 	            }
 	        }
 	 })
@@ -151,7 +154,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companywmlistTable").datagrid('resize', {
-		height : $("#body").height() - $("#companywmlistChart").height()-$("#companywmlist_btn").height()-10,
+		height : $("#body").height() - $("#companywmlistChart").height()-$("#companywmlist_btn").height()-40,
 		width : $("#body").width()
 	});
 }

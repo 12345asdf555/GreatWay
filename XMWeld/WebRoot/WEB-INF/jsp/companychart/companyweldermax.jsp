@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/datagrid.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	
@@ -34,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" title="焊机工时最高" style="background: witch; height: 335px;">
+    <div id="body" region="center"  hide="true"  split="true" style="background: witch; height: 335px;">
 	  	<div id="companywmlist_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
@@ -53,8 +54,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		X轴:焊工编号<br/>
 		Y轴:工时/小时<br/></div>
 		<div id="companywmlistChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
-	    <table id="companywmlistTable" style="table-layout: fixed; width:100%;"></table>
-	    
+	    <table id="companywmlistTable" style="table-layout: fixed; width:100%;"></table>	    
 	</div>
+    <div id="body" region="south"  hide="true"  split="true" style="background: witch;">
+	    <jsp:include  page="../tenghanbottom.jsp"/>
+    </div>
   </body>
 </html>

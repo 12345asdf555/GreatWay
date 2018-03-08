@@ -122,7 +122,7 @@ function CompanyHourDatagrid(){
     }); 
 	 $("#companyOverproofTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-40,
+			height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-60,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
@@ -135,7 +135,10 @@ function CompanyHourDatagrid(){
 			columns :[column],
 			rowStyler: function(index,row){
 	            if ((index % 2)!=0){
-	                return 'background-color:#C4E2FB';
+                	//处理行代背景色后无法选中
+                	var color=new Object();
+                    color.class="rowColor";
+                    return color;
 	            }
 	        }
 	 })
@@ -155,7 +158,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyOverproofTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-10,
+		height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-60,
 		width : $("#body").width()
 	});
 }

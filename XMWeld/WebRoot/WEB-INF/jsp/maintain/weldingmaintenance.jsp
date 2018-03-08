@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/datagrid.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	
@@ -67,13 +68,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 	</div>
 	<div id="body2" region="center"  hide="true"  split="true" style="background: witch; height: 60%;">
-  	<div class="divborder">
-  		<div class="divtitle">维修记录</div>
-  	</div>
+	  	<div class="divborder">
+	  		<div class="divtitle">维修记录</div>
+	  	</div>
 		<div style="margin-top: 20px;">
-	    <table id="maintainTable" style="table-layout: fixed; width:100%;"></table>
+	    <table id="maintainTable" style="table-layout: fixed; width:100%;margin-bottom: 30px;"></table>
+  		<%-- <jsp:include  page="../tenghanbottom.jsp"/> --%>
 	    </div>
-<%--   	<jsp:include  page="../tenghanbottom.jsp"/> --%>
+	</div>
+	<div id="body2" region="south"  hide="true"  split="true" style="background: witch;">
+		<jsp:include  page="../tenghanbottom.jsp"/>
 	</div>
   </body>
 </html>

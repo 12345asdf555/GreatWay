@@ -26,15 +26,15 @@ function openWeldingmachineMax(){
 }
 
 function openWeldingmachineMin(){
-	addTab("焊机工时最低","companyChart/goCompanyWmMin","icon-71");
+	addTab("焊机工时最低","companyChart/goCompanyWmMin","icon-69");
 }
 
 function openWelderMax(){
-	addTab("焊工工时最高","companyChart/goCompanyWelderMax","icon-73");
+	addTab("焊工工时最高","companyChart/goCompanyWelderMax","icon-69");
 }
 
 function openWelderMin(){
-	addTab("焊工工时最低","companyChart/goCompanyWelderMin","icon-75");
+	addTab("焊工工时最低","companyChart/goCompanyWelderMin","icon-69");
 }
 
 function openWeldingMachine(){
@@ -54,11 +54,11 @@ function openGather(){
 }
 
 function openCompanyHour(){
-	addTab("焊缝焊接工时","companyChart/goCompanyHour","icon-63");
+	addTab("焊缝焊接工时","companyChart/goCompanyHour","icon-69");
 }
 
 function openCompanyoverproof(){
-	addTab("焊接工艺超标统计","companyChart/goCompanyOverproof","icon-67");
+	addTab("焊接工艺超标","companyChart/goCompanyOverproof","icon-67");
 }
 
 function openCompanyLoads(){

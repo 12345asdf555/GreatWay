@@ -131,7 +131,10 @@ function CompanyloadsDatagrid(){
 			}] ],
 			rowStyler: function(index,row){
 	            if ((index % 2)!=0){
-	                return 'background-color:#C4E2FB';
+                	//处理行代背景色后无法选中
+                	var color=new Object();
+                    color.class="rowColor";
+                    return color;
 	            }
 	        }
 	 })

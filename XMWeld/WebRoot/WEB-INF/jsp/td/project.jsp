@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
 <body class="easyui-layout">
-    <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white; height: 335px;">
+    <div  id="body" region="center"  hide="true"  split="true" style="background: white; height: 335px;">
 <!--        <div> -->
             <div style="margin-bottom:10px;" align="left">
                <input class='liveInput' name="project" id="project" value="${proj}" type="hidden">

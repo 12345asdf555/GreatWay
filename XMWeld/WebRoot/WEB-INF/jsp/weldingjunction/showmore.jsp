@@ -28,9 +28,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
   </head>
   
-  <body class="easyui-layout">
-    <div id="body" region="north" hide="true"  split="true" title="焊缝信息" style="background: witch; height: 100%;">
-    	<div style="text-align:center">
+  <body  class="easyui-layout" style="background:#ffffff;">
+  	<div class="divborder">
+  		<div class="divtitle">焊缝信息</div>
+  	</div>
+    <div id="body" region="north" hide="true"  split="true" style="background: witch; height: 80%;margin-top: 70px;">
+    	<div style="text-align:center;height:100%">
 			<div class="fitem">
 				<lable>编号</lable>
 				<input class="easyui-textbox" readonly="readonly" value="${weldedJunctionno }"/>
@@ -120,6 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a href="weldedjunction/goWeldedJunction" class="easyui-linkbutton" iconCls="icon-cancel">返回</a>
 				</lable>
 			</div>
+		<jsp:include  page="../tenghanbottom.jsp"/>
 		</div>
 	</div>
   </body>

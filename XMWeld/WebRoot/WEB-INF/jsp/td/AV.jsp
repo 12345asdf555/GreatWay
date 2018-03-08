@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
 <body class="easyui-layout">
-    <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white;">
+    <div  id="body" region="center"  hide="true"  split="true" style="background: white;">
     <label style="text-align:center;display:inline-block">焊工姓名</label> <input class="liveInput" name="weldname" id="weldname" value="" readonly="true" type="text"/>
     <label style="text-align:center;display:inline-block">焊机id</label> <input class="liveInput" name="machid" id="machid" value="${av}" readonly="true" type="text"/>
     <div id="body1" style="min-width:300px;height:100%"></div>

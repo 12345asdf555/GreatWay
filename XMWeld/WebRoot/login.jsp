@@ -16,59 +16,55 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	 	<link rel="stylesheet" type="text/css" href="resources/css/login.css">
-
+	 	
+		<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+		<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
+		<script type="text/javascript">
+		$(function(){
+			$("#uname").val("");
+		})
+		</script>
 	</head>
 
 	<body onLoad="document.f.j_username.focus();">
-	    <c:if test="${not empty param.login_error}">
-	       <font color="red">
-	           登录失败，请重试.<br/><br/>
-	           原因:<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
-	       </font>
-	    </c:if>
-	   <form name="f" action="<c:url value='j_spring_security_check'/>" method="POST">
-	        <h1>云智能焊接管控系统</h1>
-	        <div class="logindiv">
-	            <table>
-	                <tr>
-	                    <td colspan="3">
-	                        <img src="resources/images/logo-01.png" />
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td rowspan="3">
-	                        <div>
-	                        </div>
-	                    </td>
-	                    <td>用户名:</td>
-			            <td>
-			                <input type='text' name='j_username' value='<c:if test="${not empty param.login_error}">
-			                <c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>'/>
-			            </td>
-	                </tr>
-	                <tr>
-			            <td>密     码:</td>
-			            <td><input type='password' name='j_password'></td>
-	                </tr>
-	                <tr>
-			            <td>
-			                <input type="checkbox" name="_spring_security_remember_me">
-			            </td>
-			            <td>
-			            	两周内自动登录
-			            </td>
-	                </tr>
-			        <tr>
-			        	<td>
-			            </td>
-			            <td align="center">
-			                <input name="submit" type="submit" value="登录">
-			                <input name="reset" type="reset" value="重置">
-			            </td>
-			        </tr>
-	            </table>
-	        </div>
-	    </form>
+	  	<div style="height:460px;;width:397px;position:fixed;right:15%;margin-top: 10%;">
+	    <div id="logindiv">
+	    	<div id="formdiv">
+	    		<form name="f" action="<c:url value='j_spring_security_check'/>" method="POST">
+	    			<table width="100%" align="center">
+		                <tr>
+		                    <td>用户名</td>
+				            <td align="center">
+				                <input type='text' name='j_username'  id="uname" value='<c:if test="${not empty param.login_error}">
+				                <c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>'/>
+				            </td>
+		                </tr>
+		                <tr>
+				            <td>密&nbsp;&nbsp;&nbsp;码</td>
+				            <td align="center"><input type='password' name='j_password'></td>
+		                </tr>
+<!-- 		                <tr><td><input type="checkbox" name="_spring_security_remember_me"></td><td> 两周内自动登录</td></tr> -->
+				        <tr>
+				            <td align="center" colspan="2">
+				            	<br/>
+				                <input name="submit" type="submit" value="确&nbsp;&nbsp;&nbsp;定" id="loginbutton">
+				            </td>
+				        </tr>
+				        <tr>
+				        	<td colspan="2" align="center">
+							    <c:if test="${not empty param.login_error}">
+							       <font color="red">
+							           用户名或密码不正确，请重新输入。
+							       </font>
+							    </c:if>
+	    					</td>
+				        </tr>
+	    			</table>
+	    		</form>
+			</div>
+	    </div>
+	    <div id="tenghanbottom">Copyright 1998-2017上海腾悍智能科技有限公司</div>
+	  	</div>
 	    <div align="center" class="connect" style="height: 220px;">
 			<span style="color: red;">${error}</span>
 		</div>

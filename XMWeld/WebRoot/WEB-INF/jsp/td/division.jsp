@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/td/division.js"></script>
   </head>
 <body class="easyui-layout">
-    <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white;">
+    <div  id="body" region="center"  hide="true"  split="true" style="background: white;">
     <input name="division" id="division" value="${divi}" type="hidden">
     <div class="content-wrap">
        		<div class="box" id="box">

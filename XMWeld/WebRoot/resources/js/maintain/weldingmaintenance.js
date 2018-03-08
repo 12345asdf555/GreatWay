@@ -70,7 +70,15 @@ function maintainDatagrid(){
 			align : "left"
 		}]],
 		toolbar : '#maintainTable_btn',
-		pagination : true
+		pagination : true,
+		rowStyler: function(index,row){
+            if ((index % 2)!=0){
+            	//处理行代背景色后无法选中
+            	var color=new Object();
+                color.class="rowColor";
+                return color;
+            }
+        }
 	});
 }
 
@@ -97,7 +105,7 @@ function okMaintain(){
 	          }  
 	      },  
 	      error : function(errorMsg) {  
-	          alert("数据请求失败，请联系系统管理员!");  
+	          alert("数据请求失败，请联系系统管理员!");
 	      }  
 		});
 }

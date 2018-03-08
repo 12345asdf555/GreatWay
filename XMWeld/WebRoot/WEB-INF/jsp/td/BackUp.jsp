@@ -33,8 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-<body class="easyui-layout">
-	<div id="body" region="center"  hide="true"  split="true" title="实时界面" style="background: #eee; height: 335px;">
+<body class="easyui-layout" style="background: #ffffff; ">
+	<div id="body" region="center"  hide="true"  split="true" style="background: #ffffff; height: 335px;">
 		<div id="body1" style="width:15%;height:100%;float:left">
 			<div class="easyui-accordion" fit="true" border="false" id="accordiondiv">
 			    <div id="body11" title="设备位置" ></div>
@@ -179,6 +179,9 @@ readonly="readonly">
 			<table id="dg" style="table-layout:fixed;width:100%"></table>
 		</div>
 	</div>
+    <div id="body" region="south"  hide="true"  split="true" style="background: witch;">
+	    <jsp:include  page="../tenghanbottom.jsp"/>
+    </div>
 </body>
 </html>
  

@@ -33,8 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- <script type="text/javascript" src="resources/js/user/adduser"></script> -->
 
   </head>
-<body class="easyui-layout">
-    <div  id="body" region="center"  hide="true"  split="true" title="实时监控" style="background: white; height: 335px;">
+<body class="easyui-layout" style="background: #ffffff; ">
+    <div  id="body" region="center"  hide="true"  split="true" style="background: white; height: 335px;">
     
        	<form id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px;">
        		<div class="content-wrap">
