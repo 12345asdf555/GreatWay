@@ -11,8 +11,9 @@ public interface WeldingMachineManager {
 	
 	/**
 	 * 查询所有焊机信息:分页
+	 * @param l 
 	 */
-	List<WeldingMachine> getWeldingMachineAll(Page page,BigInteger parent,String str);
+	List<WeldingMachine> getWeldingMachineAll(Page page,BigInteger parent,String str, BigInteger uid);
 	List<WeldingMachine> AllMachine(Page page,BigInteger parent);
 	/**
 	 * 查询所有焊机信息
@@ -93,4 +94,8 @@ public interface WeldingMachineManager {
 	 */
 	BigInteger getMachineCountByManu(BigInteger mid,BigInteger id);
 	List<WeldingMachine> getAllMachine();
+	/**
+	 * 获取用户组织机构id
+	 */
+	BigInteger getUserInsid(long uid);
 }

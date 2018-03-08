@@ -171,6 +171,7 @@ function weldingMachineDatagrid(){
 				var str = "";
 				str += '<a id="edit" class="easyui-linkbutton" href="javascript:editMachine('+row.insframeworkId+','+row.id+','+true+')"/>';
 				str += '<a id="remove" class="easyui-linkbutton" href="javascript:editMachine('+row.insframeworkId+','+row.id+','+false+')"/>';
+				str += '<a id="gowps" class="easyui-linkbutton" href="weldingMachine/goWps?wid='+row.id+'"/>';
 				str += '<a id="maintain" class="easyui-linkbutton" href="weldingMachine/goMaintain?wid='+row.id+'"/>';
 				return str;
 			}
@@ -181,6 +182,7 @@ function weldingMachineDatagrid(){
 		onLoadSuccess:function(data){
 	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
 	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
+	        $("a[id='gowps']").linkbutton({text:'焊机参数配置',plain:true,iconCls:'icon-edit'});
 	        $("a[id='maintain']").linkbutton({text:'维修记录',plain:true,iconCls:'icon-edit'});
 		}
 	});

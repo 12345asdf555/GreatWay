@@ -29,9 +29,9 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 	private InsframeworkMapper im;
 	
 	@Override
-	public List<WeldingMachine> getWeldingMachineAll(Page page,BigInteger parent,String str) {
+	public List<WeldingMachine> getWeldingMachineAll(Page page,BigInteger parent,String str,BigInteger uid) {
 		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
-		return wmm.getWeldingMachineAll(parent,str);
+		return wmm.getWeldingMachineAll(parent,str,uid);
 	}
 	
 	@Override
@@ -52,7 +52,7 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 
 	@Override
 	public List<WeldingMachine> getWeldingMachine(String str) {
-		return wmm.getWeldingMachineAll(null,str);
+		return wmm.getWeldingMachine(null,str);
 	}
 
 	@Override
@@ -108,6 +108,12 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 	@Override
 	public List<WeldingMachine> getAllMachine() {
 		return wmm.getAllMachine();
+	}
+
+	@Override
+	public BigInteger getUserInsid(long uid) {
+		// TODO Auto-generated method stub
+		return wmm.getUserInsid(uid);
 	}
 
 }

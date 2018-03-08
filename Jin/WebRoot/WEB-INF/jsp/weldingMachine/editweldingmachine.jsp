@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>所属项目</lable>
 					<input type="hidden"  id="insframework" value="${w.insframeworkId.id }">
-					<select class="easyui-combobox" name="insframeworkId" id="iId" data-options="required:true"></select>
+					<select class="easyui-combobox" name="insframeworkId" id="iId" readonly="readonly" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>生产厂商</lable>
@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>焊件材质</lable>
 					<input type="hidden"  id="fmaterial" value="${w.material }">
-					<select class="easyui-combobox" name="material" id="material" data-options="required:true"></select>
+					<select class="easyui-combobox" name="material" id="material" value="${w.material }" data-options="required:true"></select>
 				</div>
 				<div class="fitem">
 					<lable>焊件厚度</lable>
