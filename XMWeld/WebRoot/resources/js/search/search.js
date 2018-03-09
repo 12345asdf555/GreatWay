@@ -104,6 +104,7 @@ function insertSearchGather(){
 function searchGatherCombobox(){
 	var optionFields = 
 		"<option value='fgather_no'>采集模块编号</option>" +
+		"<option value='i.fname'>所属项目</option>" +
 		"<option value='fstatus'>采集模块状态</option>" +
 		"<option value='fprotocol'>采集模块通讯协议</option>" +
 		"<option value='fipurl'>采集模块IP地址</option>" +
@@ -306,7 +307,8 @@ function searchWelderCombobox(){
   		"<option value='d.fvaluename'>级别</option>" +
   		"<option value='FCReateDate'>创建时间</option>" +
   		"<option value='FUpdateDate'>修改时间</option>" +
-  		"<option value='i.fname'>所属项目</option>";
+  		"<option value='i.fname'>部门</option>" +
+  		"<option value='tb_welder.Fback'>备注</option>";
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
