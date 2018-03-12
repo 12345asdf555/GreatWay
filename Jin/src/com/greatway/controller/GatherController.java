@@ -132,7 +132,7 @@ public class GatherController {
 			if(!iutil.isNull(gather.getMacurl())){
 				gather.setMacurl(null);
 			}
-			if(!iutil.isNull(gather.getIpurl())){
+			if(!iutil.isNull(gather.getLeavetime())){
 				gather.setLeavetime(null);
 			}
 			gm.addGather(gather);
@@ -156,9 +156,6 @@ public class GatherController {
 			}
 			if(!iutil.isNull(gather.getMacurl())){
 				gather.setMacurl(null);
-			}
-			if(!iutil.isNull(gather.getIpurl())){
-				gather.setLeavetime(null);
 			}
 			if(!iutil.isNull(gather.getLeavetime())){
 				gather.setLeavetime(null);
