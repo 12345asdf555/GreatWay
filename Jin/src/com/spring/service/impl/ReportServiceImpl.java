@@ -100,5 +100,11 @@ public class ReportServiceImpl implements ReportService{
 		return mapper.getAllPara(parent, str, time);
 	}
 
+	@Override
+	public List<Report> historyData(WeldDto dto,BigInteger fid) {
+		// TODO Auto-generated method stub
+		return mapper.historyData(dto,fid);
+	}
+
 	
 }

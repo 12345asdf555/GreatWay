@@ -23,4 +23,5 @@ public interface ReportService {
 	long getZxTime(BigInteger machid,String time);
 	String getFirstTime(BigInteger machid,String time);
 	List<Report> getAllPara(Page page, BigInteger parent,String str,String time);
+	List<Report> historyData(WeldDto dto,BigInteger fid);
 }

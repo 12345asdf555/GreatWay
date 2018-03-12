@@ -424,6 +424,36 @@
 				halign : "center",
 				align : "left"
 			}, {
+				field : 'fmachine_no',
+				title : '编号',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
+				field : 'fmodel',
+				title : '焊机型号',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
+				field : 'fins_power',
+				title : '瞬时功率',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
+				field : 'fstand_ele',
+				title : '给定电流',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
+				field : 'freal_ele',
+				title : '实际电流',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
 				field : 'fposition',
 				title : '设备位置',
 				width : 100,

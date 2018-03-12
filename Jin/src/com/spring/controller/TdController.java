@@ -434,6 +434,11 @@ public class TdController {
 				json.put("fwelder_no", da.substring(8+i, 12+i));
 				String weldname = tdService.findweld(da.substring(8+i, 12+i));
 				json.put("fname", weldname);
+/*				json.put("fmachine_no", value);
+				json.put("fmodel", value);
+				json.put("fins_power", 0);
+				json.put("fstand_ele", value);
+				json.put("freal_ele", 0);*/
 				json.put("fposition", pos);
 				ary.add(json);
 				}

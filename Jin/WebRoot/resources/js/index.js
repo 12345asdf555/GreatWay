@@ -109,6 +109,10 @@ function openWarnReport(){
 	addTab("报警维度表","rep/warnreport");
 }
 
+function openHistoryCurve(){
+	addTab("历史曲线","rep/history");
+}
+
 function openParameter(){
 	addTab("参数设置","Dictionary/goParameter");
 }
