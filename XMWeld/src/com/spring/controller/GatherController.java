@@ -124,7 +124,7 @@ public class GatherController {
 	
 	@RequestMapping("/addGather")
 	@ResponseBody
-	public String addGather(@ModelAttribute("gether")Gather gather,@RequestParam String leave){
+	public String addGather(@ModelAttribute("gether")Gather gather){
 		JSONObject obj = new JSONObject();
 		try{
 			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -136,9 +136,7 @@ public class GatherController {
 			if(!iutil.isNull(gather.getMacurl())){
 				gather.setMacurl(null);
 			}
-			if(iutil.isNull(leave)){
-				gather.setLeavetime(leave);
-			}else{
+			if(!iutil.isNull(gather.getLeavetime())){
 				gather.setLeavetime(null);
 			}
 			gm.addGather(gather);
@@ -154,7 +152,7 @@ public class GatherController {
 	
 	@RequestMapping("/editGather")
 	@ResponseBody
-	public String editGather(@ModelAttribute("gether")Gather gather, @RequestParam String id,@RequestParam String leave){
+	public String editGather(@ModelAttribute("gether")Gather gather, @RequestParam String id){
 		JSONObject obj = new JSONObject();
 		try{
 			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -166,12 +164,8 @@ public class GatherController {
 			if(!iutil.isNull(gather.getMacurl())){
 				gather.setMacurl(null);
 			}
-			if(!iutil.isNull(gather.getIpurl())){
-				gather.setLeavetime(null);
-			}
-			if(iutil.isNull(leave)){
-				gather.setLeavetime(leave);
-			}else{
+
+			if(!iutil.isNull(gather.getLeavetime())){
 				gather.setLeavetime(null);
 			}
 			gm.editGather(gather);
