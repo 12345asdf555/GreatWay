@@ -23,10 +23,29 @@ public class Person {
 	private int type;
 	private String valuename;
 	private String valuenamex;
+	private String qualiname;
+	private String levename;
 	
 	public Person(){
 		super();
 	}
+	
+	public String getQualiname() {
+		return qualiname;
+	}
+
+	public void setQualiname(String qualiname) {
+		this.qualiname = qualiname;
+	}
+
+	public String getLevename() {
+		return levename;
+	}
+
+	public void setLevename(String levename) {
+		this.levename = levename;
+	}
+
 	public BigInteger getId() {
 		return id;
 	}

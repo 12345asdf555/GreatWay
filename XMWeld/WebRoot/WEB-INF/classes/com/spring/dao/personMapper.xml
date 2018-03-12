@@ -29,7 +29,12 @@
 	</insert>
 	
 	<select id="findById" parameterType="BigInteger" resultType="Person">
-		select fid id,fwelder_no welderno,fname name,FCellPhone cellphone,FLeveID leveid,FCardNUm cardnum,Fqualification quali,FCReateDate createdate,FUpdateDate updatedate,Fowner owner,Fback back from tb_welder where fid=#{id}
+<!-- 		select fid id,fwelder_no welderno,fname name,FCellPhone cellphone,FLeveID leveid,FCardNUm cardnum,Fqualification quali,FCReateDate createdate,FUpdateDate updatedate,Fowner owner,Fback back from tb_welder where fid=#{id} -->
+		select * from (select w.fid id,fwelder_no welderno,w.fname name,FCellPhone cellphone,d.fvaluename levename, FLeveID leveid,FCardNUm cardnum,di.fvaluename qualiname,Fqualification quali,FCReateDate createdate,FUpdateDate updatedate,i.fname insname,Fowner owner,w.Fback back from tb_welder w
+        INNER join tb_dictionary d on d.fvalue = w.FLeveID
+        INNER join tb_dictionary di on di.fvalue = w.Fqualification
+        INNER join tb_insframework i on i.fid = w.Fowner
+        where w.fid=#{id} )temp
 	</select>
 	
 	<update id="update" parameterType="Person">
