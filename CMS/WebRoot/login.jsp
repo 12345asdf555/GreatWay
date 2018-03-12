@@ -16,14 +16,18 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	 	<link rel="stylesheet" type="text/css" href="resources/css/login.css">
-
+		<script type="text/javascript">
+			$(function(){
+				$("#uname").val("");
+			})
+		</script>
 	</head>
 
 	<body onLoad="document.f.j_username.focus();">
 	    <c:if test="${not empty param.login_error}">
 	       <font color="red">
-	           登录失败，请重试.<br/><br/>
-	           原因:<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
+	           登录失败，请检查您的用户名或密码。<br/><br/>
+<%-- 	           原因:<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/> --%>
 	       </font>
 	    </c:if>
 	   <form name="f" action="<c:url value='j_spring_security_check'/>" method="POST">
@@ -42,7 +46,7 @@
 	                    </td>
 	                    <td>用户名:</td>
 			            <td>
-			                <input type='text' name='j_username' value='<c:if test="${not empty param.login_error}">
+			                <input type='text' name='j_username'  id="uname" value='<c:if test="${not empty param.login_error}">
 			                <c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>'/>
 			            </td>
 	                </tr>

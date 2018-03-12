@@ -39,19 +39,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="FID" id="FID" class="easyui-textbox" type="hidden" value="${welder.id}">
             </div>
             <div class="fitem">
-            	<lable>焊工编号</lable>
+            	<lable>编号</lable>
                 <input name="welderno" id="welderno" class="easyui-textbox" value="${welder.welderno}" readonly="true" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊工姓名</lable>
+            	<lable>姓名</lable>
                 <input name="name" class="easyui-textbox" value="${welder.name}" readonly="true" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊工手机</lable>
+            	<lable>手机</lable>
                 <input name="cellphone" type="easyui-textbox" value="${welder.cellphone}" class="easyui-textbox" readonly="true" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊工卡号</lable>
+            	<lable>卡号</lable>
                 <input name="cardnum" class="easyui-textbox" value="${welder.cardnum}" readonly="true" data-options="required:true">
             </div>
 <!--                         <div class="fitem"> -->
