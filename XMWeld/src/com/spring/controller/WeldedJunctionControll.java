@@ -1,17 +1,24 @@
 package com.spring.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.spring.model.EquipmentManufacturer;
+import com.spring.model.Gather;
+import com.spring.model.Insframework;
+import com.spring.model.MyUser;
 import com.spring.model.WeldedJunction;
+import com.spring.model.WeldingMachine;
 import com.spring.page.Page;
 import com.spring.service.WeldedJunctionService;
 import com.spring.util.IsnullUtil;
@@ -34,6 +41,27 @@ public class WeldedJunctionControll {
 	@RequestMapping("/goWeldedJunction")
 	public String goWeldedJunction(){
 		return "weldingjunction/weldedjunction";
+	}
+
+	@RequestMapping("/goAddWeldedJunction")
+	public String goAddWeldedJunction(){
+		return "weldingjunction/addweldedjunction";
+	}
+
+	@RequestMapping("/goEditWeldedJunction")
+	public String goEditWeldedJunction(HttpServletRequest request){
+		BigInteger id = new BigInteger(request.getParameter("id"));
+		WeldedJunction wj = wjm.getWeldedJunctionById(id);
+		request.setAttribute("wj", wj);
+		return "weldingjunction/editweldedjunction";
+	}
+
+	@RequestMapping("/goRemoveWeldedJunction")
+	public String goRemoveWeldedJunction(HttpServletRequest request){
+		BigInteger id = new BigInteger(request.getParameter("id"));
+		WeldedJunction wj = wjm.getWeldedJunctionById(id);
+		request.setAttribute("wj", wj);
+		return "weldingjunction/removeweldedjunction";
 	}
 	
 	@RequestMapping("/goShowMoreJunction")
@@ -125,4 +153,139 @@ public class WeldedJunctionControll {
 		return obj.toString();
 	}
 
+
+	@RequestMapping("/addWeldedJunction")
+	@ResponseBody
+	public String addWeldedJunction(HttpServletRequest request){
+		WeldedJunction wj = new WeldedJunction();
+		JSONObject obj = new JSONObject();
+		try{
+			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			wj.setCreater(new BigInteger(user.getId()+""));
+			wj.setUpdater(new BigInteger(user.getId()+""));
+			wj.setWeldedJunctionno(request.getParameter("weldedjunctionno"));
+			wj.setSerialNo(request.getParameter("serialNo"));
+			wj.setUnit(request.getParameter("unit"));
+			wj.setArea(request.getParameter("area"));
+			wj.setSystems(request.getParameter("systems"));
+			wj.setChildren(request.getParameter("children"));
+			wj.setDyne(Integer.parseInt(request.getParameter("dyne")));
+			wj.setSpecification(request.getParameter("specification"));
+			wj.setPipelineNo(request.getParameter("pipelineNo"));
+			wj.setRoomNo(request.getParameter("roomNo"));
+			wj.setExternalDiameter(request.getParameter("externalDiameter"));
+			wj.setNextexternaldiameter(request.getParameter("nextexternaldiameter"));
+			wj.setWallThickness(request.getParameter("wallThickness"));
+			wj.setNextwall_thickness(request.getParameter("nextwall_thickness"));
+			wj.setMaterial(request.getParameter("material"));
+			wj.setNext_material(request.getParameter("next_material"));
+			wj.setMaxElectricity(Double.parseDouble(request.getParameter("maxElectricity")));
+			wj.setMinElectricity(Double.parseDouble(request.getParameter("minElectricity")));
+			wj.setMaxValtage(Double.parseDouble(request.getParameter("maxValtage")));
+			wj.setMinValtage(Double.parseDouble(request.getParameter("minValtage")));
+			wj.setElectricity_unit(request.getParameter("electricity_unit"));
+			wj.setValtage_unit(request.getParameter("valtage_unit"));
+			String starttime = request.getParameter("startTime");
+			String endtime = request.getParameter("endTime");
+			if(iutil.isNull(starttime)){
+				wj.setStartTime(starttime);
+			}
+			if(iutil.isNull(endtime)){
+				wj.setEndTime(endtime);
+			}
+			String itemname = request.getParameter("itemname");
+			if(iutil.isNull(itemname)){
+				wj.setInsfid(new BigInteger(itemname));
+			}
+			wjm.addJunction(wj);
+			obj.put("success", true);
+		}catch(Exception e){
+			e.printStackTrace();
+			obj.put("success", false);
+			obj.put("errorMsg", e.getMessage());
+		}
+		return obj.toString();
+	}
+	
+
+	@RequestMapping("/editWeldedJunction")
+	@ResponseBody
+	public String editWeldedJunction(HttpServletRequest request){
+		WeldedJunction wj = new WeldedJunction();
+		JSONObject obj = new JSONObject();
+		try{
+			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			wj.setUpdater(new BigInteger(user.getId()+""));
+			wj.setId(new BigInteger(request.getParameter("id")));
+			wj.setWeldedJunctionno(request.getParameter("weldedjunctionno"));
+			wj.setSerialNo(request.getParameter("serialNo"));
+			wj.setUnit(request.getParameter("unit"));
+			wj.setArea(request.getParameter("area"));
+			wj.setSystems(request.getParameter("systems"));
+			wj.setChildren(request.getParameter("children"));
+			wj.setDyne(Integer.parseInt(request.getParameter("dyne")));
+			wj.setSpecification(request.getParameter("specification"));
+			wj.setPipelineNo(request.getParameter("pipelineNo"));
+			wj.setRoomNo(request.getParameter("roomNo"));
+			wj.setExternalDiameter(request.getParameter("externalDiameter"));
+			wj.setNextexternaldiameter(request.getParameter("nextexternaldiameter"));
+			wj.setWallThickness(request.getParameter("wallThickness"));
+			wj.setNextwall_thickness(request.getParameter("nextwall_thickness"));
+			wj.setMaterial(request.getParameter("material"));
+			wj.setNext_material(request.getParameter("next_material"));
+			wj.setMaxElectricity(Double.parseDouble(request.getParameter("maxElectricity")));
+			wj.setMinElectricity(Double.parseDouble(request.getParameter("minElectricity")));
+			wj.setMaxValtage(Double.parseDouble(request.getParameter("maxValtage")));
+			wj.setMinValtage(Double.parseDouble(request.getParameter("minValtage")));
+			wj.setElectricity_unit(request.getParameter("electricity_unit"));
+			wj.setValtage_unit(request.getParameter("valtage_unit"));
+			String starttime = request.getParameter("startTime");
+			String endtime = request.getParameter("endTime");
+			if(iutil.isNull(starttime)){
+				wj.setStartTime(starttime);
+			}
+			if(iutil.isNull(endtime)){
+				wj.setEndTime(endtime);
+			}
+			String itemname = request.getParameter("itemname");
+			if(iutil.isNull(itemname)){
+				wj.setInsfid(new BigInteger(itemname));
+			}
+			wjm.updateJunction(wj);
+			obj.put("success", true);
+		}catch(Exception e){
+			e.printStackTrace();
+			obj.put("success", false);
+			obj.put("errorMsg", e.getMessage());
+		}
+		return obj.toString();
+	}
+	
+
+	@RequestMapping("/removeWeldedJunction")
+	@ResponseBody
+	public String removeWeldedJunction(HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		try{
+			wjm.deleteJunction(new BigInteger(request.getParameter("id")));
+			obj.put("success", true);
+		}catch(Exception e){
+			e.printStackTrace();
+			obj.put("success", false);
+			obj.put("errorMsg", e.getMessage());
+		}
+		return obj.toString();
+	}
+	
+	@RequestMapping("/wjNoValidate")
+	@ResponseBody
+	private String wjNoValidate(@RequestParam String wjno){
+		boolean data = true;
+		int count = wjm.getWeldedjunctionByNo(wjno);
+		if(count>0){
+			data = false;
+		}
+		return data + "";
+	}
+	
 }

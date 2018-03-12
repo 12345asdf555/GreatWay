@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.spring.model.Gather;
+import com.spring.model.MyUser;
 import com.spring.page.Page;
 import com.spring.service.GatherService;
 import com.spring.util.IsnullUtil;
@@ -122,9 +124,11 @@ public class GatherController {
 	
 	@RequestMapping("/addGather")
 	@ResponseBody
-	public String addGather(@ModelAttribute("gether")Gather gather){
+	public String addGather(@ModelAttribute("gether")Gather gather,@RequestParam String leave){
 		JSONObject obj = new JSONObject();
 		try{
+			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			gather.setCreater(new BigInteger(user.getId()+""));
 			//ModelAttribute收集的数据为‘’时插入会有异常
 			if(!iutil.isNull(gather.getIpurl())){
 				gather.setIpurl(null);
@@ -132,12 +136,15 @@ public class GatherController {
 			if(!iutil.isNull(gather.getMacurl())){
 				gather.setMacurl(null);
 			}
-			if(!iutil.isNull(gather.getIpurl())){
+			if(iutil.isNull(leave)){
+				gather.setLeavetime(leave);
+			}else{
 				gather.setLeavetime(null);
 			}
 			gm.addGather(gather);
 			obj.put("success", true);
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.put("success", false);
 			obj.put("msg", e.getMessage());
 		}
@@ -147,9 +154,11 @@ public class GatherController {
 	
 	@RequestMapping("/editGather")
 	@ResponseBody
-	public String editGather(@ModelAttribute("gether")Gather gather, @RequestParam String id){
+	public String editGather(@ModelAttribute("gether")Gather gather, @RequestParam String id,@RequestParam String leave){
 		JSONObject obj = new JSONObject();
 		try{
+			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			gather.setUpdater(new BigInteger(user.getId()+""));
 			//ModelAttribute收集的数据为‘’时插入会有异常
 			if(!iutil.isNull(gather.getIpurl())){
 				gather.setIpurl(null);
@@ -160,12 +169,15 @@ public class GatherController {
 			if(!iutil.isNull(gather.getIpurl())){
 				gather.setLeavetime(null);
 			}
-			if(!iutil.isNull(gather.getLeavetime())){
+			if(iutil.isNull(leave)){
+				gather.setLeavetime(leave);
+			}else{
 				gather.setLeavetime(null);
 			}
 			gm.editGather(gather);
 			obj.put("success", true);
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.put("success", false);
 			obj.put("msg", e.getMessage());
 		}

@@ -12,7 +12,21 @@ public class Gather {
 	private String leavetime;
 	private BigInteger itemid;
 	private String itemname;
+	private BigInteger creater;
+	private BigInteger updater;
 	
+	public BigInteger getCreater() {
+		return creater;
+	}
+	public void setCreater(BigInteger creater) {
+		this.creater = creater;
+	}
+	public BigInteger getUpdater() {
+		return updater;
+	}
+	public void setUpdater(BigInteger updater) {
+		this.updater = updater;
+	}
 	public String getItemname() {
 		return itemname;
 	}

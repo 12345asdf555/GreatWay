@@ -37,6 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	
 	  	<div id="disctionaryTable_btn">
 			<div style="margin-bottom: 5px;">
+				<a href="weldedjunction/goAddWeldedJunction" class="easyui-linkbutton" iconCls="icon-add">新增</a>
 				<a href="javascript:insertsearchWJ();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
 			</div>
 		</div>

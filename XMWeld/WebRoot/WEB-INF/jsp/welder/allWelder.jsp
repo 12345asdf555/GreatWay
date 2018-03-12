@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	
 	  	<div id="welderTable_btn">
 			<div style="margin-bottom: 5px;">
-<!-- 				<a href="javascript:addWelder()" class="easyui-linkbutton" iconCls="icon-add">新增</a> -->
+				<a href="javascript:addWelder()" class="easyui-linkbutton" iconCls="icon-add">新增</a>
 				<a href="javascript:insertSearchWelder();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
 			</div>
 		</div>

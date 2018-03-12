@@ -13,6 +13,8 @@
        	<result property="macurl" column="fmacurl"></result>
        	<result property="leavetime" column="fleavetime"></result>
        	<result property="itemname" column="fname"></result>
+       	<result property="creater" column="fcreater"></result>
+       	<result property="updater" column="fupdater"></result>
 	</resultMap>
 	
 	<select id="getGatherAll" resultMap="gatherMap">
@@ -29,6 +31,14 @@
 		ORDER BY g.fid
 	</select>
 	
+	<select id="getGatherByInsfid" resultMap="gatherMap">
+		SELECT g.*,i.fname itemname FROM tb_gather g inner join tb_insframework i on i.fid=g.fitemId
+		where 1=1
+		<if test="insfid!=null and insfid!=''">
+			and i.fid=#{insfid}
+		</if>
+	</select>
+	
 	<select id="getGatherByNo" resultType="java.math.BigInteger">
 		select fid from tb_gather where fgather_no = #{gatherno}
 	</select>
@@ -42,12 +52,12 @@
 	</select>
 	
 	<insert id="addGather" parameterType="com.spring.model.Gather" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO tb_gather(fgather_no,fitemId, fstatus, fprotocol, fipurl, fmacurl, fleavetime) VALUES
-		(#{gatherNo},#{itemid},#{status},#{protocol},#{ipurl},#{macurl},#{leavetime})
+		INSERT INTO tb_gather(fgather_no,fitemId, fstatus, fprotocol, fipurl, fmacurl, fleavetime,fcreater,fcreatedate) VALUES
+		(#{gatherNo},#{itemid},#{status},#{protocol},#{ipurl},#{macurl},#{leavetime},#{creater},now())
  	</insert>
 	
 	<update id="editGather" parameterType="com.spring.model.Gather">
-		UPDATE tb_gather SET fgather_no=#{gatherNo},fitemId=#{itemid}, fstatus=#{status}, fprotocol=#{protocol}, fipurl=#{ipurl}, fmacurl=#{macurl}, fleavetime=#{leavetime} WHERE fid=#{id}
+		UPDATE tb_gather SET fgather_no=#{gatherNo},fitemId=#{itemid}, fstatus=#{status}, fprotocol=#{protocol}, fipurl=#{ipurl}, fmacurl=#{macurl}, fleavetime=#{leavetime}, fupdater=#{updater}, fupdatedate=now() WHERE fid=#{id}
 	</update>
 	
 	<delete id="deleteGather" parameterType="java.math.BigInteger">

@@ -19,14 +19,16 @@ var url = "";
 var flag = 1;
 function addGather(){
 	flag = 1;
-	url = "gather/addGather";
+	var leavetime = $("#leavetime").datetimebox('getValue');
+	url = "gather/addGather?leave="+leavetime;
 	saveGather();
 }
 
 function editGather(){
 	flag = 2;
 	var id = $("#id").val();
-	url = "gather/editGather?id="+id;
+	var leavetime = $("#leavetime").datetimebox('getValue');
+	url = "gather/editGather?id="+id+"&leave="+leavetime;
 	saveGather();
 }
 //提交

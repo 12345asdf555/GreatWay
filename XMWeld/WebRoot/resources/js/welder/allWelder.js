@@ -59,18 +59,18 @@ function weldDatagrid(){
 			halign : "center",
 			align : "left"
 		},{
-			field : 'createdate',
-			title : '创建时间',
-			width : 150,
-			halign : "center",
-			align : "left"
-		},{
-			field : 'updatedate',
-			title : '修改时间',
-			width : 150,
-			halign : "center",
-			align : "left"
-		},{
+//			field : 'createdate',
+//			title : '创建时间',
+//			width : 150,
+//			halign : "center",
+//			align : "left"
+//		},{
+//			field : 'updatedate',
+//			title : '修改时间',
+//			width : 150,
+//			halign : "center",
+//			align : "left"
+//		},{
 			field : 'owner',
 			title : '部门',
 			width : 150,
@@ -83,18 +83,18 @@ function weldDatagrid(){
 			halign : "center",
 			align : "left"
 		}
-//		,{
-//			field : 'edit',
-//			title : '编辑',
-//			width : 130,
-//			halign : "center",
-//			align : "left",
-//			formatter:function(value,row,index){
-//			var str = "";
-//			str += '<a id="edit" class="easyui-linkbutton" href="welders/toUpdateWelder?fid='+row.id+'"/>';
-//			str += '<a id="remove" class="easyui-linkbutton" href="welders/toDestroyWelder?fid='+row.id+'"/>';
-//			return str;
-//			}}
+		,{
+			field : 'edit',
+			title : '编辑',
+			width : 150,
+			halign : "center",
+			align : "left",
+			formatter:function(value,row,index){
+			var str = "";
+			str += '<a id="edit" class="easyui-linkbutton" href="welders/toUpdateWelder?fid='+row.id+'"/>';
+			str += '<a id="remove" class="easyui-linkbutton" href="welders/toDestroyWelder?fid='+row.id+'"/>';
+			return str;
+			}}
 		] ],
 		rowStyler: function(index,row){
             if ((index % 2)!=0){
@@ -105,11 +105,11 @@ function weldDatagrid(){
             }
         },
 		nowrap : false,
-		toolbar : '#welderTable_btn'//,
-//		onLoadSuccess:function(data){
-//	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
-//	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
-//	        }
+		toolbar : '#welderTable_btn',
+		onLoadSuccess:function(data){
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
+	        }
 	});
 }
 

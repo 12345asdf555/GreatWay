@@ -176,7 +176,7 @@ $(function(){
 						}
 		
 					},
-					message : '工艺参数编号已存在'
+					message : '焊工编号已存在'
 				},
 				
 				wmEnoValidate : {
@@ -299,6 +299,33 @@ $(function(){
 						}
 					},
 					message : '采集模块编号已经被占用'
+				},
+				
+				wjNoValidate : {
+					validator : function(value, param){
+						if(flag){
+							var oldno = $("#oldno").val();
+							if((oldno!=null || oldno!="") && oldno == value){
+								return true;
+							}
+							var result = "";
+							$.ajax({
+								type : 'post',
+								async : false,
+								url : 'weldedjunction/wjNoValidate',
+								data : {
+									"wjno" : value
+								},
+								success : function(data){
+									result = data;
+								}
+							});
+							return result;
+						}else{
+							return true;
+						}
+					},
+					message : '焊缝编号已经被占用'
 				}
 			})
 })

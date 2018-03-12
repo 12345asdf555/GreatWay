@@ -40,42 +40,42 @@ function weldedJunctionDatagrid(){
 //			width : 90,
 			halign : "center",
 			align : "left",
-//			hidden:true
+			hidden:true
 		}, {
 			field : 'roomNo',
 			title : '房间号',
 //			width : 90,
 			halign : "center",
 			align : "left",
-//			hidden:true
+			hidden:true
 		}, {
 			field : 'unit',
 			title : '机组',
 //			width : 90,
 			halign : "center",
 			align : "left",
-//			hidden:true
+			hidden:true
 		}, {
 			field : 'area',
 			title : '区域',
 //			width : 90,
 			halign : "center",
 			align : "left",
-//			hidden:true
+			hidden:true
 		}, {
 			field : 'systems',
 			title : '系统',
 //			width : 90,
 			halign : "center",
 			align : "left",
-//			hidden:true
+			hidden:true
 		}, {
 			field : 'children',
 			title : '子项',
 //			width : 90,
 			halign : "center",
 			align : "left",
-//			hidden:true
+			hidden:true
 		}, {
 			field : 'externalDiameter',
 			title : '上游外径',
@@ -207,15 +207,17 @@ function weldedJunctionDatagrid(){
 		}, {
 			field : 'edit',
 			title : '编辑',
-			width : 100,
+			width : 220,
 			halign : "center",
 			align : "left",
 			formatter: function(value,row,index){
+				var str = '<a id="edit" class="easyui-linkbutton" href="weldedjunction/goEditWeldedJunction?id='+row.id+'"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="weldedjunction/goRemoveWeldedJunction?id='+row.id+'"/>';
 				var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
 				+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
 				row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+
 				","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material+","+row.valtage_unit+","+row.electricity_unit;
-				var str = '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
+				str += '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
 				return str;
 			}
 		}] ],
@@ -230,6 +232,8 @@ function weldedJunctionDatagrid(){
             }
         },
 		onLoadSuccess: function(data){
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
 			$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
 		}
 	});

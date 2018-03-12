@@ -225,18 +225,7 @@ public class WeldingMachineController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			//获取用户id
-			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			MyUser myuser = (MyUser)object;
-			List<Insframework> instype = im.getInsByUserid(new BigInteger(myuser.getId()+""));
-			List<Insframework> list = null;
-			for(Insframework i:instype){
-				if(i.getType()==20){
-					list = im.getWeldingMachineInsf(null);
-				}else{
-					list = im.getWeldingMachineInsf(i.getId());
-				}
-			}
+			List<Insframework> list = im.getInsAll(0);
 			for(Insframework i:list){
 				json.put("id", i.getId());
 				json.put("name", i.getName());
@@ -265,7 +254,7 @@ public class WeldingMachineController {
 			item = new BigInteger(itemid);
 		}
 		try{
-			List<Gather> list = gm.getGatherAll(null,item);
+			List<Gather> list = gm.getGatherByInsfid(item);
 			for(Gather g:list){
 				json.put("id", g.getId());
 				json.put("name", g.getGatherNo());
@@ -337,6 +326,8 @@ public class WeldingMachineController {
 		WeldingMachine wm = new WeldingMachine();
 		JSONObject obj = new JSONObject();
 		try{
+			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			wm.setCreater(new BigInteger(user.getId()+""));
 			wm.setIp(request.getParameter("ip"));
 			wm.setModel(request.getParameter("model"));
 			wm.setEquipmentNo(request.getParameter("equipmentNo"));
@@ -363,6 +354,7 @@ public class WeldingMachineController {
 			wmm.addWeldingMachine(wm);
 			obj.put("success", true);
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
 		}
@@ -379,6 +371,8 @@ public class WeldingMachineController {
 		WeldingMachine wm = new WeldingMachine();
 		JSONObject obj = new JSONObject();
 		try{
+			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			wm.setUpdater(new BigInteger(user.getId()+""));
 			wm.setId(new BigInteger(request.getParameter("wid")));
 			wm.setEquipmentNo(request.getParameter("equipmentNo"));
 			if(iutil.isNull(request.getParameter("joinTime"))){

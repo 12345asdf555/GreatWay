@@ -28,11 +28,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/welder/destroyWelder.js"></script>
 	
   </head>
-<body class="easyui-layout">
-<div  id="body" region="center"  hide="true"  split="true" title="删除焊工" style="background: white; height: 335px;">
+  <body  class="easyui-layout" style="background:#ffffff;">
+  	<div class="divborder">
+  		<div class="divtitle">删除焊工</div>
+  	</div>
+<div  id="body" region="center"  hide="true"  split="true" style="background: white; height: 335px;margin-top: 70px;">
     <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
-            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">焊工删除</div>
             <div style="margin-bottom:10px;display: none;">
                 <input name="FID" id="FID" class="easyui-textbox" type="hidden" value="${welder.id}">
             </div>
@@ -52,14 +54,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	<lable>焊工卡号</lable>
                 <input name="cardnum" class="easyui-textbox" value="${welder.cardnum}" readonly="true" data-options="required:true">
             </div>
-                        <div class="fitem">
-            	<lable>提交时间</lable>
-                <input name="createdate" class="easyui-textbox" value="${create}" readonly="true" data-options="required:true" >
-            </div>
-                        <div class="fitem">
-            	<lable>修改时间</lable>
-                <input name="updatedate" class="easyui-textbox" value="${update}" readonly="true" data-options="required:true">
-            </div>
+<!--                         <div class="fitem"> -->
+<!--             	<lable>提交时间</lable> -->
+<%--                 <input name="createdate" class="easyui-textbox" value="${create}" readonly="true" data-options="required:true" > --%>
+<!--             </div> -->
+<!--                         <div class="fitem"> -->
+<!--             	<lable>修改时间</lable> -->
+<%--                 <input name="updatedate" class="easyui-textbox" value="${update}" readonly="true" data-options="required:true"> --%>
+<!--             </div> -->
             <div class="fitem">
 				<lable>级别</lable>
 				<input name="leveid" id="leveid" type="hidden" value="${welder.leveid}" data-options="required:true">
@@ -88,6 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
 	</form>
 </div> 
+  	<jsp:include  page="../tenghanbottom.jsp"/>
     </div>
 </body>
 </html>

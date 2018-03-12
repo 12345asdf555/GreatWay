@@ -22,6 +22,8 @@ public class WeldingMachine {
 	private int typeId;
 	private int statusId;
 	private String model;
+	private BigInteger creater;
+	private BigInteger updater;
 	@Transient
 	private Gather gatherId;
 	@Transient
@@ -33,6 +35,18 @@ public class WeldingMachine {
 	private String typename;
 	private String statusname;
 	
+	public BigInteger getCreater() {
+		return creater;
+	}
+	public void setCreater(BigInteger creater) {
+		this.creater = creater;
+	}
+	public BigInteger getUpdater() {
+		return updater;
+	}
+	public void setUpdater(BigInteger updater) {
+		this.updater = updater;
+	}
 	public BigInteger getId() {
 		return id;
 	}

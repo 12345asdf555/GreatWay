@@ -28,26 +28,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/welder/addWelder.js"></script>
 
   </head>
-<body class="easyui-layout">
-    <div  id="body" region="center"  hide="true"  split="true" title="新增焊工" style="background: white; height: 335px;">
+  <body  class="easyui-layout" style="background:#ffffff;">
+  	<div class="divborder">
+  		<div class="divtitle">新增焊工</div>
+  	</div>
+    <div  id="body" region="center"  hide="true"  split="true" style="background: white; height: 335px;margin-top: 70px;">
 		<div style="text-align: center ">
        	<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             
-            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">添加焊工</div>
             <div class="fitem">
-            	<lable>焊工编号</lable>
+            	<lable>编号</lable>
                 <input name="welderno" id="welderno" class="easyui-textbox" data-options="validType:'welderValidate',required:true">
             </div>
             <div class="fitem">
-            	<lable>焊工姓名</lable>
+            	<lable>姓名</lable>
                 <input name="name" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊工手机</lable>
+            	<lable>手机</lable>
                 <input name="cellphone" type="easyui-textbox" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊工卡号</lable>
+            	<lable>卡号</lable>
                 <input name="cardnum" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
@@ -80,6 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</div>
         </form>
     </div> 
+  	<jsp:include  page="../tenghanbottom.jsp"/>
     </div>
 </body>
 </html>

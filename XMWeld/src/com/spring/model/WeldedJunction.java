@@ -41,9 +41,30 @@ public class WeldedJunction {
 	private String next_material;
 	private String electricity_unit;
 	private String valtage_unit;
+	private BigInteger updater;
+	private BigInteger creater;
+	private BigInteger insfid;
 	@Transient
 	private Insframework itemid;//所属项目（新增字段）
 	
+	public BigInteger getInsfid() {
+		return insfid;
+	}
+	public void setInsfid(BigInteger insfid) {
+		this.insfid = insfid;
+	}
+	public BigInteger getUpdater() {
+		return updater;
+	}
+	public void setUpdater(BigInteger updater) {
+		this.updater = updater;
+	}
+	public BigInteger getCreater() {
+		return creater;
+	}
+	public void setCreater(BigInteger creater) {
+		this.creater = creater;
+	}
 	public String getElectricity_unit() {
 		return electricity_unit;
 	}

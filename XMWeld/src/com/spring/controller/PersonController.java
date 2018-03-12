@@ -75,35 +75,23 @@ public class PersonController {
 			PageInfo<Person> pageinfo = new PageInfo<Person>(findAll);
 			total = pageinfo.getTotal();
 		}
-		List<Person> ins = welderService.ins();
-		List<Person> dic = welderService.dic();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
 			for(Person welder:findAll){
-				String creat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(welder.getCreatedate());
-				String update = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(welder.getUpdatedate());
+//				String creat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(welder.getCreatedate());
+//				String update = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(welder.getUpdatedate());
 				json.put("id", welder.getId());
 				json.put("name", welder.getName());
 				json.put("welderno", welder.getWelderno());
 				json.put("cellphone", welder.getCellphone());
 				json.put("cardnum", welder.getCardnum());
-				json.put("createdate", creat);
-				json.put("updatedate", update);
-				for(Person insframework:ins){
-					if(insframework.getOwner()==welder.getOwner()){
-						json.put("owner", insframework.getInsname());
-					}
-				}
-				for(Person dictionary:dic){
-					if(dictionary.getVal()==welder.getLeveid()){
-						json.put("leveid", dictionary.getValuename());
-					}
-					if(dictionary.getVal()==welder.getQuali()){
-						json.put("quali", dictionary.getValuename());
-					}
-				}
+//				json.put("createdate", welder.getCreatedate());
+//				json.put("updatedate", format(welder.getUpdatedate());
+				json.put("owner", welder.getInsname());
+				json.put("leveid", welder.getValuename());
+				json.put("quali", welder.getValuenamex());
 				json.put("back", welder.getBack());
 				ary.add(json);
 			}
@@ -159,7 +147,7 @@ public class PersonController {
 			    .getAuthentication()  
 			    .getPrincipal();
 		String creat = String.valueOf(myuser.getId());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		JSONObject obj = new JSONObject();
 		try{
 			welder.setQuali(Integer.parseInt(request.getParameter("qua")));
@@ -172,8 +160,8 @@ public class PersonController {
 			welder.setBack(request.getParameter("back"));
 			welder.setCreater(new BigInteger(creat));
 			welder.setUpdater(new BigInteger(creat));
-			welder.setCreatedate(sdf.parse(sdf.format((new Date()).getTime())));
-			welder.setUpdatedate(sdf.parse(sdf.format((new Date()).getTime())));
+//			welder.setCreatedate(sdf.parse(sdf.format((new Date()).getTime())));
+//			welder.setUpdatedate(sdf.parse(sdf.format((new Date()).getTime())));
 			welderService.save(welder);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -187,10 +175,10 @@ public class PersonController {
 	@RequestMapping("/toUpdateWelder")
 	public String toUpdateWps(@RequestParam BigInteger fid,HttpServletRequest request){
 		Person Welder = welderService.findById(fid);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		request.setAttribute("welder", Welder);
-		request.setAttribute("update", sdf.format(Welder.getUpdatedate()));
-		request.setAttribute("create", sdf.format(Welder.getCreatedate()));
+//		request.setAttribute("update", sdf.format(Welder.getUpdatedate()));
+//		request.setAttribute("create", sdf.format(Welder.getCreatedate()));
 		return "welder/editWelder";
 	}
 	
@@ -202,7 +190,7 @@ public class PersonController {
 			    .getAuthentication()  
 			    .getPrincipal();
 		String creat = String.valueOf(myuser.getId());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		JSONObject obj = new JSONObject();
 		try{
 			welder.setId(new BigInteger(request.getParameter("FID")));
@@ -215,8 +203,8 @@ public class PersonController {
 			welder.setCardnum(request.getParameter("cardnum"));
 			welder.setBack(request.getParameter("back"));
 			welder.setUpdater(new BigInteger(creat));
-			welder.setUpdatedate(sdf.parse(sdf.format((new Date()).getTime())));
-			welder.setCreatedate(sdf.parse(request.getParameter("createdate")));
+//			welder.setUpdatedate(sdf.parse(sdf.format((new Date()).getTime())));
+//			welder.setCreatedate(sdf.parse(request.getParameter("createdate")));
 		    welderService.update(welder);
 			obj.put("success", true);
 			}catch(Exception e){
@@ -230,10 +218,10 @@ public class PersonController {
 	@RequestMapping("/toDestroyWelder")
 	public String toDestroyWps(@RequestParam BigInteger fid,HttpServletRequest request){
 		Person Welder = welderService.findById(fid);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		request.setAttribute("welder", Welder);
-		request.setAttribute("update", sdf.format(Welder.getUpdatedate()));
-		request.setAttribute("create", sdf.format(Welder.getCreatedate()));
+//		request.setAttribute("update", sdf.format(Welder.getUpdatedate()));
+//		request.setAttribute("create", sdf.format(Welder.getCreatedate()));
 		return "welder/destroyWelder";
 	}
 	

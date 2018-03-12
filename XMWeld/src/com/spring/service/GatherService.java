@@ -61,4 +61,11 @@ public interface GatherService {
 	 * @param id采集id
 	 */
 	void deleteGather(BigInteger id);
+	
+	/**
+	 * 根据组织机构id查找采集id及编号
+	 * @param insfid 组织机构id
+	 * @return
+	 */
+	List<Gather> getGatherByInsfid(BigInteger insfid);
 }

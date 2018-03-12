@@ -69,4 +69,9 @@ public class GatherServiceImpl implements GatherService {
 		return gm.getGatherAll(str,parent);
 	}
 
+	@Override
+	public List<Gather> getGatherByInsfid(BigInteger insfid) {
+		return gm.getGatherByInsfid(insfid);
+	}
+
 }
