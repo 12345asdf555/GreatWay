@@ -679,7 +679,6 @@ public class ReportController {
 				json.put("maxvol", repo.getResult1());
 				json.put("minvol", repo.getResult2());
 				ary.add(json);
-				
 		}catch(Exception e){
 			e.getMessage();
 		}
