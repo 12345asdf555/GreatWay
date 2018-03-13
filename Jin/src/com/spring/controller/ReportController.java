@@ -664,4 +664,25 @@ public class ReportController {
 		obj.put("rows", ary);
 		return obj.toString();
 	}
+	
+	@RequestMapping("/getWpsByMid")
+	@ResponseBody
+	public String getWpsByMid(HttpServletRequest request){
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		BigInteger fid = new BigInteger(request.getParameter("fid"));
+		try{
+				Report repo = reportService.getWps(reportService.getWpsid(fid));
+				json.put("maxele", repo.getInsid());
+				json.put("minele", repo.getMachid());
+				json.put("maxvol", repo.getResult1());
+				json.put("minvol", repo.getResult2());
+				ary.add(json);
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
 }

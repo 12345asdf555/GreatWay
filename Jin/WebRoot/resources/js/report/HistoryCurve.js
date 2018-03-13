@@ -4,6 +4,10 @@
 var z=0;
 var jj=0;
 var zz=0;
+var maxele;
+var minele;
+var maxvol;
+var minvol;
 var time1 = new Array();
 var vol = new Array();
 var ele = new Array();
@@ -27,6 +31,25 @@ var ele = new Array();
 			}else{
 				setParam();
 				var fid = $('#dg').datagrid('getSelected').id;
+				   $.ajax({
+					   type: "post", 
+					   url: "rep/getWpsByMid"+"?fid="+fid,
+					   dataType: "json",
+					   data: {},
+					   success: function (result) {
+					      if (result) {
+					    	  var wps = eval(result.rows);
+					    	  maxele=wps.maxele;
+					    	  minele=wps.minele;
+					    	  maxvol=wps.maxvol;
+					    	  minvol=wps.minvol;
+					      }
+					   },
+					   error: function () {
+					      alert('error');
+					   }
+					});
+
 				   $.ajax({
 					   type: "post", 
 					   url: "rep/historyCurve"+chartStr+"&fid="+fid,
@@ -229,30 +252,30 @@ var ele = new Array();
   		    var points = chart.series[0].points;
 /*  		    chart.tooltip.refresh(points[points.length -1]);
   		    chart.tooltip.refresh(points1[points1.length -1]);*/
-//  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-//  		  		value:maxele, //在值为2的地方 
-//  		  		width:2, //标示线的宽度为2px 
-//  		  		color: 'red', //标示线的颜色 
-//  		  	    dashStyle:'longdashdot',
-//  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-//		          label:{
-//    		            text:'最高电流',     //标签的内容
-//    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-//    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-//    		        }
-//  		  	})
-//  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-//  		  		value:minele, //在值为2的地方 
-//  		  		width:2, //标示线的宽度为2px 
-//  		  		color: 'red', //标示线的颜色 
-//  		  	    dashStyle:'longdashdot',
-//  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-//		          label:{
-//    		            text:'最低电流',     //标签的内容
-//    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-//    		            x:10                     //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-//    		        }
-//  		  	})	  	
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:maxele, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'red', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最高电流',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	})
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:minele, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'red', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最低电流',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                     //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	})	  	
   		}
  
   		$('#body1').highcharts({
@@ -353,30 +376,30 @@ var ele = new Array();
   		    var points = chart.series[0].points;
 /*  		    chart.tooltip.refresh(points[points.length -1]);
   		    chart.tooltip.refresh(points1[points1.length -1]);*/
-//  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-//  		  		value:maxvol, //在值为2的地方 
-//  		  		width:2, //标示线的宽度为2px 
-//  		  		color: 'black', //标示线的颜色 
-//  		  	    dashStyle:'longdashdot',
-//  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-//		          label:{
-//    		            text:'最高电压',     //标签的内容
-//    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-//    		            x:10  
-//    		        }
-//  		  	})
-//  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-//  		  		value:minvol, //在值为2的地方 
-//  		  		width:2, //标示线的宽度为2px 
-//  		  		color: 'black', //标示线的颜色 
-//  		  	    dashStyle:'longdashdot',
-//  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-//		          label:{
-//    		            text:'最低电压',     //标签的内容
-//    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-//    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-//    		        }
-//  		  	})
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:maxvol, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最高电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10  
+    		        }
+  		  	})
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:minvol, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最低电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	})
   		  	  		  	
   		}
  
