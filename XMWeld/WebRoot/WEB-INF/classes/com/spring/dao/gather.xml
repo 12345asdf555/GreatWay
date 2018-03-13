@@ -19,11 +19,9 @@
 	
 	<select id="getGatherAll" resultMap="gatherMap">
 		SELECT g.*,i.fname itemname FROM tb_gather g inner join tb_insframework i on i.fid=g.fitemId 
-		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
 		where 1=1
 		<if test="parent!=null and parent!=''">
-			and (i.fid=#{parent} or ins.fid=#{parent} or insf.fid=#{parent} or insf.fparent=#{parent})
+			and i.fid=#{parent}
 		</if>
 		<if test="str!=null and str!=''">
 			and ${str}
