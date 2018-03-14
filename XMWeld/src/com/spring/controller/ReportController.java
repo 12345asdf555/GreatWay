@@ -75,6 +75,10 @@ public class ReportController {
 	public String Alarm(HttpServletRequest request){
 		return "report/AlarmManage";
 	}
+	@RequestMapping("/history")
+	public String History(HttpServletRequest request){
+		return "td/HistoryCurve";
+	}
 
 /*	@RequestMapping("/getWeldPara")
 	@ResponseBody
@@ -579,6 +583,91 @@ public class ReportController {
 			e.getMessage();
 		}
 		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/historyCurve")
+	@ResponseBody
+	public String historyCurve(HttpServletRequest request){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("parent");
+		String insid = request.getParameter("insid");
+		String type = request.getParameter("otype");
+		WeldDto dto = new WeldDto();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
+		}
+		BigInteger parent = null;
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		if(iutil.isNull(type)){
+			if(type.equals("1")){
+				dto.setYear("year");
+			}else if(type.equals("2")){
+				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
+			}else if(type.equals("4")){
+				dto.setWeek("week");
+			}
+		}
+		String str = request.getParameter("searchStr");
+		BigInteger fid = new BigInteger(request.getParameter("fid"));
+		List<Report> list = reportService.historyData(dto,fid);
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(Report repo:list){
+				json.put("ele", repo.getFstandardele());
+				json.put("vol", repo.getFstandardvol());
+				json.put("time", sdf.format(repo.getFweldingtime()));
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/getWpsByMid")
+	@ResponseBody
+	public String getWpsByMid(HttpServletRequest request){
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		BigInteger fid = new BigInteger(request.getParameter("fid"));
+		try{
+				Report repo = reportService.getWps(reportService.getWpsid(fid));
+				json.put("maxele", repo.getInsid());
+				json.put("minele", repo.getMachid());
+				json.put("maxvol", repo.getResult1());
+				json.put("minvol", repo.getResult2());
+				ary.add(json);
+		}catch(Exception e){
+			e.getMessage();
+		}
 		obj.put("rows", ary);
 		return obj.toString();
 	}

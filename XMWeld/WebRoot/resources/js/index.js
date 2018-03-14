@@ -70,7 +70,12 @@ function openCompanyNoLoads(){
 }
 
 function openCompanyTd(){
-	addTab("实时监测","td/AllTd","icon-48");
+//	addTab("实时监测","td/AllTd","icon-48");
+	window.open("td/AllTd","icon-48");
+}
+
+function openHistory(){
+	addTab("历史曲线","rep/history","icon-62");
 }
 
 function addTab(title,url,icon){

@@ -59,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a href="javascript:openCompanyTd()"><img src="resources/images/1_48.png" />&nbsp;实时监控</a></li>
 					<li><a href="javascript:openCompanyLoads()"><img src="resources/images/1_53.png" />&nbsp;负载率</a></li>
 					<li><a href="javascript:openCompanyNoLoads()"><img src="resources/images/1_59.png" />&nbsp;空载率</a></li>
-<!-- 					<li><a href="javascript:oid(0)"><img src="resources/images/1_62.png" />&nbsp;历史曲线</a></li> -->
+					<li><a href="javascript:openHistory()"><img src="resources/images/1_62.png" />&nbsp;历史曲线</a></li>
 					<li><a href="javascript:openCompanyHour()"><img src="resources/images/1_69.png" />&nbsp;焊缝焊接工时</a></li>
 					<li><a href="javascript:openCompanyoverproof()"><img src="resources/images/1_67.png" />&nbsp;焊接工艺超标</a></li>
 				    <li><a href="javascript:openWeldingmachineMax()"><img src="resources/images/1_69.png" />&nbsp;焊机工时最高</a></li>

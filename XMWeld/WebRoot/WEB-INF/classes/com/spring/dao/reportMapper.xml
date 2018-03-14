@@ -25,7 +25,7 @@
 	</select>
 	
 	<select id="getWps" parameterType="BigInteger" resultType="Report">
-		SELECT `Fweld_I` fstandardele,`Fweld_v` fstandardvol,`Fdiameter` fdiameter FROM tb_mainwps WHERE `FID`=#{id}
+		SELECT `Fweld_I` fstandardele,`Fweld_v` fstandardvol,`Fweld_I_MAX` insid,`Fweld_I_MIN` machid,`Fweld_V_MAX` result1,`Fweld_V_MIN` result2,`Fdiameter` fdiameter FROM tb_mainwps WHERE `FID`=#{id}
 	</select>
 	
 	<select id="getSyspara" resultType="Report">
@@ -181,5 +181,32 @@
 	</if>
     ) 
 )temp
+	</select>
+	
+		<select id="historyData" resultType="Report">
+		SELECT 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' ),
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' ),
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' ),
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime),
+			</if>
+		</if>
+		`felectricity` fstandardele,`fvoltage` fstandardvol,`FWeldTime` fweldingtime FROM `tb_live_data` WHERE fmachine_id=#{fid}
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
 	</select>
 </mapper>
