@@ -42,11 +42,11 @@ function openWeldingMachine(){
 }
 
 function openWedJunction(){
-	addTab("焊缝列表","weldedjunction/goWeldedJunction","icon-38");
+	addTab("焊缝管理","weldedjunction/goWeldedJunction","icon-38");
 }
 
 function openPerson(){
-	addTab("焊工列表","welders/AllWelder","icon-35");
+	addTab("焊工管理","welders/AllWelder","icon-35");
 }
 
 function openGather(){

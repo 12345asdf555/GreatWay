@@ -37,9 +37,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	
 	  	<div id="welderTable_btn">
 			<div style="margin-bottom: 5px;">
-				<a href="javascript:addWelder()" class="easyui-linkbutton" iconCls="icon-add">新增</a>
+				<a href="welders/toAddWelder" class="easyui-linkbutton" iconCls="icon-add">新增</a>
+				<a href="javascript:importclick();" class="easyui-linkbutton" iconCls="icon-excel">导入</a>
 				<a href="javascript:insertSearchWelder();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
 			</div>
+		</div>
+		<div id="importdiv" class="easyui-dialog" style="width:300px; height:200px;" closed="true">
+			<form id="importfm" method="post" class="easyui-form" data-options="novalidate:true" enctype="multipart/form-data"> 
+				<div>
+					<span><input type="file" name="file" id="file"></span>
+					<input type="button" value="上传" onclick="importWeldingMachine()" class="upButton"/>
+				</div>
+			</form>
 		</div>
 		
 	    <table id="welderTable" style="table-layout: fixed; width:100%;"></table>

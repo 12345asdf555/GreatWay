@@ -239,6 +239,44 @@ function weldedJunctionDatagrid(){
 	});
 }
 
+
+//导入
+function importclick(){
+	$("#importdiv").dialog("open").dialog("setTitle","从excel导入数据");
+}
+
+function importWeldingMachine(){
+	var file = $("#file").val();
+	if(file == null || file == ""){
+		$.messager.alert("提示", "请选择要上传的文件！");
+		return false;
+	}else{
+		$('#importfm').form('submit', {
+			url : "import/importWeldedJunction",
+			success : function(result) {
+				if(result){
+					var result = eval('(' + result + ')');
+					if (!result.success) {
+						$.messager.show( {
+							title : 'Error',
+							msg : result.msg
+						});
+					} else {
+						$('#importdiv').dialog('close');
+						$('#weldingmachineTable').datagrid('reload');
+						$.messager.alert("提示", result.msg);
+					}
+				}
+				
+			},  
+		    error : function(errorMsg) {  
+		        alert("数据请求失败，请联系系统管理员!");  
+		    } 
+		});
+	}
+}
+
+
 //监听窗口大小变化
 window.onresize = function() {
 	setTimeout(domresize, 500);

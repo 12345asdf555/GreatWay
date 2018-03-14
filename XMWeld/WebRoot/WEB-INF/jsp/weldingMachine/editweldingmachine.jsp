@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>ip地址</lable>
-					<input class="easyui-textbox" name="ip" id="ip" value="${w.ip }"/>
+					<input class="easyui-textbox" name="ip" id="ip" value="${w.ip }" data-options="required:true" />
 				</div>
 				<div class="fitem">
 					<lable>设备型号</lable>

@@ -99,91 +99,91 @@ var ele = new Array();
 				}, {
 					field : 'equipmentNo',
 					title : '固定资产编号',
-					width : 80,
+//					width : 80,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'typeName',
 					title : '设备类型',
-					width : 80,
+//					width : 80,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'jointime',
 					title : '入厂时间',
-					width : 150,
+//					width : 150,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'insframeworkName',
 					title : '所属项目',
-					width : 80,
+//					width : 80,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'statusName',
 					title : '状态',
-					width : 80,
+//					width : 80,
 					halign : "center",
 					align : "left"
 				} , {
 					field : 'manufacturerName',
 					title : '厂家',
-					width : 150,
+//					width : 150,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'isnetworking',
 					title : '是否在网',
-					width : 80,
+//					width : 80,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'gatherId',
 					title : '采集序号',
-					width : 100,
+//					width : 100,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'position',
 					title : '位置',
-					width : 100,
+//					width : 100,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'ip',
 					title : 'ip地址',
-					width : 100,
+//					width : 100,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'model',
 					title : '设备型号',
-					width : 100,
+//					width : 100,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'material',
 					title : '焊件材质',
-					width : 100,
+//					width : 100,
 					halign : "center",
 					align : "left"
 				},{
 					field : 'thickness',
 					title : '焊件厚度',
-					width : 100,
+//					width : 100,
 					halign : "center",
 					align : "left"
 				},{
 					field : 'coefficient',
 					title : '校正系数',
-					width : 100,
+//					width : 100,
 					halign : "center",
 					align : "left"
 				},{
 					field : 'address',
 					title : '地址',
-					width : 100,
+//					width : 100,
 					halign : "center",
 					align : "left"
 				},{
@@ -235,7 +235,16 @@ var ele = new Array();
 				}*/] ],
 				toolbar : '#weldingmachineTable_btn',
 				pagination : true,
-				fitColumns : true/*,
+//				fitColumns : true,
+				rowStyler: function(index,row){
+		            if ((index % 2)!=0){
+		            	//处理行代背景色后无法选中
+		            	var color=new Object();
+		                color.class="rowColor";
+		                return color;
+		            }
+		        }
+				/*
 				onLoadSuccess:function(data){
 			        $("a[id='maintain']").linkbutton({text:'历史曲线查看',plain:true,iconCls:'icon-search'});
 				}*/
