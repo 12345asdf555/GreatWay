@@ -11,6 +11,10 @@ var minvol;
 var time1 = new Array();
 var vol = new Array();
 var ele = new Array();
+var timer1;
+var timer2;
+var chart,chart1;
+var series,series1;
 		$(function(){
 			weldingMachineDatagrid();
 		})
@@ -241,14 +245,49 @@ var ele = new Array();
 				}*/
 			});
 		}
-		
-	function curve(){
-  		Highcharts.setOptions({
-  		    global: {
-  		        useUTC: false
-  		    }
-  		});
-  		function activeLastPointToolip(chart) {
+	var time=1000;
+	function refresh1(){
+		timer1 = window.setInterval(function () {
+              /*var x = (new Date()).getTime()+t,*/ // current time
+            var x = time1[z],
+                  y = ele[z];
+              z++;
+              series.addPoint([x, y], true, true);
+              activeLastPointToolip1(chart);
+          }, time);
+	}
+	
+	function refresh2(){
+		timer5=window.setInterval(function () {
+              /*var x = (new Date()).getTime()+t,*/ // current time
+             var x = time1[zz],
+                  y = vol[zz];
+              zz++;
+              series1.addPoint([x, y], true, true);
+              activeLastPointToolip2(chart);
+          }, time);
+	}
+	
+	//加速
+	function addtime(){
+		time -= 500;
+		if(time<=100){
+			time = 100;
+		}
+		window.clearInterval(timer1);
+		refresh1();
+	}
+
+	//减速
+	function reducetime(){
+		time += 500;
+		if(time>=10000){
+			time = 10000;
+		}
+		window.clearInterval(timer1);
+		refresh1();
+	}
+		function activeLastPointToolip1(chart) {
   		    var points = chart.series[0].points;
 /*  		    chart.tooltip.refresh(points[points.length -1]);
   		    chart.tooltip.refresh(points1[points1.length -1]);*/
@@ -277,7 +316,44 @@ var ele = new Array();
     		        }
   		  	})	  	
   		}
- 
+		
+  		function activeLastPointToolip2(chart) {
+  		    var points = chart.series[0].points;
+/*  		    chart.tooltip.refresh(points[points.length -1]);
+  		    chart.tooltip.refresh(points1[points1.length -1]);*/
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:maxvol, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最高电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10  
+    		        }
+  		  	})
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:minvol, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最低电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	})
+  		  	  		  	
+  		}
+		
+	function curve(){
+  		Highcharts.setOptions({
+  		    global: {
+  		        useUTC: false
+  		    }
+  		});
   		$('#body1').highcharts({
   		    chart: {
   		        type: 'spline',
@@ -286,16 +362,17 @@ var ele = new Array();
   		        events: {
   		            load: function () {
   		                // set up the updating of the chart each second
-  		                var series = this.series[0],
+  		                	series = this.series[0];
   		                    chart = this;
-  		                	window.setInterval(function () {
-  		                    /*var x = (new Date()).getTime()+t,*/ // current time
-  		                  var x = time1[z],
-  		                        y = ele[z];
-  		                    z++;
-  		                    series.addPoint([x, y], true, true);
-  		                    activeLastPointToolip(chart);
-  		                }, 1000);
+  		                    refresh1(series);
+//  		                	window.setInterval(function () {
+//  		                    /*var x = (new Date()).getTime()+t,*/ // current time
+//  		                  var x = time1[z],
+//  		                        y = ele[z];
+//  		                    z++;
+//  		                    series.addPoint([x, y], true, true);
+//  		                    activeLastPointToolip(chart);
+//  		                }, 1000);
   		            }
   		        }
   		    },
@@ -362,7 +439,7 @@ var ele = new Array();
   		        }())
   		    }]
   		}, function(c) {
-  		    activeLastPointToolip(c)
+  		    activeLastPointToolip1(c)
   		});
 	}
 	
@@ -372,36 +449,6 @@ var ele = new Array();
   		        useUTC: false
   		    }
   		});
-  		function activeLastPointToolip(chart) {
-  		    var points = chart.series[0].points;
-/*  		    chart.tooltip.refresh(points[points.length -1]);
-  		    chart.tooltip.refresh(points1[points1.length -1]);*/
-  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-  		  		value:maxvol, //在值为2的地方 
-  		  		width:2, //标示线的宽度为2px 
-  		  		color: 'black', //标示线的颜色 
-  		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-		          label:{
-    		            text:'最高电压',     //标签的内容
-    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-    		            x:10  
-    		        }
-  		  	})
-  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-  		  		value:minvol, //在值为2的地方 
-  		  		width:2, //标示线的宽度为2px 
-  		  		color: 'black', //标示线的颜色 
-  		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-		          label:{
-    		            text:'最低电压',     //标签的内容
-    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-    		        }
-  		  	})
-  		  	  		  	
-  		}
  
   		$('#body2').highcharts({
   		    chart: {
@@ -411,16 +458,17 @@ var ele = new Array();
   		        events: {
   		            load: function () {
   		                // set up the updating of the chart each second
-  		                var series = this.series[0],
-  		                    chart = this;
-  		                timer5=window.setInterval(function () {
-  		                    /*var x = (new Date()).getTime()+t,*/ // current time
-  		                   var x = time1[zz],
-  		                        y = vol[zz];
-  		                    zz++;
-  		                    series.addPoint([x, y], true, true);
-  		                    activeLastPointToolip(chart);
-  		                }, 1000);
+  		            		series1 = this.series[0];
+  		                    chart1 = this;
+  		                    refresh2();
+//  		                timer5=window.setInterval(function () {
+//  		                    /*var x = (new Date()).getTime()+t,*/ // current time
+//  		                   var x = time1[zz],
+//  		                        y = vol[zz];
+//  		                    zz++;
+//  		                    series.addPoint([x, y], true, true);
+//  		                    activeLastPointToolip2(chart);
+//  		                }, 1000);
   		            }
   		        }
   		    },
@@ -480,7 +528,7 @@ var ele = new Array();
   		      
   		    }]
   		}, function(c) {
-  		    activeLastPointToolip(c)
+  		    activeLastPointToolip2(c)
   		});
 	}
 	

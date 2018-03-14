@@ -53,7 +53,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="dgtb" style="width:100%;height:55.1%">
 			<table id="dg" style="table-layout:fixed;width:100%;"></table>
 		</div>
-		<div id="body1" style="width:100%;height:20%"></div>
+		<div id="body1" style="width:100%;height:20%">
+		<a class="easyui-linkbutton"  href="javascript:addtime()" iconCls="icon-add">加速</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a class="easyui-linkbutton" href="javascript:reducetime()" iconCls="icon-remove">减速</a></div>
 		<div id="body2" style="width:100%;height:20%"></div>
 <!-- 		<div id="body6" style="position:absolute;left:16%;top:35%;"><label>焊机编号：</label>
 		<input name="macname" id="macname" readonly="true" style="text-align:center">
