@@ -35,6 +35,7 @@ public class PersonController {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
+	private BigInteger welderid;
 	@Autowired
 	private PersonService welderService;
 	
@@ -56,7 +57,15 @@ public class PersonController {
 	public String AllUser(HttpServletRequest request){
 		return "welder/allWelder";
 	}
-
+	
+	@RequestMapping("/getWeldJun")
+	public String getWeldJun(HttpServletRequest request){
+		if(request.getParameter("fid")!=null&&request.getParameter("fid")!=""){
+			welderid = new BigInteger(request.getParameter("fid"));
+		}
+		return "report/HistoryCurve";
+	}
+	
 	@RequestMapping("/getAllWelder")
 	@ResponseBody
 	public String getAllWelder(HttpServletRequest request){
