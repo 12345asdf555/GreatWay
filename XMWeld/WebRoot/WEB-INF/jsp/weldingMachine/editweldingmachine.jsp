@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>设备类型</lable>
 					<input type="hidden"  id="type" value="${w.typeId }">
-					<select class="easyui-combobox" name="typeId" id="tId" data-options="required:true"></select>
+					<select class="easyui-combobox" name="typeId" id="tId" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
 					<lable>入厂时间</lable>
@@ -57,18 +57,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>所属项目</lable>
 					<input type="hidden"  id="insframework" value="${w.insframeworkId.id }">
-					<select class="easyui-combobox" name="insframeworkId" id="iId" data-options="required:true"></select>
+					<select class="easyui-combobox" name="insframeworkId" id="iId" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
 					<lable>生产厂商</lable>
 					<input type="hidden"  id="manu" value="${w.manufacturerId.id }">
-					<select class="easyui-combobox" name="manuno" id="manuno" data-options="required:true"></select>
+					<select class="easyui-combobox" name="manuno" id="manuno" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
 					<lable>采集序号</lable>
 					<input type="hidden" id="validgid" value="${w.gatherId.gatherNo }">
 					<input type="hidden" id="gid" value="${w.gatherId.id }">
-					<select class="easyui-combobox" name="gatherId" id="gatherId" value="${w.gatherId.gatherNo }" data-options="validType:['checkNumber','wmGatheridValidate']"></select>
+					<select class="easyui-combobox" name="gatherId" id="gatherId" value="${w.gatherId.gatherNo }" data-options="validType:['checkNumber','wmGatheridValidate'],editable:false"></select>
 				</div>
 				<div class="fitem">
 					<lable>设备位置</lable>
