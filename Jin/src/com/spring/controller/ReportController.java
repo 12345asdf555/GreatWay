@@ -91,7 +91,7 @@ public class ReportController {
 	}
 	@RequestMapping("/history")
 	public String History(HttpServletRequest request){
-		return "report/HistoryCurve";
+		return "report/HistoryWelder";
 	}
 
 /*	@RequestMapping("/getWeldPara")

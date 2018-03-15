@@ -1,9 +1,8 @@
 /**
  * 
  */
-var z=0;
-var jj=0;
-var zz=0;
+var z=20;
+var zz=20;
 var maxele;
 var minele;
 var maxvol;
@@ -81,168 +80,230 @@ var series,series1;
 		
 		function weldingMachineDatagrid(){
 			$("#dg").datagrid( {
+
+				fitColumns : true,				
 				height : $("#dgtb").height(),
 				width : $("#dgtb").width(),
 				idField : 'id',
 				pageSize : 10,
 				pageList : [ 10, 20, 30, 40, 50 ],
-				url : "weldingMachine/getWedlingMachineList",
+				url : "weldedjunction/getWeldedJunctionList",
 				singleSelect : true,
 				rownumbers : true,
-				showPageList : false, 
-		        columns : [ [ {
+				showPageList : false,
+				columns : [ [  {
 				    field:'ck',
 					checkbox:true
-				},{
+				}, {
 					field : 'id',
 					title : '序号',
-					width : 50,
+					width : 30,
 					halign : "center",
 					align : "left",
 					hidden:true
 				}, {
-					field : 'equipmentNo',
-					title : '固定资产编号',
-					width : 80,
+					field : 'weldedJunctionno',
+					title : '编号',
+					width : 90,
 					halign : "center",
 					align : "left"
 				}, {
-					field : 'typeName',
-					title : '设备类型',
-					width : 80,
+					field : 'serialNo',
+					title : '序列号',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'pipelineNo',
+					title : '管线号',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'roomNo',
+					title : '房间号',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'unit',
+					title : '机组',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'area',
+					title : '区域',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'systems',
+					title : '系统',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'children',
+					title : '子项',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'externalDiameter',
+					title : '上游外径',
+					width : 90,
 					halign : "center",
 					align : "left"
 				}, {
-					field : 'jointime',
-					title : '入厂时间',
-					width : 150,
+					field : 'nextexternaldiameter',
+					title : '下游外径',
+					width : 90,
 					halign : "center",
 					align : "left"
 				}, {
-					field : 'insframeworkName',
-					title : '所属项目',
-					width : 80,
+					field : 'wallThickness',
+					title : '上游壁厚',
+					width : 90,
 					halign : "center",
 					align : "left"
 				}, {
-					field : 'statusName',
-					title : '状态',
-					width : 80,
-					halign : "center",
-					align : "left"
-				} , {
-					field : 'manufacturerName',
-					title : '厂家',
-					width : 150,
-					halign : "center",
-					align : "left"
-				}, {
-					field : 'isnetworking',
-					title : '是否在网',
-					width : 80,
-					halign : "center",
-					align : "left"
-				}, {
-					field : 'gatherId',
-					title : '采集序号',
-					width : 100,
-					halign : "center",
-					align : "left"
-				}, {
-					field : 'position',
-					title : '位置',
-					width : 100,
-					halign : "center",
-					align : "left"
-				}, {
-					field : 'ip',
-					title : 'ip地址',
-					width : 100,
-					halign : "center",
-					align : "left"
-				}, {
-					field : 'model',
-					title : '设备型号',
-					width : 100,
+					field : 'nextwall_thickness',
+					title : '下游璧厚',
+					width : 90,
 					halign : "center",
 					align : "left"
 				}, {
 					field : 'material',
-					title : '焊件材质',
-					width : 100,
+					title : '上游材质',
+					width : 90,
 					halign : "center",
 					align : "left"
-				},{
-					field : 'thickness',
-					title : '焊件厚度',
-					width : 100,
+				}, {
+					field : 'next_material',
+					title : '下游材质',
+					width : 90,
 					halign : "center",
 					align : "left"
-				},{
-					field : 'coefficient',
-					title : '校正系数',
-					width : 100,
+				}, {
+					field : 'dyne',
+					title : '达因',
+					width : 90,
 					halign : "center",
 					align : "left"
-				},{
-					field : 'address',
-					title : '地址',
-					width : 100,
+				}, {
+					field : 'specification',
+					title : '规格',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'maxElectricity',
+					title : '电流上限',
+					width : 90,
 					halign : "center",
 					align : "left"
-				},{
-					field : 'statusId',
-					title : '状态id',
-					width : 100,
-					halign : "center",
-					align : "left",
-					hidden: true
 				}, {
-					field : 'isnetworkingId',
-					title : '是否联网id',
-					width : 100,
+					field : 'minElectricity',
+					title : '电流下限',
+					width : 90,
 					halign : "center",
-					align : "left",
-					hidden: true
+					align : "left"
 				}, {
-					field : 'manufacturerId',
-					title : '厂商id',
-					width : 100,
+					field : 'maxValtage',
+					title : '电压上限',
+					width : 90,
 					halign : "center",
-					align : "left",
-					hidden: true
+					align : "left"
 				}, {
-					field : 'typeId',
-					title : '类型id',
-					width : 100,
+					field : 'minValtage',
+					title : '电压下限',
+					width : 90,
 					halign : "center",
-					align : "left",
-					hidden: true
+					align : "left"
 				}, {
-					field : 'insframeworkId',
-					title : '项目id',
-					width : 100,
+					field : 'itemname',
+					title : '所属项目',
+					width : 150,
+					halign : "center",
+					align : "left"
+				}, {
+					field : 'startTime',
+					title : '开始时间',
+					width : 90,
 					halign : "center",
 					align : "left",
-					hidden: true
-				}/*, {
+					hidden:true
+				}, {
+					field : 'endTime',
+					title : '完成时间',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'creatTime',
+					title : '创建时间',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'updateTime',
+					title : '修改时间',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'updatecount',
+					title : '修改次数',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'valtage_unit',
+					title : '电压单位',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
+					field : 'electricity_unit',
+					title : '电流单位',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				}, {
 					field : 'edit',
 					title : '编辑',
-					width : 250,
+					width : 120,
 					halign : "center",
 					align : "left",
-					formatter:function(value,row,index){
-						var str = "";
-						str += '<a id="maintain" class="easyui-linkbutton" href="javascript:serachCompanyOverproof()"/>';
+					formatter: function(value,row,index){
+						var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
+						+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
+						row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+
+						","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material+","+row.valtage_unit+","+row.electricity_unit;
+						var str = '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
 						return str;
 					}
-				}*/] ],
-				toolbar : '#weldingmachineTable_btn',
+				}] ],
+				toolbar : '#disctionaryTable_btn',
 				pagination : true,
-				fitColumns : true/*,
-				onLoadSuccess:function(data){
-			        $("a[id='maintain']").linkbutton({text:'历史曲线查看',plain:true,iconCls:'icon-search'});
-				}*/
+				onLoadSuccess: function(data){
+					$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
+				}
 			});
 		}
 	var time=1000;
@@ -252,19 +313,25 @@ var series,series1;
             var x = time1[z],
                   y = ele[z];
               z++;
-              series.addPoint([x, y], true, true);
+              series.addPoint([x, y], true, false);
               activeLastPointToolip1(chart);
+      		if(z==ele.length){
+    			window.clearInterval(timer1);
+    		}
           }, time);
 	}
 	
 	function refresh2(){
-		timer5=window.setInterval(function () {
+		timer2=window.setInterval(function () {
               /*var x = (new Date()).getTime()+t,*/ // current time
              var x = time1[zz],
                   y = vol[zz];
               zz++;
-              series1.addPoint([x, y], true, true);
+              series1.addPoint([x, y], true, false);
               activeLastPointToolip2(chart);
+      		if(zz==vol.length){
+    			window.clearInterval(timer2);
+    		}
           }, time);
 	}
 	
@@ -275,7 +342,9 @@ var series,series1;
 			time = 100;
 		}
 		window.clearInterval(timer1);
+		window.clearInterval(timer2);
 		refresh1();
+		refresh2();
 	}
 
 	//减速
@@ -285,7 +354,21 @@ var series,series1;
 			time = 10000;
 		}
 		window.clearInterval(timer1);
+		window.clearInterval(timer2);
 		refresh1();
+		refresh2();
+	}
+	
+	//暂停
+	function stoptime(){
+		window.clearInterval(timer1);
+		window.clearInterval(timer2);
+	}
+	
+	//开始
+	function starttime(){
+		refresh1();
+		refresh2();
 	}
 		function activeLastPointToolip1(chart) {
   		    var points = chart.series[0].points;
@@ -352,10 +435,17 @@ var series,series1;
   		Highcharts.setOptions({
   		    global: {
   		        useUTC: false
-  		    }
+  		    },
+  	        lang: {
+  	            resetZoom: '重置',
+  	            resetZoomTitle: '重置缩放比例'
+  	        }
   		});
   		$('#body1').highcharts({
   		    chart: {
+  	            panning: true,
+  	            panKey: 'ctrl',
+  		    	zoomType: 'x',
   		        type: 'spline',
   		        animation: false, // don't animate in old IE
   		        marginRight: 70,
@@ -364,7 +454,7 @@ var series,series1;
   		                // set up the updating of the chart each second
   		                	series = this.series[0];
   		                    chart = this;
-  		                    refresh1(series);
+  		                    refresh1();
 //  		                	window.setInterval(function () {
 //  		                    /*var x = (new Date()).getTime()+t,*/ // current time
 //  		                  var x = time1[z],
@@ -379,6 +469,13 @@ var series,series1;
   		    title: {
   		        text: '电压电流实时监测'
   		    },
+            subtitle: {
+                text: document.ontouchstart === undefined
+            },
+            mapNavigation: {
+                enabled: true,
+                enableButtons: false
+            },
   		    xAxis: {
   		        type: 'datetime',
   		        tickPixelInterval: 150,
@@ -430,9 +527,9 @@ var series,series1;
   		                i;
   		            for (i = -19; i <= 0; i += 1) {
   		                data.push({
-  		                    x: time1[0]-1000+i*1000,
+  		                    x: time1[i+19],
   		                	/*x: time + i*1000,*/
-  		                    y: 0
+  		                    y: ele[i+19]
   		                });
   		            }
   		            return data;
@@ -447,11 +544,20 @@ var series,series1;
   		Highcharts.setOptions({
   		    global: {
   		        useUTC: false
-  		    }
+  		    },
+        lang: {
+            resetZoom: '重置',
+            resetZoomTitle: '重置缩放比例'
+        },
+        panning: true,
+        panKey: 'shift'
   		});
  
   		$('#body2').highcharts({
   		    chart: {
+  	            panning: true,
+  	            panKey: 'ctrl',
+  		    	zoomType: 'x',
   		        type: 'spline',
   		        animation: false, // don't animate in old IE
   		        marginRight: 70,
@@ -475,6 +581,13 @@ var series,series1;
   		    title: {
   		        text: false
   		    },
+            mapNavigation: {
+                enabled: true,
+                enableButtons: false
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined
+            },
   		    xAxis: {
   		        type: 'datetime',
   		        tickPixelInterval: 150
@@ -518,9 +631,9 @@ var series,series1;
   		                i;
   		            for (i = -19; i <= 0; i += 1) {
   		                data.push({
-  		                    x: time1[0]-1000+i*1000,
+  		                    x: time1[i+19],
   		                    /*x: time + i*1000,*/
-  		                    y: 0
+  		                    y: vol[i+19]
   		                });
   		            }
   		            return data;
