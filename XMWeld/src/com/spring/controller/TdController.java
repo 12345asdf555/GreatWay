@@ -9,13 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
+import com.spring.page.Page;
+import com.spring.util.IsnullUtil;
 import com.spring.model.MyUser;
 import com.spring.model.Td;
-import com.spring.service.InsframeworkService;
+import com.spring.model.User;
 import com.spring.service.TdService;
 
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -23,12 +28,16 @@ import net.sf.json.JSONObject;
 @RequestMapping(value = "/td",produces = { "text/json;charset=UTF-8" })
 public class TdController {
 	
+	private Page page;
+	private int pageIndex = 1;
+	private int pageSize = 10;
+	private int total = 0;
+	
 	@Autowired
 	private TdService tdService;
-	@Autowired
-	private InsframeworkService insfService;
 	private Td td;
 	
+	IsnullUtil iutil = new IsnullUtil();
 	/**
 	 * 获取所有用户列表
 	 * @param request
@@ -50,62 +59,26 @@ public class TdController {
 			    .getAuthentication()  
 			    .getPrincipal();
 		long uid = myuser.getId();
-		int dic=tdService.findDic(uid);
-		if(dic==21){
 		String insname = tdService.findInsname(tdService.findIns(uid));
-		request.setAttribute("insname", insname);
-		return "td/company";
-		}else{
-		return "/Error";
-		}*/
+		request.setAttribute("insname", insname);*/
 		return "td/BackUp";
 	}
 	
 	@RequestMapping("/AllTdd")
 	public String AllTdd(HttpServletRequest request){
 		request.setAttribute("divi", request.getParameter("value"));
-		return "td/division";
+		return "/division";
 	}
 	
 	@RequestMapping("/AllTddp")
 	public String AllTddp(HttpServletRequest request){
-		BigInteger insfid = new BigInteger(request.getParameter("value"));
-		String fname = insfService.getInsframeworkById(insfid);
-		request.setAttribute("proj", insfid);
-		request.setAttribute("fname", fname);
-		return "td/project";
-	}
-	
-	@RequestMapping("/AllTddi")
-	public String AllTddi(HttpServletRequest request){
-		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
-			    .getAuthentication()  
-			    .getPrincipal();
-		long uid = myuser.getId();
-		int dic=tdService.findDic(uid);
-		if(dic==22){
-		String insname = tdService.findInsname(tdService.findIns(uid));
-		request.setAttribute("divi", insname);
-		return "td/division";
-		}else{
-			return "/Error";
-			}
+		request.setAttribute("proj", request.getParameter("value"));
+		return "/project";
 	}
 	
 	@RequestMapping("/AllTdp")
 	public String AllTdp(HttpServletRequest request){
-		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
-			    .getAuthentication()  
-			    .getPrincipal();
-		long uid = myuser.getId();
-		int dic=tdService.findDic(uid);
-		if(dic==23){
-		String insname = tdService.findInsname(tdService.findIns(uid));
-		request.setAttribute("proj", insname);
-		return "td/project";
-		}else{
-			return "/Error";
-		}
+		return "/project";
 	}
 	
 	@RequestMapping("/AllTdad")
@@ -142,7 +115,7 @@ public class TdController {
 	@RequestMapping("/AllTda")
 	public String AllTda(HttpServletRequest request){
 		request.setAttribute("av", request.getParameter("value"));
-		return "td/AV";
+		return "/AV";
 	}
 	
 	@RequestMapping("/getAllTd")
@@ -271,8 +244,8 @@ public class TdController {
 	public String getAllTdp2(HttpServletRequest request){
 		
 		JSONObject obj = new JSONObject();
-		int insid = Integer.parseInt(request.getParameter("div"));
-//		long insid = tdService.findInsid(insname);
+		String insname = request.getParameter("div");
+		long insid = tdService.findInsid(insname);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
@@ -292,8 +265,8 @@ public class TdController {
 	public String getAllTdd(HttpServletRequest request){
 		
 		JSONObject obj = new JSONObject();
-		long insid = Long.parseLong(request.getParameter("div"));
-//		long insid = tdService.findInsid(insname);
+		String insname = request.getParameter("div");
+		long insid = tdService.findInsid(insname);
 		List<Td> findAlld = tdService.findAlldiv(insid);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
@@ -417,29 +390,26 @@ public class TdController {
 	@RequestMapping("/isnull")
 	@ResponseBody
 	public String isnull(HttpServletRequest request){
-		
 		JSONObject obj = new JSONObject();
-		String da = request.getParameter("dd");
 		String po = request.getParameter("posit");
+		List<Td> machine = tdService.getAllMachine(po);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
-			for(int i = 0;i < da.length();i+=159)
+			for(Td td:machine)
 			{
-				String pos = tdService.findPosition(da.substring(4+i, 8+i));
-				if(pos.equals(po)){
-				json.put("fstatus_id", da.substring(0+i, 2+i));
-				json.put("fequipment_no", da.substring(4+i, 8+i));
-				json.put("fwelder_no", da.substring(8+i, 12+i));
-				String weldname = tdService.findweld(da.substring(8+i, 12+i));
-				json.put("fname", weldname);
-				json.put("fposition", pos);
+				String xxx = td.getFequipment_no();
+				json.put("fstatus_id", "09");
+				json.put("fequipment_no", Integer.parseInt(xxx,16));
+				json.put("fwelder_no", "");
+				json.put("fname", "");
+				json.put("fposition", po);
 				ary.add(json);
-				}
 			}
 		}catch(Exception e){
-			e.getMessage();
+			/*e.getMessage();*/
 		}
+		obj.put("total", total);
 		obj.put("rows", ary);
 		return obj.toString();
 	}
