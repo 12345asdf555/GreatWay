@@ -15,7 +15,7 @@
 		</if>
 	</select>
 	
-	<select id="findAll" resultType="Td">
+	<select id="findWps" resultType="Td">
 		SELECT tb_welding_machine.fid id,tb_mainwps.Fweld_I electricity,tb_mainwps.Fweld_v voltage FROM tb_welding_machine LEFT JOIN tb_wps_welddevices ON tb_welding_machine.fid=tb_wps_welddevices.FWeldDevicesID LEFT JOIN tb_mainwps ON tb_wps_welddevices.FWeldWPSID=tb_mainwps.FID WHERE 1=1
 	</select>
 	
