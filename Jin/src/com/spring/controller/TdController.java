@@ -406,6 +406,7 @@ public class TdController {
 						json.put("fstand_vol", td1.getVoltage());
 					}
 				}
+				
 				json.put("fstatus_id", "09");
 				json.put("fequipment_no", Integer.parseInt(xxx,16));
 				json.put("fwelder_no", "");
