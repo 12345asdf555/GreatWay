@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" title="公司单台设备运行数据统计" style="background: witch; height: 335px;">
+    <div id="body" region="center"  hide="true"  split="true" style="background: witch; height: 335px;">
 	  	<div id="companyUse_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
@@ -47,9 +47,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		
-		<div id="companyUseChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
+		按组织机构和日期对设备运行数据统计：<br/>
+		统计时间段内的不同厂家不同类型的焊机使用情况；<br/>
+		X轴：厂家-类型<br/>
+		Y轴：焊接时长(h)<br/></div>
+		<div id="companyUseChart" style="height:300px;width:60%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 		
 	    <table id="companyUseTable" style="table-layout: fixed; width:100%;"></table>
 	</div>
+    <div id="body" region="south"  hide="true"  split="true" style="background: witch;">
+	    <jsp:include  page="../tenghanbottom.jsp"/>
+    </div>
   </body>
 </html>

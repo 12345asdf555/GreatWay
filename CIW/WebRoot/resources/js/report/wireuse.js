@@ -129,7 +129,7 @@ var time;
 //    	setParam();
 	    $("#dg").datagrid( {
 //		fitColumns : true,
-		height : ($("#body").height()),
+		height : ($("#body").height()-20),
 		width : $("#body").width(),
 		idField : 'id',
 		toolbar : "#toolbar",
@@ -295,7 +295,7 @@ var time;
           //改变表格高宽
           function domresize() {
           	$("#dg").datagrid('resize', {
-          		height : $("#body").height(),
+          		height : $("#body").height()-20,
           		width : $("#body").width()
           	});
           }

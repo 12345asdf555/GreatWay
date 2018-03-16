@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" title="公司焊机闲置率" style="background: witch; height: 335px;">
+    <div id="body" region="center"  hide="true"  split="true" style="background: witch; height: 335px;">
 	  	<div id="companyIdle_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
@@ -49,9 +49,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="companyIdleChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
-		
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
+		按组织机构和日期对设备闲置率趋势统计：<br/>
+		统计时间段内的各部门设备闲置趋势；<br/>
+		X轴：日期<br/>
+		Y轴：显示数量(台)<br/></div>
+		<div id="companyIdleChart" style="height:300px;width:60%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 	    <table id="companyIdleTable" style="table-layout: fixed; width:100%;"></table>
 	</div>
+    <div id="body" region="south"  hide="true"  split="true" style="background: witch;">
+	    <jsp:include  page="../tenghanbottom.jsp"/>
+    </div>
   </body>
 </html>

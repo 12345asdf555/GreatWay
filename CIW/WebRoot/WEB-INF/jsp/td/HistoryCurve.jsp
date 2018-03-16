@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
 <body class="easyui-layout">
-	<div id="body" region="center"  hide="true"  split="true" title="历史曲线" style="background: #eee; height: 335px;">
+	<div id="body" region="center"  hide="true"  split="true" style="background: #eee; height: 335px;">
 	   	 <div id="companyOverproof_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>

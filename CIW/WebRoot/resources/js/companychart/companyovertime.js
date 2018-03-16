@@ -1,5 +1,4 @@
 $(function(){
-	hourscombobox();
 	CompanytimeDatagrid();
 })
 var chartStr = "";
@@ -12,8 +11,7 @@ function setParam(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var number = $("#number").val();
-	var hours = $("#hours").combobox('getValue');
-	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype="+otype+"&hours="+hours+"&number="+number;
+	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype="+otype+"&number="+number;
 }
 
 function showCompanyOverptimeChart(){
@@ -117,7 +115,7 @@ function CompanytimeDatagrid(){
                  column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustOvertime?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:result.arys1[m].name,width:width,halign : "center",align : "left"});
                  }
              }  
          },  
@@ -127,7 +125,7 @@ function CompanytimeDatagrid(){
     }); 
 	 $("#companyOvertimeTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#companyOvertimeChart").height()-$("#companyOvertime_btn").height()-40,
+			height : $("#body").height() - $("#companyOvertimeChart").height()-$("#companyOvertime_btn").height()-60,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
@@ -149,13 +147,6 @@ function CompanytimeDatagrid(){
 	 })
 }
 
-function hourscombobox(){
-	var str = "<option value='hour'>一小时</option><option value='second'>一分钟</option>";
-	$("#hours").html(str);
-	$("#hours").combobox();
-	$("#hours").combobox('setValue','hour');
-}
-
 function serachCompanyOvertime(){
 	chartStr = "";
 	showCompanyOverptimeChart();
@@ -170,7 +161,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyOvertimeTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyOvertimeChart").height()-$("#companyOvertime_btn").height()-10,
+		height : $("#body").height() - $("#companyOvertimeChart").height()-$("#companyOvertime_btn").height()-60,
 		width : $("#body").width()
 	});
 }

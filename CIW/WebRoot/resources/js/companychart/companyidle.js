@@ -113,7 +113,7 @@ function CaustIdleDatagrid(){
                  column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustIdle?parent="+result.arys1[m].id+"'>"+result.arys1[m].name+"</a>",width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:result.arys1[m].name,width:width,halign : "center",align : "left"});
                  }
              }  
          },  
@@ -123,7 +123,7 @@ function CaustIdleDatagrid(){
     }); 
 	 $("#companyIdleTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-40,
+			height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-60,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
@@ -168,7 +168,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyIdleTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-10,
+		height : $("#body").height() - $("#companyIdleChart").height()-$("#companyIdle_btn").height()-60,
 		width : $("#body").width()
 	});
 }

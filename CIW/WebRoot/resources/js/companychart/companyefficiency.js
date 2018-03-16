@@ -134,7 +134,7 @@ function CompanyEfficiencyDatagrid(){
 	setParam();
 	$("#companyEfficiencyTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-40,
+		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-60,
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -155,10 +155,10 @@ function CompanyEfficiencyDatagrid(){
 			title : '事业部',
 			width : 100,
 			halign : "center",
-			align : "left",
-			formatter : function(value,row,index){
-				return "<a href='caustChart/goCaustEfficiency?nextparent="+row.id+"'>"+value+"</a>";
-			}
+			align : "left"//,
+//			formatter : function(value,row,index){
+//				return "<a href='caustChart/goCaustEfficiency?nextparent="+row.id+"'>"+value+"</a>";
+//			}
 		}, {
 			field : 'wname',
 			title : '焊工姓名',
@@ -217,7 +217,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyEfficiencyTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-10,
+		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-60,
 		width : $("#body").width()
 	});
 }

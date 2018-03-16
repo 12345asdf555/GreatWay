@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>超时待机统计</title>
+    <title>公司超时待机统计</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -20,7 +20,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
-	<link rel="stylesheet" type="text/css" href="resources/css/datagrid.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	
@@ -35,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" style="background: witch; height: 335px;">
+    <div id="body" region="center"  hide="true"  split="true" title="公司超时待机统计" style="background: witch; height: 335px;">
 	  	<div id="companyOvertime_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
@@ -48,18 +47,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="radio" class="radioStyle" name="otype" value="2" />月
 				<input type="radio" class="radioStyle" name="otype" value="3" checked="checked" />日
 				<input type="radio" class="radioStyle" name="otype" value="4" />周
-				<select class="easyui-combobox" id="hours" name="hours" ></select>
-				超时待机:
-				<input class="easyui-numberbox" name="number" id="number" value="30">秒
+				&nbsp;&nbsp;&nbsp;一天超时待机:
+				<input class="easyui-numberbox" name="number" id="number" value="30">分钟
 				<a href="javascript:serachCompanyOvertime();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="companyOvertimeChart" style="height:300px;width:600px; margin: auto;margin-bottom: 20px; margin-top: 20px"></div>
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
+		按组织机构和日期对超时待机趋势统计：<br/>
+		统计时间段内的各部门焊机超时待机趋势；<br/>
+		X轴：日期<br/>
+		Y轴：超时待机次数<br/></div>
+		<div id="companyOvertimeChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 		
 	    <table id="companyOvertimeTable" style="table-layout: fixed; width:100%;"></table>
-	    <jsp:include  page="../tenghanbottom.jsp"/>
 	    
 	</div>
+    <div id="body" region="south"  hide="true"  split="true" style="background: witch;">
+	    <jsp:include  page="../tenghanbottom.jsp"/>
+    </div>
   </body>
 </html>

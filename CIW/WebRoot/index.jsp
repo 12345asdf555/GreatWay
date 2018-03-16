@@ -68,17 +68,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div title="报表统计中心" data-options="iconCls:'icon-statistics'">
 				<ul>
 					<li><a href="javascript:openCompanyTd()"><img src="resources/images/1_48.png" />&nbsp;实时监控</a></li>
-					<li><a href="javascript:openCompanyLoads()"><img src="resources/images/1_53.png" />&nbsp;负载率</a></li>
-					<li><a href="javascript:openCompanyNoLoads()"><img src="resources/images/1_59.png" />&nbsp;空载率</a></li>
-    				<li><a href="javascript:openCompanytEfficiency()"><img src="resources/images/1_59.png" />&nbsp;焊工工效</a></li>
 					<li><a href="javascript:openHistory()"><img src="resources/images/1_62.png" />&nbsp;历史曲线</a></li>
+    				<li><a href="javascript:openCompanytEfficiency()"><img src="resources/images/1_59.png" />&nbsp;焊工工效</a></li>
+					<li><a href="javascript:openCompanyLoads()"><img src="resources/images/1_53.png" />&nbsp;焊机负载率</a></li>
+					<li><a href="javascript:openCompanyNoLoads()"><img src="resources/images/1_59.png" />&nbsp;焊机空载率</a></li>
     				<li><a href="javascript:openCompanyIdle()"><img src="resources/images/1_62.png" />&nbsp;设备闲置率</a></li>
 			        <li><a href="javascript:openWelderReport()"><img src="resources/images/1_69.png" />&nbsp;焊工维度表</a></li>
 					<li><a href="javascript:openCompanyHour()"><img src="resources/images/1_69.png" />&nbsp;焊缝焊接工时</a></li>
+    				<li><a href="javascript:openCompanyovertime()"><img src="resources/images/1_62.png" />&nbsp;超时待机统计</a></li>
 					<li><a href="javascript:openCompanyoverproof()"><img src="resources/images/1_67.png" />&nbsp;焊接工艺超标</a></li>
 				    <li><a href="javascript:openWeldingmachineMax()"><img src="resources/images/1_69.png" />&nbsp;焊机工时最高</a></li>
 			        <li><a href="javascript:openWeldingmachineMin()"><img src="resources/images/1_69.png" />&nbsp;焊机工时最低</a></li>
-    				<li><a href="javascript:openCompanyovertime()"><img src="resources/images/1_62.png" />&nbsp;超时待机统计</a></li>
 			        <li><a href="javascript:openWelderMax()"><img src="resources/images/1_69.png" />&nbsp;焊工工时最高</a></li>
 			        <li><a href="javascript:openWelderMin()"><img src="resources/images/1_69.png" />&nbsp;焊工工时最低</a></li>
 			        <li><a href="javascript:openWeldParameter()"><img src="resources/images/1_69.png" />&nbsp;焊接参数维度表</a></li>
