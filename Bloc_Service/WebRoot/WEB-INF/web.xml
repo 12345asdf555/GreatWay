@@ -36,41 +36,41 @@
   <!-- 公司 -->
   <context-param>
   	<param-name>13</param-name>
-  	<param-value>http://192.168.73.150:8080/Company_Service/companyWebService?wsdl</param-value>
+  	<param-value>http://121.196.222.216:8080/Company_Service/companyWebService?wsdl</param-value>
   </context-param>
-  <context-param>
-  	<param-name>25</param-name>
-  	<param-value>http://192.168.73.150:8080/Company_Service/companyWebService?wsdl</param-value>
-  </context-param>
+<!--   <context-param> -->
+<!--   	<param-name>25</param-name> -->
+<!--   	<param-value>http://192.168.73.150:8080/Company_Service/companyWebService?wsdl</param-value> -->
+<!--   </context-param> -->
   <!-- 项目 -->
   <context-param>
   	<param-name>17</param-name>
-  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
+  	<param-value>http://116.236.114.60:8080/Item_Service/itemWebService?wsdl</param-value>
   </context-param>
-  <context-param>
-  	<param-name>18</param-name>
-  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
-  </context-param>
-  <context-param>
-  	<param-name>21</param-name>
-  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
-  </context-param>
-  <context-param>
-  	<param-name>23</param-name>
-  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
-  </context-param>
-  <context-param>
-  	<param-name>24</param-name>
-  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
-  </context-param>
-  <context-param>
-  	<param-name>28</param-name>
-  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
-  </context-param>
-  <context-param>
-  	<param-name>32</param-name>
-  	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value>
-  </context-param>
+<!--   <context-param> -->
+<!--   	<param-name>18</param-name> -->
+<!--   	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value> -->
+<!--   </context-param> -->
+<!--   <context-param> -->
+<!--   	<param-name>21</param-name> -->
+<!--   	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value> -->
+<!--   </context-param> -->
+<!--   <context-param> -->
+<!--   	<param-name>23</param-name> -->
+<!--   	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value> -->
+<!--   </context-param> -->
+<!--   <context-param> -->
+<!--   	<param-name>24</param-name> -->
+<!--   	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value> -->
+<!--   </context-param> -->
+<!--   <context-param> -->
+<!--   	<param-name>28</param-name> -->
+<!--   	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value> -->
+<!--   </context-param> -->
+<!--   <context-param> -->
+<!--   	<param-name>32</param-name> -->
+<!--   	<param-value>http://192.168.73.150:8080/Item_Service/itemWebService?wsdl</param-value> -->
+<!--   </context-param> -->
   <welcome-file-list>
     <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>
