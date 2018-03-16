@@ -1,5 +1,6 @@
 package com.greatway.manager.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,12 @@ public class WeldedJunctionManagerImpl implements WeldedJunctionManager{
 	public List<WeldedJunction> getWeldedJunctionAll(Page page, String str) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		return wjm.getWeldedJunctionAll(str);
+	}
+
+	@Override
+	public List<WeldedJunction> getWeldingJun(Page page, String str, BigInteger welderid) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return wjm.getWeldingJun(str,welderid);
 	}
 
 }

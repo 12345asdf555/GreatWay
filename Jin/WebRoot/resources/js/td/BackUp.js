@@ -163,11 +163,26 @@
 	    		    if((dd.substring(8+g, 12+g)!="0000")&&(parseInt(dd.substring(4+g, 8+g),16)==rows[dex].fequipment_no)){
 	    			rows[dex].fwelder_no=parseInt(dd.substring(8+g, 12+g),16);
 	    			rows[dex].fstatus_id=dd.substring(0+g, 2+g);
+	    			if(rows[dex].fstatus_id=="03"||rows[dex].fstatus_id=="03"){
+	    				rows[dex].fstatus="在线";
+	    			}
+	    			if(rows[dex].fstatus_id=="00"){
+	    				rows[dex].fstatus="待机";
+	    			}
+	    			if(rows[dex].fstatus_id=="07"){
+	    				rows[dex].fstatus="报警";
+	    			}
+	    			if(rows[dex].fstatus_id=="09"){
+	    				rows[dex].fstatus="关机";
+	    			}
 					for(var k=0;k<namex.length;k++){
 						if(namex[k].fwelder_no==dd.substring(8+g, 12+g)){
 							rows[dex].fname=namex[k].fname;
 						}
 					}
+					rows[dex].freal_ele=parseInt(dd.substring(12+i, 16+i),16);
+					rows[dex].freal_vol=parseInt(dd.substring(16+i, 20+i),16);
+					rows[dex].inspower=rows[dex].freal_ele*rows[dex].freal_vol;
 	    			$('#dg').datagrid('refreshRow', dex);
 	    			$("a[id='view']").linkbutton({text:'查看',plain:true,iconCls:'icon-view'});
 	    		    }
@@ -407,11 +422,17 @@
 			showPageList : false,
 			columns : [ [ {
 				field : 'fequipment_no',
-				title : '焊机编号',
+				title : '采集模块编号',
 				width : 100,
 				halign : "center",
 				align : "left"
-			}, {
+			},{
+				field : 'fmodel',
+				title : '焊机模型',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
 				field : 'fwelder_no',
 				title : '焊工编号',
 				width : 100,
@@ -423,33 +444,39 @@
 				width : 100,
 				halign : "center",
 				align : "left"
-			}, {
-				field : 'fmachine_no',
-				title : '编号',
-				width : 100,
-				halign : "center",
-				align : "left"
-			},{
-				field : 'fmodel',
-				title : '焊机型号',
-				width : 100,
-				halign : "center",
-				align : "left"
-			},{
-				field : 'fins_power',
-				title : '瞬时功率',
-				width : 100,
-				halign : "center",
-				align : "left"
 			},{
 				field : 'fstand_ele',
 				title : '给定电流',
 				width : 100,
 				halign : "center",
 				align : "left"
-			},{
+			}, {
 				field : 'freal_ele',
 				title : '实际电流',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
+				field : 'fstand_vol',
+				title : '给定电压',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
+				field : 'freal_vol',
+				title : '实际电压',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
+				field : 'freal_vol',
+				title : '实际电压',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
+				field : 'inspower',
+				title : '瞬时功率',
 				width : 100,
 				halign : "center",
 				align : "left"
@@ -460,8 +487,14 @@
 				halign : "center",
 				align : "left"
 			},{
-				field : 'fstatus_id',
+				field : 'fstatus',
 				title : '设备状态',
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
+				field : 'fstatus_id',
+				title : '设备状态id',
 				width : 100,
 				halign : "center",
 				align : "left",

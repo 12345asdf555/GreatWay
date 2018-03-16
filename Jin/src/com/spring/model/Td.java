@@ -10,6 +10,7 @@ public class Td {
 	private String fstatus_id;
 	private String fequipment_no;
 	private String finsframework_id;
+	private String model;
 	private int fpt;
 	private int fpi;
 	private int fpp;
@@ -47,6 +48,12 @@ public class Td {
 	}
 	public void setPosition(String fposition) {
 		this.fposition = fposition;
+	}
+	public String getModel(){
+		return model;
+	}
+	public void setModel(String model) {
+		this.model = model;
 	}
 	public String getFwelder_no(){
 		return fwelder_no;
@@ -146,7 +153,7 @@ public class Td {
 	}
 
 
-	public Td(int id,double electricity,double voltage,String fposition,String fwelder_no,String fname,String fequipment_no,String finsframework_id,String fstatus_id,int fpt,int fpp,int fpi, int fdt,int fdp,int fdi,int fct,int fci,String fcn,String fdn,String fpn) {
+	public Td(int id,double electricity,double voltage,String model,String fposition,String fwelder_no,String fname,String fequipment_no,String finsframework_id,String fstatus_id,int fpt,int fpp,int fpi, int fdt,int fdp,int fdi,int fct,int fci,String fcn,String fdn,String fpn) {
 		super();
 		this.id = id;
 		this.electricity = electricity;
@@ -157,6 +164,7 @@ public class Td {
 		this.fequipment_no = fequipment_no;
 		this.finsframework_id = finsframework_id;
 		this.fstatus_id = fstatus_id;
+		this.model = model;
 		this.fpt = fpt;
 		this.fpp = fpp;
 		this.fpi = fpi;

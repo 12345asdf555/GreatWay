@@ -1,5 +1,6 @@
 package com.spring.service.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -66,8 +67,14 @@ import com.spring.service.TdService;
 		public List<Td> allWeldname(){
 			return mapper.allWeldname();
 		}
-		
-		public int findDic(long uid){
-			return mapper.findDic(uid);
+
+		public List<Td> getAllMachine(String position) {
+			return mapper.findMachine(position);
+		}
+
+		@Override
+		public List<Td> findWps() {
+			// TODO Auto-generated method stub
+			return mapper.findWps();
 		}
 	}

@@ -154,9 +154,8 @@ readonly="readonly">
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
-			<li class="point"><span></span></li>
 			<li>
-				<ul id="time8"  style="margin-left:-38px">
+				<ul id="time8">
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>

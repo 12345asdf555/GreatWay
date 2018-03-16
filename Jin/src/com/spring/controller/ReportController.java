@@ -645,7 +645,7 @@ public class ReportController {
 			}
 		}
 		String str = request.getParameter("searchStr");
-		BigInteger fid = new BigInteger(request.getParameter("fid"));
+		String fid = request.getParameter("fid");
 		List<Report> list = reportService.historyData(dto,fid);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
@@ -671,9 +671,9 @@ public class ReportController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
-		BigInteger fid = new BigInteger(request.getParameter("fid"));
+		String fid = request.getParameter("fid");
 		try{
-				Report repo = reportService.getWps(reportService.getWpsid(fid));
+				Report repo = reportService.getWps(fid);
 				json.put("maxele", repo.getInsid());
 				json.put("minele", repo.getMachid());
 				json.put("maxvol", repo.getResult1());
