@@ -143,6 +143,7 @@
 .accordion .accordion-body {
   border-width: 0 0 1px;
   background-color: #eaedf0;/*当行菜单展开时背景颜色*/
+  background:url('images/4-08.png') no-repeat;/*设置导航菜单背景图片*/
 }
 .accordion-noborder {
   border-width: 0;
@@ -161,6 +162,7 @@
 }
 .accordion {
   background: #eaedf0;/*导航菜单折叠时留白背景色*/
+  background:url('images/4-08.png') no-repeat;/*设置导航菜单背景图片*/
   border-color: #95B8E7;
 }
 .accordion .accordion-header {
@@ -450,9 +452,9 @@
 .layout-split-proxy-v {
   background-color: #aac5e7;
 }
-/*.layout-split-north {
-  border-bottom: 5px solid #ffffff;分割线颜色
-}*/
+.layout-split-north {
+ /* border-bottom: 5px solid #ffffff;分割线颜色*/
+}
 .layout-split-south {
   border-top: 5px solid #f3f3f3;/*分割线颜色*/
 }

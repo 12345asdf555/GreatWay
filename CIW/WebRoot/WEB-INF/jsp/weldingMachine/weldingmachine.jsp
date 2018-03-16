@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
   </head>
   
-  <body  class="easyui-layout" style="background:#ffffff;">
+  <body  class="easyui-layout" >
   	<div class="divborder">
   		<div class="divtitle">焊机设备管理</div>
   	</div>

@@ -1,13 +1,17 @@
 @charset 'UTF-8';
 
+body{
+	font:12px/1.5 'Microsoft Yahei',sans-serif;/*sans-serif 是手机默认字体*/ 
+	color:#666;
+	background:#ffffff;
+	/*background:url('../images/4-07.png') no-repeat;*/
+}
 body,h1,h2,h3,h4,h5,h6,p,dd{margin:0;}
 ul,ol,dl{margin:0;padding:0;list-style:none;}
 img{border:none;vertical-align:middle;}
 input{border:none;outline:none;padding:0;margin:0;font-size:12px;width:150px}
 button{border:none;outline:none;padding:0;margin:0;}
 a{text-decoration:none;outline:none;}
-body{font:12px/1.5 'Microsoft Yahei',sans-serif;
-/*sans-serif 是手机默认字体*/ color:#666;background:#f2f2f2;}
 
 /*---------------------------------------
 				 font 
