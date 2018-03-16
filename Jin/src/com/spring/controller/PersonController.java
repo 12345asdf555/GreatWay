@@ -35,7 +35,6 @@ public class PersonController {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
-	private BigInteger welderid;
 	@Autowired
 	private PersonService welderService;
 	
@@ -56,14 +55,6 @@ public class PersonController {
 	@RequestMapping("/AllWelder")
 	public String AllUser(HttpServletRequest request){
 		return "welder/allWelder";
-	}
-	
-	@RequestMapping("/getWeldJun")
-	public String getWeldJun(HttpServletRequest request){
-		if(request.getParameter("fid")!=null&&request.getParameter("fid")!=""){
-			welderid = new BigInteger(request.getParameter("fid"));
-		}
-		return "report/HistoryCurve";
 	}
 	
 	@RequestMapping("/getAllWelder")
@@ -101,19 +92,9 @@ public class PersonController {
 				json.put("cardnum", welder.getCardnum());
 				json.put("createdate", creat);
 				json.put("updatedate", update);
-				for(Person insframework:ins){
-					if(insframework.getOwner()==welder.getOwner()){
-						json.put("owner", insframework.getInsname());
-					}
-				}
-				for(Person dictionary:dic){
-					if(dictionary.getVal()==welder.getLeveid()){
-						json.put("leveid", dictionary.getValuename());
-					}
-					if(dictionary.getVal()==welder.getQuali()){
-						json.put("quali", dictionary.getValuename());
-					}
-				}
+				json.put("owner", welder.getInsname());
+				json.put("leveid", welder.getValuename());
+				json.put("quali", welder.getValuenamex());
 				json.put("back", welder.getBack());
 				ary.add(json);
 			}

@@ -14,6 +14,7 @@ var timer1;
 var timer2;
 var chart,chart1;
 var series,series1;
+var lable=0;
 		$(function(){
 			weldingMachineDatagrid();
 		})
@@ -27,13 +28,15 @@ var series,series1;
 			chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 		}
 		function serachCompanyOverproof(){
+			$('#body1').html("");
+			$('#body2').html("");
 			chartStr = "";
 			var rows = $("#dg").datagrid("getSelections");
 			if(rows.length==0){
-				alert("请先选择焊机");
+				alert("请先选择焊缝");
 			}else{
 				setParam();
-				var fid = $('#dg').datagrid('getSelected').id;
+				var fid = $('#dg').datagrid('getSelected').weldedJunctionno;
 				   $.ajax({
 					   type: "post", 
 					   url: "rep/getWpsByMid"+"?fid="+fid,
@@ -42,10 +45,10 @@ var series,series1;
 					   success: function (result) {
 					      if (result) {
 					    	  var wps = eval(result.rows);
-					    	  maxele=wps.maxele;
-					    	  minele=wps.minele;
-					    	  maxvol=wps.maxvol;
-					    	  minvol=wps.minvol;
+					    	  maxele=wps[0].maxele;
+					    	  minele=wps[0].minele;
+					    	  maxvol=wps[0].maxvol;
+					    	  minvol=wps[0].minvol;
 					      }
 					   },
 					   error: function () {
@@ -87,7 +90,7 @@ var series,series1;
 				idField : 'id',
 				pageSize : 10,
 				pageList : [ 10, 20, 30, 40, 50 ],
-				url : "weldedjunction/getWeldedJunctionList",
+				url : "weldedjunction/getWeldingJun",
 				singleSelect : true,
 				rownumbers : true,
 				showPageList : false,
@@ -361,73 +364,83 @@ var series,series1;
 	
 	//暂停
 	function stoptime(){
+		if(lable!=1){
 		window.clearInterval(timer1);
 		window.clearInterval(timer2);
+		lable++;
+		}else{
+			alert("已暂停");
+		}
 	}
 	
 	//开始
 	function starttime(){
+		if(lable==1){
 		refresh1();
 		refresh2();
+		lable--;
+		}else{
+			alert("正在播放");
+		}
 	}
-		function activeLastPointToolip1(chart) {
-  		    var points = chart.series[0].points;
-/*  		    chart.tooltip.refresh(points[points.length -1]);
-  		    chart.tooltip.refresh(points1[points1.length -1]);*/
-  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-  		  		value:maxele, //在值为2的地方 
-  		  		width:2, //标示线的宽度为2px 
-  		  		color: 'red', //标示线的颜色 
-  		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-		          label:{
-    		            text:'最高电流',     //标签的内容
-    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-    		        }
-  		  	})
-  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-  		  		value:minele, //在值为2的地方 
-  		  		width:2, //标示线的宽度为2px 
-  		  		color: 'red', //标示线的颜色 
-  		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-		          label:{
-    		            text:'最低电流',     //标签的内容
-    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-    		            x:10                     //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-    		        }
-  		  	})	  	
-  		}
 		
-  		function activeLastPointToolip2(chart) {
+	function activeLastPointToolip1(chart) {
+		    var points = chart.series[0].points;
+/*  		    chart.tooltip.refresh(points[points.length -1]);
+		    chart.tooltip.refresh(points1[points1.length -1]);*/
+//		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+//		  		value:maxele, //在值为2的地方 
+//		  		width:2, //标示线的宽度为2px 
+//		  		color: 'red', //标示线的颜色 
+//		  	    dashStyle:'longdashdot',
+//		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+//	          label:{
+//		            text:'最高电流',     //标签的内容
+//		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+//		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+//		        }
+//		  	})
+//		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+//		  		value:minele, //在值为2的地方 
+//		  		width:2, //标示线的宽度为2px 
+//		  		color: 'red', //标示线的颜色 
+//		  	    dashStyle:'longdashdot',
+//		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+//	          label:{
+//		            text:'最低电流',     //标签的内容
+//		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+//		            x:10                     //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+//		        }
+//		  	})	  	
+		}
+		function activeLastPointToolip2(chart) {
   		    var points = chart.series[0].points;
 /*  		    chart.tooltip.refresh(points[points.length -1]);
   		    chart.tooltip.refresh(points1[points1.length -1]);*/
-  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-  		  		value:maxvol, //在值为2的地方 
-  		  		width:2, //标示线的宽度为2px 
-  		  		color: 'black', //标示线的颜色 
-  		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-		          label:{
-    		            text:'最高电压',     //标签的内容
-    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-    		            x:10  
-    		        }
-  		  	})
-  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-  		  		value:minvol, //在值为2的地方 
-  		  		width:2, //标示线的宽度为2px 
-  		  		color: 'black', //标示线的颜色 
-  		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-		          label:{
-    		            text:'最低电压',     //标签的内容
-    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-    		        }
-  		  	})
+//  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+//  		  		value:maxvol, //在值为2的地方 
+//  		  		width:2, //标示线的宽度为2px 
+//  		  		color: 'black', //标示线的颜色 
+//  		  	    dashStyle:'longdashdot',
+//  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+//		          label:{
+//    		            text:'最高电压',     //标签的内容
+//    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+//    		            x:10  
+//    		        }
+//  		  	})
+//  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+//  		  		value:minvol, //在值为2的地方 
+//  		  		width:2, //标示线的宽度为2px 
+//  		  		color: 'black', //标示线的颜色 
+//  		  	    dashStyle:'longdashdot',
+//  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+//		          label:{
+//    		            text:'最低电压',     //标签的内容
+//    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+//    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+//    		        }
+//  		  	})
   		  	  		  	
   		}
 		
@@ -441,6 +454,35 @@ var series,series1;
   	            resetZoomTitle: '重置缩放比例'
   	        }
   		});
+  		function activeLastPointToolip1(chart) {
+		    var points = chart.series[0].points;
+/*  		    chart.tooltip.refresh(points[points.length -1]);
+		    chart.tooltip.refresh(points1[points1.length -1]);*/
+		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+		  		value:maxele, //在值为2的地方 
+		  		width:2, //标示线的宽度为2px 
+		  		color: 'red', //标示线的颜色 
+		  	    dashStyle:'longdashdot',
+		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+	          label:{
+		            text:'最高电流',     //标签的内容
+		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+		        }
+		  	})
+		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+		  		value:minele, //在值为2的地方 
+		  		width:2, //标示线的宽度为2px 
+		  		color: 'red', //标示线的颜色 
+		  	    dashStyle:'longdashdot',
+		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+	          label:{
+		            text:'最低电流',     //标签的内容
+		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+		            x:10                     //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+		        }
+		  	})	  	
+		}
   		$('#body1').highcharts({
   		    chart: {
   	            panning: true,
@@ -469,9 +511,6 @@ var series,series1;
   		    title: {
   		        text: '电压电流实时监测'
   		    },
-            subtitle: {
-                text: document.ontouchstart === undefined
-            },
             mapNavigation: {
                 enabled: true,
                 enableButtons: false
@@ -552,7 +591,37 @@ var series,series1;
         panning: true,
         panKey: 'shift'
   		});
- 
+  		
+		function activeLastPointToolip2(chart) {
+  		    var points = chart.series[0].points;
+/*  		    chart.tooltip.refresh(points[points.length -1]);
+  		    chart.tooltip.refresh(points1[points1.length -1]);*/
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:maxvol, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最高电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10  
+    		        }
+  		  	})
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:minvol, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最低电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	})
+  		  	  		  	
+  		}
   		$('#body2').highcharts({
   		    chart: {
   	            panning: true,
@@ -584,9 +653,6 @@ var series,series1;
             mapNavigation: {
                 enabled: true,
                 enableButtons: false
-            },
-            subtitle: {
-                text: document.ontouchstart === undefined
             },
   		    xAxis: {
   		        type: 'datetime',
