@@ -77,7 +77,7 @@ public class ReportController {
 	}
 	@RequestMapping("/history")
 	public String History(HttpServletRequest request){
-		return "td/HistoryCurve";
+		return "report/HistoryWelder";
 	}
 
 /*	@RequestMapping("/getWeldPara")
@@ -657,9 +657,9 @@ public class ReportController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
-		BigInteger fid = new BigInteger(request.getParameter("fid"));
+		String fid = request.getParameter("fid");
 		try{
-				Report repo = reportService.getWps(reportService.getWpsid(fid));
+				Report repo = reportService.getWps(fid);
 				json.put("maxele", repo.getInsid());
 				json.put("minele", repo.getMachid());
 				json.put("maxvol", repo.getResult1());

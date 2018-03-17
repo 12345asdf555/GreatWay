@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div id="body2" style="width:15%;height:15%;float:left;position:absolute;left:15.5%;top:8%;">
-		<div style="position:absolute;left:5%;top:30%;"><label>电流：</label></div>
+		<div style="position:absolute;left:5%;top:30%;"><label>电流(A)：</label></div>
 		<div class="wrap">
 		<div class="clock">
 <!-- 			<div style="height:25%;"></div>
@@ -117,7 +117,7 @@ readonly="readonly">
 		<div id="body32" style="width:65%;height:25%;position:absolute;left:36%;top:29%;">
 		</div>
 		<div id="body5" style="width:15%;height:15%;position:absolute;left:15.5%;top:20%;">
-		<div style="position:absolute;left:7%;top:35%;"><label>电压：</label></div>
+		<div style="position:absolute;left:7%;top:35%;"><label>电压(V)：</label></div>
 		<div class="wrap">
 		<div class="clock">
 			

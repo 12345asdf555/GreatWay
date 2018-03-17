@@ -6,13 +6,17 @@
 	id:必须与对应接口的某个对应的方法名一致
 	
  -->
-<mapper namespace="com.spring.dao.TdMapper">
+<mapper namespace="com.greatway.dao.TdMapper">
 	
 	<select id="findAll" resultType="Td">
 		select fid id,fwelder_no welderNo,fname welderName from tb_welder where 1=1
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
+	</select>
+	
+	<select id="findMachine" parameterType="String" resultType="Td">
+		select fequipment_no fequipment_no from tb_welding_machine where fposition=#{fposition}
 	</select>
 	
 	<select id="findAlldiv" parameterType="long" resultType="Td">
@@ -24,7 +28,7 @@
 	</select>
 	
 	<select id="findInsid" parameterType="String" resultType="long">
-		select fid fdn from tb_insframework where fname=#{fdn} 
+		select fid fdn from tb_insframework where tb_insframework.fname=#{fdn} 
 	</select>
 	
 	<select id="findInsname" parameterType="long" resultType="String">
@@ -45,9 +49,5 @@
 	
 	<select id="allWeldname" resultType="Td">
 		select fname fname,fwelder_no fwelder_no from tb_welder
-	</select>
-	
-	<select id="findDic" parameterType="long" resultType="int">
-		SELECT ftype FROM tb_insframework LEFT JOIN tb_users ON tb_insframework.fid=tb_users.users_insframework WHERE tb_users.id=#{id}
 	</select>
 </mapper>

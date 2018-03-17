@@ -44,4 +44,12 @@ public interface WeldedJunctionService {
 	 * @param wj
 	 */
 	boolean deleteJunction(BigInteger id);
+	/**
+	 * 查询焊工对应的焊缝
+	 * @param page
+	 * @param str
+	 * @param welderid
+	 * @return
+	 */
+	List<WeldedJunction> getWeldingJun(Page page, String str, BigInteger welderid);
 }

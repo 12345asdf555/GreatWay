@@ -33,7 +33,7 @@ public class WeldedJunctionControll {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
-	
+	private BigInteger welderid;
 	@Autowired
 	private WeldedJunctionService wjm;
 	IsnullUtil iutil = new IsnullUtil();
@@ -286,6 +286,74 @@ public class WeldedJunctionControll {
 			data = false;
 		}
 		return data + "";
+	}
+	
+	@RequestMapping("/getWeldJun")
+	public String getWeldJun(HttpServletRequest request){
+		if(request.getParameter("fid")!=null&&request.getParameter("fid")!=""){
+			welderid = BigInteger.valueOf((Integer.parseInt(request.getParameter("fid"), 16)));
+		}
+		return "report/HistoryCurve";
+	}
+	
+	@RequestMapping("/getWeldingJun")
+	@ResponseBody
+	public String getWeldingJun(HttpServletRequest request){
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String serach = request.getParameter("searchStr");
+		
+		page = new Page(pageIndex,pageSize,total);
+		List<WeldedJunction> list = wjm.getWeldingJun(page, serach, welderid);
+		long total = 0;
+		
+		if(list != null){
+			PageInfo<WeldedJunction> pageinfo = new PageInfo<WeldedJunction>(list);
+			total = pageinfo.getTotal();
+		}
+		
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(WeldedJunction w:list){
+				json.put("id", w.getId());
+				json.put("weldedJunctionno", w.getWeldedJunctionno());
+				json.put("serialNo", w.getSerialNo());
+				json.put("pipelineNo", w.getPipelineNo());
+				json.put("roomNo", w.getRoomNo());
+				json.put("unit", w.getUnit());
+				json.put("area", w.getArea());
+				json.put("systems", w.getSystems());
+				json.put("children", w.getChildren());
+				json.put("externalDiameter", w.getExternalDiameter());
+				json.put("wallThickness", w.getWallThickness());
+				json.put("dyne", w.getDyne());
+				json.put("specification", w.getSpecification());
+				json.put("maxElectricity", w.getMaxElectricity());
+				json.put("minElectricity", w.getMinElectricity());
+				json.put("maxValtage", w.getMaxValtage());
+				json.put("minValtage", w.getMinValtage());
+				json.put("material", w.getMaterial());
+				json.put("nextexternaldiameter", w.getNextexternaldiameter());
+				json.put("itemname", w.getItemid().getName());
+				json.put("startTime", w.getStartTime());
+				json.put("endTime", w.getEndTime());
+				json.put("creatTime", w.getCreatTime());
+				json.put("updateTime", w.getUpdateTime());
+				json.put("updatecount", w.getUpdatecount());
+				json.put("nextwall_thickness", w.getNextwall_thickness());
+				json.put("next_material", w.getNext_material());
+				json.put("electricity_unit", w.getElectricity_unit());
+				json.put("valtage_unit", w.getValtage_unit());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
 	}
 	
 }

@@ -18,7 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<link rel="stylesheet" type="text/css" href="resources/css/main.css">
 	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
-	<link rel="stylesheet" type="text/css" href="resources/css/datagrid.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/iconfont.css">
@@ -30,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
 	<script type="text/javascript" src="resources/js/highcharts.js"></script>
 	<script type="text/javascript" src="resources/js/exporting.js"></script>
+	<script type="text/javascript" src="resources/js/map.js"></script>
 	<script type="text/javascript" src="resources/js/report/HistoryCurve.js"></script>
 
   </head>
@@ -51,13 +51,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:serachCompanyOverproof();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
-		<div id="dgtb" style="width:100%;height:55.1%">
+		<div id="dgtb" style="width:100%;height:50%">
 			<table id="dg" style="table-layout:fixed;width:100%;"></table>
 		</div>
-		<div id="body1" style="width:100%;height:20%">
-		<a class="easyui-linkbutton"  href="javascript:addtime()" iconCls="icon-add">加速</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a class="easyui-linkbutton" href="javascript:reducetime()" iconCls="icon-remove">减速</a></div>
+		<div id="body1" style="width:100%;height:20%"></div>
 		<div id="body2" style="width:100%;height:20%"></div>
+		<a class="easyui-linkbutton"  href="javascript:addtime()" iconCls="icon-add">加速</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a class="easyui-linkbutton" href="javascript:reducetime()" iconCls="icon-remove">减速</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a class="easyui-linkbutton"  href="javascript:starttime()" iconCls="icon-play">开始</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a class="easyui-linkbutton" href="javascript:stoptime()" iconCls="icon-pause">暂停</a>
+		<a style="float: right">温馨提示：鼠标左键选中局部曲线可进行放大；‘ctrl’+鼠标左键可进行曲线平移。</a>
 <!-- 		<div id="body6" style="position:absolute;left:16%;top:35%;"><label>焊机编号：</label>
 		<input name="macname" id="macname" readonly="true" style="text-align:center">
 		</div>

@@ -10,7 +10,7 @@ import com.spring.model.Report;
 
 public interface ReportMapper {
 	BigInteger getWpsid(BigInteger machid);
-	Report getWps(BigInteger wpsid);
+	Report getWps(String wpsid);
 	Report getSyspara();
 	List<Report> findAllWelder(@Param("iid")BigInteger iid,@Param("str")String str);
 	List<Report> findMachine(String weldid);
