@@ -29,7 +29,7 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public Report getWps(BigInteger wpsid) {
+	public Report getWps(String wpsid) {
 		// TODO Auto-generated method stub
 		return mapper.getWps(wpsid);
 	}

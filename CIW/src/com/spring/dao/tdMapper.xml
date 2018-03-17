@@ -15,6 +15,14 @@
 		</if>
 	</select>
 	
+	<select id="findWps" resultType="Td">
+		SELECT tb_welding_machine.fid id,tb_mainwps.Fweld_I electricity,tb_mainwps.Fweld_v voltage FROM tb_welding_machine LEFT JOIN tb_wps_welddevices ON tb_welding_machine.fid=tb_wps_welddevices.FWeldDevicesID LEFT JOIN tb_mainwps ON tb_wps_welddevices.FWeldWPSID=tb_mainwps.FID WHERE 1=1
+	</select>
+	
+	<select id="findMachine" parameterType="String" resultType="Td">
+		select fid id,fmodel model,fequipment_no fequipment_no from tb_welding_machine where fposition=#{fposition}
+	</select>
+	
 	<select id="findAlldiv" parameterType="long" resultType="Td">
 		select fid fdi,fname fdn,fparent fdp,ftype fdt from tb_insframework where tb_insframework.fparent=#{fci} 
 	</select>
@@ -24,7 +32,7 @@
 	</select>
 	
 	<select id="findInsid" parameterType="String" resultType="long">
-		select fid fdn from tb_insframework where fname=#{fdn} 
+		select fid fdn from tb_insframework where tb_insframework.fname=#{fdn} 
 	</select>
 	
 	<select id="findInsname" parameterType="long" resultType="String">
@@ -45,9 +53,5 @@
 	
 	<select id="allWeldname" resultType="Td">
 		select fname fname,fwelder_no fwelder_no from tb_welder
-	</select>
-	
-	<select id="findDic" parameterType="long" resultType="int">
-		SELECT ftype FROM tb_insframework LEFT JOIN tb_users ON tb_insframework.fid=tb_users.users_insframework WHERE tb_users.id=#{id}
 	</select>
 </mapper>

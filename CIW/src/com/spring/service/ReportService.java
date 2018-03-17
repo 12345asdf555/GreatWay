@@ -11,7 +11,7 @@ import com.spring.page.Page;
 
 public interface ReportService {
 	BigInteger getWpsid(BigInteger machid);
-	Report getWps(BigInteger wpsid);
+	Report getWps(String wpsid);
 	Report getSyspara();
 	List<Report> findAllWelder(Page page, BigInteger iid,String str);
 	List<Report> findMachine(String weldid);

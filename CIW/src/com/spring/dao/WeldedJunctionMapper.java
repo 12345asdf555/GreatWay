@@ -21,4 +21,6 @@ public interface WeldedJunctionMapper extends Mapper<WeldedJunction>{
 	boolean deleteJunction(@Param("id")BigInteger id);
 	
 	int getWeldedjunctionByNo(@Param("wjno")String wjno);
+	
+	List<WeldedJunction> getWeldingJun(@Param("str")String str,@Param("welderid")BigInteger welderid);
 }
