@@ -112,7 +112,7 @@ public class AuthorityController {
 		MyUser myuser = (MyUser)object;
 		authority.setStatus(Integer.parseInt(request.getParameter("status")));
         authority.setAuthorityName("ROLE_"+authority.getAuthorityName());
-        authority.setCreator(myuser.getUsername());
+        authority.setCreator(myuser.getId()+"");
         authorityService.save(authority);
         String str = request.getParameter("rid");
         if(null!=str&&""!=str)
@@ -156,8 +156,8 @@ public class AuthorityController {
 		String str = request.getParameter("sid");
 		Integer aid = Integer.parseInt(request.getParameter("aid"));
 		authorityService.deleteResource(aid);
-		authority.setCreator(myuser.getUsername());
-		authority.setModifier(myuser.getUsername());
+		authority.setCreator(myuser.getId()+"");
+		authority.setModifier(myuser.getId()+"");
 		authority.setAuthorityName("ROLE_"+authority.getAuthorityName());
 		if(null!=str&&""!=str)
 		{

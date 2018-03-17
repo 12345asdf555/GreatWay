@@ -106,7 +106,7 @@ public class ResourceController {
 		//获取当前用户
 		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser myuser = (MyUser)object;
-		resource.setCreator(myuser.getUsername());
+		resource.setCreator(myuser.getId()+"");
 		resource.setStatus(Integer.parseInt(request.getParameter("status")));
 		resourceService.save(resource);
 		obj.put("success", true);
@@ -132,7 +132,7 @@ public class ResourceController {
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			resource.setModifier(myuser.getUsername());
+			resource.setModifier(myuser.getId()+"");
 			resourceService.update(resource);
 			obj.put("success", true);
 			}catch(Exception e){

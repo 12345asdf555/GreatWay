@@ -201,7 +201,7 @@ public class MaintainController {
 			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"addMaintian\"}";
 			String obj2 = "{\"VICEMAN\":\""+request.getParameter("viceman")+"\",\"INSFID\":\""+insfid+"\",\"STARTTIME\":\""+request.getParameter("startTime")+
 					"\",\"ENDTIME\":\""+request.getParameter("endTime")+"\",\"DESC\":\""+request.getParameter("desc")+"\",\"TYPEID\":\""+request.getParameter("tId")+
-					"\",\"WELDID\":\""+request.getParameter("wId")+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+					"\",\"WELDID\":\""+request.getParameter("wId")+"\",\"CREATOR\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
@@ -237,7 +237,7 @@ public class MaintainController {
 			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"updateMaintenanceRecord\"}";
 			String obj2 = "{\"MID\":\""+new BigInteger(mid)+"\",\"WID\":\""+new BigInteger(wid)+"\",\"INSFID\":\""+insfid+"\",\"VICEMAN\":\""+request.getParameter("viceman")+"\",\"STARTTIME\":\""+request.getParameter("startTime")+"\","
 					+ "\"ENDTIME\":\""+request.getParameter("endTime")+"\",\"DESC\":\""+request.getParameter("desc")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\","
-					+ "\"MODIFIER\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+					+ "\"MODIFIER\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);

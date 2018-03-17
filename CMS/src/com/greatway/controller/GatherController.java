@@ -149,7 +149,7 @@ public class GatherController {
 			Client client = dcf.createClient(companyurl);
 			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"addGather\"}";
 			String obj2 = "{\"GATHERNO\":\""+gather.getGatherNo()+"\",\"IPURL\":\""+gather.getIpurl()+"\",\"INSFID\":\""+gather.getItemid()+"\",\"LEAVETIME\":\""+gather.getLeavetime()+"\",\"MACURL\":\""+gather.getMacurl()+"\",\"PROTOCOL\":\""+
-					gather.getProtocol()+"\",\"STATUS\":\""+gather.getStatus()+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+					gather.getProtocol()+"\",\"STATUS\":\""+gather.getStatus()+"\",\"CREATOR\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
@@ -184,7 +184,7 @@ public class GatherController {
 			Client client = dcf.createClient(companyurl);
 			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGather\"}";
 			String obj2 = "{\"ID\":\""+gather.getId()+"\",\"GATHERNO\":\""+gather.getGatherNo()+"\",\"IPURL\":\""+gather.getIpurl()+"\",\"INSFID\":\""+gather.getItemid()+"\",\"LEAVETIME\":\""+gather.getLeavetime()+"\",\"MACURL\":\""+gather.getMacurl()+"\",\"PROTOCOL\":\""+
-					gather.getProtocol()+"\",\"STATUS\":\""+gather.getStatus()+"\",\"MODIFIER\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+					gather.getProtocol()+"\",\"STATUS\":\""+gather.getStatus()+"\",\"MODIFIER\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);

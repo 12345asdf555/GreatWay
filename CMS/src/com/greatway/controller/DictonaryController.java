@@ -116,7 +116,7 @@ public class DictonaryController {
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(blocurl);
 			String obj1 = "{\"CLASSNAME\":\"dictionaryWebServiceImpl\",\"METHOD\":\"addDictionary\"}";
-			String obj2 = "{\"BACK\":\""+request.getParameter("back")+"\",\"TYPEID\":\""+request.getParameter("typeid")+"\",\"VALUENAME\":\""+request.getParameter("valueName")+"\",\"CREATOR\":\""+myuser.getUsername()+"\"}";
+			String obj2 = "{\"BACK\":\""+request.getParameter("back")+"\",\"TYPEID\":\""+request.getParameter("typeid")+"\",\"VALUENAME\":\""+request.getParameter("valueName")+"\",\"CREATOR\":\""+myuser.getId()+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
@@ -145,7 +145,7 @@ public class DictonaryController {
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(blocurl);
 			String obj1 = "{\"CLASSNAME\":\"dictionaryWebServiceImpl\",\"METHOD\":\"editDictionary\"}";
-			String obj2 = "{\"ID\":\""+dic.getId()+"\",\"BACK\":\""+request.getParameter("back")+"\",\"TYPEID\":\""+request.getParameter("typeid")+"\",\"VALUENAME\":\""+request.getParameter("valueName")+"\",\"MODIFIER\":\""+myuser.getUsername()+"\"}";
+			String obj2 = "{\"ID\":\""+dic.getId()+"\",\"BACK\":\""+request.getParameter("back")+"\",\"TYPEID\":\""+request.getParameter("typeid")+"\",\"VALUENAME\":\""+request.getParameter("valueName")+"\",\"MODIFIER\":\""+myuser.getId()+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);

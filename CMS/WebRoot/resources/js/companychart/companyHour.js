@@ -72,7 +72,7 @@ function showCompanyHourChart(){
 		},
 		yAxis:{
 			type: 'value',//value:数值轴，category:类目轴，time:时间轴，log:对数轴
-			name:'焊接时长(s)'
+			name:'焊接平均时长(s)'
 		},
 		series:[
 			{
@@ -120,7 +120,7 @@ function CompanyHourDatagrid(){
 			align : "left"
 		}, {
 			field : 'manhour',
-			title : '焊接工时(s)',
+			title : '焊接平均工时(s)',
 			width : 100,
 			halign : "center",
 			align : "left",

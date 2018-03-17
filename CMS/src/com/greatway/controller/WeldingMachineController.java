@@ -354,7 +354,7 @@ public class WeldingMachineController {
 			String obj2 = "{\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\",\"ISNETWORKING\":\""+request.getParameter("isnetworking")+"\","
 					+ "\"JOINTIME\":\""+request.getParameter("joinTime")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\",\"STATUSID\":\""+request.getParameter("sId")+"\","
 					+ "\"GATHERID\":\""+request.getParameter("gatherId")+"\",\"MANUFACTURERID\":\""+request.getParameter("manuno")+"\","
-					+ "\"INSFRAMEWORKID\":\""+request.getParameter("iId")+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+					+ "\"INSFRAMEWORKID\":\""+request.getParameter("iId")+"\",\"CREATOR\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
@@ -394,7 +394,7 @@ public class WeldingMachineController {
 			String obj2 = "{\"ID\":\""+request.getParameter("wid")+"\",\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\","
 					+ "\"ISNETWORKING\":\""+request.getParameter("isnetworking")+"\",\"JOINTIME\":\""+request.getParameter("joinTime")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\""
 					+ ",\"STATUSID\":\""+request.getParameter("sId")+"\",\"GATHERID\":\""+request.getParameter("gatherId")+"\",\"MANUFACTURERID\":\""+request.getParameter("manuno")+"\","
-					+ "\"INSFRAMEWORKID\":\""+request.getParameter("iId")+"\",\"MODIFIER\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+					+ "\"INSFRAMEWORKID\":\""+request.getParameter("iId")+"\",\"MODIFIER\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);

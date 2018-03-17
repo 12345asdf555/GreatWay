@@ -167,7 +167,7 @@ public class UserController {
 		user.setUserPassword(xxx);
 		user.setUserInsframework(Long.parseLong(request.getParameter("userInsframework")));
         user.setStatus(Integer.parseInt(request.getParameter("status")));
-        user.setCreator(myuser.getUsername());
+        user.setCreator(myuser.getId()+"");
 		userService.save(user);
         String str = request.getParameter("rid");
         if(null!=str&&""!=str)
@@ -224,8 +224,8 @@ public class UserController {
 			String str = request.getParameter("rid");
 			Integer uid = Integer.parseInt(request.getParameter("uid"));
 			user.setId(uid);
-			user.setCreator(myuser.getUsername());
-			user.setModifier(myuser.getUsername());
+			user.setCreator(myuser.getId()+"");
+			user.setModifier(myuser.getId()+"");
 			userService.deleteRole(uid);
 			if(null!=str&&""!=str)
 			{

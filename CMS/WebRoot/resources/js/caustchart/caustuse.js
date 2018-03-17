@@ -117,7 +117,7 @@ function CaustUseDatagrid(){
 			align : "left"
 		}, {
 			field : 'time',
-			title : '时长(h)',
+			title : '平均时长(h)',
 			width : 100,
 			halign : "center",
 			align : "left"

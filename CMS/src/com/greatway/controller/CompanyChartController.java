@@ -965,7 +965,8 @@ public class CompanyChartController {
 				search += " )";
 				BigInteger dyne = lm.getDyneByJunctionno(search);
 				json.put("dyne",dyne);
-				json.put("weldtime",m.getWeldTime());
+				double weldtime = (double)Math.round(Double.valueOf(m.getWeldTime())*100)/100;
+				json.put("weldtime",weldtime);
 				json.put("num",str.length);
 				ary.add(json);
 			}

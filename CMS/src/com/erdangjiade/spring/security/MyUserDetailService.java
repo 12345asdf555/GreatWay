@@ -54,7 +54,6 @@ public class MyUserDetailService implements UserDetailsService {
 	    	String password="";
 	    	Collection<GrantedAuthority> auths = null;
 			try {
-		    	System.out.println(userName);
 		    	HttpServletRequest request =((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 				//当前层级
 				String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");

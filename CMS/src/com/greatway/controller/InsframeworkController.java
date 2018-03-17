@@ -179,7 +179,7 @@ public class InsframeworkController {
 			Client client = dcf.createClient(webserviceurl);
 			String obj1 = "{\"CLASSNAME\":\"insfWebServiceImpl\",\"METHOD\":\"addInsframework\"}";
 			String obj2 = "{\"NAME\":\""+request.getParameter("name")+"\",\"LOGOGRAM\":\""+request.getParameter("logogram")+"\",\"CODE\":\""+request.getParameter("code")+"\","
-					+ "\"PARENT\":\""+parent+"\",\"TYPEID\":\""+type+"\",\"CREATOR\":\""+myuser.getUsername()+"\"}";
+					+ "\"PARENT\":\""+parent+"\",\"TYPEID\":\""+type+"\",\"CREATOR\":\""+myuser.getId()+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});
 			if(hierarchy.equals("1")){
 				if(objects[0].toString()!=null && !"".equals(objects[0].toString())){
@@ -238,7 +238,7 @@ public class InsframeworkController {
 			Client client = dcf.createClient(webserviceurl);
 			String obj1 = "{\"CLASSNAME\":\"insfWebServiceImpl\",\"METHOD\":\"editInsframework\"}";
 			String obj2 = "{\"INSFID\":\""+id+"\",\"NAME\":\""+request.getParameter("name")+"\",\"LOGOGRAM\":\""+request.getParameter("logogram")+"\",\"CODE\":\""+request.getParameter("code")+"\","
-					+ "\"PARENT\":\""+request.getParameter("parent")+"\",\"TYPEID\":\""+request.getParameter("type")+"\",\"MODIFIER\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+					+ "\"PARENT\":\""+request.getParameter("parent")+"\",\"TYPEID\":\""+request.getParameter("type")+"\",\"MODIFIER\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(hierarchy.equals("1")){
 				if(objects[0].toString()!=null && !"".equals(objects[0].toString())){

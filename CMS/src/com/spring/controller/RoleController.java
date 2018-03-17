@@ -112,7 +112,7 @@ public class RoleController {
 		//获取当前用户
 		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser myuser = (MyUser)object;
-		role.setCreator(myuser.getUsername());
+		role.setCreator(myuser.getId()+"");
 		role.setRoleStatus(Integer.parseInt(request.getParameter("status")));
         String str = request.getParameter("aid");
         roleService.save(role);
@@ -150,8 +150,8 @@ public class RoleController {
 		//获取当前用户
 		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser myuser = (MyUser)object;
-		role.setCreator(myuser.getUsername());
-		role.setModifier(myuser.getUsername());
+		role.setCreator(myuser.getId()+"");
+		role.setModifier(myuser.getId()+"");
 /*		role.setRoleId(Integer.parseInt(request.getParameter("id")));*/
 		role.setRoleName(request.getParameter("roleName"));
 		role.setRoleDesc(request.getParameter("roleDesc"));

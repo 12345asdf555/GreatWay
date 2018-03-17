@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		按组织机构和日期对设备运行数据统计：<br/>
 		统计时间段内的不同厂家不同类型的焊机使用情况；<br/>
 		X轴：厂家-类型<br/>
-		Y轴：焊接时长(h)<br/></div>
+		Y轴：焊接平均时长(h)<br/></div>
 		<div id="itemUseChart" style="height:300px;width:60%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 		
 	    <table id="itemUseTable" style="table-layout: fixed; width:100%;"></table>

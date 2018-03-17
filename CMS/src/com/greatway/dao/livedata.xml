@@ -126,7 +126,7 @@
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
-		WHERE fstatus  &lt; 3
+		WHERE fstatus  &lt; 3 and j.fend_time is not null
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -152,7 +152,7 @@
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 	    INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
-		WHERE fstatus  &lt; 3
+		WHERE fstatus  &lt; 3 and j.fend_time is not null
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -182,7 +182,7 @@
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
         INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus &lt; 3
+		WHERE fstatus &lt; 3 and j.fend_time is not null
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -227,7 +227,7 @@
 		FROM tb_live_data l
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
-		WHERE fstatus &lt; 3
+		WHERE fstatus &lt; 3 and j.fend_time is not null
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -273,7 +273,7 @@
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus  &lt; 3
+		WHERE fstatus  &lt; 3 and j.fend_time is not null
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -310,7 +310,7 @@
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
 		LEFT JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus  &lt; 3
+		WHERE fstatus  &lt; 3 and j.fend_time is not null
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -341,7 +341,7 @@
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus &lt; 3
+		WHERE fstatus &lt; 3 and j.fend_time is not null
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
 				AND i.fparent =#{dto.parent}
@@ -1671,12 +1671,12 @@
 	<select id="companyEfficiency" resultMap="dtoMap">
 		select * from (
 		select * from (
-		SELECT ins.fid fid,ins.fname iname,w.fname wname,l.fwelder_id fwelder_id,round(COUNT(l.fid)/60/60) weldtime,group_concat(DISTINCT(j.fid)) jidgather
+		SELECT ins.fid fid,ins.fname iname,w.fname wname,l.fwelder_id fwelder_id,COUNT(l.fid)/60/60 weldtime,group_concat(DISTINCT(j.fid)) jidgather
 		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = l.fitemid
 		inner join tb_insframework ins on ins.fid = i.fparent
-		where 1=1 
+		where j.fend_time is not null
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -1701,13 +1701,13 @@
 	<select id="blocEfficiency" resultMap="dtoMap">
 		select * from (
 		select * from (
-		SELECT insf.fid,insf.fname iname,w.fname wname,l.fwelder_id fwelder_id,round(COUNT(l.fid)/60/60) weldtime,group_concat(DISTINCT(j.fid)) jidgather
+		SELECT insf.fid,insf.fname iname,w.fname wname,l.fwelder_id fwelder_id,COUNT(l.fid)/60/60 weldtime,group_concat(DISTINCT(j.fid)) jidgather
 		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = l.fitemid
 		inner join tb_insframework ins on ins.fid = i.fparent
 		inner join tb_insframework insf on insf.fid = ins.fparent
-		where 1=1 
+		where j.fend_time is not null
 		<if test="parent!=null and parent!=''">
 			AND insf.fid=#{parent} 
 		</if>
@@ -1732,12 +1732,12 @@
 	<select id="caustEfficiency" resultMap="dtoMap">
 		select * from (
 		select * from (
-		SELECT i.fid fid,i.fname iname,w.fname wname,l.fwelder_id fwelder_id, round(COUNT(l.fid)/60/60) weldtime,group_concat(DISTINCT(j.fid)) jidgather
+		SELECT i.fid fid,i.fname iname,w.fname wname,l.fwelder_id fwelder_id, COUNT(l.fid)/60/60 weldtime,group_concat(DISTINCT(j.fid)) jidgather
 		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = l.fitemid
 		inner join tb_insframework ins on ins.fid = i.fparent
-		where 1=1 
+		where j.fend_time is not null
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -1777,7 +1777,7 @@
 		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = l.fitemid
 		inner join tb_insframework ins on ins.fid = i.fparent
-		where 1=1
+		where j.fend_time is not null
 		<if test="parent!=null and parent!=''">
 			AND (i.fid = #{parent} or i.fparent=#{parent} or ins.fparent=#{parent}) 
 		</if>
@@ -1807,9 +1807,10 @@
 		case when round(count(l.fid)/60/60)&gt;#{minnum}+#{avgnum}*8 and round(count(l.fid)/60/60)&lt;=#{minnum}+#{avgnum}*9 then 1 else 0 end as num9,
 		case when round(count(l.fid)/60/60)&gt;#{minnum}+#{avgnum}*9 and round(count(l.fid)/60/60)&lt;=#{minnum}+10+#{avgnum}*10 then 1 else 0 end as num10
 		FROM tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
+		inner join tb_welded_junction j on j.fwelded_junction_no = l.fjunction_id
 		inner join tb_insframework i on i.fid = l.fitemid
 		inner join tb_insframework ins on ins.fid = i.fparent
-		where 1=1  
+		where j.fend_time is not null
 		<if test="parent!=null and parent!=''">
 			AND (i.fid = #{parent} or i.fparent=#{parent} or ins.fparent=#{parent}) 
 		</if>
