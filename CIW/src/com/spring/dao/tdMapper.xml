@@ -6,7 +6,7 @@
 	id:必须与对应接口的某个对应的方法名一致
 	
  -->
-<mapper namespace="com.spring.dao.TdMapper">
+<mapper namespace="com.greatway.dao.TdMapper">
 	
 	<select id="findAll" resultType="Td">
 		select fid id,fwelder_no welderNo,fname welderName from tb_welder where 1=1
@@ -15,12 +15,8 @@
 		</if>
 	</select>
 	
-	<select id="findWps" resultType="Td">
-		SELECT tb_welding_machine.fid id,tb_mainwps.Fweld_I electricity,tb_mainwps.Fweld_v voltage FROM tb_welding_machine LEFT JOIN tb_wps_welddevices ON tb_welding_machine.fid=tb_wps_welddevices.FWeldDevicesID LEFT JOIN tb_mainwps ON tb_wps_welddevices.FWeldWPSID=tb_mainwps.FID WHERE 1=1
-	</select>
-	
 	<select id="findMachine" parameterType="String" resultType="Td">
-		select fid id,fmodel model,fequipment_no fequipment_no from tb_welding_machine where fposition=#{fposition}
+		select fequipment_no fequipment_no from tb_welding_machine where fposition=#{fposition}
 	</select>
 	
 	<select id="findAlldiv" parameterType="long" resultType="Td">

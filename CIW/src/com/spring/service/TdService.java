@@ -20,5 +20,4 @@ public interface TdService {
 	String findPosition(String equip);
 	List<Td> allWeldname();
 	List<Td> getAllMachine(String ins);
-	List<Td> findWps();
 }

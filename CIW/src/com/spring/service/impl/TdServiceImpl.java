@@ -71,10 +71,4 @@ import com.spring.service.TdService;
 		public List<Td> getAllMachine(String position) {
 			return mapper.findMachine(position);
 		}
-
-		@Override
-		public List<Td> findWps() {
-			// TODO Auto-generated method stub
-			return mapper.findWps();
-		}
 	}

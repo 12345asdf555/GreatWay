@@ -19,6 +19,5 @@ public interface TdMapper {
 	String findInsname(long uid);
 	String findPosition(String equip);
 	List<Td> allWeldname();
-	List<Td> findWps();
 	List<Td> findMachine(String fposition);
 }

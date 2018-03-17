@@ -75,6 +75,10 @@ public class ReportController {
 	public String Alarm(HttpServletRequest request){
 		return "report/AlarmManage";
 	}
+	@RequestMapping("/history")
+	public String History(HttpServletRequest request){
+		return "report/HistoryWelder";
+	}
 
 /*	@RequestMapping("/getWeldPara")
 	@ResponseBody

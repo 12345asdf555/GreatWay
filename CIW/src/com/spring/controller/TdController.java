@@ -393,20 +393,12 @@ public class TdController {
 		JSONObject obj = new JSONObject();
 		String po = request.getParameter("posit");
 		List<Td> machine = tdService.getAllMachine(po);
-		List<Td> wps = tdService.findWps();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
 			for(Td td:machine)
 			{
 				String xxx = td.getFequipment_no();
-				for(Td td1:wps){
-					if(td1.getId()==td.getId()){
-						json.put("fstand_ele", td1.getElectricity());
-						json.put("fstand_vol", td1.getVoltage());
-					}
-				}
-				
 				json.put("fstatus_id", "09");
 				json.put("fequipment_no", Integer.parseInt(xxx,16));
 				json.put("fwelder_no", "");
