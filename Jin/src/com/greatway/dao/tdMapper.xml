@@ -44,7 +44,7 @@
 	</select>
 	
 	<select id="findPosition" parameterType="String" resultType="String">
-		select fposition from tb_welding_machine where fequipment_no=#{equip}
+		select (case when fposition='' then 'nulll' else fposition end)as fposition from tb_welding_machine WHERE fequipment_no=#{equip}
 	</select>
 	
 	<select id="getAllPosition" parameterType="String" resultType="Td">
