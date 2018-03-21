@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body style="background:#ffffff;background:url('resources/images/01.png') no-repeat;">
 		<div class="tenghan-bottom">
-	    	Copyright 1998-2018 上海腾悍智能科技有限公司
+	    	Copyright 1998-2017 上海腾悍智能科技有限公司
 		</div>
   </body>
 </html>

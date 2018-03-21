@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div region="north" split="true" style="height: 100px;" id="north">
 		<div class="head-wrap" style="background-color: #eaf2f5">
 			<a href="" class="logo"></a>
-			<div class="search-wrap">
+			<div class="search-wrap" style="color:#ffffff;">
                     <img src="resources/images/1_06.png" />
 					<a href="user/logout" id="username">欢迎您，</a>&nbsp;|
 					<a href="user/logout">注销</a>
