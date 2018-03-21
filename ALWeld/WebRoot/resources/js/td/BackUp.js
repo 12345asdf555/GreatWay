@@ -407,7 +407,7 @@
 			showPageList : false,
 			columns : [ [ {
 				field : 'fequipment_no',
-				title : '采集模块编号',
+				title : '焊机编号',
 				width : 100,
 				halign : "center",
 				align : "left"
