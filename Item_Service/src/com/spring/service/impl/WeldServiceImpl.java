@@ -26,9 +26,7 @@ public class WeldServiceImpl implements WeldService {
 		JSONObject json = JSONObject.fromObject(aweld);
 		Weld user = new Weld();
 		user.setId(new BigInteger(json.getString("ID")));
-		user.setFname(json.getString("FITEMID"));
-		BigInteger insid = mapper.FindIns_Id(user);
-		user.setFitemid(insid);
+		user.setFitemid(new BigInteger(json.getString("ITEM")));
 		user.setFname(json.getString("FNAME"));
 		user.setFwelder_no(json.getString("FWELDER_NO"));
 		user.setCreator(json.getString("CREATOR"));
@@ -43,9 +41,7 @@ public class WeldServiceImpl implements WeldService {
 		try{
 		JSONObject json = JSONObject.fromObject(uweld);
 		Weld user = new Weld();
-		user.setFname(json.getString("FITEMID"));
-		BigInteger insid = mapper.FindIns_Id(user);
-		user.setFitemid(insid);
+		user.setFitemid(new BigInteger(json.getString("ITEM")));
 		user.setFname(json.getString("FNAME"));
 		user.setFwelder_no(json.getString("FWELDER_NO"));
 		user.setModifiter(json.getString("MODIFIER"));
@@ -62,8 +58,7 @@ public class WeldServiceImpl implements WeldService {
 		JSONObject json = JSONObject.fromObject(ajunction);
 		Weld user = new Weld();
 		user.setId(new BigInteger(json.getString("ID")));
-		user.setFname(json.getString("FITEMID"));
-		BigInteger insid = mapper.FindIns_Id(user);
+		user.setFitemid(new BigInteger(json.getString("ITEM")));
 		String serial = json.getString("FSERIAL_NO");
 		if(json.getString("FSERIAL_NO").length()<8){
 			for(int ser=json.getString("FSERIAL_NO").length();ser<8;ser++){
@@ -88,7 +83,6 @@ public class WeldServiceImpl implements WeldService {
 		user.setFminval(new BigDecimal(json.getString("FMIN_VALTAGE")));
 		user.setFele_unit(json.getString("FELECTRICITY_UNIT"));
 		user.setFval_unit(json.getString("FVALTAGE_UNIT"));
-		user.setFitemid(insid);
 		user.setFmaterial(json.getString("FMETERIAL"));
 		user.setFnd(json.getString("FNEXTEXTERNAL_DIAMETER"));
 		user.setFnt(json.getString("FNEXTWALL_THICKNESS"));
@@ -116,8 +110,7 @@ public class WeldServiceImpl implements WeldService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		JSONObject json = JSONObject.fromObject(ujunction);
 		Weld user = new Weld();
-		user.setFname(json.getString("FITEMID"));
-		BigInteger insid = mapper.FindIns_Id(user);
+		user.setFitemid(new BigInteger(json.getString("ITEM")));
 		String serial = json.getString("FSERIAL_NO");
 		if(json.getString("FSERIAL_NO").length()<8){
 			for(int ser=json.getString("FSERIAL_NO").length();ser<8;ser++){
@@ -142,7 +135,6 @@ public class WeldServiceImpl implements WeldService {
 		user.setFval_unit(json.getString("FVALTAGE_UNIT"));
 		user.setFmaxval(new BigDecimal(json.getString("FMAX_VALTAGE")));
 		user.setFminval(new BigDecimal(json.getString("FMIN_VALTAGE")));
-		user.setFitemid(insid);
 		user.setFmaterial(json.getString("FMETERIAL"));
 		user.setFnd(json.getString("FNEXTEXTERNAL_DIAMETER"));
 		user.setFnt(json.getString("FNEXTWALL_THICKNESS"));
@@ -169,9 +161,7 @@ public class WeldServiceImpl implements WeldService {
 		try{
 		JSONObject json = JSONObject.fromObject(djunction);
 		Weld user = new Weld();
-		user.setFname(json.getString("FITEMID"));
-		BigInteger insid = mapper.FindIns_Id(user);
-		user.setFitemid(insid);
+		user.setFitemid(new BigInteger(json.getString("ITEM")));
 		String serial = json.getString("FSERIAL_NO");
 		if(json.getString("FSERIAL_NO").length()<8){
 			for(int ser=json.getString("FSERIAL_NO").length();ser<8;ser++){
@@ -190,8 +180,10 @@ public class WeldServiceImpl implements WeldService {
 			JSONObject json = JSONObject.fromObject(insname);
 			Weld user = new Weld();
 			user.setFname(json.getString("FNAME"));
-			return mapper.FindIns_Id(user);
+			BigInteger id = mapper.FindIns_Id(user);
+			return id;
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
