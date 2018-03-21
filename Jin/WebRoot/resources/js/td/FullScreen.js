@@ -2,15 +2,18 @@
  * 
  */
 var data={};
+var data1={};
+var data2={};
 var iname=0;
 var maxele;
 var maxvol;
 var minele;
 var minvol;
 var dd;
-var z=0;
-var jj=0;
+var jj;
+var mach;
 var ii;
+var sock;
 $(function(){
 	$.ajax({  
 	      type : "post",  
@@ -20,7 +23,7 @@ $(function(){
 	      dataType : "json", //返回数据形式为json  
 	      success : function(result) {
 	          if (result) {
-	        	  data1 = eval(result.web_socket);
+	        	  sock = eval(result.web_socket);
 	          }  
 	      },
 	      error : function(errorMsg) {  
@@ -36,7 +39,7 @@ $(function() {
 	}
 	$(function() {
 		//实现化WebSocket对象，指定要连接的服务器地址与端口
-		socket = new WebSocket(data1);
+		socket = new WebSocket(sock);
 		//打开事件
 		socket.onopen = function() {
 //				alert("Socket 已打开");
@@ -49,48 +52,46 @@ $(function() {
 				for(var i = 0;i < dd.length;i+=53){
 						if((dd.substring(8+i, 12+i))!="0000"){
 							if($("#div"+dd.substring(4+i, 8+i)+"").length<=0){
-								var str = "<div style='float:left;'>"+
-								"<div id='div"+dd.substring(4+i, 8+i)+"' style='float:left;'/><div/>&nbsp;"+
-								"<div id='div1"+dd.substring(4+i, 8+i)+"' style='float:left;'/><div/>&nbsp;"+
+								var str = "<div style='width:31%;heigth:40%;float:left;'>"+
+								"<div id='div"+dd.substring(4+i, 8+i)+"' style='width:30%;height:20%;float:left;'/><div/>&nbsp;"+
+								"<div id='div1"+dd.substring(4+i, 8+i)+"' style='width:30%;height:20%;float:left;'/><div/>&nbsp;"+
 								"<div/>";
 								$("#body").append(str);
-								if(jj%3==0){
 								ii = i;
 							    data['ele'+dd.substring(4+ii, 8+ii)] = [];
-							    data['vol'+dd.substring(4+ii, 8+ii)] = [];
-							    data['time'+dd.substring(4+ii, 8+ii)] = [];
-								}
-							    data['ele'+dd.substring(4+ii, 8+ii)].push(parseInt(dd.substring(12+i, 16+i)),16);
-							    data['vol'+dd.substring(4+ii, 8+ii)].push(parseInt(dd.substring(16+i, 20+i),16));
-							    data['time'+dd.substring(4+ii, 8+ii)].push(Date.parse(dd.substring(20+i, 39+i)));
+							    data1['vol'+dd.substring(4+ii, 8+ii)] = [];
+							    data2['time'+dd.substring(4+ii, 8+ii)] = [];
+							    data['ele'+dd.substring(4+ii, 8+ii)].push(parseInt(dd.substring(12+i, 16+i),16));
+							    data1['vol'+dd.substring(4+ii, 8+ii)].push(parseFloat((parseInt(dd.substring(16+i, 20+i),16)/10).toFixed(2)));
+							    data2['time'+dd.substring(4+ii, 8+ii)].push(Date.parse(dd.substring(20+i, 39+i)));
 								maxele = parseInt(dd.substring(41+i, 44+i));
 								minele = parseInt(dd.substring(44+i, 47+i));
 								maxvol = parseInt(dd.substring(47+i, 50+i));
 								minvol = parseInt(dd.substring(50+i, 53+i));
-								jj++;
-								if(jj<=1){
-									curve();
-									}
+								mach=dd.substring(4+ii, 8+ii);
+								curve();
+								curve1();
 							}else{
-							    data['ele'+dd.substring(4+ii, 8+ii)].push(parseInt(dd.substring(12+i, 16+i)),16);
-							    data['vol'+dd.substring(4+ii, 8+ii)].push(parseInt(dd.substring(16+i, 20+i),16));
-							    data['time'+dd.substring(4+ii, 8+ii)].push(Date.parse(dd.substring(20+i, 39+i)));
+							    data['ele'+dd.substring(4+ii, 8+ii)].push(parseInt(dd.substring(12+i, 16+i),16));
+							    data1['vol'+dd.substring(4+ii, 8+ii)].push(parseFloat((parseInt(dd.substring(16+i, 20+i),16)/10).toFixed(2)));
+							    data2['time'+dd.substring(4+ii, 8+ii)].push(Date.parse(dd.substring(20+i, 39+i)));
 							}
 						}	
 				}
+				jj=data2['time'+dd.substring(4+ii, 8+ii)].length;
 				if(jj%3==1){
-					ele[jj] = ele[jj-1];
-					ele[jj+1] = ele[jj-1];
-					vol[jj] = vol[jj-1];
-					vol[jj+1] = vol[jj-1];
-					time1[jj] = time1[jj-1]+1000;
-					time1[jj+1] = time1[jj-1]+2000;
+					data['ele'+dd.substring(4+ii, 8+ii)][jj] = data['ele'+dd.substring(4+ii, 8+ii)][jj-1];
+					data['ele'+dd.substring(4+ii, 8+ii)][jj+1] = data['ele'+dd.substring(4+ii, 8+ii)][jj-1];
+					data1['vol'+dd.substring(4+ii, 8+ii)][jj] = data1['vol'+dd.substring(4+ii, 8+ii)][jj-1];
+					data1['vol'+dd.substring(4+ii, 8+ii)][jj+1] = data1['vol'+dd.substring(4+ii, 8+ii)][jj-1];
+					data2['time'+dd.substring(4+ii, 8+ii)][jj] = data2['time'+dd.substring(4+ii, 8+ii)][jj-1]+1000;
+					data2['time'+dd.substring(4+ii, 8+ii)][jj+1] = data2['time'+dd.substring(4+ii, 8+ii)][jj-1]+2000;
 					jj=jj+2;
 				}
 				if(jj%3==2){
-					ele[jj] = ele[jj-1];
-					vol[jj] = vol[jj-1];
-					time1[jj] = time1[jj-1]+1000;
+					data['ele'+dd.substring(4+ii, 8+ii)][jj+1][jj] = data['ele'+dd.substring(4+ii, 8+ii)][jj+1][jj-1];
+					data1['vol'+dd.substring(4+ii, 8+ii)][jj+1][jj] = data1['vol'+dd.substring(4+ii, 8+ii)][jj+1][jj-1];
+					data2['time'+dd.substring(4+ii, 8+ii)][jj] = data2['time'+dd.substring(4+ii, 8+ii)][jj-1]+1000;
 					jj++;
 				}
 				}
@@ -149,7 +150,7 @@ function curve(){
 		        }
 		  	})	  	
 		}
-		$('#div'+dd.substring(4+i, 8+i)+'').highcharts({
+		$('#div'+dd.substring(4+ii, 8+ii)+'').highcharts({
 		    chart: {
 		        type: 'spline',
 		        animation: false, // don't animate in old IE
@@ -159,9 +160,10 @@ function curve(){
 		                // set up the updating of the chart each second
 		                var series = this.series[0],
 		                    chart = this;
+		                var z=0;
 		                	window.setInterval(function () {
 		                    /*var x = (new Date()).getTime()+t,*/ // current time
-		                  var x = data['time'+dd.substring(4+ii, 8+ii)][z],
+		                  var x = data2['time'+dd.substring(4+ii, 8+ii)][z],
 		                       y = data['ele'+dd.substring(4+ii, 8+ii)][z];
 		                    z++;
 		                    series.addPoint([x, y], true, true);
@@ -171,7 +173,7 @@ function curve(){
 		        }
 		    },
 		    title: {
-		        text: '电压电流实时监测'
+		        text: mach
 		    },
 		    xAxis: {
 		        type: 'datetime',
@@ -224,7 +226,7 @@ function curve(){
 		                i;
 		            for (i = -9; i <= 0; i += 1) {
 		                data.push({
-		                    x: data['time'+dd.substring(4+ii, 8+ii)][0]-1000+i*1000,
+		                    x: data2['time'+dd.substring(4+ii, 8+ii)][0]-1000+i*1000,
 		                	/*x: time + i*1000,*/
 		                    y: 0
 		                });
@@ -274,7 +276,7 @@ function curve1(){
 		  	})
 		  	  		  	
 		}
-		$('#div1'+dd.substring(4+i, 8+i)+'').highcharts({
+		$('#div1'+dd.substring(4+ii, 8+ii)+'').highcharts({
 		    chart: {
 		        type: 'spline',
 		        animation: false, // don't animate in old IE
@@ -284,10 +286,11 @@ function curve1(){
 		                // set up the updating of the chart each second
 		                var series = this.series[0],
 		                    chart = this;
+		                var zz=0
 		                	window.setInterval(function () {
 		                    /*var x = (new Date()).getTime()+t,*/ // current time
-			                  var x = data['time'+dd.substring(4+ii, 8+ii)][z],
-		                       y = data['vol'+dd.substring(4+ii, 8+ii)][z];
+			                  var x = data2['time'+dd.substring(4+ii, 8+ii)][zz],
+		                       y = data1['vol'+dd.substring(4+ii, 8+ii)][zz];
 		                    zz++;
 		                    series.addPoint([x, y], true, true);
 		                    activeLastPointToolip(chart);
@@ -341,7 +344,7 @@ function curve1(){
 		                i;
 		            for (i = -9; i <= 0; i += 1) {
 		                data.push({
-		                    x: data['time'+dd.substring(4+ii, 8+ii)][0]-1000+i*1000,
+		                    x: data2['time'+dd.substring(4+ii, 8+ii)][0]-1000+i*1000,
 		                    /*x: time + i*1000,*/
 		                    y: 0
 		                });

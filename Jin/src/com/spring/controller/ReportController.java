@@ -93,6 +93,10 @@ public class ReportController {
 	public String History(HttpServletRequest request){
 		return "report/HistoryWelder";
 	}
+	@RequestMapping("/fullscreen")
+	public String Fullscreen(HttpServletRequest request){
+		return "td/FullScreen";
+	}
 
 /*	@RequestMapping("/getWeldPara")
 	@ResponseBody
