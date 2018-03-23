@@ -117,5 +117,8 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/wsdl4j-1.6.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xmlschema-core-2.0.3.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jaxb-api-2.2.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jaxb-impl-2.2.1.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jaxb-xjc-2.2.1.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

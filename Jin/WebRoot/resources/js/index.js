@@ -113,6 +113,10 @@ function openHistoryCurve(){
 	addTab("历史曲线","rep/history");
 }
 
+function openFullScreen(){
+	addTab("全屏曲线","rep/fullscreen");
+}
+
 function openParameter(){
 	addTab("参数设置","Dictionary/goParameter");
 }

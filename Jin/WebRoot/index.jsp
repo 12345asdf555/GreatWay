@@ -82,6 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a href="javascript:openWelderReport()">焊工维度表</a></li>
 					<li><a href="javascript:openWarnReport()">报警维度表</a></li>
 					<li><a href="javascript:openHistoryCurve()">历史曲线</a></li>
+					<li><a href="javascript:openFullScreen()">全屏曲线</a></li>
 		        </ul>
 		    </div>		   
 		    <!-- 产品管理 -->
