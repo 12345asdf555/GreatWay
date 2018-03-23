@@ -340,11 +340,14 @@ public class ItemChartController {
 			double[] num = new double[time.size()];
 			if(list.size()>0){
 				for(int i=0;i<time.size();i++){
+					double load=0,summachine=0;
 					num[i] = 0;
 					for(ModelDto m:list){
 						for(ModelDto ma:machine){
 							if(ma.getWeldTime().equals(m.getWeldTime()) && ma.getFid().equals(m.getIid())){
 								if(time.get(i).getWeldTime().equals(m.getWeldTime())){
+									load = m.getLoads();
+									summachine = ma.getLoads();
 									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100*100)/100;
 								}
 							}
@@ -352,7 +355,7 @@ public class ItemChartController {
 						
 					}
 					json.put("weldTime",time.get(i).getWeldTime());
-					json.put("loads",num[i]);
+					json.put("loads",load+"/"+summachine+"="+num[i]);
 					json.put("itemid", list.get(0).getIid());
 					ary.add(json);
 				}
@@ -645,6 +648,7 @@ public class ItemChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		BigInteger parent = null;
+		dto.setDtoStatus(1);
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -692,19 +696,23 @@ public class ItemChartController {
 			double[] num = new double[time.size()];
 			if(list.size()>0){
 				for(int i=0;i<time.size();i++){
+					double noload=0,summachine=0; 
+					BigInteger livecount = new BigInteger("0");
 					num[i] = 0;
 					for(ModelDto m:list){
 						for(ModelDto ma:machine){
 							if(ma.getWeldTime().equals(m.getWeldTime()) && ma.getFid().equals(m.getFid())){
 								if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-									BigInteger livecount = lm.getCountByTime(m.getFid(), "%"+m.getWeldTime()+"%",null);
+									livecount = lm.getCountByTime(m.getIid(), "%"+m.getWeldTime()+"%",null);
+									noload = m.getLoads();
+									summachine = ma.getLoads();
 									num[i] = (double)Math.round(m.getLoads()/livecount.doubleValue()/ma.getLoads()*100*100)/100;
 								}
 							}
 						}
 					}
 					json.put("weldTime",time.get(i).getWeldTime());
-					json.put("loads",num[i]);
+					json.put("loads",noload+"/"+livecount+"/"+summachine+"="+num[i]);
 					json.put("itemid", list.get(0).getFid());
 					ary.add(json);
 				}

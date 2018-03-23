@@ -16,11 +16,6 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	 	<link rel="stylesheet" type="text/css" href="resources/css/login.css">
-		<script type="text/javascript">
-			$(function(){
-				$("#uname").val("");
-			})
-		</script>
 	</head>
 
 	<body onLoad="document.f.j_username.focus();">
