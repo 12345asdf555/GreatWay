@@ -4,11 +4,13 @@ import java.lang.reflect.Method;
 
 import javax.jws.WebService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sshome.ssmcxf.webservice.ChartWebService;
 import com.sshome.ssmcxf.webservice.CompanyWebService;
 
 import net.sf.json.JSONObject;
@@ -17,6 +19,8 @@ import net.sf.json.JSONObject;
 @Service
 @WebService(endpointInterface = "com.sshome.ssmcxf.webservice.CompanyWebService", serviceName = "CompanyWebService")
 public class CompanyWebServiceImpl implements CompanyWebService {
+	@Autowired
+	private ChartWebService cws;
 	@Override
 	public Object enterTheWS(String obj1, String obj2) {
 		try{
@@ -61,6 +65,21 @@ public class CompanyWebServiceImpl implements CompanyWebService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+
+	@Override
+	public String enterChart(String object) {
+		JSONObject json = JSONObject.fromObject(object);
+		int num = json.getInt("NUM");
+		if(num==1){
+			return cws.getEfficiency(object);
+		}else if(num==2){
+			return cws.getHour(object);
+		}else if(num==3){
+			return cws.getHourClassify(object);
+		}
+		return "抱歉，未找到您想要的报表信息！";
 	}
 
 }
