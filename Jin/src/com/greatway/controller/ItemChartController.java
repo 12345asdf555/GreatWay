@@ -629,6 +629,7 @@ public class ItemChartController {
 		String item = request.getParameter("item");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		dto.setDtoStatus(1);
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);

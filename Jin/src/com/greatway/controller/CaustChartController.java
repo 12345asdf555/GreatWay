@@ -627,6 +627,7 @@ public class CaustChartController {
 			}
 		}
 		BigInteger parent = null;
+		dto.setDtoStatus(1);
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
