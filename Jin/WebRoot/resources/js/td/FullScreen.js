@@ -52,10 +52,10 @@ $(function() {
 				for(var i = 0;i < dd.length;i+=53){
 						if((dd.substring(8+i, 12+i))!="0000"){
 							if($("#div"+dd.substring(4+i, 8+i)+"").length<=0){
-								var str = "<div style='width:31%;heigth:40%;float:left;'>"+
-								"<div id='div"+dd.substring(4+i, 8+i)+"' style='width:30%;height:20%;float:left;'/><div/>&nbsp;"+
-								"<div id='div1"+dd.substring(4+i, 8+i)+"' style='width:30%;height:20%;float:left;'/><div/>&nbsp;"+
-								"<div/>";
+								var str = "<div style='width:31%;heigth:100%;float:left;'>"+
+								"<div id='div"+dd.substring(4+i, 8+i)+" style='width:31%;heigth:45%;''></div>&nbsp;"+
+								"<div id='div1"+dd.substring(4+i, 8+i)+" style='width:31%;heigth:45%;''></div>&nbsp;"+
+								"</div>";
 								$("#body").append(str);
 								ii = i;
 							    data['ele'+dd.substring(4+ii, 8+ii)] = [];
