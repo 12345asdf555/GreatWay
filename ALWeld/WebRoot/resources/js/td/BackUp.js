@@ -193,6 +193,7 @@
 			};
 			//发生了错误事件
 			socket.onerror = function() {
+/*				socket.onopen();*/
 				alert("发生了错误");
 			}
 		});
@@ -275,7 +276,7 @@
 					var weld = dd.substring(8+i, 12+i);
 					var xx = dd.substring(12+i, 16+i);
 					ele[jj] = parseInt(xx,16);
-					vol[jj] = parseInt(dd.substring(16+i, 20+i),16);
+					vol[jj] = parseFloat((parseInt(dd.substring(16+i, 20+i),16)/10).toFixed(2));
 					var dati = dd.substring(20+i, 39+i);
 					var val = Date.parse(dati);
 					time1[jj] = val;
@@ -317,6 +318,14 @@
 					if(jj<=1){
 						curve(); 
 						curve1();
+						//监听加载状态改变  
+						document.onreadystatechange = completeLoading();  
+						   
+						//加载状态为complete时移除loading效果 
+						function completeLoading() {
+						        var loadingMask = document.getElementById('loadingDiv');  
+						        loadingMask.parentNode.removeChild(loadingMask);  
+						}
 					}
 					}	
 			}
@@ -453,12 +462,12 @@
 		        $("a[id='view']").linkbutton({text:'查看',plain:true,iconCls:'icon-view'});
 		        },
 	        rowStyler:function(index,row){
-	            if ((row.fstatus_id=="03")||(row.fstatus_id=="05")){
+	            if ((row.fstatus_id=="03")||(row.fstatus_id=="05")||(row.fstatus_id=="07")){
 	                return 'background-color:#00FF00;color:black;';
 	            }
-	            else if (row.fstatus_id=="07"){
+/*	            else if (row.fstatus_id=="07"){
 	                return 'background-color:#FF0000;color:black;';
-	            }
+	            }*/
 	            else if (row.fstatus_id=="00"){
 	                return 'background-color:#0000CD;color:black;';
 	            }
