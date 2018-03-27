@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
 <body class="easyui-layout">
-	<div id="body" region="center"  hide="true"  split="true" title="全屏曲线" style="background: #eee; height: 335px;">
+	<div id="body" region="center"  hide="true"  split="true" title="全屏曲线" style="background: #eee;">
 	</div>
 </body>
 </html>

@@ -181,7 +181,7 @@
 						}
 					}
 					rows[dex].freal_ele=parseInt(dd.substring(12+i, 16+i),16);
-					rows[dex].freal_vol=parseInt(dd.substring(16+i, 20+i),16);
+					rows[dex].freal_vol=parseFloat((parseInt(dd.substring(16+i, 20+i),16)/10).toFixed(2));
 					rows[dex].inspower=rows[dex].freal_ele*rows[dex].freal_vol;
 	    			$('#dg').datagrid('refreshRow', dex);
 	    			$("a[id='view']").linkbutton({text:'查看',plain:true,iconCls:'icon-view'});
@@ -290,7 +290,7 @@
 					var weld = dd.substring(8+i, 12+i);
 					var xx = dd.substring(12+i, 16+i);
 					ele[jj] = parseInt(xx,16);
-					vol[jj] = parseInt(dd.substring(16+i, 20+i),16);
+					vol[jj] = parseFloat((parseInt(dd.substring(16+i, 20+i),16)/10).toFixed(2));
 					var dati = dd.substring(20+i, 39+i);
 					var val = Date.parse(dati);
 					time1[jj] = val;
@@ -332,6 +332,14 @@
 					if(jj<=1){
 						curve(); 
 						curve1();
+						//监听加载状态改变  
+						document.onreadystatechange = completeLoading();  
+						   
+						//加载状态为complete时移除loading效果 
+						function completeLoading() {
+						        var loadingMask = document.getElementById('loadingDiv');  
+						        loadingMask.parentNode.removeChild(loadingMask);  
+						}
 					}
 					}	
 			}
