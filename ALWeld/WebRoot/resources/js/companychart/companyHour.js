@@ -108,10 +108,7 @@ function CompanyHourDatagrid(){
 			title : '事业部',
 			width : 100,
 			halign : "center",
-			align : "left",
-			formatter:function(value,row,index){
-				return  '<a href="caustChart/goCaustHour?parent='+row.itemid+'">'+value+'</a>';
-			}
+			align : "left"
 		}, {
 			field : 'jidgather',
 			title : '焊口数量',

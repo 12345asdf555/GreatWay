@@ -28,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/index.js"></script>
 	<style type="text/css">
 		a{text-decoration:none;color:inherit;outline:none;}
+		.imgdiv{float:left;margin-top:10px;margin-right:5px;}
 	</style>
   </head>
 
@@ -44,29 +45,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
   	
-  	<div region="west" hide="true" split="true" title="导航菜单" style="width: 200px;" id="west" data-options="iconCls:'icon-setting'">
+  	<div region="west" hide="true" split="true" title="导航菜单" style="width: 225px;" id="west" data-options="iconCls:'icon-setting'">
 	  	<div class="easyui-accordion" fit="true" border="false" id="accordiondiv">
-			<div title="信息管理中心" data-options="iconCls:'icon-manage'">
+			<div title="信息管理中心<br/>Information management" data-options="iconCls:'icon-manage'">
 				<ul>
-			        <li><a href="javascript:openPerson()" ><img src="resources/images/1_35.png" />&nbsp;焊工管理</a></li>
-			        <li><a href="javascript:openWedJunction()"><img src="resources/images/1_38.png" />&nbsp;焊缝管理</a></li>
-					<li><a href="javascript:openWeldingMachine()"><img src="resources/images/1_40.png" />&nbsp;焊机设备管理</a></li>
-			        <li><a href="javascript:openGather()"><img src="resources/images/1_42.png" />&nbsp;采集模块管理</a></li>
+					<li><a href="javascript:openPerson()" ><div class="imgdiv"><img src="resources/images/1_35.png"/></div><div>焊工管理<br/>welder management</div></a></li>
+			        <li><a href="javascript:openWedJunction()"><div class="imgdiv"><img src="resources/images/1_35.png"/></div><div >焊缝管理<br/>welding bead management</div></a></li>
+					<li><a href="javascript:openWeldingMachine()"><div class="imgdiv"><img src="resources/images/1_40.png" /></div><div >焊机设备管理<br/>welding machine management</div></a></li>
+			        <li><a href="javascript:openGather()"><div class="imgdiv"><img src="resources/images/1_42.png" /></div><div >采集模块管理<br/>gather module management</div></a></li>
 		        </ul>
 		    </div>
 		    
-			<div title="报表统计中心" data-options="iconCls:'icon-statistics'">
+			<div title="报表统计中心<br/>report form statistics" data-options="iconCls:'icon-statistics',selected:true">
 				<ul>
-					<li><a href="javascript:openCompanyTd()"><img src="resources/images/1_48.png" />&nbsp;实时监控</a></li>
-					<li><a href="javascript:openCompanyLoads()"><img src="resources/images/1_53.png" />&nbsp;负载率</a></li>
-					<li><a href="javascript:openCompanyNoLoads()"><img src="resources/images/1_59.png" />&nbsp;空载率</a></li>
-					<li><a href="javascript:openHistory()"><img src="resources/images/1_62.png" />&nbsp;历史曲线</a></li>
-					<li><a href="javascript:openCompanyHour()"><img src="resources/images/1_69.png" />&nbsp;焊缝焊接工时</a></li>
-					<li><a href="javascript:openCompanyoverproof()"><img src="resources/images/1_67.png" />&nbsp;焊接工艺超标</a></li>
-				    <li><a href="javascript:openWeldingmachineMax()"><img src="resources/images/1_69.png" />&nbsp;焊机工时最高</a></li>
-			        <li><a href="javascript:openWeldingmachineMin()"><img src="resources/images/1_69.png" />&nbsp;焊机工时最低</a></li>
-			        <li><a href="javascript:openWelderMax()"><img src="resources/images/1_69.png" />&nbsp;焊工工时最高</a></li>
-			        <li><a href="javascript:openWelderMin()"><img src="resources/images/1_69.png" />&nbsp;焊工工时最低</a></li>
+					<li><a href="javascript:openCompanyTd()"><div class="imgdiv"><img src="resources/images/1_48.png" /></div><div >实时监控<br/>real monitoring</div></a></li>
+					<li><a href="javascript:openCompanyLoads()"><div class="imgdiv"><img src="resources/images/1_53.png" /></div><div >负荷率<br/>loading rate</div></a></li>
+					<li><a href="javascript:openCompanyNoLoads()"><div class="imgdiv"><img src="resources/images/1_59.png" /></div><div >空载率<br/>no loading rate</div></a></li>
+					<li><a href="javascript:openHistory()"><div class="imgdiv"><img src="resources/images/1_62.png" /></div><div >历史曲线<br/>history curve</div></a></li>
+					<li><a href="javascript:openCompanyHour()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div >焊缝焊接工时<br/>welding working time</div></a></li>
+					<li><a href="javascript:openCompanyoverproof()"><div class="imgdiv"><img src="resources/images/1_67.png" /></div><div >焊接工艺超标<br/>welding process exceeding</div></a></li>
+				    <li><a href="javascript:openWeldingmachineMax()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div >焊机工时最高<br/>max working time(machine)</div></a></li>
+			        <li><a href="javascript:openWeldingmachineMin()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div >焊机工时最低<br/>min working time(machine)</div></a></li>
+			        <li><a href="javascript:openWelderMax()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div >焊工工时最高<br/>max working time(welder)</div></a></li>
+			        <li><a href="javascript:openWelderMin()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div >焊工工时最低<br/>min working time(welder)</div></a></li>
 		        </ul>
 		    </div>
 	    </div>

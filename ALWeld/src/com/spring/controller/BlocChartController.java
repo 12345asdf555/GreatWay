@@ -505,6 +505,7 @@ public class BlocChartController {
 		String time2 = request.getParameter("dtoTime2");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		dto.setDtoStatus(1);
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}

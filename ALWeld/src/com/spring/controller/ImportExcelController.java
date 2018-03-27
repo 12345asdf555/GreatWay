@@ -184,8 +184,8 @@ public class ImportExcelController {
 			File file  = new File(path);
 			file.delete();
 			for(Person w:we){
-				w.setLeveid(dm.getvaluebyname(8,w.getLevename()));
-				w.setQuali(dm.getvaluebyname(7, w.getQualiname()));
+//				w.setLeveid(dm.getvaluebyname(8,w.getLevename()));
+//				w.setQuali(dm.getvaluebyname(7, w.getQualiname()));
 				w.setOwner(wmm.getInsframeworkByName(w.getInsname()));
 				MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				w.setCreater(new BigInteger(user.getId()+""));
@@ -576,7 +576,7 @@ public class ImportExcelController {
 						p.setCellphone(cellValue);//手机
 						break;
  					}
-					if(k == 4){
+					if(k == 3){
 						p.setCardnum(cellValue);//卡号
 						break;
  					}
@@ -592,22 +592,14 @@ public class ImportExcelController {
 						break;
 					}
 					if(k == 3){
-						p.setLevename(cellValue);//级别
-						break;
- 					}
-					if(k == 4){
 						p.setCardnum(cellValue);//卡号
 						break;
  					}
-					if(k == 5){
-						p.setQualiname(cellValue);//资质
-						break;
- 					}
-					if(k == 6){
+					if(k == 4){
 						p.setInsname(cellValue);//部门
 						break;
  					}
-					if(k == 7){
+					if(k == 5){
 						p.setBack(cellValue);//备注
 						break;
  					}

@@ -371,8 +371,8 @@ select::-ms-expand {
 }
 
 #accordiondiv ul li{
-	line-height:30px;
-	padding-left: 20px;
+	padding-left:10px;
+	margin-top:5px;
 }
 
 .divborder{
