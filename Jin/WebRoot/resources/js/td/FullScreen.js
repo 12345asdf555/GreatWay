@@ -55,7 +55,7 @@ $(function() {
 								var str = "<div id='div0"+dd.substring(4+i, 8+i)+"' style='width:31%;height:40%;float:left;'>"+
 								"<div id='div"+dd.substring(4+i, 8+i)+"' style='height:50%;'></div>"+
 								"<div id='div1"+dd.substring(4+i, 8+i)+"' style='height:50%;'></div>" +
-										"<div/>";
+								"<div/>";
 								$("#body").append(str);
 								ii = i;
 							    data['ele'+dd.substring(4+ii, 8+ii)] = [];
