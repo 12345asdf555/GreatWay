@@ -1,7 +1,7 @@
 $(function(){
 	insframworkCombobox();
-	leveCombobox();
-	quaidCombobox();
+//	leveCombobox();
+//	quaidCombobox();
 	$("#fm").form("disableValidation");
 })
 
@@ -90,10 +90,10 @@ var flag = 1;
 function saveWelder(){
     flag = 1;
     var insframework = $('#Fowner').combobox('getValue');
-    var leve = $('#leveid').combobox('getValue');
-    var qua = $('#quali').combobox('getValue');
+//    var leve = $('#leveid').combobox('getValue');
+//    var qua = $('#quali').combobox('getValue');
      var url;
-      url = "welders/addWelder"+"?ins="+insframework+"&leve="+leve+"&qua="+qua;
+      url = "welders/addWelder"+"?ins="+insframework;
         $('#fm').form('submit',{
             url: url,
             onSubmit: function(){

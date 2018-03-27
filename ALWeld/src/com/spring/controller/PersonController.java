@@ -104,8 +104,8 @@ public class PersonController {
 //				json.put("createdate", welder.getCreatedate());
 //				json.put("updatedate", format(welder.getUpdatedate());
 				json.put("owner", welder.getInsname());
-				json.put("leveid", welder.getValuename());
-				json.put("quali", welder.getValuenamex());
+//				json.put("leveid", welder.getValuename());
+//				json.put("quali", welder.getValuenamex());
 				json.put("back", welder.getBack());
 				ary.add(json);
 			}
@@ -164,8 +164,8 @@ public class PersonController {
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		JSONObject obj = new JSONObject();
 		try{
-			welder.setQuali(Integer.parseInt(request.getParameter("qua")));
-			welder.setLeveid(Integer.parseInt(request.getParameter("leve")));
+//			welder.setQuali(Integer.parseInt(request.getParameter("qua")));
+//			welder.setLeveid(Integer.parseInt(request.getParameter("leve")));
 			welder.setOwner(new BigInteger(request.getParameter("ins")));
 			String sea = Integer.toHexString(Integer.valueOf(request.getParameter("welderno")));
 			if(sea.length()!=4){
@@ -216,8 +216,8 @@ public class PersonController {
 		JSONObject obj = new JSONObject();
 		try{
 			welder.setId(new BigInteger(request.getParameter("FID")));
-			welder.setQuali(Integer.parseInt(request.getParameter("qua")));
-			welder.setLeveid(Integer.parseInt(request.getParameter("leve")));
+//			welder.setQuali(Integer.parseInt(request.getParameter("qua")));
+//			welder.setLeveid(Integer.parseInt(request.getParameter("leve")));
 			welder.setOwner(new BigInteger(request.getParameter("ins")));
 			String sea = Integer.toHexString(Integer.valueOf(request.getParameter("welderno")));
 			if(sea.length()!=4){
