@@ -44,4 +44,5 @@ public interface WeldedJunctionService {
 	 * @param wj
 	 */
 	boolean deleteJunction(BigInteger id);
+	List<WeldedJunction> getWeldingJun(Page page, String str, String welderid);
 }

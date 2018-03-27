@@ -22,5 +22,5 @@ public interface ReportMapper {
 	long getZxTime(@Param("machid") BigInteger machid,@Param("time") String time);
 	String getFirstTime(@Param("machid") BigInteger machid,@Param("time") String time);
 	List<Report> getAllPara(@Param("parent")BigInteger parent,@Param("str")String str,@Param("time") String time);
-	List<Report> historyData(@Param("dto") WeldDto dto,@Param("fid") BigInteger fid);
+	List<Report> historyData(@Param("dto") WeldDto dto,@Param("fid") String fid);
 }

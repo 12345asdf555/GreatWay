@@ -101,7 +101,7 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public List<Report> historyData(WeldDto dto,BigInteger fid) {
+	public List<Report> historyData(WeldDto dto,String fid) {
 		// TODO Auto-generated method stub
 		return mapper.historyData(dto,fid);
 	}

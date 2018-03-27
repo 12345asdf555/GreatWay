@@ -49,5 +49,11 @@ public class WeldedJunctionServiceImpl implements WeldedJunctionService{
 	public WeldedJunction getWeldedJunctionById(BigInteger id) {
 		return wjm.getWeldedJunctionById(id);
 	}
+	
+	@Override
+	public List<WeldedJunction> getWeldingJun(Page page, String str, String welderid) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return wjm.getWeldingJun(str,welderid);
+	}
 
 }
