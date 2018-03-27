@@ -62,16 +62,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--             	<lable>修改时间</lable> -->
 <%--                 <input name="updatedate" class="easyui-textbox" value="${update}" readonly="true" data-options="required:true"> --%>
 <!--             </div> -->
-            <div class="fitem">
-				<lable>级别</lable>
-				<input name="leveid" id="leveid" type="hidden" value="${welder.leveid}" data-options="required:true">
-				<input class="easyui-textbox" name="leve" id="leve" value="${welder.levename }" readonly="true" data-options="required:true"/>
-        	</div>
-        	<div class="fitem">
-				<lable>资质</lable>
-				<input name="quali" id="quali" type="hidden" value="${welder.quali}" data-options="required:true">
-				<input class="easyui-textbox" name="qua" id="qua" value="${welder.qualiname }" readonly="true" data-options="required:true"/>
-        	</div>
+<!--             <div class="fitem"> -->
+<!-- 				<lable>级别</lable> -->
+<%-- 				<input name="leveid" id="leveid" type="hidden" value="${welder.leveid}" data-options="required:true"> --%>
+<%-- 				<input class="easyui-textbox" name="leve" id="leve" value="${welder.levename }" readonly="true" data-options="required:true"/> --%>
+<!--         	</div> -->
+<!--         	<div class="fitem"> -->
+<!-- 				<lable>资质</lable> -->
+<%-- 				<input name="quali" id="quali" type="hidden" value="${welder.quali}" data-options="required:true"> --%>
+<%-- 				<input class="easyui-textbox" name="qua" id="qua" value="${welder.qualiname }" readonly="true" data-options="required:true"/> --%>
+<!--         	</div> -->
             <div class="fitem">
 				<lable>部门</lable>
 				<input name="owners" id="owners" type="hidden" value="${welder.owner}" data-options="required:true">

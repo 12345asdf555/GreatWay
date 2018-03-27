@@ -40,24 +40,24 @@ function weldDatagrid(){
 			width : 100,
 			halign : "center",
 			align : "left"
-		},{
-			field : 'leveid',
-			title : '级别',
-			width : 100,
-			halign : "center",
-			align : "left"
+//		},{
+//			field : 'leveid',
+//			title : '级别',
+//			width : 100,
+//			halign : "center",
+//			align : "left"
 		},{
 			field : 'cardnum',
 			title : '卡号',
 			width : 100,
 			halign : "center",
 			align : "left"
-		},{
-			field : 'quali',
-			title : '资质',
-			width : 100,
-			halign : "center",
-			align : "left"
+//		},{
+//			field : 'quali',
+//			title : '资质',
+//			width : 100,
+//			halign : "center",
+//			align : "left"
 		},{
 //			field : 'createdate',
 //			title : '创建时间',

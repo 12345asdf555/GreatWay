@@ -52,18 +52,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	<lable>卡号</lable>
                 <input name="cardnum" class="easyui-textbox" data-options="required:true">
             </div>
-            <div class="fitem">
-				<lable>级别</lable>
-				<select class="easyui-combobox" name="leveid" id="leveid" data-options="required:true,editable:false"></select>
+<!--             <div class="fitem"> -->
+<!-- 				<lable>级别</lable> -->
+<!-- 				<select class="easyui-combobox" name="leveid" id="leveid" data-options="required:true,editable:false"></select> -->
 <!-- 				<input type="hidden" id="insid"/>
 				<input class="easyui-textbox" name="Fowner" id="Fowner"/> -->
-        	</div>
-        	<div class="fitem">
-				<lable>资质</lable>
-				<select class="easyui-combobox" name="quali" id="quali" data-options="required:true,editable:false"></select>
+<!--         	</div> -->
+<!--         	<div class="fitem"> -->
+<!-- 				<lable>资质</lable> -->
+<!-- 				<select class="easyui-combobox" name="quali" id="quali" data-options="required:true,editable:false"></select> -->
 <!-- 				<input type="hidden" id="insid"/>
 				<input class="easyui-textbox" name="Fowner" id="Fowner"/> -->
-        	</div>
+<!--         	</div> -->
             <div class="fitem">
 				<lable>部门</lable>
 				<select class="easyui-combobox" name="Fowner" id="Fowner" data-options="required:true,editable:false"></select>
