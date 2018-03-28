@@ -24,6 +24,7 @@ import com.greatway.model.Insframework;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
 import com.spring.model.MyUser;
+import com.spring.model.Role;
 import com.spring.model.User;
 import com.spring.service.UserService;
 
@@ -306,6 +307,34 @@ public class UserController {
 		obj.put("rows", ary);
 		return obj.toString();
 	}
+	
+	@RequestMapping("/getAllRole1")
+	@ResponseBody
+	public String getAllRole1(@RequestParam Integer id,HttpServletRequest request){
+		List<User> findRole = userService.findRole(new Integer(id));
+		List<User> findAllRole = userService.findAllRole();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(User user:findAllRole){
+				json.put("id", user.getId());
+				json.put("roles_name", user.getRoleName());
+				json.put("symbol", 0);
+				for(User aut:findRole){
+					if(user.getId()==aut.getRoleId()){
+						json.put("symbol", 1);
+					}
+				}
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
 	@RequestMapping("/getRole")
 	@ResponseBody
 	public String getRole(@RequestParam Integer id,HttpServletRequest request){

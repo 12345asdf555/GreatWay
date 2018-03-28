@@ -15,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import com.greatway.manager.DictionaryManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
+import com.spring.model.Authority;
 import com.spring.model.MyUser;
 import com.spring.model.Role;
 import com.spring.service.RoleService;
@@ -238,6 +239,33 @@ public class RoleController {
 		}
 		return obj.toString();
 	}
+	@RequestMapping("/getAllAuthority1")
+	@ResponseBody
+	public String getAllAuthority1(@RequestParam Integer id,HttpServletRequest request){
+		List<Role> findAuthority = roleService.findAuthority(new Integer(id));
+		List<Role> findAllAuthority = roleService.findAllAuthority();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(Role role:findAllAuthority){
+				json.put("id", role.getId());
+				json.put("authorities_desc", role.getAuthorityDesc());
+				json.put("symbol", 0);
+				for(Role aut:findAuthority){
+					if(role.getId()==aut.getAuthoritiesId()){
+						json.put("symbol", 1);
+					}
+				}
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
 	@RequestMapping("/getAllAuthority")
 	@ResponseBody
 	public String getAllAuthority(HttpServletRequest request){
@@ -281,8 +309,8 @@ public class RoleController {
 	
 	@RequestMapping("/getAllUser")
 	@ResponseBody
-	public String getAllUser(HttpServletRequest request){
-		
+	public String getAllUser(@RequestParam Integer id,HttpServletRequest request){
+		List<Role> findUser = roleService.findUser(new Integer(id));
 		List<Role> findAllUser = roleService.findAllUser();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
@@ -291,6 +319,12 @@ public class RoleController {
 			for(Role role:findAllUser){
 				json.put("id", role.getId());
 				json.put("users_name", role.getUserName());
+				json.put("symbol", 0);
+				for(Role aut:findUser){
+					if(role.getId()==aut.getUserId()){
+						json.put("symbol", 1);
+					}
+				}
 				ary.add(json);
 			}
 		}catch(Exception e){

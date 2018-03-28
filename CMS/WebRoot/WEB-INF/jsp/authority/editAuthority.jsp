@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		height : '250px',
 		width : '15%',
 		idField : 'resources_name',
-		url : "authority/getAllResource",
+		url : "authority/getAllResource1?id="+$("#id").val(),
 		rownumbers : false,
 		showPageList : false,
 		checkOnSelect:true,
@@ -120,14 +120,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			align : "left",
 			hidden:true
 		},{
+			field : 'symbol',
+			title : 'symbol',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden:true
+		},{
 			field : 'resources_name',
 			title : '资源名',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}]],
-		 onLoadSuccess:function(data){                
-			        if(data){
+		 onLoadSuccess:function(data){   
+             if(data){
+             $.each(data.rows, function(index, item){
+             if(item.symbol==1){
+	         $('#tt').datagrid('checkRow', index);
+	         }
+             })
+             }
+/* 			        if(data){
 			        $.each(data.rows, function(index, item){
 			        	    var a = $("#id").val();
 			        	    var b;
@@ -154,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        }
 			        }
 			        });
-			        }
+			        } */
 			        }                   	
 	});
 }

@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		height : '250px',
 		width : '15%',
 		idField : 'users_name',
-		url : "role/getAllUser",
+		url : "role/getAllUser?id="+$("#id").val(),
 		rownumbers : false,
 		showPageList : false,
 		checkOnSelect:true,
@@ -79,8 +79,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			halign : "center",
 			align : "left"
 		}]],
-				onLoadSuccess:function(data){                
-			        if(data){
+				onLoadSuccess:function(data){          
+				 if(data){
+	             $.each(data.rows, function(index, item){
+	             if(item.symbol==1){
+		         $('#tt').datagrid('checkRow', index);
+		         }
+	             })
+	             }         
+			       /*  if(data){
 			        $.each(data.rows, function(index, item){
 			        	    var a = $("#id").val();
 			        	  
@@ -108,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        }
 			        }
 			        });
-			        }
+			        } */
 			        }                   
 	});
 }
