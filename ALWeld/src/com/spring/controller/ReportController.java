@@ -77,7 +77,7 @@ public class ReportController {
 	}
 	@RequestMapping("/history")
 	public String History(HttpServletRequest request){
-		return "td/HistoryCurve";
+		return "td/HistoryWelder";
 	}
 
 /*	@RequestMapping("/getWeldPara")
@@ -631,7 +631,7 @@ public class ReportController {
 			}
 		}
 		String str = request.getParameter("searchStr");
-		BigInteger fid = new BigInteger(request.getParameter("fid"));
+		String fid = request.getParameter("fid");
 		List<Report> list = reportService.historyData(dto,fid);
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();

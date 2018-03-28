@@ -137,7 +137,7 @@ function importWeldingMachine(){
 						});
 					} else {
 						$('#importdiv').dialog('close');
-						$('#weldingmachineTable').datagrid('reload');
+						$('#welderTable').datagrid('reload');
 						$.messager.alert("提示", result.msg);
 					}
 				}

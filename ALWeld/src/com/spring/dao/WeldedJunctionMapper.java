@@ -26,4 +26,5 @@ public interface WeldedJunctionMapper extends Mapper<WeldedJunction>{
 	int getWeldedjunctionByNo(@Param("wjno")String wjno);
 
 	List<WeldedJunction> getWeldingJun(@Param("str")String str, @Param("welderid")String welderid);
+	
 }

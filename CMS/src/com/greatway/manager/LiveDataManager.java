@@ -155,6 +155,7 @@ public interface LiveDataManager {
 	 */
 	List<ModelDto> getCompanyLoads(WeldDto dto,BigInteger parent);
 	
+	
 	/**
 	 * 事业部负荷率
 	 * @param dto扩展参数类

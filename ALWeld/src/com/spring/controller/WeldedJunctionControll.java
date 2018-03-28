@@ -351,7 +351,6 @@ public class WeldedJunctionControll {
 		return data + "";
 	}
 	
-	
 	@RequestMapping("/getWeldingJun")
 	@ResponseBody
 	public String getWeldingJun(HttpServletRequest request){

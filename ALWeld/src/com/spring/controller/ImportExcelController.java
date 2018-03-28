@@ -109,6 +109,14 @@ public class ImportExcelController {
 				if(gather!=null){
 					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gather.getGatherNo());
 				}
+				String sea = Integer.toHexString(Integer.valueOf(wm.getEquipmentNo()));
+				if(sea.length()!=4){
+	                int lenth=4-sea.length();
+	                for(int i=0;i<lenth;i++){
+	                	sea="0"+sea;
+	                }
+	              }
+				wm.setEquipmentNo(sea);
 				wm.setGatherId(gather);
 				//编码唯一
 				int count1 = wmm.getEquipmentnoCount(wm.getEquipmentNo());
@@ -190,7 +198,14 @@ public class ImportExcelController {
 				MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				w.setCreater(new BigInteger(user.getId()+""));
 				w.setUpdater(new BigInteger(user.getId()+""));
-
+				String sea = Integer.toHexString(Integer.valueOf(w.getWelderno()));
+				if(sea.length()!=4){
+	                int lenth=4-sea.length();
+	                for(int i=0;i<lenth;i++){
+	                	sea="0"+sea;
+	                }
+	             }
+				w.setWelderno(sea);
 				//编码唯一
 				int count1 = ps.getUsernameCount(w.getWelderno());
 				if(count1>0){

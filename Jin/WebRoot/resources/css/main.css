@@ -14,7 +14,7 @@ li{list-style-type: none;}
 .wrap .clock ul li ul li:nth-child(6){position:absolute;transform:rotateZ(90deg);left:26px;top: -25px;}
 .wrap .clock ul li ul li:nth-child(7){position:absolute;top: -44px;left: 60px;}
 .wrap .clock ul .point{width: 30px;}
-.wrap .clock ul .point span{display:block;height: 6px;width: 6px;background: #a3ff19;margin:-46px 53px;}
-.wrap .date{position:relative;height: 100px; color: #a3ff19; font-size:80px;margin-top: 10px;border-bottom:3px solid red;}
+.wrap .clock ul .point span{display:block;height: 6px;width: 6px;background: #6666ff;margin:-46px 53px;}
+.wrap .date{position:relative;height: 100px; color: #6666ff; font-size:80px;margin-top: 10px;border-bottom:3px solid red;}
 .wrap .date span:first-child{float: left;margin-left: 15px;margin-top: 10px}
 .wrap .date span:last-child{float: right;margin-right:30px;}

@@ -57,12 +57,12 @@ public class ExportExcelController {
 		try {
 			String str=(String) request.getSession().getAttribute("searchStr");
 			List<WeldingMachine> list = wmm.getWeldingMachine(str);
-			
+	
 			String[] titles = new String[]{"序号","设备编码","设备类型","入厂时间","所属项目","状态","厂家","厂家类型","是否在网","采集序号","位置"};
 			Object[][] data = new Object[list.size()][11];
 			for(int i =0; i<list.size();i++){
 				data[i][0] = list.get(i).getId();
-				data[i][1] = list.get(i).getEquipmentNo();
+				data[i][1] = Integer.parseInt(list.get(i).getEquipmentNo(), 16);
 				data[i][2] = list.get(i).getTypename();
 				data[i][3] = list.get(i).getJoinTime();
 				data[i][4] = list.get(i).getInsframeworkId().getName();

@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/iconfont.css">
 	
-	<script type="text/javascript" src="resources/js/load.js"></script>
+	<script type="text/javascript" src="resources/js/loading.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
@@ -30,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/highcharts.js"></script>
 	<script type="text/javascript" src="resources/js/exporting.js"></script>
 	<script type="text/javascript" src="resources/js/td/BackUp.js"></script>
+	<!-- <script type="text/javascript" src="resources/js/rmeffect.js"></script> -->
 
   </head>
   
@@ -154,8 +155,9 @@ readonly="readonly">
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
+			<li class="point"><span></span></li>
 			<li>
-				<ul id="time8">
+				<ul id="time8"  style="margin-left:-38px">
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
