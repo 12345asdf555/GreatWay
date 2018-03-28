@@ -310,7 +310,15 @@ var lable=0;
 					}
 				}*/] ],
 				toolbar : '#disctionaryTable_btn',
-				pagination : true/*,
+				pagination : true,
+				rowStyler: function(index,row){
+		            if ((index % 2)!=0){
+		            	//处理行代背景色后无法选中
+		            	var color=new Object();
+		                color.class="rowColor";
+		                return color;
+		            }
+		        }/*,
 				onLoadSuccess: function(data){
 					$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
 				}*/

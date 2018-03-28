@@ -22,7 +22,6 @@
 
        $(function(){
 	    $("#dg").datagrid({
-
 			height : $("#body").height(),
 			width : $("#body").width(),
 			idField : 'id',
@@ -92,7 +91,7 @@
 			},{
 				field : 'owner',
 				title : '部门',
-				width : 100,
+				width : 130,
 				halign : "center",
 				align : "left"
 			},{
@@ -113,6 +112,14 @@
 				return str;
 				}}] ],
 			toolbar : '#welderTable_btn',
+			rowStyler: function(index,row){
+	            if ((index % 2)!=0){
+	            	//处理行代背景色后无法选中
+	            	var color=new Object();
+	                color.class="rowColor";
+	                return color;
+	            }
+	        },
 			onLoadSuccess:function(data){
 		        $("a[id='wj']").linkbutton({text:'焊缝信息',plain:true,iconCls:'icon-search'});
 		        }
