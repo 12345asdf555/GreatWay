@@ -84,5 +84,6 @@ function InsframeworkCombobox(){
       }  
 	}); 
 	$("#itemname").combobox();
+    $("#itemname").combobox('setValue',$("#itemid").val());
 }
 

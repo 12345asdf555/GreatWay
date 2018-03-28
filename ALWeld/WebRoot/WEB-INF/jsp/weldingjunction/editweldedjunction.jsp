@@ -59,34 +59,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>达因</lable>
-					<input class="easyui-textbox" id="dyne" name="dyne" value="${wj.dyne }"  data-options="required:true"/>
+					<input class="easyui-textbox" id="dyne" name="dyne" value="${wj.dyne }" />
 					<lable>规格</lable>
-					<input class="easyui-textbox" id="specification" name="specification"  value="${wj.specification }" data-options="required:true"/>
+					<input class="easyui-textbox" id="specification" name="specification"  value="${wj.specification }"/>
 				</div>
 				<div class="fitem">
 					<lable>管线号</lable>
-					<input class="easyui-textbox" id="pipelineNo"  name="pipelineNo" value="${wj.pipelineNo }" data-options="required:true"/>
+					<input class="easyui-textbox" id="pipelineNo"  name="pipelineNo" value="${wj.pipelineNo }"/>
 					<lable>房间号</lable>
-					<input class="easyui-textbox" id="roomNo" name="roomNo"  value="${wj.roomNo }" data-options="required:true"/>
+					<input class="easyui-textbox" id="roomNo" name="roomNo"  value="${wj.roomNo }"/>
 				</div>
-				<div class="fitem">
-					<lable>上游外径</lable>
-					<input class="easyui-textbox" id="externalDiameter" name="externalDiameter"  value="${wj.externalDiameter }" data-options="required:true"/>
-					<lable>下游外径</lable>
-					<input class="easyui-textbox" id="nextexternaldiameter" name="nextexternaldiameter" value="${wj.nextexternaldiameter }" data-options="required:true"/>
-				</div>
-				<div class="fitem">
-					<lable>上游璧厚</lable>
-					<input class="easyui-textbox" id="wallThickness" name="wallThickness" value="${wj.wallThickness }" data-options="required:true"/>
-					<lable>下游璧厚</lable>
-					<input class="easyui-textbox" id="nextwall_thickness" name="nextwall_thickness" value="${wj.nextwall_thickness }" data-options="required:true"/>
-				</div>
-				<div class="fitem">
-					<lable>上游材质</lable>
-					<input class="easyui-textbox" id="material"  name="material" value="${wj.material }" data-options="required:true"/>
-					<lable>下游材质</lable>
-					<input class="easyui-textbox" id="next_material" name="next_material" value="${wj.next_material }" data-options="required:true"/>
-				</div>
+<!-- 				<div class="fitem"> -->
+<!-- 					<lable>上游外径</lable> -->
+<%-- 					<input class="easyui-textbox" id="externalDiameter" name="externalDiameter"  value="${wj.externalDiameter }" data-options="required:true"/> --%>
+<!-- 					<lable>下游外径</lable> -->
+<%-- 					<input class="easyui-textbox" id="nextexternaldiameter" name="nextexternaldiameter" value="${wj.nextexternaldiameter }" data-options="required:true"/> --%>
+<!-- 				</div> -->
+<!-- 				<div class="fitem"> -->
+<!-- 					<lable>上游璧厚</lable> -->
+<%-- 					<input class="easyui-textbox" id="wallThickness" name="wallThickness" value="${wj.wallThickness }" data-options="required:true"/> --%>
+<!-- 					<lable>下游璧厚</lable> -->
+<%-- 					<input class="easyui-textbox" id="nextwall_thickness" name="nextwall_thickness" value="${wj.nextwall_thickness }" data-options="required:true"/> --%>
+<!-- 				</div> -->
+<!-- 				<div class="fitem"> -->
+<!-- 					<lable>上游材质</lable> -->
+<%-- 					<input class="easyui-textbox" id="material"  name="material" value="${wj.material }" data-options="required:true"/> --%>
+<!-- 					<lable>下游材质</lable> -->
+<%-- 					<input class="easyui-textbox" id="next_material" name="next_material" value="${wj.next_material }" data-options="required:true"/> --%>
+<!-- 				</div> -->
 				<div class="fitem">
 					<lable>电流上限</lable>
 					<input class="easyui-textbox" id="maxElectricity" name="maxElectricity" value="${wj.maxElectricity }" data-options="required:true"/>
@@ -101,9 +101,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>电流单位</lable>
-					<input class="easyui-textbox" id="electricity_unit"  name="electricity_unit" value="${wj.electricity_unit }" data-options="required:true"/>
+					<input class="easyui-textbox" id="electricity_unit"  name="electricity_unit" value="${wj.electricity_unit }"/>
 					<lable>电压单位</lable>
-					<input class="easyui-textbox" id="valtage_unit"  name="valtage_unit" value="${wj.valtage_unit }" data-options="required:true"/>
+					<input class="easyui-textbox" id="valtage_unit"  name="valtage_unit" value="${wj.valtage_unit }"/>
 				</div>
 				<div class="fitem">
 					<lable>开始时间</lable>
@@ -113,7 +113,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>所属项目</lable>
-					<select class="easyui-textbox" id="itemname"  name="itemname" value="${wj.itemid.id }" data-options="required:true,editable:false"></select>
+					<input type="hidden" value="${wj.itemid.id }" id="itemid"/>
+					<select class="easyui-textbox" id="itemname"  name="itemname" data-options="required:true,editable:false"></select>
 					<lable></lable>
 					<input type="text" border="0" readonly="readonly"/>
 				</div>

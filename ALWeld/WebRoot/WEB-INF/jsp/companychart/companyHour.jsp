@@ -48,29 +48,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="companyHourChart" style="height:300px;width:50%; margin: auto;margin-bottom: 20px; margin-top: 20px;float:left;"></div>
-		<div id="classifydiv" style="height:300px;width:50%; margin: auto;margin-bottom: 20px; margin-top: 20px;float:right;">
-			<!-- 自定义多条件查询 -->
-		    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
-		    	<div id="div0">
-			    	<select class="fields" id="fields"></select>
-			    	<select class="condition" id="condition"></select>
-			    	<input class="content" id="content"/>
-			    	<select class="joint" id="joint"></select>
-			    	<a href="javascript:newSearchhoustclassify();" class="easyui-linkbutton" iconCls="icon-add"></a>
-			    	<a href="javascript:removeSerach();" class="easyui-linkbutton" iconCls="icon-remove"></a>
-		    	</div>
-		    </div>
-		    <div id="searchButton">
-				<a href="javascript:searchHousClassify();" class="easyui-linkbutton" iconCls="icon-ok">查询</a>
-				<a href="javascript:close();" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
-			</div>
-			<div style="margin-bottom: 5px;" id="classify_btn">
-				<a href="javascript:serachClassify();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
-				<a href="javascript:commitChecked();" class="easyui-linkbutton"  iconCls="icon-ok" >提交选中数据</a>
-			</div>
-			<table id="classify" style="table-layout: fixed; width:100%;"></table>
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
+			按组织机构和日期对焊缝焊接工时趋势统计:<br/>
+			统计时间段内的各部门焊缝焊接工时趋势；<br/>
+			X轴:组织机构<br/>
+			Y轴:焊接平均时长(s)<br/>
 		</div>
+		<div id="companyHourChart" style="height:300px;width:65%; margin: auto;margin-bottom: 20px; margin-top: 20px;float:left;"></div>
+<!-- 		<div id="classifydiv" style="height:300px;width:50%; margin: auto;margin-bottom: 20px; margin-top: 20px;float:right;"> -->
+			<!-- 自定义多条件查询 -->
+<!-- 		    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询"> -->
+<!-- 		    	<div id="div0"> -->
+<!-- 			    	<select class="fields" id="fields"></select> -->
+<!-- 			    	<select class="condition" id="condition"></select> -->
+<!-- 			    	<input class="content" id="content"/> -->
+<!-- 			    	<select class="joint" id="joint"></select> -->
+<!-- 			    	<a href="javascript:newSearchhoustclassify();" class="easyui-linkbutton" iconCls="icon-add"></a> -->
+<!-- 			    	<a href="javascript:removeSerach();" class="easyui-linkbutton" iconCls="icon-remove"></a> -->
+<!-- 		    	</div> -->
+<!-- 		    </div> -->
+<!-- 		    <div id="searchButton"> -->
+<!-- 				<a href="javascript:searchHousClassify();" class="easyui-linkbutton" iconCls="icon-ok">查询</a> -->
+<!-- 				<a href="javascript:close();" class="easyui-linkbutton" iconCls="icon-cancel">取消</a> -->
+<!-- 			</div> -->
+<!-- 			<div style="margin-bottom: 5px;" id="classify_btn"> -->
+<!-- 				<a href="javascript:serachClassify();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a> -->
+<!-- 				<a href="javascript:commitChecked();" class="easyui-linkbutton"  iconCls="icon-ok" >提交选中数据</a> -->
+<!-- 			</div> -->
+<!-- 			<table id="classify" style="table-layout: fixed; width:100%;"></table> -->
+<!-- 		</div> -->
 	    <table id="companyHourTable" style="table-layout: fixed; width:100%;"></table>
 	</div>
     <div id="body" region="south"  hide="true"  split="true" style="background: witch;">

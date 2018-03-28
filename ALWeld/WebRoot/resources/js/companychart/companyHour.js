@@ -1,6 +1,11 @@
 $(function(){
-	classifyDatagrid();
+	CompanyHourDatagrid();
 })
+
+$(document).ready(function(){
+	showCompanyHourChart();
+})
+
 var chartStr = "";
 function setParam(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
@@ -93,7 +98,7 @@ function CompanyHourDatagrid(){
 	var parent = $("#parent").val();
 	$("#companyHourTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-40,
+		height : $("#body").height() - $("#companyHourChart").height()-40,
 		width : $("#body").width(),
 		idField : 'id',
 		url : "companyChart/getCompanyHour?parent="+parent+chartStr,
@@ -117,7 +122,7 @@ function CompanyHourDatagrid(){
 			align : "left"
 		}, {
 			field : 'manhour',
-			title : '焊接工时(s)',
+			title : '焊接平均工时(s)',
 			width : 100,
 			halign : "center",
 			align : "left",
@@ -153,7 +158,9 @@ function CompanyHourDatagrid(){
 }
 
 function serachcompanyHour(){
-	commitChecked();
+	chartStr = "";
+	setParam();
+	CompanyHourDatagrid();
 }
 
 function classifyDatagrid(){

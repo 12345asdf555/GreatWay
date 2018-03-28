@@ -105,6 +105,7 @@ function weldedJunctionDatagrid(){
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
+		fitColumns : true,
 		columns : [ [  {
 		    field:'ck',
 			checkbox:true
@@ -112,63 +113,70 @@ function weldedJunctionDatagrid(){
 			field : 'weldedJunctionno',
 			title : '焊缝编号',
 			halign : "center",
+			width : 100,
 			align : "left"
 		}, {
 			field : 'maxElectricity',
 			title : '电流上限',
 			halign : "center",
+			width : 100,
 			align : "left"
 		}, {
 			field : 'minElectricity',
 			title : '电流下限',
 			halign : "center",
+			width : 100,
 			align : "left"
 		}, {
 			field : 'maxValtage',
 			title : '电压上限',
 			halign : "center",
+			width : 100,
 			align : "left"
 		}, {
 			field : 'minValtage',
 			title : '电压下限',
 			halign : "center",
+			width : 100,
 			align : "left"
 		}, {
 			field : 'itemname',
 			title : '所属项目',
 			halign : "center",
+			width : 100,
 			align : "left"
-		}, {
-			field : 'externalDiameter',
-			title : '上游外径',
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'nextexternaldiameter',
-			title : '下游外径',
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'wallThickness',
-			title : '上游壁厚',
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'nextwall_thickness',
-			title : '下游璧厚',
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'material',
-			title : '上游材质',
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'next_material',
-			title : '下游材质',
-			halign : "center",
-			align : "left"
+//		}, {
+//			field : 'externalDiameter',
+//			title : '上游外径',
+//			halign : "center",
+//			align : "left"
+//		}, {
+//			field : 'nextexternaldiameter',
+//			title : '下游外径',
+//			halign : "center",
+//			align : "left"
+//		}, {
+//			field : 'wallThickness',
+//			title : '上游壁厚',
+//			halign : "center",
+//			align : "left"
+//		}, {
+//			field : 'nextwall_thickness',
+//			title : '下游璧厚',
+//			halign : "center",
+//			align : "left"
+//		}, {
+//			field : 'material',
+//			title : '上游材质',
+//			halign : "center",
+//			align : "left"
+//		}, {
+//			field : 'next_material',
+//			title : '下游材质',
+//			halign : "center",
+//			align : "left"
 		}] ],
+		nowrap : false,
 		pagination : true,
 		rowStyler: function(index,row){
             if ((index % 2)!=0){

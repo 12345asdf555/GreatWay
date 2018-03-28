@@ -39,79 +39,73 @@ function weldedJunctionDatagrid(){
 			title : '管线号',
 //			width : 90,
 			halign : "center",
-			align : "left",
-			hidden:true
+			align : "left"
 		}, {
 			field : 'roomNo',
 			title : '房间号',
 //			width : 90,
 			halign : "center",
-			align : "left",
-			hidden:true
+			align : "left"
 		}, {
 			field : 'unit',
 			title : '机组',
 //			width : 90,
 			halign : "center",
-			align : "left",
-			hidden:true
+			align : "left"
 		}, {
 			field : 'area',
 			title : '区域',
 //			width : 90,
 			halign : "center",
-			align : "left",
-			hidden:true
+			align : "left"
 		}, {
 			field : 'systems',
 			title : '系统',
 //			width : 90,
 			halign : "center",
-			align : "left",
-			hidden:true
+			align : "left"
 		}, {
 			field : 'children',
 			title : '子项',
 //			width : 90,
 			halign : "center",
-			align : "left",
-			hidden:true
-		}, {
-			field : 'externalDiameter',
-			title : '上游外径',
-//			width : 90,
-			halign : "center",
 			align : "left"
-		}, {
-			field : 'nextexternaldiameter',
-			title : '下游外径',
+//		}, {
+//			field : 'externalDiameter',
+//			title : '上游外径',
 //			width : 90,
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'wallThickness',
-			title : '上游壁厚',
+//			halign : "center",
+//			align : "left"
+//		}, {
+//			field : 'nextexternaldiameter',
+//			title : '下游外径',
 //			width : 90,
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'nextwall_thickness',
-			title : '下游璧厚',
+//			halign : "center",
+//			align : "left"
+//		}, {
+//			field : 'wallThickness',
+//			title : '上游壁厚',
 //			width : 90,
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'material',
-			title : '上游材质',
+//			halign : "center",
+//			align : "left"
+//		}, {
+//			field : 'nextwall_thickness',
+//			title : '下游璧厚',
 //			width : 90,
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'next_material',
-			title : '下游材质',
+//			halign : "center",
+//			align : "left"
+//		}, {
+//			field : 'material',
+//			title : '上游材质',
 //			width : 90,
-			halign : "center",
-			align : "left"
+//			halign : "center",
+//			align : "left"
+//		}, {
+//			field : 'next_material',
+//			title : '下游材质',
+////			width : 90,
+//			halign : "center",
+//			align : "left"
 		}, {
 			field : 'dyne',
 			title : '达因',
@@ -123,7 +117,7 @@ function weldedJunctionDatagrid(){
 			title : '规格',
 //			width : 90,
 			halign : "center",
-			align : "left",
+			align : "left"
 //			hidden:true
 		}, {
 			field : 'maxElectricity',
@@ -156,20 +150,6 @@ function weldedJunctionDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'startTime',
-			title : '开始时间',
-			width : 90,
-			halign : "center",
-			align : "left",
-			hidden:true
-		}, {
-			field : 'endTime',
-			title : '完成时间',
-			width : 90,
-			halign : "center",
-			align : "left",
-			hidden:true
-		}, {
 			field : 'creatTime',
 			title : '创建时间',
 			width : 90,
@@ -195,29 +175,39 @@ function weldedJunctionDatagrid(){
 			title : '电压单位',
 			width : 90,
 			halign : "center",
-			align : "left",
-			hidden:true
+			align : "left"
 		}, {
 			field : 'electricity_unit',
 			title : '电流单位',
 			width : 90,
 			halign : "center",
-			align : "left",
-			hidden:true
+			align : "left"
+		}, {
+			field : 'startTime',
+			title : '开始时间',
+			width : 90,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'endTime',
+			title : '完成时间',
+			width : 90,
+			halign : "center",
+			align : "left"
 		}, {
 			field : 'edit',
 			title : '编辑',
-			width : 220,
+			width : 150,
 			halign : "center",
 			align : "left",
 			formatter: function(value,row,index){
 				var str = '<a id="edit" class="easyui-linkbutton" href="weldedjunction/goEditWeldedJunction?id='+row.id+'"/>';
 				str += '<a id="remove" class="easyui-linkbutton" href="weldedjunction/goRemoveWeldedJunction?id='+row.id+'"/>';
-				var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
-				+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
-				row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+
-				","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material+","+row.valtage_unit+","+row.electricity_unit;
-				str += '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
+//				var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
+//				+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
+//				row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+
+//				","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material+","+row.valtage_unit+","+row.electricity_unit;
+//				str += '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
 				return str;
 			}
 		}] ],
@@ -234,7 +224,7 @@ function weldedJunctionDatagrid(){
 		onLoadSuccess: function(data){
 	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
 	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
-			$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
+//			$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
 		}
 	});
 }

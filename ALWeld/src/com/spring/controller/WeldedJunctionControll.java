@@ -195,17 +195,17 @@ public class WeldedJunctionControll {
 		try{
 			for(WeldedJunction w:list){
 				json.put("weldedJunctionno", w.getWeldedJunctionno());
-				json.put("externalDiameter", w.getExternalDiameter());
-				json.put("wallThickness", w.getWallThickness());
+//				json.put("externalDiameter", w.getExternalDiameter());
+//				json.put("wallThickness", w.getWallThickness());
 				json.put("maxElectricity", w.getMaxElectricity());
 				json.put("minElectricity", w.getMinElectricity());
 				json.put("maxValtage", w.getMaxValtage());
 				json.put("minValtage", w.getMinValtage());
-				json.put("material", w.getMaterial());
-				json.put("nextexternaldiameter", w.getNextexternaldiameter());
+//				json.put("material", w.getMaterial());
+//				json.put("nextexternaldiameter", w.getNextexternaldiameter());
 				json.put("itemname", w.getItemid().getName());
-				json.put("nextwall_thickness", w.getNextwall_thickness());
-				json.put("next_material", w.getNext_material());
+//				json.put("nextwall_thickness", w.getNextwall_thickness());
+//				json.put("next_material", w.getNext_material());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -232,16 +232,18 @@ public class WeldedJunctionControll {
 			wj.setArea(request.getParameter("area"));
 			wj.setSystems(request.getParameter("systems"));
 			wj.setChildren(request.getParameter("children"));
-			wj.setDyne(Integer.parseInt(request.getParameter("dyne")));
+			if(iutil.isNull(request.getParameter("dyne"))){
+				wj.setDyne(Integer.parseInt(request.getParameter("dyne")));
+			}
 			wj.setSpecification(request.getParameter("specification"));
 			wj.setPipelineNo(request.getParameter("pipelineNo"));
 			wj.setRoomNo(request.getParameter("roomNo"));
-			wj.setExternalDiameter(request.getParameter("externalDiameter"));
-			wj.setNextexternaldiameter(request.getParameter("nextexternaldiameter"));
-			wj.setWallThickness(request.getParameter("wallThickness"));
-			wj.setNextwall_thickness(request.getParameter("nextwall_thickness"));
-			wj.setMaterial(request.getParameter("material"));
-			wj.setNext_material(request.getParameter("next_material"));
+//			wj.setExternalDiameter(request.getParameter("externalDiameter"));
+//			wj.setNextexternaldiameter(request.getParameter("nextexternaldiameter"));
+//			wj.setWallThickness(request.getParameter("wallThickness"));
+//			wj.setNextwall_thickness(request.getParameter("nextwall_thickness"));
+//			wj.setMaterial(request.getParameter("material"));
+//			wj.setNext_material(request.getParameter("next_material"));
 			wj.setMaxElectricity(Double.parseDouble(request.getParameter("maxElectricity")));
 			wj.setMinElectricity(Double.parseDouble(request.getParameter("minElectricity")));
 			wj.setMaxValtage(Double.parseDouble(request.getParameter("maxValtage")));
@@ -286,16 +288,18 @@ public class WeldedJunctionControll {
 			wj.setArea(request.getParameter("area"));
 			wj.setSystems(request.getParameter("systems"));
 			wj.setChildren(request.getParameter("children"));
-			wj.setDyne(Integer.parseInt(request.getParameter("dyne")));
+			if(iutil.isNull(request.getParameter("dyne"))){
+				wj.setDyne(Integer.parseInt(request.getParameter("dyne")));
+			}
 			wj.setSpecification(request.getParameter("specification"));
 			wj.setPipelineNo(request.getParameter("pipelineNo"));
 			wj.setRoomNo(request.getParameter("roomNo"));
-			wj.setExternalDiameter(request.getParameter("externalDiameter"));
-			wj.setNextexternaldiameter(request.getParameter("nextexternaldiameter"));
-			wj.setWallThickness(request.getParameter("wallThickness"));
-			wj.setNextwall_thickness(request.getParameter("nextwall_thickness"));
-			wj.setMaterial(request.getParameter("material"));
-			wj.setNext_material(request.getParameter("next_material"));
+//			wj.setExternalDiameter(request.getParameter("externalDiameter"));
+//			wj.setNextexternaldiameter(request.getParameter("nextexternaldiameter"));
+//			wj.setWallThickness(request.getParameter("wallThickness"));
+//			wj.setNextwall_thickness(request.getParameter("nextwall_thickness"));
+//			wj.setMaterial(request.getParameter("material"));
+//			wj.setNext_material(request.getParameter("next_material"));
 			wj.setMaxElectricity(Double.parseDouble(request.getParameter("maxElectricity")));
 			wj.setMinElectricity(Double.parseDouble(request.getParameter("minElectricity")));
 			wj.setMaxValtage(Double.parseDouble(request.getParameter("maxValtage")));

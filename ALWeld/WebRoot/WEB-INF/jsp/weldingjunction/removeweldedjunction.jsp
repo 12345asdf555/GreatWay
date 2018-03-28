@@ -66,24 +66,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<lable>房间号</lable>
 				<input class="easyui-textbox" value="${wj.roomNo }" readonly="readonly"/>
 			</div>
-			<div class="fitem">
-				<lable>上游外径</lable>
-				<input class="easyui-textbox" value="${wj.externalDiameter }" readonly="readonly"/>
-				<lable>下游外径</lable>
-				<input class="easyui-textbox" value="${wj.nextexternaldiameter }" readonly="readonly"/>
-			</div>
-			<div class="fitem">
-				<lable>上游璧厚</lable>
-				<input class="easyui-textbox" value="${wj.wallThickness }" readonly="readonly"/>
-				<lable>下游璧厚</lable>
-				<input class="easyui-textbox" value="${wj.nextwall_thickness }" readonly="readonly"/>
-			</div>
-			<div class="fitem">
-				<lable>上游材质</lable>
-				<input class="easyui-textbox" value="${wj.material }" readonly="readonly"/>
-				<lable>下游材质</lable>
-				<input class="easyui-textbox" value="${wj.next_material }" readonly="readonly"/>
-			</div>
+<!-- 			<div class="fitem"> -->
+<!-- 				<lable>上游外径</lable> -->
+<%-- 				<input class="easyui-textbox" value="${wj.externalDiameter }" readonly="readonly"/> --%>
+<!-- 				<lable>下游外径</lable> -->
+<%-- 				<input class="easyui-textbox" value="${wj.nextexternaldiameter }" readonly="readonly"/> --%>
+<!-- 			</div> -->
+<!-- 			<div class="fitem"> -->
+<!-- 				<lable>上游璧厚</lable> -->
+<%-- 				<input class="easyui-textbox" value="${wj.wallThickness }" readonly="readonly"/> --%>
+<!-- 				<lable>下游璧厚</lable> -->
+<%-- 				<input class="easyui-textbox" value="${wj.nextwall_thickness }" readonly="readonly"/> --%>
+<!-- 			</div> -->
+<!-- 			<div class="fitem"> -->
+<!-- 				<lable>上游材质</lable> -->
+<%-- 				<input class="easyui-textbox" value="${wj.material }" readonly="readonly"/> --%>
+<!-- 				<lable>下游材质</lable> -->
+<%-- 				<input class="easyui-textbox" value="${wj.next_material }" readonly="readonly"/> --%>
+<!-- 			</div> -->
 			<div class="fitem">
 				<lable>电流上限</lable>
 				<input class="easyui-textbox" value="${wj.maxElectricity }" readonly="readonly"/>
