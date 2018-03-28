@@ -13,5 +13,5 @@ public interface WeldedJunctionManager {
 	 */
 	List<WeldedJunction> getWeldedJunctionAll(Page page, String str);
 
-	List<WeldedJunction> getWeldingJun(Page page, String str, BigInteger welderid);
+	List<WeldedJunction> getWeldingJun(Page page, String str, String welderid);
 }

@@ -27,7 +27,7 @@ public class WeldedJunctionControll {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
-	private BigInteger welderid;
+	private String welderid;
 	@Autowired
 	private WeldedJunctionManager wjm;
 	IsnullUtil iutil = new IsnullUtil();
@@ -129,7 +129,13 @@ public class WeldedJunctionControll {
 	@RequestMapping("/getWeldJun")
 	public String getWeldJun(HttpServletRequest request){
 		if(request.getParameter("fid")!=null&&request.getParameter("fid")!=""){
-			welderid = BigInteger.valueOf((Integer.parseInt(request.getParameter("fid"), 16)));
+			welderid = request.getParameter("fid");
+			if(welderid.length()!=4){
+                int lenth=4-welderid.length();
+                for(int i=0;i<lenth;i++){
+                	welderid="0"+welderid;
+                }
+              }
 		}
 		return "report/HistoryCurve";
 	}

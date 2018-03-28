@@ -65,6 +65,12 @@ public class WeldedJunctionControll {
 	public String getWeldJun(HttpServletRequest request){
 		if(request.getParameter("fid")!=null&&request.getParameter("fid")!=""){
 			welderid = Integer.toHexString(Integer.valueOf(request.getParameter("fid")));
+			if(welderid.length()!=4){
+                int lenth=4-welderid.length();
+                for(int i=0;i<lenth;i++){
+                	welderid="0"+welderid;
+                }
+              }
 		}
 		return "td/HistoryCurve";
 	}
