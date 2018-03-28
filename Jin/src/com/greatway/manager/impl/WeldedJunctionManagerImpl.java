@@ -26,7 +26,7 @@ public class WeldedJunctionManagerImpl implements WeldedJunctionManager{
 	}
 
 	@Override
-	public List<WeldedJunction> getWeldingJun(Page page, String str, BigInteger welderid) {
+	public List<WeldedJunction> getWeldingJun(Page page, String str, String welderid) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		return wjm.getWeldingJun(str,welderid);
 	}

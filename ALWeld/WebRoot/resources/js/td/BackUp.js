@@ -189,12 +189,12 @@
 			};
 			//关闭事件
 			socket.onclose = function() {
-				alert("Socket已关闭");
+				alert("Socket正在尝试连接");
+				socket.onopen();
 			};
 			//发生了错误事件
 			socket.onerror = function() {
 /*				socket.onopen();*/
-				alert("发生了错误");
 			}
 		});
 		
