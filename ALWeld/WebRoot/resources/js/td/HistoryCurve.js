@@ -166,7 +166,7 @@ var lable=0;
 					halign : "center",
 					align : "left",
 					hidden:true
-				}, {
+				}, /*{
 					field : 'externalDiameter',
 					title : '上游外径',
 					width : 90,
@@ -202,7 +202,7 @@ var lable=0;
 					width : 90,
 					halign : "center",
 					align : "left"
-				}, {
+				},*/ {
 					field : 'dyne',
 					title : '达因',
 					width : 90,
@@ -294,7 +294,7 @@ var lable=0;
 					halign : "center",
 					align : "left",
 					hidden:true
-				}, {
+				}/*, {
 					field : 'edit',
 					title : '编辑',
 					width : 120,
@@ -308,12 +308,12 @@ var lable=0;
 						var str = '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
 						return str;
 					}
-				}] ],
+				}*/] ],
 				toolbar : '#disctionaryTable_btn',
-				pagination : true,
+				pagination : true/*,
 				onLoadSuccess: function(data){
 					$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
-				}
+				}*/
 			});
 		}
 	var time=1000;
