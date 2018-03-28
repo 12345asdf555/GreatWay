@@ -40,6 +40,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
+				<input  name="welder" id="welder" type="hidden" value="${welder }"/>
+				<input  name="junction" id="junction" type="hidden" value="${junction }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
@@ -53,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div><h2>${str }</h2></div>
 		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
-		按组织机构和日期对超规范焊接趋势统计：<br/>
+		按焊工和焊缝对超规范焊接趋势统计：<br/>
 		统计时间段内的超规范焊接趋势；<br/>
 		X轴：日期<br/>
 		Y轴：超标时长(s)<br/></div>

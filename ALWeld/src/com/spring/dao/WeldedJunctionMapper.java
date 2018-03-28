@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.spring.dto.WeldDto;
 import com.spring.model.WeldedJunction;
 
 import tk.mybatis.mapper.common.Mapper;
 
 public interface WeldedJunctionMapper extends Mapper<WeldedJunction>{
 	List<WeldedJunction> getWeldedJunctionAll(@Param("str")String str);
+	
+	List<WeldedJunction> getJunctionByWelder(@Param("welder")String welder,@Param("dto")WeldDto dto);
 	
 	WeldedJunction getWeldedJunctionById(@Param("id")BigInteger id);
 	
@@ -21,4 +24,6 @@ public interface WeldedJunctionMapper extends Mapper<WeldedJunction>{
 	boolean deleteJunction(@Param("id")BigInteger id);
 	
 	int getWeldedjunctionByNo(@Param("wjno")String wjno);
+
+	List<WeldedJunction> getWeldingJun(@Param("str")String str, @Param("welderid")String welderid);
 }

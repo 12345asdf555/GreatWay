@@ -79,7 +79,7 @@ public interface LiveDataService {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<ModelDto> getCompanyOverproof(WeldDto dto,BigInteger parent);
+	List<ModelDto> getCompanyOverproof(WeldDto dto,String junction,String welder);
 	
 	/**
 	 * 超标明细
@@ -115,6 +115,14 @@ public interface LiveDataService {
 	 * @return
 	 */
 	List<ModelDto> getcompanyOvertime(WeldDto dto , String num,BigInteger parent);
+
+	/**
+	 * 获取单台焊机负荷率
+	 * @param dto
+	 * @param machine
+	 * @return
+	 */
+	List<ModelDto> getSingleLoads(WeldDto dto,BigInteger machine);
 	
 	/**
 	 * 获取事业部超时待机统计

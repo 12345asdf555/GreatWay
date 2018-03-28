@@ -73,8 +73,8 @@ public class LiveDataServiceImpl implements LiveDataService {
 	}
 
 	@Override
-	public List<ModelDto> getCompanyOverproof(WeldDto dto,BigInteger parent) {
-		return live.getCompanyOverproof(dto,parent);
+	public List<ModelDto> getCompanyOverproof(WeldDto dto,String junction,String welder) {
+		return live.getCompanyOverproof(dto,junction,welder);
 	}
 
 	@Override
@@ -351,4 +351,8 @@ public class LiveDataServiceImpl implements LiveDataService {
 		return live.getWelderList(dto);
 	}
 
+	@Override
+	public List<ModelDto> getSingleLoads(WeldDto dto, BigInteger machineid) {
+		return live.getSingleLoads(dto, machineid);
+	}
 }

@@ -8,10 +8,12 @@ $(document).ready(function(){
 
 function setParam(){
 	var parent = $("#parent").val();
+	var junction = $("#junction").val();
+	var welder = $("#welder").val();
 	var otype = $("input[name='otype']:checked").val();
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&junction="+junction+"&welder="+welder;
 }
 
 function showCompanyOverproofChart(){

@@ -20,7 +20,7 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<ModelDto> getJunctionHous(@Param("dto") WeldDto dto);
 	
-	List<ModelDto> getCompanyOverproof(@Param("dto") WeldDto dto,@Param("parent") BigInteger parent);
+	List<ModelDto> getCompanyOverproof(@Param("dto") WeldDto dto,@Param("junction") String junction,@Param("welder") String welder );
 	
 	List<ModelDto> getCauseOverproof(@Param("dto") WeldDto dto,@Param("parent") BigInteger parent);
 	
@@ -49,6 +49,8 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	List<ModelDto> getDetailovertime(@Param("dto") WeldDto dto,@Param("num") String num,@Param("parent") String parent);
 	
 	List<ModelDto> getCompanyLoads(@Param("dto")WeldDto dto,@Param("parent") BigInteger parent);
+	
+	List<ModelDto> getSingleLoads(@Param("dto")WeldDto dto,@Param("machine") BigInteger machine);
 	
 	List<ModelDto> getCaustLoads(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
 	

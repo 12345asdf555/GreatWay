@@ -58,15 +58,19 @@ function openCompanyHour(){
 }
 
 function openCompanyoverproof(){
-	addTab("焊接工艺超标","companyChart/goCompanyOverproof","icon-67");
+	addTab("焊接工艺超标","companyChart/goWelderandjunction","icon-67");
 }
 
 function openCompanyLoads(){
-	addTab("设备负荷率","companyChart/goCompanyLoads","icon-53");
+	addTab("负荷率","companyChart/goCompanyLoads","icon-53");
+}
+
+function openSingleLoads(){
+	addTab("单台负荷率","companyChart/goSingleLoadslist","icon-53");
 }
 
 function openCompanyNoLoads(){
-	addTab("设备空载率","companyChart/goCompanyNoLoads","icon-59");
+	addTab("空载率","companyChart/goCompanyNoLoads","icon-59");
 }
 
 function openCompanyTd(){

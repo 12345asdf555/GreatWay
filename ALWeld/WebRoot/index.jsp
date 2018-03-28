@@ -59,8 +59,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div title="报表统计中心<br/>report form statistics" data-options="iconCls:'icon-statistics',selected:true">
 				<ul>
 					<li><a href="javascript:openCompanyTd()"><div class="imgdiv"><img src="resources/images/1_48.png" /></div><div>实时监控<br/>real monitoring</div></a></li>
-					<li><a href="javascript:openCompanyLoads()"><div class="imgdiv"><img src="resources/images/1_53.png" /></div><div>负载率<br/>loading rate</div></a></li>
+					<li><a href="javascript:openCompanyLoads()"><div class="imgdiv"><img src="resources/images/1_53.png" /></div><div>负荷率<br/>loading rate</div></a></li>
 					<li><a href="javascript:openCompanyNoLoads()"><div class="imgdiv"><img src="resources/images/1_59.png" /></div><div>空载率<br/>no loading tate</div></a></li>
+					<li><a href="javascript:openSingleLoads()"><div class="imgdiv"><img src="resources/images/1_53.png" /></div><div>单台负载率<br/>single load rate</div></a></li>
 					<li><a href="javascript:openHistory()"><div class="imgdiv"><img src="resources/images/1_62.png" /></div><div>历史曲线<br/>history curve</div></a></li>
 					<li><a href="javascript:openCompanyHour()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div>焊缝焊接工时<br/>welding working time</div></a></li>
 					<li><a href="javascript:openCompanyoverproof()"><div class="imgdiv"><img src="resources/images/1_67.png" /></div><div>焊接工艺超标<br/>welding process exceeding</div></a></li>

@@ -3,6 +3,7 @@ package com.spring.service;
 import java.math.BigInteger;
 import java.util.List;
 
+import com.spring.dto.WeldDto;
 import com.spring.model.WeldedJunction;
 import com.spring.page.Page;
 
@@ -12,6 +13,14 @@ public interface WeldedJunctionService {
 	 * 查询所有焊口
 	 */
 	List<WeldedJunction> getWeldedJunctionAll(Page page, String str);
+	
+	/**
+	 * 根据焊工获取焊缝
+	 * @param welder
+	 * @param dto
+	 * @return
+	 */
+	List<WeldedJunction> getJunctionByWelder(Page page, String welder,WeldDto dto);
 	
 	/**
 	 * 根据id查询
@@ -44,4 +53,5 @@ public interface WeldedJunctionService {
 	 * @param wj
 	 */
 	boolean deleteJunction(BigInteger id);
+	List<WeldedJunction> getWeldingJun(Page page, String str, String welderid);
 }

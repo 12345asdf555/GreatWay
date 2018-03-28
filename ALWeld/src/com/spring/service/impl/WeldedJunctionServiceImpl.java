@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.spring.dao.WeldedJunctionMapper;
+import com.spring.dto.WeldDto;
 import com.spring.model.WeldedJunction;
 import com.spring.page.Page;
 import com.spring.service.WeldedJunctionService;
@@ -50,4 +51,15 @@ public class WeldedJunctionServiceImpl implements WeldedJunctionService{
 		return wjm.getWeldedJunctionById(id);
 	}
 
+	@Override
+	public List<WeldedJunction> getJunctionByWelder(Page page,String welder, WeldDto dto) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return wjm.getJunctionByWelder(welder, dto);
+	}
+
+	@Override
+	public List<WeldedJunction> getWeldingJun(Page page, String str, String welderid) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return wjm.getWeldingJun(str, welderid);
+	}
 }
