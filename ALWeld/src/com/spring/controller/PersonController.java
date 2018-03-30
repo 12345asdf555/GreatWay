@@ -274,7 +274,14 @@ public class PersonController {
 	@ResponseBody
 	private String weldersvalidate(@RequestParam String welderno){
 		boolean data = true;
-		int count = welderService.getUsernameCount(welderno);
+		String sea = Integer.toHexString(Integer.valueOf(welderno));
+		if(sea.length()!=4){
+            int lenth=4-sea.length();
+            for(int i=0;i<lenth;i++){
+            	sea="0"+sea;
+            }
+          }
+		int count = welderService.getUsernameCount(sea);
 		if(count>0){
 			data = false;
 		}
