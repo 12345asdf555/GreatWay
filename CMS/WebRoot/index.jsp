@@ -77,6 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openBlocEfficiency()"><i class="iconfont icon-bijiben"></i>集团工效</a></li>
     		<li><a href="javascript:openBlocHour()"><i class="iconfont icon-bijiben"></i>集团焊口焊接工时</a></li>
     		<li><a href="javascript:openBlocoverproof()"><i class="iconfont icon-bijiben"></i>集团焊接工艺超标统计</a></li>
+    		<li><a href="javascript:openOverproofRecall()"><i class="iconfont icon-bijiben"></i>集团焊接工艺超标回溯</a></li>
     		<li><a href="javascript:openBlocovertime()"><i class="iconfont icon-bijiben"></i>集团超时待机统计</a></li>
     		<li><a href="javascript:openBlocLoads()"><i class="iconfont icon-bijiben"></i>集团设备负荷率</a></li>
     		<li><a href="javascript:openBlocNoLoads()"><i class="iconfont icon-bijiben"></i>集团设备空载率</a></li>
@@ -105,6 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openCaustEfficiency()"><i class="iconfont icon-bijiben"></i>事业部工效</a></li>
     		<li><a href="javascript:openCaustHour()"><i class="iconfont icon-bijiben"></i>事业部焊口焊接工时</a></li>
     		<li><a href="javascript:openCaustoverproof()"><i class="iconfont icon-bijiben"></i>事业部焊接工艺超标统计</a></li>
+    		<li><a href="javascript:openOverproofRecall()"><i class="iconfont icon-bijiben"></i>事业部焊接工艺超标回溯</a></li>
     		<li><a href="javascript:openCaustovertime()"><i class="iconfont icon-bijiben"></i>事业部超时待机统计</a></li>
     		<li><a href="javascript:openCaustLoads()"><i class="iconfont icon-bijiben"></i>事业部设备负荷率</a></li>
     		<li><a href="javascript:openCaustNoLoads()"><i class="iconfont icon-bijiben"></i>事业部设备空载率</a></li>
@@ -119,6 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openItemEfficiency()"><i class="iconfont icon-bijiben"></i>项目部工效</a></li>
     		<li><a href="javascript:openItemHour()"><i class="iconfont icon-bijiben"></i>项目部焊口焊接工时</a></li>
     		<li><a href="javascript:openItemoverproofs()"><i class="iconfont icon-bijiben"></i>项目部焊接工艺超标统计</a></li>
+    		<li><a href="javascript:openOverproofRecall()"><i class="iconfont icon-bijiben"></i>项目部焊接工艺超标回溯</a></li>
     		<li><a href="javascript:openItemovertime()"><i class="iconfont icon-bijiben"></i>项目部超时待机统计</a></li>
     		<li><a href="javascript:openItemLoads()"><i class="iconfont icon-bijiben"></i>项目部设备负荷率</a></li>
     		<li><a href="javascript:openItemNoLoads()"><i class="iconfont icon-bijiben"></i>项目部设备空载率</a></li>
