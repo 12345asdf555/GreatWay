@@ -341,4 +341,15 @@ public class LiveDataManagerImpl implements LiveDataManager {
 		return live.getCountByTime(parent, time, mid);
 	}
 
+	@Override
+	public List<ModelDto> getJunctionByWelder(Page page,WeldDto dto, String welder) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.getJunctionByWelder(dto, welder);
+	}
+
+	@Override
+	public List<ModelDto> getExcessiveBack(String time, String welder, String junction) {
+		return live.getExcessiveBack(time, welder, junction);
+	}
+
 }

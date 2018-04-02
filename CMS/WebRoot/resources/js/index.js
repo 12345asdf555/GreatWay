@@ -68,6 +68,10 @@ function getUserInsframework(){
 	})
 }
 
+function openOverproofRecall(){
+	addTab("焊接工艺超标回溯","companyChart/goSelectWelderJunction");
+}
+
 function openUser(){
 	addTab("用户管理","user/AllUser");
 }

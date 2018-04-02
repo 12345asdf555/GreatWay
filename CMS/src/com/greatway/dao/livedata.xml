@@ -84,6 +84,8 @@
         <result property="livecount" column="livecount"></result>
         <result property="fmax_electricity" column="fmax_electricity"></result>
         <result property="fmin_electricity" column="fmin_electricity"></result>
+        <result property="fmax_valtage" column="fmax_valtage"></result>
+        <result property="fmin_valtage" column="fmin_valtage"></result>
         <result property="overtime" column="overtime"></result>
         <result property="time" column="time"></result>
         <result property="type" column="type"></result>
@@ -1901,6 +1903,37 @@
 		<if test="mid!=null and mid!=''">
 			and fmachine_id = #{mid}
 		</if>
+	</select>
+	
+	
+	<select id="getJunctionByWelder" resultMap="dtoMap">
+		select fwelded_junction_no fname,i.fname iname ,fmax_electricity,fmin_electricity,fmax_valtage,fmin_valtage,fwall_thickness,fnextwall_thickness,Fmaterial,Fnext_material,fexternal_diameter,fnextExternal_diameter from tb_live_data l 
+		INNER join tb_welder w on l.fwelder_id = w.fwelder_no 
+		INNER join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemId = i.fid 
+		where l.fwelder_id=#{welder}
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime like  #{dto.dtoTime1}
+			</if>
+		</if>group by fjunction_id
+	</select>
+	
+	<select id="getExcessiveBack" resultMap="dtoMap">
+		select rownum num,fwelder_id,fjunction_id,timestampdiff(SECOND,weldtime,weldtimes) sum1,weldtime,felectricity,fmax_electricity,fmin_electricity from (
+   		select * from (select *,rownum+1 nums from ( 
+   		select @rownum:=@rownum+1 as rownum,A.* from ( 
+   		SELECT case when felectricity &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0 end as overproof,felectricity,fmax_electricity,fmin_electricity,
+   		DATE_FORMAT( fweldtime, '%Y-%m-%d %h:%i:%s' ) weldtime,fwelder_id,fjunction_id,(select @rownum:=0) r1 FROM ( 
+   		select felectricity,fjunction_id,fweldtime,fwelder_id from tb_live_data where fstatus = 3 and fweldtime like #{time}) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id 
+   		inner join tb_welder w on w.fwelder_no = k0.fwelder_id where fwelder_id=#{welder} and fjunction_id=#{junction} group by weldtime) A where overproof=1 order by weldtime) E)F
+ 		inner join (
+		select * from (select @rownum:=@rownum+1 num,B.* from(
+		SELECT DATE_FORMAT( fweldtime, '%Y-%m-%d %h:%i:%s' ) weldtimes,(
+		select @rownum:=0) r2,case when felectricity &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0 end as overproofs FROM ( 
+		select felectricity,fjunction_id,fweldtime,fwelder_id from tb_live_data where fstatus = 3 and fweldtime like #{time}) as k0 
+		inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id inner join tb_welder w on w.fwelder_no = k0.fwelder_id where fwelder_id=#{welder} and fjunction_id=#{junction} group by weldtimes )B
+		where overproofs=1 order by weldtimes)C where num>1 )D on F.nums = D.num)temp
 	</select>
 
 </mapper>

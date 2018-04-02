@@ -90,6 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li><a href="javascript:openCompanytEfficiency()"><i class="iconfont icon-bijiben"></i>公司工效</a></li>
     		<li><a href="javascript:openCompanyHour()"><i class="iconfont icon-bijiben"></i>公司焊口焊接工时</a></li>
     		<li><a href="javascript:openCompanyoverproof()"><i class="iconfont icon-bijiben"></i>公司焊接工艺超标统计</a></li>
+    		<li><a href="javascript:openOverproofRecall()"><i class="iconfont icon-bijiben"></i>公司焊接工艺超标回溯</a></li>
     		<li><a href="javascript:openCompanyovertime()"><i class="iconfont icon-bijiben"></i>公司超时待机统计</a></li>
     		<li><a href="javascript:openCompanyLoads()"><i class="iconfont icon-bijiben"></i>公司设备负荷率</a></li>
     		<li><a href="javascript:openCompanyNoLoads()"><i class="iconfont icon-bijiben"></i>公司设备空载率</a></li>

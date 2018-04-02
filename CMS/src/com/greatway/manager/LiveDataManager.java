@@ -435,4 +435,20 @@ public interface LiveDataManager {
 	 */
 	BigInteger getCountByTime(BigInteger parent,String time,BigInteger mid);
 	
+	/**
+	 * 根据焊工获取焊口
+	 * @param dto 扩展参数类
+	 * @param welder 焊工编号
+	 * @return
+	 */
+	List<ModelDto> getJunctionByWelder(Page page,WeldDto dto ,String welder);
+	
+	/**
+	 * 获取超标回溯
+	 * @param time 超标时间
+	 * @param welder 焊工
+	 * @param jucntion 焊口
+	 * @return
+	 */
+	List<ModelDto> getExcessiveBack(String time,String welder,String junction);
 }

@@ -46,8 +46,8 @@ public class DictionaryServiceImpl implements DictionaryService {
 	@Override
 	public boolean editDictionary(Dictionarys d) {
 		try{
-			int value= dictionaryMapper.getDictionaryMaxValue(d.getTypeid());
-			d.setValue(value+1);
+//			int value= dictionaryMapper.getDictionaryMaxValue(d.getTypeid());
+//			d.setValue(value+1);
 			int count = dictionaryMapper.editDictionary(d);
 			if(count>0){
 				return true;

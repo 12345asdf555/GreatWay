@@ -34,8 +34,6 @@ public class DictionaryManagerImpl implements DictionaryManager {
 	}
 	@Override
 	public void editDictionary(Dictionarys d) {
-		int value= dictionaryMapper.getDictionaryMaxValue(d.getTypeid());
-		d.setValue(value+1);
 		dictionaryMapper.editDictionary(d);
 		
 	}

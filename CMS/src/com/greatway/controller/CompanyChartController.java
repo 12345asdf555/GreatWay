@@ -1,6 +1,9 @@
 package com.greatway.controller;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
@@ -42,6 +46,24 @@ public class CompanyChartController {
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
+	@RequestMapping("/searchoverproof")
+	public String searchoverproof(HttpServletRequest request){
+		request.setAttribute("weldtime", request.getParameter("weldtime"));
+		request.setAttribute("electricitys", request.getParameter("electricitys"));
+		request.setAttribute("welder", request.getParameter("welder"));
+		request.setAttribute("junction", request.getParameter("junction"));
+		request.setAttribute("maxelectricity", request.getParameter("maxelectricity"));
+		request.setAttribute("minelectricity", request.getParameter("minelectricity"));
+		return "companychart/overproof";
+	}
+	
+	@RequestMapping("/goOverproofTimeQuantum")
+	public String goOverproofTimeQuantum(HttpServletRequest request){
+		request.setAttribute("welder", request.getParameter("welder"));
+		request.setAttribute("junction", request.getParameter("junction"));
+		request.setAttribute("weldtime", request.getParameter("weldtime"));
+		return "companychart/timequantum";
+	}
 	/**
 	 * 跳转公司工时页面
 	 * @return
@@ -67,6 +89,16 @@ public class CompanyChartController {
 		lm.getUserId(request);
 		request.setAttribute("parent", parent);
 		return "companychart/companyoverproof";
+	}
+	
+	/**
+	 * 跳转超标焊工焊口页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goSelectWelderJunction")
+	public String goSelectWelder(HttpServletRequest request){
+		return "companychart/welderandjunction";
 	}
 	
 	/**
@@ -987,6 +1019,193 @@ public class CompanyChartController {
 			e.printStackTrace();
 		}
 		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/getJunctionByWelder")
+	@ResponseBody
+	public String getJunctionByWelder(HttpServletRequest request){
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String welder = request.getParameter("welder");
+		String time1 = request.getParameter("dtoTime1");
+		WeldDto dto = new WeldDto();
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1+"%");
+		}
+		
+		page = new Page(pageIndex,pageSize,total);
+		List<ModelDto> list = lm.getJunctionByWelder(page, dto, welder);
+		long total = 0;
+		
+		if(list != null){
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+			total = pageinfo.getTotal();
+		}
+		
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(ModelDto j:list){
+				json.put("weldedJunctionno", j.getFname());
+				json.put("externalDiameter", j.getExternalDiameter());
+				json.put("wallThickness", j.getWallThickness());
+				json.put("maxElectricity", j.getFmax_electricity());
+				json.put("minElectricity", j.getFmin_electricity());
+				json.put("maxValtage", j.getFmax_valtage());
+				json.put("minValtage", j.getFmin_valtage());
+				json.put("material", j.getMaterial());
+				json.put("nextexternaldiameter", j.getNextexternaldiameter());
+				json.put("itemname", j.getIname());
+				json.put("nextwall_thickness", j.getNextwallThickness());
+				json.put("next_material", j.getNextmaterial());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+
+	@RequestMapping("/getTimequantum")
+	@ResponseBody
+	public String getTimequantum(HttpServletRequest request,@RequestParam String welder,@RequestParam String junction, @RequestParam String time){
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		
+		page = new Page(pageIndex,pageSize,total);
+		List<ModelDto> list = lm.getExcessiveBack(time+"%", welder, junction);
+		long total = 0;
+		
+		if(list != null){
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+			total = pageinfo.getTotal();
+		}
+		
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			int num=1;
+			for(int i=0;i<list.size();i+=num){
+				//遇到连续值
+				if(list.get(i).getSum1()==1){
+					int count =0;
+					//判断是否连续5个
+					for(int j=i;j<i+5;j++){
+						if(list.get(j).getSum1()==1){
+							count++;
+						}
+					}
+
+					if(count==5){
+						String[] electricity = new String[15];
+						String[] weldtime = new String[15];
+						String[] befor = new String[5];
+						String[] after = new String[5];
+						int index = 5;
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+						//前五秒
+						Date date = sdf.parse(list.get(i).getWeldTime());
+						Calendar calendar = Calendar.getInstance();    
+						calendar.setTime(date);
+						for(int p=befor.length-1;p>=0;p--){
+							calendar.add(Calendar.SECOND, -1);
+							befor[p] = sdf.format(calendar.getTime());
+						}
+						//后五秒
+						Date afterdate = sdf.parse(list.get(i+4).getWeldTime());
+						Calendar aftercalendar = Calendar.getInstance();    
+						aftercalendar.setTime(afterdate);
+						for(int p=0;p<=after.length-1;p++){
+							aftercalendar.add(Calendar.SECOND, +1);
+							after[p] = sdf.format(aftercalendar.getTime());
+						}
+						
+						//当前方不足五位时
+						if(i<5){
+							for(int x=0;x<5-i;x++){//一定未超标的数据
+								electricity[x]="0";
+							}
+							for(int y=5-i;y<5;y++){//可能超标的数据
+								for(int p=0;p<befor.length;p++){
+									if(list.get(y).getWeldTime().equals(befor[p])){
+										electricity[y] = list.get(p).getFelectricity();
+									}
+									weldtime[p] = befor[p];
+								}
+							}
+						}else{
+							//获取前五位数据
+							for(int y=i-5;y<i;y++){
+								for(int p=0;p<befor.length;p++){
+									if(list.get(y).getWeldTime().equals(befor[p])){
+										electricity[p]=list.get(y).getFelectricity();
+									}
+									weldtime[p] = befor[p];
+								}
+							}
+						}
+						//获取当前超标五秒
+						for(int x=i;x<i+5;x++){
+							electricity[index]=list.get(x).getFelectricity();
+							weldtime[index]=list.get(x).getWeldTime();
+							index++;
+						}
+						//当后方不足5位时
+						if(list.size()-i<5){
+							for(int x=15-1;x>=10+(list.size()-i);x++){//一定未超标的数据
+								electricity[x]="0";
+							}
+							for(int y=10;y<10+(list.size()-i);y++){//可能超标的数据
+								for(int z=i;z<list.size();z++){
+									for(int p=0;p<after.length;p++){
+										if(list.get(z).getWeldTime().equals(after[p])){
+											electricity[y] = list.get(z).getFelectricity();
+										}
+										weldtime[y] = after[p];
+									}
+								}
+							}
+						}else{
+							//获取后五位数据
+							for(int y=i+5;y<i+10;y++){
+								for(int p=0;p<after.length;p++){
+									if(list.get(y).getWeldTime().equals(after[p])){
+										electricity[p+10] = list.get(y).getFelectricity();
+									}
+									weldtime[p+10] = after[p];
+								}
+							}
+						}
+						for(int p=0;p<weldtime.length;p++){
+							if(!iutil.isNull(electricity[p])){
+								electricity[p] = "0";
+							}
+						}
+						json.put("maxelectricity", list.get(i).getFmax_electricity());
+						json.put("minelectricity", list.get(i).getFmin_electricity());
+						json.put("welder", list.get(i).getFwelder_id());
+						json.put("junction", list.get(i).getFjunction_id());
+						json.put("weldtime", list.get(i).getWeldTime());
+						json.put("electricity", list.get(i).getFelectricity());
+						json.put("weldtimes", weldtime);
+						json.put("electricitys", electricity);
+						ary.add(json);
+						num = 5;
+					}else{
+						num = 1;
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", ary.size());
 		obj.put("rows", ary);
 		return obj.toString();
 	}
