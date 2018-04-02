@@ -477,7 +477,14 @@ public class WeldingMachineController {
 	@ResponseBody
 	private String enovalidate(@RequestParam String eno){
 		boolean data = true;
-		int count = wmm.getEquipmentnoCount(eno);
+		String sea = Integer.toHexString(Integer.valueOf(eno));
+		if(sea.length()!=4){
+            int lenth=4-sea.length();
+            for(int i=0;i<lenth;i++){
+            	sea="0"+sea;
+            }
+          }
+		int count = wmm.getEquipmentnoCount(sea);
 		if(count>0){
 			data = false;
 		}
