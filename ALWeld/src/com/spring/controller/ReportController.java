@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.spring.dto.WeldDto;
 import com.spring.model.Report;
+import com.spring.model.WeldingMachine;
 import com.spring.page.Page;
 import com.spring.service.DictionaryService;
 import com.spring.service.InsframeworkService;
@@ -632,16 +633,43 @@ public class ReportController {
 		}
 		String str = request.getParameter("searchStr");
 		String fid = request.getParameter("fid");
-		List<Report> list = reportService.historyData(dto,fid);
+		pageIndex = 1;
+		pageSize = 52224;
+		page = new Page(pageIndex,pageSize,total);
+		List<Report> list = reportService.historyData(page,dto,fid);
+		long total = 0;
+		
+		if(list != null){
+			PageInfo<Report> pageinfo = new PageInfo<Report>(list);
+			total = pageinfo.getPages();
+		}
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			for(Report repo:list){
-				json.put("ele", repo.getFstandardele());
-				json.put("vol", repo.getFstandardvol());
-				json.put("time", sdf.format(repo.getFweldingtime()));
-				ary.add(json);
+			if(pageIndex==total){
+				for(Report repo:list){
+					json.put("ele", repo.getFstandardele());
+					json.put("vol", repo.getFstandardvol());
+					json.put("time", sdf.format(repo.getFweldingtime()));
+					ary.add(json);
+				}
+			}else{
+				for(Report repo:list){
+					json.put("ele", repo.getFstandardele());
+					json.put("vol", repo.getFstandardvol());
+					json.put("time", sdf.format(repo.getFweldingtime()));
+					ary.add(json);
+				}
+				for(pageIndex=2;pageIndex<=total;pageIndex++){
+					List<Report> list1 = reportService.historyData(page,dto,fid);
+					for(Report repo1:list1){
+						json.put("ele", repo1.getFstandardele());
+						json.put("vol", repo1.getFstandardvol());
+						json.put("time", sdf.format(repo1.getFweldingtime()));
+						ary.add(json);
+					}
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
