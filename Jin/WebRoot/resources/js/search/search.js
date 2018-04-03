@@ -159,7 +159,7 @@ function searchWeldingMachineCombobox(){
 		"<option value='w.fmaterial'>焊件材质</option>" +
 		"<option value='w.fthickness'>焊件厚度</option>" +
 		"<option value='w.fcoefficient'>校正系数</option>" +
-		"<option value='fgather_id'>采集序号</option>";
+		"<option value='fgather_no'>采集序号</option>";
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }

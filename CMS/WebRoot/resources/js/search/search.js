@@ -153,7 +153,7 @@ function searchWeldingMachineCombobox(){
 		"<option value='m.fname'>厂家</option>" +
 		"<option value='fisnetworking'>是否在网</option>" +
 		"<option value='fposition'>位置</option>" +
-		"<option value='fgather_id'>采集序号</option>";
+		"<option value='fgather_no'>采集序号</option>";
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
