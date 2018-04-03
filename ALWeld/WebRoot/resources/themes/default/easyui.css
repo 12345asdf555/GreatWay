@@ -168,6 +168,7 @@
 }
 .accordion .accordion-header {
   background: #328FC4;/*导航菜单边框*/
+  border:4px solid #3585b4;/*未选中时边框色，避免出现无边框情况*/
   filter: none;
 }
 .accordion .accordion-header-selected {

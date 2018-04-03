@@ -34,14 +34,14 @@
 	    		<form name="f" action="<c:url value='j_spring_security_check'/>" method="POST">
 	    			<table width="100%" align="center">
 		                <tr>
-		                    <td>用户名</td>
+		                    <td>用户名username</td>
 				            <td align="center">
 				                <input type='text' name='j_username'  id="uname" value='<c:if test="${not empty param.login_error}">
 				                <c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>'/>
 				            </td>
 		                </tr>
 		                <tr>
-				            <td>密&nbsp;&nbsp;&nbsp;码</td>
+				            <td>密&nbsp;&nbsp;&nbsp;&nbsp;码 password</td>
 				            <td align="center"><input type='password' name='j_password'></td>
 		                </tr>
 <!-- 		                <tr><td><input type="checkbox" name="_spring_security_remember_me"></td><td> 两周内自动登录</td></tr> -->

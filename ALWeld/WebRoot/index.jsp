@@ -39,13 +39,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="" class="logo"></a>
 			<div class="search-wrap">
                     <img src="resources/images/1_06.png" />
-					<a href="user/logout" id="username">欢迎您，</a>&nbsp;|
-					<a href="user/logout">注销</a>
+					<a href="user/logout" id="username">welcome </a>&nbsp;|
+					<a href="user/logout">注销 logout</a>
 			</div>					
 		</div>
 	</div>
   	
-  	<div region="west" hide="true" split="true" title="导航菜单" style="width: 235px;" id="west" data-options="iconCls:'icon-setting'">
+  	<div region="west" hide="true" split="true" title="导航菜单 navigate" style="width: 260px;" id="west" data-options="iconCls:'icon-setting'">
 	  	<div class="easyui-accordion" fit="true" border="false" id="accordiondiv">
 			<div title="信息管理中心<br/>information management" data-options="iconCls:'icon-manage'">
 				<ul>
