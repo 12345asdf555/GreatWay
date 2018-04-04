@@ -36,15 +36,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
        	<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div class="fitem">
-				<lable>资源名</lable>
+				<lable><span class="required">*</span>资源名</lable>
                 <input name="resourceName" class="easyui-textbox" data-options="required:true" >
             </div>
             <div class="fitem">
-				<lable>类型</lable>
+				<lable><span class="required">*</span>类型</lable>
                 <input name="resourceType" class="easyui-textbox" data-options="validType:['checkNumber'],required:true">
             </div>
             <div class="fitem">
-				<lable>地址</lable>
+				<lable><span class="required">*</span>地址</lable>
                 <input name="resourceAddress" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">

@@ -38,9 +38,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div style="text-align:center;height:100%">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
-					<lable>编号</lable>
+					<lable><span class="required">*</span>编号</lable>
 					<input class="easyui-textbox" id="weldedjunctionno"  name="weldedjunctionno" data-options="validType:['wjNoValidate'],required:true" />
-					<lable>序列号</lable>
+					<lable><span class="required">*</span>序列号</lable>
 					<input class="easyui-textbox" id="serialNo" name="serialNo" data-options="required:true"/>
 				</div>
 				<div class="fitem">
@@ -57,50 +57,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>达因</lable>
-					<input class="easyui-textbox" id="dyne" name="dyne"  data-options="required:true"/>
+					<input class="easyui-textbox" id="dyne" name="dyne"/>
 					<lable>规格</lable>
-					<input class="easyui-textbox" id="specification" name="specification"  data-options="required:true"/>
+					<input class="easyui-textbox" id="specification" name="specification"/>
 				</div>
 				<div class="fitem">
 					<lable>管线号</lable>
-					<input class="easyui-textbox" id="pipelineNo"  name="pipelineNo"  data-options="required:true"/>
+					<input class="easyui-textbox" id="pipelineNo"  name="pipelineNo" />
 					<lable>房间号</lable>
-					<input class="easyui-textbox" id="roomNo" name="roomNo"  data-options="required:true"/>
+					<input class="easyui-textbox" id="roomNo" name="roomNo"/>
 				</div>
 				<div class="fitem">
-					<lable>上游外径</lable>
+					<lable><span class="required">*</span>上游外径</lable>
 					<input class="easyui-textbox" id="externalDiameter" name="externalDiameter"  data-options="required:true"/>
-					<lable>下游外径</lable>
+					<lable><span class="required">*</span>下游外径</lable>
 					<input class="easyui-textbox" id="nextexternaldiameter" name="nextexternaldiameter"  data-options="required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>上游璧厚</lable>
+					<lable><span class="required">*</span>上游璧厚</lable>
 					<input class="easyui-textbox" id="wallThickness" name="wallThickness" data-options="required:true"/>
-					<lable>下游璧厚</lable>
+					<lable><span class="required">*</span>下游璧厚</lable>
 					<input class="easyui-textbox" id="nextwall_thickness" name="nextwall_thickness" data-options="required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>上游材质</lable>
+					<lable><span class="required">*</span>上游材质</lable>
 					<input class="easyui-textbox" id="material"  name="material" data-options="required:true"/>
-					<lable>下游材质</lable>
+					<lable><span class="required">*</span>下游材质</lable>
 					<input class="easyui-textbox" id="next_material" name="next_material" data-options="required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>电流上限</lable>
+					<lable><span class="required">*</span>电流上限</lable>
 					<input class="easyui-textbox" id="maxElectricity" name="maxElectricity" data-options="required:true"/>
-					<lable>电流下限</lable>
+					<lable><span class="required">*</span>电流下限</lable>
 					<input class="easyui-textbox" id="minElectricity" name="minElectricity" data-options="required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>电压上限</lable>
+					<lable><span class="required">*</span>电压上限</lable>
 					<input class="easyui-textbox" id="maxValtage" name="maxValtage" data-options="required:true"/>
-					<lable>电压下限</lable>
+					<lable><span class="required">*</span>电压下限</lable>
 					<input class="easyui-textbox" id="minValtage"  name="minValtage" data-options="required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>电流单位</lable>
+					<lable><span class="required">*</span>电流单位</lable>
 					<input class="easyui-textbox" id="electricity_unit"  name="electricity_unit" data-options="required:true"/>
-					<lable>电压单位</lable>
+					<lable><span class="required">*</span>电压单位</lable>
 					<input class="easyui-textbox" id="valtage_unit"  name="valtage_unit" data-options="required:true"/>
 				</div>
 				<div class="fitem">
@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-datetimebox" id="endTime"  name="endTime"/>
 				</div>
 				<div class="fitem">
-					<lable>所属项目</lable>
+					<lable><span class="required">*</span>所属项目</lable>
 					<select class="easyui-combobox" id="itemname"  name="itemname" data-options="required:true,editable:false"></select>
 					<lable></lable>
 					<input type="text" border="0" readonly="readonly"/>

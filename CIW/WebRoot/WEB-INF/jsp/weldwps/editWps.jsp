@@ -39,70 +39,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="FID" id="FID" class="easyui-textbox" type="hidden" value="${wps.fid}">
             </div>
             <div class="fitem">
-            	<lable>工艺编号</lable>
+            	<lable><span class="required">*</span>工艺编号</lable>
             	<input id="validName" type="hidden" value="${wps.fwpsnum}">
                 <input name="FWPSNum" id="FWPSNum" class="easyui-textbox" value="${wps.fwpsnum}" data-options="validType:'wpsValidate',required:true">
             </div>
             <div class="fitem">
-            	<lable>标准焊接电流</lable>
+            	<lable><span class="required">*</span>标准焊接电流</lable>
                 <input name="Fweld_I" class="easyui-textbox" value="${wps.fweld_i}" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>标准焊接电压</lable>
+            	<lable><span class="required">*</span>标准焊接电压</lable>
                 <input name="Fweld_V" type="easyui-textbox" value="${wps.fweld_v}" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>最大焊接电流</lable>
+            	<lable><span class="required">*</span>最大焊接电流</lable>
                 <input name="Fweld_I_MAX" class="easyui-textbox" value="${wps.fweld_i_max}" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>最小焊接电流</lable>
+            	<lable><span class="required">*</span>最小焊接电流</lable>
                 <input name="Fweld_I_MIN" class="easyui-textbox" value="${wps.fweld_i_min}" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>最大焊接电压</lable>
+            	<lable><span class="required">*</span>最大焊接电压</lable>
                 <input name="Fweld_V_MAX" class="easyui-textbox" value="${wps.fweld_v_max}" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>最小焊接电压</lable>
+            	<lable><span class="required">*</span>最小焊接电压</lable>
                 <input name="Fweld_V_MIN" class="easyui-textbox" value="${wps.fweld_v_min}" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>报警电流</lable>
+            	<lable><span class="required">*</span>工艺参数名称</lable>
+                <input name="Fname" class="easyui-textbox" data-options="required:true">
+            </div>
+            <div class="fitem">
+            	<lable><span class="required">*</span>报警电流</lable>
                 <input name="Fweld_Alter_I" class="easyui-textbox" value="${wps.fweld_alter_i}" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>报警电压</lable>
+            	<lable><span class="required">*</span>报警电压</lable>
                 <input name="Fweld_Alter_V" class="easyui-textbox" value="${wps.fweld_alter_v}" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊丝直径</lable>
+            	<lable><span class="required">*</span>焊丝直径</lable>
                 <input name="Fdiameter" class="easyui-textbox" value="${wps.fdiameter}" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>预置通道</lable>
+            	<lable><span class="required">*</span>预置通道</lable>
                 <input name="Fweld_PreChannel" class="easyui-textbox" value="${wps.fweld_prechannel}" data-options="required:true">
             </div>
+<!--             <div class="fitem"> -->
+<!--             	<lable><span class="required">*</span>提交时间</lable> -->
+<%--                 <input name="FCReateDate" class="easyui-textbox" value="${create}" readonly="true" data-options="required:true" > --%>
+<!--             </div> -->
+<!--              <div class="fitem"> -->
+<!--             	<lable><span class="required">*</span>修改时间</lable> -->
+<%--                 <input name="FUpdateDate" class="easyui-textbox" value="${update}" readonly="true" data-options="required:true"> --%>
+<!--             </div> -->
             <div class="fitem">
-            	<lable>提交时间</lable>
-                <input name="FCReateDate" class="easyui-textbox" value="${create}" readonly="true" data-options="required:true" >
-            </div>
-                        <div class="fitem">
-            	<lable>修改时间</lable>
-                <input name="FUpdateDate" class="easyui-textbox" value="${update}" readonly="true" data-options="required:true">
-            </div>
-            <div class="fitem">
-				<lable>部门</lable>
+				<lable><span class="required">*</span>部门</lable>
 				<input name="Fowners" id="Fowners" type="hidden" value="${wps.fowner}" data-options="required:true">
 				<select class="easyui-combobox" name="Fowner" id="Fowner" value="${wps.fowner}" data-options="required:true,editable:false"></select>
         	</div>
 			<div class="fitem">
             	<lable>备注</lable>
                 <input name="Fback" value="${wps.fback}" class="easyui-textbox">
-            </div>
-            <div class="fitem">
-            	<lable>工艺参数名称</lable>
-                <input name="Fname" value="${wps.fname}" class="easyui-textbox" data-options="required:true">
             </div>
 	    	<div>
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -37,19 +37,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        	<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             
             <div class="fitem">
-            	<lable>编号</lable>
+            	<lable><span class="required">*</span>编号</lable>
                 <input name="welderno" id="welderno" class="easyui-textbox" data-options="validType:'welderValidate',required:true">
             </div>
             <div class="fitem">
-            	<lable>姓名</lable>
+            	<lable><span class="required">*</span>姓名</lable>
                 <input name="name" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>手机</lable>
+            	<lable><span class="required">*</span>手机</lable>
                 <input name="cellphone" type="easyui-textbox" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>卡号</lable>
+            	<lable><span class="required">*</span>卡号</lable>
                 <input name="cardnum" class="easyui-textbox" data-options="required:true">
             </div>
 <!--             <div class="fitem"> -->
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-textbox" name="Fowner" id="Fowner"/> -->
 <!--         	</div> -->
             <div class="fitem">
-				<lable>部门</lable>
+				<lable><span class="required">*</span>部门</lable>
 				<select class="easyui-combobox" name="Fowner" id="Fowner" data-options="required:true,editable:false"></select>
 <!-- 				<input type="hidden" id="insid"/>
 				<input class="easyui-textbox" name="Fowner" id="Fowner"/> -->

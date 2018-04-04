@@ -36,19 +36,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
        	<form id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div class="fitem">
-            	<lable>产品编号</lable>
+            	<lable><span class="required">*</span>产品编号</lable>
                 <input name="pronum" id="pronum" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>零部件编号</lable>
+            	<lable><span class="required">*</span>零部件编号</lable>
                 <input name="partnum" id="partnum" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>产品信息</lable>
+            	<lable><span class="required">*</span>产品信息</lable>
                 <input name="proinfo" id="proinfo" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>零部件信息</lable>
+            	<lable><span class="required">*</span>零部件信息</lable>
                 <input name="partinfo" id="partinfo" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">

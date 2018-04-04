@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
-					<lable>名称</lable>
+					<lable><span class="required">*</span>名称</lable>
 					<input type="hidden" id="id" value="${insf.id }"/>
 					<input type="hidden" id="validname" value="${insf.name }"/>
 					<input class="easyui-textbox" name="name" id="name" value="${insf.name }" data-options="validType:'insfnameValidate',required:true"/>
@@ -54,12 +54,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" name="code" value="${insf.code }" id="code"/>
 				</div>
 				<div class="fitem">
-					<lable>上级项目</lable>
+					<lable><span class="required">*</span>上级项目</lable>
 					<input type="hidden" id="parentid" value="${insf.parent }"/>
 					<select class="easyui-combobox" name="parent" value="${insf.parent }" id="parent" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
-					<lable>项目类型</lable>
+					<lable><span class="required">*</span>项目类型</lable>
 					<input type="hidden" id="type" value="${insf.type }"/>
 					<select class="easyui-combobox" name="typeid" id="typeid" value="${insf.type }" data-options="required:true,editable:false"></select>
 				</div>

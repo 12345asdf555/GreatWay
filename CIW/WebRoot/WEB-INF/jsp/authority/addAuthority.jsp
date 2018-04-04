@@ -37,11 +37,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div class="fitem">
-				<lable>权限</lable>
+				<lable><span class="required">*</span>权限</lable>
                 <input name="authorityName" class="easyui-textbox" data-options="validType:'authorityValidate',required:true" style="width:100%">
             </div>
             <div class="fitem">
-				<lable>描述</lable>
+				<lable><span class="required">*</span>描述</lable>
                 <input name="authorityDesc" class="easyui-textbox" data-options="required:true" style="width:100%">
             </div>
 			<div class="fitem">

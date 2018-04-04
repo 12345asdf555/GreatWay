@@ -39,20 +39,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <input name="FID" id="FID" class="easyui-textbox" type="hidden" value="${welder.id}">
 	            </div>
 	            <div class="fitem">
-	            	<lable>编号</lable>
+	            	<lable><span class="required">*</span>编号</lable>
 	            	<input id="validName" type="hidden" value="${welder.welderno}">
 	                <input name="welderno" id="welderno" class="easyui-textbox" value="${welder.welderno}" data-options="validType:'welderValidate',required:true">
 	            </div>
 	            <div class="fitem">
-	            	<lable>姓名</lable>
+	            	<lable><span class="required">*</span>姓名</lable>
 	                <input name="name" class="easyui-textbox" value="${welder.name}" data-options="required:true">
 	            </div>
 	            <div class="fitem">
-	            	<lable>手机</lable>
+	            	<lable><span class="required">*</span>手机</lable>
 	                <input name="cellphone" type="easyui-textbox" value="${welder.cellphone}" class="easyui-textbox" data-options="required:true">
 	            </div>
 	            <div class="fitem">
-	            	<lable>卡号</lable>
+	            	<lable><span class="required">*</span>卡号</lable>
 	                <input name="cardnum" class="easyui-textbox" value="${welder.cardnum}" data-options="required:true">
 	            </div>
 <!-- 	                        <div class="fitem"> -->
@@ -64,17 +64,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%-- 	                <input name="updatedate" class="easyui-textbox" value="${update}" readonly="true" data-options="required:true"> --%>
 <!-- 	            </div> -->
 	            <div class="fitem">
-					<lable>级别</lable>
+					<lable><span class="required">*</span>级别</lable>
 					<input name="leveid" id="leveid" type="hidden" value="${welder.leveid}" data-options="required:true">
 					<select class="easyui-combobox" name="leve" id="leve" value="${welder.leveid}" data-options="required:true,editable:false"></select>
 	        	</div>
 	        	<div class="fitem">
-					<lable>资质</lable>
+					<lable><span class="required">*</span>资质</lable>
 					<input name="quali" id="quali" type="hidden" value="${welder.quali}" data-options="required:true">
 					<select class="easyui-combobox" name="qua" id="qua" value="${welder.quali}" data-options="required:true,editable:false"></select>
 	        	</div>
 	            <div class="fitem">
-					<lable>部门</lable>
+					<lable><span class="required">*</span>部门</lable>
 					<input name="owners" id="owners" type="hidden" value="${welder.owner}" data-options="required:true">
 					<select class="easyui-combobox" name="owner" id="owner" value="${welder.owner}" data-options="required:true,editable:false"></select>
 	        	</div>

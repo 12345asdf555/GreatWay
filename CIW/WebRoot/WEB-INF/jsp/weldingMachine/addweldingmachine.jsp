@@ -39,11 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center;">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
-					<lable>固定资产编号</lable>
+					<lable><span class="required">*</span>固定资产编号</lable>
 					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  data-options="validType:['wmEnoValidate'],required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>设备类型</lable>
+					<lable><span class="required">*</span>设备类型</lable>
 					<select class="easyui-combobox" name="typeId" id="tId" data-options="required:true,editable:false"" ></select>
 				</div>
 				<div class="fitem">
@@ -51,11 +51,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-datetimebox" name="joinTime" id="joinTime"/>
 				</div>
 				<div class="fitem">
-					<lable>所属项目</lable>
+					<lable><span class="required">*</span>所属项目</lable>
 					<select class="easyui-combobox" name="iId" id="iId" data-options="required:true,editable:false""></select>
 				</div>
 				<div class="fitem">
-					<lable>生产厂商</lable>
+					<lable><span class="required">*</span>生产厂商</lable>
 					<select class="easyui-combobox" name="manuno" id="manuno" data-options="required:true,editable:false""></select>
 				</div>
 				<div class="fitem">
@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" name="position" id="position"/>
 				</div>
 				<div class="fitem">
-					<lable>ip地址</lable>
+					<lable><span class="required">*</span>ip地址</lable>
 					<input class="easyui-textbox" name="ip" id="ip" data-options="required:true" />
 				</div>
 				<div class="fitem">

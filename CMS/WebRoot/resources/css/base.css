@@ -369,3 +369,7 @@ select::-ms-expand {
 .livelist {
 	width: 60px;background-color: #fff;font-size: 12px;border-radius: 5px;line-height: 24px;color: blue;text-align: center;margin-top: 10px;margin-left: 10px;border: 1px solid #ccc;display: inline-block;
 }
+
+.required{
+	color: red; 
+}

@@ -39,16 +39,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="id" id="id" type="hidden" value="${resource.id}">
             </div>
             <div class="fitem">
-				<lable>资源名</lable>
+				<lable><span class="required">*</span>资源名</lable>
             	<input id="validName" type="hidden" value="${resource.resourceName}">
                 <input name="resourceName" id="userName" class="easyui-textbox" value="${resource.resourceName}" data-options="validType:'resourceValidate',required:true" style="width:100%">
             </div>
             <div class="fitem">
-				<lable>类型</lable>
+				<lable><span class="required">*</span>类型</lable>
                 <input name="resourceType" class="easyui-textbox" data-options="validType:['checkNumber'],required:true" value="${resource.resourceType}" style="width:100%">
             </div>
             <div class="fitem">
-				<lable>地址</lable>
+				<lable><span class="required">*</span>地址</lable>
                 <input name="resourceAddress" class="easyui-textbox" data-options="required:true"  value="${resource.resourceAddress}" style="width:100%">
             </div>
             <div class="fitem">

@@ -39,12 +39,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="id" id="id" type="hidden" value="${authority.id}">
             </div>
             <div class="fitem">
-				<lable>权限</lable>
+				<lable><span class="required">*</span>权限</lable>
            		<input id="validName" type="hidden" value="${authority.authorityName}">
                 <input name="authorityName" class="easyui-textbox"  data-options="validType:'authorityValidate',required:true" value="${authority.authorityName}" style="width:100%">
             </div>
             <div class="fitem">
-				<lable>描述</lable>
+				<lable><span class="required">*</span>描述</lable>
                 <input name="authorityDesc" class="easyui-textbox" data-options="required:true" value="${authority.authorityDesc}" style="width:100%">
             </div>
 			<div class="fitem">

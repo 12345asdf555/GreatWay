@@ -37,15 +37,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
        	<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div class="fitem">
-            	<lable>用户名</lable>
+            	<lable><span class="required">*</span>用户名</lable>
                 <input name="userName" id="userName" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>登录名</lable>
+            	<lable><span class="required">*</span>登录名</lable>
                 <input name="userLoginName" class="easyui-textbox" data-options="validType:'userValidate',required:true">
             </div>
             <div class="fitem">
-            	<lable>密码</lable>
+            	<lable><span class="required">*</span>密码</lable>
                 <input name="userPassword" type="password" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
@@ -57,11 +57,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="userEmail" class="easyui-textbox" data-options="required:false">
             </div>
             <div class="fitem">
-            	<lable>岗位</lable>
+            	<lable><span class="required">*</span>岗位</lable>
                 <input name="userPosition" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-				<lable>部门</lable>
+				<lable><span class="required">*</span>部门</lable>
 <!-- 				<select class="easyui-combobox" name="userInsframework" id="userInsframework" data-options="required:true"></select> -->
 				<input type="hidden"  id="insid" value="${insid }"/>
 				<input class="easyui-textbox" name="userInsframework" id="userInsframework" value="${insfname }" readonly="readonly"/>

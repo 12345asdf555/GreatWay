@@ -39,11 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="id" id="id" class="easyui-textbox" type="hidden" value="${product.id}">
             </div>
             <div class="fitem">
-            	<lable>焊缝编号</lable>
+            	<lable><span class="required">*</span>焊缝编号</lable>
                 <input name="weldnum" id="weldnum" value="${product.pronum}" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊缝信息</lable>
+            	<lable><span class="required">*</span>焊缝信息</lable>
                 <input name="weldinfo" id="weldinfo" value="${product.proinfo}" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
