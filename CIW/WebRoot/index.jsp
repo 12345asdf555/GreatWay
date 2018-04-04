@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        </ul>
 		    </div>
 		    
-			<div title="报表统计中心" data-options="iconCls:'icon-statistics'">
+			<div title="报表统计中心" data-options="iconCls:'icon-statistics',selected:true">
 				<ul>
 					<li><a href="javascript:openCompanyTd()"><img src="resources/images/1_48.png" />&nbsp;实时监控</a></li>
 					<li><a href="javascript:openHistory()"><img src="resources/images/1_62.png" />&nbsp;历史曲线</a></li>

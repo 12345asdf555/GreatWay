@@ -97,8 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--             </div> -->
             <div class="fitem">
 				<lable>部门</lable>
-				<input name="Fowners" id="Fowners" type="hidden" value="${wps.fowner}" data-options="required:true">
-				<select class="easyui-combobox" name="Fowner" id="Fowner" value="${wps.fowner}" readonly="true" data-options="required:true"></select>
+				<input name="Fowners" id="Fowners" class="easyui-textbox" value="${wps.insname}">
         	</div>
 			<div class="fitem">
             	<lable>备注</lable>

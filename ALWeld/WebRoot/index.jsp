@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul>
 					<li><a href="javascript:openCompanyTd()"><div class="imgdiv"><img src="resources/images/1_48.png" /></div><div>实时监控<br/>real monitoring</div></a></li>
 					<li><a href="javascript:openCompanyLoads()"><div class="imgdiv"><img src="resources/images/1_53.png" /></div><div>负荷率<br/>loading rate</div></a></li>
-					<li><a href="javascript:openCompanyNoLoads()"><div class="imgdiv"><img src="resources/images/1_59.png" /></div><div>空载率<br/>no loading tate</div></a></li>
+					<li><a href="javascript:openCompanyNoLoads()"><div class="imgdiv"><img src="resources/images/1_59.png" /></div><div>空载率<br/>no loading rate</div></a></li>
 					<li><a href="javascript:openSingleLoads()"><div class="imgdiv"><img src="resources/images/1_53.png" /></div><div>单台负载率<br/>single load rate</div></a></li>
 					<li><a href="javascript:openHistory()"><div class="imgdiv"><img src="resources/images/1_62.png" /></div><div>历史曲线<br/>history curve</div></a></li>
 					<li><a href="javascript:openCompanyHour()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div>焊缝焊接工时<br/>welding working time</div></a></li>

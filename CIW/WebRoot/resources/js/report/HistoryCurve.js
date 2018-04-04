@@ -287,26 +287,26 @@ var lable=0;
 					halign : "center",
 					align : "left",
 					hidden:true
-				}, {
-					field : 'edit',
-					title : '编辑',
-					width : 120,
-					halign : "center",
-					align : "left",
-					formatter: function(value,row,index){
-						var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
-						+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
-						row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+
-						","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material+","+row.valtage_unit+","+row.electricity_unit;
-						var str = '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
-						return str;
-					}
+//				}, {
+//					field : 'edit',
+//					title : '编辑',
+//					width : 120,
+//					halign : "center",
+//					align : "left",
+//					formatter: function(value,row,index){
+//						var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
+//						+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
+//						row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+
+//						","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material+","+row.valtage_unit+","+row.electricity_unit;
+//						var str = '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
+//						return str;
+//					}
 				}] ],
 				toolbar : '#disctionaryTable_btn',
 				pagination : true,
-				onLoadSuccess: function(data){
-					$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
-				}
+//				onLoadSuccess: function(data){
+//					$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
+//				}
 			});
 		}
 	var time=1000;

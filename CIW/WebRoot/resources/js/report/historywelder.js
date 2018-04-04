@@ -78,18 +78,18 @@
 				halign : "center",
 				align : "left"
 			},{
-				field : 'createdate',
-				title : '创建时间',
-				width : 100,
-				halign : "center",
-				align : "left"
-			},{
-				field : 'updatedate',
-				title : '修改时间',
-				width : 100,
-				halign : "center",
-				align : "left"
-			},{
+//				field : 'createdate',
+//				title : '创建时间',
+//				width : 100,
+//				halign : "center",
+//				align : "left"
+//			},{
+//				field : 'updatedate',
+//				title : '修改时间',
+//				width : 100,
+//				halign : "center",
+//				align : "left"
+//			},{
 				field : 'owner',
 				title : '部门',
 				width : 100,

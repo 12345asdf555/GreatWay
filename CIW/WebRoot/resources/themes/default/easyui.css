@@ -138,7 +138,7 @@
 .accordion .accordion-header {
   border-width: 0 0 1px;
   cursor: pointer;
-  margin-top: 5px;/*菜单导航间隔*/
+  /*margin-top: 5px;菜单导航间隔*/
 }
 .accordion .accordion-body {
   border-width: 0 0 1px;

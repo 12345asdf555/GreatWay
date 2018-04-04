@@ -3,13 +3,10 @@
  */
 function saveWelder(){
 	var fid = $('#FID').val();
-	var url;
-	url = "welders/destroyWelder"+"?fid="+fid;
 	$.messager.confirm('提示', '此操作不可撤销，是否确认删除?', function(flag) {
-
 		if (flag) {
 		    $('#fm').form('submit',{
-		        url: url,
+		        url: "welders/destroyWelder"+"?fid="+fid,
 		        onSubmit: function(){
 		             return $(this).form('enableValidation').form('validate');
 		        },

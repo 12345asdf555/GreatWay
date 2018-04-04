@@ -82,7 +82,7 @@
 	</select>
 	
 	<select id="getUsernameCount" parameterType="String" resultType="java.lang.Integer">
-		select count(*) from tb_users where users_name=#{userName}
+		select count(*) from tb_users where users_login_name=#{userName}
 	</select>
 	
 	<select id="getAuthoritiesByUsername" parameterType="String" resultType="String">
