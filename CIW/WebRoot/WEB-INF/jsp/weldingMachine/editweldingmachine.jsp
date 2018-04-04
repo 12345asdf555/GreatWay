@@ -40,13 +40,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
-					<lable>固定资产编号</lable>
+					<lable><span class="required">*</span>固定资产编号</lable>
 					<input type="hidden" id="wid" value="${w.id }">
 					<input type="hidden" id="valideno" value="${w.equipmentNo }">
 					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  value="${w.equipmentNo }" data-options="validType:['wmEnoValidate'],required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>设备类型</lable>
+					<lable><span class="required">*</span>设备类型</lable>
 					<input type="hidden"  id="type" value="${w.typeId }">
 					<select class="easyui-combobox" name="typeId" id="tId" data-options="required:true,editable:false""></select>
 				</div>
@@ -55,12 +55,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-datetimebox" name="joinTime" id="joinTime" value="${w.joinTime }"/>
 				</div>
 				<div class="fitem">
-					<lable>所属项目</lable>
+					<lable><span class="required">*</span>所属项目</lable>
 					<input type="hidden"  id="insframework" value="${w.insframeworkId.id }">
 					<select class="easyui-combobox" name="insframeworkId" id="iId" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
-					<lable>生产厂商</lable>
+					<lable><span class="required">*</span>生产厂商</lable>
 					<input type="hidden"  id="manu" value="${w.manufacturerId.id }">
 					<select class="easyui-combobox" name="manuno" id="manuno" data-options="required:true,editable:false""></select>
 				</div>
@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" name="position" id="position" value="${w.position }"/>
 				</div>
 				<div class="fitem">
-					<lable>ip地址</lable>
+					<lable><span class="required">*</span>ip地址</lable>
 					<input class="easyui-textbox" name="ip" id="ip" value="${w.ip }" data-options="required:true" />
 				</div>
 				<div class="fitem">

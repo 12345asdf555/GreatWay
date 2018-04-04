@@ -404,3 +404,7 @@ select::-ms-expand {
     bottom:0;
     width:100%
 }
+
+.required{
+	color:red;
+}

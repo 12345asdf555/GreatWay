@@ -36,51 +36,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
        	<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div class="fitem">
-            	<lable>工艺名称</lable>
+            	<lable><span class="required">*</span>工艺名称</lable>
                 <input name="processname" id="processname" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊接位态</lable>
+            	<lable><span class="required">*</span>焊接位态</lable>
                 <input name="weldposition" id="weldposition" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>材质</lable>
+            	<lable><span class="required">*</span>材质</lable>
                 <input name="material" id="material" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>规格</lable>
+            	<lable><span class="required">*</span>规格</lable>
                 <input name="format" id="format" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊接方法</lable>
+            	<lable><span class="required">*</span>焊接方法</lable>
                 <input name="method" id="method" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊材烘干条件</lable>
+            	<lable><span class="required">*</span>焊材烘干条件</lable>
                 <input name="drying" id="drying" class="easyui-textbox" data-options="required:true">
             </div>
 			<div class="fitem">
-            	<lable>预热温度</lable>
+            	<lable><span class="required">*</span>预热温度</lable>
                 <input name="temperature" id="temperature" class="easyui-textbox" data-options="required:true">
             </div>
 			<div class="fitem">
-            	<lable>后热条件</lable>
+            	<lable><span class="required">*</span>后热条件</lable>
                 <input name="factor" id="factor" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>热处理条件</lable>
+            	<lable><span class="required">*</span>热处理条件</lable>
                 <input name="require" id="require" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>无损检测合格级别</lable>
+            	<lable><span class="required">*</span>无损检测合格级别</lable>
                 <input name="lecel" id="lecel" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>员工资质</lable>
+            	<lable><span class="required">*</span>员工资质</lable>
                 <input name="qualify" id="qualify" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>线能量控制范围</lable>
+            	<lable><span class="required">*</span>线能量控制范围</lable>
                 <input name="range" id="range" class="easyui-textbox" data-options="required:true">
             </div>
 	    	<div class="buttonoption">

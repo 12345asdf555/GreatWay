@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
-					<lable>名称</lable>
+					<lable><span class="required">*</span>名称</lable>
 					<input class="easyui-textbox" name="name" id="name" data-options="validType:'insfnameValidate',required:true"/>
 				</div>
 				<div class="fitem">
@@ -52,11 +52,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" name="code" id="code"/>
 				</div>
 				<div class="fitem">
-					<lable>上级项目</lable>
+					<lable><span class="required">*</span>上级项目</lable>
 					<select class="easyui-combobox" name="parent" id="parent" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
-					<lable>项目类型</lable>
+					<lable><span class="required">*</span>项目类型</lable>
 					<select class="easyui-combobox" name="typeid" id="typeid" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="weldbutton">

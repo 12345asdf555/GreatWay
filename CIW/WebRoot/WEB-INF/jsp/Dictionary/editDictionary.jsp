@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
     					<div>
     						<div class="fitem">
-    							<lable>名称</lable>
+    							<lable><span class="required">*</span>名称</lable>
     							<input name="id" id="id" type="hidden" value="${Dictionary.id}">
 			    				<input class="easyui-textbox" name="valueName" id="valueName" value="${Dictionary.valueName}" data-options="required:true"/>
 			    			</div>

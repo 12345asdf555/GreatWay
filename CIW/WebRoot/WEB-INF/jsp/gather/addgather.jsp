@@ -40,19 +40,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center;height:80%;">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
-					<lable>采集模块编号</lable>
+					<lable><span class="required">*</span>采集模块编号</lable>
 					<input class="easyui-textbox" name="gatherNo" id="gatherNo" data-options="validType:['checkNumber','gathernoValidate','length[4,4]'],required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>所属项目</lable>
+					<lable><span class="required">*</span>所属项目</lable>
 					<select class="easyui-combobox" name="itemid" id="itemid" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
-					<lable>采集模块状态</lable>
+					<lable><span class="required">*</span>采集模块状态</lable>
 					<select class="easyui-combobox" name="status" id="status" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
-					<lable>采集模块通讯协议</lable>
+					<lable><span class="required">*</span>采集模块通讯协议</lable>
 					<select class="easyui-combobox" name="protocol" id="protocol" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">

@@ -42,20 +42,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<input type="hidden" id="id" value="${g.id }"/>
 					<input type="hidden" id="validgatherno" value="${g.gatherNo }"/>
-					<lable>采集模块编号</lable>
+					<lable><span class="required">*</span>采集模块编号</lable>
 					<input class="easyui-textbox" name="gatherNo" id="gatherNo"  value="${g.gatherNo }" data-options="validType:['checkNumber','gathernoValidate','length[4,4]'],required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>所属项目</lable>
+					<lable><span class="required">*</span>所属项目</lable>
 					<input type="hidden" id="item" value="${g.itemid }"/>
 					<select class="easyui-textbox" name="itemid" id="itemid" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
-					<lable>采集模块状态</lable>
+					<lable><span class="required">*</span>采集模块状态</lable>
 					<select class="easyui-textbox" name="status" id="status" value="${g.status }" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
-					<lable>采集模块通讯协议</lable>
+					<lable><span class="required">*</span>采集模块通讯协议</lable>
 					<select class="easyui-textbox" name="protocol" id="protocol" value="${g.protocol }" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">

@@ -40,16 +40,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="id" id="id" class="easyui-textbox" type="hidden" value="${user.id}">
             </div>
             <div class="fitem">
-				<lable>用户名</lable>
+				<lable><span class="required">*</span>用户名</lable>
                 <input name="userName" id="userName" class="easyui-textbox" value="${user.userName}" data-options="required:true" style="width:100%">
             </div>
             <div class="fitem">
-				<lable>登录名</lable>
+				<lable><span class="required">*</span>登录名</lable>
             	<input id="validName" type="hidden" value="${user.userLoginName}">
                 <input id="userLoginName" name="userLoginName" class="easyui-textbox" data-options="validType:'userValidate',required:true"  value="${user.userLoginName}" style="width:100%">
             </div>
             <div class="fitem">
-				<lable>密码</lable>
+				<lable><span class="required">*</span>密码</lable>
                 <input id="userLoginName" name="userPassword" class="easyui-textbox" type="password" data-options="required:true" value="${user.userPassword}" style="width:100%">
             </div>
             <div class="fitem">
@@ -61,11 +61,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input id="userEmail" name="userEmail" class="easyui-textbox" data-options="required:false"  value="${user.userEmail}" style="width:100%">
             </div>
             <div class="fitem">
-				<lable>岗位</lable>
+				<lable><span class="required">*</span>岗位</lable>
                 <input id="userPosition" name="userPosition" class="easyui-textbox" data-options="required:true" value="${user.userPosition}" style="width:100%">
             </div>
             <div class="fitem">
-				<lable>部门</lable>
+				<lable><span class="required">*</span>部门</lable>
 				<input name="userInsframeworks" id="userInsframeworks" type="hidden" value="${user.userInsframework}" data-options="required:true">
 				<select class="easyui-combobox" name="userInsframework" id="userInsframework" value="${user.userInsframework}" data-options="required:true,editable:false"></select>
         	</div>

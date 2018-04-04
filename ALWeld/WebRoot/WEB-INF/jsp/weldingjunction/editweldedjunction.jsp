@@ -38,11 +38,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div style="text-align:center;height:100%">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
-					<lable>编号</lable>
+					<lable><span class="required">*</span>编号</lable>
 					<input type="hidden" id="id" name="id" value="${wj.id }"/>
 					<input type="hidden" id="oldno" value="${wj.weldedJunctionno }"/>
 					<input class="easyui-textbox" id="weldedjunctionno"  name="weldedjunctionno" value="${wj.weldedJunctionno }" data-options="validType:['wjNoValidate'],required:true" />
-					<lable>序列号</lable>
+					<lable><span class="required">*</span>序列号</lable>
 					<input class="easyui-textbox" id="serialNo" name="serialNo" value="${wj.serialNo }" data-options="required:true"/>
 				</div>
 				<div class="fitem">
@@ -88,15 +88,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%-- 					<input class="easyui-textbox" id="next_material" name="next_material" value="${wj.next_material }" data-options="required:true"/> --%>
 <!-- 				</div> -->
 				<div class="fitem">
-					<lable>电流上限</lable>
+					<lable><span class="required">*</span>电流上限</lable>
 					<input class="easyui-textbox" id="maxElectricity" name="maxElectricity" value="${wj.maxElectricity }" data-options="required:true"/>
-					<lable>电流下限</lable>
+					<lable><span class="required">*</span>电流下限</lable>
 					<input class="easyui-textbox" id="minElectricity" name="minElectricity" value="${wj.minElectricity }" data-options="required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>电压上限</lable>
+					<lable><span class="required">*</span>电压上限</lable>
 					<input class="easyui-textbox" id="maxValtage" name="maxValtage" value="${wj.maxValtage }" data-options="required:true"/>
-					<lable>电压下限</lable>
+					<lable><span class="required">*</span>电压下限</lable>
 					<input class="easyui-textbox" id="minValtage"  name="minValtage" value="${wj.minValtage }" data-options="required:true"/>
 				</div>
 				<div class="fitem">
@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-datetimebox" id="endTime" value="${wj.endTime }"  name="endTime"/>
 				</div>
 				<div class="fitem">
-					<lable>所属项目</lable>
+					<lable><span class="required">*</span>所属项目</lable>
 					<input type="hidden" value="${wj.itemid.id }" id="itemid"/>
 					<select class="easyui-textbox" id="itemname"  name="itemname" data-options="required:true,editable:false"></select>
 					<lable></lable>

@@ -68,6 +68,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="Fweld_V_MIN" class="easyui-textbox" value="${wps.fweld_v_min}" readonly="true" data-options="required:true">
             </div>
             <div class="fitem">
+            	<lable>工艺参数名称</lable>
+                <input name="Fname" value="${wps.fname}" class="easyui-textbox" data-options="required:true">
+            </div>
+            <div class="fitem">
             	<lable>报警电流</lable>
                 <input name="Fweld_Alter_I" class="easyui-textbox" value="${wps.fweld_alter_i}" readonly="true" data-options="required:true">
             </div>
@@ -83,14 +87,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	<lable>预置通道</lable>
                 <input name="Fweld_PreChannel" class="easyui-textbox" value="${wps.fweld_prechannel}" readonly="true" data-options="required:true">
             </div>
-                        <div class="fitem">
-            	<lable>提交时间</lable>
-                <input name="FCReateDate" class="easyui-textbox" value="${create}" readonly="true" data-options="required:true" >
-            </div>
-                        <div class="fitem">
-            	<lable>修改时间</lable>
-                <input name="FUpdateDate" class="easyui-textbox" value="${update}" readonly="true" data-options="required:true">
-            </div>
+<!--             <div class="fitem"> -->
+<!--             	<lable>提交时间</lable> -->
+<%--                 <input name="FCReateDate" class="easyui-textbox" value="${create}" readonly="true" data-options="required:true" > --%>
+<!--             </div> -->
+<!--              <div class="fitem"> -->
+<!--             	<lable>修改时间</lable> -->
+<%--                 <input name="FUpdateDate" class="easyui-textbox" value="${update}" readonly="true" data-options="required:true"> --%>
+<!--             </div> -->
             <div class="fitem">
 				<lable>部门</lable>
 				<input name="Fowners" id="Fowners" type="hidden" value="${wps.fowner}" data-options="required:true">
@@ -99,10 +103,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="fitem">
             	<lable>备注</lable>
                 <input name="Fback" value="${wps.fback}" class="easyui-textbox">
-            </div>
-            <div class="fitem">
-            	<lable>工艺参数名称</lable>
-                <input name="Fname" value="${wps.fname}" class="easyui-textbox" data-options="required:true">
             </div>
 	    	<div>
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -37,22 +37,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
-					<lable>固定资产编号</lable>
+					<lable><span class="required">*</span>固定资产编号</lable>
 					<input class="easyui-textbox" id="mid" value="${wm.maintenance.id }"/>
 					<input class="easyui-textbox" id="wid" value="${wm.welding.id }"/>
 					<select class="easyui-combobox" name="equipmentNo" id="equipmentNo" readonly="readonly"></select>
 				</div>
 				<div class="fitem">
-					<lable>维修类型</lable>
+					<lable><span class="required">*</span>维修类型</lable>
 					<input class="easyui-textbox" id="type"  value="${wm.maintenance.typeId }"/>
 					<select class="easyui-combobox" name="typeId" id="typeId" value="${wm.maintenance.typeId }" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
-					<lable>维修人员</lable>
+					<lable><span class="required">*</span>维修人员</lable>
 					<input class="easyui-textbox" name="viceman" id="viceman" value="${wm.maintenance.viceman }" data-options="required:true"/>
 				</div>
 				<div class="fitem">
-					<lable>起始时间</lable>
+					<lable><span class="required">*</span>起始时间</lable>
 					<input class="easyui-datetimebox" name="startTime" id="startTime" value="${wm.maintenance.startTime }" data-options="required:true"/>
 				</div>
 				<div class="fitem">

@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="id" id="id" class="easyui-textbox" type="hidden" value="${role.id}">
             </div>
             <div class="fitem">
-            	<lable>角色名</lable>
+            	<lable><span class="required">*</span>角色名</lable>
             	<input id="validName" type="hidden" value="${role.roleName}">
                 <input id="roleName" name="roleName" class="easyui-textbox" data-options="validType:'roleValidate',required:true" value="${role.roleName}" style="width:100%">
             </div>

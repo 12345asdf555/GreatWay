@@ -36,51 +36,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
        	<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div class="fitem">
-            	<lable>工艺编号</lable>
+            	<lable><span class="required">*</span>工艺编号</lable>
                 <input name="FWPSNum" id="FWPSNum" class="easyui-textbox" data-options="validType:'wpsValidate',required:true">
             </div>
             <div class="fitem">
-            	<lable>标准焊接电流</lable>
+            	<lable><span class="required">*</span>标准焊接电流</lable>
                 <input name="Fweld_I" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>标准焊接电压</lable>
+            	<lable><span class="required">*</span>标准焊接电压</lable>
                 <input name="Fweld_V" type="easyui-textbox" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>最大焊接电流</lable>
+            	<lable><span class="required">*</span>最大焊接电流</lable>
                 <input name="Fweld_I_MAX" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>最小焊接电流</lable>
+            	<lable><span class="required">*</span>最小焊接电流</lable>
                 <input name="Fweld_I_MIN" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>最大焊接电压</lable>
+            	<lable><span class="required">*</span>最大焊接电压</lable>
                 <input name="Fweld_V_MAX" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>最小焊接电压</lable>
+            	<lable><span class="required">*</span>最小焊接电压</lable>
                 <input name="Fweld_V_MIN" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>报警电流</lable>
+            	<lable><span class="required">*</span>工艺参数名称</lable>
+                <input name="Fname" class="easyui-textbox" data-options="required:true">
+            </div>
+            <div class="fitem">
+            	<lable><span class="required">*</span>报警电流</lable>
                 <input name="Fweld_Alter_I" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>报警电压</lable>
+            	<lable><span class="required">*</span>报警电压</lable>
                 <input name="Fweld_Alter_V" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>焊丝直径</lable>
+            	<lable><span class="required">*</span>焊丝直径</lable>
                 <input name="Fdiameter" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-            	<lable>预置通道</lable>
+            	<lable><span class="required">*</span>预置通道</lable>
                 <input name="Fweld_PreChannel" class="easyui-textbox" data-options="required:true">
             </div>
             <div class="fitem">
-				<lable>部门</lable>
+				<lable><span class="required">*</span>部门</lable>
 				<select class="easyui-combobox" name="Fowner" id="Fowner" data-options="required:true,editable:false"></select>
 <!-- 				<input type="hidden" id="insid"/>
 				<input class="easyui-textbox" name="Fowner" id="Fowner"/> -->
@@ -88,10 +92,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="fitem">
             	<lable>备注</lable>
                 <input name="Fback" class="easyui-textbox">
-            </div>
-            <div class="fitem">
-            	<lable>工艺参数名称</lable>
-                <input name="Fname" class="easyui-textbox" data-options="required:true">
             </div>
 	    	<div class="buttonoption">
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
