@@ -341,4 +341,32 @@ public class RoleController {
 		obj.put("ary", ary);
 		return obj.toString();
 	}
+	
+
+	@RequestMapping("/getAllAuthority1")
+	@ResponseBody
+	public String getAllAuthority1(@RequestParam Integer id,HttpServletRequest request){
+		List<Role> findAuthority = roleService.findAuthority(new Integer(id));
+		List<Role> findAllAuthority = roleService.findAllAuthority();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(Role role:findAllAuthority){
+				json.put("id", role.getId());
+				json.put("authorities_desc", role.getAuthorityDesc());
+				json.put("symbol", 0);
+				for(Role aut:findAuthority){
+					if(role.getId()==aut.getAuthoritiesId()){
+						json.put("symbol", 1);
+					}
+				}
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
 }

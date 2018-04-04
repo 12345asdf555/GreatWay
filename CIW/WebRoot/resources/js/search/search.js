@@ -104,7 +104,6 @@ function insertSearchGather(){
 function searchGatherCombobox(){
 	var optionFields = 
 		"<option value='fgather_no'>采集模块编号</option>" +
-		"<option value='i.fname'>所属项目</option>" +
 		"<option value='fstatus'>采集模块状态</option>" +
 		"<option value='fprotocol'>采集模块通讯协议</option>" +
 		"<option value='fipurl'>采集模块IP地址</option>" +
@@ -154,7 +153,8 @@ function searchWeldingMachineCombobox(){
 		"<option value='m.fname'>厂家</option>" +
 		"<option value='fisnetworking'>是否在网</option>" +
 		"<option value='fposition'>位置</option>" +
-		"<option value='fgather_id'>采集序号</option>";
+		"<option value='w.fIP'>ip地址</option>" +
+		"<option value='w.fmodel'>设备型号</option>";
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
@@ -268,6 +268,30 @@ function newSearchWps(){
 	initSearch();
 }
 
+//新增产品查询条件
+function newSearchProduct(){
+	fillcontent();
+	newSearch();
+	searchProductCombobox();
+	initSearch();
+}
+
+//新增焊缝查询条件
+function newSearchWeldf(){
+	fillcontent();
+	newSearch();
+	searchWeldfCombobox();
+	initSearch();
+}
+
+//新增焊缝工艺查询条件
+function newSearchProcess(){
+	fillcontent();
+	newSearch();
+	searchProcessCombobox();
+	initSearch();
+}
+
 function newSearchUser(){
 	fillcontent();
 	newSearch();
@@ -305,10 +329,9 @@ function searchWelderCombobox(){
   		"<option value='FCardNUm'>卡号</option>" +
   		"<option value='di.fvaluename'>资质</option>" +
   		"<option value='d.fvaluename'>级别</option>" +
-  		"<option value='FCReateDate'>创建时间</option>" +
-  		"<option value='FUpdateDate'>修改时间</option>" +
-  		"<option value='i.fname'>部门</option>" +
-  		"<option value='tb_welder.Fback'>备注</option>";
+//  		"<option value='FCReateDate'>创建时间</option>" +
+//  		"<option value='FUpdateDate'>修改时间</option>" +
+  		"<option value='i.fname'>所属项目</option>";
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
@@ -326,9 +349,48 @@ function searchWpsCombobox(){
   		"<option value='Fweld_Alter_I'>报警电流</option>" +
   		"<option value='Fweld_Alter_V'>报警电压</option>" +
   		"<option value='Fweld_PreChannel'>预置通道</option>" +
-  		"<option value='FCReateDate'>提交时间</option>" +
-  		"<option value='FUpdateDate'>修改时间</option>" +
+//  		"<option value='FCReateDate'>提交时间</option>" +
+//  		"<option value='FUpdateDate'>修改时间</option>" +
   		"<option value='i.fname'>所属项目</option>";
+	$(".fields").html(optionFields);
+	createSearchCombobox();
+}
+
+//产品查询下拉框
+function searchProductCombobox(){
+	var optionFields = 
+  		"<option value='fproduct_number'>产品编号</option>" +
+  		"<option value='fparts_number'>零部件编号</option>" +
+  		"<option value='fproduct_info'>产品信息</option>" +
+  		"<option value='fparts_info'>零部件信息</option>";
+	$(".fields").html(optionFields);
+	createSearchCombobox();
+}
+
+//焊缝查询下拉框
+function searchWeldfCombobox(){
+	var optionFields = 
+		"<option value='fweld_number'>焊缝编号</option>" +
+		"<option value='fweld_info'>焊缝信息</option>";
+	$(".fields").html(optionFields);
+	createSearchCombobox();
+}
+
+//焊缝工艺查询下拉框
+function searchProcessCombobox(){
+	var optionFields = 
+		"<option value='fprocess_name'>工艺名称</option>" +
+		"<option value='fweld_position'>焊接位态</option>" +
+		"<option value='fmeterial'>材质</option>" +
+		"<option value='fformat'>规格</option>" +
+		"<option value='fmethod'>焊接方法</option>" +
+		"<option value='fdrying'>焊材烘干条件</option>" +
+		"<option value='ftemperature'>预热温度</option>" +
+		"<option value='ffactor'>后热条件</option>" +
+		"<option value='frequire'>热处理条件</option>" +
+		"<option value='flevel'>无损检测合格级别</option>" +
+		"<option value='fqualify'>员工资质</option>" +
+		"<option value='frange'>线能量控制范围</option>";
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }
@@ -384,6 +446,24 @@ function insertSearchWps(){
 	initSearch();
 }
 
+function insertSearchProduct(){
+	$("#searchdiv").dialog("open");
+	searchProductCombobox();
+	initSearch();
+}
+
+function insertSearchWeldf(){
+	$("#searchdiv").dialog("open");
+	searchWeldfCombobox();
+	initSearch();
+}
+
+function insertSearchProcess(){
+	$("#searchdiv").dialog("open");
+	searchProcessCombobox();
+	initSearch();
+}
+
 function insertSearchUser(){
 	$("#searchdiv").dialog("open");
 	searchUserCombobox();
@@ -423,6 +503,42 @@ function searchWelder(){
 }
 
 function searchWps(){
+	fillcontent();
+	if(!getContent()){
+		return;
+	}
+	$('#dg').datagrid('load', {
+		"searchStr" : searchStr
+	});
+	$("#searchdiv").dialog("close");
+	searchStr="";
+}
+
+function searchProduct(){
+	fillcontent();
+	if(!getContent()){
+		return;
+	}
+	$('#dg').datagrid('load', {
+		"searchStr" : searchStr
+	});
+	$("#searchdiv").dialog("close");
+	searchStr="";
+}
+
+function searchWeldf(){
+	fillcontent();
+	if(!getContent()){
+		return;
+	}
+	$('#dg').datagrid('load', {
+		"searchStr" : searchStr
+	});
+	$("#searchdiv").dialog("close");
+	searchStr="";
+}
+
+function searchProcess(){
 	fillcontent();
 	if(!getContent()){
 		return;

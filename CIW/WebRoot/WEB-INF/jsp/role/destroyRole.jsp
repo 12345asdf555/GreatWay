@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		height : '250px',
 		width : '15%',
 		idField : 'authorities_desc',
-		url : "role/getAllAuthority",
+		url : "role/getAllAuthority1?id="+$("#id").val(),
 		rownumbers : false,
 		showPageList : false,
 		checkOnSelect:true,
@@ -81,6 +81,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		columns : [ [ {
 		    field:'ck',
 			checkbox:true
+		},{
+			field : 'symbol',
+			title : 'symbol',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden:true
 		},{
 			field : 'authorities_desc',
 			title : '权限描述',
@@ -95,37 +102,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 color.class="rowColor";
                 return color;
             }
-		},
-		onLoadSuccess:function(data){                
-	        if(data){
-	        $.each(data.rows, function(index, item){
-	        	    var a = $("#id").val();
-	        	    var b;
-	        	    var c
-				    $.ajax( {
-					url : 'role/getAuthority?id='+a,
-					data : {
-					},
-					type : 'post',
-					async : false,
-					dataType : 'json',
-					success : function(result) {
-					b = result.rows;
-					},
-					error : function() {
-						alert("获取数据失败，请联系系统管理员！");
-					}
-				});
-				c = eval(b);
-			for(var i=0;i<c.length;i++)
-			{
-	        if(item.authorities_desc==c[i].authorities_desc){
-	        $('#tt').datagrid('checkRow', index);
-	        }
-	        }
-	        });
-	        }
-	        }                   
+		},   
+		 onLoadSuccess:function(data){ 
+  			 if(data){
+            	each(data.rows, function(index, item){
+            	if(item.symbol==1){
+        			('#tt').datagrid('checkRow', index);
+         		}
+             })
+         }      
+	  }                   
 	});
 }
 

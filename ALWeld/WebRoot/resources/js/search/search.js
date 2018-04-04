@@ -305,8 +305,8 @@ function searchWelderCombobox(){
   		"<option value='FCardNUm'>卡号</option>" +
   		"<option value='di.fvaluename'>资质</option>" +
   		"<option value='d.fvaluename'>级别</option>" +
-  		"<option value='FCReateDate'>创建时间</option>" +
-  		"<option value='FUpdateDate'>修改时间</option>" +
+//  		"<option value='FCReateDate'>创建时间</option>" +
+//  		"<option value='FUpdateDate'>修改时间</option>" +
   		"<option value='i.fname'>部门</option>" +
   		"<option value='tb_welder.Fback'>备注</option>";
 	$(".fields").html(optionFields);
@@ -326,8 +326,8 @@ function searchWpsCombobox(){
   		"<option value='Fweld_Alter_I'>报警电流</option>" +
   		"<option value='Fweld_Alter_V'>报警电压</option>" +
   		"<option value='Fweld_PreChannel'>预置通道</option>" +
-  		"<option value='FCReateDate'>提交时间</option>" +
-  		"<option value='FUpdateDate'>修改时间</option>" +
+//  		"<option value='FCReateDate'>提交时间</option>" +
+//  		"<option value='FUpdateDate'>修改时间</option>" +
   		"<option value='i.fname'>所属项目</option>";
 	$(".fields").html(optionFields);
 	createSearchCombobox();
@@ -500,12 +500,12 @@ function searchWJCombobox(){
 		"<option value='farea'>区域</option>" +
 		"<option value='fsystems'>系统</option>" +
 		"<option value='fchildren'>子项</option>" +
-		"<option value='fexternal_diameter'>上游外径</option>" +
-		"<option value='fnextExternal_diameter'>下游外径</option>" +
-		"<option value='fwall_thickness'>上游壁厚</option>" +
-		"<option value='fnextwall_thickness'>下游壁厚</option>" +
-		"<option value='fmaterial'>上游材质</option>" +
-		"<option value='fnext_material'>下游材质</option>" +
+//		"<option value='fexternal_diameter'>上游外径</option>" +
+//		"<option value='fnextExternal_diameter'>下游外径</option>" +
+//		"<option value='fwall_thickness'>上游壁厚</option>" +
+//		"<option value='fnextwall_thickness'>下游壁厚</option>" +
+//		"<option value='fmaterial'>上游材质</option>" +
+//		"<option value='fnext_material'>下游材质</option>" +
 		"<option value='fdyne'>达因</option>" +
 		"<option value='fspecification'>规格</option>" +
 		"<option value='fname'>所属项目</option>" +
@@ -517,9 +517,9 @@ function searchWJCombobox(){
 		"<option value='fvaltage_unit'>电压单位</option>" +
 		"<option value='fstart_time'>开始时间</option>" +
 		"<option value='fend_time'>完成时间</option>" +
-		"<option value='fcreatetime'>创建时间</option>" +
-		"<option value='	fupdatetime'>修改时间</option>" +
-		"<option value='fupdatecount'>修改次数</option>";
+//		"<option value='fcreatetime'>创建时间</option>" +
+//		"<option value='	fupdatetime'>修改时间</option>" +
+//		"<option value='fupdatecount'>修改次数</option>";
 	$(".fields").html(optionFields);
 	createSearchCombobox();
 }

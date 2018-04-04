@@ -285,4 +285,33 @@ public class AuthorityController {
 		obj.put("ary", ary);
 		return obj.toString();
 	}
+	
+
+	@RequestMapping("/getAllResource1")
+	@ResponseBody
+	public String getAllResource1(@RequestParam Integer id,HttpServletRequest request){
+		
+		List<Authority> findAllResource = authorityService.findAllResource();
+		List<Authority> findResource = authorityService.findResource(new Integer(id));
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(Authority authority:findAllResource){
+				json.put("id", authority.getId());
+				json.put("resources_name", authority.getResourceName());
+				json.put("symbol", 0);
+				for(Authority aut:findResource){
+					if(authority.getId()==aut.getResourceId()){
+						json.put("symbol", 1);
+					}
+				}
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
 }

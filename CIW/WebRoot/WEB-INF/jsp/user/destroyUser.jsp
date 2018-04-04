@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				height : '250px',
 				width : '15%',
 				idField : 'roles_name',
-				url : "user/getAllRole",
+				url : "user/getAllRole1?id="+$("#id").val(),
 				rownumbers : false,
 				showPageList : false,
 				checkOnSelect:true,
@@ -103,6 +103,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				columns : [ [ {
 				    field:'ck',
 					checkbox:true
+				},{
+					field : 'symbol',
+					title : 'symbol',
+					width : 100,
+					halign : "center",
+					align : "left",
+					hidden:true
 				},{
 					field : 'roles_name',
 					title : '角色名',
@@ -117,36 +124,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                color.class="rowColor";
 		                return color;
 		            }
-				},
-				 onLoadSuccess:function(data){                
-			        if(data){
-			        $.each(data.rows, function(index, item){
-			        	    var a = $("#id").val();
-			        	    var b;
-			        	    var c
-						    $.ajax( {
-							url : 'user/getRole?id='+a,
-							data : {
-							},
-							type : 'post',
-							async : false,
-							dataType : 'json',
-							success : function(result) {
-							b = result.rows;
-							},
-							error : function() {
-								alert("获取数据失败，请联系系统管理员！");
-							}
-						});
-						c = eval(b);
-					for(var i=0;i<c.length;i++)
-					{
-			        if(item.roles_name==c[i].roles_name){
-			        $('#tt').datagrid('checkRow', index);
-			        }
-			        }
-			        });
-			        }
+				},   
+				 onLoadSuccess:function(data){ 
+	   			 if(data){
+	             $.each(data.rows, function(index, item){
+	             if(item.symbol==1){
+		         $('#tt').datagrid('checkRow', index);
+		         }
+	             })
+	             }      
 			        }                   
 			});
 		}
