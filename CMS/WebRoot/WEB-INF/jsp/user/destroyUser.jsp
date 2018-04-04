@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				height : '250px',
 				width : '15%',
 				idField : 'roles_name',
-				url : "user/getAllRole",
+				url : "user/getAllRole1?id="+$("#id").val(),
 				rownumbers : false,
 				showPageList : false,
 				checkOnSelect:true,
@@ -100,14 +100,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    field:'ck',
 					checkbox:true
 				},{
+					field : 'symbol',
+					title : 'symbol',
+					width : 100,
+					halign : "center",
+					align : "left",
+					hidden:true
+				},{
 					field : 'roles_name',
 					title : '角色名',
 					width : 100,
 					halign : "center",
 					align : "left"
 				}]],      
-				 onLoadSuccess:function(data){                
-			        if(data){
+				 onLoadSuccess:function(data){   
+				 if(data){
+	             $.each(data.rows, function(index, item){
+	             if(item.symbol==1){
+		         $('#tt').datagrid('checkRow', index);
+		         }
+	             })
+	             }                     
+/* 			        if(data){
 			        $.each(data.rows, function(index, item){
 			        	    var a = $("#id").val();
 			        	    var b;
@@ -134,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        }
 			        }
 			        });
-			        }
+			        } */
 			        }                   
 			});
 		}
