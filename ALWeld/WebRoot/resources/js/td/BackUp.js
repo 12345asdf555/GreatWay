@@ -41,6 +41,7 @@
 	var socket;
 	var data1;
 	var namex;
+	var tryTime = 0;
 	$(function(){
 		$.ajax({  
 		      type : "post",  
@@ -94,110 +95,7 @@
 			alert("您的浏览器不支持WebSocket");
 			return;
 		}
-		$(function() {
-			//实现化WebSocket对象，指定要连接的服务器地址与端口
-			socket = new WebSocket(data1);
-			//打开事件
-			socket.onopen = function() {
-//				alert("Socket 已打开");
-				//socket.send("这是来自客户端的消息" + location.href + new Date());
-			};
-			//获得消息事件
-			socket.onmessage = function(msg) {
-				/*alert(msg.data);*/
-				dd = msg.data;		
-				/*alert(dd);*/
-				
-				for(var b=0;b<position.length;b++){
-		    		  if($("#pposition"+b+"").length<=0){
-		    			  var str = "<a id='pposition"+b+"' href='javascript:void(0);' onclick='rece1(\""+position[b].fpositin+"\")'><i class='iconfont icon-bijiben'></i>"+position[b].fpositin+"</a></br>";
-		    			  $("#body11").append(str);
-		    		  }
-	    		 }
-
-				for(var n = 0;n < dd.length;n+=53){
-					if(dd.substring(8+n, 12+n)!="0000"){		
-						if(back.length==0){
-							var l=1;
-							var ll=0;
-							for(var a=0;a<l;a++){
-								if(parseInt(dd.substring(4+n, 8+n),16)!=back[a]){
-									back.push(parseInt(dd.substring(4+n, 8+n),16));		
-								}else{
-									continue;
-								}
-							}
-						}else{
-						l=back.length;
-						var ll=0;
-						for(var a=0;a<l;a++){
-							/*alert(dd.substring(4+n, 8+n));*/
-							if(parseInt(dd.substring(4+n, 8+n),16)!=back[a]){
-								ll++;	
-								if(ll==back.length){
-								back.push(parseInt(dd.substring(4+n, 8+n),16));
-								}		
-							}else{
-								continue;
-							}
-						}
-						}
-					}};
-			
-				if(bb==0){
-				rece();
-				}
-				else if(bb==1){
-					rece1(0);
-				}
-				else{
-					rece2(0);
-				}
-				
-	    		/*var columns = $('#dg').datagrid("options").columns;*/
-	    		var rows = $('#dg').datagrid("getRows"); 
-	    			/*alert(rows[dex][columns[0][0].field]);*/
-	    			for(var g = 0;g < dd.length;g+=53*3){
-	    			for(var dex=0;dex<rows.length;dex++){
-	    				/*alert(rows[dex][columns[0][1].field]);*/
-	    		    if((dd.substring(8+g, 12+g)!="0000")&&(parseInt(dd.substring(4+g, 8+g),16)==rows[dex].fequipment_no)){
-	    			rows[dex].fwelder_no=parseInt(dd.substring(8+g, 12+g),16);
-	    			rows[dex].fstatus_id=dd.substring(0+g, 2+g);
-					for(var k=0;k<namex.length;k++){
-						if(namex[k].fwelder_no==dd.substring(8+g, 12+g)){
-							rows[dex].fname=namex[k].fname;
-						}
-					}
-	    			$('#dg').datagrid('refreshRow', dex);
-	    			$("a[id='view']").linkbutton({text:'查看',plain:true,iconCls:'icon-view'});
-	    		    }
-		    		}
-		    	    }
-	    			if((rowdex<back.length)&&(rows.length!=0)){
-	    			for(var dex1=0;dex1<rows.length;dex1++){
-	    				if(back[rowdex]==rows[dex1].fequipment_no){    
-	    				        $('#dg').datagrid('insertRow', {  
-	    				            index:0,  
-	    				            row:rows[dex1],  
-	    				        });     
-	    				        $('#dg').datagrid('deleteRow', dex1+1);//删除一行
-	    				}
-	    			}
-	    			rowdex++;
-	    			}
-	    	
-			};
-			//关闭事件
-			socket.onclose = function() {
-				alert("Socket正在尝试连接");
-				socket.onopen();
-			};
-			//发生了错误事件
-			socket.onerror = function() {
-/*				socket.onopen();*/
-			}
-		});
-		
+		ws();
 		$("#btnSend").click(function() {
 			socket.send("强哥");
 		});
@@ -206,6 +104,120 @@
 			socket.close();
 		});
 	};
+	
+	function ws() {
+		//实现化WebSocket对象，指定要连接的服务器地址与端口
+		socket = new WebSocket(data1);
+		//打开事件
+		socket.onopen = function() {
+//			alert("Socket 已打开");
+			//socket.send("这是来自客户端的消息" + location.href + new Date());
+		};
+		//获得消息事件
+		socket.onmessage = function(msg) {
+			/*alert(msg.data);*/
+			dd = msg.data;		
+			/*alert(dd);*/
+			
+			for(var b=0;b<position.length;b++){
+	    		  if($("#pposition"+b+"").length<=0){
+	    			  var str = "<a id='pposition"+b+"' href='javascript:void(0);' onclick='rece1(\""+position[b].fpositin+"\")'><i class='iconfont icon-bijiben'></i>"+position[b].fpositin+"</a></br>";
+	    			  $("#body11").append(str);
+	    		  }
+    		 }
+
+			for(var n = 0;n < dd.length;n+=53){
+				if(dd.substring(8+n, 12+n)!="0000"){		
+					if(back.length==0){
+						var l=1;
+						var ll=0;
+						for(var a=0;a<l;a++){
+							if(parseInt(dd.substring(4+n, 8+n),16)!=back[a]){
+								back.push(parseInt(dd.substring(4+n, 8+n),16));		
+							}else{
+								continue;
+							}
+						}
+					}else{
+					l=back.length;
+					var ll=0;
+					for(var a=0;a<l;a++){
+						/*alert(dd.substring(4+n, 8+n));*/
+						if(parseInt(dd.substring(4+n, 8+n),16)!=back[a]){
+							ll++;	
+							if(ll==back.length){
+							back.push(parseInt(dd.substring(4+n, 8+n),16));
+							}		
+						}else{
+							continue;
+						}
+					}
+					}
+				}};
+		
+			if(bb==0){
+			rece();
+			}
+			else if(bb==1){
+				rece1(0);
+			}
+			else{
+				rece2(0);
+			}
+			
+    		/*var columns = $('#dg').datagrid("options").columns;*/
+    		var rows = $('#dg').datagrid("getRows"); 
+    			/*alert(rows[dex][columns[0][0].field]);*/
+    			for(var g = 0;g < dd.length;g+=53*3){
+    			for(var dex=0;dex<rows.length;dex++){
+    				/*alert(rows[dex][columns[0][1].field]);*/
+    		    if((dd.substring(8+g, 12+g)!="0000")&&(parseInt(dd.substring(4+g, 8+g),16)==rows[dex].fequipment_no)){
+    			rows[dex].fwelder_no=parseInt(dd.substring(8+g, 12+g),16);
+    			rows[dex].fstatus_id=dd.substring(0+g, 2+g);
+				for(var k=0;k<namex.length;k++){
+					if(namex[k].fwelder_no==dd.substring(8+g, 12+g)){
+						rows[dex].fname=namex[k].fname;
+					}
+				}
+    			$('#dg').datagrid('refreshRow', dex);
+    			$("a[id='view']").linkbutton({text:'查看',plain:true,iconCls:'icon-view'});
+    		    }
+	    		}
+	    	    }
+    			if((rowdex<back.length)&&(rows.length!=0)){
+    			for(var dex1=0;dex1<rows.length;dex1++){
+    				if(back[rowdex]==rows[dex1].fequipment_no){    
+    				        $('#dg').datagrid('insertRow', {  
+    				            index:0,  
+    				            row:rows[dex1],  
+    				        });     
+    				        $('#dg').datagrid('deleteRow', dex1+1);//删除一行
+    				}
+    			}
+    			rowdex++;
+    			}
+    	
+		};
+		//关闭事件
+		socket.onclose = function() {
+				if (tryTime < 3) {
+                setTimeout(function () {
+                	socket = null;
+                    tryTime++;
+                    ws();
+                    alert("正在尝试连接服务器");
+                }, 1000);
+            } else {
+                tryTime = 0;
+                alert("服务器链接失败");
+            }
+		};
+		//发生了错误事件
+		socket.onerror = function() {
+/*				socket.onopen();*/
+		}
+	};
+	
 	function rece1(value2){
 		bb=1;
 		h=0;
@@ -486,6 +498,8 @@
   		});
   		function activeLastPointToolip(chart) {
   		    var points = chart.series[0].points;
+  		    chart.yAxis[0].removePlotLine('plot-line-1');
+  		    chart.yAxis[0].removePlotLine('plot-line-2');
 /*  		    chart.tooltip.refresh(points[points.length -1]);
   		    chart.tooltip.refresh(points1[points1.length -1]);*/
   		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
@@ -505,7 +519,7 @@
   		  		width:2, //标示线的宽度为2px 
   		  		color: 'red', //标示线的颜色 
   		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+  		  		id: 'plot-line-2', //标示线的id，在删除该标示线的时候需要该id标示 });
 		          label:{
     		            text:'最低电流',     //标签的内容
     		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
@@ -548,11 +562,11 @@
 	  		    }
   		    },
   		    yAxis: [{
-                max:280, // 定义Y轴 最大值  
+                max:650, // 定义Y轴 最大值  
                 min:0, // 定义最小值  
                 minPadding: 0.2,   
                 maxPadding: 0.2,  
-                tickInterval:40,
+                tickInterval:130,
                 color:'#A020F0',
   		        title: {
   		            text: '电流',
@@ -610,6 +624,8 @@
   		});
   		function activeLastPointToolip(chart) {
   		    var points = chart.series[0].points;
+  		    chart.yAxis[0].removePlotLine('plot-line-3');
+  		    chart.yAxis[0].removePlotLine('plot-line-4');
 /*  		    chart.tooltip.refresh(points[points.length -1]);
   		    chart.tooltip.refresh(points1[points1.length -1]);*/
   		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
@@ -617,7 +633,7 @@
   		  		width:2, //标示线的宽度为2px 
   		  		color: 'black', //标示线的颜色 
   		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+  		  		id: 'plot-line-3', //标示线的id，在删除该标示线的时候需要该id标示 });
 		          label:{
     		            text:'最高电压',     //标签的内容
     		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
@@ -629,7 +645,7 @@
   		  		width:2, //标示线的宽度为2px 
   		  		color: 'black', //标示线的颜色 
   		  	    dashStyle:'longdashdot',
-  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+  		  		id: 'plot-line-4', //标示线的id，在删除该标示线的时候需要该id标示 });
 		          label:{
     		            text:'最低电压',     //标签的内容
     		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
@@ -668,11 +684,11 @@
   		        tickPixelInterval: 150
   		    },
   		    yAxis: [{
-                max:105, // 定义Y轴 最大值  
+                max:150, // 定义Y轴 最大值  
                 min:0, // 定义最小值  
                 minPadding: 0.2,   
                 maxPadding: 0.2,  
-                tickInterval:15,
+                tickInterval:30,
                 color:'#87CEFA',
   		    	title: {
   		            text: '电压',

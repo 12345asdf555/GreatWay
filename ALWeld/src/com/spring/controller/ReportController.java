@@ -597,6 +597,7 @@ public class ReportController {
 		String parentId = request.getParameter("parent");
 		String insid = request.getParameter("insid");
 		String type = request.getParameter("otype");
+		BigInteger mach = new BigInteger(request.getParameter("mach"));
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(parentId)){
 			//数据权限处理
@@ -636,7 +637,7 @@ public class ReportController {
 		pageIndex = 1;
 		pageSize = 52224;
 		page = new Page(pageIndex,pageSize,total);
-		List<Report> list = reportService.historyData(page,dto,fid);
+		List<Report> list = reportService.historyData(page,dto,fid,mach);
 		long total = 0;
 		
 		if(list != null){
@@ -662,7 +663,7 @@ public class ReportController {
 					ary.add(json);
 				}
 				for(pageIndex=2;pageIndex<=total;pageIndex++){
-					List<Report> list1 = reportService.historyData(page,dto,fid);
+					List<Report> list1 = reportService.historyData(page,dto,fid,mach);
 					for(Report repo1:list1){
 						json.put("ele", repo1.getFstandardele());
 						json.put("vol", repo1.getFstandardvol());

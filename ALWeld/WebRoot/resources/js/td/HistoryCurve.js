@@ -15,22 +15,28 @@ var timer2;
 var chart,chart1;
 var series,series1;
 var lable=0;
+var chartStr = "";
+function setParam(){
+	var parent = $("#parent").val();
+	var otype = $("input[name='otype']:checked").val();
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+}
 		$(function(){
-			weldingMachineDatagrid();
+			chartStr = "";
+			setParam();
+			Junction();
 		})
 		
-		var chartStr = "";
-		function setParam(){
-			var parent = $("#parent").val();
-			var otype = $("input[name='otype']:checked").val();
-			var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-			var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-			chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
-		}
 		function serachCompanyOverproof(){
-			$('#body1').html("");
-			$('#body2').html("");
+/*			$('#body1').html("");
+			$('#body2').html("");*/
+			$("#dg").datagrid("loadData", { total: 0, rows: [] });
 			chartStr = "";
+			setParam();
+			Junction();
+/*			chartStr = "";
 			var rows = $("#dg").datagrid("getSelections");
 			if(rows.length==0){
 				alert("请先选择焊缝");
@@ -85,19 +91,18 @@ var lable=0;
 					      alert('error');
 					   }
 					});
-			}
+			}*/
 		}
-		
-		function weldingMachineDatagrid(){
+	
+		function Junction(){
 			$("#dg").datagrid( {
-
 				fitColumns : true,				
 				height : $("#dgtb").height(),
 				width : $("#dgtb").width(),
 				idField : 'id',
 				pageSize : 10,
 				pageList : [ 10, 20, 30, 40, 50 ],
-				url : "weldedjunction/getWeldingJun",
+				url : "weldedjunction/getWeldingJun"+chartStr,
 				singleSelect : true,
 				rownumbers : true,
 				showPageList : false,
@@ -166,43 +171,7 @@ var lable=0;
 					halign : "center",
 					align : "left",
 					hidden:true
-				}, /*{
-					field : 'externalDiameter',
-					title : '上游外径',
-					width : 90,
-					halign : "center",
-					align : "left"
 				}, {
-					field : 'nextexternaldiameter',
-					title : '下游外径',
-					width : 90,
-					halign : "center",
-					align : "left"
-				}, {
-					field : 'wallThickness',
-					title : '上游壁厚',
-					width : 90,
-					halign : "center",
-					align : "left"
-				}, {
-					field : 'nextwall_thickness',
-					title : '下游璧厚',
-					width : 90,
-					halign : "center",
-					align : "left"
-				}, {
-					field : 'material',
-					title : '上游材质',
-					width : 90,
-					halign : "center",
-					align : "left"
-				}, {
-					field : 'next_material',
-					title : '下游材质',
-					width : 90,
-					halign : "center",
-					align : "left"
-				},*/ {
 					field : 'dyne',
 					title : '达因',
 					width : 90,
@@ -246,6 +215,31 @@ var lable=0;
 					halign : "center",
 					align : "left"
 				}, {
+					field : 'machine_num',
+					title : '焊机编号',
+					width : 150,
+					halign : "center",
+					align : "left"
+				},{
+					field : 'firsttime',
+					title : '开始焊接时间',
+					width : 150,
+					halign : "center",
+					align : "left"
+				},{
+					field : 'lasttime',
+					title : '焊接终止时间',
+					width : 150,
+					halign : "center",
+					align : "left"
+				},{
+					field : 'machid',
+					title : '焊机id',
+					width : 90,
+					halign : "center",
+					align : "left",
+					hidden:true
+				},{
 					field : 'startTime',
 					title : '开始时间',
 					width : 90,
@@ -294,21 +288,7 @@ var lable=0;
 					halign : "center",
 					align : "left",
 					hidden:true
-				}/*, {
-					field : 'edit',
-					title : '编辑',
-					width : 120,
-					halign : "center",
-					align : "left",
-					formatter: function(value,row,index){
-						var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
-						+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
-						row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+
-						","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material+","+row.valtage_unit+","+row.electricity_unit;
-						var str = '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
-						return str;
-					}
-				}*/] ],
+				}] ],
 				toolbar : '#disctionaryTable_btn',
 				pagination : true,
 				rowStyler: function(index,row){
@@ -318,12 +298,65 @@ var lable=0;
 		                color.class="rowColor";
 		                return color;
 		            }
-		        }/*,
-				onLoadSuccess: function(data){
-					$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
-				}*/
+		        },
+		        onClickRow: function(index,row){
+		        	$('#body1').html("");
+					$('#body2').html("");
+					chartStr = "";
+					setParam();
+					   $.ajax({
+						   type: "post", 
+						   url: "rep/getWpsByMid"+"?fid="+row.weldedJunctionno,
+						   dataType: "json",
+						   data: {},
+						   success: function (result) {
+						      if (result) {
+						    	  var wps = eval(result.rows);
+						    	  if(wps.length==0){
+							    	  maxele=0;
+							    	  minele=0;
+							    	  maxvol=0;
+							    	  minvol=0;
+						    	  }else{
+						    	  maxele=wps[0].maxele;
+						    	  minele=wps[0].minele;
+						    	  maxvol=wps[0].maxvol;
+						    	  minvol=wps[0].minvol;
+						    	  }
+						      }
+						   },
+						   error: function () {
+						      alert('error');
+						   }
+						});
+
+					   $.ajax({
+						   type: "post", 
+						   url: "rep/historyCurve"+chartStr+"&fid="+row.weldedJunctionno+"&mach="+row.machid,
+						   dataType: "json",
+						   data: {},
+						   success: function (result) {
+						      if (result) {
+						    	  var date = eval(result.rows);
+						    	  for(var i=0;i<date.length;i++){
+						    		  ele[i] = date[i].ele;
+						    		  vol[i] = date[i].vol;
+						    		  time1[i] = Date.parse(date[i].time);
+						    	  }
+
+									curve();
+									curve1();
+						      }
+						   },
+						   error: function () {
+						      alert('error');
+						   }
+						});
+				
+		        }
 			});
 		}
+		
 	var time=1000;
 	function refresh1(){
 		timer1 = window.setInterval(function () {
@@ -540,11 +573,11 @@ var lable=0;
 	  		    }
   		    },
   		    yAxis: [{
-                max:800, // 定义Y轴 最大值  
+                max:650, // 定义Y轴 最大值  
                 min:0, // 定义最小值  
                 minPadding: 0.2,   
                 maxPadding: 0.2,  
-                tickInterval:40,
+                tickInterval:130,
                 color:'#A020F0',
   		        title: {
   		            text: '电流',
@@ -674,11 +707,11 @@ var lable=0;
   		        tickPixelInterval: 150
   		    },
   		    yAxis: [{
-                max:105, // 定义Y轴 最大值  
+                max:150, // 定义Y轴 最大值  
                 min:0, // 定义最小值  
                 minPadding: 0.2,   
                 maxPadding: 0.2,  
-                tickInterval:15,
+                tickInterval:30,
                 color:'#87CEFA',
   		    	title: {
   		            text: '电压',

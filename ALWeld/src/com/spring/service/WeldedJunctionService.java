@@ -53,5 +53,24 @@ public interface WeldedJunctionService {
 	 * @param wj
 	 */
 	boolean deleteJunction(BigInteger id);
-	List<WeldedJunction> getWeldingJun(Page page, String str, String welderid);
+	
+	/**
+	 * 焊工对应的焊机焊缝信息
+	 * @param page
+	 * @param dto
+	 * @param str
+	 * @param welderid
+	 * @return
+	 */
+	List<WeldedJunction> getWeldingJun(Page page, WeldDto dto, String str, String welderid);
+	
+	/**
+	 * 时间段内焊接开始时间
+	 */
+	String getFirsttime(WeldDto dto, BigInteger machineid, String welderid,String junid);
+	
+	/**
+	 * 时间段内焊接结束时间
+	 */
+	String getLasttime(WeldDto dto, BigInteger machineid, String welderid,String junid);
 }

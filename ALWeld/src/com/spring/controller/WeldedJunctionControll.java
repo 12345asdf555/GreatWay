@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,8 @@ import com.spring.dto.WeldDto;
 import com.spring.model.MyUser;
 import com.spring.model.WeldedJunction;
 import com.spring.page.Page;
+import com.spring.service.InsframeworkService;
+import com.spring.service.LiveDataService;
 import com.spring.service.WeldedJunctionService;
 import com.spring.util.IsnullUtil;
 
@@ -33,6 +36,11 @@ public class WeldedJunctionControll {
 	private String welderid;
 	@Autowired
 	private WeldedJunctionService wjm;
+	@Autowired
+	private InsframeworkService insm;
+	@Autowired
+	private LiveDataService lm;
+	
 	IsnullUtil iutil = new IsnullUtil();
 	
 	@RequestMapping("/goWeldedJunction")
@@ -364,12 +372,52 @@ public class WeldedJunctionControll {
 	@RequestMapping("/getWeldingJun")
 	@ResponseBody
 	public String getWeldingJun(HttpServletRequest request){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("parent");
+		String insid = request.getParameter("insid");
+		String type = request.getParameter("otype");
+		WeldDto dto = new WeldDto();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
+		}
+		BigInteger parent = null;
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		if(iutil.isNull(type)){
+			if(type.equals("1")){
+				dto.setYear("year");
+			}else if(type.equals("2")){
+				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
+			}else if(type.equals("4")){
+				dto.setWeek("week");
+			}
+		}
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String serach = request.getParameter("searchStr");
 		
 		page = new Page(pageIndex,pageSize,total);
-		List<WeldedJunction> list = wjm.getWeldingJun(page, serach, welderid);
+		List<WeldedJunction> list = wjm.getWeldingJun(page, dto, serach, welderid);
 		long total = 0;
 		
 		if(list != null){
@@ -382,7 +430,11 @@ public class WeldedJunctionControll {
 		JSONObject obj = new JSONObject();
 		try{
 			for(WeldedJunction w:list){
+				json.put("firsttime", wjm.getFirsttime(dto, w.getMachid(),welderid , w.getWeldedJunctionno()));
+				json.put("lasttime", wjm.getLasttime(dto, w.getMachid(),welderid , w.getWeldedJunctionno()));
 				json.put("id", w.getId());
+				json.put("machid",w.getMachid());
+				json.put("machine_num", w.getMachine_num());
 				json.put("weldedJunctionno", w.getWeldedJunctionno());
 				json.put("serialNo", w.getSerialNo());
 				json.put("pipelineNo", w.getPipelineNo());

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class WeldedJunction {
 	private BigInteger id;
+	private BigInteger machid;
+	private String machine_num;
 	private String weldedJunctionno;
 	private String serialNo;
 	private String pipelineNo;
@@ -53,6 +55,12 @@ public class WeldedJunction {
 	public void setInsfid(BigInteger insfid) {
 		this.insfid = insfid;
 	}
+	public BigInteger getMachid() {
+		return machid;
+	}
+	public void setMachid(BigInteger machid) {
+		this.machid = machid;
+	}
 	public BigInteger getUpdater() {
 		return updater;
 	}
@@ -64,6 +72,12 @@ public class WeldedJunction {
 	}
 	public void setCreater(BigInteger creater) {
 		this.creater = creater;
+	}
+	public String getMachine_num() {
+		return machine_num;
+	}
+	public void setMachine_num(String machine_num) {
+		this.machine_num = machine_num;
 	}
 	public String getElectricity_unit() {
 		return electricity_unit;

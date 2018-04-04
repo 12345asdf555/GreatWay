@@ -5,6 +5,8 @@
 
 	<resultMap id="wjMap" type="com.spring.model.WeldedJunction">
         <id property="id" column="fid"></id> 
+        <result property="machid" column="machid"></result>  
+        <result property="machine_num" column="fequipment_no"></result>  
         <result property="weldedJunctionno" column="fwelded_junction_no"></result>  
         <result property="serialNo" column="fserial_no"></result>
         <result property="pipelineNo" column="fpipeline_no"></result>
@@ -76,8 +78,57 @@
 		SELECT COUNT(fid) FROM `tb_welded_junction` WHERE fwelded_junction_no = #{wjno}
 	</select>
 	
-		<select id="getWeldingJun" resultMap="wjMap" parameterType="java.lang.String">
-		SELECT j. * , i.fid iid, i.fname iname FROM tb_welded_junction j INNER JOIN tb_insframework i ON j.fitemId = i.fid WHERE 1 =1 and fwelded_junction_no in ( SELECT DISTINCT(fjunction_id) FROM `tb_live_data` where fwelder_id=#{welderid})
+	<select id="getFirsttime" resultType="java.lang.String">
+		SELECT `FWeldTime` FROM `tb_live_data` WHERE `fwelder_id`=#{welderid} AND `fmachine_id`=#{machineid} AND `fjunction_id`=#{junid} 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		ORDER BY `FWeldTime` ASC LIMIT 0,1
+	</select>
+	
+	<select id="getLasttime" resultType="java.lang.String">
+		SELECT `FWeldTime` FROM `tb_live_data` WHERE `fwelder_id`=#{welderid} AND `fmachine_id`=#{machineid} AND `fjunction_id`=#{junid} 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		ORDER BY `FWeldTime` DESC LIMIT 0,1
+	</select>
+	
+	<select id="getWeldingJun" resultMap="wjMap" parameterType="java.lang.String">
+		SELECT DISTINCT m.fequipment_no fequipment_no ,m.fid machid,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fweldtime,  '%Y' ),
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m' ),
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fweldtime,  '%Y-%m-%d' ),
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fweldtime),
+			</if>
+		</if>
+		j. * , i.fid iid, i.fname iname FROM tb_welded_junction j INNER JOIN tb_insframework i INNER JOIN tb_live_data k INNER JOIN tb_welding_machine m ON j.fitemId = i.fid AND j.fwelded_junction_no=k.fjunction_id AND m.fid=k.fmachine_id WHERE 1=1 AND k.`fwelder_id`=#{welderid} 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
