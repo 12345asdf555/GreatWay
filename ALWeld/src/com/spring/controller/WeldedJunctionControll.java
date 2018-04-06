@@ -434,7 +434,7 @@ public class WeldedJunctionControll {
 				json.put("lasttime", wjm.getLasttime(dto, w.getMachid(),welderid , w.getWeldedJunctionno()));
 				json.put("id", w.getId());
 				json.put("machid",w.getMachid());
-				json.put("machine_num", w.getMachine_num());
+				json.put("machine_num", Integer.parseInt(w.getMachine_num(), 16));
 				json.put("weldedJunctionno", w.getWeldedJunctionno());
 				json.put("serialNo", w.getSerialNo());
 				json.put("pipelineNo", w.getPipelineNo());
