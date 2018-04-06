@@ -62,7 +62,7 @@ public interface WeldedJunctionService {
 	 * @param welderid
 	 * @return
 	 */
-	List<WeldedJunction> getWeldingJun(Page page, WeldDto dto, String str, String welderid);
+	List<WeldedJunction> getJMByWelder(Page page, WeldDto dto,String welderid);
 	
 	/**
 	 * 时间段内焊接开始时间

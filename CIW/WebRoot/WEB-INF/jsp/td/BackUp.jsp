@@ -16,14 +16,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="icon" href="resources/images/title.ico" type="img/x-icon" />
 	<link rel="stylesheet" type="text/css" href="resources/css/main.css">
 	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/iconfont.css">
 	
-	<script type="text/javascript" src="resources/js/load.js"></script>
+	<script type="text/javascript" src="resources/js/loading.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
@@ -31,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/highcharts.js"></script>
 	<script type="text/javascript" src="resources/js/exporting.js"></script>
 	<script type="text/javascript" src="resources/js/td/BackUp.js"></script>
+	<!-- <script type="text/javascript" src="resources/js/rmeffect.js"></script> -->
 
   </head>
   
@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div id="body2" style="width:15%;height:15%;float:left;position:absolute;left:15.5%;top:8%;">
-		<div style="position:absolute;left:5%;top:30%;"><label>电流(A)：</label></div>
+		<div style="position:absolute;left:5%;top:30%;"><label>电流：</label></div>
 		<div class="wrap">
 		<div class="clock">
 <!-- 			<div style="height:25%;"></div>
@@ -117,7 +117,7 @@ readonly="readonly">
 		<div id="body32" style="width:65%;height:25%;position:absolute;left:36%;top:29%;">
 		</div>
 		<div id="body5" style="width:15%;height:15%;position:absolute;left:15.5%;top:20%;">
-		<div style="position:absolute;left:7%;top:35%;"><label>电压(V)：</label></div>
+		<div style="position:absolute;left:7%;top:35%;"><label>电压：</label></div>
 		<div class="wrap">
 		<div class="clock">
 			

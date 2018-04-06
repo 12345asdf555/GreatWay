@@ -102,6 +102,7 @@ public class WeldingMachineController {
 	@RequestMapping("/goEditWeldingMachine")
 	public String goEditWeldingMachine(HttpServletRequest request, @RequestParam String wid){
 		WeldingMachine weld = wmm.getWeldingMachineById(new BigInteger(wid));
+		weld.setEquipmentNo(String.valueOf(Integer.parseInt(weld.getEquipmentNo(), 16)));
 		request.setAttribute("w", weld);
 		return "weldingMachine/editweldingmachine";
 	}
@@ -120,6 +121,7 @@ public class WeldingMachineController {
 		}else{
 			request.setAttribute("isnetworking", "否");
 		}
+		weld.setEquipmentNo(String.valueOf(Integer.parseInt(weld.getEquipmentNo(), 16)));
 		request.setAttribute("w", weld);
 		return "weldingMachine/removeweldingmachine";
 	}
@@ -134,6 +136,20 @@ public class WeldingMachineController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String searchStr = request.getParameter("searchStr");
+		if(searchStr!=null&&searchStr!="null"){
+		String ss[] = searchStr.split("'");
+		System.out.println(ss[0].substring(0, 14));
+		if(ss[0].substring(0, 14).equals(" fequipment_no")){
+			String sea = Integer.toHexString(Integer.valueOf(ss[1]));
+			if(sea.length()!=4){
+                int lenth=4-sea.length();
+                for(int i=0;i<lenth;i++){
+                	sea="0"+sea;
+                }
+              }
+			searchStr = " fequipment_no = '"+sea+"'";
+		}
+		}
 		String parentId = request.getParameter("parent");
 		BigInteger parent = null;
 		if(iutil.isNull(parentId)){
@@ -156,7 +172,7 @@ public class WeldingMachineController {
 			for(WeldingMachine wm:list){
 				json.put("id", wm.getId());
 				json.put("ip", wm.getIp());
-				json.put("equipmentNo", wm.getEquipmentNo());
+				json.put("equipmentNo", Integer.valueOf(wm.getEquipmentNo(),16));
 				json.put("position", wm.getPosition());
 				json.put("gatherId", wm.getGatherId());
 				if(wm.getIsnetworking()==0){
@@ -330,7 +346,14 @@ public class WeldingMachineController {
 			wm.setCreater(new BigInteger(user.getId()+""));
 			wm.setIp(request.getParameter("ip"));
 			wm.setModel(request.getParameter("model"));
-			wm.setEquipmentNo(request.getParameter("equipmentNo"));
+			String sea = Integer.toHexString(Integer.valueOf(request.getParameter("equipmentNo")));
+			if(sea.length()!=4){
+                int lenth=4-sea.length();
+                for(int i=0;i<lenth;i++){
+                	sea="0"+sea;
+                }
+              }
+			wm.setEquipmentNo(sea);
 			if(iutil.isNull(request.getParameter("joinTime"))){
 				wm.setJoinTime(request.getParameter("joinTime"));
 			}
@@ -374,7 +397,14 @@ public class WeldingMachineController {
 			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			wm.setUpdater(new BigInteger(user.getId()+""));
 			wm.setId(new BigInteger(request.getParameter("wid")));
-			wm.setEquipmentNo(request.getParameter("equipmentNo"));
+			String sea = Integer.toHexString(Integer.valueOf(request.getParameter("equipmentNo")));
+			if(sea.length()!=4){
+                int lenth=4-sea.length();
+                for(int i=0;i<lenth;i++){
+                	sea="0"+sea;
+                }
+              }
+			wm.setEquipmentNo(sea);
 			if(iutil.isNull(request.getParameter("joinTime"))){
 				wm.setJoinTime(request.getParameter("joinTime"));
 			}
@@ -447,7 +477,14 @@ public class WeldingMachineController {
 	@ResponseBody
 	private String enovalidate(@RequestParam String eno){
 		boolean data = true;
-		int count = wmm.getEquipmentnoCount(eno);
+		String sea = Integer.toHexString(Integer.valueOf(eno));
+		if(sea.length()!=4){
+            int lenth=4-sea.length();
+            for(int i=0;i<lenth;i++){
+            	sea="0"+sea;
+            }
+          }
+		int count = wmm.getEquipmentnoCount(sea);
 		if(count>0){
 			data = false;
 		}

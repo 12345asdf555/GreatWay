@@ -10,7 +10,7 @@ import com.spring.model.Report;
 
 public interface ReportMapper {
 	BigInteger getWpsid(BigInteger machid);
-	Report getWps(String wpsid);
+	Report getWps(BigInteger wpsid);
 	Report getSyspara();
 	List<Report> findAllWelder(@Param("iid")BigInteger iid,@Param("str")String str);
 	List<Report> findMachine(String weldid);
@@ -22,5 +22,5 @@ public interface ReportMapper {
 	long getZxTime(@Param("machid") BigInteger machid,@Param("time") String time);
 	String getFirstTime(@Param("machid") BigInteger machid,@Param("time") String time);
 	List<Report> getAllPara(@Param("parent")BigInteger parent,@Param("str")String str,@Param("time") String time);
-	List<Report> historyData(@Param("dto") WeldDto dto,@Param("fid") BigInteger fid);
+	List<Report> historyData(@Param("dto") WeldDto dto,@Param("fid") String fid,@Param("mach") BigInteger mach);
 }

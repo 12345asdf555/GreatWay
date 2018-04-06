@@ -77,7 +77,7 @@ public class ReportController {
 	}
 	@RequestMapping("/history")
 	public String History(HttpServletRequest request){
-		return "report/HistoryWelder";
+		return "td/HistoryWelder";
 	}
 
 /*	@RequestMapping("/getWeldPara")
@@ -596,6 +596,7 @@ public class ReportController {
 		String parentId = request.getParameter("parent");
 		String insid = request.getParameter("insid");
 		String type = request.getParameter("otype");
+		BigInteger mach = new BigInteger(request.getParameter("mach"));
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(parentId)){
 			//数据权限处理
@@ -631,17 +632,44 @@ public class ReportController {
 			}
 		}
 		String str = request.getParameter("searchStr");
-		BigInteger fid = new BigInteger(request.getParameter("fid"));
-		List<Report> list = reportService.historyData(dto,fid);
+		String fid = request.getParameter("fid");
+		pageIndex = 1;
+		pageSize = 52224;
+		page = new Page(pageIndex,pageSize,total);
+		List<Report> list = reportService.historyData(page,dto,fid,mach);
+		long total = 0;
+		
+		if(list != null){
+			PageInfo<Report> pageinfo = new PageInfo<Report>(list);
+			total = pageinfo.getPages();
+		}
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			for(Report repo:list){
-				json.put("ele", repo.getFstandardele());
-				json.put("vol", repo.getFstandardvol());
-				json.put("time", sdf.format(repo.getFweldingtime()));
-				ary.add(json);
+			if(pageIndex==total){
+				for(Report repo:list){
+					json.put("ele", repo.getFstandardele());
+					json.put("vol", repo.getFstandardvol());
+					json.put("time", sdf.format(repo.getFweldingtime()));
+					ary.add(json);
+				}
+			}else{
+				for(Report repo:list){
+					json.put("ele", repo.getFstandardele());
+					json.put("vol", repo.getFstandardvol());
+					json.put("time", sdf.format(repo.getFweldingtime()));
+					ary.add(json);
+				}
+				for(pageIndex=2;pageIndex<=total;pageIndex++){
+					List<Report> list1 = reportService.historyData(page,dto,fid,mach);
+					for(Report repo1:list1){
+						json.put("ele", repo1.getFstandardele());
+						json.put("vol", repo1.getFstandardvol());
+						json.put("time", sdf.format(repo1.getFweldingtime()));
+						ary.add(json);
+					}
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -657,9 +685,9 @@ public class ReportController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
-		String fid = request.getParameter("fid");
+		BigInteger fid = new BigInteger(request.getParameter("fid"));
 		try{
-				Report repo = reportService.getWps(fid);
+				Report repo = reportService.getWps(reportService.getWpsid(fid));
 				json.put("maxele", repo.getInsid());
 				json.put("minele", repo.getMachid());
 				json.put("maxvol", repo.getResult1());

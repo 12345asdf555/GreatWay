@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.spring.dto.WeldDto;
 import com.spring.model.EquipmentManufacturer;
 import com.spring.model.Gather;
 import com.spring.model.Insframework;
@@ -20,6 +22,8 @@ import com.spring.model.MyUser;
 import com.spring.model.WeldedJunction;
 import com.spring.model.WeldingMachine;
 import com.spring.page.Page;
+import com.spring.service.InsframeworkService;
+import com.spring.service.LiveDataService;
 import com.spring.service.WeldedJunctionService;
 import com.spring.util.IsnullUtil;
 
@@ -33,9 +37,13 @@ public class WeldedJunctionControll {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
-	private BigInteger welderid;
+	private String welderid;
 	@Autowired
 	private WeldedJunctionService wjm;
+	@Autowired
+	private InsframeworkService insm;
+	@Autowired
+	private LiveDataService lm;
 	IsnullUtil iutil = new IsnullUtil();
 	
 	@RequestMapping("/goWeldedJunction")
@@ -62,6 +70,20 @@ public class WeldedJunctionControll {
 		WeldedJunction wj = wjm.getWeldedJunctionById(id);
 		request.setAttribute("wj", wj);
 		return "weldingjunction/removeweldedjunction";
+	}
+	
+	@RequestMapping("/getWeldJun")
+	public String getWeldJun(HttpServletRequest request){
+		if(request.getParameter("fid")!=null&&request.getParameter("fid")!=""){
+			welderid = Integer.toHexString(Integer.valueOf(request.getParameter("fid")));
+			if(welderid.length()!=4){
+                int lenth=4-welderid.length();
+                for(int i=0;i<lenth;i++){
+                	welderid="0"+welderid;
+                }
+              }
+		}
+		return "td/HistoryCurve";
 	}
 	
 	@RequestMapping("/goShowMoreJunction")
@@ -153,6 +175,63 @@ public class WeldedJunctionControll {
 		return obj.toString();
 	}
 
+	@RequestMapping("/getJunctionByWelder")
+	@ResponseBody
+	public String getJunctionByWelder(HttpServletRequest request){
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String welder = Integer.toHexString(Integer.valueOf(request.getParameter("welder")));
+		if(welder.length()!=4){
+            int lenth=4-welder.length();
+            for(int i=0;i<lenth;i++){
+            	welder="0"+welder;
+            }
+          }
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		WeldDto dto = new WeldDto();
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		
+		page = new Page(pageIndex,pageSize,total);
+		List<WeldedJunction> list = wjm.getJunctionByWelder(page, welder, dto);
+		long total = 0;
+		
+		if(list != null){
+			PageInfo<WeldedJunction> pageinfo = new PageInfo<WeldedJunction>(list);
+			total = pageinfo.getTotal();
+		}
+		
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(WeldedJunction w:list){
+				json.put("weldedJunctionno", w.getWeldedJunctionno());
+//				json.put("externalDiameter", w.getExternalDiameter());
+//				json.put("wallThickness", w.getWallThickness());
+				json.put("maxElectricity", w.getMaxElectricity());
+				json.put("minElectricity", w.getMinElectricity());
+				json.put("maxValtage", w.getMaxValtage());
+				json.put("minValtage", w.getMinValtage());
+//				json.put("material", w.getMaterial());
+//				json.put("nextexternaldiameter", w.getNextexternaldiameter());
+				json.put("itemname", w.getItemid().getName());
+//				json.put("nextwall_thickness", w.getNextwall_thickness());
+//				json.put("next_material", w.getNext_material());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
 
 	@RequestMapping("/addWeldedJunction")
 	@ResponseBody
@@ -288,23 +367,55 @@ public class WeldedJunctionControll {
 		return data + "";
 	}
 	
-	@RequestMapping("/getWeldJun")
-	public String getWeldJun(HttpServletRequest request){
-		if(request.getParameter("fid")!=null&&request.getParameter("fid")!=""){
-			welderid = BigInteger.valueOf((Integer.parseInt(request.getParameter("fid"), 16)));
-		}
-		return "report/HistoryCurve";
-	}
-	
 	@RequestMapping("/getWeldingJun")
 	@ResponseBody
 	public String getWeldingJun(HttpServletRequest request){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String parentId = request.getParameter("parent");
+		String insid = request.getParameter("insid");
+		String type = request.getParameter("otype");
+		WeldDto dto = new WeldDto();
+		if(!iutil.isNull(parentId)){
+			//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				return "0";
+			}
+			int types = insm.getUserInsfType(uid);
+			if(types==21){
+				parentId = insm.getUserInsfId(uid).toString();
+			}
+		}
+		BigInteger parent = null;
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		if(iutil.isNull(type)){
+			if(type.equals("1")){
+				dto.setYear("year");
+			}else if(type.equals("2")){
+				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
+			}else if(type.equals("4")){
+				dto.setWeek("week");
+			}
+		}
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String serach = request.getParameter("searchStr");
 		
 		page = new Page(pageIndex,pageSize,total);
-		List<WeldedJunction> list = wjm.getWeldingJun(page, serach, welderid);
+		List<WeldedJunction> list = wjm.getJMByWelder(page, dto ,welderid);
 		long total = 0;
 		
 		if(list != null){
@@ -317,43 +428,25 @@ public class WeldedJunctionControll {
 		JSONObject obj = new JSONObject();
 		try{
 			for(WeldedJunction w:list){
+				json.put("firsttime", wjm.getFirsttime(dto, w.getMachid(),welderid , w.getWeldedJunctionno()));
+				json.put("lasttime", wjm.getLasttime(dto, w.getMachid(),welderid , w.getWeldedJunctionno()));
 				json.put("id", w.getId());
+				json.put("machid",w.getMachid());
+				json.put("machine_num", Integer.parseInt(w.getMachine_num(), 16));
 				json.put("weldedJunctionno", w.getWeldedJunctionno());
-				json.put("serialNo", w.getSerialNo());
-				json.put("pipelineNo", w.getPipelineNo());
-				json.put("roomNo", w.getRoomNo());
-				json.put("unit", w.getUnit());
-				json.put("area", w.getArea());
-				json.put("systems", w.getSystems());
-				json.put("children", w.getChildren());
-				json.put("externalDiameter", w.getExternalDiameter());
-				json.put("wallThickness", w.getWallThickness());
 				json.put("dyne", w.getDyne());
-				json.put("specification", w.getSpecification());
 				json.put("maxElectricity", w.getMaxElectricity());
 				json.put("minElectricity", w.getMinElectricity());
 				json.put("maxValtage", w.getMaxValtage());
 				json.put("minValtage", w.getMinValtage());
-				json.put("material", w.getMaterial());
-				json.put("nextexternaldiameter", w.getNextexternaldiameter());
-				json.put("itemname", w.getItemid().getName());
-				json.put("startTime", w.getStartTime());
-				json.put("endTime", w.getEndTime());
-				json.put("creatTime", w.getCreatTime());
-				json.put("updateTime", w.getUpdateTime());
-				json.put("updatecount", w.getUpdatecount());
-				json.put("nextwall_thickness", w.getNextwall_thickness());
-				json.put("next_material", w.getNext_material());
-				json.put("electricity_unit", w.getElectricity_unit());
-				json.put("valtage_unit", w.getValtage_unit());
 				ary.add(json);
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			e.getMessage();
 		}
 		obj.put("total", total);
 		obj.put("rows", ary);
 		return obj.toString();
 	}
-	
 }

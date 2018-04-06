@@ -5,6 +5,8 @@
 
 	<resultMap id="wjMap" type="com.spring.model.WeldedJunction">
         <id property="id" column="fid"></id> 
+        <result property="machid" column="machid"></result>  
+        <result property="machine_num" column="fequipment_no"></result> 
         <result property="weldedJunctionno" column="fwelded_junction_no"></result>  
         <result property="serialNo" column="fserial_no"></result>
         <result property="pipelineNo" column="fpipeline_no"></result>
@@ -45,6 +47,18 @@
         </association>
 	</resultMap>
 	
+	<resultMap id="wmMap" type="com.spring.model.WeldedJunction">
+        <id property="id" column="fid"></id> 
+        <result property="machid" column="machid"></result>  
+        <result property="machine_num" column="fequipment_no"></result> 
+        <result property="weldedJunctionno" column="fwelded_junction_no"></result>  
+        <result property="dyne" column="fdyne"></result>
+        <result property="maxElectricity" column="fmax_electricity"></result>
+        <result property="minElectricity" column="fmin_electricity"></result>
+        <result property="maxValtage" column="fmax_valtage"></result>
+        <result property="minValtage" column="fmin_valtage"></result>
+	</resultMap>
+	
 	<select id="getWeldedJunctionAll" resultMap="wjMap" parameterType="java.lang.String">
 		SELECT j. * , i.fid iid, i.fname iname FROM tb_welded_junction j INNER JOIN tb_insframework i ON j.fitemId = i.fid WHERE 1 =1
 		<if test="str!=null and str!=''">
@@ -52,11 +66,61 @@
 		</if>
 	</select>
 	
-	<select id="getWeldingJun" resultMap="wjMap" parameterType="java.lang.String">
-		SELECT j. * , i.fid iid, i.fname iname FROM tb_welded_junction j INNER JOIN tb_insframework i ON j.fitemId = i.fid WHERE 1 =1 and fwelded_junction_no in ( SELECT DISTINCT(fjunction_id) FROM `tb_live_data` where fwelder_id=#{welderid})
-		<if test="str!=null and str!=''">
-			and ${str}
+	<select id="getJunctionByWelder" resultMap="wjMap">
+		select fwelded_junction_no,i.fname iname ,fmax_electricity,fmin_electricity,fmax_valtage,fmin_valtage,fwall_thickness,fnextwall_thickness,Fmaterial,Fnext_material,fexternal_diameter,fnextExternal_diameter from tb_live_data l 
+		INNER join tb_welder w on l.fwelder_id = w.fwelder_no 
+		INNER join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemId = i.fid 
+		where l.fwelder_id=#{welder}
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>group by fjunction_id
+	</select>
+	
+	<select id="getFirsttime" resultType="java.lang.String">
+		SELECT `FWeldTime` FROM `tb_live_data` WHERE `fwelder_id`=#{welderid} AND `fmachine_id`=#{machineid} AND `fjunction_id`=#{junid} 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
 		</if>
+		ORDER BY `FWeldTime` ASC LIMIT 0,1
+	</select>
+	
+	<select id="getLasttime" resultType="java.lang.String">
+		SELECT `FWeldTime` FROM `tb_live_data` WHERE `fwelder_id`=#{welderid} AND `fmachine_id`=#{machineid} AND `fjunction_id`=#{junid} 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		ORDER BY `FWeldTime` DESC LIMIT 0,1
+	</select>
+	
+	<select id="getJMByWelder" resultMap="wmMap">
+		select m.fequipment_no,m.fid machid,fwelded_junction_no,fdyne,fmax_electricity,fmin_electricity,fmax_valtage,fmin_valtage from tb_live_data l 
+		INNER join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_welding_machine m on m.fid=l.fmachine_id
+		where l.fwelder_id=#{welderid}
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>group by m.fequipment_no,fwelded_junction_no
 	</select>
 	
 	<select id="getWeldedJunctionById" resultMap="wjMap" parameterType="java.lang.String">

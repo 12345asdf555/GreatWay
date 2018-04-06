@@ -417,7 +417,7 @@ public class WeldedJunctionControll {
 		String serach = request.getParameter("searchStr");
 		
 		page = new Page(pageIndex,pageSize,total);
-		List<WeldedJunction> list = wjm.getWeldingJun(page, dto, serach, welderid);
+		List<WeldedJunction> list = wjm.getJMByWelder(page, dto ,welderid);
 		long total = 0;
 		
 		if(list != null){
@@ -436,36 +436,15 @@ public class WeldedJunctionControll {
 				json.put("machid",w.getMachid());
 				json.put("machine_num", Integer.parseInt(w.getMachine_num(), 16));
 				json.put("weldedJunctionno", w.getWeldedJunctionno());
-				json.put("serialNo", w.getSerialNo());
-				json.put("pipelineNo", w.getPipelineNo());
-				json.put("roomNo", w.getRoomNo());
-				json.put("unit", w.getUnit());
-				json.put("area", w.getArea());
-				json.put("systems", w.getSystems());
-				json.put("children", w.getChildren());
-				json.put("externalDiameter", w.getExternalDiameter());
-				json.put("wallThickness", w.getWallThickness());
 				json.put("dyne", w.getDyne());
-				json.put("specification", w.getSpecification());
 				json.put("maxElectricity", w.getMaxElectricity());
 				json.put("minElectricity", w.getMinElectricity());
 				json.put("maxValtage", w.getMaxValtage());
 				json.put("minValtage", w.getMinValtage());
-				json.put("material", w.getMaterial());
-				json.put("nextexternaldiameter", w.getNextexternaldiameter());
-				json.put("itemname", w.getItemid().getName());
-				json.put("startTime", w.getStartTime());
-				json.put("endTime", w.getEndTime());
-				json.put("creatTime", w.getCreatTime());
-				json.put("updateTime", w.getUpdateTime());
-				json.put("updatecount", w.getUpdatecount());
-				json.put("nextwall_thickness", w.getNextwall_thickness());
-				json.put("next_material", w.getNext_material());
-				json.put("electricity_unit", w.getElectricity_unit());
-				json.put("valtage_unit", w.getValtage_unit());
 				ary.add(json);
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			e.getMessage();
 		}
 		obj.put("total", total);

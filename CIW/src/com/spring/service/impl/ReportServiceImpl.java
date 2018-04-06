@@ -29,7 +29,7 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public Report getWps(String wpsid) {
+	public Report getWps(BigInteger wpsid) {
 		// TODO Auto-generated method stub
 		return mapper.getWps(wpsid);
 	}
@@ -101,9 +101,10 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public List<Report> historyData(WeldDto dto,BigInteger fid) {
+	public List<Report> historyData(Page page,WeldDto dto,String fid,BigInteger mach) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		// TODO Auto-generated method stub
-		return mapper.historyData(dto,fid);
+		return mapper.historyData(dto,fid,mach);
 	}
 	
 }

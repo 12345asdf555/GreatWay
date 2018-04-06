@@ -58,11 +58,11 @@ public class WeldedJunctionServiceImpl implements WeldedJunctionService{
 	}
 
 	@Override
-	public List<WeldedJunction> getWeldingJun(Page page, WeldDto dto, String str, String welderid) {
+	public List<WeldedJunction> getJMByWelder(Page page, WeldDto dto, String welderid) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return wjm.getWeldingJun(dto, str, welderid);
+		return wjm.getJMByWelder(dto,welderid);
 	}
-
+	
 	@Override
 	public String getFirsttime(WeldDto dto, BigInteger machineid, String welderid, String junid) {
 		// TODO Auto-generated method stub

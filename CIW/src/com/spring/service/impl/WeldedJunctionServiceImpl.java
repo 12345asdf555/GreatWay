@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.spring.dao.WeldedJunctionMapper;
+import com.spring.dto.WeldDto;
 import com.spring.model.WeldedJunction;
 import com.spring.page.Page;
 import com.spring.service.WeldedJunctionService;
@@ -51,9 +52,28 @@ public class WeldedJunctionServiceImpl implements WeldedJunctionService{
 	}
 	
 	@Override
-	public List<WeldedJunction> getWeldingJun(Page page, String str, BigInteger welderid) {
+	public List<WeldedJunction> getJMByWelder(Page page, WeldDto dto, String welderid) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return wjm.getWeldingJun(str,welderid);
+		return wjm.getJMByWelder(dto,welderid);
+	}
+
+	@Override
+	public List<WeldedJunction> getJunctionByWelder(Page page, String welder, WeldDto dto) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return wjm.getJunctionByWelder(welder, dto);
+	}
+
+	@Override
+	public String getFirsttime(WeldDto dto, BigInteger machineid, String welderid, String junid) {
+		// TODO Auto-generated method stub
+		return wjm.getFirsttime(dto,machineid,welderid,junid);
+	}
+
+	@Override
+	public String getLasttime(WeldDto dto, BigInteger machineid, String welderid, String junid) {
+		// TODO Auto-generated method stub
+		return wjm.getLasttime(dto,machineid,welderid,junid);
 	}
 
 }

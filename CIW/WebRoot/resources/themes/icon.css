@@ -82,6 +82,12 @@
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
 }
+.icon-pause{
+	background:url('icons/pause.png') no-repeat center center;
+}
+.icon-play{
+	background:url('icons/play.png') no-repeat center center;
+}
 
 
 

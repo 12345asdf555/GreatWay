@@ -62,7 +62,7 @@ public class ExportExcelController {
 			Object[][] data = new Object[list.size()][11];
 			for(int i =0; i<list.size();i++){
 				data[i][0] = list.get(i).getId();
-				data[i][1] = list.get(i).getEquipmentNo();
+				data[i][1] = Integer.parseInt(list.get(i).getEquipmentNo(), 16);
 				data[i][2] = list.get(i).getTypename();
 				data[i][3] = list.get(i).getJoinTime();
 				data[i][4] = list.get(i).getInsframeworkId().getName();
