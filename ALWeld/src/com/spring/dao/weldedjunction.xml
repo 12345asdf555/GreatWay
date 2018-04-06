@@ -104,7 +104,7 @@
 		ORDER BY `FWeldTime` DESC LIMIT 0,1
 	</select>
 	
-	<select id="getWeldingJun" resultMap="wjMap" parameterType="java.lang.String">
+	<select id="getWeldingJun" resultMap="wjMap">
 		SELECT m.fequipment_no fequipment_no ,m.fid machid,
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
@@ -132,7 +132,7 @@
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>
-		GROUP BY m.fequipment_no
+		GROUP BY m.fequipment_no,j.fwelded_junction_no
 	</select>
 	
 	<insert id="addJunction" parameterType="com.spring.model.WeldedJunction">
