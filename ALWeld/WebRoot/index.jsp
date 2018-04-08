@@ -46,17 +46,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
   	
   	<div region="west" hide="true" split="true" title="导航菜单 navigate" style="width: 260px;" id="west" data-options="iconCls:'icon-setting'">
-	  	<div class="easyui-accordion" fit="true" border="false" id="accordiondiv">
+	  	<div class="easyui-accordion" border="false" id="accordiondiv">
 			<div title="信息管理中心<br/>information management" data-options="iconCls:'icon-manage'">
 				<ul>
 			        <li><a href="javascript:openPerson()" ><div class="imgdiv"><img src="resources/images/1_35.png" /></div><div>焊工管理<br/>welder management</div></a></li>
 			        <li><a href="javascript:openWedJunction()"><div class="imgdiv"><img src="resources/images/1_38.png" /></div><div>焊缝管理<br/>welding bead management</div></a></li>
 					<li><a href="javascript:openWeldingMachine()"><div class="imgdiv"><img src="resources/images/1_40.png" /></div><div>焊机设备管理<br/>welding equipment management</div></a></li>
-			        <li><a href="javascript:openGather()"><div class="imgdiv"><img src="resources/images/1_42.png" /></div><div>采集模块管理<br/>gather module management</div></a></li>
+			        <li class="libottom"><a href="javascript:openGather()"><div class="imgdiv"><img src="resources/images/1_42.png" /></div><div>采集模块管理<br/>gather module management</div></a></li>
 		        </ul>
 		    </div>
 		    
-			<div title="报表统计中心<br/>report form statistics" data-options="iconCls:'icon-statistics',selected:true">
+			<div title="报表统计中心<br/>report form statistics" data-options="iconCls:'icon-statistics'">
 				<ul>
 					<li><a href="javascript:openCompanyTd()"><div class="imgdiv"><img src="resources/images/1_48.png" /></div><div>实时监控<br/>real monitoring</div></a></li>
 					<li><a href="javascript:openCompanyLoads()"><div class="imgdiv"><img src="resources/images/1_53.png" /></div><div>负荷率<br/>loading rate</div></a></li>
@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <li><a href="javascript:openWeldingmachineMax()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div>焊机工时最高<br/>max working time(machine)</div></a></li>
 			        <li><a href="javascript:openWeldingmachineMin()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div>焊机工时最低<br/>min working time(machine)</div></a></li>
 			        <li><a href="javascript:openWelderMax()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div>焊工工时最高<br/>max working time(welder)</div></a></li>
-			        <li><a href="javascript:openWelderMin()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div>焊工工时最低<br/>min working time(welder)</div></a></li>
+			        <li class="libottom"><a href="javascript:openWelderMin()"><div class="imgdiv"><img src="resources/images/1_69.png" /></div><div>焊工工时最低<br/>min working time(welder)</div></a></li>
 		        </ul>
 		    </div>
 	    </div>

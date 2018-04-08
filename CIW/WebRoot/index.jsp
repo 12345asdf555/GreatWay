@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
   	
   	<div region="west" hide="true" split="true" title="导航菜单" style="width: 200px;" id="west" data-options="iconCls:'icon-setting'">
-	  	<div class="easyui-accordion" fit="true" border="false" id="accordiondiv">
+	  	<div class="easyui-accordion" border="false" id="accordiondiv">
 			<div title="信息管理中心" data-options="iconCls:'icon-manage'">
 				<ul>
 					<li><a href="javascript:openUser()"><img src="resources/images/1_35.png" />&nbsp;用户管理</a></li>
@@ -61,11 +61,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <li><a href="javascript:openInsframework()"><img src="resources/images/1_38.png" />&nbsp;组织机构管理</a></li>
 					<li><a href="javascript:openWeldingMachine()"><img src="resources/images/1_40.png" />&nbsp;焊机设备管理</a></li>
 			        <li><a href="javascript:openGather()"><img src="resources/images/1_42.png" />&nbsp;采集模块管理</a></li>
-			        <li><a href="javascript:openParameter()"><img src="resources/images/1_42.png" />&nbsp;参数设置</a></li>
+			        <li class="libottom"><a href="javascript:openParameter()"><img src="resources/images/1_42.png" />&nbsp;参数设置</a></li>
 		        </ul>
 		    </div>
 		    
-			<div title="报表统计中心" data-options="iconCls:'icon-statistics',selected:true">
+			<div title="报表统计中心" data-options="iconCls:'icon-statistics'">
 				<ul>
 					<li><a href="javascript:openCompanyTd()"><img src="resources/images/1_48.png" />&nbsp;实时监控</a></li>
 					<li><a href="javascript:openHistory()"><img src="resources/images/1_62.png" />&nbsp;历史曲线</a></li>
@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <li><a href="javascript:openWelderMin()"><img src="resources/images/1_69.png" />&nbsp;焊工工时最低</a></li>
 			        <li><a href="javascript:openWeldParameter()"><img src="resources/images/1_69.png" />&nbsp;焊接参数维度表</a></li>
 			        <li><a href="javascript:openWireUse()"><img src="resources/images/1_69.png" />&nbsp;焊丝用量维度表</a></li>
-    				<li><a href="javascript:openCompanyUse()"><img src="resources/images/1_62.png" />&nbsp;单台设备运行数据统计</a></li>
+    				<li class="libottom"><a href="javascript:openCompanyUse()"><img src="resources/images/1_62.png" />&nbsp;单台设备运行数据统计</a></li>
 		        </ul>
 		    </div>
 	    </div>

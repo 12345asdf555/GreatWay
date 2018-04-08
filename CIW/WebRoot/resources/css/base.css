@@ -379,6 +379,10 @@ select::-ms-expand {
 	padding-left: 20px;
 }
 
+.libottom{
+	 padding-bottom: 10px;
+}
+
 .divborder{
 	border-bottom: 3px solid #328FC4;
 }
