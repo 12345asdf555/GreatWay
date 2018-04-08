@@ -42,6 +42,7 @@
 	var data1;
 	var namex;
 	var tryTime = 0;
+	var heartflag = false;
 	$(function(){
 		$.ajax({  
 		      type : "post",  
@@ -199,24 +200,46 @@
     	
 		};
 		//关闭事件
-		socket.onclose = function() {
-				if (tryTime < 3) {
+		socket.onclose = function(e) {
+            heartflag = false;
+            if (e.code == 4001 || e.code == 4002 || e.code == 4003 || e.code == 4005 || e.code == 4006){
+                //如果断开原因为4001 , 4002 , 4003 不进行重连.
+                return;
+            }else{
+                return;
+            }
+
+            // 重试3次，每次之间间隔5秒
+            if (tryTime < 3) {
                 setTimeout(function () {
-                	socket = null;
+                    socket = null;
                     tryTime++;
+                    var _PageHeight = document.documentElement.clientHeight,  
+                    _PageWidth = document.documentElement.clientWidth;   
+                    var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,  
+                    	_LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;  
+                    var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.8;filter:alpha(opacity=80);z-index:10000;"><div style="position: absolute; cursor1: wait; left: ' + _LoadingLeft + 'px; top:' + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 50px; padding-right: 5px; background: #fff url(resources/images/loading.png) no-repeat scroll 5px 10px; border: 2px solid #95B8E7; color: #696969;">""连接异常，正在尝试第"'+tryTime+'"次重连，请稍候..."</div></div>';  
+                	document.write(_LoadingHtml);
                     ws();
-                    alert("正在尝试连接服务器");
-                }, 1000);
+                }, 3000);
             } else {
                 tryTime = 0;
-                alert("服务器链接失败");
             }
-		};
+        };
 		//发生了错误事件
 		socket.onerror = function() {
 /*				socket.onopen();*/
+			heartflag = false;
 		}
 	};
+
+    function heart() {
+        if (heartflag){
+            socket.send("&");
+        }
+        setTimeout("heart()", 10*60*1000);
+
+    }
 	
 	function rece1(value2){
 		bb=1;

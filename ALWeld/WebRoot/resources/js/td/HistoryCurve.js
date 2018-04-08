@@ -32,6 +32,11 @@ function setParam(){
 		function serachCompanyOverproof(){
 /*			$('#body1').html("");
 			$('#body2').html("");*/
+			window.clearInterval(timer1);
+			window.clearInterval(timer2);
+        	$('#body1').html("");
+			$('#body2').html("");
+			$('#dg').datagrid('clearSelections');
 			$("#dg").datagrid("loadData", { total: 0, rows: [] });
 			chartStr = "";
 			setParam();
@@ -123,67 +128,11 @@ function setParam(){
 					halign : "center",
 					align : "left"
 				}, {
-					field : 'serialNo',
-					title : '序列号',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'pipelineNo',
-					title : '管线号',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'roomNo',
-					title : '房间号',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'unit',
-					title : '机组',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'area',
-					title : '区域',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'systems',
-					title : '系统',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'children',
-					title : '子项',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
 					field : 'dyne',
 					title : '达因',
 					width : 90,
 					halign : "center",
 					align : "left"
-				}, {
-					field : 'specification',
-					title : '规格',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
 				}, {
 					field : 'maxElectricity',
 					title : '电流上限',
@@ -206,12 +155,6 @@ function setParam(){
 					field : 'minValtage',
 					title : '电压下限',
 					width : 90,
-					halign : "center",
-					align : "left"
-				}, {
-					field : 'itemname',
-					title : '所属项目',
-					width : 150,
 					halign : "center",
 					align : "left"
 				}, {
@@ -239,55 +182,6 @@ function setParam(){
 					halign : "center",
 					align : "left",
 					hidden:true
-				},{
-					field : 'startTime',
-					title : '开始时间',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'endTime',
-					title : '完成时间',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'creatTime',
-					title : '创建时间',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'updateTime',
-					title : '修改时间',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'updatecount',
-					title : '修改次数',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'valtage_unit',
-					title : '电压单位',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
-				}, {
-					field : 'electricity_unit',
-					title : '电流单位',
-					width : 90,
-					halign : "center",
-					align : "left",
-					hidden:true
 				}] ],
 				toolbar : '#disctionaryTable_btn',
 				pagination : true,
@@ -302,6 +196,10 @@ function setParam(){
 		        onClickRow: function(index,row){
 		        	$('#body1').html("");
 					$('#body2').html("");
+					document.getElementById("load").style.display="block";
+					var sh = '<div id="show" style="align="center"">正在加载，请稍等...</div>';
+					$("#body").append(sh);
+					document.getElementById("show").style.display="block";
 					chartStr = "";
 					setParam();
 					   $.ajax({
@@ -338,14 +236,21 @@ function setParam(){
 						   success: function (result) {
 						      if (result) {
 						    	  var date = eval(result.rows);
+						    	  if(date.length==0){
+						    		  document.getElementById("load").style.display ='none';
+						    		  document.getElementById("show").style.display ='none';
+						    		  alert("该时间内未查询到相关数据")
+						    	  }else{
 						    	  for(var i=0;i<date.length;i++){
 						    		  ele[i] = date[i].ele;
 						    		  vol[i] = date[i].vol;
 						    		  time1[i] = Date.parse(date[i].time);
 						    	  }
-
-									curve();
-									curve1();
+							      curve();
+								  curve1();
+					    		  document.getElementById("load").style.display ='none';
+					    		  document.getElementById("show").style.display ='none';
+						    	  }
 						      }
 						   },
 						   error: function () {

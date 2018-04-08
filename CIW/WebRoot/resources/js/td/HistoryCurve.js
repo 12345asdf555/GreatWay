@@ -32,6 +32,11 @@ function setParam(){
 		function serachCompanyOverproof(){
 /*			$('#body1').html("");
 			$('#body2').html("");*/
+			window.clearInterval(timer1);
+			window.clearInterval(timer2);
+        	$('#body1').html("");
+			$('#body2').html("");
+			$('#dg').datagrid('clearSelections');
 			$("#dg").datagrid("loadData", { total: 0, rows: [] });
 			chartStr = "";
 			setParam();
@@ -191,6 +196,10 @@ function setParam(){
 		        onClickRow: function(index,row){
 		        	$('#body1').html("");
 					$('#body2').html("");
+					document.getElementById("load").style.display="block";
+					var sh = '<div id="show" style="align="center"">正在加载，请稍等...</div>';
+					$("#body").append(sh);
+					document.getElementById("show").style.display="block";
 					chartStr = "";
 					setParam();
 					   $.ajax({
@@ -227,14 +236,21 @@ function setParam(){
 						   success: function (result) {
 						      if (result) {
 						    	  var date = eval(result.rows);
+						    	  if(date.length==0){
+						    		  document.getElementById("load").style.display ='none';
+						    		  document.getElementById("show").style.display ='none';
+						    		  alert("该时间内未查询到相关数据")
+						    	  }else{
 						    	  for(var i=0;i<date.length;i++){
 						    		  ele[i] = date[i].ele;
 						    		  vol[i] = date[i].vol;
 						    		  time1[i] = Date.parse(date[i].time);
 						    	  }
-
-									curve();
-									curve1();
+							      curve();
+								  curve1();
+					    		  document.getElementById("load").style.display ='none';
+					    		  document.getElementById("show").style.display ='none';
+						    	  }
 						      }
 						   },
 						   error: function () {

@@ -56,8 +56,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="dgtb" style="width:100%;height:50%">
 			<table id="dg" style="table-layout:fixed;width:100%;"></table>
 		</div>
-		<div id="body1" style="width:100%;height:20%"></div>
-		<div id="body2" style="width:100%;height:20%"></div>
+		<div id="load" style="width:100%;height:40%;">
+		</div>
+		<div id="body1" style="position:absolute;top:63%;width:100%;height:20%"></div>
+		<div id="body2" style="position:absolute;top:81.5%;width:100%;height:20%"></div>
 		<a class="easyui-linkbutton"  href="javascript:addtime()" iconCls="icon-add">加速</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a class="easyui-linkbutton" href="javascript:reducetime()" iconCls="icon-remove">减速</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a class="easyui-linkbutton"  href="javascript:starttime()" iconCls="icon-play">开始</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -70,6 +72,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<input name="welname" id="welname" readonly="true" style="text-align:center">
 		</div> -->
 	</div>
+	<style type="text/css">
+    #load{ display: none; position: absolute; top: 63%; left: 0%; width: 100%; height: 37%; background-color: black; z-index:1001; -moz-opacity: 0.4; opacity:.40; filter: alpha(opacity=70);}
+	#show{display: none; position: absolute; top: 80%; left: 45%; width: 10%; height: 5%; padding: 8px; border: 8px solid #E8E9F7; background-color: white; z-index:1002; overflow: auto;}
+	</style>
 </body>
 </html>
  
