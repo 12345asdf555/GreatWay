@@ -32,11 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout" style="background:#ffffff;">
-  	<jsp:include  page="../insframeworktree.jsp"/>
     <div  id="body" region="center"  hide="true"  split="true" style="background: white; height: 335px;">
-	  	<div class="divborder" style="margin-bottom: 20px;">
-	  		<div class="divtitle">新增组织机构</div>
-	  	</div>
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div class="fitem">
@@ -64,7 +60,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a href="insframework/goInsframework" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 				</div>
 			</form>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
 		</div>
 	</div>
   </body>

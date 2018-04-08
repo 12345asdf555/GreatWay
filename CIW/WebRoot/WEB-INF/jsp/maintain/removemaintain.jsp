@@ -32,9 +32,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout" style="background:#ffffff;">
-	<div class="divborder">
-  		<div class="divtitle">删除维修记录</div>
-  	</div>
     <div  id="body" region="north"  hide="true"  split="true" style="background: white;height:80%;margin-top:70px;">
 		<div style="text-align: center "><br/>
 			<div class="fitem">
@@ -67,7 +64,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="maintain/goMaintain" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 			</div>
 		</div>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
     </div>
   </body>
 </html>

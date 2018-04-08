@@ -17,8 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 
-	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
-	<link rel="stylesheet" type="text/css" href="resources/css/datagrid.css" />
+	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	
@@ -30,9 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   <body  class="easyui-layout" style="background:#ffffff;">
-	<div class="divborder">
-  		<div class="divtitle">请选择焊机</div>
-  	</div>
     <div  id="body" region="north"  hide="true"  split="true" style="background: white;height:80%;margin-top:70px;">
 		<div style="text-align: center ">
 		<div align="center">
@@ -49,7 +45,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        </lable>
 	    	</div>
     </div>
-    </div>
-  	<jsp:include  page="../tenghanbottom.jsp"/>
+    </div>
 </body>
 </html>

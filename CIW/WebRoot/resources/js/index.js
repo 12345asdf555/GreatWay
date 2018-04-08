@@ -225,3 +225,9 @@ function tabsIncident(){
 	});
 }
 
+//选中时改变背景颜色
+function changeColor(obj){
+	$("ul li").css("backgroundColor","#ffffff");
+	obj.style.background = "#fecf5d";
+}
+

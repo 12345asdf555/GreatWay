@@ -31,13 +31,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout" style="background:#ffffff;">
-  	<div class="divborder">
-  		<div class="divtitle">产品管理</div>
-  	</div>
    <div id="body" region="center"  hide="true"  split="true" style="background: #eee; height: 335px;margin-top:70px;">
 	  	
         <table id="dg" style="table-layout:fixed;width:100%"></table>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
 
         <div id="toolbar" style="margin-bottom: 5px;">
         	<a href="javascript:addProduct()" class="easyui-linkbutton" iconCls="icon-add">新增</a>

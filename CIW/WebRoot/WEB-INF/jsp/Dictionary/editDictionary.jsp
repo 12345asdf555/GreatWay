@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/common.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/iconfont.css">
-	
+
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
@@ -31,9 +31,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   	
   <body  class="easyui-layout" style="background:#ffffff;">
-	<div class="divborder">
-  		<div class="divtitle">修改字典</div>
-  	</div>
     <div  id="body" region="north"  hide="true"  split="true" style="background: white;height:80%;margin-top:70px;">
     		<div style="text-align: center ">
     				<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
@@ -61,7 +58,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    			</div>
     					</div>
     				</form>
-  			<jsp:include  page="../tenghanbottom.jsp"/>
     		</div>
     	</div>
   </body>

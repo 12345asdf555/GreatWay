@@ -29,9 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   <body  class="easyui-layout" style="background:#ffffff;">
-  	<div class="divborder">
-  		<div class="divtitle">分配用户</div>
-  	</div>
 	<div  id="body" region="north"  hide="true"  split="true" style="background: white; height: 80%;margin-top:70px;">
         <div data-options="region:'center',title:'',iconCls:'icon-ok'">
     
@@ -49,8 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="margin-bottom:20px" align="center">
                 <table id="tt" title="用户列表" checkbox="true" style="table-layout:fixed;width:100%"></table>
             </div>
-    </form>
-  	<jsp:include  page="../tenghanbottom.jsp"/>
+    </form>
     </div>
    <div id="dlg-buttons" style="text-align: center ">
         <a href="role/AllRole" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveRole()" style="width:90px">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

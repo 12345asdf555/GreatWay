@@ -59,8 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <a href="role/AllRole" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 				</lable>
 		   </div> 
-    </form>
-  	<jsp:include  page="../tenghanbottom.jsp"/>
+    </form>
     </div>
     <script type="text/javascript">
             $(function(){

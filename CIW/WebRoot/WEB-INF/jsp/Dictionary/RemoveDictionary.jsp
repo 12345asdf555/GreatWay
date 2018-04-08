@@ -30,9 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout" style="background:#ffffff;">
-	<div class="divborder">
-  		<div class="divtitle">删除字典</div>
-  	</div>
     <div  id="body" region="north"  hide="true"  split="true" style="background: white;height:80%;margin-top:70px;">
     	<div style="text-align: center ">
     		<div><br/>
@@ -52,7 +49,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</lable>
 			    </div>
     	</div>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
     </div>
   </body>
   <script type="text/javascript">

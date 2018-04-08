@@ -33,10 +33,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body  class="easyui-layout" style="background:#ffffff;">
   	<jsp:include  page="../insframeworktree.jsp"/>
   	<div id="body" region="center"  hide="true"  split="true" style="background: witch; width:auto; height: 335px;" >
-	  	
-	  	<div class="divborder" style="margin-bottom: 20px;">
-	  		<div class="divtitle">组织机构管理</div>
-	  	</div>
 	  	<div id="insframework_btn">
 			<div style="margin-bottom: 5px;">
 				<a href="insframework/goaddInsframework" class="easyui-linkbutton" iconCls="icon-add">新增</a>
@@ -45,7 +41,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 	    <table id="insframeworkTable" style="table-layout: fixed; width:100%;"></table>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
 	    
 	    <!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">

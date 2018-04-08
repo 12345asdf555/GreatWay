@@ -30,9 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   <body  class="easyui-layout" style="background:#ffffff;">
-  	<div class="divborder">
-  		<div class="divtitle">删除用户</div>
-  	</div>
 <div  id="body" region="north"  hide="true"  split="true" style="background: white; height: 335px;height:80%;margin-top:70px;">
     <div id="toolbar" style="text-align: center ">
        <form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
@@ -81,7 +78,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        </lable>
 	    	</div>
         </form>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
     </div> 
     
     <script type="text/javascript">

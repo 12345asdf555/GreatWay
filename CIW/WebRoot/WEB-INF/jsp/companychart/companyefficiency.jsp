@@ -58,8 +58,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <table id="companyEfficiencyTable" style="table-layout: fixed; width:100%;"></table>
 	    
 	</div>
-    <div id="body" region="south"  hide="true"  split="true" style="background: witch;">
-	    <jsp:include  page="../tenghanbottom.jsp"/>
-    </div>
   </body>
 </html>

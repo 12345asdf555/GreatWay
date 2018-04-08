@@ -31,9 +31,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout" style="background:#ffffff;">
-  	<div class="divborder">
-  		<div class="divtitle">删除焊机设备</div>
-  	</div>
 <%--   	<jsp:include  page="../insframeworktree.jsp"/> --%>
     <div  id="body" region="north"  hide="true"  split="true" style="background: white;height:80%;margin-top:70px;">
 		<div style="text-align: center ">
@@ -90,7 +87,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</label>
 			</div>
 		</div>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
     </div>
   </body>
 </html>

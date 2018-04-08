@@ -69,7 +69,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</form>
 		</div>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
 	</div>
   </body>
 </html>

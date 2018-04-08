@@ -17,7 +17,7 @@
   position: relative;
 }
 .panel-title {
-  background: #328FC4;/*导航菜单title色*/
+  background: #dfe0e0;/*导航菜单title色*/
 }
 .panel-header-noborder {
   border-width: 0 0 1px 0;
@@ -109,14 +109,14 @@
   border-color: #a7aaab;/*边框线*/
 }
 .panel-header {
-  background-color: #328FC4;
-  background: #328FC4;/*导航菜单边框色*/
-  /*background: -webkit-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
-  background: -moz-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
-  background: -o-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
+  background-color: #dfe0e0;
+  background: #dfe0e0;/*导航菜单边框色*/
+  /*background: -webkit-linear-gradient(top,#EFF5FF 0,#dfe0e0 100%);
+  background: -moz-linear-gradient(top,#EFF5FF 0,#dfe0e0 100%);
+  background: -o-linear-gradient(top,#EFF5FF 0,#dfe0e0 100%);
   background: linear-gradient(to bottom,#2da4d7 0,#2da4d7 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#328FC4,GradientType=0);*/
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#dfe0e0,GradientType=0);*/
 }
 .panel-body {
   background-color: #ffffff;
@@ -126,7 +126,7 @@
 .panel-title {
   font-size: 12px;
   font-weight: bold;
-  color: #ffffff;/**/
+  color: #000000;/**/
   height: 16px;
   line-height: 16px;
 }
@@ -142,7 +142,7 @@
 }
 .accordion .accordion-body {
   border-width: 0 0 1px;
-  background-color: #eaedf0;/*当行菜单展开时背景颜色*/
+  background-color: #ffffff;/*当行菜单展开时背景颜色*/
  /* background:url('images/4-08.png') no-repeat;设置导航菜单背景图片*/
 }
 .accordion-noborder {
@@ -161,19 +161,19 @@
   background: url('images/accordion_arrows.png') no-repeat -16px 0;
 }
 .accordion {
-  background: #eaedf0;/*导航菜单折叠时留白背景色*/
+  background: #ffffff;/*导航菜单折叠时留白背景色*/
   /*background:url('images/4-08.png') no-repeat;设置导航菜单背景图片*/
   border-color: #95B8E7;
 }
 .accordion .accordion-header {
-  background: #328FC4;/*导航菜单边框*/
+  background: #dfe0e0;/*导航菜单边框*/
   filter: none;
 }
 .accordion .accordion-header-selected {
-  background: #3f9dbf;/*导航菜单选中颜色*/
+  background: #d7dbde;/*导航菜单选中颜色*/
 }
 .accordion .accordion-header-selected .panel-title {
-  color: #ffffff;/**/
+  color: #000000;/**/
 }
 .window {
   overflow: hidden;
@@ -182,7 +182,7 @@
   border-style: solid;
 }
 .window .window-header {
-  background: #328FC4;/**/
+  background: #dfe0e0;/**/
   padding: 0px 0px 6px 0px;
 }
 .window .window-body {
@@ -247,14 +247,14 @@
   border-color: #95B8E7;
 }
 .window {
-  background-color: #328FC4;
-  background: #328FC4 /*dialog边框*/
-/*  background: -webkit-linear-gradient(top,#EFF5FF 0,#328FC4 20%);
-  background: -moz-linear-gradient(top,#EFF5FF 0,#328FC4 20%);
-  background: -o-linear-gradient(top,#EFF5FF 0,#328FC4 20%);
+  background-color: #dfe0e0;
+  background: #dfe0e0 /*dialog边框*/
+/*  background: -webkit-linear-gradient(top,#EFF5FF 0,#dfe0e0 20%);
+  background: -moz-linear-gradient(top,#EFF5FF 0,#dfe0e0 20%);
+  background: -o-linear-gradient(top,#EFF5FF 0,#dfe0e0 20%);
   background: linear-gradient(to bottom,#3578ca 0,#48A1E5 20%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#328FC4,GradientType=0);*/
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#dfe0e0,GradientType=0);*/
 }
 .window-proxy {
   border: 1px dashed #95B8E7;
@@ -346,11 +346,11 @@
   background-color: #ffffff;
 }
 .combo {
-  border-color: #328FC4;/**/
-  background-color: #328FC4;/**/
+  border-color: #dfe0e0;/**/
+  background-color: #dfe0e0;/**/
 }
 .combo-arrow {
-  background-color: #328FC4;
+  background-color: #dfe0e0;
 }
 .combo-arrow-hover {
   background-color: #eaf2ff;
@@ -407,7 +407,7 @@
 }
 .layout-expand .panel-header,
 .layout-expand .panel-body {
-  background: #328FC4;/*layout收缩边框颜色*/
+  background: #dfe0e0;/*layout收缩边框颜色*/
   filter: none;
   overflow: hidden;
 }
@@ -465,10 +465,10 @@
   border-right: 5px solid #f3f3f3;/*分割线颜色*/
 }
 .layout-expand {
-  background-color: #328FC4;
+  background-color: #dfe0e0;
 }
 .layout-expand-over {
-  background-color: #328FC4;
+  background-color: #dfe0e0;
 }
 .tabs-container {
   overflow: hidden;
@@ -484,7 +484,7 @@
 }
 .tabs-header-plain {
   border: 0;
-  background: #328FC4;/**/
+  background: #dfe0e0;/**/
 }
 .tabs-scroller-left,
 .tabs-scroller-right {
@@ -732,66 +732,66 @@
   background: transparent;
 }
 .tabs-scroller-left {
-  background: #729fcf url('images/tabs_icons.png') no-repeat 1px center;/*tabs过多时左移背景色*/
+  background: #d7dbde url('images/tabs_icons.png') no-repeat 1px center;/*tabs过多时左移背景色*/
 }
 .tabs-scroller-right {
-  background: #729fcf url('images/tabs_icons.png') no-repeat -15px center;/**/
+  background: #d7dbde url('images/tabs_icons.png') no-repeat -15px center;/**/
 }
 .tabs li a.tabs-close {
   background: url('images/tabs_icons.png') no-repeat -34px center;
 }
 .tabs li a.tabs-inner:hover {
-  background: #729fcf;/*tabs悬停颜色*/
-  color: #ffffff;/**/
+  background: #d7dbde;/*tabs悬停颜色*/
+  color: #000000;/**/
   filter: none;
 }
 .tabs li.tabs-selected a.tabs-inner {
-  background-color: #328FC4;/**/
-  color: #ffffff;
-  background: -webkit-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
-  background: -moz-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
-  background: -o-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
-  background: #729fcf;/*tabs选中时背景颜色*/
+  background-color: #dfe0e0;/**/
+  color: #000000;
+  background: -webkit-linear-gradient(top,#d7dbde 0,#ffffff 100%);
+  background: -moz-linear-gradient(top,#d7dbde 0,#ffffff 100%);
+  background: -o-linear-gradient(top,#d7dbde 0,#ffffff 100%);
+  background: #fecf5d;/*tabs选中时背景颜色*/
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#ffffff,GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#d7dbde,endColorstr=#ffffff,GradientType=0);
 }
 .tabs-header-bottom .tabs li.tabs-selected a.tabs-inner {
-  background: -webkit-linear-gradient(top,#ffffff 0,#EFF5FF 100%);
-  background: -moz-linear-gradient(top,#ffffff 0,#EFF5FF 100%);
-  background: -o-linear-gradient(top,#ffffff 0,#EFF5FF 100%);
-  background: linear-gradient(to bottom,#ffffff 0,#EFF5FF 100%);
+  background: -webkit-linear-gradient(top,#ffffff 0,#d7dbde 100%);
+  background: -moz-linear-gradient(top,#ffffff 0,#d7dbde 100%);
+  background: -o-linear-gradient(top,#ffffff 0,#d7dbde 100%);
+  background: linear-gradient(to bottom,#ffffff 0,#d7dbde 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#EFF5FF,GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#d7dbde,GradientType=0);
 }
 .tabs-header-left .tabs li.tabs-selected a.tabs-inner {
-  background: -webkit-linear-gradient(left,#EFF5FF 0,#ffffff 100%);
-  background: -moz-linear-gradient(left,#EFF5FF 0,#ffffff 100%);
-  background: -o-linear-gradient(left,#EFF5FF 0,#ffffff 100%);
-  background: linear-gradient(to right,#EFF5FF 0,#ffffff 100%);
+  background: -webkit-linear-gradient(left,#f5f5f5 0,#ffffff 100%);
+  background: -moz-linear-gradient(left,#f5f5f5 0,#ffffff 100%);
+  background: -o-linear-gradient(left,#f5f5f5 0,#ffffff 100%);
+  background: linear-gradient(to right,#f5f5f5 0,#ffffff 100%);
   background-repeat: repeat-y;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#ffffff,GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f5f5f5,endColorstr=#ffffff,GradientType=1);
 }
 .tabs-header-right .tabs li.tabs-selected a.tabs-inner {
-  background: -webkit-linear-gradient(left,#ffffff 0,#EFF5FF 100%);
-  background: -moz-linear-gradient(left,#ffffff 0,#EFF5FF 100%);
-  background: -o-linear-gradient(left,#ffffff 0,#EFF5FF 100%);
-  background: linear-gradient(to right,#ffffff 0,#EFF5FF 100%);
+  background: -webkit-linear-gradient(left,#ffffff 0,#f5f5f5 100%);
+  background: -moz-linear-gradient(left,#ffffff 0,#f5f5f5 100%);
+  background: -o-linear-gradient(left,#ffffff 0,#f5f5f5 100%);
+  background: linear-gradient(to right,#ffffff 0,#f5f5f5 100%);
   background-repeat: repeat-y;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#EFF5FF,GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#f5f5f5,GradientType=1);
 }
 .tabs li a.tabs-inner {
-  color: #ffffff;/*tab切换时其他tab的字体颜色*/
-  background-color: #328FC4;/**/
-  background: -webkit-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
-  background: -moz-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
-  background: -o-linear-gradient(top,#EFF5FF 0,#328FC4 100%);
-  background: #328FC4;/*tab切换时其他tab的背景颜色*/
+  color: #000000;/*tab切换时其他tab的字体颜色*/
+  background-color: #dfe0e0;/**/
+  background: -webkit-linear-gradient(top,#f5f5f5 0,#dfe0e0 100%);
+  background: -moz-linear-gradient(top,#f5f5f5 0,#dfe0e0 100%);
+  background: -o-linear-gradient(top,#f5f5f5 0,#dfe0e0 100%);
+  background: #cbc9c9;/*tab切换时其他tab的背景颜色*/
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#328FC4,GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f5f5f5,endColorstr=#dfe0e0,GradientType=0);
 }
 .tabs-header,
 .tabs-tool {
-  background-color: #328FC4;/*tabs边框色*/
+  background-color: #dfe0e0;/*tabs边框色*/
 }
 .tabs-header-plain {
   background: transparent;
@@ -807,12 +807,12 @@
 .tabs-header-bottom .tabs li.tabs-selected a.tabs-inner,
 .tabs-header-left .tabs li.tabs-selected a.tabs-inner,
 .tabs-header-right .tabs li.tabs-selected a.tabs-inner {
-  border-color: #95B8E7;
+  border-color: #a7aaab;/*边框线*/
 }
 .tabs-p-tool a:hover,
 .tabs li a:hover.tabs-close,
 .tabs-scroller-over {
-  background-color: #eaf2ff;
+  background-color: #f5f5f5;
 }
 .tabs li.tabs-selected a.tabs-inner {
   border-bottom: 1px solid #ffffff;
@@ -1022,6 +1022,10 @@
 .l-btn-plain-selected,
 .l-btn-plain-selected:hover {
   background: #ddd;
+}
+.datagrid{/*自增样式*/
+	border-radius: 24px;
+	border:2px solid #a7aaab;
 }
 .datagrid .panel-body {
   overflow: hidden;
@@ -1303,7 +1307,7 @@
   border-color: #dddddd;
 }
 .propertygrid .datagrid-view1 .datagrid-group {
-  border-color: #328FC4;
+  border-color: #dfe0e0;
 }
 .propertygrid .datagrid-view2 .datagrid-group {
   border-color: #dddddd;
@@ -1312,7 +1316,7 @@
 .propertygrid .datagrid-view1 .datagrid-body,
 .propertygrid .datagrid-view1 .datagrid-row-over,
 .propertygrid .datagrid-view1 .datagrid-row-selected {
-  background: #328FC4;
+  background: #dfe0e0;
 }
 .pagination {
   zoom: 1;
@@ -1556,7 +1560,7 @@
   border-color: #95B8E7;
 }
 .calendar-header {
-  background: #328FC4;
+  background: #dfe0e0;
 }
 .calendar-body,
 .calendar-menu {
@@ -1678,7 +1682,7 @@
   border-color: #95B8E7;
 }
 .spinner-arrow {
-  background-color: #328FC4;
+  background-color: #dfe0e0;
 }
 .spinner-arrow-hover {
   background-color: #eaf2ff;
@@ -1783,7 +1787,7 @@
   background-color: #fff;
 }
 .searchbox .l-btn-plain {
-  background: #328FC4;
+  background: #dfe0e0;
 }
 .searchbox .l-btn-plain-disabled,
 .searchbox .l-btn-plain-disabled:hover {
@@ -1882,7 +1886,7 @@
 }
 .slider-inner {
   border-color: #95B8E7;
-  background: #328FC4;
+  background: #dfe0e0;
 }
 .slider-rule span {
   border-color: #95B8E7;

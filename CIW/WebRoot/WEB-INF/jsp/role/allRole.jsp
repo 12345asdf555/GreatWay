@@ -29,14 +29,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   <body  class="easyui-layout" style="background:#ffffff;">
-  	<div class="divborder">
-  		<div class="divtitle">角色管理</div>
-  	</div>
     <div id="body" region="center"  hide="true"  split="true"style="background: #ffffff; height: 335px;margin-top:70px;">
     
         <div data-options="region:'center',title:'信息',iconCls:'icon-ok'">
        		<table id="dg" style="table-layout:fixed;width:100%"></table>
-  			<jsp:include  page="../tenghanbottom.jsp"/>
         </div>
         <div id="div" class="easyui-dialog" style="width:15%;" closed="true" buttons="#dlg-buttons">
         	<table id="ao" title="权限" style="table-layout:fixed;width:auto"></table>

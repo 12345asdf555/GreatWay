@@ -30,9 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout" >
-  	<div class="divborder">
-  		<div class="divtitle">焊机设备管理</div>
-  	</div>
 <%--   	<jsp:include  page="../insframeworktree.jsp"/> --%>
   	<div id="body" region="center"  hide="true"  split="true" style="background: #ffffff;height: 335px;margin-top: 70px;">
 	  	<div id="weldingmachineTable_btn">
@@ -53,7 +50,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 	    <table id="weldingmachineTable" style="table-layout: fixed; width:100%;"></table>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
 		
 		<!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">

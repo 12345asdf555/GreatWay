@@ -29,9 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout" style="background:#ffffff;">
-	<div class="divborder">
-  		<div class="divtitle">新增字典</div>
-  	</div>
     <div  id="body" region="north"  hide="true"  split="true" style="background: white;height:80%;margin-top:70px;">
     	<div style="text-align: center ">
     		<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
@@ -55,7 +52,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</lable>
     			</div>
     		</form>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
     	</div>
     </div>
   </body>

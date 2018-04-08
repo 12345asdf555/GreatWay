@@ -399,18 +399,6 @@ select::-ms-expand {
     border-radius: 50% / 30% 30% 0 0;
 }
 
-.tenghan-bottom{
-	background: #328FC4;
-	height:30px;
-	text-align:center;
-	padding-top: 5px; 
-	color:#ffffff;
-	font-weight: bold;
-	position:fixed;
-    bottom:0;
-    width:100%
-}
-
 .required{
 	color:red;
 }

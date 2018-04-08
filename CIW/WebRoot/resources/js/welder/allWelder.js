@@ -4,7 +4,7 @@ $(function(){
 
 function weldDatagrid(){
 	$("#welderTable").datagrid( {
-		height : $("#body").height()-120,
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -158,7 +158,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#welderTable").datagrid('resize', {
-		height : $("#body").height()-120,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }

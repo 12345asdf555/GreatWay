@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/datagrid.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	
@@ -61,10 +62,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="companyOvertimeChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 		
 	    <table id="companyOvertimeTable" style="table-layout: fixed; width:100%;"></table>
-	    
 	</div>
-    <div id="body" region="south"  hide="true"  split="true" style="background: witch;">
-	    <jsp:include  page="../tenghanbottom.jsp"/>
-    </div>
   </body>
 </html>

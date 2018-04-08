@@ -30,9 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   <body  class="easyui-layout" style="background:#ffffff;">
-  	<div class="divborder">
-  		<div class="divtitle">修改角色</div>
-  	</div>
 	<div  id="body" region="north"  hide="true"  split="true" style="background: white; height: 80%;margin-top:80px;">
     <div id="toolbar" style="text-align: center ">
        <form id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
@@ -62,8 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <a href="role/AllRole" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 				</lable>
 		   </div> 
-    </form>
-  	<jsp:include  page="../tenghanbottom.jsp"/>
+    </form>
     </div>
     <script type="text/javascript">
             $(function(){

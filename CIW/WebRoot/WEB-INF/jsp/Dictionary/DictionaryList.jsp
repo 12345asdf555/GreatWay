@@ -30,12 +30,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout" style="background:#ffffff;">
-  	<div class="divborder">
-  		<div class="divtitle">字典管理</div>
-  	</div>
     <div id="body" region="center"  hide="true"  split="true" style="background: #ffffff; height: 335px;margin-top:70px;">
     	<table id="dg" style="table-layout:fixed;width:100%"></table>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
     	<div id="toolbar" style="margin-bottom: 5px;">
         	<a href="Dictionary/goAddDictionary" class="easyui-linkbutton" iconCls="icon-add">新增</a>
 		    	<select class="easyui-combobox" id="fields" style="margin-left:100px;" data-options="editable:false">

@@ -29,9 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout" style="background:#ffffff;">
-  	<div class="divborder">
-  		<div class="divtitle">焊缝信息</div>
-  	</div>
     <div id="body" region="north" hide="true"  split="true" style="background: witch; height: 80%;margin-top: 70px;">
     	<div style="text-align:center;height:100%">
 			<div class="fitem">
@@ -123,7 +120,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a href="weldedjunction/goWeldedJunction" class="easyui-linkbutton" iconCls="icon-cancel">返回</a>
 				</lable>
 			</div>
-		<jsp:include  page="../tenghanbottom.jsp"/>
 		</div>
 	</div>
   </body>

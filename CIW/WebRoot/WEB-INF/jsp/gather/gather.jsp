@@ -45,7 +45,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 	    <table id="gatherTable" style="table-layout: fixed; width:100%;"></table>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
 	    
 	    <!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">

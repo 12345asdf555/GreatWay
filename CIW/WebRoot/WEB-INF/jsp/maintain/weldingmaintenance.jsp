@@ -19,8 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
-	<link rel="stylesheet" type="text/css" href="resources/css/datagrid.css" />
+	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	
@@ -31,9 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout" style="background:#ffffff;">
-  	<div class="divborder">
-  		<div class="divtitle">焊机设备</div>
-  	</div>
     <div id="body" region="north" hide="true"  split="true" style="background: witch; height: 30%;margin-top: 70px;">
 		<div class="fitem" align="center">
 				<input type="hidden" id="wId" value="${w.id }"/>
@@ -73,11 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	</div>
 		<div style="margin-top: 20px;">
 	    <table id="maintainTable" style="table-layout: fixed; width:100%;margin-bottom: 30px;"></table>
-  		<%-- <jsp:include  page="../tenghanbottom.jsp"/> --%>
 	    </div>
-	</div>
-	<div id="body2" region="south"  hide="true"  split="true" style="background: witch;">
-		<jsp:include  page="../tenghanbottom.jsp"/>
 	</div>
   </body>
 </html>

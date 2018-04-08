@@ -33,14 +33,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <body  class="easyui-layout">
   	<jsp:include  page="../insframeworktree.jsp"/>
-<!--    <div id="bodysds"  hide="true"  split="true" style="background: #ffffff; height: 335px;"> -->
-  	<div id="body" region="center"  hide="true"  split="true" style="background: #ffffff;height: 335px;">
-	  	
-	  	<div class="divborder" style="margin-bottom: 20px;">
-	  		<div class="divtitle">用户管理</div>
-	  	</div>
+<!--   	<div id="body"  style="background: witch; height: 90%;margin: 30px;"> -->
+  	<div region="center"  hide="true"  split="true">
+  		<div id="body" style="background: witch; height: 90%;margin: 30px;">
         <table id="dg" style="table-layout:fixed;width:100%"></table>
-  		<jsp:include  page="../tenghanbottom.jsp"/>
         
         <div id="div1" class="easyui-dialog" style="width:15%;" closed="true" buttons="#dlg-buttons">
         <table id="ro" title="角色" style="table-layout:fixed;width:auto"></table>
@@ -69,6 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div id="searchButton">
 			<a href="javascript:searchUser();" class="easyui-linkbutton" iconCls="icon-ok">查询</a>
 			<a href="javascript:close();" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+		</div>
 		</div>
     </div>
 </body>
