@@ -21,7 +21,7 @@ $(function(){
 function insframeworkDatagrid(){
 	$("#insframeworkTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height()-120,
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -80,7 +80,6 @@ function insframeworkDatagrid(){
 				return str;
 			}
 		}] ],
-		toolbar : '#insframework_btn',
 		pagination : true,
 		nowrap : false,
 		rowStyler: function(index,row){
@@ -92,8 +91,8 @@ function insframeworkDatagrid(){
             }
 		},
 		onLoadSuccess:function(data){
-	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
-	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-update'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-delete'});
 		}
 	});
 }
@@ -163,7 +162,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#insframeworkTable").datagrid('resize', {
-		height : $("#body").height()-120,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }

@@ -29,18 +29,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/Dictionary/Dictionary.js"></script>
   </head>
   
-  <body  class="easyui-layout" style="background:#ffffff;">
-    <div id="body" region="center"  hide="true"  split="true" style="background: #ffffff; height: 335px;margin-top:70px;">
-    	<table id="dg" style="table-layout:fixed;width:100%"></table>
-    	<div id="toolbar" style="margin-bottom: 5px;">
-        	<a href="Dictionary/goAddDictionary" class="easyui-linkbutton" iconCls="icon-add">新增</a>
+  <body>
+    <div id="body">
+    	<div class="functiondiv">
+        	<a href="Dictionary/goAddDictionary" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>
 		    	<select class="easyui-combobox" id="fields" style="margin-left:100px;" data-options="editable:false">
 		    		<option value='fvaluename'>名称</option>
 		    		<option value='fback'>类型</option>
 		    	</select>
 		    	<input class="easyui-textbox" id="content"/>
-		    	<a href="javascript:searchDic();" class="easyui-linkbutton" iconCls="icon-ok">查询</a>
+		    	<a href="javascript:searchDic();" class="easyui-linkbutton" iconCls="icon-select">查询</a>
     	</div>
+    	<table id="dg" style="table-layout:fixed;width:100%"></table>
     </div>
   </body>
 </html>

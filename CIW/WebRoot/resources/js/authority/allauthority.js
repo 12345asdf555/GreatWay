@@ -37,10 +37,9 @@
        $(function(){
 	    $("#dg").datagrid( {
 		fitColumns : true,
-		height : ($("#body").height()-120),
+		height : ($("#body").height()),
 		width : $("#body").width(),
 		idField : 'id',
-		toolbar : "#toolbar",
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],  
 		url : "authority/getAllAuthority",
@@ -97,7 +96,6 @@
 			return str;
 			}
 		}]],
-		toolbar : '#toolbar',
 		rowStyler: function(index,row){
             if ((index % 2)!=0){
             	//处理行代背景色后无法选中
@@ -107,9 +105,9 @@
             }
 		},
 		onLoadSuccess:function(data){
-	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
-	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
-	        $("a[id='resource']").linkbutton({text:'资源列表',plain:true,iconCls:'icon-resource'});
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-update'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-delete'});
+	        $("a[id='resource']").linkbutton({text:'资源列表',plain:true});
 	        }
 		
 	});
@@ -258,7 +256,7 @@
           //改变表格高宽
           function domresize() {
           	$("#dg").datagrid('resize', {
-          		height : $("#body").height()-120,
+          		height : $("#body").height(),
           		width : $("#body").width()
           	});
           }

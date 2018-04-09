@@ -29,18 +29,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-  <body  class="easyui-layout" style="background:#ffffff;">
-  	<div id="body" region="center"  hide="true"  split="true" style="background: witch; height: 335px;margin-top:70px;">
-	  	
-	  	<div id="maintainTable_btn">
-			<div style="margin-bottom: 5px;">
-				<a href="maintain/goAddMaintain" class="easyui-linkbutton" iconCls="icon-add">新增</a>
-				<a href="javascript:importclick();" class="easyui-linkbutton" iconCls="icon-excel">导入</a>
-				<a href="javascript:exporMaintain();" class="easyui-linkbutton" iconCls="icon-excel">导出</a>
-				<a href="javascript:insertSearchMaintain();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
+  <body>
+  	<div id="body">
+	  	<div class="functiondiv">
+			<div>
+				<a href="maintain/goAddMaintain" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:importclick();" class="easyui-linkbutton" iconCls="icon-import">导入</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:exporMaintain();" class="easyui-linkbutton" iconCls="icon-import">导出</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:insertSearchMaintain();" class="easyui-linkbutton" iconCls="icon-select" >查找</a>
 			</div>
 		</div>
-		
 		<div id="importdiv" class="easyui-dialog" style="width:300px; height:200px;" closed="true">
 			<form id="importfm" method="post" class="easyui-form" data-options="novalidate:true" enctype="multipart/form-data"> 
 				<div>

@@ -28,13 +28,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/weldwps/selectMachine.js"></script>
 
   </head>
-  <body  class="easyui-layout" style="background:#ffffff;">
-    <div  id="body" region="north"  hide="true"  split="true" style="background: white;height:80%;margin-top:70px;">
+  <body>
+    <div  id="body">
 		<div style="text-align: center ">
-		<div align="center">
-			<table id="dg" style="table-layout:fixed;width:50%"></table>
-			</div>
-	    	<div class="buttonoption">
+	    	<div class="functiondiv">
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div style="position:absolute;left:25%;top:85%">
 			        	<a href="javascript:save();" class="easyui-linkbutton" data-options="size:'large'" iconCls="icon-ok">确认下发</a>
@@ -44,7 +41,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	</div>
 		        </lable>
 	    	</div>
-    </div>
+			<div align="center">
+				<table id="dg" style="table-layout:fixed;width:50%"></table>
+			</div>
+    	</div>
     </div>
 </body>
 </html>

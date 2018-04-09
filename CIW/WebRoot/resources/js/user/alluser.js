@@ -55,7 +55,6 @@
 		height : ($("#body").height()),
 		width : $("#body").width(),
 		idField : 'id',
-		toolbar : "#toolbar",
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
 		url : "user/getAllUser",
@@ -143,7 +142,6 @@
 			return str;
 			}
 		}]],
-		toolbar : '#toolbar',
 		nowrap : false,
 		rowStyler: function(index,row){
             if ((index % 2)!=0){
@@ -154,9 +152,9 @@
             }
 		},
 		onLoadSuccess:function(data){
-	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
-	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
-	        $("a[id='role']").linkbutton({text:'角色列表',plain:true,iconCls:'icon-Role'});
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-update'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-delete'});
+	        $("a[id='role']").linkbutton({text:'角色列表',plain:true});
 	        }
 	});
 

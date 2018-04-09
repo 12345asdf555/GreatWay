@@ -402,3 +402,9 @@ select::-ms-expand {
 .required{
 	color:red;
 }
+#body{
+	height: 85%;margin: 30px;margin-bottom: 80px;
+}
+.functiondiv{
+	float:right;margin-bottom: 5px;
+}

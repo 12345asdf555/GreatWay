@@ -29,19 +29,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
 
-  <body  class="easyui-layout" style="background:#ffffff;">
-        <div id="body" region="center"  hide="true"  split="true" style="background: #ffffff; height: 335px;margin-top: 70px;">
-        <div data-options="region:'center',title:'信息',iconCls:'icon-ok'">
-        <table id="dg" style="table-layout:fixed;width:100%"></table>
+  <body>
+        <div id="body">
+		    <div class="functiondiv">
+		        <a href="authority/toAddAuthority" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		        <a href="javascript:insertSearchAuthority();" class="easyui-linkbutton" iconCls="icon-select">查找</a> 
+		    </div>
+	        <div data-options="region:'center',title:'信息',iconCls:'icon-ok'">
+	        <table id="dg" style="table-layout:fixed;width:100%"></table>
         </div>
         <div id="div" class="easyui-dialog" style="width:15%;" closed="true" buttons="#dlg-buttons">
         <table id="so" style="table-layout:fixed;width:100%"></table>
         </div>
         <div style="margin:20px 0;"></div>
-    <div id="toolbar">
-        <a href="authority/toAddAuthority" class="easyui-linkbutton" iconCls="icon-add">新增</a>
-        <a href="javascript:insertSearchAuthority();" class="easyui-linkbutton" iconCls="icon-search">查找</a> 
-    </div>
    		<div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
 	    	<div id="div0">
 		    	<select class="fields" id="fields"></select>

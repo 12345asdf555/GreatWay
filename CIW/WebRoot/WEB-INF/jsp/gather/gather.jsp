@@ -30,17 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-  <body  class="easyui-layout" style="background:#ffffff;">
-  	<div class="divborder">
-  		<div class="divtitle">采集模块管理</div>
-  	</div>
-<%--   	<jsp:include  page="../insframeworktree.jsp"/> --%>
-  	<div id="body" region="center"  hide="true"  split="true" style="background: witch; height: 335px;margin-top: 70px;">
-	  	
-	  	<div id="gather_btn">
-			<div style="margin-bottom: 5px;">
-				<a href="gather/goaddGather" class="easyui-linkbutton" iconCls="icon-add">新增</a>
-				<a href="javascript:insertSearchGather();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
+  <body>
+  	<div id="body">
+	  	<div class="functiondiv">
+			<div>
+				<a href="gather/goaddGather" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:insertSearchGather();" class="easyui-linkbutton" iconCls="icon-select" >查找</a>
 			</div>
 		</div>
 		

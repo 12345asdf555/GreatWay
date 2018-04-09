@@ -31,27 +31,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-<body  class="easyui-layout">
+<body class="easyui-layout">
   	<jsp:include  page="../insframeworktree.jsp"/>
-<!--   	<div id="body"  style="background: witch; height: 90%;margin: 30px;"> -->
-  	<div region="center"  hide="true"  split="true">
-  		<div id="body" style="background: witch; height: 90%;margin: 30px;">
-        <table id="dg" style="table-layout:fixed;width:100%"></table>
-        
-        <div id="div1" class="easyui-dialog" style="width:15%;" closed="true" buttons="#dlg-buttons">
-        <table id="ro" title="角色" style="table-layout:fixed;width:auto"></table>
+  	<div  id="bodys" region="center"  hide="true"  split="true" >
+  		<div id="body">
+	        <div class="functiondiv">
+	        	<a href="javascript:addUser()" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	        	<a href="javascript:insertSearchUser();" class="easyui-linkbutton" iconCls="icon-select">查找</a>   
+	    	</div>
+	        <table id="dg" style="table-layout:fixed;width:100%"></table>
+	        </div>
+	        <div id="div1" class="easyui-dialog" style="width:15%;" closed="true" buttons="#dlg-buttons">
+	        <table id="ro" title="角色" style="table-layout:fixed;width:auto"></table>
         </div>
-
-        <div id="toolbar" style="margin-bottom: 5px;">
-        	<a href="javascript:addUser()" class="easyui-linkbutton" iconCls="icon-add">新增</a>
-        	<a href="javascript:insertSearchUser();" class="easyui-linkbutton" iconCls="icon-search">查找</a>   
-        	
-<%-- 			<c:url value="j_spring_security_logout" var="logoutUrl"/>
-   			<a href="${logoutUrl }">退出系统</a> --%>
-   			<!-- <a href="javascript:logout();">退出系统</a> -->
-        	
-    	</div>
-    		<!-- 自定义多条件查询 -->
+    	<!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
 	    	<div id="div0">
 		    	<select class="fields" id="fields"></select>
@@ -65,7 +58,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div id="searchButton">
 			<a href="javascript:searchUser();" class="easyui-linkbutton" iconCls="icon-ok">查询</a>
 			<a href="javascript:close();" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
-		</div>
 		</div>
     </div>
 </body>

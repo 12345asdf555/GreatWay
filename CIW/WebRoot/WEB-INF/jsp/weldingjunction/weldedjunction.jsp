@@ -29,14 +29,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-  <body  class="easyui-layout" style="background:#ffffff;">
-  	<div id="body" region="center"  hide="true"  split="true" style="background: white; height: 335px;margin-top: 70px;">
+  <body>
+  	<div id="body">
 	  	
-	  	<div id="disctionaryTable_btn">
-			<div style="margin-bottom: 5px;">
-				<a href="weldedjunction/goAddWeldedJunction" class="easyui-linkbutton" iconCls="icon-add">新增</a>
-				<a href="javascript:importclick();" class="easyui-linkbutton" iconCls="icon-excel">导入</a>
-				<a href="javascript:insertsearchWJ();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
+	  	<div class="functiondiv">
+			<div>
+				<a href="weldedjunction/goAddWeldedJunction" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:importclick();" class="easyui-linkbutton" iconCls="icon-import">导入</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:insertsearchWJ();" class="easyui-linkbutton" iconCls="icon-select" >查找</a>
 			</div>
 		</div>
 		

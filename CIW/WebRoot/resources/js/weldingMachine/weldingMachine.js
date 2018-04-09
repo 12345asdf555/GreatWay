@@ -1,26 +1,11 @@
 $(function(){
 	insframeworkTree();
 	weldingMachineDatagrid();
-//	var width = $("#treeDiv").width();
-//	$(".easyui-layout").layout({
-//		onCollapse:function(){
-//			$("#weldingmachineTable").datagrid( {
-//				height : $("#body").height(),
-//				width : $("#body").width()
-//			})
-//		},
-//		onExpand:function(){
-//			$("#weldingmachineTable").datagrid( {
-//				height : $("#body").height(),
-//				width : $("#body").width()
-//			})
-//		}
-//	});
 });
 
 function weldingMachineDatagrid(){
 	$("#weldingmachineTable").datagrid( {
-		height : $("#body").height()-120,
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -153,7 +138,6 @@ function weldingMachineDatagrid(){
 			}
 		}
 		] ],
-		toolbar : '#weldingmachineTable_btn',
 		pagination : true,
 //		fitColumns : true,
 		rowStyler: function(index,row){
@@ -165,9 +149,9 @@ function weldingMachineDatagrid(){
             }
         },
 		onLoadSuccess:function(data){
-	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
-	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
-	        $("a[id='maintain']").linkbutton({text:'维修记录',plain:true,iconCls:'icon-edit'});
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-update'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-delete'});
+	        $("a[id='maintain']").linkbutton({text:'维修记录',plain:true,iconCls:'icon-update'});
 		}
 	});
 }
@@ -285,7 +269,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#weldingmachineTable").datagrid('resize', {
-		height : $("#body").height()-120,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }

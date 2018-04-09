@@ -5,7 +5,7 @@ $(function(){
 function weldedJunctionDatagrid(){
 	$("#weldedJunctionTable").datagrid( {
 //		fitColumns : true,
-		height : $("#body").height()-120,
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -221,7 +221,6 @@ function weldedJunctionDatagrid(){
 				return str;
 			}
 		}] ],
-		toolbar : '#disctionaryTable_btn',
 		pagination : true,
 		rowStyler: function(index,row){
             if ((index % 2)!=0){
@@ -232,9 +231,9 @@ function weldedJunctionDatagrid(){
             }
         },
 		onLoadSuccess: function(data){
-	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
-	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
-			$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-update'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-delete'});
+			$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-newadd'});
 		}
 	});
 }
@@ -285,7 +284,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#weldedJunctionTable").datagrid('resize', {
-		height : $("#body").height()-120,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }

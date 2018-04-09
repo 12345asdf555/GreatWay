@@ -59,18 +59,6 @@ function weldDatagrid(){
 			halign : "center",
 			align : "left"
 		},{
-//			field : 'createdate',
-//			title : '创建时间',
-//			width : 150,
-//			halign : "center",
-//			align : "left"
-//		},{
-//			field : 'updatedate',
-//			title : '修改时间',
-//			width : 150,
-//			halign : "center",
-//			align : "left"
-//		},{
 			field : 'owner',
 			title : '部门',
 			width : 150,
@@ -82,8 +70,7 @@ function weldDatagrid(){
 			width : 100,
 			halign : "center",
 			align : "left"
-		}
-		,{
+		},{
 			field : 'edit',
 			title : '编辑',
 			width : 150,
@@ -105,10 +92,9 @@ function weldDatagrid(){
             }
         },
 		nowrap : false,
-		toolbar : '#welderTable_btn',
 		onLoadSuccess:function(data){
-	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
-	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-update'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-delete'});
 	        }
 	});
 }
