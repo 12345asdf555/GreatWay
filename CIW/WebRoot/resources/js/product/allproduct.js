@@ -4,10 +4,9 @@
        $(function(){
 	    $("#dg").datagrid( {
 		fitColumns : true,
-		height : ($("#body").height()-120),
+		height : ($("#body").height()),
 		width : $("#body").width(),
 		idField : 'id',
-		toolbar : "#toolbar",
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
 		url : "product/getAllProduct",
@@ -73,7 +72,7 @@
         }, {
 			field : 'edit',
 			title : '操作',
-			width : 160,
+			width : 180,
 			halign : "center",
 			align : "left",
 			formatter:function(value,row,index){
@@ -94,9 +93,9 @@
             }
 		},
 		onLoadSuccess:function(data){
-	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
-	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
-	        $("a[id='weldf']").linkbutton({text:'焊缝信息',plain:true,iconCls:'icon-search'});
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-update'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-delete'});
+	        $("a[id='weldf']").linkbutton({text:'焊缝信息',plain:true,iconCls:'icon-select'});
 	        }
 	});
 
@@ -118,7 +117,7 @@ function addProduct(){
    //改变表格高宽
    function domresize() {
    	$("#dg").datagrid('resize', {
-   		height : $("#body").height()-120,
+   		height : $("#body").height(),
    		width : $("#body").width()
    	});
    }

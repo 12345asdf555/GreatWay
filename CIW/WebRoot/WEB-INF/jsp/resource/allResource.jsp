@@ -29,15 +29,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
 
-  <body  class="easyui-layout" style="background:#ffffff;">
-   <div id="body" region="center"  hide="true"  split="true" style="background: #ffffff; height: 335px;margin-top:70px;">
-	  	
+  <body>
+   <div id="body">
+        <div class="functiondiv">
+        	<a href="resource/toAddResource" class="easyui-linkbutton" iconCls="icon-newadd" onclick="newResource()">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        	<a href="javascript:insertSearchResource();" class="easyui-linkbutton" iconCls="icon-select">查找</a>
+   		</div>
         <table id="dg" style="table-layout:fixed;width:100%"></table>
-
-        <div id="toolbar" style="margin-bottom: 5px;">
-        	<a href="resource/toAddResource" class="easyui-linkbutton" iconCls="icon-add" onclick="newResource()">新增</a>
-        	<a href="javascript:insertSearchResource();" class="easyui-linkbutton" iconCls="icon-search">查找</a>
-    </div>
        		<div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
 	    	<div id="div0">
 		    	<select class="fields" id="fields"></select>

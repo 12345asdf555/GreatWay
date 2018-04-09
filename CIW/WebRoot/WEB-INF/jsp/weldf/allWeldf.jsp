@@ -4,8 +4,8 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
 <html>
   <head>
     <base href="<%=basePath%>">
@@ -30,16 +30,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-  <body  class="easyui-layout" style="background:#ffffff;">
-   <div id="body" region="center"  hide="true"  split="true" style="background: #ffffff; height: 335px;margin-top:70px;">
-	  	
-        <table id="dg" style="table-layout:fixed;width:100%"></table>
-
-        <div id="toolbar" style="margin-bottom: 5px;">
-        	<a href="javascript:addWeldf()" class="easyui-linkbutton" iconCls="icon-add">新增</a>
-        	<a href="javascript:insertSearchWeldf();" class="easyui-linkbutton" iconCls="icon-search">查找</a>
+  <body>
+   <div id="body">
+        <div class="functiondiv">
+        	<a href="javascript:addWeldf()" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        	<a href="javascript:insertSearchWeldf();" class="easyui-linkbutton" iconCls="icon-select">查找</a>
     	</div>
-    		<!-- 自定义多条件查询 -->
+        <table id="dg" style="table-layout:fixed;width:100%"></table>
+    	<!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
 	    	<div id="div0">
 		    	<select class="fields" id="fields"></select>

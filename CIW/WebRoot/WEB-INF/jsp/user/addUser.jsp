@@ -29,8 +29,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- <script type="text/javascript" src="resources/js/user/adduser"></script> -->
 
   </head>
-  <body  class="easyui-layout" style="background:#ffffff;">
-    <div  id="body" region="north"  hide="true"  split="true" style="background: white;height:80%;margin-top:70px;">
+  <body >
+    <div>
 		<div style="text-align: center ">
        	<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
             <div class="fitem">

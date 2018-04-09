@@ -30,18 +30,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-  <body  class="easyui-layout" style="background:#ffffff;">
+  <body class="easyui-layout">
   	<jsp:include  page="../insframeworktree.jsp"/>
-  	<div id="body" region="center"  hide="true"  split="true" style="background: witch; width:auto; height: 335px;" >
-	  	<div id="insframework_btn">
-			<div style="margin-bottom: 5px;">
-				<a href="insframework/goaddInsframework" class="easyui-linkbutton" iconCls="icon-add">新增</a>
-				<a href="javascript:insertSearchInsf();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
+  	<div  id="bodys" region="center"  hide="true"  split="true" >
+	  	<div id="body">
+		  	<div class="functiondiv">
+				<div>
+					<a href="insframework/goaddInsframework" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="javascript:insertSearchInsf();" class="easyui-linkbutton" iconCls="icon-select" >查找</a>
+				</div>
 			</div>
-		</div>
-		
-	    <table id="insframeworkTable" style="table-layout: fixed; width:100%;"></table>
-	    
+			
+		    <table id="insframeworkTable" style="table-layout: fixed; width:100%;"></table>
+	    </div>
 	    <!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
 	    	<div id="div0">

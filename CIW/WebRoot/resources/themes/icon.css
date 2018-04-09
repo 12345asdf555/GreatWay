@@ -94,48 +94,30 @@
 .icon-customer{
 	background:url('icons/customer.png') no-repeat center center;
 }
-.icon-excel{
-	background:url('icons/excel.png') no-repeat center center;
-}
 .icon-warning{
 	background:url('icons/warning.png') no-repeat center center;
 }
-.icon-manage{
-	background:url('icons/1_32.png') no-repeat center center;
+.icon-navigation{
+	background:url('icons/c_1.png') no-repeat center center;
 }
-.icon-statistics{
-	background:url('icons/1_44.png') no-repeat center center;
+.icon-manager{
+	background:url('icons/c_2.png') no-repeat center center;
 }
-.icon-setting{
-	background:url('icons/1_22.png') no-repeat center center;
+.icon-statement{
+	background:url('icons/c_3.png') no-repeat center center;
 }
-.icon-35{
-	background:url('icons/1_35.png') no-repeat center center;
+.icon-import{
+	background:url('icons/import.png') no-repeat center center;
 }
-.icon-38{
-	background:url('icons/1_38.png') no-repeat center center;
+.icon-newadd{
+	background:url('icons/add.png') no-repeat center center;
 }
-.icon-40{
-	background:url('icons/1_40.png') no-repeat center center;
+.icon-select{
+	background:url('icons/select.png') no-repeat center center;
 }
-.icon-42{
-	background:url('icons/1_42.png') no-repeat center center;
+.icon-update{
+	background:url('icons/edit.png') no-repeat center center;
 }
-.icon-48{
-	background:url('icons/1_48.png') no-repeat center center;
-}
-.icon-53{
-	background:url('icons/1_53.png') no-repeat center center;
-}
-.icon-59{
-	background:url('icons/1_59.png') no-repeat center center;
-}
-.icon-62{
-	background:url('icons/1_62.png') no-repeat center center;
-}
-.icon-67{
-	background:url('icons/1_67.png') no-repeat center center;
-}
-.icon-69{
-	background:url('icons/1_69.png') no-repeat center center;
+.icon-delete{
+	background:url('icons/remove.png') no-repeat center center;
 }

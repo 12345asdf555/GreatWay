@@ -5,7 +5,7 @@ $(function(){
 function mainDatagrid(){
 	$("#maintainTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height()-120,
+		height : $("#body").height(),
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -98,7 +98,6 @@ function mainDatagrid(){
 				return str;
 			}
 		}]],
-		toolbar : '#maintainTable_btn',
 		pagination : true,
 		nowrap : false,
 		rowStyler: function(index,row){
@@ -111,8 +110,8 @@ function mainDatagrid(){
 		},
 		onLoadSuccess:function(data){
 	        $("a[id='ok']").linkbutton({text:'完成',plain:true,iconCls:'icon-ok'});
-	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
-	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-update'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-delete'});
 		}
 	});
 }
@@ -203,7 +202,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#maintainTable").datagrid('resize', {
-		height : $("#body").height()-120,
+		height : $("#body").height(),
 		width : $("#body").width()
 	});
 }

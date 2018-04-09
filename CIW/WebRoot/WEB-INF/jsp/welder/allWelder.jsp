@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="resources/css/datagrid.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
+	
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
@@ -28,16 +29,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
 	
   </head>
-  <body  class="easyui-layout">
-  	<div id="body"  style="background: witch; height: 90%;margin: 30px;margin-bottom: 50px;">
-	  	<div id="welderTable_btn">
-			<div style="margin-bottom: 5px;">
-				<a href="welders/toAddWelder" class="easyui-linkbutton" iconCls="icon-add">新增</a>
-				<a href="javascript:importclick();" class="easyui-linkbutton" iconCls="icon-excel">导入</a>
-				<a href="javascript:insertSearchWelder();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
+  <body>
+  	<div id="body">
+	  	<div class="functiondiv">
+			<div>
+				<a href="welders/toAddWelder" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:importclick();" class="easyui-linkbutton" iconCls="icon-import">导入</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:insertSearchWelder();" class="easyui-linkbutton" iconCls="icon-select" >查找</a>
 			</div>
 		</div>
-		<div id="importdiv" class="easyui-dialog" style="width:300px; height:200px;" closed="true">
+		<div id="importdiv" class="easyui-dialog" style="width:30earchheight:200px;" closed="true">
 			<form id="importfm" method="post" class="easyui-form" data-options="novalidate:true" enctype="multipart/form-data"> 
 				<div>
 					<span><input type="file" name="file" id="file"></span>
