@@ -378,6 +378,7 @@ public class TdController {
 		try{
 			for(Td td:getAP){
 				json.put("fpositin",td.getPosition());
+				json.put("fequip", td.getFequipment_no());
 				ary.add(json);
 			}
 		}catch(Exception e){

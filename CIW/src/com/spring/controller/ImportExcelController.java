@@ -105,6 +105,13 @@ public class ImportExcelController {
 				String name = wm.getInsframeworkId().getName();
 				wm.getInsframeworkId().setId(wmm.getInsframeworkByName(name));
 				Gather gather = wm.getGatherId();
+				String gno = Integer.toHexString(Integer.valueOf(gather.getGatherNo()));
+				if(gno.length()!=4){
+	                int lenth=4-gno.length();
+	                for(int i=0;i<lenth;i++){
+	                	gno="0"+gno;
+	                }
+	              }
 				int count2 = 0;
 				if(gather!=null){
 					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gather.getGatherNo());

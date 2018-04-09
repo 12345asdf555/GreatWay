@@ -61,6 +61,7 @@ public class GatherController {
 	@RequestMapping("/goeditGather")
 	public String goeditGather(HttpServletRequest request,@RequestParam String id){
 		Gather gather = gm.getGatherById(new BigInteger(id));
+		gather.setGatherNo(Integer.toString(Integer.parseInt(gather.getGatherNo(), 16)));
 		request.setAttribute("g", gather);
 		return "gather/editgather";
 	}
@@ -72,6 +73,7 @@ public class GatherController {
 	@RequestMapping("/goremoveGather")
 	public String goremoveGather(HttpServletRequest request,@RequestParam String id){
 		Gather gather = gm.getGatherById(new BigInteger(id));
+		gather.setGatherNo(Integer.toString(Integer.parseInt(gather.getGatherNo(), 16)));
 		request.setAttribute("g", gather);
 		return "gather/removegather";
 	}
@@ -82,6 +84,20 @@ public class GatherController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String searchStr = request.getParameter("searchStr");
+		if(searchStr!=null&&searchStr!="null"){
+		String ss[] = searchStr.split("'");
+		System.out.println(ss[0].substring(0, 11));
+		if(ss[0].substring(0, 11).equals(" fgather_no")){
+			String sea = Integer.toHexString(Integer.valueOf(ss[1]));
+			if(sea.length()!=4){
+                int lenth=4-sea.length();
+                for(int i=0;i<lenth;i++){
+                	sea="0"+sea;
+                }
+              }
+			searchStr = " fgather_no = '"+sea+"'";
+		}
+		}
 		String parentid = request.getParameter("parent");
 		request.getSession().setAttribute("searchStr", searchStr);
 		BigInteger parent = null;
@@ -104,7 +120,7 @@ public class GatherController {
 		try{
 			for(Gather g:list){
 				json.put("id", g.getId());
-				json.put("gatherNo", g.getGatherNo());
+				json.put("gatherNo", Integer.parseInt(g.getGatherNo(), 16));
 				json.put("itemid",g.getItemid());
 				json.put("itemname",g.getItemname());
 				json.put("status",g.getStatus());
@@ -139,6 +155,14 @@ public class GatherController {
 			if(!iutil.isNull(gather.getLeavetime())){
 				gather.setLeavetime(null);
 			}
+			String sea = Integer.toHexString(Integer.valueOf(gather.getGatherNo()));
+			if(sea.length()!=4){
+                int lenth=4-sea.length();
+                for(int i=0;i<lenth;i++){
+                	sea="0"+sea;
+                }
+              }
+			gather.setGatherNo(sea);
 			gm.addGather(gather);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -168,6 +192,14 @@ public class GatherController {
 			if(!iutil.isNull(gather.getLeavetime())){
 				gather.setLeavetime(null);
 			}
+			String sea = Integer.toHexString(Integer.parseInt(gather.getGatherNo()));
+			if(sea.length()!=4){
+                int lenth=4-sea.length();
+                for(int i=0;i<lenth;i++){
+                	sea="0"+sea;
+                }
+              }
+			gather.setGatherNo(sea);
 			gm.editGather(gather);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -207,7 +239,14 @@ public class GatherController {
 		if(iutil.isNull(itemid)){
 			item = new BigInteger(itemid);
 		}
-		int count = gm.getGatherNoCount(gatherno,item);
+		String sea = Integer.toHexString(Integer.valueOf(gatherno));
+		if(sea.length()!=4){
+            int lenth=4-sea.length();
+            for(int i=0;i<lenth;i++){
+            	sea="0"+sea;
+            }
+          }
+		int count = gm.getGatherNoCount(sea,item);
 		if(count > 0){
 			flag = false;
 		}

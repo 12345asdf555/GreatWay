@@ -76,7 +76,7 @@ public class ExportExcelController {
 				}
 				Gather gather = list.get(i).getGatherId();
 				if(gather!=null){
-					data[i][9] = gather.getGatherNo();
+					data[i][9] = Integer.parseInt(gather.getGatherNo(), 16);
 				}else{
 					data[i][9] = null;
 				}

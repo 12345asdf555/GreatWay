@@ -103,6 +103,9 @@ public class WeldingMachineController {
 	public String goEditWeldingMachine(HttpServletRequest request, @RequestParam String wid){
 		WeldingMachine weld = wmm.getWeldingMachineById(new BigInteger(wid));
 		weld.setEquipmentNo(String.valueOf(Integer.parseInt(weld.getEquipmentNo(), 16)));
+		if(weld.getGatherId()!=null ||("").equals(weld.getGatherId())){
+			weld.getGatherId().setGatherNo(String.valueOf(Integer.parseInt(weld.getGatherId().getGatherNo(), 16)));
+		}
 		request.setAttribute("w", weld);
 		return "weldingMachine/editweldingmachine";
 	}
@@ -122,6 +125,9 @@ public class WeldingMachineController {
 			request.setAttribute("isnetworking", "否");
 		}
 		weld.setEquipmentNo(String.valueOf(Integer.parseInt(weld.getEquipmentNo(), 16)));
+		if(weld.getGatherId()!=null ||("").equals(weld.getGatherId())){
+			weld.getGatherId().setGatherNo(String.valueOf(Integer.parseInt(weld.getGatherId().getGatherNo(), 16)));
+		}
 		request.setAttribute("w", weld);
 		return "weldingMachine/removeweldingmachine";
 	}
@@ -138,8 +144,7 @@ public class WeldingMachineController {
 		String searchStr = request.getParameter("searchStr");
 		if(searchStr!=null&&searchStr!="null"){
 		String ss[] = searchStr.split("'");
-		System.out.println(ss[0].substring(0, 14));
-		if(ss[0].substring(0, 14).equals(" fequipment_no")){
+		if((ss[0]+"00000000000000").substring(0, 14).equals(" fequipment_no")){
 			String sea = Integer.toHexString(Integer.valueOf(ss[1]));
 			if(sea.length()!=4){
                 int lenth=4-sea.length();
@@ -148,7 +153,16 @@ public class WeldingMachineController {
                 }
               }
 			searchStr = " fequipment_no = '"+sea+"'";
-		}
+		}else if((ss[0]+"00000000000").substring(0, 11).equals(" fgather_no")){
+			String sea = Integer.toHexString(Integer.valueOf(ss[1]));
+			if(sea.length()!=4){
+                int lenth=4-sea.length();
+                for(int i=0;i<lenth;i++){
+                	sea="0"+sea;
+                }
+              }
+			searchStr = " fgather_no = '"+sea+"'";
+		}else{}
 		}
 		String parentId = request.getParameter("parent");
 		BigInteger parent = null;
@@ -192,7 +206,7 @@ public class WeldingMachineController {
 				json.put("manufacturerId", wm.getManufacturerId().getId());
 				json.put("model",wm.getModel());
 				if(wm.getGatherId()!=null ||("").equals(wm.getGatherId())){
-					json.put("gatherId", wm.getGatherId().getGatherNo());
+					json.put("gatherId", Integer.parseUnsignedInt(wm.getGatherId().getGatherNo(), 16));
 				}else{
 					json.put("gatherId", null);
 				}
@@ -273,7 +287,7 @@ public class WeldingMachineController {
 			List<Gather> list = gm.getGatherByInsfid(item);
 			for(Gather g:list){
 				json.put("id", g.getId());
-				json.put("name", g.getGatherNo());
+				json.put("name", Integer.parseInt(g.getGatherNo(), 16));
 				ary.add(json);
 			}
 		}catch(Exception e){

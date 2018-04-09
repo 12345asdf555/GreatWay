@@ -197,7 +197,7 @@ function setParam(){
 		        	$('#body1').html("");
 					$('#body2').html("");
 					document.getElementById("load").style.display="block";
-					var sh = '<div id="show" style="align="center"">正在加载，请稍等...</div>';
+					var sh = '<div id="show" style="align="center""><img src="resources/images/load1.gif"/>正在加载，请稍等...</div>';
 					$("#body").append(sh);
 					document.getElementById("show").style.display="block";
 					chartStr = "";

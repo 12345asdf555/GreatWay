@@ -27,6 +27,7 @@
 	var status = new Array();
 	var pos;
 	var position;
+	var position1 = new Array();
 	var z=0;
 	var jj=0;
 	var zz=0;
@@ -83,6 +84,14 @@
 		      success : function(result) {
 		    	  if (result) {
 		    		  position = eval(result.rows);
+		    		  position1.push(position[0].fpositin);
+		    		  for(var count=0;count<position1.length;count++){
+		    			  for(var err2=0;err2<position.length;err2++){
+		    				  if(position1[count]!=position[err2].fpositin){
+		    					  position1.push(position[err2].fpositin);
+		    				  }
+		    			  }
+		    		  }
 		          }  
 		      },
 		      error : function(errorMsg) {  
@@ -96,6 +105,8 @@
 			alert("您的浏览器不支持WebSocket");
 			return;
 		}
+/*		var dingshiqi=0;
+		var dingshiqi1;*/
 		ws();
 		$("#btnSend").click(function() {
 			socket.send("强哥");
@@ -109,20 +120,24 @@
 	function ws() {
 		//实现化WebSocket对象，指定要连接的服务器地址与端口
 		socket = new WebSocket(data1);
+/*		dingshiqi1 = window.setInterval(function() {
+			dingshiqi++;
+		}, 1000);*/
 		//打开事件
 		socket.onopen = function() {
-//			alert("Socket 已打开");
-			//socket.send("这是来自客户端的消息" + location.href + new Date());
+/*			alert(dingshiqi);*/
+/*			alert("Socket 已打开");
+			socket.send("这是来自客户端的消息" + location.href + new Date());*/
 		};
 		//获得消息事件
 		socket.onmessage = function(msg) {
-			/*alert(msg.data);*/
-			dd = msg.data;		
-			/*alert(dd);*/
+			/*alert(msg.data);*/	
+			/*alert("有数据");*/
+			dd = msg.data;	
 			
-			for(var b=0;b<position.length;b++){
+			for(var b=0;b<position1.length;b++){
 	    		  if($("#pposition"+b+"").length<=0){
-	    			  var str = "<a id='pposition"+b+"' href='javascript:void(0);' onclick='rece1(\""+position[b].fpositin+"\")'><i class='iconfont icon-bijiben'></i>"+position[b].fpositin+"</a></br>";
+	    			  var str = "<a id='pposition"+b+"' href='javascript:void(0);' onclick='rece1(\""+position1[b]+"\")'><i class='iconfont icon-bijiben'></i>"+position1[b]+"</a></br>";
 	    			  $("#body11").append(str);
 	    		  }
     		 }
@@ -218,7 +233,7 @@
                     _PageWidth = document.documentElement.clientWidth;   
                     var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,  
                     	_LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;  
-                    var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.8;filter:alpha(opacity=80);z-index:10000;"><div style="position: absolute; cursor1: wait; left: ' + _LoadingLeft + 'px; top:' + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 50px; padding-right: 5px; background: #fff url(resources/images/loading.png) no-repeat scroll 5px 10px; border: 2px solid #95B8E7; color: #696969;">""连接异常，正在尝试第"'+tryTime+'"次重连，请稍候..."</div></div>';  
+                    var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.8;filter:alpha(opacity=80);z-index:10000;"><div style="position: absolute; cursor1: wait; left: ' + _LoadingLeft + 'px; top:' + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 50px; padding-right: 5px; background: #fff url(resources/images/load.gif) no-repeat scroll 5px 10px; border: 2px solid #95B8E7; color: #696969;">""连接异常，正在尝试第"'+tryTime+'"次重连，请稍候..."</div></div>';  
                 	document.write(_LoadingHtml);
                     ws();
                 }, 3000);
@@ -260,20 +275,12 @@
 			$('#dg').datagrid('loadData', { total: 0, rows: [] }); 
 		}
 		/*online(position[0].fpositin);*/
-    	for(var i = 0;i < dd.length;i+=53){
-   		 $.ajax({  
-		            type : "post",  
-		            async : false,
-		            url : "td/getPosition?equip="+dd.substring(4+i, 8+i),  
-		            data : {},  
-		            dataType : "json", //返回数据形式为json  
-		            success : function(result) {
-		            	var fposition = eval(result.rows);
-		            		va = fposition[0].fpositin;
-		            }})
-		            if(va==bhq){
-		            po=va;
-		            }
+    	for(var i = 0;i < dd.length;i+=159){
+        	for(var err1=0;err1<position.length;err1++){
+        		if(position[err1].fequip==dd.substring(4+i, 8+i)){
+        	    	po=position[err1].fpositin;
+        		}
+        	}
     	}
 		datatable();
 		rece2(back[0]);
@@ -383,20 +390,12 @@
 	}
 	function rece(){
 		/*online(position[0].fpositin);*/
-    	for(var i = 0;i < dd.length;i+=53){
-   		 $.ajax({  
-		            type : "post",  
-		            async : false,
-		            url : "td/getPosition?equip="+dd.substring(4+i, 8+i),  
-		            data : {},  
-		            dataType : "json", //返回数据形式为json  
-		            success : function(result) {
-		            	var fposition = eval(result.rows);
-		            		va = fposition[0].fpositin;
-		            }})
-		            if(va==position[0].fpositin){
-		            po=va;
-		            }
+    	for(var i = 0;i < dd.length;i+=159){
+        	for(var err1=0;err1<position.length;err1++){
+        		if(position[err1].fequip==dd.substring(4+i, 8+i)){
+        	    	po=position[err1].fpositin;
+        		}
+        	}
     	}
 		datatable();
 		rece2(back[0]);

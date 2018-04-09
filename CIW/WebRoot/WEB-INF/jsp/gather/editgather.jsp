@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="hidden" id="id" value="${g.id }"/>
 					<input type="hidden" id="validgatherno" value="${g.gatherNo }"/>
 					<lable><span class="required">*</span>采集模块编号</lable>
-					<input class="easyui-textbox" name="gatherNo" id="gatherNo"  value="${g.gatherNo }" data-options="validType:['checkNumber','gathernoValidate','length[4,4]'],required:true"/>
+					<input class="easyui-textbox" name="gatherNo" id="gatherNo"  value="${g.gatherNo }" data-options="validType:['checkNumber','gathernoValidate'],required:true"/>
 				</div>
 				<div class="fitem">
 					<lable><span class="required">*</span>所属项目</lable>

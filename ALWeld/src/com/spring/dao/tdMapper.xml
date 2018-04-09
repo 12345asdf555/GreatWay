@@ -44,7 +44,7 @@
 	</select>
 	
 	<select id="getAllPosition" parameterType="String" resultType="Td">
-		select DISTINCT fposition fposition from tb_welding_machine
+		select fequipment_no fequipment_no,fposition fposition from tb_welding_machine
 	</select>
 	
 	<select id="allWeldname" resultType="Td">
