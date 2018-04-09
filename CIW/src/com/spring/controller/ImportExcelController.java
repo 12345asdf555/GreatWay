@@ -123,6 +123,7 @@ public class ImportExcelController {
 	                	sea="0"+sea;
 	                }
 	              }
+				
 				wm.setEquipmentNo(sea);
 				wm.setGatherId(gather);
 				//编码唯一
