@@ -392,19 +392,13 @@ public class TdController {
 	@ResponseBody
 	public String isnull(HttpServletRequest request){
 		JSONObject obj = new JSONObject();
-		String po = request.getParameter("posit");
-		List<Td> machine = tdService.getAllMachine(po);
+		List<Td> getAP = tdService.getAllPosition();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
-			for(Td td:machine)
-			{
-				String xxx = td.getFequipment_no();
-				json.put("fstatus_id", "09");
-				json.put("fequipment_no", Integer.parseInt(xxx,16));
-				json.put("fwelder_no", "");
-				json.put("fname", "");
-				json.put("fposition", po);
+			for(Td td:getAP){
+				json.put("fequipment_no",td.getFequipment_no());
+				json.put("fposition", td.getPosition());
 				ary.add(json);
 			}
 		}catch(Exception e){

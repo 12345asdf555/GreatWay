@@ -43,6 +43,7 @@
 	var data1;
 	var namex;
 	var tryTime = 0;
+	var symbol=0;
 	var heartflag = false;
 	$(function(){
 		$.ajax({  
@@ -119,12 +120,36 @@
 	
 	function ws() {
 		//实现化WebSocket对象，指定要连接的服务器地址与端口
-		socket = new WebSocket(data1);
+		try{
+			socket = new WebSocket(data1);
+		}catch(err){
+			alert("地址请求错误，请清除缓存重新连接！！！")
+		}
 /*		dingshiqi1 = window.setInterval(function() {
 			dingshiqi++;
 		}, 1000);*/
 		//打开事件
 		socket.onopen = function() {
+			for(var b=0;b<position1.length;b++){
+	    		  if($("#pposition"+b+"").length<=0){
+	    			  var str = "<a id='pposition"+b+"' href='javascript:void(0);' onclick='rece1(\""+position1[b]+"\")'><i class='iconfont icon-bijiben'></i>"+position1[b]+"</a></br>";
+	    			  $("#body11").append(str);
+	    		  }
+  		 }
+			datatable();
+			setTimeout(function(){
+				if(symbol==0){
+					alert("连接成功，但未接收到任何数据");
+				}
+			},5000);
+			//监听加载状态改变  
+			document.onreadystatechange = completeLoading();  
+			   
+			//加载状态为complete时移除loading效果 
+			function completeLoading() {
+			        var loadingMask = document.getElementById('loadingDiv');  
+			        loadingMask.parentNode.removeChild(loadingMask);  
+			}
 /*			alert(dingshiqi);*/
 /*			alert("Socket 已打开");
 			socket.send("这是来自客户端的消息" + location.href + new Date());*/
@@ -133,14 +158,15 @@
 		socket.onmessage = function(msg) {
 			/*alert(msg.data);*/	
 			/*alert("有数据");*/
+			symbol++;
 			dd = msg.data;	
 			
-			for(var b=0;b<position1.length;b++){
+/*			for(var b=0;b<position1.length;b++){
 	    		  if($("#pposition"+b+"").length<=0){
 	    			  var str = "<a id='pposition"+b+"' href='javascript:void(0);' onclick='rece1(\""+position1[b]+"\")'><i class='iconfont icon-bijiben'></i>"+position1[b]+"</a></br>";
 	    			  $("#body11").append(str);
 	    		  }
-    		 }
+    		 }*/
 
 			for(var n = 0;n < dd.length;n+=53){
 				if(dd.substring(8+n, 12+n)!="0000"){		
@@ -360,14 +386,6 @@
 					if(jj<=1){
 						curve(); 
 						curve1();
-						//监听加载状态改变  
-						document.onreadystatechange = completeLoading();  
-						   
-						//加载状态为complete时移除loading效果 
-						function completeLoading() {
-						        var loadingMask = document.getElementById('loadingDiv');  
-						        loadingMask.parentNode.removeChild(loadingMask);  
-						}
 					}
 					}	
 			}
@@ -397,20 +415,25 @@
         		}
         	}
     	}
-		datatable();
-		rece2(back[0]);
-		var t=1;
+		for(var ba=0;ba<back.length;ba++){
+			for(var baa=0;baa<position.length;baa++){
+				if(back[ba]==position[baa].fequip){
+					rece2(back[ba]);
+				}
+			}
+		}
+
 		timer1=window.setInterval(function(){
-    		if(t<back.length){
-    		rece2(back[t]);
-    		datatable();
-    		back.length=0;
-    		rowdex=0;
-    		t++;
-    		}else{
-    			t=0;
-    			/*rece2(back[t]);*/
-    		}
+			for(var t=0;t<back.length;t++){
+				for(var baa1=0;baa1<position.length;baa1++){
+					if(back[t]==position[baa1].fequip){
+						rece2(back[t]);
+			    		datatable();
+			    		back.length=0;
+			    		rowdex=0;
+					}
+				}
+			}
     	}, 300000);
 /*    	timer2=window.setInterval(function (){
     		var columns = $('#dg').datagrid("options").columns;
