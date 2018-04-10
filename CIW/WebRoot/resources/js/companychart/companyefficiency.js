@@ -134,8 +134,8 @@ function CompanyEfficiencyDatagrid(){
 	setParam();
 	$("#companyEfficiencyTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-60,
-		width : $("#body").width(),
+		height : $("body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-60,
+		width : $("body").width(),
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
@@ -217,7 +217,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyEfficiencyTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-60,
-		width : $("#body").width()
+		height : $("body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-60,
+		width : $("body").width()
 	});
 }

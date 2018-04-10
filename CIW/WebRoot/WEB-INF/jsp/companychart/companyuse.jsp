@@ -34,8 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/companychart/companyuse.js"></script>
   </head>
   
-  <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" style="background: witch; height: 335px;">
+  <body>
+    <div>
 	  	<div id="companyUse_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
 				<select class="easyui-combobox" name="type" id="type" data-options="editable:false"></select>
-				<a href="javascript:serachcompanyUse();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
+				<a href="javascript:serachcompanyUse();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
 			</div>
 		</div>
 		

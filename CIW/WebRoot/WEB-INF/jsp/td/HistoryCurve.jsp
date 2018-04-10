@@ -36,8 +36,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-<body class="easyui-layout">
-	<div id="body" region="center"  hide="true"  split="true" title="历史曲线" style="background: #eee; height: 335px;">
+<body>
+	<div id="body" >
 	   	 <div id="companyOverproof_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="radio" class="radioStyle" name="otype" value="2" />月
 				<input type="radio" class="radioStyle" name="otype" value="3" checked="checked" />日
 				<input type="radio" class="radioStyle" name="otype" value="4" />周
-				<a href="javascript:serachCompanyOverproof();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
+				<a href="javascript:serachCompanyOverproof();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
 			</div>
 		</div>
 		<div id="dgtb" style="width:100%;height:50%">

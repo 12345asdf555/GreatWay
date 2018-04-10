@@ -33,45 +33,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <body class="easyui-layout">
   	<jsp:include  page="../insframeworktree.jsp"/>
-   <div id="body" region="center"  hide="true"  split="true" title="报警管理" style="background: #eee; height: 335px;">	  	
-   	  	<div id="companyOverproof_btn">
-			<div style="margin-bottom: 5px;">
-				<div>
-					<lable>车间号</lable>
-					<select class="easyui-combobox" name="division" id="division" onChange="changeValue(current,old)"></select>
-					<lable>班组号</lable>
-					<select class="easyui-combobox" name="division" id="division" onChange="changeValue(current,old)"></select>
-					<lable>焊机号</lable>
-					<select class="easyui-combobox" name="division" id="division" onChange="changeValue(current,old)"></select>
-					工号
-					<input id="welderno"/>
-					姓名
-					<input id="weldname"/>
+   <div region="center"  hide="true"  split="true">
+   		<div id="body">
+	   	  	<div id="companyOverproof_btn">
+				<div style="margin-bottom: 5px;">
+					<div>
+						<lable>车间号</lable>
+						<select class="easyui-combobox" name="division" id="division" onChange="changeValue(current,old)"></select>
+						<lable>班组号</lable>
+						<select class="easyui-combobox" name="division" id="division" onChange="changeValue(current,old)"></select>
+						<lable>焊机号</lable>
+						<select class="easyui-combobox" name="division" id="division" onChange="changeValue(current,old)"></select>
+						工号
+						<input id="welderno"/>
+						姓名
+						<input id="weldname"/>
+					</div>
+					<div>
+						<input  name="parent" id="parent" type="hidden" value="${parent }"/>
+						<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
+						时间：
+						<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
+						<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
+						时间跨度:
+						<input type="radio" class="radioStyle" name="otype" value="1" />年
+						<input type="radio" class="radioStyle" name="otype" value="2" />月
+						<input type="radio" class="radioStyle" name="otype" value="3" checked="checked" />日
+						<input type="radio" class="radioStyle" name="otype" value="4" />周
+						<a href="javascript:serachCompanyOverproof();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
+					</div>
+						持续时间 >= 
+						<input id="hour"/>
+						时
+						<input id="minute"/>
+						分
+						<input id="second"/>
+						秒
+					<label><input name="term1" id="term1" type="checkbox" value="0"/>过滤超限报警信息</label>
 				</div>
-				<div>
-					<input  name="parent" id="parent" type="hidden" value="${parent }"/>
-					<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
-					时间：
-					<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
-					<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
-					时间跨度:
-					<input type="radio" class="radioStyle" name="otype" value="1" />年
-					<input type="radio" class="radioStyle" name="otype" value="2" />月
-					<input type="radio" class="radioStyle" name="otype" value="3" checked="checked" />日
-					<input type="radio" class="radioStyle" name="otype" value="4" />周
-					<a href="javascript:serachCompanyOverproof();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
-				</div>
-					持续时间 >= 
-					<input id="hour"/>
-					时
-					<input id="minute"/>
-					分
-					<input id="second"/>
-					秒
-				<label><input name="term1" id="term1" type="checkbox" value="0"/>过滤超限报警信息</label>
 			</div>
-		</div>
-        <table id="dg" style="table-layout:fixed;width:100%"></table>
+	        <table id="dg" style="table-layout:fixed;width:100%"></table>
+        </div>
     </div>
 </body>
 </html>

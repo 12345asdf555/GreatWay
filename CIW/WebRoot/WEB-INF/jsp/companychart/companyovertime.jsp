@@ -34,8 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/companychart/companyovertime.js"></script>
   </head>
   
-  <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" title="公司超时待机统计" style="background: witch; height: 335px;">
+  <body>
+    <div>
 	  	<div id="companyOvertime_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="radio" class="radioStyle" name="otype" value="4" />周
 				&nbsp;&nbsp;&nbsp;一天超时待机:
 				<input class="easyui-numberbox" name="number" id="number" value="30">分钟
-				<a href="javascript:serachCompanyOvertime();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
+				<a href="javascript:serachCompanyOvertime();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>

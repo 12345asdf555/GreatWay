@@ -380,7 +380,7 @@ select::-ms-expand {
 }
 
 .libottom{
-	 padding-bottom: 10px;
+	 margin-bottom: 10px;
 }
 
 .divborder{
@@ -403,7 +403,7 @@ select::-ms-expand {
 	color:red;
 }
 #body{
-	height: 85%;margin: 30px;margin-bottom: 80px;
+	height: 87%;margin: 20px;margin-bottom: 50px;
 }
 .functiondiv{
 	float:right;margin-bottom: 5px;

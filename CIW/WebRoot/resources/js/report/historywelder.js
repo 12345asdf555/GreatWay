@@ -22,8 +22,7 @@
 
        $(function(){
 	    $("#dg").datagrid({
-
-			height : $("#body").height(),
+			height : $("body").height()-50,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
@@ -139,7 +138,7 @@
           //改变表格高宽
           function domresize() {
           	$("#dg").datagrid('resize', {
-          		height : $("#body").height(),
+          		height : $("body").height()-50,
           		width : $("#body").width()
           	});
           }

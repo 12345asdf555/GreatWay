@@ -35,8 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
   </head>
   
-  <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" style="background: witch; height: 335px;">
+  <body>
+    <div>
 	  	<div id="caustHour_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
-				<a href="javascript:serachcompanyHour();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
+				<a href="javascript:serachcompanyHour();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>

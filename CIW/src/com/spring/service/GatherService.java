@@ -36,6 +36,7 @@ public interface GatherService {
 	 * @return
 	 */
 	int getGatherNoCount(String gatherno,BigInteger item);
+	int getGatherNoByItemCount(String gatherno,String itemid);
 	
 	/**
 	 * 根据id查询采集信息

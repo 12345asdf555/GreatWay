@@ -6,8 +6,6 @@
   -moz-border-radius: 0 0 0 0;
   -webkit-border-radius: 0 0 0 0;
   border-radius: 0 0 0 0;
-  /*box-shadow: 5px 5px 5px #888888;
-  box-shadow:0px 2px 3px #000;*/
 }
 .panel-header,
 .panel-body {
@@ -15,7 +13,8 @@
 }
 .panel-header {
   padding: 5px;
-  position: relative;
+  position: relative;  
+  border-radius: 5px;
 }
 .panel-title {
   background: #dfe0e0;/*导航菜单title色*/
@@ -345,7 +344,7 @@
   background-color: #ffffff;
 }
 .combo {
-  border-color: #dfe0e0;/**/
+  border-color: #95B8E7;/*文本边框色*/
   background-color: #dfe0e0;/**/
 }
 .combo-arrow {
@@ -375,7 +374,7 @@
   color: #000000;
 }
 .combobox-item-selected {
-  background-color: #ffe48d;
+  background-color: #fecf5d;
   color: #000000;
 }
 .layout {
@@ -1026,7 +1025,7 @@
   background: #ddd;
 }
 .datagrid{/*自增样式*/
-	border-radius: 24px;
+	border-radius: 13px;
 	border:1px solid #a7aaab;
 }
 .datagrid .panel-body {
@@ -1583,7 +1582,7 @@
   padding: 0;
 }
 .calendar-selected {
-  background-color: #ffe48d;
+  background-color: #fecf5d;
   color: #000000;
   border: 1px solid #ffab3f;
   padding: 0;
@@ -1718,7 +1717,7 @@
   font-size: 12px;
 }
 .progressbar-value .progressbar-text {
-  background-color: #ffe48d;
+  background-color: #fecf5d;
   color: #000000;
 }
 .searchbox {
@@ -2308,7 +2307,7 @@
   color: #000000;
 }
 .tree-node-selected {
-  background: #ffe48d;
+  background: #fecf5d;
   color: #000000;
 }
 .validatebox-invalid {

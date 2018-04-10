@@ -22,7 +22,7 @@
 
        $(function(){
 	    $("#dg").datagrid({
-			height : $("#body").height(),
+			height : $("#body").height()+30,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,

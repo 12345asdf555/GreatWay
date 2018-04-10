@@ -68,4 +68,6 @@ public interface GatherService {
 	 * @return
 	 */
 	List<Gather> getGatherByInsfid(BigInteger insfid);
+	
+	int getGatherNoByItemCount(String gatherno,String itemid);
 }

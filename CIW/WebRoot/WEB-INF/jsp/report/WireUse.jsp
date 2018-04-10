@@ -33,7 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <body class="easyui-layout">
 	<jsp:include  page="../insframeworktree.jsp"/>
-   <div id="body" region="center"  hide="true"  split="true" style="background: #eee; height: 335px;">	  	
+   <div region="center"  hide="true"  split="true">
+   		<div id="body">
 <%--    	  	<div id="companyOverproof_btn">
 			<div style="margin-bottom: 5px;">
 <!-- 				<lable>车间号</lable>
@@ -52,7 +53,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:serachCompanyOverproof();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div> --%>
-        <table id="dg" style="table-layout:fixed;width:100%"></table>
+        	<table id="dg" style="table-layout:fixed;width:100%"></table>
+       	</div>
     </div>
 </body>
 </html>

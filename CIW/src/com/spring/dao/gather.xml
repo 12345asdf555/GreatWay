@@ -49,6 +49,10 @@
 		select count(*) from tb_gather where fgather_no = #{gatherno}
 	</select>
 	
+	<select id="getGatherNoByItemCount" resultType="java.lang.Integer">
+		 select count(*) from tb_gather where fgather_no = #{gatherno} and fitemId=#{itemid}
+	</select>
+	
 	<insert id="addGather" parameterType="com.spring.model.Gather" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO tb_gather(fgather_no,fitemId, fstatus, fprotocol, fipurl, fmacurl, fleavetime,fcreater,fcreatedate) VALUES
 		(#{gatherNo},#{itemid},#{status},#{protocol},#{ipurl},#{macurl},#{leavetime},#{creater},now())

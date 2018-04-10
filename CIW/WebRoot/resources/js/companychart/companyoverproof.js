@@ -109,7 +109,7 @@ function CompanyHourDatagrid(){
          dataType : "json", //返回数据形式为json  
          success : function(result) {  
              if (result) {
-            	 var width=$("#body").width()/result.rows.length;
+            	 var width=$("body").width()/result.rows.length;
                  column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  for(var m=0;m<result.arys1.length;m++){
                 	 column.push({field:"a"+m,title:result.arys1[m].name,width:width,halign : "center",align : "left"});
@@ -122,8 +122,8 @@ function CompanyHourDatagrid(){
     }); 
 	 $("#companyOverproofTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-60,
-			width : $("#body").width(),
+			height : $("body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-60,
+			width : $("body").width(),
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
@@ -158,7 +158,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyOverproofTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-60,
-		width : $("#body").width()
+		height : $("body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-60,
+		width : $("body").width()
 	});
 }

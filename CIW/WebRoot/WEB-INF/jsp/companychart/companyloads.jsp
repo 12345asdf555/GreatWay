@@ -34,8 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/companychart/companyloads.js"></script>
   </head>
   
-  <body class="easyui-layout">
-    <div id="body" region="center"  hide="true"  split="true" style="background: witch; height: 335px;">
+  <body>
+    <div>
 	  	<div id="companyLoads_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="radio" class="radioStyle" name="otype" value="2" />月
 				<input type="radio" class="radioStyle" name="otype" value="3" checked="checked" />日
 				<input type="radio" class="radioStyle" name="otype" value="4" />周
-				<a href="javascript:serachCompanyloads();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
+				<a href="javascript:serachCompanyloads();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>

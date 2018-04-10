@@ -105,26 +105,35 @@ public class ImportExcelController {
 				String name = wm.getInsframeworkId().getName();
 				wm.getInsframeworkId().setId(wmm.getInsframeworkByName(name));
 				Gather gather = wm.getGatherId();
-				String gno = Integer.toHexString(Integer.valueOf(gather.getGatherNo()));
-				if(gno.length()!=4){
-	                int lenth=4-gno.length();
-	                for(int i=0;i<lenth;i++){
-	                	gno="0"+gno;
-	                }
-	              }
 				int count2 = 0;
 				if(gather!=null){
+					String gno = Integer.toHexString(Integer.valueOf(gather.getGatherNo()));
+					if(gno.length()!=4){
+		                int lenth=4-gno.length();
+		                for(int i=0;i<lenth;i++){
+		                	gno="0"+gno;
+		                }
+		              }
+					int count3 = g.getGatherNoByItemCount(gno, wm.getInsframeworkId().getId()+"");
+					if(count3 == 0){
+						obj.put("msg","导入失败，请检查您的采集序号是否存在或是否属于该部门！");
+						obj.put("success",false);
+						return obj.toString();
+					}
+					gather.setId(g.getGatherByNo(gno));
+					wm.setGatherId(gather);
 					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gno);
 				}
-				String sea = Integer.toHexString(Integer.valueOf(wm.getEquipmentNo()));
-				if(sea.length()!=4){
-	                int lenth=4-sea.length();
-	                for(int i=0;i<lenth;i++){
-	                	sea="0"+sea;
-	                }
-	              }
-				
-				wm.setEquipmentNo(sea);
+				if(isInteger(wm.getEquipmentNo())){
+					String sea = Integer.toHexString(Integer.valueOf(wm.getEquipmentNo()));
+					if(sea.length()!=4){
+		                int lenth=4-sea.length();
+		                for(int i=0;i<lenth;i++){
+		                	sea="0"+sea;
+		                }
+		            }
+					wm.setEquipmentNo(sea);
+				}
 				wm.setGatherId(gather);
 				//编码唯一
 				int count1 = wmm.getEquipmentnoCount(wm.getEquipmentNo());
@@ -165,7 +174,19 @@ public class ImportExcelController {
 			file.delete();
 			for(int i=0;i<wt.size();i++){
 				wt.get(i).getMaintenance().setTypeId(dm.getvaluebyname(5,wt.get(i).getMaintenance().getTypename()));
-				BigInteger wmid = wmm.getWeldingMachineByEno(wt.get(i).getWelding().getEquipmentNo());
+				BigInteger wmid = null;
+				if(isInteger(wt.get(i).getWelding().getEquipmentNo())){
+					String sea = Integer.toHexString(Integer.valueOf(wt.get(i).getWelding().getEquipmentNo()));
+					if(sea.length()!=4){
+		                int lenth=4-sea.length();
+		                for(int j=0;j<lenth;j++){
+		                	sea="0"+sea;
+		                }
+		            }
+					wmid = wmm.getWeldingMachineByEno(sea);
+				}else{
+					wmid = wmm.getWeldingMachineByEno(wt.get(i).getWelding().getEquipmentNo());
+				}
 				wt.get(i).getWelding().setId(wmid);
 				//插入数据库
 				mm.addMaintian( wt.get(i),wt.get(i).getMaintenance(),wmid);
@@ -200,8 +221,8 @@ public class ImportExcelController {
 			File file  = new File(path);
 			file.delete();
 			for(Person w:we){
-//				w.setLeveid(dm.getvaluebyname(8,w.getLevename()));
-//				w.setQuali(dm.getvaluebyname(7, w.getQualiname()));
+				w.setLeveid(dm.getvaluebyname(8,w.getLevename()));
+				w.setQuali(dm.getvaluebyname(7, w.getQualiname()));
 				w.setOwner(wmm.getInsframeworkByName(w.getInsname()));
 				MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				w.setCreater(new BigInteger(user.getId()+""));
@@ -334,6 +355,12 @@ public class ImportExcelController {
                         int intValue = (int) value;
                         cellValue = value - intValue == 0 ? String.valueOf(intValue) : String.valueOf(value);
                     }
+					if(k == 0){
+						WeldingMachine welding = new WeldingMachine();
+						welding.setEquipmentNo(cellValue);
+						dit.setWelding(welding);//设备编码
+						break;
+					}
 					if(k == 2){
 						mr.setStartTime(cellValue);//维修起始时间
 						break;
@@ -499,6 +526,13 @@ public class ImportExcelController {
 						}
 						break;
  					}
+					//采集序号机设备序号只能是数字
+					if(k == 8){
+						Gather g = new Gather();
+						g.setGatherNo(cellValue);
+						dit.setGatherId(g);//采集序号
+						break;
+					}
 					if(k == 9){
 						dit.setPosition(cellValue);//位置
 						break;
@@ -599,7 +633,7 @@ public class ImportExcelController {
 						p.setCellphone(cellValue);//手机
 						break;
  					}
-					if(k == 3){
+					if(k == 4){
 						p.setCardnum(cellValue);//卡号
 						break;
  					}
@@ -615,14 +649,22 @@ public class ImportExcelController {
 						break;
 					}
 					if(k == 3){
-						p.setCardnum(cellValue);//卡号
+						p.setLevename(cellValue);//级别
 						break;
  					}
 					if(k == 4){
-						p.setInsname(cellValue);//部门
+						p.setCardnum(cellValue);//卡号
 						break;
  					}
 					if(k == 5){
+						p.setQualiname(cellValue);//资质
+						break;
+ 					}
+					if(k == 6){
+						p.setInsname(cellValue);//部门
+						break;
+ 					}
+					if(k == 7){
 						p.setBack(cellValue);//备注
 						break;
  					}
@@ -876,4 +918,9 @@ public class ImportExcelController {
         }
         throw new IllegalArgumentException("你的excel版本目前poi解析不了");
     }
+	
+	public static boolean isInteger(String str) {  
+	     Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");  
+	     return pattern.matcher(str).matches();  
+	 }
 }

@@ -58,29 +58,28 @@ public class ExportExcelController {
 			String str=(String) request.getSession().getAttribute("searchStr");
 			List<WeldingMachine> list = wmm.getWeldingMachine(str);
 			
-			String[] titles = new String[]{"序号","设备编码","设备类型","入厂时间","所属项目","状态","厂家","厂家类型","是否在网","采集序号","位置"};
-			Object[][] data = new Object[list.size()][11];
+			String[] titles = new String[]{"设备编码","设备类型","入厂时间","所属项目","状态","厂家","厂家类型","是否在网","采集序号","位置"};
+			Object[][] data = new Object[list.size()][10];
 			for(int i =0; i<list.size();i++){
-				data[i][0] = list.get(i).getId();
-				data[i][1] = Integer.parseInt(list.get(i).getEquipmentNo(), 16);
-				data[i][2] = list.get(i).getTypename();
-				data[i][3] = list.get(i).getJoinTime();
-				data[i][4] = list.get(i).getInsframeworkId().getName();
-				data[i][5] = list.get(i).getStatusname();
-				data[i][6] = list.get(i).getManufacturerId().getName();
-				data[i][7] = list.get(i).getManufacturerId().getType();
+				data[i][0] = Integer.parseInt(list.get(i).getEquipmentNo(), 16);
+				data[i][1] = list.get(i).getTypename();
+				data[i][2] = list.get(i).getJoinTime();
+				data[i][3] = list.get(i).getInsframeworkId().getName();
+				data[i][4] = list.get(i).getStatusname();
+				data[i][5] = list.get(i).getManufacturerId().getName();
+				data[i][6] = list.get(i).getManufacturerId().getType();
 				if(list.get(i).getIsnetworking()==0){
-					data[i][8] = "是";
+					data[i][7] = "是";
 				}else{
-					data[i][8] = "否";
+					data[i][7] = "否";
 				}
 				Gather gather = list.get(i).getGatherId();
 				if(gather!=null){
-					data[i][9] = Integer.parseInt(gather.getGatherNo(), 16);
+					data[i][8] = Integer.parseInt(gather.getGatherNo(), 16);
 				}else{
-					data[i][9] = null;
+					data[i][8] = null;
 				}
-				data[i][10] = list.get(i).getPosition();
+				data[i][9] = list.get(i).getPosition();
 			}
 			filename = "焊机设备" + sdf.format(new Date()) + ".xls";
 
@@ -124,16 +123,15 @@ public class ExportExcelController {
 			String str=(String) request.getSession().getAttribute("searchStr");
 			List<WeldingMaintenance> list = mm.getWeldingMaintenanceAll(str);
 			
-			String[] titles = new String[]{"序号","设备编码","维修人员","维修起始时间","维修结束时间","维修类型","维修说明"};
-			Object[][] data = new Object[list.size()][7];
+			String[] titles = new String[]{"设备编码","维修人员","维修起始时间","维修结束时间","维修类型","维修说明"};
+			Object[][] data = new Object[list.size()][6];
 			for(int i =0; i<list.size();i++){
-				data[i][0] = list.get(i).getId();
-				data[i][1] = list.get(i).getWelding().getEquipmentNo();
-				data[i][2] = list.get(i).getMaintenance().getViceman();
-				data[i][3] = list.get(i).getMaintenance().getStartTime();
-				data[i][4] = list.get(i).getMaintenance().getEndTime();
-				data[i][5] = list.get(i).getMaintenance().getTypename();
-				data[i][6] = list.get(i).getMaintenance().getDesc();
+				data[i][0] = Integer.parseInt(list.get(i).getWelding().getEquipmentNo(), 16);
+				data[i][1] = list.get(i).getMaintenance().getViceman();
+				data[i][2] = list.get(i).getMaintenance().getStartTime();
+				data[i][3] = list.get(i).getMaintenance().getEndTime();
+				data[i][4] = list.get(i).getMaintenance().getTypename();
+				data[i][5] = list.get(i).getMaintenance().getDesc();
 			}
 			filename = "焊机维修" + sdf.format(new Date())+".xls";
 

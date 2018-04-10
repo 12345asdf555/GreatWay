@@ -20,7 +20,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
-	
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
@@ -42,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</style>
 		  	<div class="fit" style="line-height:22px;height:22px;">
 		    	<lable>公司名称：</lable>
-		        	<input name="companyName" id="companyName" type="text" data-options="required:true">
+		        	<input name="companyName" id="companyName" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:28,required:true">
 		    </div>
 		    <div class="fit" style="height:44px;">
 		        <div style="height:22px;">
@@ -51,18 +50,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    	<div style="height:22px;">
 		    	<label>基础停机时间：</label>
-		    	<input name="hour1" id="hour1" type="text" style="width:50px;" data-options="required:true"/>
+		    	<input name="hour1" id="hour1" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	<label>时</label>
-		    	<input name="minute1" id="minute1" type="text" style="width:50px;" data-options="required:true"/>
+		    	<input name="minute1" id="minute1" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	<label>分</label>
-		    	<input name="second1" id="second1" type="text" style="width:50px;" data-options="required:true"/>
+		    	<input name="second1" id="second1" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	<label>秒</label>
 		    	<label>最大停机浮动时间：</label>
-		    	<input name="hour2" id="hour2" type="text" style="width:50px;" data-options="required:true"/>
+		    	<input name="hour2" id="hour2" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	<label>时</label>
-		    	<input name="minute2" id="minute2" type="text" style="width:50px;" data-options="required:true"/>
+		    	<input name="minute2" id="minute2" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	<label>分</label>
-		    	<input name="second2" id="second2" type="text" style="width:50px;" data-options="required:true"/>
+		    	<input name="second2" id="second2" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	<label>秒</label>
 		    	</div>
 		    </div>
@@ -70,27 +69,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    
 		    	<lable>超限监测：</lable></br>
 		    	<lable>连续 [</lable>
-		       	<input name="hour3" id="hour3" type="text" style="width:50px;" data-options="required:true"/>
+		       	<input name="hour3" id="hour3" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	<label>时</label>
-		    	<input name="minute3" id="minute3" type="text" style="width:50px;" data-options="required:true"/>
+		    	<input name="minute3" id="minute3" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	<label>分</label>
-		    	<input name="second3" id="second3"type="text" style="width:50px;" data-options="required:true"/>
+		    	<input name="second3" id="second3" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	<label>秒 ]内，最大超限次数 </label>
-		    	<input name="times" id="times" type="text" style="width:50px;" data-options="required:true"/>
+		    	<input name="times" id="times" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    </div>
 		    <div class="fit" style="height:44px;">
 		    	<div style="height:22px;">
 		    	<lable>焊丝重量：</lable>
 		    	</div>
 		    	<div style="height:22px;">
-		    	<lable>1.0</lable>
-		       	<input name="one" id="one" type="text" style="width:150px;" data-options="required:true"/>
-		    	<label>Kg/m 1.2</label>
-		    	<input name="two" id="two" type="text" style="width:150px;" data-options="required:true"/>
-		    	<label>Kg/m 1.6</label>
-		    	<input name="six" id="six" type="text" style="width:150px;" data-options="required:true"/>
-		    	<label>Kg/m 0.8</label>
-		    	<input name="eight" id="eight" type="text" style="width:150px;" data-options="required:true"/>
+		    	<lable>1.0   </lable>
+		       	<input name="one" id="one" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:50,required:true"/>
+		    	<label>Kg/m,   1.2   </label>
+		    	<input name="two" id="two" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:50,required:true"/>
+		    	<label>Kg/m,   1.6   </label>
+		    	<input name="six" id="six" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:50,required:true"/>
+		    	<label>Kg/m,   0.8   </label>
+		    	<input name="eight" id="eight" class="easyui-textbox"  data-options="iconCls:'icon-search',iconWidth:50,required:true"/>
 		    	<label>Kg/m</label>
 		    	</div>
 		    </div>
@@ -100,21 +99,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div style="height:22px;">
 		    	<lable>气流量：</lable>
-		       	<input name="airflow" id="airflow" type="text" style="width:150px;" data-options="required:true"/>
+		       	<input name="airflow" id="airflow" class="easyui-textbox" style="width:10px;" data-options="iconCls:'icon-search',iconWidth:50,required:true"/>
 		    	<label>L/min</label>
 		    	</div>
 		    	<div style="height:22px;">
 		    	<lable>送丝速度：</lable>
-		    	<input name="speed" id="speed" type="text" style="width:150px;" data-options="required:true"/>
+		    	<input name="speed" id="speed" class="easyui-textbox"   data-options="iconCls:'icon-search',iconWidth:50,required:true"/>
 		    	<label>m/min</label>
 		    	</div>
 		    	<div style="height:22px;">
 		    	<lable>焊接功率=焊接电流*焊接电压*</lable>
-		    	<input name="weld" id="weld" type="text" style="width:150px;" data-options="required:true"/>
+		    	<input name="weld" id="weld" class="easyui-textbox"   data-options="iconCls:'icon-search',iconWidth:50,required:true"/>
 		    	</div>
 		    	<div style="height:22px;">
 		    	<lable>待机功率=</lable>
-		    	<input name="wait" id="wait" type="text" style="width:150px;" data-options="required:true"/>
+		    	<input name="wait" id="wait" class="easyui-textbox"   data-options="iconCls:'icon-search',iconWidth:50,required:true"/>
 		    	<label>w</label>
 		    	</div>
 		    </div>
@@ -127,18 +126,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    	<div style="height:22px;">
 		    	<lable>白班</lable>
-		       	<input name="day" id="day" type="text" style="width:150px;" data-options="required:true"/>
+		       	<input name="day" id="day" class="easyui-textbox" data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		       	</div>
 		       	<div style="height:22px;">
 		    	<label>中班</label>
-		    	<input name="after" id="after" type="text" style="width:150px;" data-options="required:true"/>
+		    	<input name="after" id="after" class="easyui-textbox"   data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	</div>
 		    	<div style="height:22px;">
 		    	<label>夜班</label>
-		    	<input name="night" id="night" type="text" style="width:150px;" data-options="required:true"/>
+		    	<input name="night" id="night" class="easyui-textbox"   data-options="iconCls:'icon-search',iconWidth:100,required:true"/>
 		    	</div>
 		    </div>
-		    <div class="fit" style="line-height:44px;height:40px;padding-top:16px;" align="center">
+		    <div class="fit" style="line-height:44px;height:30px;padding-top:6px;" align="center">
 		    	<a href="javascript:savePara();" class="easyui-linkbutton" iconCls="icon-update" style="border:1px solid #cbc9c9;">确定</a>
 		    </div>
     	</form>

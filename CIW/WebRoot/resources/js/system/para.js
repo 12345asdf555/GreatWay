@@ -4,6 +4,7 @@
 
 	
 	$(function(){
+        $("#fm").form("disableValidation");
 		$.ajax({  
 		    type : "post",  
 		    async : false,
@@ -13,38 +14,38 @@
 		    success : function(result) {
 		    	var res = eval(result.rows);
 		    	for(var i=0;i<res.length;i++){
-		    		document.getElementById("id").value=res[i].id;
-		    		document.getElementById("companyName").value=res[i].fcn;
+		    		$("#id").textbox("setValue", res[i].id);
+		    		$("#companyName").textbox("setValue", res[i].fcn);
 	    			if(res[i].fvv=="0"){
 	    				$("#term1").attr("checked",true);
 	    				}else{
 	    					$("#term2").attr("checked",true);
 	    				}
 	    			var time1=res[i].fst.split(':');
-	    			document.getElementById("hour1").value=time1[0];
-	    			document.getElementById("minute1").value=time1[1];
-	    			document.getElementById("second1").value=time1[2];
+		    		$("#hour1").textbox("setValue", time1[0]);
+		    		$("#minute1").textbox("setValue", time1[1]);
+		    		$("#second1").textbox("setValue", time1[2]);
 	    			var time2=res[i].fsft.split(':');
-	    			document.getElementById("hour2").value=time2[0];
-	    			document.getElementById("minute2").value=time2[1];
-	    			document.getElementById("second2").value=time2[2];
+		    		$("#hour2").textbox("setValue", time2[0]);
+		    		$("#minute2").textbox("setValue", time2[1]);
+		    		$("#second2").textbox("setValue", time2[2]);
 	    			var time3=res[i].fct.split(':');
-	    			document.getElementById("hour3").value=time3[0];
-	    			document.getElementById("minute3").value=time3[1];
-	    			document.getElementById("second3").value=time3[2];
-	    			document.getElementById("times").value=res[i].folt;
+		    		$("#hour3").textbox("setValue", time3[0]);
+		    		$("#minute3").textbox("setValue", time3[1]);
+		    		$("#second3").textbox("setValue", time3[2]);
+		    		$("#times").textbox("setValue", res[i].folt);
 	    			var weight=res[i].fww.split(',');
-	    			document.getElementById("one").value=weight[0];
-	    			document.getElementById("two").value=weight[1];
-	    			document.getElementById("six").value=weight[2];
-	    			document.getElementById("eight").value=weight[3];
-	    			document.getElementById("airflow").value=res[i].fafv;
-	    			document.getElementById("speed").value=res[i].fspeed;
-	    			document.getElementById("weld").value=res[i].fwc;
-	    			document.getElementById("wait").value=res[i].fsp;
-	    			document.getElementById("day").value=res[i].fds;
-	    			document.getElementById("after").value=res[i].fas;
-	    			document.getElementById("night").value=res[i].fns;
+		    		$("#one").textbox("setValue", weight[0]);
+		    		$("#two").textbox("setValue", weight[1]);
+		    		$("#six").textbox("setValue", weight[2]);
+		    		$("#eight").textbox("setValue", weight[3]);
+		    		$("#airflow").textbox("setValue", res[i].fafv);
+		    		$("#speed").textbox("setValue", res[i].fspeed);
+		    		$("#weld").textbox("setValue", res[i].fwc);
+		    		$("#wait").textbox("setValue", res[i].fsp);
+		    		$("#day").textbox("setValue", res[i].fds);
+		    		$("#after").textbox("setValue", res[i].fas);
+		    		$("#night").textbox("setValue", res[i].fns);
 		    	}
 		    },  
 		    error : function(errorMsg) {  
@@ -60,7 +61,6 @@
 	})
 	
 	function savePara(){
-        $("#fm").form("disableValidation");
         var id = document.getElementById("id").value;
         var check=$("input[type='checkbox']:checked").val(); 
         var url;

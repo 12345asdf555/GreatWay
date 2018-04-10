@@ -20,10 +20,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
-	<link rel="stylesheet" type="text/css" href="resources/css/common.css">
 	
   </head>
   
-  <body style="background:#ffffff;"><!-- background:url('resources/images/01.png') no-repeat; -->
+  <body style="background:#ffffff;">
+	<div style="text-align:center;padding-top: 200px;"> 
+		<h1>云智能焊接管控系统欢迎您的到来！<br/>
+		Cloud intelligent welding control system welcomes your arrival.</h1>
+	</div>
   </body>
 </html>

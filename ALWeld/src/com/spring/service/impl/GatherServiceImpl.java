@@ -74,4 +74,9 @@ public class GatherServiceImpl implements GatherService {
 		return gm.getGatherByInsfid(insfid);
 	}
 
+	@Override
+	public int getGatherNoByItemCount(String gatherno, String itemid) {
+		return gm.getGatherNoByItemCount(gatherno, itemid);
+	}
+
 }

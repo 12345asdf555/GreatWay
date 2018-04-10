@@ -107,8 +107,8 @@ function CompanyloadsDatagrid(){
 	setParam();
 	 $("#companywmlistTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#companywmlistChart").height()-$("#companywmlist_btn").height()-40,
-			width : $("#body").width(),
+			height : $("body").height() - $("#companywmlistChart").height()-$("#companywmlist_btn").height()-60,
+			width : $("body").width(),
 			idField : 'id',
 			url : "companyChart/getCompanyWerderList"+chartStr,
 			singleSelect : true,
@@ -154,7 +154,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companywmlistTable").datagrid('resize', {
-		height : $("#body").height() - $("#companywmlistChart").height()-$("#companywmlist_btn").height()-10,
-		width : $("#body").width()
+		height : $("body").height() - $("#companywmlistChart").height()-$("#companywmlist_btn").height()-60,
+		width : $("body").width()
 	});
 }
