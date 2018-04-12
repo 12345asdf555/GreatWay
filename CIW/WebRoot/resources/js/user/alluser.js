@@ -20,8 +20,8 @@
         	insframeworkTree();
 		})   
 
-       $(function(){
-	    $("#dg").datagrid( {
+$(function(){
+	$("#dg").datagrid( {
 		fitColumns : true,
 		height : ($("#body").height()),
 		width : $("#body").width(),
@@ -233,41 +233,41 @@ function role(id){
     })
 }
         
-        function logout(){
- 			$.ajax({  
- 		        type : "post",  
- 		        async : false,
- 		        url : "user/logout",  
- 		        data : {},  
- 		        dataType : "json", //返回数据形式为json  
- 		        success : function(result) {
- 		            if (result) {
- 		            	if (!result.success) {
- 							$.messager.show( {
- 								title : 'Error',
- 								msg : result.msg
- 							});
- 						} else {
- 							var url = "/CMS/login.jsp";
- 							top.location.href = url;
- 						}
- 		            }  
- 		        },  
- 		        error : function(errorMsg) {  
- 		            alert("数据请求失败，请联系系统管理员!");  
- 		        }  
- 		   }); 
-         }
-        
-        function insframeworkTree(){
-        	$("#myTree").tree({  
-        		onClick : function(node){
-        			$("#dg").datagrid('load',{
-        				"parent" : node.id
-        			})
-        		 }
-        	})
-        }
+function logout(){
+	$.ajax({  
+        type : "post",  
+        async : false,
+        url : "user/logout",  
+        data : {},  
+        dataType : "json", //返回数据形式为json  
+        success : function(result) {
+            if (result) {
+            	if (!result.success) {
+					$.messager.show( {
+						title : 'Error',
+						msg : result.msg
+					});
+				} else {
+					var url = "/CMS/login.jsp";
+					top.location.href = url;
+				}
+            }  
+        },  
+        error : function(errorMsg) {  
+            alert("数据请求失败，请联系系统管理员!");  
+        }  
+   }); 
+ }
+
+function insframeworkTree(){
+	$("#myTree").tree({  
+		onClick : function(node){
+			$("#dg").datagrid('load',{
+				"parent" : node.id
+			})
+		 }
+	})
+}
         
 //        function addUser(){
 //        	var node = $('#myTree').tree('getSelected');
@@ -397,7 +397,10 @@ function role(id){
 		                color.class="rowColor";
 		                return color;
 		            }
-				},   
+				}, 
+				onBeforeLoad:function(data){
+					 $('#rtt').datagrid('clearChecked');
+				},
 				onLoadSuccess:function(data){
 	   			 if(data){
 					 $.each(data.rows, function(index, item){

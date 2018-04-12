@@ -273,6 +273,7 @@ public class UserController {
 				 userService.delete(new Integer(user.getId()));
 				 obj.put("success", true);
 			}catch(Exception e){
+				e.printStackTrace();
 				obj.put("success", false);
 				obj.put("errorMsg", e.getMessage());
 			}

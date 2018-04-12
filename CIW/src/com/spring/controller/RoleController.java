@@ -66,9 +66,10 @@ public class RoleController {
 		try{
 			for(Role role:findAll){
 				json.put("id", role.getId());
-				json.put("roles_name", role.getRoleName());
-				json.put("roles_desc", role.getRoleDesc());
+				json.put("roleName", role.getRoleName());
+				json.put("roleDesc", role.getRoleDesc());
 				json.put("status", role.getStatusname());
+				json.put("statusid", role.getRoleStatus());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -170,21 +171,26 @@ public class RoleController {
 	
 	@RequestMapping("/dtbUser")
 	public String dtbUser(Role role,HttpServletRequest request){
-   
-		String str = request.getParameter("uid");
-		Integer rid = Integer.parseInt(request.getParameter("rid"));
-		roleService.deleteUser(rid);
-		if(null!=str&&""!=str){
-		String[] s = str.split(",");
-        for (int i = 0; i < s.length; i++) {
-            Integer id = Integer.parseInt(s[i]);
-            /*roleService.deleteUser(roleService.updateRoleUser(rid));*/
-            role.setUserName(roleService.findByUserId(id));
-            role.setUserId(id);
-            roleService.saveUser(role);
-        }
+		JSONObject obj = new JSONObject();
+		obj.put("flag", true);
+		try{
+			String str = request.getParameter("uid");
+			Integer rid = Integer.parseInt(request.getParameter("rid"));
+			roleService.deleteUser(rid);
+			if(null!=str&&""!=str){
+				String[] s = str.split(",");
+		        for (int i = 0; i < s.length; i++) {
+		            Integer id = Integer.parseInt(s[i]);
+		            /*roleService.deleteUser(roleService.updateRoleUser(rid));*/
+		            role.setUserName(roleService.findByUserId(id));
+		            role.setUserId(id);
+		            roleService.saveUser(role);
+		        }
+			}
+		}catch(Exception e){
+			obj.put("flag", false);
 		}
-			return "redirect:/role/getAllRole";
+		return obj.toString();
 	}
 	/**
 	 * 根据id查询单个用户
@@ -270,24 +276,31 @@ public class RoleController {
 	
 	@RequestMapping("/getAllUser")
 	@ResponseBody
-	public String getAllUser(HttpServletRequest request){
-		
-		List<Role> findAllUser = roleService.findAllUser();
-		JSONObject json = new JSONObject();
-		JSONArray ary = new JSONArray();
-		JSONObject obj = new JSONObject();
-		try{
-			for(Role role:findAllUser){
-				json.put("id", role.getId());
-				json.put("users_name", role.getUserName());
-				ary.add(json);
-			}
-		}catch(Exception e){
-			e.getMessage();
-		}
-		obj.put("rows", ary);
-		return obj.toString();
-	}
+	public String getAllUser(@RequestParam Integer id,HttpServletRequest request){
+	    
+	    List<Role> findAllUser = roleService.findAllUser();
+	    List<Role> findUser = roleService.findUser(id);
+	    JSONObject json = new JSONObject();
+	    JSONArray ary = new JSONArray();
+	    JSONObject obj = new JSONObject();
+	    try{
+	      for(Role role:findAllUser){
+	        json.put("id", role.getId());
+	        json.put("users_name", role.getUserName());
+	        json.put("symbol", 0);
+	        for(Role aut:findUser){
+	          if(role.getId()==aut.getUserId()){
+	            json.put("symbol", 1);
+	          }
+	        }
+	        ary.add(json);
+	      }
+	    }catch(Exception e){
+	      e.getMessage();
+	    }
+	    obj.put("rows", ary);
+	    return obj.toString();
+	  }
 	
 	@RequestMapping("/getUser")
 	@ResponseBody

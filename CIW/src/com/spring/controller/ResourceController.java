@@ -65,11 +65,12 @@ public class ResourceController {
 		try{
 			for(Resources resource:findAll){
 				json.put("id", resource.getId());
-				json.put("resources_name", resource.getResourceName());
-				json.put("resources_type", resource.getResourceType());
-				json.put("resources_address", resource.getResourceAddress());
-				json.put("resources_desc",resource.getResourceDesc());
+				json.put("resourceName", resource.getResourceName());
+				json.put("resourceType", resource.getResourceType());
+				json.put("resourceAddress", resource.getResourceAddress());
+				json.put("resourceDesc",resource.getResourceDesc());
 				json.put("status", resource.getStatusname());
+				json.put("statusid", resource.getStatus());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -101,10 +102,11 @@ public class ResourceController {
 	public String addResource(Resources resource,HttpServletRequest request){
 		JSONObject obj = new JSONObject();
 		try{
-		resource.setStatus(Integer.parseInt(request.getParameter("status")));
-		resourceService.save(resource);
-		obj.put("success", true);
+			resource.setStatus(Integer.parseInt(request.getParameter("status")));
+			resourceService.save(resource);
+			obj.put("success", true);
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
 		}
