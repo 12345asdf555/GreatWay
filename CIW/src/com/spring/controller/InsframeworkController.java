@@ -129,6 +129,8 @@ public class InsframeworkController {
 				json.put("code", i.getCode());
 				json.put("parent", im.getInsframeworkById(i.getParent()));
 				json.put("type", i.getTypename());
+				json.put("typeid", i.getType());
+				json.put("parentid", i.getParent());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -226,18 +228,19 @@ public class InsframeworkController {
 	 */
 	@RequestMapping("/getParent")
 	@ResponseBody
-	public String getParent(){
+	public String getParent(HttpServletRequest request){
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
+			String flag = request.getParameter("flag");
 			//获取用户id
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
 			List<Insframework> instype = im.getInsByUserid(new BigInteger(myuser.getId()+""));
 			List<Insframework> ins = null;
 			for(Insframework i:instype){
-				if(i.getType()==20){
+				if(i.getType()==20 || iutil.isNull(flag)){
 					ins = im.getInsAll(23);
 				}else if(i.getType()==21){
 					ins = im.getInsIdByParent(i.getId(),23);
@@ -253,7 +256,7 @@ public class InsframeworkController {
 				ary.add(json);
 			}
 		}catch(Exception e){
-			e.getMessage();
+			e.printStackTrace();
 		}
 		obj.put("ary", ary);
 		return obj.toString();
@@ -280,9 +283,9 @@ public class InsframeworkController {
 				if(i.getType()==20){
 					dictionary = dm.getDictionaryValue(2);
 				}else if(i.getType()==21){
-					dictionary = dm.getDicValueByValue(2, 21);
+					dictionary = dm.getDicValueByValue(2, 20);
 				}else{
-					dictionary = dm.getDicValueByValue(2, 22);
+					dictionary = dm.getDicValueByValue(2, 21);
 				}
 			}
 			for(Dictionarys d:dictionary){

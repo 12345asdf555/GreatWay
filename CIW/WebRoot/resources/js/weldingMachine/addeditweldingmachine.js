@@ -10,7 +10,11 @@ $(function(){
         	gatherCombobox();
         } 
      });
-	editText();
+	$('#dlg').dialog( {
+		onClose : function() {
+			$("#fm").form("disableValidation");
+		}
+	})
 	$("#fm").form("disableValidation");
 })
 
@@ -19,22 +23,40 @@ var url = "";
 var flag = 1;
 function addWeldingMachine(){
 	flag = 1;
+	$('#fm').form('clear');
+	$('#dlg').window( {
+		title : "新增焊机设备",
+		modal : true
+	});
+	$('#dlg').window('open');
+	var isnetworkingId = document.getElementsByName("isnetworkingId");
+	var statusId = document.getElementsByName("statusId");
+	isnetworkingId[0].checked =  'checked';
+	statusId[0].checked =  'checked';
 	url = "weldingMachine/addWeldingMachine";
-	saveWeldingMachine();
 }
 
 function editWeldingMachine(){
 	flag = 2;
-	var wid = $("#wid").val();
-	url = "weldingMachine/editWeldingMachine?wid="+wid;
-	saveWeldingMachine();
+	var row = $('#weldingmachineTable').datagrid('getSelected');
+	if (row) {
+		$('#dlg').window( {
+			title : "修改采集模块",
+			modal : true
+		});
+		$('#dlg').window('open');
+		$('#fm').form('load', row);
+		$('#valideno').val(row.equipmentNo);
+		$('#validgid').val(row.gatherId);
+		url = "weldingMachine/editWeldingMachine?wid="+row.id;
+	}
 }
 
 //提交
 function saveWeldingMachine(){
 	var tid = $('#tId').combobox('getValue');
 	var iid = $('#iId').combobox('getValue');
-	var gatherId = $('#gatherId').combobox('getValue');
+	var gatherId = $('#gid').combobox('getValue');
 	var manuno = $('#manuno').combobox('getValue');
 	var sid = $("input[name='statusId']:checked").val();
 	var isnetworking = $("input[name='isnetworking']:checked").val();
@@ -62,12 +84,14 @@ function saveWeldingMachine(){
 					});
 				}else{
 					$.messager.alert("提示", messager);
-					var url = "weldingMachine/goWeldingMachine";
-					var img = new Image();
-				    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-				    url = img.src;  // 此时相对路径已经变成绝对路径
-				    img.src = null; // 取消请求
-					window.location.href = encodeURI(url);
+					$('#dlg').dialog('close');
+					$('#weldingmachineTable').datagrid('reload');
+//					var url = "weldingMachine/goWeldingMachine";
+//					var img = new Image();
+//				    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+//				    url = img.src;  // 此时相对路径已经变成绝对路径
+//				    img.src = null; // 取消请求
+//					window.location.href = encodeURI(url);
 					$("#valideno").val("");
 					$("#validgid").val("");
 					$("#valideid").val("");
@@ -79,31 +103,6 @@ function saveWeldingMachine(){
 	        alert("数据请求失败，请联系系统管理员!");  
 	    } 
 	});
-}
-
-function editText(){	
-	//隐藏文本处理传值
-	var isnw = $("#isnw").val();
-	var status = $("#status").val();
-	var type = $("#type").val();
-	var insframework = $("#insframework").val();
-	var manu = $("#manu").val();
-	var gid = $("#gid").val();
-	$('[name="isnetworking"]:radio').each(function() { 
-		if (this.value ==isnw ) { 
-			this.checked = true;
-		} 
-	});
-	$('[name="statusId"]:radio').each(function() { 
-		if (this.value ==status ) { 
-			this.checked = true;
-		} 
-	});
-	$('#tId').combobox('select',type);
-	$('#iId').combobox('select',insframework);
-	$('#manuno').combobox('select',manu);
-	
-	$('#gatherId').combobox('select',gid);
 }
 
 var itemid = "";
@@ -126,11 +125,11 @@ function gatherCombobox(){
 	                          + result.ary[i].name + "</option>";  
 	              }
         	  }
-              $("#gatherId").html(optionStr);
+              $("#gid").html(optionStr);
           }  
       }
 	}); 
-	$("#gatherId").combobox();
+	$("#gid").combobox();
 }
 
 //设备类型

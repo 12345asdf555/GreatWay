@@ -34,7 +34,7 @@ function weldingMachineDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'jointime',
+			field : 'joinTime',
 			title : '入厂时间',
 //			width : 150,
 			halign : "center",
@@ -102,7 +102,7 @@ function weldingMachineDatagrid(){
 			align : "left",
 			hidden: true
 		}, {
-			field : 'manufacturerId',
+			field : 'manuno',
 			title : '厂商id',
 			width : 100,
 			halign : "center",
@@ -116,14 +116,20 @@ function weldingMachineDatagrid(){
 			align : "left",
 			hidden: true
 		}, {
-			field : 'insframeworkId',
+			field : 'iId',
 			title : '项目id',
 			width : 100,
 			halign : "center",
 			align : "left",
 			hidden: true
-		}
-		, {
+		}, {
+			field : 'gid',
+			title : '采集id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden: true
+		}, {
 			field : 'edit',
 			title : '编辑',
 			width : 250,
@@ -131,8 +137,8 @@ function weldingMachineDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 				var str = "";
-				str += '<a id="edit" class="easyui-linkbutton" href="javascript:editMachine('+row.insframeworkId+','+row.id+','+true+')"/>';
-				str += '<a id="remove" class="easyui-linkbutton" href="javascript:editMachine('+row.insframeworkId+','+row.id+','+false+')"/>';
+				str += '<a id="edit" class="easyui-linkbutton" href="javascript:editMachine('+row.iId+','+row.id+','+true+')"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="javascript:editMachine('+row.iId+','+row.id+','+false+')"/>';
 				str += '<a id="maintain" class="easyui-linkbutton" href="weldingMachine/goMaintain?wid='+row.id+'"/>';
 				return str;
 			}
@@ -167,17 +173,19 @@ function editMachine(id,wid,flags){
             if (result) {
         		if(result.afreshLogin==null || result.afreshLogin==""){
             		if(result.flag){
-            			var url = "";
+//            			var url = "";
             			if(flags){
-            				url = "weldingMachine/goEditWeldingMachine?wid="+wid;
+            				editWeldingMachine();
+//            				url = "weldingMachine/goEditWeldingMachine?wid="+wid;
             			}else{
-            				url = "weldingMachine/goremoveWeldingMachine?wid="+wid;
+//            				url = "weldingMachine/goremoveWeldingMachine?wid="+wid;
+            				removeWeldingMachine();
             			}
-	       				var img = new Image();
-	       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-	       			    url = img.src;  // 此时相对路径已经变成绝对路径
-	       			    img.src = null; // 取消请求
-	       				window.location.href = encodeURI(url);
+//	       				var img = new Image();
+//	       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+//	       			    url = img.src;  // 此时相对路径已经变成绝对路径
+//	       			    img.src = null; // 取消请求
+//	       				window.location.href = encodeURI(url);
             		}else{
             			alert("对不起，您不能对你的上级或同级部门的数据进行编辑");
             		}

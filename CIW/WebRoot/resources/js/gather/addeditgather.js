@@ -11,6 +11,11 @@ $(function(){
 //        } 
 //     });
 	$("#itemid").combobox("select",item);
+	$('#dlg').dialog( {
+		onClose : function() {
+			$("#fm").form("disableValidation");
+		}
+	})
 	$("#fm").form("disableValidation");
 })
 
@@ -19,15 +24,28 @@ var url = "";
 var flag = 1;
 function addGather(){
 	flag = 1;
+	$('#dlg').window( {
+		title : "新增采集模块",
+		modal : true
+	});
+	$('#dlg').window('open');
+	$('#fm').form('clear');
 	url = "gather/addGather";
-	saveGather();
 }
 
 function editGather(){
 	flag = 2;
-	var id = $("#id").val();
-	url = "gather/editGather?id="+id;
-	saveGather();
+	var row = $('#gatherTable').datagrid('getSelected');
+	if (row) {
+		$('#dlg').window( {
+			title : "修改采集模块",
+			modal : true
+		});
+		$('#dlg').window('open');
+		$('#fm').form('load', row);
+		$('#validgatherno').val(row.gatherNo);
+		url = "gather/editGather?id="+ row.id;
+	}
 }
 //提交
 function saveGather(){
@@ -54,12 +72,14 @@ function saveGather(){
 					});
 				} else {
 					$.messager.alert("提示", messager);
-					var url = "gather/goGather";
-					var img = new Image();
-				    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-				    url = img.src;  // 此时相对路径已经变成绝对路径
-				    img.src = null; // 取消请求
-					window.location.href = encodeURI(url);
+					$('#dlg').dialog('close');
+					$('#gatherTable').datagrid('reload');
+//					var url = "gather/goGather";
+//					var img = new Image();
+//				    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+//				    url = img.src;  // 此时相对路径已经变成绝对路径
+//				    img.src = null; // 取消请求
+//					window.location.href = encodeURI(url);
 				}
 			}
 			

@@ -93,8 +93,8 @@ function mainDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 				var str = "";
-				str += '<a id="edit" class="easyui-linkbutton" href="maintain/goEditMaintain?wid='+row.id+'"/>';
-				str += '<a id="remove" class="easyui-linkbutton" href="maintain/goremoveMaintain?wid='+row.id+'&tname='+row.typename+'"/>';
+				str += '<a id="edit" class="easyui-linkbutton" href="javascript:editMaintain();"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="javascript:removeMaintain()"/>';
 				return str;
 			}
 		}]],

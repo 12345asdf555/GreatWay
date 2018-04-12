@@ -9,8 +9,8 @@ function maintainDatagrid(){
 	var wid = $("#wId").val();
 	$("#maintainTable").datagrid( {
 		fitColumns : true,
-		height : $("#body2").height()-40,
-		width : $("#body2").width(),
+		height : $("body").height()-$("#topdiv").height()-40,
+		width : $("#bottomdiv").width(),
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
@@ -117,7 +117,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#maintainTable").datagrid('resize', {
-		height : $("#body2").height() - $("#maintainTable_btn").height() - 40,
-		width : $("#body2").width()
+		height : $("body").height()-$("#topdiv").height()-40,
+		width : $("#bottomdiv").width()
 	});
 }

@@ -79,8 +79,8 @@ function GatherDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 				var str = "";
-				str += '<a id="edit" class="easyui-linkbutton" href="javascript:editGather('+row.itemid+','+row.id+','+true+')"/>';
-				str += '<a id="remove" class="easyui-linkbutton" href="javascript:editGather('+row.itemid+','+row.id+','+false+')"/>';
+				str += '<a id="edit" class="easyui-linkbutton" href="javascript:getGather('+row.itemid+','+row.id+','+true+')"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="javascript:getGather('+row.itemid+','+row.id+','+false+')"/>';
 				return str;
 			}
 		}] ],
@@ -101,7 +101,7 @@ function GatherDatagrid(){
 	});
 }
 
-function editGather(id,gid,flags){
+function getGather(id,gid,flags){
 	$.ajax({  
         type : "post",  
         async : false,
@@ -112,17 +112,19 @@ function editGather(id,gid,flags){
             if (result) {
         		if(result.afreshLogin==null || result.afreshLogin==""){
             		if(result.flag){
-            			var url = "";
+//            			var url = "";
             			if(flags){
-            				url = "gather/goeditGather?id="+gid;
+//            				url = "gather/goeditGather?id="+gid;
+            				editGather();
             			}else{
-            				url = "gather/goremoveGather?id="+gid;
+//            				url = "gather/goremoveGather?id="+gid;
+            				removeGather();
             			}
-	       				var img = new Image();
-	       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-	       			    url = img.src;  // 此时相对路径已经变成绝对路径
-	       			    img.src = null; // 取消请求
-	       				window.location.href = encodeURI(url);
+//	       				var img = new Image();
+//	       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+//	       			    url = img.src;  // 此时相对路径已经变成绝对路径
+//	       			    img.src = null; // 取消请求
+//	       				window.location.href = encodeURI(url);
             		}else{
             			alert("对不起，您不能对你的上级或同级部门的数据进行编辑");
             		}

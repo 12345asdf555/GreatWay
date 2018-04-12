@@ -1,7 +1,11 @@
 $(function(){
 	typeCombobox();
 	equipmentCombobox();
-	updatetext();
+	$('#dlg').dialog( {
+		onClose : function() {
+			$("#fm").form("disableValidation");
+		}
+	})
 	$("#fm").form("disableValidation");
 })
 
@@ -10,27 +14,39 @@ var url = "";
 var maintainfalg = true;
 function addMaintain(){
 	maintainfalg = true;
+	$('#dlg').window( {
+		title : "新增组织机构",
+		modal : true
+	});
+	$('#dlg').window('open');
+	$('#fm').form('clear');
 	url = "maintain/addMaintain";
-	saveMaintain();
 }
 
 function editMaintain(){
 	maintainfalg = false;
-	var mid = $("#mid").val();
-	url = "maintain/editMaintain?mid=" + mid;
-	saveMaintain();
+	var row = $('#maintainTable').datagrid('getSelected');
+	if (row) {
+		$('#dlg').window( {
+			title : "修改维修记录",
+			modal : true
+		});
+		$('#dlg').window('open');
+		$('#fm').form('load', row);
+	}
+	url = "maintain/editMaintain?mid=" + row.mid;
 }
 //提交
 function saveMaintain(){
-	var wid = $("#equipmentNo").combobox('getValue');
-	var tid = $("#typeId").combobox('getValue');
+	var wid = $("#wid").combobox('getValue');
+	var tid = $("#typeid").combobox('getValue');
 	var url2 = "";
 	if(maintainfalg){
 		messager = "新增成功！";
 		url2 = url+"?tId="+tid+"&wId="+wid;
 	}else{
 		messager = "修改成功！";
-		url2 = url+"&tId="+tid+"&wid="+wid;;
+		url2 = url+"&tId="+tid+"&wId="+wid;;
 	}
 	$('#fm').form('submit', {
 		url : url2,
@@ -47,12 +63,14 @@ function saveMaintain(){
 					});
 				} else {
 					$.messager.alert("提示", messager);
-					var url = "maintain/goMaintain";
-					var img = new Image();
-				    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-				    url = img.src;  // 此时相对路径已经变成绝对路径
-				    img.src = null; // 取消请求
-					window.location.href = encodeURI(url);
+					$('#dlg').dialog('close');
+					$('#maintainTable').datagrid('reload');
+//					var url = "maintain/goMaintain";
+//					var img = new Image();
+//				    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+//				    url = img.src;  // 此时相对路径已经变成绝对路径
+//				    img.src = null; // 取消请求
+//					window.location.href = encodeURI(url);
 				}
 			}
 			
@@ -61,17 +79,6 @@ function saveMaintain(){
 	        alert("数据请求失败，请联系系统管理员!");  
 	    } 
 	});
-}
-
-function updatetext(){
-	//隐藏文本框
-	$("#mid").next().hide();
-	$("#wid").next().hide();
-	$("#type").next().hide();
-	var type = $("#type").val();
-	var wid = $("#wid").val();
-	$("#typeId").combobox('select',type);
-	$("#equipmentNo").combobox('select',wid);
 }
 
 //维修类型
@@ -89,14 +96,14 @@ function typeCombobox(){
                     optionStr += "<option value=\"" + result.ary2[i].typeid + "\" >"  
                             + result.ary2[i].typename + "</option>";  
                 }  
-                $("#typeId").html(optionStr);
+                $("#typeid").html(optionStr);
             }  
         },  
         error : function(errorMsg) {  
             alert("数据请求失败，请联系系统管理员!");  
         }  
    }); 
-	$("#typeId").combobox();
+	$("#typeid").combobox();
 }
 
 //设备编号
@@ -114,12 +121,12 @@ function equipmentCombobox(){
                   optionStr += "<option value=\"" + result.ary1[i].mid + "\" >"  
                           + result.ary1[i].equipmentNo + "</option>";
               }
-              $("#equipmentNo").html(optionStr);
+              $("#wid").html(optionStr);
           }  
       },  
       error : function(errorMsg) {  
           alert("数据请求失败，请联系系统管理员!");  
       }  
 	});
-	$("#equipmentNo").combobox();
+	$("#wid").combobox();
 }

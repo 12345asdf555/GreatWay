@@ -156,6 +156,7 @@ public class WeldedJunctionControll {
 				json.put("material", w.getMaterial());
 				json.put("nextexternaldiameter", w.getNextexternaldiameter());
 				json.put("itemname", w.getItemid().getName());
+				json.put("itemid", w.getItemid().getId());
 				json.put("startTime", w.getStartTime());
 				json.put("endTime", w.getEndTime());
 				json.put("creatTime", w.getCreatTime());
@@ -242,13 +243,15 @@ public class WeldedJunctionControll {
 			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			wj.setCreater(new BigInteger(user.getId()+""));
 			wj.setUpdater(new BigInteger(user.getId()+""));
-			wj.setWeldedJunctionno(request.getParameter("weldedjunctionno"));
+			wj.setWeldedJunctionno(request.getParameter("weldedJunctionno"));
 			wj.setSerialNo(request.getParameter("serialNo"));
 			wj.setUnit(request.getParameter("unit"));
 			wj.setArea(request.getParameter("area"));
 			wj.setSystems(request.getParameter("systems"));
 			wj.setChildren(request.getParameter("children"));
-			wj.setDyne(Integer.parseInt(request.getParameter("dyne")));
+			if(iutil.isNull(request.getParameter("dyne"))){
+				wj.setDyne(Integer.parseInt(request.getParameter("dyne")));
+			}
 			wj.setSpecification(request.getParameter("specification"));
 			wj.setPipelineNo(request.getParameter("pipelineNo"));
 			wj.setRoomNo(request.getParameter("roomNo"));
@@ -272,9 +275,9 @@ public class WeldedJunctionControll {
 			if(iutil.isNull(endtime)){
 				wj.setEndTime(endtime);
 			}
-			String itemname = request.getParameter("itemname");
-			if(iutil.isNull(itemname)){
-				wj.setInsfid(new BigInteger(itemname));
+			String itemid = request.getParameter("itemid");
+			if(iutil.isNull(itemid)){
+				wj.setInsfid(new BigInteger(itemid));
 			}
 			wjm.addJunction(wj);
 			obj.put("success", true);
@@ -296,7 +299,7 @@ public class WeldedJunctionControll {
 			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			wj.setUpdater(new BigInteger(user.getId()+""));
 			wj.setId(new BigInteger(request.getParameter("id")));
-			wj.setWeldedJunctionno(request.getParameter("weldedjunctionno"));
+			wj.setWeldedJunctionno(request.getParameter("weldedJunctionno"));
 			wj.setSerialNo(request.getParameter("serialNo"));
 			wj.setUnit(request.getParameter("unit"));
 			wj.setArea(request.getParameter("area"));
@@ -326,9 +329,9 @@ public class WeldedJunctionControll {
 			if(iutil.isNull(endtime)){
 				wj.setEndTime(endtime);
 			}
-			String itemname = request.getParameter("itemname");
-			if(iutil.isNull(itemname)){
-				wj.setInsfid(new BigInteger(itemname));
+			String itemid = request.getParameter("itemid");
+			if(iutil.isNull(itemid)){
+				wj.setInsfid(new BigInteger(itemid));
 			}
 			wjm.updateJunction(wj);
 			obj.put("success", true);

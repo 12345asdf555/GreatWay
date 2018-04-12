@@ -2,6 +2,11 @@ $(function(){
 	insframworkCombobox();
 	leveCombobox();
 	quaidCombobox();
+	$('#dlg').dialog( {
+		onClose : function() {
+			$("#fm").form("disableValidation");
+		}
+	})
 	$("#fm").form("disableValidation");
 })
 
@@ -19,11 +24,11 @@ function insframworkCombobox(){
              for (var i = 0; i < result.ary.length; i++) {  
             	 optionstring += "<option value=\"" + result.ary[i].id + "\" >" + result.ary[i].name + "</option>";
              }
-	         $("#Fowner").html(optionstring);
+	         $("#owner").html(optionstring);
 	      } else {
 	         alert('部门加载失败');
 	      }
-	      $("#Fowner").combobox();
+	      $("#owner").combobox();
 	   },
 	   error: function () {
 	      alert('error');
@@ -86,36 +91,71 @@ function quaidCombobox(){
 		});
 }
 
-var flag = 1; 
+var url = "";
+var flag = 1;
 function saveWelder(){
-    flag = 1;
-    var insframework = $('#Fowner').combobox('getValue');
+	flag = 1;
+	$('#dlg').window( {
+		title : "新增焊工",
+		modal : true
+	});
+	$('#dlg').window('open');
+	$('#fm').form('clear');
+	url = "welders/addWelder";
+}
+
+function editWelder(){
+	flag = 2;
+	var row = $('#welderTable').datagrid('getSelected');
+	if (row) {
+		$('#dlg').window( {
+			title : "修改焊工",
+			modal : true
+		});
+		$('#dlg').window('open');
+		$('#fm').form('load', row);
+		$('#validName').val(row.welderno);
+		url = "welders/updateWelder?FID="+ row.id;
+	}
+}
+//提交
+function save(){
+    var insframework = $('#owner').combobox('getValue');
     var leve = $('#leveid').combobox('getValue');
     var qua = $('#quali').combobox('getValue');
-     var url;
-      url = "welders/addWelder"+"?ins="+insframework+"&leve="+leve+"&qua="+qua;
-        $('#fm').form('submit',{
-            url: url,
-            onSubmit: function(){
-                return $(this).form('enableValidation').form('validate');
-            },
-            success: function(result){
-                var result = eval('('+result+')');
-                if (result.errorMsg){
-                    $.messager.show({
-                        title: 'Error',
-                        msg: result.errorMsg
-                    });
-                } else {
-				$.messager.alert("提示", "新增成功");
-				var url = "welders/AllWelder";
-				var img = new Image();
-			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-			    url = img.src;  // 此时相对路径已经变成绝对路径
-			    img.src = null; // 取消请求
-				window.location.href = encodeURI(url);
-                }
-            }
-        });
-    }
+	var url2 = "";
+	if(flag==1){
+		messager = "新增成功！";
+		url2 = url+"?ins="+insframework+"&leve="+leve+"&qua="+qua;;
+	}else{
+		messager = "修改成功！";
+		url2 = url+"&ins="+insframework+"&leve="+leve+"&qua="+qua;;
+	}
+	$('#fm').form('submit', {
+		url : url2,
+		onSubmit : function() {
+			return $(this).form('enableValidation').form('validate');
+		},
+		success : function(result) {
+			if(result){
+				var result = eval('(' + result + ')');
+				if (!result.success) {
+					$.messager.show( {
+						title : 'Error',
+						msg : result.errorMsg
+					});
+				} else {
+					$.messager.alert("提示", messager);
+					$('#dlg').dialog('close');
+					$('#welderTable').datagrid('reload');
+				}
+			}
+			
+		},  
+	    error : function(errorMsg) {  
+	        alert("数据请求失败，请联系系统管理员!");  
+	    } 
+	});
+}
+
         

@@ -49,6 +49,13 @@ function weldedJunctionDatagrid(){
 			align : "left",
 			hidden:true
 		}, {
+			field : 'itemid',
+			title : '项目id',
+//			width : 90,
+			halign : "center",
+			align : "left",
+			hidden:true
+		}, {
 			field : 'unit',
 			title : '机组',
 //			width : 90,
@@ -211,8 +218,8 @@ function weldedJunctionDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter: function(value,row,index){
-				var str = '<a id="edit" class="easyui-linkbutton" href="weldedjunction/goEditWeldedJunction?id='+row.id+'"/>';
-				str += '<a id="remove" class="easyui-linkbutton" href="weldedjunction/goRemoveWeldedJunction?id='+row.id+'"/>';
+				var str = '<a id="edit" class="easyui-linkbutton" href="javascript:editWeldedjunction()"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="javascript:removeWeldedjunction()"/>';
 				var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
 				+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
 				row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+

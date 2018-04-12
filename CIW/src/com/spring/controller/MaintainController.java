@@ -175,11 +175,11 @@ public class MaintainController {
 		try{
 			MaintenanceRecord mr = new MaintenanceRecord();
 			mr.setViceman(request.getParameter("viceman"));
-			if(iutil.isNull(request.getParameter("startTime"))){
-				mr.setStartTime(request.getParameter("startTime"));
+			if(iutil.isNull(request.getParameter("starttime"))){
+				mr.setStartTime(request.getParameter("starttime"));
 			}
-			if(iutil.isNull(request.getParameter("endTime"))){
-				mr.setEndTime(request.getParameter("endTime"));
+			if(iutil.isNull(request.getParameter("endtime"))){
+				mr.setEndTime(request.getParameter("endtime"));
 			}
 			if(iutil.isNull(request.getParameter("desc"))){
 				mr.setDesc(request.getParameter("desc"));
@@ -201,26 +201,26 @@ public class MaintainController {
 	
 	@RequestMapping("/editMaintain")
 	@ResponseBody
-	public String editMaintain(HttpServletRequest request,@RequestParam String mid,@RequestParam String wid) {
+	public String editMaintain(HttpServletRequest request,@RequestParam String mid,@RequestParam String wId) {
 		JSONObject obj = new JSONObject();
 		try{
 			MaintenanceRecord mr = new MaintenanceRecord();
 			mr.setId(new BigInteger(mid));
 			mr.setViceman(request.getParameter("viceman"));
-			if(iutil.isNull(request.getParameter("startTime"))){
-				mr.setStartTime(request.getParameter("startTime"));
+			if(iutil.isNull(request.getParameter("starttime"))){
+				mr.setStartTime(request.getParameter("starttime"));
 			}
-			if(iutil.isNull(request.getParameter("endTime"))){
-				mr.setEndTime(request.getParameter("endTime"));
+			if(iutil.isNull(request.getParameter("endtime"))){
+				mr.setEndTime(request.getParameter("endtime"));
 			}else{
-				mm.editstatus(new BigInteger(wid), 33);
+				mm.editstatus(new BigInteger(wId), 33);
 			}
 			if(iutil.isNull(request.getParameter("desc"))){
 				mr.setDesc(request.getParameter("desc"));
 			}
 			mr.setTypeId(Integer.parseInt(request.getParameter("tId")));
 			mm.updateMaintenanceRecord(mr);
-			List<WeldingMaintenance> list =  mm.getEndtime(new BigInteger(wid));
+			List<WeldingMaintenance> list =  mm.getEndtime(new BigInteger(wId));
 			boolean flag = true;
 			for(WeldingMaintenance wm : list){
 				if(!iutil.isNull(wm.getMaintenance().getEndTime())){
@@ -228,7 +228,7 @@ public class MaintainController {
 				}
 			}
 			if(flag){
-				mm.editstatus(new BigInteger(wid), 31);
+				mm.editstatus(new BigInteger(wId), 31);
 			}
 			obj.put("success", true);
 		}catch(Exception e){
@@ -262,6 +262,7 @@ public class MaintainController {
 			}
 			obj.put("success", true);
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
 		}
@@ -278,6 +279,7 @@ public class MaintainController {
 			mm.deleteWeldingMaintenance(wm.getId());
 			obj.put("success", true);
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
 		}

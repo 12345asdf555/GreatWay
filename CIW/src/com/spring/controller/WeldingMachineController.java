@@ -195,20 +195,22 @@ public class WeldingMachineController {
 					json.put("isnetworking", "否");
 				}
 				json.put("isnetworkingId", wm.getIsnetworking());
-				json.put("jointime", wm.getJoinTime());
+				json.put("joinTime", wm.getJoinTime());
 				json.put("typeName",wm.getTypename());
 				json.put("typeId", wm.getTypeId());
 				json.put("statusName", wm.getStatusname());
 				json.put("statusId", wm.getStatusId());
 				json.put("insframeworkName", wm.getInsframeworkId().getName());
-				json.put("insframeworkId", wm.getInsframeworkId().getId());
+				json.put("iId", wm.getInsframeworkId().getId());
 				json.put("manufacturerName", wm.getManufacturerId().getName()+" - "+wm.getManufacturerId().getType());
-				json.put("manufacturerId", wm.getManufacturerId().getId());
+				json.put("manuno", wm.getManufacturerId().getId());
 				json.put("model",wm.getModel());
 				if(wm.getGatherId()!=null ||("").equals(wm.getGatherId())){
 					json.put("gatherId", Integer.parseUnsignedInt(wm.getGatherId().getGatherNo(), 16));
+					json.put("gid", wm.getGatherId().getId());
 				}else{
 					json.put("gatherId", null);
+					json.put("gid", null);
 				}
 				ary.add(json);
 			}
@@ -379,7 +381,7 @@ public class WeldingMachineController {
 				g.setId(new BigInteger(request.getParameter("gatherId")));
 				wm.setGatherId(g);
 			}
-			wm.setIsnetworking(Integer.parseInt(request.getParameter("isnetworking")));
+			wm.setIsnetworking(Integer.parseInt(request.getParameter("isnetworkingId")));
 			wm.setTypeId(Integer.parseInt(request.getParameter("tId")));
 			Insframework ins = new Insframework();
 			ins.setId(new BigInteger(request.getParameter("iId")));
@@ -430,7 +432,7 @@ public class WeldingMachineController {
 				g.setId(new BigInteger(request.getParameter("gatherId")));
 				wm.setGatherId(g);
 			}
-			wm.setIsnetworking(Integer.parseInt(request.getParameter("isnetworking")));
+			wm.setIsnetworking(Integer.parseInt(request.getParameter("isnetworkingId")));
 			wm.setTypeId(Integer.parseInt(request.getParameter("tId")));
 			Insframework ins = new Insframework();
 			ins.setId(new BigInteger(request.getParameter("iId")));

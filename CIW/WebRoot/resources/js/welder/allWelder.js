@@ -42,6 +42,13 @@ function weldDatagrid(){
 			align : "left"
 		},{
 			field : 'leveid',
+			title : '级别id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden:true
+		}, {
+			field : 'levename',
 			title : '级别',
 			width : 100,
 			halign : "center",
@@ -54,12 +61,26 @@ function weldDatagrid(){
 			align : "left"
 		},{
 			field : 'quali',
+			title : '资质id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden:true
+		}, {
+			field : 'qualiname',
 			title : '资质',
 			width : 100,
 			halign : "center",
 			align : "left"
 		},{
 			field : 'owner',
+			title : '部门id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden:true
+		}, {
+			field : 'ownername',
 			title : '部门',
 			width : 150,
 			halign : "center",
@@ -78,8 +99,8 @@ function weldDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 			var str = "";
-			str += '<a id="edit" class="easyui-linkbutton" href="welders/toUpdateWelder?fid='+row.id+'"/>';
-			str += '<a id="remove" class="easyui-linkbutton" href="welders/toDestroyWelder?fid='+row.id+'"/>';
+			str += '<a id="edit" class="easyui-linkbutton" href="javascript:editWelder()"/>';
+			str += '<a id="remove" class="easyui-linkbutton" href="javascript:removeWelder()"/>';
 			return str;
 			}}
 		] ],

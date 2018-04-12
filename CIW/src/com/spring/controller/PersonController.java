@@ -94,19 +94,18 @@ public class PersonController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(Person welder:findAll){
-//				String creat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(welder.getCreatedate());
-//				String update = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(welder.getUpdatedate());
 				json.put("id", welder.getId());
 				json.put("name", welder.getName());
 				json.put("welderno", Integer.valueOf(welder.getWelderno(), 16));
 				json.put("cellphone", welder.getCellphone());
 				json.put("cardnum", welder.getCardnum());
-//				json.put("createdate", welder.getCreatedate());
-//				json.put("updatedate", format(welder.getUpdatedate());
-				json.put("owner", welder.getInsname());
-				json.put("leveid", welder.getValuename());
-				json.put("quali", welder.getValuenamex());
+				json.put("ownername", welder.getInsname());
+				json.put("levename", welder.getValuename());
+				json.put("qualiname", welder.getValuenamex());
 				json.put("back", welder.getBack());
+				json.put("leveid", welder.getLeveid());
+				json.put("quali", welder.getQuali());
+				json.put("owner", welder.getInsid());
 				ary.add(json);
 			}
 		}catch(Exception e){

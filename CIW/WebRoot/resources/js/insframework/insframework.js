@@ -68,6 +68,20 @@ function insframeworkDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
+			field : 'typeid',
+			title : '类型id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden : true
+		}, {
+			field : 'parentid',
+			title : '父类id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden : true
+		}, {
 			field : 'edit',
 			title : '编辑',
 			width : 100,
@@ -111,15 +125,17 @@ function editInsf(id,flags){
 	            		if(result.flag){
 	            			var url = "";
 	            			if(flags){
-	            				url = "insframework/goeditInsframework?id="+id;
+//	            				url = "insframework/goeditInsframework?id="+id;
+	            				editInsframework();
 	            			}else{
-	            				url = "insframework/goremoveInsframework?id="+id;
+//	            				url = "insframework/goremoveInsframework?id="+id;
+	            				removeInsframework();
 	            			}
-		       				var img = new Image();
-		       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-		       			    url = img.src;  // 此时相对路径已经变成绝对路径
-		       			    img.src = null; // 取消请求
-		       				window.location.href = encodeURI(url);
+//		       				var img = new Image();
+//		       			    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+//		       			    url = img.src;  // 此时相对路径已经变成绝对路径
+//		       			    img.src = null; // 取消请求
+//		       				window.location.href = encodeURI(url);
 	            		}else{
 	            			alert("对不起，您不能对你的上级或同级部门的数据进行编辑");
 	            		}

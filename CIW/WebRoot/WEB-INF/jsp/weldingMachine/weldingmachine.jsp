@@ -27,6 +27,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script> -->
 	<script type="text/javascript" src="resources/js/weldingMachine/weldingMachine.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
+	<script type="text/javascript" src="resources/js/weldingMachine/addeditweldingmachine.js"></script>
+	<script type="text/javascript" src="resources/js/weldingMachine/removeweldingmachine.js"></script>
   </head>
   
   <body>
@@ -34,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div id="body" >
 	  	<div class="functiondiv">
 			<div>
-				<a href="weldingMachine/goAddWeldingMachine" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:addWeldingMachine();" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="javascript:importclick();" class="easyui-linkbutton" iconCls="icon-import">导入</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="javascript:exportWeldingMachine();" class="easyui-linkbutton" iconCls="icon-import">导出</a>&nbsp;&nbsp;&nbsp;&nbsp;	
 				<a href="javascript:insertSearchWeldingMachine();" class="easyui-linkbutton"iconCls="icon-select" >查找</a>
@@ -65,6 +67,117 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div id="searchButton">
 			<a href="javascript:searchWeldingmachine();" class="easyui-linkbutton" iconCls="icon-ok">查询</a>
 			<a href="javascript:close();" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+		</div>
+	    <!-- 添加修改 -->
+		<div id="dlg" class="easyui-dialog" style="width: 400px; height: 530px; padding:10px 20px" closed="true" buttons="#dlg-buttons">
+			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true">
+				<div class="fitem">
+					<lable><span class="required">*</span>固定资产编号</lable>
+					<input type="hidden" id="valideno" value="${w.equipmentNo }">
+					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  data-options="validType:['wmEnoValidate'],required:true"/>
+				</div>
+				<div class="fitem">
+					<lable><span class="required">*</span>设备类型</lable>
+					<select class="easyui-combobox" name="typeId" id="tId" data-options="required:true,editable:false"" ></select>
+				</div>
+				<div class="fitem">
+					<lable>入厂时间</lable>
+					<input class="easyui-datetimebox" name="joinTime" id="joinTime"/>
+				</div>
+				<div class="fitem">
+					<lable><span class="required">*</span>所属项目</lable>
+					<select class="easyui-combobox" name="iId" id="iId" data-options="required:true,editable:false""></select>
+				</div>
+				<div class="fitem">
+					<lable><span class="required">*</span>生产厂商</lable>
+					<select class="easyui-combobox" name="manuno" id="manuno" data-options="required:true,editable:false""></select>
+				</div>
+				<div class="fitem">
+					<lable>采集序号</lable>
+					<input type="hidden" id="validgid" value="${w.gatherId.gatherNo }">
+					<select class="easyui-combobox" name="gid" id="gid" data-options="validType:['checkNumber','wmGatheridValidate'],editable:false""></select>
+				</div>
+				<div class="fitem">
+					<lable>设备位置</lable>
+					<input class="easyui-textbox" name="position" id="position"/>
+				</div>
+				<div class="fitem">
+					<lable><span class="required">*</span>ip地址</lable>
+					<input class="easyui-textbox" name="ip" id="ip" data-options="required:true" />
+				</div>
+				<div class="fitem">
+					<lable>设备型号</lable>
+					<input class="easyui-textbox" name="model" id="model"/>
+				</div>
+				<div class="fitem" >
+					<lable>是否联网</lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="radioStyle" name="isnetworkingId" value="0" checked="checked"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="radioStyle" name="isnetworkingId" value="1"/>否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</div>
+				<div class="fitem">
+					<lable>状态</lable>
+	   				<span id="radios"></span>
+				</div>
+			</form>
+		</div>
+		<div id="dlg-buttons">
+			<a href="javascript:saveWeldingMachine();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+			<a href="javascript:$('#dlg').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel" >取消</a>
+		</div>
+		
+		<!-- 删除 -->
+		<div id="rdlg" class="easyui-dialog" style="width: 400px; height: 530px; padding:10px 20px" closed="true" buttons="#remove-buttons">
+			<form id="rfm" class="easyui-form" method="post" data-options="novalidate:true">
+				<div class="fitem">
+				<lable>固定资产编号</lable>
+				<input type="hidden" name="wid" readonly="readonly"/>
+				<input class="easyui-textbox" name="equipmentNo" readonly="readonly"/>
+			</div>
+			<div class="fitem">
+				<lable>设备类型</lable>
+				<input class="easyui-textbox" name="typeName" readonly="readonly"/>
+			</div>
+			<div class="fitem">
+				<lable>入厂时间</lable>
+				<input class="easyui-textbox" name="joinTime" readonly="readonly" />
+			</div>
+			<div class="fitem">
+				<lable>所属项目</lable>
+				<input class="easyui-textbox" name="insframeworkName" readonly="readonly"/>
+			</div>
+			<div class="fitem">
+				<lable>生产厂商</lable>
+				<input class="easyui-textbox" name="manufacturerName" readonly="readonly"/>
+			</div>
+			<div class="fitem">
+				<lable>采集序号</lable>
+				<input class="easyui-textbox" name="gatherId" readonly="readonly"/>
+			</div>
+			<div class="fitem">
+				<lable>设备位置</lable>
+				<input class="easyui-textbox" name="position" readonly="readonly"/>
+			</div>
+			<div class="fitem">
+					<lable>ip地址</lable>
+					<input class="easyui-textbox" name="ip" id="ip"/>
+			</div>
+			<div class="fitem">
+					<lable>设备型号</lable>
+					<input class="easyui-textbox" name="model" id="model"/>
+			</div>
+			<div class="fitem">
+				<lable>是否联网</lable>
+				<input class="easyui-textbox" name="isnetworking" readonly="readonly"/>
+			</div>
+			<div class="fitem">
+				<lable>状态</lable>
+				<input class="easyui-textbox" name="statusName" readonly="readonly"/>
+			</div>
+			</form>
+		</div>
+		<div id="remove-buttons">
+			<a href="javascript:remove();" class="easyui-linkbutton" iconCls="icon-ok">删除</a>
+			<a href="javascript:$('#rdlg').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel" >取消</a>
 		</div>
 	</div>
   </body>
