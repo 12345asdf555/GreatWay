@@ -116,14 +116,16 @@ public class UserController {
 		try{
 			for(User user:findAll){
 				json.put("id", user.getId());
-				json.put("users_name", user.getUserName());
-				json.put("users_Login_Name", user.getUserLoginName());
-				json.put("users_phone", user.getUserPhone());
-				json.put("users_email",user.getUserEmail());
-				json.put("users_position", user.getUserPosition());
+				json.put("userName", user.getUserName());
+				json.put("userLoginName", user.getUserLoginName());
+				json.put("userPhone", user.getUserPhone());
+				json.put("userEmail",user.getUserEmail());
+				json.put("userPosition", user.getUserPosition());
 				json.put("users_insframework", user.getInsname());
 				json.put("insid", user.getInsid());
 				json.put("status", user.getStatusname());
+				json.put("statusid", user.getStatus());
+				json.put("userPassword", user.getUserPassword());
 				ary.add(json);
 			}
 		}catch(Exception e){
