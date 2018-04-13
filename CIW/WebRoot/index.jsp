@@ -46,28 +46,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	
   	<div region="west" hide="true" split="true" title="导航菜单" style="width: 200px;" id="west" data-options="iconCls:'icon-navigation'">
 	  	<div class="easyui-accordion" border="false" id="accordiondiv">
-			<div title="信息管理中心" data-options="iconCls:'icon-manager'">
+			<div title="生产设备管理" data-options="iconCls:'icon-manager'">
 				<ul>
-					<li onclick="changeColor(this)"><a href="javascript:openUser()"><img src="resources/images/c-1.png" />&nbsp;&nbsp;用户管理</a></li>
-					<li onclick="changeColor(this)"><a href="javascript:openRole()"><img src="resources/images/c-2.png" />&nbsp;&nbsp;角色管理</a></li>
-					<li onclick="changeColor(this)"><a href="javascript:openAuthority()"><img src="resources/images/c-3.png" />&nbsp;&nbsp;权限管理</a></li>
-					<li onclick="changeColor(this)"><a href="javascript:openResource()"><img src="resources/images/c-4.png" />&nbsp;&nbsp;资源管理</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openDictionary()"><img src="resources/images/c-5.png" />&nbsp;&nbsp;字典管理</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openPerson()" ><img src="resources/images/c-6.png" />&nbsp;&nbsp;焊工管理</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openWedJunction()"><img src="resources/images/c-7.png" />&nbsp;&nbsp;焊缝管理</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openProduct()"><img src="resources/images/c-8.png" />&nbsp;&nbsp;产品管理</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openWps()"><img src="resources/images/c-9.png" />&nbsp;&nbsp;工艺管理</a></li>
-				    <li onclick="changeColor(this)"><a href="javascript:openMachine()"><img src="resources/images/c-10.png" />&nbsp;&nbsp;维修记录管理</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openInsframework()"><img src="resources/images/c-11.png" />&nbsp;&nbsp;组织机构管理</a></li>
-					<li onclick="changeColor(this)"><a href="javascript:openWeldingMachine()"><img src="resources/images/c-12.png" />&nbsp;&nbsp;焊机设备管理</a></li>
 			        <li onclick="changeColor(this)"><a href="javascript:openGather()"><img src="resources/images/c-13.png" />&nbsp;&nbsp;采集模块管理</a></li>
+					<li onclick="changeColor(this)"><a href="javascript:openWeldingMachine()"><img src="resources/images/c-12.png" />&nbsp;&nbsp;焊机设备管理</a></li>
+				    <li onclick="changeColor(this)"><a href="javascript:openMachine()"><img src="resources/images/c-10.png" />&nbsp;&nbsp;维修记录管理</a></li>
 			        <li class="libottom"  onclick="changeColor(this)"><a href="javascript:openParameter()"><img src="resources/images/c-14.png" />&nbsp;&nbsp;参数设置</a></li>
-		        </ul>
-		    </div>
-		    
-			<div title="报表统计中心" data-options="iconCls:'icon-statement'">
+				</ul>
+			</div>
+			<div title="生产数据分析" data-options="iconCls:'icon-num'">
 				<ul>
-					<li onclick="changeColor(this)"><a href="javascript:openCompanyTd()"><img src="resources/images/s-1.png" />&nbsp;&nbsp;实时监控</a></li>
 					<li onclick="changeColor(this)"><a href="javascript:openHistory()"><img src="resources/images/s-2.png" />&nbsp;&nbsp;历史曲线</a></li>
     				<li onclick="changeColor(this)"><a href="javascript:openCompanytEfficiency()"><img src="resources/images/s-3.png" />&nbsp;&nbsp;焊工工效</a></li>
 					<li onclick="changeColor(this)"><a href="javascript:openCompanyLoads()"><img src="resources/images/s-4.png" />&nbsp;&nbsp;焊机负载率</a></li>
@@ -84,8 +72,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <li onclick="changeColor(this)"><a href="javascript:openWeldParameter()"><img src="resources/images/s-15.png" />&nbsp;&nbsp;焊接参数维度表</a></li>
 			        <li onclick="changeColor(this)"><a href="javascript:openWireUse()"><img src="resources/images/s-16.png" />&nbsp;&nbsp;焊丝用量维度表</a></li>
     				<li class="libottom" onclick="changeColor(this)"><a href="javascript:openCompanyUse()"><img src="resources/images/s-17.png" />&nbsp;&nbsp;单台设备运行数据统计</a></li>
-		        </ul>
-		    </div>
+				</ul>
+			</div>
+			<div title="生产过程管理" data-options="iconCls:'icon-statement'">
+				<ul>
+			        <li onclick="changeColor(this)"><a href="javascript:openPerson()" ><img src="resources/images/c-6.png" />&nbsp;&nbsp;焊工管理</a></li>
+			        <li onclick="changeColor(this)"><a href="javascript:openWedJunction()"><img src="resources/images/c-7.png" />&nbsp;&nbsp;焊缝管理</a></li>
+			        <li onclick="changeColor(this)"><a href="javascript:openProduct()"><img src="resources/images/c-8.png" />&nbsp;&nbsp;产品管理</a></li>
+			        <li class="libottom" onclick="changeColor(this)"><a href="javascript:openWps()"><img src="resources/images/c-9.png" />&nbsp;&nbsp;工艺管理</a></li>
+				</ul>
+			</div>
+			<div title="系统配置管理" data-options="iconCls:'icon-sys'">
+				<ul>
+					<li onclick="changeColor(this)"><a href="javascript:openUser()"><img src="resources/images/c-1.png" />&nbsp;&nbsp;用户管理</a></li>
+					<li onclick="changeColor(this)"><a href="javascript:openRole()"><img src="resources/images/c-2.png" />&nbsp;&nbsp;角色管理</a></li>
+					<li onclick="changeColor(this)"><a href="javascript:openAuthority()"><img src="resources/images/c-3.png" />&nbsp;&nbsp;权限管理</a></li>
+					<li onclick="changeColor(this)"><a href="javascript:openResource()"><img src="resources/images/c-4.png" />&nbsp;&nbsp;资源管理</a></li>
+			        <li onclick="changeColor(this)"><a href="javascript:openDictionary()"><img src="resources/images/c-5.png" />&nbsp;&nbsp;字典管理</a></li>
+			        <li class="libottom" onclick="changeColor(this)"><a href="javascript:openInsframework()"><img src="resources/images/c-11.png" />&nbsp;&nbsp;组织机构管理</a></li>
+				</ul>
+			</div>
+			<div title="实时监控管理" data-options="iconCls:'icon-live'">
+				<ul>
+					<li class="libottom" onclick="changeColor(this)"><a href="javascript:openCompanyTd()"><img src="resources/images/s-1.png" />&nbsp;&nbsp;实时监控</a></li>
+				</ul>
+			</div>
 	    </div>
 	</div>
     

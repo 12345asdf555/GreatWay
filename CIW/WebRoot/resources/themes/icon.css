@@ -121,3 +121,15 @@
 .icon-delete{
 	background:url('icons/remove.png') no-repeat center center;
 }
+.icon-live{
+	background:url('icons/live.png') no-repeat center center;
+}
+.icon-course{
+	background:url('icons/course.png') no-repeat center center;
+}
+.icon-num{
+	background:url('icons/num.png') no-repeat center center;
+}
+.icon-sys{
+	background:url('icons/sys.png') no-repeat center center;
+}
