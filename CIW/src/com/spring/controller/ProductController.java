@@ -71,14 +71,14 @@ public class ProductController {
 		try{
 			for(Product product:findAll){
 				json.put("id", product.getId());
-				json.put("pro_mun", product.getPronum());
-				json.put("part_num", product.getPartnum());
-				json.put("pro_info", product.getProinfo());
-				json.put("part_info", product.getPartinfo());
-				json.put("back_one", product.getBackone());
-				json.put("back_two", product.getBacktwo());
-				json.put("back_three", product.getBackthree());
-				json.put("back_four", product.getBackfour());
+				json.put("pronum", product.getPronum());
+				json.put("partnum", product.getPartnum());
+				json.put("proinfo", product.getProinfo());
+				json.put("partinfo", product.getPartinfo());
+				json.put("remark1", product.getBackone());
+				json.put("remark2", product.getBacktwo());
+				json.put("remark3", product.getBackthree());
+				json.put("remark4", product.getBackfour());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -220,12 +220,12 @@ public class ProductController {
 		try{
 			for(Product product:findAllWeldf){
 				json.put("id", product.getId());
-				json.put("weldf_mun", product.getPronum());
-				json.put("weldf_info", product.getProinfo());
-				json.put("back_one", product.getBackone());
-				json.put("back_two", product.getBacktwo());
-				json.put("back_three", product.getBackthree());
-				json.put("back_four", product.getBackfour());
+				json.put("weldnum", product.getPronum());
+				json.put("weldinfo", product.getProinfo());
+				json.put("remark1", product.getBackone());
+				json.put("remark2", product.getBacktwo());
+				json.put("remark3", product.getBackthree());
+				json.put("remark4", product.getBackfour());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -476,6 +476,7 @@ public class ProductController {
 			productService.updateProcess(product);
 			obj.put("success", true);
 			}catch(Exception e){
+				e.printStackTrace();
 				obj.put("success", false);
 				obj.put("errorMsg", e.getMessage());
 			}

@@ -10,7 +10,7 @@
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
 		url : "wps/getAllWps",
-		singleSelect : false,
+		singleSelect : true,
 		rownumbers : true,
 		pagination : true,
 		showPageList : false,
@@ -106,6 +106,12 @@
 			halign : "center",
 			align : "left"
         }, {
+			field : 'insid',
+			title : '部门id',
+			halign : "center",
+			align : "left",
+			hidden : true
+        }, {
 			field : 'Fback',
 			title : '备注',
 //			width : 100,
@@ -125,8 +131,8 @@
 			align : "left",
 			formatter:function(value,row,index){
 			var str = "";
-			str += '<a id="edit" class="easyui-linkbutton" href="wps/toUpdateWps?fid='+row.FID+'"/>';
-			str += '<a id="remove" class="easyui-linkbutton" href="wps/toDestroyWps?fid='+row.FID+'"/>';
+			str += '<a id="edit" class="easyui-linkbutton" href="javascript:editWps()"/>';
+			str += '<a id="remove" class="easyui-linkbutton" href="javascript:removeWps()"/>';
 			return str;
 			}
 		}]],

@@ -10,7 +10,7 @@
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
 		url : "product/getAllWeldf",
-		singleSelect : false,
+		singleSelect : true,
 		rownumbers : true,
 		pagination : true,
 		showPageList : false,
@@ -22,37 +22,37 @@
 			align : "left",
 			hidden: true
 		}, {
-			field : 'weldf_mun',
+			field : 'weldnum',
 			title : '焊缝编号',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'weldf_info',
+			field : 'weldinfo',
 			title : '焊缝信息',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'back_one',
+			field : 'remark1',
 			title : '备注',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'back_two',
+			field : 'remark2',
 			title : '备注',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'back_three',
+			field : 'remark3',
 			title : '备注',
 			width : 100,
 			halign : "center",
 			align : "left"
         }, {
-			field : 'back_four',
+			field : 'remark4',
 			title : '备注',
 			width : 100,
 			halign : "center",
@@ -65,8 +65,8 @@
 			align : "left",
 			formatter:function(value,row,index){
 			var str = "";
-			str += '<a id="edit" class="easyui-linkbutton" href="product/toUpdateWeldf?fid='+row.id+'"/>';
-			str += '<a id="remove" class="easyui-linkbutton" href="product/toDestroyWeldf?fid='+row.id+'"/>';
+			str += '<a id="edit" class="easyui-linkbutton" href="javascript:editWeldf()"/>';
+			str += '<a id="remove" class="easyui-linkbutton" href="javascript:removeWeldf()"/>';
 			str += '<a id="process" class="easyui-linkbutton" href="product/AllProcess?fid='+row.id+'"/>';
 			return str;
 			}

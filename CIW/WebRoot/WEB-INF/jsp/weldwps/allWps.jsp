@@ -27,6 +27,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/weldwps/allWps.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
+	<script type="text/javascript" src="resources/js/weldwps/addWps.js"></script>
+	<script type="text/javascript" src="resources/js/weldwps/destroyWps.js"></script>
 
   </head>
   
@@ -58,6 +60,109 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="historyDIV" class="easyui-dialog" style="width:800px; height:400px;" closed="true" title="下发历史">
 		    <table id="history" name="history" style="table-layout:fixed;width:100%"></table>
 	    </div>
+		<!-- 添加修改 -->
+		<div id="dlg" class="easyui-dialog" style="width: 800px; height: 400px; padding:10px 20px" closed="true" buttons="#dlg-buttons">
+			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true">
+           		<div class="fitem">
+	            	<lable><span class="required">*</span>工艺编号</lable>
+	                <input name="FWPSNum" id="FWPSNum" class="easyui-textbox" data-options="validType:'wpsValidate',required:true">
+	            	<lable><span class="required">*</span>预置通道</lable>
+	                <input name="Fweld_PreChannel" class="easyui-numberbox"  data-options="required:true">
+	            </div>
+	            <div class="fitem">
+	            	<lable><span class="required">*</span>报警电流</lable>
+	                <input name="Fweld_Alter_I" class="easyui-numberbox"  data-options="required:true">
+	            	<lable><span class="required">*</span>报警电压</lable>
+	                <input name="Fweld_Alter_V" class="easyui-numberbox"  data-options="required:true">
+	            </div>
+	            <div class="fitem">
+	            	<lable><span class="required">*</span>标准焊接电流</lable>
+	                <input name="Fweld_I" class="easyui-numberbox"   data-options="required:true">
+	            	<lable><span class="required">*</span>标准焊接电压</lable>
+	                <input name="Fweld_V" type="easyui-textbox" class="easyui-numberbox" data-options="required:true">
+	            </div>
+	            <div class="fitem">
+	            	<lable><span class="required">*</span>最大焊接电流</lable>
+	                <input name="Fweld_I_MAX" class="easyui-numberbox"  data-options="required:true">
+	            	<lable><span class="required">*</span>最小焊接电流</lable>
+	                <input name="Fweld_I_MIN" class="easyui-numberbox"  data-options="required:true">
+	            </div>
+	            <div class="fitem">
+	            	<lable><span class="required">*</span>最大焊接电压</lable>
+	                <input name="Fweld_V_MAX" class="easyui-numberbox"   data-options="required:true">
+	            	<lable><span class="required">*</span>最小焊接电压</lable>
+	                <input name="Fweld_V_MIN" class="easyui-numberbox" data-options="required:true">
+	            </div>
+	            <div class="fitem">
+	            	<lable><span class="required">*</span>工艺参数名称</lable>
+	                <input name="Fname" class="easyui-textbox" data-options="required:true">
+	            	<lable><span class="required">*</span>焊丝直径</lable>
+	                <input name="Fdiameter" class="easyui-numberbox"  min="0.001" precision="3" data-options="required:true">
+	            </div>
+	            <div class="fitem">
+					<lable><span class="required">*</span>部门</lable>
+					<select class="easyui-combobox" name="insid" id="insid" data-options="required:true,editable:false"></select>
+	            	<lable>备注</lable>
+	                <input name="Fback" class="easyui-textbox">
+	        	</div>
+			</form>
+		</div>
+		<div id="dlg-buttons">
+			<a href="javascript:save();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+			<a href="javascript:$('#dlg').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel" >取消</a>
+		</div>
+		
+		<!-- 删除 -->
+		<div id="rdlg" class="easyui-dialog" style="width: 800px; height: 400px; padding:10px 20px" closed="true" buttons="#remove-buttons">
+			<form id="rfm" class="easyui-form" method="post" data-options="novalidate:true">
+	            <div class="fitem">
+	            	<lable>工艺编号</lable>
+	                <input name="FWPSNum" id="FWPSNum" class="easyui-textbox" readonly="true">
+	            	<lable>预置通道</lable>
+	                <input name="Fweld_PreChannel" class="easyui-textbox" readonly="true">
+	            </div>
+	            <div class="fitem">
+	            	<lable>报警电流</lable>
+	                <input name="Fweld_Alter_I" class="easyui-textbox" readonly="true">
+	            	<lable>报警电压</lable>
+	                <input name="Fweld_Alter_V" class="easyui-textbox" readonly="true" >
+	            </div>
+	            <div class="fitem">
+	            	<lable>标准焊接电流</lable>
+	                <input name="Fweld_I" class="easyui-textbox" readonly="true">
+	            	<lable>标准焊接电压</lable>
+	                <input name="Fweld_V" class="easyui-textbox" readonly="true">
+	            </div>
+	            <div class="fitem">
+	            	<lable>最大焊接电流</lable>
+	                <input name="Fweld_I_MAX" class="easyui-textbox" readonly="true">
+	            	<lable>最小焊接电流</lable>
+	                <input name="Fweld_I_MIN" class="easyui-textbox" readonly="true" >
+	            </div>
+	            <div class="fitem">
+	            	<lable>最大焊接电压</lable>
+	                <input name="Fweld_V_MAX" class="easyui-textbox"  readonly="true">
+	            	<lable>最小焊接电压</lable>
+	                <input name="Fweld_V_MIN" class="easyui-textbox" readonly="true">
+	            </div>
+	            <div class="fitem">
+	            	<lable>工艺参数名称</lable>
+	                <input name="Fname" class="easyui-textbox" readonly="true">
+	            	<lable>焊丝直径</lable>
+	                <input name="Fdiameter" class="easyui-textbox" readonly="true">
+	            </div>
+	            <div class="fitem">
+					<lable>部门</lable>
+					<input name="Fowner" id="Fowner" class="easyui-textbox" readonly="true">
+	            	<lable>备注</lable>
+	                <input name="Fback" class="easyui-textbox" readonly="true">
+	        	</div>
+			</form>
+		</div>
+		<div id="remove-buttons">
+			<a href="javascript:remove();" class="easyui-linkbutton" iconCls="icon-ok">删除</a>
+			<a href="javascript:$('#rdlg').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel" >取消</a>
+		</div>
     </div>
 </body>
 </html>

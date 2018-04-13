@@ -10,7 +10,7 @@
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
 		url : "product/getAllProduct",
-		singleSelect : false,
+		singleSelect : true,
 		rownumbers : true,
 		pagination : true,
 		showPageList : false,
@@ -22,49 +22,49 @@
 			align : "left",
 			hidden: true
 		}, {
-			field : 'pro_mun',
+			field : 'pronum',
 			title : '产品编号',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'part_num',
+			field : 'partnum',
 			title : '零部件编号',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'pro_info',
+			field : 'proinfo',
 			title : '产品信息',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'part_info',
+			field : 'partinfo',
 			title : '零部件信息',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'back_one',
+			field : 'remark1',
 			title : '备注',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'back_two',
+			field : 'remark2',
 			title : '备注',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'back_three',
+			field : 'remark3',
 			title : '备注',
 			width : 100,
 			halign : "center",
 			align : "left"
         }, {
-			field : 'back_four',
+			field : 'remark4',
 			title : '备注',
 			width : 100,
 			halign : "center",
@@ -77,8 +77,8 @@
 			align : "left",
 			formatter:function(value,row,index){
 			var str = "";
-			str += '<a id="edit" class="easyui-linkbutton" href="product/toUpdateProduct?fid='+row.id+'"/>';
-			str += '<a id="remove" class="easyui-linkbutton" href="product/toDestroyProduct?fid='+row.id+'"/>';
+			str += '<a id="edit" class="easyui-linkbutton" href="javascript:editProduct()"/>';
+			str += '<a id="remove" class="easyui-linkbutton" href="javascript:removeProduct()"/>';
 			str += '<a id="weldf" class="easyui-linkbutton" href="product/AllWeldf?fid='+row.id+'"/>';
 			return str;
 			}
@@ -101,23 +101,16 @@
 
 })
 
-function addProduct(){
-    	   var url = "product/toAddProduct";
-			var img = new Image();
-		    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-		    url = img.src;  // 此时相对路径已经变成绝对路径
-		    img.src = null; // 取消请求
-			window.location.href = encodeURI(url);
-       }
-   //监听窗口大小变化
-   window.onresize = function() {
-   	setTimeout(domresize, 500);
-   }
+
+//监听窗口大小变化
+window.onresize = function() {
+    setTimeout(domresize, 500);
+}
 
    //改变表格高宽
-   function domresize() {
+function domresize() {
    	$("#dg").datagrid('resize', {
    		height : $("#body").height(),
    		width : $("#body").width()
    	});
-   }
+}

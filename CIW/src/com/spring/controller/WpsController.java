@@ -108,6 +108,7 @@ public class WpsController {
 				json.put("FCReateDate",creat);
 				json.put("FUpdateDate", update);
 				json.put("Fowner",wps.getInsname());
+				json.put("insid",wps.getInsid());
 				json.put("Fback", wps.getFback());
 				json.put("Fname", wps.getFname());
 				json.put("Fdiameter", wps.getFdiameter());
@@ -196,7 +197,7 @@ public class WpsController {
 			wps.setFid(Long.parseLong(request.getParameter("FID")));
 			wps.setFupdater(myuser.getId());
 	        wps.setFowner(Long.parseLong(request.getParameter("ins")));
-	        wps.setFcreatedate(sdf.parse(request.getParameter("FCReateDate")));
+//	        wps.setFcreatedate(sdf.parse(request.getParameter("FCReateDate")));
 	        wps.setFwpsnum(request.getParameter("FWPSNum"));
 	        wps.setFweld_i( Integer.parseInt(request.getParameter("Fweld_I")));
 	        wps.setFweld_v( Integer.parseInt(request.getParameter("Fweld_V")));

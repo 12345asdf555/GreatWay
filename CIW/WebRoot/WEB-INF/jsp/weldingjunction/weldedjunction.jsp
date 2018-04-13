@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>达因</lable>
-					<input class="easyui-textbox" id="dyne" name="dyne"/>
+					<input class="easyui-numberbox" id="dyne" name="dyne"/>
 					<lable>规格</lable>
 					<input class="easyui-textbox" id="specification" name="specification"/>
 				</div>
@@ -121,15 +121,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable><span class="required">*</span>电流上限</lable>
-					<input class="easyui-textbox" id="maxElectricity" name="maxElectricity" data-options="required:true"/>
+					<input class="easyui-numberbox"  min="0.001" precision="3"  id="maxElectricity" name="maxElectricity" data-options="required:true"/>
 					<lable><span class="required">*</span>电流下限</lable>
-					<input class="easyui-textbox" id="minElectricity" name="minElectricity" data-options="required:true"/>
+					<input class="easyui-numberbox"  min="0.001" precision="3"  id="minElectricity" name="minElectricity" data-options="required:true"/>
 				</div>
 				<div class="fitem">
 					<lable><span class="required">*</span>电压上限</lable>
-					<input class="easyui-textbox" id="maxValtage" name="maxValtage" data-options="required:true"/>
+					<input class="easyui-numberbox"  min="0.001" precision="3"  id="maxValtage" name="maxValtage" data-options="required:true"/>
 					<lable><span class="required">*</span>电压下限</lable>
-					<input class="easyui-textbox" id="minValtage"  name="minValtage" data-options="required:true"/>
+					<input class="easyui-numberbox"  min="0.001" precision="3"  id="minValtage"  name="minValtage" data-options="required:true"/>
 				</div>
 				<div class="fitem">
 					<lable><span class="required">*</span>电流单位</lable>

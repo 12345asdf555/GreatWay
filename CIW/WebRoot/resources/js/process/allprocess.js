@@ -10,7 +10,7 @@
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
 		url : "product/getAllProcess",
-		singleSelect : false,
+		singleSelect : true,
 		rownumbers : true,
 		pagination : true,
 		showPageList : false,
@@ -101,8 +101,8 @@
 			align : "left",
 			formatter:function(value,row,index){
 			var str = "";
-			str += '<a id="edit" class="easyui-linkbutton" href="product/toUpdateProcess?fid='+row.id+'"/>';
-			str += '<a id="remove" class="easyui-linkbutton" href="product/toDestroyProcess?fid='+row.id+'"/>';
+			str += '<a id="edit" class="easyui-linkbutton" href="javascript:editProcess()"/>';
+			str += '<a id="remove" class="easyui-linkbutton" href="javascript:removeProcess()"/>';
 			return str;
 			}
 		}]],
@@ -122,23 +122,16 @@
 
 })
 
-function addProcess(){
-    	   var url = "product/toAddProcess";
-			var img = new Image();
-		    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-		    url = img.src;  // 此时相对路径已经变成绝对路径
-		    img.src = null; // 取消请求
-			window.location.href = encodeURI(url);
-       }
-   //监听窗口大小变化
-   window.onresize = function() {
+
+//监听窗口大小变化
+window.onresize = function() {
    	setTimeout(domresize, 500);
-   }
+}
 
    //改变表格高宽
-   function domresize() {
+function domresize() {
    	$("#dg").datagrid('resize', {
    		height : $("#body").height(),
    		width : $("#body").width()
    	});
-   }
+}
