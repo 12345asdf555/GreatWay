@@ -3,6 +3,8 @@ $(function(){
 	equipmentCombobox();
 	$('#dlg').dialog( {
 		onClose : function() {
+			$('#typeid').combobox('clear');
+			$('#wid').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
 	})

@@ -3,6 +3,7 @@ $(function(){
 	inscombobox();
 	$('#dlg').dialog( {
 		onClose : function() {
+			$('#insid').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
 	})

@@ -4,6 +4,9 @@ $(function(){
 	quaidCombobox();
 	$('#dlg').dialog( {
 		onClose : function() {
+			$('#leveid').combobox('clear');
+			$('#quali').combobox('clear');
+			$('#owner').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
 	})

@@ -3,6 +3,7 @@ $(function(){
 	typeCombobox();
 	$('#dlg').dialog( {
 		onClose : function() {
+			$('#desc').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
 	})
@@ -36,11 +37,27 @@ function DictionaryDataGrid(){
 			align:"left"
 		}
 		,{
-			field:'typeid',
+			field:'desc',
 			title:'类型',
 			width:350,
 			halign:"center",
 			align:"left"
+		},
+		{
+			field:'value',
+			title:'值',
+			width:350,
+			halign:"center",
+			align:"left",
+			hidden:true
+		},
+		{
+			field:'typeid',
+			title:'类型id',
+			width:350,
+			halign:"center",
+			align:"left",
+			hidden:true
 		},
 		{
 			field:'edit',
@@ -96,13 +113,13 @@ function editDictionary(){
 		});
 		$('#dlg').window('open');
 		$('#fm').form('load', row);
-		url = "Dictionary/editDictionary?id="+ row.id;
+		url = "Dictionary/editDictionary?id="+ row.id+"&value="+row.value;
 	}
 }
 //提交
 function save(){
 	var url2 = "";
-	var back=$("#typeid").combobox('getText');
+	var back=$("#desc").combobox('getText');
 	if(flag==1){
 		messager = "新增成功！";
 		url2 = url+"?back="+back;
@@ -202,8 +219,8 @@ function typeCombobox(){
 	"<option value='7'>焊工资质</option>"+
 	"<option value='8'>焊工级别</option>"+
 	"<option value='9'>焊接材质</option>";  
-    $("#typeid").append(optionStr);
-	$("#typeid").combobox();
+    $("#desc").append(optionStr);
+	$("#desc").combobox();
 }
 
 //监听窗口大小变化

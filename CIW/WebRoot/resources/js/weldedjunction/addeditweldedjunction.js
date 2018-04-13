@@ -2,6 +2,7 @@ $(function(){
 	InsframeworkCombobox();
 	$('#dlg').dialog( {
 		onClose : function() {
+			$('#itemid').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
 	})

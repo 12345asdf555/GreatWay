@@ -13,6 +13,9 @@ $(function(){
 	$("#itemid").combobox("select",item);
 	$('#dlg').dialog( {
 		onClose : function() {
+			$('#protocol').combobox('clear');
+			$('#status').combobox('clear');
+			$('#itemid').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
 	})

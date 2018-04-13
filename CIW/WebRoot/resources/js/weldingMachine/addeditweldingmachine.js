@@ -12,6 +12,10 @@ $(function(){
      });
 	$('#dlg').dialog( {
 		onClose : function() {
+			$('#iId').combobox('clear');
+			$('#manuno').combobox('clear');
+			$('#tId').combobox('clear');
+			$('#gid').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
 	})

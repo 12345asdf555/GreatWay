@@ -3,6 +3,8 @@ $(function(){
 	typeCombobox();
 	$('#dlg').dialog( {
 		onClose : function() {
+			$('#typeid').combobox('clear');
+			$('#parentid').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
 	})

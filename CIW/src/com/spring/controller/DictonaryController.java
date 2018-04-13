@@ -85,10 +85,10 @@ public class DictonaryController {
 		try{
 			for(Dictionarys d:list){
 				json.put("id",d.getId());
-				json.put("type",d.getTypeid());
+				json.put("typeid",d.getTypeid());
 				json.put("value", d.getValue());
 				json.put("valueName", d.getValueName());
-				json.put("typeid", d.getBack());
+				json.put("desc", d.getBack());
 				ary.add(json);
 			}
 		}catch(Exception e){
