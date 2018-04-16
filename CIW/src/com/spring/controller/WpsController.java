@@ -54,6 +54,7 @@ public class WpsController {
 	
 	IsnullUtil iutil = new IsnullUtil();
 	private SocketChannel socketChannel;
+	private String strdata;
 	
 	/**
 	 * 获取所有用户列表
@@ -280,6 +281,11 @@ public class WpsController {
 		JSONObject json1 = new JSONObject();
 		JSONArray ary1 = new JSONArray();
 		try{
+/*            if(socketChannel==null){
+            socketChannel = SocketChannel.open(); 
+              SocketAddress socketAddress = new InetSocketAddress(IP_ADDR, 5555);    
+               socketChannel.connect(socketAddress);
+          }*/
 			for(int i=0;i<wfid.length;i++){
 				wps.setFid(Long.parseLong(wfid[i]));
 		        wps.setFweld_prechannel(Integer.parseInt(wpre[i]));
@@ -290,17 +296,10 @@ public class WpsController {
 				wps.setFupdatedate(sdf.parse(sdf.format((new Date()).getTime())));
 				for(int j=0;j<mmid.length;j++){
 					wps.setMacid(new BigInteger(mmid[j]));
-					wpsService.give(wps);
+					/*wpsService.give(wps);*/
 				}
 			}
-			obj.put("success", true);
-			
-			try {    
-                //if(socketChannel==null){
-                  socketChannel = SocketChannel.open(); 
-                    SocketAddress socketAddress = new InetSocketAddress(IP_ADDR, 5555);    
-                     socketChannel.connect(socketAddress);
-                //}
+			try {
          			for(int ii=0;ii<wfid.length;ii++){
         				for(int jj=0;jj<mmid.length;jj++){
             				Wps w = wpsService.findById(new BigInteger(wfid[ii]));
@@ -403,7 +402,7 @@ public class WpsController {
 							String strdata2=ch.replaceAll("7C20", "00");
 		                    String strdata3=strdata2.replaceAll("7C5E", "7E");
 		                    String strdata4=strdata3.replaceAll("7C5C", "7C");
-		                    String strdata =strdata4.replaceAll("7C5D", "7D");
+		                    strdata =strdata4.replaceAll("7C5D", "7D");
 		                    int check = 0;
 		                    byte[] data1=new byte[strdata.length()/2];
 							for (int i = 0; i < data1.length; i++)
@@ -422,18 +421,33 @@ public class WpsController {
 		                    strdata=strdata.toUpperCase();
 //		                    strdata="7E7C20521301027C201E7C200A7C20647C20BE7C207C207C20FA7C20FA7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C201E327C207C202C7D";
 //		                    strdata="7E7C20521301027C201E7C200A7C20647C20BE7C207C207C20FA7C20FA7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C201E327C207C202C7D";
-							SendAndReceiveUtil.sendData(socketChannel, strdata);
-					         Robot  r   =   new   Robot();
-					         r.delay(500);
+		                    
+/*		                    try {  
+		                    	byte[] strbyte=new byte[strdata.length()/2];
+		                    	  
+		                        for (int i = 0; i < strbyte.length; i++)
+		                        {
+		                          String tstr1=strdata.substring(i*2, i*2+2);
+		                          Integer k=Integer.valueOf(tstr1, 16);
+		                          strbyte[i]=(byte)k.byteValue();
+		                        }
+		                        
+		                        socketChannel.write(ByteBuffer.wrap(strbyte));  
+		                        
+		                    } catch (IOException e) {  
+		                        // TODO Auto-generated catch block   
+		                  	  	socketChannel = null;
+		                        e.printStackTrace();  
+		                    }  */
+					         Robot  r1   =   new   Robot();
+					         r1.delay(400);
         				}
         			}
 
                   /*String msg = SendAndReceiveUtil.receiveData(socketChannel);    
                   if(msg != null) 
                     System.out.println(msg);*/
-
-              
-              } catch (Exception ex) {    
+              } catch (Exception ex) { 
                   ex.printStackTrace();  
               } /*finally {    
                   try {            
@@ -508,6 +522,8 @@ public class WpsController {
                 zerocount=0;
               }
             }*/
+			obj.put("success", true);
+			obj.put("fsdata",strdata);
 		}catch(Exception e){
 			e.printStackTrace();
 			obj.put("success", false);

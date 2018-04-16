@@ -21,8 +21,7 @@
 	</select>
 	
 	<select id="findById" parameterType="BigInteger" resultType="Wps">
-		select i.fname insname,wps.FID fid,FWPSNum fwpsnum,Fweld_I fweld_i,Fweld_V fweld_v,Fweld_I_MAX fweld_i_max,Fweld_I_MIN fweld_i_min,Fweld_V_MAX fweld_v_max,Fweld_V_MIN fweld_v_min,Fweld_Alter_I fweld_alter_i,Fweld_Alter_V fweld_alter_v,Fweld_PreChannel fweld_prechannel,FCReateDate fcreatedate,FUpdateDate fupdatedate,Fowner fowner,Fback fback,wps.Fname fname,Fdiameter fdiameter from tb_mainwps wps INNER JOIN tb_insframework i on i.fid=wps.Fowner where wps.FID=#{fid}
-		select tb_mainwps.FID fid,tb_mainwps.FWPSNum fwpsnum,tb_mainwps.Fweld_I fweld_i,tb_mainwps.Fweld_V fweld_v,tb_mainwps.Fweld_I_MAX fweld_i_max,tb_mainwps.Fweld_I_MIN fweld_i_min,tb_mainwps.Fweld_V_MAX fweld_v_max,tb_mainwps.Fweld_V_MIN fweld_v_min,tb_mainwps.Fweld_Alter_I fweld_alter_i,tb_mainwps.Fweld_Alter_V fweld_alter_v,tb_mainwps.Fweld_PreChannel fweld_prechannel,tb_mainwps.FCReateDate fcreatedate,tb_mainwps.FUpdateDate fupdatedate,tb_mainwps.Fowner fowner,tb_mainwps.Fback fback,tb_mainwps.Fname fname,tb_mainwps.Fdiameter fdiameter from tb_mainwps where tb_mainwps.FID=
+		select tb_mainwps.FID fid,tb_mainwps.FWPSNum fwpsnum,tb_mainwps.Fweld_I fweld_i,tb_mainwps.Fweld_V fweld_v,tb_mainwps.Fweld_I_MAX fweld_i_max,tb_mainwps.Fweld_I_MIN fweld_i_min,tb_mainwps.Fweld_V_MAX fweld_v_max,tb_mainwps.Fweld_V_MIN fweld_v_min,tb_mainwps.Fweld_Alter_I fweld_alter_i,tb_mainwps.Fweld_Alter_V fweld_alter_v,tb_mainwps.Fweld_PreChannel fweld_prechannel,tb_mainwps.FCReateDate fcreatedate,tb_mainwps.FUpdateDate fupdatedate,tb_mainwps.Fowner fowner,tb_mainwps.Fback fback,tb_mainwps.Fname fname,tb_mainwps.Fdiameter fdiameter from tb_mainwps where tb_mainwps.FID=#{fid}
 	</select>
 	
     <insert id="save" parameterType="Wps">

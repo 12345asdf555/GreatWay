@@ -87,5 +87,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/netty-all-5.0.0.Alpha2-sources.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/netty-all-5.0.0.Alpha2.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
