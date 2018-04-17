@@ -79,11 +79,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            	<lable><span class="required">*</span>密码</lable>
 	                <input name="userPassword" type="password" class="easyui-textbox" data-options="required:true">
 	            	<lable>电话</lable>
-	                <input name="userPhone" class="easyui-textbox" data-options="required:false">
+	                <input name="userPhone" class="easyui-textbox" data-options="validType:'phoneNum',required:false">
 	            </div>
 	            <div class="fitem">
 	            	<lable>邮箱</lable>
-	                <input name="userEmail" class="easyui-textbox" data-options="required:false">
+	                <input name="userEmail" class="easyui-textbox" data-options="validType:'email',required:false" invalidMessage="请输入正确的邮箱">
 	            	<lable><span class="required">*</span>岗位</lable>
 	                <input name="userPosition" class="easyui-textbox" data-options="required:true">
 	            </div>

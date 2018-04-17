@@ -74,8 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true">
 				<div class="fitem">
 					<lable><span class="required">*</span>固定资产编号</lable>
-					<input type="hidden" id="valideno" value="${w.equipmentNo }">
-					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  data-options="validType:['checkNumber','wmEnoValidate'],required:true"/>
+					<input type="hidden" id="valideno">
+					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo"  data-options="validType:['checkNumber','wmEnoValidate','checkLength'],required:true"/>
 				</div>
 				<div class="fitem">
 					<lable><span class="required">*</span>设备类型</lable>
@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>采集序号</lable>
-					<input type="hidden" id="validgid" value="${w.gatherId.gatherNo }">
+					<input type="hidden" id="validgid">
 					<select class="easyui-combobox" name="gid" id="gid" data-options="validType:['checkNumber','wmGatheridValidate'],editable:false""></select>
 				</div>
 				<div class="fitem">

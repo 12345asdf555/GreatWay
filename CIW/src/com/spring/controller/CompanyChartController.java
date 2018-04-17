@@ -42,6 +42,12 @@ public class CompanyChartController {
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
+	@RequestMapping("/goContrast")
+	public String goContrast(HttpServletRequest request){
+		lm.getUserId(request);
+		return "companychart/contrast";
+	}
+	
 	/**
 	 * 跳转公司工时页面
 	 * @return

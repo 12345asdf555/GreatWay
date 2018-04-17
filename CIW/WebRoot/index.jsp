@@ -56,22 +56,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div title="生产数据分析" data-options="iconCls:'icon-num'">
 				<ul>
-					<li onclick="changeColor(this)"><a href="javascript:openHistory()"><img src="resources/images/s-2.png" />&nbsp;&nbsp;历史曲线</a></li>
-    				<li onclick="changeColor(this)"><a href="javascript:openCompanytEfficiency()"><img src="resources/images/s-3.png" />&nbsp;&nbsp;焊工工效</a></li>
-					<li onclick="changeColor(this)"><a href="javascript:openCompanyLoads()"><img src="resources/images/s-4.png" />&nbsp;&nbsp;焊机负载率</a></li>
-					<li onclick="changeColor(this)"><a href="javascript:openCompanyNoLoads()"><img src="resources/images/s-5.png" />&nbsp;&nbsp;焊机空载率</a></li>
-    				<li onclick="changeColor(this)"><a href="javascript:openCompanyIdle()"><img src="resources/images/s-6.png" />&nbsp;&nbsp;设备闲置率</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openWelderReport()"><img src="resources/images/s-7.png" />&nbsp;&nbsp;焊工维度表</a></li>
-					<li onclick="changeColor(this)"><a href="javascript:openCompanyHour()"><img src="resources/images/s-8.png" />&nbsp;&nbsp;焊缝焊接工时</a></li>
-    				<li onclick="changeColor(this)"><a href="javascript:openCompanyovertime()"><img src="resources/images/s-9.png" />&nbsp;&nbsp;超时待机统计</a></li>
-					<li onclick="changeColor(this)"><a href="javascript:openCompanyoverproof()"><img src="resources/images/s-10.png" />&nbsp;&nbsp;焊接工艺超标</a></li>
-				    <li onclick="changeColor(this)"><a href="javascript:openWeldingmachineMax()"><img src="resources/images/s-11.png" />&nbsp;&nbsp;焊机工时最高</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openWeldingmachineMin()"><img src="resources/images/s-12.png" />&nbsp;&nbsp;焊机工时最低</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openWelderMax()"><img src="resources/images/s-13.png" />&nbsp;&nbsp;焊工工时最高</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openWelderMin()"><img src="resources/images/s-14.png" />&nbsp;&nbsp;焊工工时最低</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openWeldParameter()"><img src="resources/images/s-15.png" />&nbsp;&nbsp;焊接参数维度表</a></li>
-			        <li onclick="changeColor(this)"><a href="javascript:openWireUse()"><img src="resources/images/s-16.png" />&nbsp;&nbsp;焊丝用量维度表</a></li>
-    				<li class="libottom" onclick="changeColor(this)"><a href="javascript:openCompanyUse()"><img src="resources/images/s-17.png" />&nbsp;&nbsp;单台设备运行数据统计</a></li>
+					<li  onclick="changeColor(this)"><a href="javascript:openPersonChart()"><img src="resources/images/c-6.png" />&nbsp;&nbsp;焊工</a></li>
+					<li>
+						<div id="persondiv">
+							<ul>
+			    				<li onclick="changeColor(this)"><a href="javascript:openCompanytEfficiency()"><img src="resources/images/s-3.png" />&nbsp;&nbsp;焊工工效</a></li>
+						        <li onclick="changeColor(this)"><a href="javascript:openWelderReport()"><img src="resources/images/s-7.png" />&nbsp;&nbsp;焊工维度表</a></li>
+			    				<li onclick="changeColor(this)"><a href="javascript:openCompanyovertime()"><img src="resources/images/s-9.png" />&nbsp;&nbsp;超时待机统计</a></li>
+								<li onclick="changeColor(this)"><a href="javascript:openCompanyoverproof()"><img src="resources/images/s-10.png" />&nbsp;&nbsp;焊接工艺超标</a></li>
+				    			<li onclick="changeColor(this)"><a href="javascript:openHistory()"><img src="resources/images/s-2.png" />&nbsp;&nbsp;历史曲线</a></li>
+							</ul>
+						</div>
+					</li>
+			        <li onclick="changeColor(this)"><a href="javascript:openJunctionChart()"><img src="resources/images/c-7.png" />&nbsp;&nbsp;焊缝</a></li>
+			        <li>
+						<div id="junctiondiv">
+							<ul>
+								<li onclick="changeColor(this)"><a href="javascript:openCompanyHour()"><img src="resources/images/s-8.png" />&nbsp;&nbsp;焊缝焊接工时</a></li>
+				    			<li onclick="changeColor(this)"><a href="javascript:openHistory()"><img src="resources/images/s-2.png" />&nbsp;&nbsp;历史曲线</a></li>
+							</ul>
+						</div>
+					</li>
+			        <li onclick="changeColor(this)"><a href="javascript:openMachineChart()"><img src="resources/images/c-12.png" />&nbsp;&nbsp;焊机</a></li>
+				     <li>
+						<div id="machinediv">
+							<ul>
+								<li onclick="changeColor(this)"><a href="javascript:openCompanyLoads()"><img src="resources/images/s-4.png" />&nbsp;&nbsp;焊机负载率</a></li>
+								<li onclick="changeColor(this)"><a href="javascript:openCompanyNoLoads()"><img src="resources/images/s-5.png" />&nbsp;&nbsp;焊机空载率</a></li>
+			    				<li onclick="changeColor(this)"><a href="javascript:openCompanyIdle()"><img src="resources/images/s-6.png" />&nbsp;&nbsp;设备闲置率</a></li>
+						        <li onclick="changeColor(this)"><a href="javascript:openWeldParameter()"><img src="resources/images/s-15.png" />&nbsp;&nbsp;焊接参数维度表</a></li>
+						        <li onclick="changeColor(this)"><a href="javascript:openWireUse()"><img src="resources/images/s-16.png" />&nbsp;&nbsp;焊丝用量维度表</a></li>
+			    				<li onclick="changeColor(this)"><a href="javascript:openCompanyUse()"><img src="resources/images/s-17.png" />&nbsp;&nbsp;单台设备运行数据统计</a></li>
+							</ul>
+						</div>
+					</li>
+				    <li onclick="changeColor(this)"><a href="javascript:openMaxMin()"><img src="resources/images/s-11.png" />&nbsp;&nbsp;对照分析</a></li>
+<!-- 				    <li onclick="changeColor(this)"><a href="javascript:openWeldingmachineMax()"><img src="resources/images/s-11.png" />&nbsp;&nbsp;焊机工时最高</a></li> -->
+<!-- 			        <li onclick="changeColor(this)"><a href="javascript:openWeldingmachineMin()"><img src="resources/images/s-12.png" />&nbsp;&nbsp;焊机工时最低</a></li> -->
+<!-- 			        <li onclick="changeColor(this)"><a href="javascript:openWelderMax()"><img src="resources/images/s-13.png" />&nbsp;&nbsp;焊工工时最高</a></li> -->
+<!-- 			        <li onclick="changeColor(this)"><a href="javascript:openWelderMin()"><img src="resources/images/s-14.png" />&nbsp;&nbsp;焊工工时最低</a></li> -->
 				</ul>
 			</div>
 			<div title="生产过程管理" data-options="iconCls:'icon-statement'">

@@ -2,6 +2,9 @@ $(function(){
 	getUserInsframework();
 	addTab("欢迎使用","welcome.jsp");
 	tabsIncident();
+	$("#persondiv").hide();
+	$("#junctiondiv").hide();
+	$("#machinediv").hide();
 })
 
 function getUserInsframework(){
@@ -19,6 +22,36 @@ function getUserInsframework(){
 			alert("数据请求失败，请联系系统管理员!");
 		}
 	})
+}
+
+function openPersonChart(){
+	if($("#persondiv").is(":hidden")){
+	    $("#persondiv").slideDown();
+		$("#junctiondiv").slideUp();
+	    $("#machinediv").slideUp();
+	}else{
+	    $("#persondiv").slideUp();
+	}
+}
+
+function openJunctionChart(){
+	if($("#junctiondiv").is(":hidden")){
+		$("#junctiondiv").slideDown();
+	    $("#persondiv").slideUp();
+	    $("#machinediv").slideUp();
+	}else{
+		$("#junctiondiv").slideUp();
+	}
+}
+
+function openMachineChart(){
+	if($("#machinediv").is(":hidden")){
+		$("#machinediv").slideDown();
+		$("#junctiondiv").slideUp();
+	    $("#persondiv").slideUp();
+	}else{
+	    $("#machinediv").slideUp();
+	}
 }
 
 function openUser(){
@@ -54,6 +87,10 @@ function openCompanyUse(){
 }
 function openMachine(){
 	addTab("维修记录管理","maintain/goMaintain");
+}
+
+function openMaxMin(){
+	addTab("对照分析","companyChart/goContrast");
 }
 
 function openCompanyovertime(){
