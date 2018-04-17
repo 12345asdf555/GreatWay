@@ -157,13 +157,7 @@ public class WeldedJunctionControll {
 	public String getJunctionByWelder(HttpServletRequest request){
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
-		String welder = Integer.toHexString(Integer.valueOf(request.getParameter("welder")));
-		if(welder.length()!=4){
-            int lenth=4-welder.length();
-            for(int i=0;i<lenth;i++){
-            	welder="0"+welder;
-            }
-          }
+		String welder = request.getParameter("welder");
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		WeldDto dto = new WeldDto();
