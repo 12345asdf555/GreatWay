@@ -75,13 +75,7 @@ public class WeldedJunctionControll {
 	@RequestMapping("/getWeldJun")
 	public String getWeldJun(HttpServletRequest request){
 		if(request.getParameter("fid")!=null&&request.getParameter("fid")!=""){
-			welderid = Integer.toHexString(Integer.valueOf(request.getParameter("fid")));
-			if(welderid.length()!=4){
-                int lenth=4-welderid.length();
-                for(int i=0;i<lenth;i++){
-                	welderid="0"+welderid;
-                }
-              }
+			welderid = request.getParameter("fid");
 		}
 		return "td/HistoryCurve";
 	}
@@ -435,7 +429,7 @@ public class WeldedJunctionControll {
 				json.put("lasttime", wjm.getLasttime(dto, w.getMachid(),welderid , w.getWeldedJunctionno()));
 				json.put("id", w.getId());
 				json.put("machid",w.getMachid());
-				json.put("machine_num", Integer.parseInt(w.getMachine_num(), 16));
+				json.put("machine_num", w.getMachine_num());
 				json.put("weldedJunctionno", w.getWeldedJunctionno());
 				json.put("dyne", w.getDyne());
 				json.put("maxElectricity", w.getMaxElectricity());

@@ -195,13 +195,13 @@ var lable=0;
 					width : 90,
 					halign : "center",
 					align : "left"
-				}, {
+				}, /*{
 					field : 'dyne',
 					title : '达因',
 					width : 90,
 					halign : "center",
 					align : "left"
-				}, {
+				},*/ {
 					field : 'specification',
 					title : '规格',
 					width : 90,

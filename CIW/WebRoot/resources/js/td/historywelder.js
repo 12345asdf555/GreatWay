@@ -43,7 +43,7 @@
 			}, {
 				field : 'name',
 				title : '姓名',
-				width : 100,
+				width : 80,
 				halign : "center",
 				align : "left"
 			}, {
@@ -60,6 +60,13 @@
 				align : "left"
 			},{
 				field : 'leveid',
+				title : '级别id',
+				width : 100,
+				halign : "center",
+				align : "left",
+				hidden:true
+			}, {
+				field : 'levename',
 				title : '级别',
 				width : 100,
 				halign : "center",
@@ -72,11 +79,18 @@
 				align : "left"
 			},{
 				field : 'quali',
+				title : '资质id',
+				width : 100,
+				halign : "center",
+				align : "left",
+				hidden:true
+			}, {
+				field : 'qualiname',
 				title : '资质',
 				width : 100,
 				halign : "center",
 				align : "left"
-			},{
+			},/*{
 				field : 'createdate',
 				title : '创建时间',
 				width : 100,
@@ -88,10 +102,17 @@
 				width : 100,
 				halign : "center",
 				align : "left"
-			},{
+			},*/{
 				field : 'owner',
+				title : '部门id',
+				width : 100,
+				halign : "center",
+				align : "left",
+				hidden:true
+			}, {
+				field : 'ownername',
 				title : '部门',
-				width : 130,
+				width : 150,
 				halign : "center",
 				align : "left"
 			},{

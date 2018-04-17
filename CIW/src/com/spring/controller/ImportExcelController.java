@@ -107,32 +107,18 @@ public class ImportExcelController {
 				Gather gather = wm.getGatherId();
 				int count2 = 0;
 				if(gather!=null){
-					String gno = Integer.toHexString(Integer.valueOf(gather.getGatherNo()));
-					if(gno.length()!=4){
-		                int lenth=4-gno.length();
-		                for(int i=0;i<lenth;i++){
-		                	gno="0"+gno;
-		                }
-		              }
-					int count3 = g.getGatherNoByItemCount(gno, wm.getInsframeworkId().getId()+"");
+					int count3 = g.getGatherNoByItemCount(gather.getGatherNo(), wm.getInsframeworkId().getId()+"");
 					if(count3 == 0){
 						obj.put("msg","导入失败，请检查您的采集序号是否存在或是否属于该部门！");
 						obj.put("success",false);
 						return obj.toString();
 					}
-					gather.setId(g.getGatherByNo(gno));
+					gather.setId(g.getGatherByNo(gather.getGatherNo()));
 					wm.setGatherId(gather);
-					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gno);
+					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gather.getGatherNo());
 				}
 				if(isInteger(wm.getEquipmentNo())){
-					String sea = Integer.toHexString(Integer.valueOf(wm.getEquipmentNo()));
-					if(sea.length()!=4){
-		                int lenth=4-sea.length();
-		                for(int i=0;i<lenth;i++){
-		                	sea="0"+sea;
-		                }
-		            }
-					wm.setEquipmentNo(sea);
+					wm.setEquipmentNo(wm.getEquipmentNo());
 				}
 				wm.setGatherId(gather);
 				//编码唯一
@@ -176,14 +162,7 @@ public class ImportExcelController {
 				wt.get(i).getMaintenance().setTypeId(dm.getvaluebyname(5,wt.get(i).getMaintenance().getTypename()));
 				BigInteger wmid = null;
 				if(isInteger(wt.get(i).getWelding().getEquipmentNo())){
-					String sea = Integer.toHexString(Integer.valueOf(wt.get(i).getWelding().getEquipmentNo()));
-					if(sea.length()!=4){
-		                int lenth=4-sea.length();
-		                for(int j=0;j<lenth;j++){
-		                	sea="0"+sea;
-		                }
-		            }
-					wmid = wmm.getWeldingMachineByEno(sea);
+					wmid = wmm.getWeldingMachineByEno(wt.get(i).getWelding().getEquipmentNo());
 				}else{
 					wmid = wmm.getWeldingMachineByEno(wt.get(i).getWelding().getEquipmentNo());
 				}
@@ -227,14 +206,7 @@ public class ImportExcelController {
 				MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				w.setCreater(new BigInteger(user.getId()+""));
 				w.setUpdater(new BigInteger(user.getId()+""));
-				String sea = Integer.toHexString(Integer.valueOf(w.getWelderno()));
-				if(sea.length()!=4){
-	                int lenth=4-sea.length();
-	                for(int i=0;i<lenth;i++){
-	                	sea="0"+sea;
-	                }
-	             }
-				w.setWelderno(sea);
+				w.setWelderno(w.getWelderno());
 				//编码唯一
 				int count1 = ps.getUsernameCount(w.getWelderno());
 				if(count1>0){

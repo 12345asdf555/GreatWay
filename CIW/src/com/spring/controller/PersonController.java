@@ -62,7 +62,7 @@ public class PersonController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String search = request.getParameter("searchStr");
-		if(search!=null&&search!="null"){
+/*		if(search!=null&&search!="null"){
 		String ss[] = search.split("'");
 		System.out.println(ss[0].substring(0, 11));
 		if(ss[0].substring(0, 11).equals(" fwelder_no")){
@@ -75,7 +75,7 @@ public class PersonController {
               }
 			search = " fwelder_no = '"+sea+"'";
 		}
-		}
+		}*/
 		String parentId = request.getParameter("parent");
 		BigInteger parent = null;
 		if(iutil.isNull(parentId)){
@@ -96,7 +96,7 @@ public class PersonController {
 			for(Person welder:findAll){
 				json.put("id", welder.getId());
 				json.put("name", welder.getName());
-				json.put("welderno", Integer.valueOf(welder.getWelderno(), 16));
+				json.put("welderno", welder.getWelderno());
 				json.put("cellphone", welder.getCellphone());
 				json.put("cardnum", welder.getCardnum());
 				json.put("ownername", welder.getInsname());
@@ -166,14 +166,14 @@ public class PersonController {
 			welder.setQuali(Integer.parseInt(request.getParameter("qua")));
 			welder.setLeveid(Integer.parseInt(request.getParameter("leve")));
 			welder.setOwner(new BigInteger(request.getParameter("ins")));
-			String sea = Integer.toHexString(Integer.valueOf(request.getParameter("welderno")));
+/*			String sea = Integer.toHexString(Integer.valueOf(request.getParameter("welderno")));
 			if(sea.length()!=4){
                 int lenth=4-sea.length();
                 for(int i=0;i<lenth;i++){
                 	sea="0"+sea;
                 }
-              }
-			welder.setWelderno(sea);
+              }*/
+			welder.setWelderno(request.getParameter("welderno"));
 			welder.setName(request.getParameter("name"));
 			welder.setCellphone(request.getParameter("cellphone"));
 			welder.setCardnum(request.getParameter("cardnum"));
@@ -195,7 +195,6 @@ public class PersonController {
 	@RequestMapping("/toUpdateWelder")
 	public String toUpdateWps(@RequestParam BigInteger fid,HttpServletRequest request){
 		Person Welder = welderService.findById(fid);
-		Welder.setWelderno(String.valueOf(Integer.parseInt(Welder.getWelderno(), 16)));
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		request.setAttribute("welder", Welder);
 //		request.setAttribute("update", sdf.format(Welder.getUpdatedate()));
@@ -218,14 +217,7 @@ public class PersonController {
 			welder.setQuali(Integer.parseInt(request.getParameter("qua")));
 			welder.setLeveid(Integer.parseInt(request.getParameter("leve")));
 			welder.setOwner(new BigInteger(request.getParameter("ins")));
-			String sea = Integer.toHexString(Integer.valueOf(request.getParameter("welderno")));
-			if(sea.length()!=4){
-                int lenth=4-sea.length();
-                for(int i=0;i<lenth;i++){
-                	sea="0"+sea;
-                }
-              }
-			welder.setWelderno(sea);
+			welder.setWelderno(request.getParameter("welderno"));
 			welder.setName(request.getParameter("name"));
 			welder.setCellphone(request.getParameter("cellphone"));
 			welder.setCardnum(request.getParameter("cardnum"));
@@ -247,7 +239,6 @@ public class PersonController {
 	public String toDestroyWps(@RequestParam BigInteger fid,HttpServletRequest request){
 		Person Welder = welderService.findById(fid);
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Welder.setWelderno(String.valueOf(Integer.parseInt(Welder.getWelderno(), 16)));
 		request.setAttribute("welder", Welder);
 //		request.setAttribute("update", sdf.format(Welder.getUpdatedate()));
 //		request.setAttribute("create", sdf.format(Welder.getCreatedate()));
@@ -273,14 +264,7 @@ public class PersonController {
 	@ResponseBody
 	private String weldersvalidate(@RequestParam String welderno){
 		boolean data = true;
-		String sea = Integer.toHexString(Integer.valueOf(welderno));
-		if(sea.length()!=4){
-            int lenth=4-sea.length();
-            for(int i=0;i<lenth;i++){
-            	sea="0"+sea;
-            }
-          }
-		int count = welderService.getUsernameCount(sea);
+		int count = welderService.getUsernameCount(welderno);
 		if(count>0){
 			data = false;
 		}
