@@ -50,13 +50,7 @@ public class WeldedJunctionServiceImpl implements WeldedJunctionService{
 	public WeldedJunction getWeldedJunctionById(BigInteger id) {
 		return wjm.getWeldedJunctionById(id);
 	}
-
-	@Override
-	public List<WeldedJunction> getJunctionByWelder(Page page,String welder, WeldDto dto) {
-		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return wjm.getJunctionByWelder(welder, dto);
-	}
-
+	
 	@Override
 	public List<WeldedJunction> getJMByWelder(Page page, WeldDto dto, String welderid) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
@@ -65,13 +59,11 @@ public class WeldedJunctionServiceImpl implements WeldedJunctionService{
 	
 	@Override
 	public String getFirsttime(WeldDto dto, BigInteger machineid, String welderid, String junid) {
-		// TODO Auto-generated method stub
 		return wjm.getFirsttime(dto,machineid,welderid,junid);
 	}
 
 	@Override
 	public String getLasttime(WeldDto dto, BigInteger machineid, String welderid, String junid) {
-		// TODO Auto-generated method stub
 		return wjm.getLasttime(dto,machineid,welderid,junid);
 	}
 }

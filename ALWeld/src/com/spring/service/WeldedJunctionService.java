@@ -15,14 +15,6 @@ public interface WeldedJunctionService {
 	List<WeldedJunction> getWeldedJunctionAll(Page page, String str);
 	
 	/**
-	 * 根据焊工获取焊缝
-	 * @param welder
-	 * @param dto
-	 * @return
-	 */
-	List<WeldedJunction> getJunctionByWelder(Page page, String welder,WeldDto dto);
-	
-	/**
 	 * 根据id查询
 	 * @param id 焊缝id
 	 * @return

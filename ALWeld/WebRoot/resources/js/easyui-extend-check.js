@@ -326,6 +326,16 @@ $(function(){
 						}
 					},
 					message : '焊缝编号已经被占用'
-				}
+				},
+
+				phoneNum: { //验证手机号    
+                    validator: function(value, param){
+                    	if(value.length!=11){
+							return false;
+						}
+                    	return /^1[3-8]+\d{9}$/.test(value);
+                    },     
+                    message: '请输入正确的手机号码'    
+                }
 			})
 })

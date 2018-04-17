@@ -24,6 +24,8 @@ public class ModelDto {
 	private BigInteger livecount;
 	private double fmax_electricity;
 	private double fmin_electricity;
+	private double fmax_valtage;
+	private double fmin_valtage;
 	private String overtime;
 	private String uploaddatetime;
 	private double loads;
@@ -56,7 +58,19 @@ public class ModelDto {
 	private BigInteger hous;//用来获取工时的总值
 	private String starttime;
 	private String endtime;
-	
+	 
+	public double getFmax_valtage() {
+		return fmax_valtage;
+	}
+	public void setFmax_valtage(double fmax_valtage) {
+		this.fmax_valtage = fmax_valtage;
+	}
+	public double getFmin_valtage() {
+		return fmin_valtage;
+	}
+	public void setFmin_valtage(double fmin_valtage) {
+		this.fmin_valtage = fmin_valtage;
+	}
 	public String getNextwallThickness() {
 		return nextwallThickness;
 	}

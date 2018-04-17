@@ -13,8 +13,6 @@ import tk.mybatis.mapper.common.Mapper;
 public interface WeldedJunctionMapper extends Mapper<WeldedJunction>{
 	List<WeldedJunction> getWeldedJunctionAll(@Param("str")String str);
 	
-	List<WeldedJunction> getJunctionByWelder(@Param("welder")String welder,@Param("dto")WeldDto dto);
-	
 	WeldedJunction getWeldedJunctionById(@Param("id")BigInteger id);
 	
 	boolean addJunction(WeldedJunction wj);

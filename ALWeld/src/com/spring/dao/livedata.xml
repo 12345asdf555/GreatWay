@@ -84,6 +84,8 @@
         <result property="livecount" column="livecount"></result>
         <result property="fmax_electricity" column="fmax_electricity"></result>
         <result property="fmin_electricity" column="fmin_electricity"></result>
+        <result property="fmax_valtage" column="fmax_valtage"></result>
+        <result property="fmin_valtage" column="fmin_valtage"></result>
         <result property="overtime" column="overtime"></result>
         <result property="time" column="time"></result>
         <result property="type" column="type"></result>
@@ -126,7 +128,7 @@
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
-		WHERE fstatus  &lt; 3
+		WHERE fstatus  &gt; 2
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -152,7 +154,7 @@
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 	    INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
-		WHERE fstatus  &lt; 3
+		WHERE fstatus  &gt; 2
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -182,7 +184,7 @@
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
         INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus &lt; 3
+		WHERE fstatus &gt; 2
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -227,7 +229,7 @@
 		FROM tb_live_data l
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
-		WHERE fstatus &lt; 3
+		WHERE fstatus &gt; 2
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -273,7 +275,7 @@
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus  &lt; 3
+		WHERE fstatus  &gt; 2
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -310,7 +312,7 @@
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
 		LEFT JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus  &lt; 3
+		WHERE fstatus  &gt; 2
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -341,7 +343,7 @@
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus &lt; 3
+		WHERE fstatus &gt; 2
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
 				AND i.fparent =#{dto.parent}
@@ -393,7 +395,7 @@
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON l.fitemid = i.fid
 		Left JOIN tb_welder w ON w.fwelder_no = l.fwelder_id
-		WHERE fstatus &lt; 3
+		WHERE fstatus &gt; 2
 		AND i.ftype =23
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -455,7 +457,7 @@
 		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end as OverFlage,fweldtime,insf.fname, insf.fid
 		FROM 
 		(
-		select fid,felectricity,fstatus,fjunction_id,fweldtime,fitemid from tb_live_data where fstatus = 0
+		select fid,felectricity,fstatus,fjunction_id,fweldtime,fitemid from tb_live_data where fstatus = 3
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -498,7 +500,7 @@
 		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end  as  OverFlage ,fweldtime,fwelder_id,fjunction_id
 		FROM 
 		(
-		select fid,felectricity,fjunction_id,fweldtime,fitemid,fwelder_id from tb_live_data where fstatus = 0
+		select fid,felectricity,fjunction_id,fweldtime,fitemid,fwelder_id from tb_live_data where fstatus = 3
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -535,7 +537,7 @@
 <!-- 		SELECT case when felectricity  &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0  end as OverFlage,fweldtime,ins.fname, ins.fid -->
 <!-- 		FROM  -->
 <!-- 		( -->
-<!-- 		select fid,felectricity,fstatus,fjunction_id,fweldtime,fitemid from tb_live_data where fstatus = 0 -->
+<!-- 		select fid,felectricity,fstatus,fjunction_id,fweldtime,fitemid from tb_live_data where fstatus = 3 -->
 <!-- 		<if test="dto!=null and dto!=''"> -->
 <!-- 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''"> -->
 <!-- 				and fweldtime &gt;= #{dto.dtoTime1} -->
@@ -580,7 +582,7 @@
 	FROM (
 	SELECT fid, felectricity, fstatus, fjunction_id, fweldtime,fitemid
 	FROM tb_live_data
-	WHERE fstatus = 0
+	WHERE fstatus = 3
 	<if test="dto!=null and dto!=''">
 		<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 			and fweldtime &gt;= #{dto.dtoTime1}
@@ -631,7 +633,7 @@
 		FROM (
 		SELECT fid, felectricity, fstatus, fjunction_id, fweldtime,fitemid
 		FROM tb_live_data
-		WHERE fstatus = 0
+		WHERE fstatus = 3
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -701,7 +703,7 @@
 		i.fid iid,j.fid jid,fmax_electricity,fmin_electricity,felectricity,DATE_FORMAT(fweldtime,'%Y-%m-%d') weldtime ,fgather_no jidgather,
 		i.fname iname,fwelder_id,fequipment_no fmachine_id,fjunction_id,k0.fname wname from ( 
 		select felectricity,fjunction_id,fweldtime,fwelder_id,fequipment_no,l.fgather_no,w.fname,l.fitemid from tb_live_data l left join tb_welder w on l.fwelder_id = w.fwelder_no
-        LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id where l.fstatus=0 ) as k0 
+        LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id where l.fstatus=3 ) as k0 
 		inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id 
 		inner join tb_insframework i on k0.fitemid = i.fid 
 		where i.ftype=23
@@ -764,7 +766,7 @@
         INNER JOIN tb_insframework i on i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
 		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
-		WHERE fstatus =3
+		WHERE fstatus =0
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -800,7 +802,7 @@
 		FROM tb_live_data l 
         INNER JOIN tb_insframework i on i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus =3
+		WHERE fstatus =0
 		<if test="parent!=null and parent!=''">
 			AND ins.fparent = #{parent}
 		</if>
@@ -839,7 +841,7 @@
 		FROM tb_live_data l 
         INNER JOIN tb_insframework i on i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus =3
+		WHERE fstatus =0
 		<if test="parent!=null and parent!=''">
 			AND (i.fparent = #{parent} or ins.fparent = #{parent})
 		</if>
@@ -878,7 +880,7 @@
 		FROM tb_live_data l 
         INNER JOIN tb_insframework i on i.fid = l.fitemid
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
-		WHERE fstatus =3
+		WHERE fstatus =0
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
 				AND (i.fid = #{dto.parent} or i.fparent = #{dto.parent} or ins.fparent = #{dto.parent})
@@ -915,7 +917,7 @@
         inner join tb_welding_machine m on l.fmachine_id = m.fid
         INNER join tb_insframework i on i.fid = l.fitemid
         left join tb_welder w on w.fwelder_no = l.fwelder_id
-		WHERE fstatus =3 AND i.fid=#{parent}
+		WHERE fstatus =0 AND i.fid=#{parent}
 		<if test="dto!=null and dto!=''">
 			<if test="dto.time!=null and dto.time!=''">
 				and fweldtime like #{dto.time}
@@ -959,7 +961,7 @@
 		(
 		SELECT fid lid,  fitemid, fweldtime
 		FROM tb_live_data
-		WHERE fstatus &lt; 3 
+		WHERE fstatus &gt; 2 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -1004,7 +1006,7 @@
 		(
 		SELECT fid lid, fitemid, fweldtime
 		FROM tb_live_data
-		WHERE fstatus &lt; 3 
+		WHERE fstatus &gt; 2 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -1050,7 +1052,7 @@
 		(
 		SELECT fid lid, fitemid, fweldtime,fmachine_id
 		FROM tb_live_data
-		WHERE fstatus &lt; 3 
+		WHERE fstatus &gt; 2 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -1093,7 +1095,7 @@
 		(
 		SELECT fid lid,fitemid, fweldtime
 		FROM tb_live_data
-		WHERE fstatus &lt; 3 
+		WHERE fstatus &gt; 2 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -1140,7 +1142,7 @@
 		(
 		SELECT fid lid, fitemid, fweldtime
 		FROM tb_live_data
-		WHERE fstatus &lt; 3 
+		WHERE fstatus &gt; 2 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -1192,7 +1194,7 @@
 		(
 		SELECT fid lid, fitemid, fweldtime,fgather_no,fmachine_id
 		FROM tb_live_data
-		WHERE fstatus &lt; 3 
+		WHERE fstatus &gt; 2 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.time!=null and dto.time!=''">
 				and fweldtime like #{dto.time}
@@ -1249,7 +1251,7 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		AND fstatus =3
+		AND fstatus =0
 		) AS k0
         INNER JOIN tb_insframework i ON k0.fitemId = i.fid 
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
@@ -1291,7 +1293,7 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		AND fstatus =3
+		AND fstatus =0
 		) AS k0
         INNER JOIN tb_insframework i ON k0.fitemId = i.fid 
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent
@@ -1335,7 +1337,7 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		AND fstatus =3
+		AND fstatus =0
 		) AS k0
         INNER JOIN tb_insframework i ON k0.fitemId = i.fid 
 		INNER JOIN tb_insframework ins ON ins.fid = i.fparent 
@@ -1371,7 +1373,7 @@
 		SELECT i.fid, l.fid lid, fweldtime, i.fname
 		FROM tb_live_data l
         INNER JOIN tb_insframework i ON l.fitemid = i.fid 
-		WHERE i.ftype =23 and fstatus =3  
+		WHERE i.ftype =23 and fstatus =0  
 		<if test="parent!=null and parent!=''">
 				and i.fid = #{parent}
 		</if>
@@ -1398,7 +1400,7 @@
 		FROM tb_live_data l
         INNER JOIN tb_insframework i ON l.fitemid = i.fid 
 		LEFT JOIN tb_welding_machine m ON m.fid = l.fmachine_id
-		WHERE i.ftype =23 and l.fstatus =3 
+		WHERE i.ftype =23 and l.fstatus =0 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.parent!=null and dto.parent!=''">
 				AND i.fid = #{dto.parent}
@@ -1890,6 +1892,9 @@
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
+			<if test="dto.dtoStatus>0">
+				and fstatus=0
+			</if>
 		</if> group by weldTime,ins.fparent
 	</select>
 	
@@ -1921,6 +1926,9 @@
 			</if>
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+			<if test="dto.dtoStatus>0">
+				and fstatus=0
 			</if>
 		</if> group by weldTime,ins.fid
 	</select>
@@ -1955,6 +1963,9 @@
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
+			<if test="dto.dtoStatus>0">
+				and fstatus=0
+			</if>
 		</if> group by weldTime,i.fid
 	</select>
 	
@@ -1975,7 +1986,7 @@
 	<!-- 获取焊机使用时间排行之最top10 -->
 	<select id="getWeldingmachineList" resultMap="dtoMap">
 		select count(l.fid)/60/60 loads,fequipment_no fname from tb_live_data l INNER JOIN tb_welding_machine m on m.fid = l.fmachine_id 
-		INNER join tb_insframework i on i.fid = l.fitemid INNER join tb_insframework ins on ins.fid = i.fparent WHERE 1=1 
+		INNER join tb_insframework i on i.fid = l.fitemid INNER join tb_insframework ins on ins.fid = i.fparent WHERE fstatus &gt; 2
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -2000,7 +2011,7 @@
 	<!-- 获取焊工工作时间排行之最top10 -->
 	<select id="getWelderList" resultMap="dtoMap">
 		select COUNT(l.fid) /60/60 loads,w.fname FROM tb_live_data l INNER JOIN tb_welder w on w.fwelder_no = l.fwelder_id 
-		INNER join tb_insframework i on i.fid = l.fitemid INNER join tb_insframework ins on ins.fid = i.fparent WHERE 1=1 
+		INNER join tb_insframework i on i.fid = l.fitemid INNER join tb_insframework ins on ins.fid = i.fparent WHERE fstatus &gt; 2 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -2021,4 +2032,20 @@
 		LIMIT 10
 	</select>
 
+	
+	<select id="getJunctionByWelder" resultMap="dtoMap">
+		select fwelded_junction_no fjunction_id,i.fname fname,fmax_electricity,fmin_electricity,fmax_valtage,fmin_valtage from tb_live_data l 
+		INNER join tb_welder w on l.fwelder_id = w.fwelder_no 
+		INNER join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
+		INNER JOIN tb_insframework i ON j.fitemId = i.fid 
+		where l.fwelder_id=#{welder}
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fweldtime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fweldtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>group by fjunction_id
+	</select>
 </mapper>

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.spring.dto.ModelDto;
 import com.spring.dto.WeldDto;
 import com.spring.model.LiveData;
+import com.spring.model.WeldedJunction;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -122,4 +123,5 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 
 	List<ModelDto> getWelderList(@Param("dto")WeldDto dto);
 
+	List<ModelDto> getJunctionByWelder(@Param("welder")String welder,@Param("dto")WeldDto dto);
 }

@@ -41,9 +41,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable><span class="required">*</span>编号</lable>
 					<input type="hidden" id="id" name="id" value="${wj.id }"/>
 					<input type="hidden" id="oldno" value="${wj.weldedJunctionno }"/>
-					<input class="easyui-textbox" id="weldedjunctionno"  name="weldedjunctionno" value="${wj.weldedJunctionno }" data-options="validType:['wjNoValidate'],required:true" />
-					<lable><span class="required">*</span>序列号</lable>
-					<input class="easyui-textbox" id="serialNo" name="serialNo" value="${wj.serialNo }" data-options="required:true"/>
+					<input class="easyui-textbox" id="weldedjunctionno"  name="weldedjunctionno" value="${wj.weldedJunctionno }" data-options="validType:['wjNoValidate','length[1,6]'],required:true" />
+					<lable>规格</lable>
+					<input class="easyui-textbox" id="specification" name="specification"  value="${wj.specification }"/>
 				</div>
 				<div class="fitem">
 					<lable>机组</lable>
@@ -58,35 +58,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" id="children" name="children" value="${wj.children }"/>
 				</div>
 				<div class="fitem">
-					<lable>达因</lable>
-					<input class="easyui-textbox" id="dyne" name="dyne" value="${wj.dyne }" />
-					<lable>规格</lable>
-					<input class="easyui-textbox" id="specification" name="specification"  value="${wj.specification }"/>
-				</div>
-				<div class="fitem">
 					<lable>管线号</lable>
 					<input class="easyui-textbox" id="pipelineNo"  name="pipelineNo" value="${wj.pipelineNo }"/>
 					<lable>房间号</lable>
 					<input class="easyui-textbox" id="roomNo" name="roomNo"  value="${wj.roomNo }"/>
 				</div>
-<!-- 				<div class="fitem"> -->
-<!-- 					<lable>上游外径</lable> -->
-<%-- 					<input class="easyui-textbox" id="externalDiameter" name="externalDiameter"  value="${wj.externalDiameter }" data-options="required:true"/> --%>
-<!-- 					<lable>下游外径</lable> -->
-<%-- 					<input class="easyui-textbox" id="nextexternaldiameter" name="nextexternaldiameter" value="${wj.nextexternaldiameter }" data-options="required:true"/> --%>
-<!-- 				</div> -->
-<!-- 				<div class="fitem"> -->
-<!-- 					<lable>上游璧厚</lable> -->
-<%-- 					<input class="easyui-textbox" id="wallThickness" name="wallThickness" value="${wj.wallThickness }" data-options="required:true"/> --%>
-<!-- 					<lable>下游璧厚</lable> -->
-<%-- 					<input class="easyui-textbox" id="nextwall_thickness" name="nextwall_thickness" value="${wj.nextwall_thickness }" data-options="required:true"/> --%>
-<!-- 				</div> -->
-<!-- 				<div class="fitem"> -->
-<!-- 					<lable>上游材质</lable> -->
-<%-- 					<input class="easyui-textbox" id="material"  name="material" value="${wj.material }" data-options="required:true"/> --%>
-<!-- 					<lable>下游材质</lable> -->
-<%-- 					<input class="easyui-textbox" id="next_material" name="next_material" value="${wj.next_material }" data-options="required:true"/> --%>
-<!-- 				</div> -->
+				<div class="fitem">					
+					<lable><span class="required">*</span>序列号</lable>
+					<input class="easyui-textbox" id="serialNo" name="serialNo" value="${wj.serialNo }" data-options="required:true"/>
+					<lable><span class="required">*</span>所属项目</lable>
+					<input type="hidden" value="${wj.itemid.id }" id="itemid"/>
+					<select class="easyui-textbox" id="itemname"  name="itemname" data-options="required:true,editable:false"></select>
+				</div>
 				<div class="fitem">
 					<lable><span class="required">*</span>电流上限</lable>
 					<input class="easyui-textbox" id="maxElectricity" name="maxElectricity" value="${wj.maxElectricity }" data-options="required:true"/>
@@ -110,13 +93,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-datetimebox" id="startTime" value="${wj.startTime }"  name="startTime"/>
 					<lable>完成时间</lable>
 					<input class="easyui-datetimebox" id="endTime" value="${wj.endTime }"  name="endTime"/>
-				</div>
-				<div class="fitem">
-					<lable><span class="required">*</span>所属项目</lable>
-					<input type="hidden" value="${wj.itemid.id }" id="itemid"/>
-					<select class="easyui-textbox" id="itemname"  name="itemname" data-options="required:true,editable:false"></select>
-					<lable></lable>
-					<input type="text" border="0" readonly="readonly"/>
 				</div>
 				<div style="margin-left:50px">
 					<lable>

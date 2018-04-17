@@ -15,6 +15,7 @@ import com.spring.dto.ModelDto;
 import com.spring.dto.WeldDto;
 import com.spring.model.Insframework;
 import com.spring.model.LiveData;
+import com.spring.model.WeldedJunction;
 import com.spring.page.Page;
 import com.spring.service.InsframeworkService;
 import com.spring.service.LiveDataService;
@@ -297,19 +298,8 @@ public class CompanyChartController {
 				String[] str = l.getJidgather().split(",");
 				if(l.getJidgather().equals("0")){
 					json.put("jidgather", "0");
-					json.put("dyne",0);
 				}else{
 					json.put("jidgather", str.length);
-					String strsql = "and (";
-					for(int i=0;i<str.length;i++){
-						strsql += " fid = "+str[i];
-						if(i<str.length-1){
-							strsql += " or";
-						}
-					}
-					strsql += " )";
-					BigInteger dyne = lm.getDyneByJunctionno(strsql);
-					json.put("dyne",dyne);
 				}
 				json.put("manhour", l.getHous());
 				json.put("name",l.getFname());
@@ -399,26 +389,23 @@ public class CompanyChartController {
 		JSONArray arys1 = new JSONArray();
 		try{
 			List<ModelDto> list = lm.getCompanyOverproof(dto, junction, welder);
-//			List<LiveData> ins = lm.getAllInsf(parent,22);
 			BigInteger[] num = null;
 			for(LiveData live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
-//			for(int i=0;i<ins.size();i++){
-				num = new BigInteger[time.size()];
-				for(int j=0;j<time.size();j++){
-					num[j] = new BigInteger("0");
-					for(ModelDto l:list){
-						if(time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = l.getOverproof();
-						}
+			num = new BigInteger[time.size()];
+			for(int j=0;j<time.size();j++){
+				num[j] = new BigInteger("0");
+				for(ModelDto l:list){
+					if(time.get(j).getWeldTime().equals(l.getWeldTime())){
+						num[j] = l.getOverproof();
 					}
 				}
-				json.put("overproof",num);
-				json.put("name","焊工："+list.get(0).getFname()+"，焊缝："+list.get(0).getIname());
-				arys1.add(json);
-//			}
+			}
+			json.put("overproof",num);
+			json.put("name","焊工："+list.get(0).getFname()+"，焊缝："+list.get(0).getIname());
+			arys1.add(json);
 			JSONObject object = new JSONObject();
 			
 			for(int i=0;i<time.size();i++){
@@ -1270,4 +1257,56 @@ public class CompanyChartController {
 		return obj.toString();
 	}
 
+	
+	@RequestMapping("/getJunctionByWelder")
+	@ResponseBody
+	public String getJunctionByWelder(HttpServletRequest request){
+		pageIndex = Integer.parseInt(request.getParameter("page"));
+		pageSize = Integer.parseInt(request.getParameter("rows"));
+		String welder = Integer.toHexString(Integer.valueOf(request.getParameter("welder")));
+		if(welder.length()!=4){
+            int lenth=4-welder.length();
+            for(int i=0;i<lenth;i++){
+            	welder="0"+welder;
+            }
+          }
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		WeldDto dto = new WeldDto();
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		
+		page = new Page(pageIndex,pageSize,total);
+		List<ModelDto> list = lm.getJunctionByWelder(page, welder, dto);
+		long total = 0;
+		
+		if(list != null){
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+			total = pageinfo.getTotal();
+		}
+		
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			for(ModelDto m:list){
+				json.put("weldedJunctionno", m.getFjunction_id());
+				json.put("maxElectricity", m.getFmax_electricity());
+				json.put("minElectricity", m.getFmin_electricity());
+				json.put("maxValtage", m.getFmax_valtage());
+				json.put("minValtage", m.getFmin_valtage());
+				json.put("itemname", m.getFname());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
 }

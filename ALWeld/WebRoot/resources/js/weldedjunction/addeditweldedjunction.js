@@ -1,8 +1,21 @@
 $(function(){
 	InsframeworkCombobox();
 	$("#fm").form("disableValidation");
+	$("input",$("#weldedjunctionno").next("span")).blur(function(){
+		var wjno = $("#weldedjunctionno").val();
+		var len = $("#weldedjunctionno").val().length;
+		if(len<6){
+			for(var i=0;i<6-len;i++){
+				wjno = "0"+wjno;
+			}
+		}
+		$("#weldedjunctionno").textbox('setValue',wjno);
+	})  
 })
 
+//function checkwjno(){
+//	alert(12343);
+//}
 
 var url = "";
 var flag = 1;
@@ -86,4 +99,5 @@ function InsframeworkCombobox(){
 	$("#itemname").combobox();
     $("#itemname").combobox('setValue',$("#itemid").val());
 }
+
 

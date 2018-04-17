@@ -76,17 +76,21 @@ function weldDatagrid(){
                 color.class="rowColor";
                 return color;
             }
-        },onCheck:function(index,row){
+        },
+        onCheck : function(index,row){
     		chartStr = "";
         	setParam();
         	chartStr+="&welder="+row.welderno;
     		weldedJunctionDatagrid();
         },
-        onClickRow:function(index,row){
+        onClickRow : function(index,row){
     		chartStr = "";
         	setParam();
         	chartStr+="&welder="+row.welderno;
     		weldedJunctionDatagrid();
+        },
+        onLoadSuccess : function(index,row){
+        	$("#welderTable").datagrid('selectRow',0);
         },
 		nowrap : false,
 		toolbar : '#commit_btn'
@@ -101,7 +105,7 @@ function weldedJunctionDatagrid(){
 		idField : 'id',
 		pageSize : 5,
 		pageList : [ 5,10, 15, 20],
-		url : "weldedjunction/getJunctionByWelder"+chartStr,
+		url : "companyChart/getJunctionByWelder"+chartStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
@@ -145,36 +149,15 @@ function weldedJunctionDatagrid(){
 			halign : "center",
 			width : 100,
 			align : "left"
-//		}, {
-//			field : 'externalDiameter',
-//			title : '上游外径',
-//			halign : "center",
-//			align : "left"
-//		}, {
-//			field : 'nextexternaldiameter',
-//			title : '下游外径',
-//			halign : "center",
-//			align : "left"
-//		}, {
-//			field : 'wallThickness',
-//			title : '上游壁厚',
-//			halign : "center",
-//			align : "left"
-//		}, {
-//			field : 'nextwall_thickness',
-//			title : '下游璧厚',
-//			halign : "center",
-//			align : "left"
-//		}, {
-//			field : 'material',
-//			title : '上游材质',
-//			halign : "center",
-//			align : "left"
-//		}, {
-//			field : 'next_material',
-//			title : '下游材质',
-//			halign : "center",
-//			align : "left"
+		},{
+			field : 'edit',
+			title : '编辑',
+			width : 100,
+			halign : "center",
+			align : "left",
+			formatter : function(value,row,index){
+				return  '<a id="getoverproof" class="easyui-linkbutton" href="javascript:searchoverproof();"/>';
+			}
 		}] ],
 		nowrap : false,
 		pagination : true,
@@ -185,7 +168,10 @@ function weldedJunctionDatagrid(){
                 color.class="rowColor";
                 return color;
             }
-        }
+        },
+	    onLoadSuccess : function(index,row){
+	        $("a[id='getoverproof']").linkbutton({text:'查看超标',plain:true,iconCls:'icon-search'});
+	    }
 	});
 }
 

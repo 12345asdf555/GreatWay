@@ -23,6 +23,14 @@ public interface LiveDataService {
 	List<ModelDto> getCausehour(Page page,WeldDto dto,BigInteger parent);
 	
 	/**
+	 * 根据焊工获取焊缝
+	 * @param welder
+	 * @param dto
+	 * @return
+	 */
+	List<ModelDto> getJunctionByWelder(Page page, String welder,WeldDto dto);
+	
+	/**
 	 * 查询公司焊接工时
 	 * @param dto扩展参数类
 	 * @param parent父id

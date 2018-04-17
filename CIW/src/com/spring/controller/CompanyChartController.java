@@ -263,19 +263,8 @@ public class CompanyChartController {
 				String[] str = l.getJidgather().split(",");
 				if(l.getJidgather().equals("0")){
 					json.put("jidgather", "0");
-					json.put("dyne",0);
 				}else{
 					json.put("jidgather", str.length);
-					String strsql = "and (";
-					for(int i=0;i<str.length;i++){
-						strsql += " fid = "+str[i];
-						if(i<str.length-1){
-							strsql += " or";
-						}
-					}
-					strsql += " )";
-					BigInteger dyne = lm.getDyneByJunctionno(strsql);
-					json.put("dyne",dyne);
 				}
 				json.put("manhour", l.getHous());
 				json.put("name",l.getFname());

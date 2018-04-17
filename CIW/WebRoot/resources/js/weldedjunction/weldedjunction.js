@@ -120,12 +120,6 @@ function weldedJunctionDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'dyne',
-			title : '达因',
-//			width : 90,
-			halign : "center",
-			align : "left"
-		}, {
 			field : 'specification',
 			title : '规格',
 //			width : 90,
@@ -220,11 +214,7 @@ function weldedJunctionDatagrid(){
 			formatter: function(value,row,index){
 				var str = '<a id="edit" class="easyui-linkbutton" href="javascript:editWeldedjunction()"/>';
 				str += '<a id="remove" class="easyui-linkbutton" href="javascript:removeWeldedjunction()"/>';
-				var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
-				+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
-				row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+
-				","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material+","+row.valtage_unit+","+row.electricity_unit;
-				str += '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
+				str += '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?id='+row.id+'"/>';
 				return str;
 			}
 		}] ],

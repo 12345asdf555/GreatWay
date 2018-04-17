@@ -33,87 +33,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div style="text-align:center;height:100%">
 			<div class="fitem">
 				<lable>编号</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${weldedJunctionno }"/>
-				<lable>序列号</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${serialNo}"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.weldedJunctionno }"/>
+				<lable>规格</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.specification }"/>
 			</div>
 			<div class="fitem">
 				<lable>机组</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${unit }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.unit }"/>
 				<lable>区域</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${area }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.area }"/>
 			</div>
 			<div class="fitem">
 				<lable>系统</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${systems }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.systems }"/>
 				<lable>子项</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${children }"/>
-			</div>
-			<div class="fitem">
-				<lable>达因</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${dyne }"/>
-				<lable>规格</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${specification }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.children }"/>
 			</div>
 			<div class="fitem">
 				<lable>管线号</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${pipelineNo }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.pipelineNo }"/>
 				<lable>房间号</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${roomNo }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.roomNo }"/>
+			</div>
+			<div class="fitem">
+				<lable>序列号</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.serialNo}"/>
+				<lable>所属项目</lable>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.itemid.name }"/>
 			</div>
 			<div class="fitem">
 				<lable>上游外径</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${externalDiameter }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.externalDiameter }"/>
 				<lable>下游外径</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${nextexternaldiameter }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.nextexternaldiameter }"/>
 			</div>
 			<div class="fitem">
 				<lable>上游璧厚</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${wallThickness }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.wallThickness }"/>
 				<lable>下游璧厚</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${nextwall_thickness }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.nextwall_thickness }"/>
 			</div>
 			<div class="fitem">
 				<lable>上游材质</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${material }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.material }"/>
 				<lable>下游材质</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${next_material }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.next_material }"/>
 			</div>
 			<div class="fitem">
 				<lable>电流上限</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${maxElectricity }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.maxElectricity }"/>
 				<lable>电流下限</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${minElectricity }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.minElectricity }"/>
 			</div>
 			<div class="fitem">
 				<lable>电压上限</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${maxValtage }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.maxValtage }"/>
 				<lable>电压下限</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${minValtage }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.minValtage }"/>
 			</div>
 			<div class="fitem">
 				<lable>电流单位</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${electricity_unit }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.electricity_unit }"/>
 				<lable>电压单位</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${valtage_unit }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.valtage_unit }"/>
 			</div>
 			<div class="fitem">
-				<lable>所属项目</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${itemname }"/>
 				<lable>开始时间</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${startTime }"/>
-			</div>
-			<div class="fitem">
+				<input class="easyui-textbox" readonly="readonly" value="${wj.startTime }"/>
 				<lable>完成时间</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${endTime }"/>
-				<lable>创建时间</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${creatTime }"/>
-			</div>
-			<div class="fitem">
-				<lable>修改时间</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${updateTime }"/>
-				<lable>修改次数</lable>
-				<input class="easyui-textbox" readonly="readonly" value="${updatecount }"/>
+				<input class="easyui-textbox" readonly="readonly" value="${wj.endTime }"/>
 			</div>
 			<div style="margin-left:50px">
 				<lable>

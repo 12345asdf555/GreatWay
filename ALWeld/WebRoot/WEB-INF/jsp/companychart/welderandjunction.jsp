@@ -40,7 +40,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 					<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
 					<a href="javascript:serachjunction();" class="easyui-linkbutton" iconCls="icon-search" >搜索焊缝</a>
-					<a href="javascript:searchoverproof();" class="easyui-linkbutton" iconCls="icon-search" >查看超标报表</a>
 				</div>
 			</div>
 		    <table id="welderTable" style="table-layout: fixed; width:100%;"></table>

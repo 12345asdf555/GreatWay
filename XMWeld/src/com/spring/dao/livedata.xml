@@ -1947,7 +1947,7 @@
 	<!-- 获取焊机使用时间排行之最top10 -->
 	<select id="getWeldingmachineList" resultMap="dtoMap">
 		select count(l.fid)/60/60 loads,fequipment_no fname from tb_live_data l LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id 
-		INNER join tb_insframework i on i.fid = l.fitemid INNER join tb_insframework ins on ins.fid = i.fparent WHERE 1=1 
+		INNER join tb_insframework i on i.fid = l.fitemid INNER join tb_insframework ins on ins.fid = i.fparent WHERE fstatus &gt; 2  
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -1972,7 +1972,7 @@
 	<!-- 获取焊工工作时间排行之最top10 -->
 	<select id="getWelderList" resultMap="dtoMap">
 		select COUNT(l.fid) /60/60 loads,w.fname FROM tb_live_data l left JOIN tb_welder w on w.fwelder_no = l.fwelder_id 
-		INNER join tb_insframework i on i.fid = l.fitemid INNER join tb_insframework ins on ins.fid = i.fparent WHERE 1=1 
+		INNER join tb_insframework i on i.fid = l.fitemid INNER join tb_insframework ins on ins.fid = i.fparent WHERE fstatus &gt; 2 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}

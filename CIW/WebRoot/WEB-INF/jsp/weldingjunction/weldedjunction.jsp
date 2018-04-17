@@ -73,15 +73,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable><span class="required">*</span>编号</lable>
 					<input type="hidden" id="oldno" />
-					<input class="easyui-textbox" id="weldedJunctionno"  name="weldedJunctionno" data-options="validType:['wjNoValidate'],required:true" />
-					<lable><span class="required">*</span>序列号</lable>
-					<input class="easyui-textbox" id="serialNo" name="serialNo" data-options="required:true"/>
-				</div>
-				<div class="fitem">
+					<input class="easyui-textbox" id="weldedJunctionno"  name="weldedJunctionno" data-options="validType:['wjNoValidate','length[1,6]'],required:true" />
 					<lable>机组</lable>
 					<input class="easyui-textbox" id="unit" name="unit"/>
+				</div>
+				<div class="fitem">
 					<lable>区域</lable>
 					<input class="easyui-textbox" id="area" name="area"/>
+					<lable>规格</lable>
+					<input class="easyui-textbox" id="specification" name="specification"/>
 				</div>
 				<div class="fitem">
 					<lable>系统</lable>
@@ -90,16 +90,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" id="children" name="children"/>
 				</div>
 				<div class="fitem">
-					<lable>达因</lable>
-					<input class="easyui-numberbox" id="dyne" name="dyne"/>
-					<lable>规格</lable>
-					<input class="easyui-textbox" id="specification" name="specification"/>
-				</div>
-				<div class="fitem">
 					<lable>管线号</lable>
 					<input class="easyui-textbox" id="pipelineNo"  name="pipelineNo" />
 					<lable>房间号</lable>
 					<input class="easyui-textbox" id="roomNo" name="roomNo"/>
+				</div>
+				<div class="fitem">
+					<lable><span class="required">*</span>序列号</lable>
+					<input class="easyui-textbox" id="serialNo" name="serialNo" data-options="required:true"/>
+					<lable><span class="required">*</span>所属项目</lable>
+					<select class="easyui-combobox" id="itemid"  name="itemid" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
 					<lable><span class="required">*</span>上游外径</lable>
@@ -143,12 +143,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>完成时间</lable>
 					<input class="easyui-datetimebox" id="endTime"  name="endTime"/>
 				</div>
-				<div class="fitem">
-					<lable><span class="required">*</span>所属项目</lable>
-					<select class="easyui-combobox" id="itemid"  name="itemid" data-options="required:true,editable:false"></select>
-					<lable></lable>
-					<input type="text" border="0" readonly="readonly"/>
-				</div>
 			</form>
 		</div>
 		<div id="dlg-buttons">
@@ -162,14 +156,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>编号</lable>
 					<input class="easyui-textbox" id="weldedJunctionno"  name="weldedJunctionno"  readonly="readonly"/>
-					<lable>序列号</lable>
-					<input class="easyui-textbox" id="serialNo" name="serialNo"  readonly="readonly"/>
-				</div>
-				<div class="fitem">
 					<lable>机组</lable>
 					<input class="easyui-textbox" id="unit" name="unit"  readonly="readonly"/>
+				</div>
+				<div class="fitem">
 					<lable>区域</lable>
 					<input class="easyui-textbox" id="area" name="area"  readonly="readonly"/>
+					<lable>规格</lable>
+					<input class="easyui-textbox" id="specification" name="specification"  readonly="readonly"/>
 				</div>
 				<div class="fitem">
 					<lable>系统</lable>
@@ -178,16 +172,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" id="children" name="children"  readonly="readonly"/>
 				</div>
 				<div class="fitem">
-					<lable>达因</lable>
-					<input class="easyui-textbox" id="dyne" name="dyne"  readonly="readonly"/>
-					<lable>规格</lable>
-					<input class="easyui-textbox" id="specification" name="specification"  readonly="readonly"/>
-				</div>
-				<div class="fitem">
 					<lable>管线号</lable>
 					<input class="easyui-textbox" id="pipelineNo"  name="pipelineNo"   readonly="readonly"/>
 					<lable>房间号</lable>
 					<input class="easyui-textbox" id="roomNo" name="roomNo"  readonly="readonly"/>
+				</div>
+				<div class="fitem">
+					<lable>序列号</lable>
+					<input class="easyui-textbox" id="serialNo" name="serialNo"  readonly="readonly"/>
+					<lable>所属项目</lable>
+					<select class="easyui-textbox" id="itemname"  name="itemname" readonly="readonly"></select>
 				</div>
 				<div class="fitem">
 					<lable>上游外径</lable>
@@ -230,12 +224,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" id="startTime"  name="startTime"readonly="readonly"/>
 					<lable>完成时间</lable>
 					<input class="easyui-textbox" id="endTime"  name="endTime" readonly="readonly"/>
-				</div>
-				<div class="fitem">
-					<lable>所属项目</lable>
-					<select class="easyui-textbox" id="itemname"  name="itemname" readonly="readonly"></select>
-					<lable></lable>
-					<input type="text" border="0" readonly="readonly"/>
 				</div>
 			</form>
 		</div>

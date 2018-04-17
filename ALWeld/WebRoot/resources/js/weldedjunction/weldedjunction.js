@@ -70,48 +70,6 @@ function weldedJunctionDatagrid(){
 //			width : 90,
 			halign : "center",
 			align : "left"
-//		}, {
-//			field : 'externalDiameter',
-//			title : '上游外径',
-//			width : 90,
-//			halign : "center",
-//			align : "left"
-//		}, {
-//			field : 'nextexternaldiameter',
-//			title : '下游外径',
-//			width : 90,
-//			halign : "center",
-//			align : "left"
-//		}, {
-//			field : 'wallThickness',
-//			title : '上游壁厚',
-//			width : 90,
-//			halign : "center",
-//			align : "left"
-//		}, {
-//			field : 'nextwall_thickness',
-//			title : '下游璧厚',
-//			width : 90,
-//			halign : "center",
-//			align : "left"
-//		}, {
-//			field : 'material',
-//			title : '上游材质',
-//			width : 90,
-//			halign : "center",
-//			align : "left"
-//		}, {
-//			field : 'next_material',
-//			title : '下游材质',
-////			width : 90,
-//			halign : "center",
-//			align : "left"
-		}, {
-			field : 'dyne',
-			title : '达因',
-//			width : 90,
-			halign : "center",
-			align : "left"
 		}, {
 			field : 'specification',
 			title : '规格',

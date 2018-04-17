@@ -355,4 +355,11 @@ public class LiveDataServiceImpl implements LiveDataService {
 	public List<ModelDto> getSingleLoads(WeldDto dto, BigInteger machineid) {
 		return live.getSingleLoads(dto, machineid);
 	}
+
+	@Override
+	public List<ModelDto> getJunctionByWelder(Page page,String welder, WeldDto dto) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return live.getJunctionByWelder(welder, dto);
+	}
+
 }

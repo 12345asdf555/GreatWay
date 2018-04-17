@@ -133,12 +133,6 @@ function CompanyHourDatagrid(){
 				return (value/row.jidgather).toFixed(2);
 			}
 		}, {
-			field : 'dyne',
-			title : '达因',
-			width : 100,
-			halign : "center",
-			align : "left"
-		}, {
 			field : 'itemid',
 			title : '事业id',
 			width : 100,
