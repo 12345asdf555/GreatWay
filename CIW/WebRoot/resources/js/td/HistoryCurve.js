@@ -127,13 +127,13 @@ function setParam(){
 					width : 90,
 					halign : "center",
 					align : "left"
-				}, {
+				}, /*{
 					field : 'dyne',
 					title : '达因',
 					width : 90,
 					halign : "center",
 					align : "left"
-				}, {
+				},*/ {
 					field : 'maxElectricity',
 					title : '电流上限',
 					width : 90,
@@ -165,13 +165,13 @@ function setParam(){
 					align : "left"
 				},{
 					field : 'firsttime',
-					title : '开始焊接时间',
+					title : '开始时间',
 					width : 150,
 					halign : "center",
 					align : "left"
 				},{
 					field : 'lasttime',
-					title : '焊接终止时间',
+					title : '终止时间',
 					width : 150,
 					halign : "center",
 					align : "left"

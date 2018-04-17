@@ -174,8 +174,8 @@
 						var l=1;
 						var ll=0;
 						for(var a=0;a<l;a++){
-							if(parseInt(dd.substring(4+n, 8+n),16)!=back[a]){
-								back.push(parseInt(dd.substring(4+n, 8+n),16));		
+							if(dd.substring(4+n, 8+n)!=back[a]){
+								back.push(dd.substring(4+n, 8+n));		
 							}else{
 								continue;
 							}
@@ -185,10 +185,10 @@
 					var ll=0;
 					for(var a=0;a<l;a++){
 						/*alert(dd.substring(4+n, 8+n));*/
-						if(parseInt(dd.substring(4+n, 8+n),16)!=back[a]){
+						if(dd.substring(4+n, 8+n)!=back[a]){
 							ll++;	
 							if(ll==back.length){
-							back.push(parseInt(dd.substring(4+n, 8+n),16));
+							back.push(dd.substring(4+n, 8+n));
 							}		
 						}else{
 							continue;
@@ -213,8 +213,8 @@
     			for(var g = 0;g < dd.length;g+=53*3){
     			for(var dex=0;dex<rows.length;dex++){
     				/*alert(rows[dex][columns[0][1].field]);*/
-    		    if((dd.substring(8+g, 12+g)!="0000")&&(parseInt(dd.substring(4+g, 8+g),16)==rows[dex].fequipment_no)){
-    			rows[dex].fwelder_no=parseInt(dd.substring(8+g, 12+g),16);
+    		    if((dd.substring(8+g, 12+g)!="0000")&&(dd.substring(4+g, 8+g)==rows[dex].fequipment_no)){
+    			rows[dex].fwelder_no=dd.substring(8+g, 12+g);
     			rows[dex].fstatus_id=dd.substring(0+g, 2+g);
 				for(var k=0;k<namex.length;k++){
 					if(namex[k].fwelder_no==dd.substring(8+g, 12+g)){
@@ -339,12 +339,11 @@
 		}
 		for(var j = 0;j < 1;j++){
 			for(var i = 0;i < dd.length;i+=53){
-					if(hq == parseInt(dd.substring(4+i, 8+i),16)&&(dd.substring(8+i, 12+i))!="0000"){
-					var mach = parseInt(dd.substring(4+i, 8+i),16);
+					if(hq == dd.substring(4+i, 8+i)&&(dd.substring(8+i, 12+i))!="0000"){
+					var mach = dd.substring(4+i, 8+i);
 					var weld = dd.substring(8+i, 12+i);
-					var xx = dd.substring(12+i, 16+i);
-					ele[jj] = parseInt(xx,16);
-					vol[jj] = parseFloat((parseInt(dd.substring(16+i, 20+i),16)/10).toFixed(2));
+					ele[jj] = parseInt(dd.substring(12+i, 16+i));
+					vol[jj] = parseFloat((dd.substring(16+i, 20+i)/10).toFixed(2));
 					var dati = dd.substring(20+i, 39+i);
 					var val = Date.parse(dati);
 					time1[jj] = val;
@@ -352,16 +351,14 @@
 					minele = parseInt(dd.substring(44+i, 47+i));
 					maxvol = parseInt(dd.substring(47+i, 50+i));
 					minvol = parseInt(dd.substring(50+i, 53+i));
-					var ele1=parseInt(dd.substring(12+i, 16+i),16);
-					var ele2=ele1.toString();
+					var ele2=dd.substring(12+i, 16+i);
 					if(ele2.length<4){
 						var len=ele2.length;
 						for(var na=0;na<4-len;na++){
 							ele2="0"+ele2;
 						}
 					}
-					var vol1=parseInt(dd.substring(16+i, 20+i),16);
-					var vol2=vol1.toString();
+					var vol2=dd.substring(16+i, 20+i);
 					if(vol2.length<4){
 						var len1=vol2.length;
 						for(var nan=0;nan<4-len1;nan++){
