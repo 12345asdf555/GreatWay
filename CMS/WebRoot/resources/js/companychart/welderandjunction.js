@@ -1,7 +1,6 @@
 $(function(){
 	weldDatagrid();
 	insframeworkTree();
-	weldedJunctionDatagrid();
 	$("#dtoTime1").datebox('setValue',formatterDate());
 });
 var chartStr = "";
@@ -52,17 +51,20 @@ function weldDatagrid(){
 			halign : "center",
 			align : "left"
 		}] ],
-		onCheck:function(index,row){
+		onCheck : function(index,row){
     		chartStr = "";
         	setParam();
         	chartStr+="&welder="+row.welderno;
     		weldedJunctionDatagrid();
         },
-        onClickRow:function(index,row){
+        onClickRow : function(index,row){
     		chartStr = "";
         	setParam();
         	chartStr+="&welder="+row.welderno;
     		weldedJunctionDatagrid();
+        },
+        onLoadSuccess : function(index,row){
+        	$("#welderTable").datagrid('selectRow',0);
         },
 		nowrap : false,
 		toolbar : '#commit_btn'
