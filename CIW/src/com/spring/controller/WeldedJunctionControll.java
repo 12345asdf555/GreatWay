@@ -1,7 +1,6 @@
 package com.spring.controller;
 
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.spring.dto.WeldDto;
-import com.spring.model.EquipmentManufacturer;
-import com.spring.model.Gather;
-import com.spring.model.Insframework;
 import com.spring.model.MyUser;
 import com.spring.model.WeldedJunction;
-import com.spring.model.WeldingMachine;
 import com.spring.page.Page;
 import com.spring.service.InsframeworkService;
 import com.spring.service.LiveDataService;
@@ -37,7 +32,7 @@ public class WeldedJunctionControll {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
-	private String welderid;
+
 	@Autowired
 	private WeldedJunctionService wjm;
 	@Autowired
@@ -75,7 +70,10 @@ public class WeldedJunctionControll {
 	@RequestMapping("/getWeldJun")
 	public String getWeldJun(HttpServletRequest request){
 		if(request.getParameter("fid")!=null&&request.getParameter("fid")!=""){
-			welderid = request.getParameter("fid");
+			request.setAttribute("welderid", request.getParameter("fid"));
+		}
+		if(iutil.isNull(request.getParameter("wjno"))){
+			request.setAttribute("wjno", request.getParameter("wjno"));
 		}
 		return "td/HistoryCurve";
 	}
@@ -131,8 +129,10 @@ public class WeldedJunctionControll {
 				json.put("minValtage", w.getMinValtage());
 				json.put("material", w.getMaterial());
 				json.put("nextexternaldiameter", w.getNextexternaldiameter());
-				json.put("itemname", w.getItemid().getName());
-				json.put("itemid", w.getItemid().getId());
+				if( w.getItemid()!=null && !"".equals( w.getItemid())){
+					json.put("itemname", w.getItemid().getName());
+					json.put("itemid", w.getItemid().getId());
+				}
 				json.put("startTime", w.getStartTime());
 				json.put("endTime", w.getEndTime());
 				json.put("creatTime", w.getCreatTime());
@@ -145,7 +145,7 @@ public class WeldedJunctionControll {
 				ary.add(json);
 			}
 		}catch(Exception e){
-			e.getMessage();
+			e.printStackTrace();
 		}
 		obj.put("total", total);
 		obj.put("rows", ary);
@@ -187,7 +187,9 @@ public class WeldedJunctionControll {
 				json.put("minElectricity", w.getMinElectricity());
 				json.put("maxValtage", w.getMaxValtage());
 				json.put("minValtage", w.getMinValtage());
-				json.put("itemname", w.getItemid().getName());
+				if( w.getItemid()!=null && !"".equals( w.getItemid())){
+					json.put("itemname", w.getItemid().getName());
+				}
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -335,12 +337,12 @@ public class WeldedJunctionControll {
 	@RequestMapping("/getWeldingJun")
 	@ResponseBody
 	public String getWeldingJun(HttpServletRequest request){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
-		String insid = request.getParameter("insid");
 		String type = request.getParameter("otype");
+		String wjno = request.getParameter("wjno");
+		String welderid = request.getParameter("welderid");
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(parentId)){
 			//数据权限处理
@@ -357,6 +359,9 @@ public class WeldedJunctionControll {
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(wjno)){
+			dto.setSearch(wjno);//用来保存焊缝编号
 		}
 		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
@@ -377,7 +382,6 @@ public class WeldedJunctionControll {
 		}
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
-		String serach = request.getParameter("searchStr");
 		
 		page = new Page(pageIndex,pageSize,total);
 		List<WeldedJunction> list = wjm.getJMByWelder(page, dto ,welderid);

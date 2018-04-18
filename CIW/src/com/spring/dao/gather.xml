@@ -18,7 +18,7 @@
 	</resultMap>
 	
 	<select id="getGatherAll" resultMap="gatherMap">
-		SELECT g.*,i.fname itemname FROM tb_gather g inner join tb_insframework i on i.fid=g.fitemId 
+		SELECT g.*,i.fname itemname FROM tb_gather g LEFT join tb_insframework i on i.fid=g.fitemId 
 		where 1=1
 		<if test="parent!=null and parent!=''">
 			and i.fid=#{parent}

@@ -134,28 +134,6 @@ public class WeldingMachineController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String searchStr = request.getParameter("searchStr");
-/*		if(searchStr!=null&&searchStr!="null"){
-		String ss[] = searchStr.split("'");
-		if((ss[0]+"00000000000000").substring(0, 14).equals(" fequipment_no")){
-			String sea = Integer.toHexString(Integer.valueOf(ss[1]));
-			if(sea.length()!=4){
-                int lenth=4-sea.length();
-                for(int i=0;i<lenth;i++){
-                	sea="0"+sea;
-                }
-              }
-			searchStr = " fequipment_no = '"+sea+"'";
-		}else if((ss[0]+"00000000000").substring(0, 11).equals(" fgather_no")){
-			String sea = Integer.toHexString(Integer.valueOf(ss[1]));
-			if(sea.length()!=4){
-                int lenth=4-sea.length();
-                for(int i=0;i<lenth;i++){
-                	sea="0"+sea;
-                }
-              }
-			searchStr = " fgather_no = '"+sea+"'";
-		}else{}
-		}*/
 		String parentId = request.getParameter("parent");
 		BigInteger parent = null;
 		if(iutil.isNull(parentId)){
@@ -192,12 +170,16 @@ public class WeldingMachineController {
 				json.put("typeId", wm.getTypeId());
 				json.put("statusName", wm.getStatusname());
 				json.put("statusId", wm.getStatusId());
-				json.put("insframeworkName", wm.getInsframeworkId().getName());
-				json.put("iId", wm.getInsframeworkId().getId());
-				json.put("manufacturerName", wm.getManufacturerId().getName()+" - "+wm.getManufacturerId().getType());
-				json.put("manuno", wm.getManufacturerId().getId());
+				if( wm.getInsframeworkId()!=null && !"".equals(wm.getInsframeworkId())){
+					json.put("insframeworkName", wm.getInsframeworkId().getName());
+					json.put("iId", wm.getInsframeworkId().getId());
+				}
+				if( wm.getManufacturerId()!=null && !"".equals(wm.getManufacturerId())){
+					json.put("manufacturerName", wm.getManufacturerId().getName()+" - "+wm.getManufacturerId().getType());
+					json.put("manuno", wm.getManufacturerId().getId());
+				}
 				json.put("model",wm.getModel());
-				if(wm.getGatherId()!=null ||("").equals(wm.getGatherId())){
+				if(wm.getGatherId()!=null && !("").equals(wm.getGatherId())){
 					json.put("gatherId", wm.getGatherId().getGatherNo());
 					json.put("gid", wm.getGatherId().getId());
 				}else{

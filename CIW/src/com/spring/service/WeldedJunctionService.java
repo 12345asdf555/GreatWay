@@ -53,12 +53,13 @@ public interface WeldedJunctionService {
 	 * @param wj
 	 */
 	boolean deleteJunction(BigInteger id);
+	
 	/**
 	 * 焊工对应的焊机焊缝信息
-	 * @param page
-	 * @param dto
+	 * @param page 分页
+	 * @param dto 
 	 * @param str
-	 * @param welderid
+	 * @param welderid 焊机编号
 	 * @return
 	 */
 	List<WeldedJunction> getJMByWelder(Page page, WeldDto dto,String welderid);

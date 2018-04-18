@@ -179,6 +179,10 @@ function openHistory(){
 	addTab("历史曲线","rep/history");
 }
 
+function openHistoryJunction(){
+	addTab("历史曲线.","rep/historyJunction");
+}
+
 function addTab(title,url){
 	//该面板是否已打开
 	if(!$("#tabs").tabs('exists',title)){

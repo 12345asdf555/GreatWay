@@ -38,18 +38,8 @@ public class ReportController {
 	private ReportService reportService;
 	
 	@Autowired
-	private WeldingMachineService wmm;
-	
-	@Autowired
-	private InsframeworkService im;
-	
-	@Autowired
-	private DictionaryService dm;
-	@Autowired
 	private LiveDataService lm;
 	
-	@Autowired
-	private WeldingMachineService wm;
 	@Autowired
 	private InsframeworkService insm;
 	
@@ -78,6 +68,11 @@ public class ReportController {
 	@RequestMapping("/history")
 	public String History(HttpServletRequest request){
 		return "td/HistoryWelder";
+	}
+	
+	@RequestMapping("/historyJunction")
+	public String HistoryJunction(HttpServletRequest request){
+		return "td/HistoryJunction";
 	}
 
 /*	@RequestMapping("/getWeldPara")

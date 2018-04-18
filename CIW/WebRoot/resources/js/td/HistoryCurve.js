@@ -107,7 +107,7 @@ function setParam(){
 				idField : 'id',
 				pageSize : 10,
 				pageList : [ 10, 20, 30, 40, 50 ],
-				url : "weldedjunction/getWeldingJun"+chartStr,
+				url : "weldedjunction/getWeldingJun"+chartStr+"&wjno="+$("#wjno").val()+"&welderid="+$("#welderid").val(),
 				singleSelect : true,
 				rownumbers : true,
 				showPageList : false,
@@ -183,7 +183,6 @@ function setParam(){
 					align : "left",
 					hidden:true
 				}] ],
-				toolbar : '#disctionaryTable_btn',
 				pagination : true,
 				rowStyler: function(index,row){
 		            if ((index % 2)!=0){

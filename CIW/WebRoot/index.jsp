@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div id="junctiondiv">
 							<ul>
 								<li onclick="changeColor(this)"><a href="javascript:openCompanyHour()"><img src="resources/images/s-8.png" />&nbsp;&nbsp;焊缝焊接工时</a></li>
-				    			<li onclick="changeColor(this)"><a href="javascript:openHistory()"><img src="resources/images/s-2.png" />&nbsp;&nbsp;历史曲线</a></li>
+				    			<li onclick="changeColor(this)"><a href="javascript:openHistoryJunction()"><img src="resources/images/s-2.png" />&nbsp;&nbsp;历史曲线</a></li>
 							</ul>
 						</div>
 					</li>
@@ -91,10 +91,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</li>
 				    <li onclick="changeColor(this)"><a href="javascript:openMaxMin()"><img src="resources/images/s-11.png" />&nbsp;&nbsp;对照分析</a></li>
-<!-- 				    <li onclick="changeColor(this)"><a href="javascript:openWeldingmachineMax()"><img src="resources/images/s-11.png" />&nbsp;&nbsp;焊机工时最高</a></li> -->
-<!-- 			        <li onclick="changeColor(this)"><a href="javascript:openWeldingmachineMin()"><img src="resources/images/s-12.png" />&nbsp;&nbsp;焊机工时最低</a></li> -->
-<!-- 			        <li onclick="changeColor(this)"><a href="javascript:openWelderMax()"><img src="resources/images/s-13.png" />&nbsp;&nbsp;焊工工时最高</a></li> -->
-<!-- 			        <li onclick="changeColor(this)"><a href="javascript:openWelderMin()"><img src="resources/images/s-14.png" />&nbsp;&nbsp;焊工工时最低</a></li> -->
 				</ul>
 			</div>
 			<div title="生产过程管理" data-options="iconCls:'icon-statement'">
