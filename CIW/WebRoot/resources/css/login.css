@@ -6,6 +6,7 @@ src: url('../font/SourceHanSansCN-Bold.otf');  /*思源黑体*/
 
 body {
 	font-family: SpringSoftBold;
+	font-size:12px;
     background-image: url(../images/xm-back.png);
     background-repeat: no-repeat;
 	background-size:100%;
