@@ -340,7 +340,6 @@ public class WeldedJunctionControll {
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
 		String parentId = request.getParameter("parent");
-		String type = request.getParameter("otype");
 		String wjno = request.getParameter("wjno");
 		String welderid = request.getParameter("welderid");
 		WeldDto dto = new WeldDto();
@@ -368,17 +367,6 @@ public class WeldedJunctionControll {
 		}
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
-		}
-		if(iutil.isNull(type)){
-			if(type.equals("1")){
-				dto.setYear("year");
-			}else if(type.equals("2")){
-				dto.setMonth("month");
-			}else if(type.equals("3")){
-				dto.setDay("day");
-			}else if(type.equals("4")){
-				dto.setWeek("week");
-			}
 		}
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
