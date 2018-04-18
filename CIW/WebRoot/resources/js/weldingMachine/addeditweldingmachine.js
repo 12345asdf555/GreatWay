@@ -45,13 +45,14 @@ function editWeldingMachine(){
 	var row = $('#weldingmachineTable').datagrid('getSelected');
 	if (row) {
 		$('#dlg').window( {
-			title : "修改采集模块",
+			title : "修改焊机设备",
 			modal : true
 		});
 		$('#dlg').window('open');
-		$('#fm').form('load', row);
 		$('#valideno').val(row.equipmentNo);
 		$('#validgid').val(row.gatherId);
+		$('#validinsf').val(row.iId);
+		$('#fm').form('load', row);
 		url = "weldingMachine/editWeldingMachine?wid="+row.id;
 	}
 }

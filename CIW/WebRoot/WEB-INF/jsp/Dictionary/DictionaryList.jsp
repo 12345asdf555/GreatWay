@@ -37,7 +37,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<option value='fvaluename'>名称</option>
 		    		<option value='fback'>类型</option>
 		    	</select>
-		    	<input class="easyui-textbox" id="content"/>
+	    		<input class="easyui-textbox" id="content" />
+	    		<input class="easyui-textbox" id="content1" />
 		    	<a href="javascript:searchDic();" class="easyui-linkbutton" iconCls="icon-select">查询</a>
     	</div>
     	<table id="dg" style="table-layout:fixed;width:100%"></table>

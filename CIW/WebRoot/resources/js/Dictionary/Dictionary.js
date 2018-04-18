@@ -1,12 +1,25 @@
 $(function(){
 	DictionaryDataGrid();
+	contentCombobox();
 	typeCombobox();
+	$("#content").next().hide();
 	$('#dlg').dialog( {
 		onClose : function() {
 			$('#desc').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
 	})
+	$("#fields").combobox({
+		onChange: function (newValue, oldValue) {
+			if(newValue=="fback"){
+				$("#content").next().show();
+				$("#content1").next().hide();
+			}else{
+				$("#content").next().hide();
+				$("#content1").next().show();
+			}
+		}
+	});
 	$("#fm").form("disableValidation");
 });
 function DictionaryDataGrid(){
@@ -196,11 +209,16 @@ function remove(){
 		   }); 
 		}
 	});
-} 
+}
 
 function searchDic(){
 	var cols=$("#fields").combobox("getValue");
-	var content=$("#content").val();
+	var content = "";
+	if(cols=='fback'){
+		content=$("#content").combobox('getText');
+	}else{
+		content=$("#content1").val();
+	}
 	var searchStr=cols+" like '%"+content+"%'";
 	$('#dg').datagrid('load', {
 		"searchStr" : searchStr
@@ -222,7 +240,21 @@ function typeCombobox(){
     $("#desc").append(optionStr);
 	$("#desc").combobox();
 }
-
+//设备类型
+function contentCombobox(){
+	optionStr = 
+		"<option value='1'>账户类型</option>"+
+		"<option value='2'>组织机构</option>"+
+		"<option value='3'>焊机状态</option>"+
+		"<option value='4'>焊机类型</option>"+
+		"<option value='5'>维修类型</option>"+
+		"<option value='6'>用户状态</option>"+
+		"<option value='7'>焊工资质</option>"+
+		"<option value='8'>焊工级别</option>"+
+		"<option value='9'>焊接材质</option>";
+	$("#content").append(optionStr);
+	$("#content").combobox();
+}
 //监听窗口大小变化
 window.onresize = function() {
 	setTimeout(domresize, 500);

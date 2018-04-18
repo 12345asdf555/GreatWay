@@ -263,7 +263,7 @@ public class WeldingMachineController {
 			List<Gather> list = gm.getGatherByInsfid(item);
 			for(Gather g:list){
 				json.put("id", g.getId());
-				json.put("name", Integer.parseInt(g.getGatherNo(), 16));
+				json.put("name", g.getGatherNo());
 				ary.add(json);
 			}
 		}catch(Exception e){

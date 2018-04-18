@@ -212,7 +212,7 @@ $(function(){
 						if(flag){
 							var iId = $('#iId').combobox('getValue');
 							var validgid = $("#validgid").val();
-							var olditem = $("#insframework").val();
+							var olditem = $("#validinsf").val();
 							if((validgid!=null || validgid!="") && validgid == value && iId == olditem){
 								return true;
 							}
