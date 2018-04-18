@@ -35,74 +35,74 @@ var socket;
 		},{
 			field : 'id',
 			title : '序号',
-//			width : 50,
+			width : 50,
 			halign : "center",
 			align : "left",
 			hidden:true
 		}, {
 			field : 'equipmentNo',
 			title : '固定资产编号',
-//			width : 80,
+			width : 80,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'typeName',
 			title : '设备类型',
-//			width : 80,
+			width : 80,
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'jointime',
+			field : 'joinTime',
 			title : '入厂时间',
-//			width : 150,
+			width : 150,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'insframeworkName',
 			title : '所属项目',
-//			width : 80,
+			width : 80,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'statusName',
 			title : '状态',
-//			width : 80,
+			width : 80,
 			halign : "center",
 			align : "left"
 		} , {
 			field : 'manufacturerName',
 			title : '厂家',
-//			width : 150,
+			width : 150,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'isnetworking',
 			title : '是否在网',
-//			width : 80,
+			width : 80,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'gatherId',
 			title : '采集序号',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'position',
-//			title : '位置',
+			title : '位置',
 			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'ip',
 			title : 'ip地址',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
 		},{
 			field : 'statusId',
 			title : '状态id',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left",
 			hidden: true
@@ -143,8 +143,8 @@ var socket;
                 return color;
             }
 		},
+		fitColumns : true,
 		pagination : true
-//		fitColumns : true,
 	});
  })
  

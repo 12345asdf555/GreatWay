@@ -17,7 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 
-	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
+	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/datagrid.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	
@@ -34,10 +35,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<div class="functiondiv">
 				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div style="position:absolute;left:25%;top:85%">
-			        	<a href="javascript:save();" class="easyui-linkbutton" data-options="size:'large'" iconCls="icon-ok">确认下发</a>
+			        	<a href="javascript:save();" class="easyui-linkbutton" style="height:40px;"  iconCls="icon-over">确认下发</a>
 			        	</div>
 			        <div style="position:absolute;left:65%;top:85%">
-			        	<a href="wps/AllWps" class="easyui-linkbutton" data-options="size:'large'" iconCls="icon-cancel">取消</a>
+			        	<a href="wps/AllWps" class="easyui-linkbutton" style="height:40px;"  iconCls="icon-newcancel">取消</a>
 			        	</div>
 		        </lable>
 	    	</div>

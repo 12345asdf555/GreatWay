@@ -133,3 +133,15 @@
 .icon-sys{
 	background:url('icons/sys.png') no-repeat center center;
 }
+.icon-newcancel{
+	background:url('icons/new-2.png') no-repeat center center;
+}
+.icon-export{
+	background:url('icons/new-1.png') no-repeat center center;
+}
+.icon-over{
+	background:url('icons/new-3.png') no-repeat center center;
+}
+.icon-next{
+	background:url('icons/new-4.png') no-repeat center center;
+}

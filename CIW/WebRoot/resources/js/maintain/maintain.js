@@ -47,7 +47,7 @@ function mainDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 				if(value == null || value == ""){
-					var str = '<a id="ok" class="easyui-linkbutton" href="javascript:okMaintain();"/>';
+					var str = '<a id="ok" class="easyui-linkbutton" style="padding-left:40%;" href="javascript:okMaintain();"/>';
 					return str;
 				}
 				return value;
@@ -109,7 +109,7 @@ function mainDatagrid(){
             }
 		},
 		onLoadSuccess:function(data){
-	        $("a[id='ok']").linkbutton({text:'完成',plain:true,iconCls:'icon-ok'});
+	        $("a[id='ok']").linkbutton({text:'完成',plain:true,iconCls:'icon-over'});
 	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-update'});
 	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-delete'});
 		}

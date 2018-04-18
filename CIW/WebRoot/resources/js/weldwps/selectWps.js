@@ -29,70 +29,71 @@
 		}, {
 			field : 'FWPSNum',
 			title : '工艺编号',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'Fweld_I',
 			title : '标准焊接电流',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'Fweld_V',
 			title : '标准焊接电压',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'Fweld_I_MAX',
 			title : '最大焊接电流',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'Fweld_I_MIN',
 			title : '最小焊接电流',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'Fweld_V_MAX',
 			title : '最大焊接电压',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'Fweld_V_MIN',
 			title : '最小焊接电压',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
         }, {
 			field : 'Fweld_PreChannel',
 			title : '预置通道',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
         }, {
 			field : 'Fowner',
 			title : '部门',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
         }, {
 			field : 'Fback',
 			title : '备注',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
         }, {
 			field : 'Fname',
 			title : '工艺参数名称',
-//			width : 100,
+			width : 100,
 			halign : "center",
 			align : "left"
         }]],
+		nowrap : false,
 		rowStyler: function(index,row){
             if ((index % 2)!=0){
             	//处理行代背景色后无法选中
