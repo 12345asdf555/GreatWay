@@ -39,3 +39,10 @@ FILTER:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#
 	background: linear-gradient(to right, #b1e4e8 , #a0cad6); 
 	FILTER:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#b1e4e8,endColorStr=#a0cad6); /*IE 6 7 8*/
 }
+
+.menudiv{
+	float:right;
+	width:10px;
+	padding-right:10px;
+	padding-top:10px;
+}

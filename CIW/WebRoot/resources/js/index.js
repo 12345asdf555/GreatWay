@@ -29,7 +29,11 @@ function openPersonChart(){
 	    $("#persondiv").slideDown();
 		$("#junctiondiv").slideUp();
 	    $("#machinediv").slideUp();
+		$("#personimg").css("transform","rotate(180deg)");
+		$("#junctionimg").css("transform","rotate(0deg)");
+		$("#machineimg").css("transform","rotate(0deg)");
 	}else{
+		$("#personimg").css("transform","rotate(0deg)");
 	    $("#persondiv").slideUp();
 	}
 }
@@ -39,8 +43,12 @@ function openJunctionChart(){
 		$("#junctiondiv").slideDown();
 	    $("#persondiv").slideUp();
 	    $("#machinediv").slideUp();
+		$("#personimg").css("transform","rotate(0deg)");
+		$("#machineimg").css("transform","rotate(0deg)");
+		$("#junctionimg").css("transform","rotate(180deg)");
 	}else{
 		$("#junctiondiv").slideUp();
+		$("#junctionimg").css("transform","rotate(0deg)");
 	}
 }
 
@@ -49,8 +57,12 @@ function openMachineChart(){
 		$("#machinediv").slideDown();
 		$("#junctiondiv").slideUp();
 	    $("#persondiv").slideUp();
+		$("#personimg").css("transform","rotate(0deg)");
+		$("#junctionimg").css("transform","rotate(0deg)");
+		$("#machineimg").css("transform","rotate(180deg)");
 	}else{
 	    $("#machinediv").slideUp();
+		$("#machineimg").css("transform","rotate(0deg)");
 	}
 }
 

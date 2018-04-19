@@ -210,15 +210,24 @@ public class ImportExcelController {
 				w.setCreater(new BigInteger(user.getId()+""));
 				w.setUpdater(new BigInteger(user.getId()+""));
 				w.setWelderno(w.getWelderno());
+				String phone = w.getCellphone();
+				if(iutil.isNull(phone)){
+					if(!phone.matches("^1[3-8]\\d{9}$")){
+						obj.put("msg","导入失败，请检查您的手机号码是否正确！");
+						obj.put("success",false);
+						return obj.toString();
+					}
+				}
 				//编码唯一
 				int count1 = ps.getUsernameCount(w.getWelderno());
 				if(count1>0){
-					obj.put("msg","导入失败，请检查您的焊工编号是否已存在！");
-					obj.put("success",false);
-					return obj.toString();
+//					obj.put("msg","导入失败，请检查您的焊工编号是否已存在！");
+//					obj.put("success",false);
+//					return obj.toString();
+					continue;
+				}else{
+					ps.save(w);
 				}
-				
-				ps.save(w);
 			};
 			obj.put("success",true);
 			obj.put("msg","导入成功！");
@@ -250,16 +259,29 @@ public class ImportExcelController {
 			File file  = new File(path);
 			file.delete();
 			for(WeldedJunction w:we){
-				int count = wjs.getWeldedjunctionByNo(w.getWeldedJunctionno());
+				String wjno = w.getWeldedJunctionno();
+				int num = wjno.length();
+				if(num<=6){
+					for(int i=0;i<6-num;i++){
+						wjno = "0"+wjno;
+					}
+				}else{
+					obj.put("success",false);
+					obj.put("msg","导入失败，请检查您的焊口编号长度是否符合要求！");
+					return obj.toString();
+				}
+				w.setWeldedJunctionno(wjno);
+				int count = wjs.getWeldedjunctionByNo(wjno);
 				w.setInsfid(wmm.getInsframeworkByName(w.getItemid().getName()));
 				MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				w.setCreater(new BigInteger(user.getId()+""));
 				w.setUpdater(new BigInteger(user.getId()+""));
 				//编码唯一
 				if(count>0){
-					obj.put("msg","导入失败，请检查您的焊口编号是否已存在！");
-					obj.put("success",false);
-					return obj.toString();
+//					obj.put("msg","导入失败，请检查您的焊口编号是否已存在！");
+//					obj.put("success",false);
+//					return obj.toString();
+					continue;
 				}
 				wjs.addJunction(w);
 			};
@@ -336,11 +358,11 @@ public class ImportExcelController {
 						dit.setWelding(welding);//设备编码
 						break;
 					}
-					if(k == 2){
+					else if(k == 2){
 						mr.setStartTime(cellValue);//维修起始时间
 						break;
 					}
-					if(k == 3){
+					else if(k == 3){
 						mr.setEndTime(cellValue);//维修结束时间
 						break;
 	    			}
@@ -353,15 +375,15 @@ public class ImportExcelController {
 						dit.setWelding(welding);//设备编码
 						break;
 					}
-					if(k == 1){
+					else if(k == 1){
 						mr.setViceman(cellValue);//维修人员
 						break;
 					}
-					if(k == 4){
+					else if(k == 4){
 						mr.setTypename(cellValue);
 						break;
  					}
- 					if(k == 5){
+					else if(k == 5){
  						mr.setDesc(cellValue);//维修说明
 						break;
  					}
@@ -451,12 +473,12 @@ public class ImportExcelController {
 						dit.setEquipmentNo(cellValue);//设备编码
 						break;
 					}
-					if(k == 2){
+					else if(k == 2){
 						dit.setJoinTime(cellValue);//入厂时间
 						break;
 					}
 					//采集序号机设备序号只能是数字
-					if(k == 8){
+					else if(k == 8){
 						Gather g = new Gather();
 						g.setGatherNo(cellValue);
 						dit.setGatherId(g);//采集序号
@@ -469,31 +491,31 @@ public class ImportExcelController {
 						dit.setEquipmentNo(cellValue);//设备编码
 						break;
 					}
-					if(k == 1){
+					else if(k == 1){
 						dit.setTypename(cellValue);//设备类型
 						break;
 					}
-					if(k == 3){
+					else if(k == 3){
  						Insframework ins = new Insframework();
  						ins.setName(cellValue);
  						dit.setInsframeworkId(ins);//所属项目
 						break;
 	    			}
-			        if(k == 4){
+					else if(k == 4){
 			        	dit.setStatusname(cellValue);//状态
 						break;
  					}
- 					if(k == 5){
+					else if(k == 5){
  						manu.setName(cellValue);
  						dit.setManufacturerId(manu);//厂家
 						break;
  					}
- 					if(k == 6){
+					else if(k == 6){
  						manu.setType(cellValue);
  						dit.setManufacturerId(manu);//厂家类型
 						break;
  					}
-					if(k == 7){
+					else if(k == 7){
 						if(cellValue.equals("是")){
 	 						dit.setIsnetworking(0);//是否在网
 						}else{
@@ -502,21 +524,21 @@ public class ImportExcelController {
 						break;
  					}
 					//采集序号机设备序号只能是数字
-					if(k == 8){
+					else if(k == 8){
 						Gather g = new Gather();
 						g.setGatherNo(cellValue);
 						dit.setGatherId(g);//采集序号
 						break;
 					}
-					if(k == 9){
+					else if(k == 9){
 						dit.setPosition(cellValue);//位置
 						break;
 					}
-					if(k == 10){
+					else if(k == 10){
 						dit.setIp(cellValue);//ip地址
 						break;
 					}
-					if(k == 11){
+					else if(k == 11){
 						dit.setModel(cellValue);//设备型号
 						break;
 					}
@@ -604,11 +626,11 @@ public class ImportExcelController {
 						p.setWelderno(cellValue);//焊工编号
 						break;
 					}
-					if(k == 2){
+					else if(k == 2){
 						p.setCellphone(cellValue);//手机
 						break;
  					}
-					if(k == 4){
+					else if(k == 4){
 						p.setCardnum(cellValue);//卡号
 						break;
  					}
@@ -619,27 +641,31 @@ public class ImportExcelController {
 						p.setName(cellValue);//姓名
 						break;
 					}
-					if(k == 1){
+					else if(k == 1){
 						p.setWelderno(cellValue);//焊工编号
 						break;
 					}
-					if(k == 3){
+					else if(k == 2){
+						p.setCellphone(cellValue);//手机
+						break;
+ 					}
+					else if(k == 3){
 						p.setLevename(cellValue);//级别
 						break;
  					}
-					if(k == 4){
+					else if(k == 4){
 						p.setCardnum(cellValue);//卡号
 						break;
  					}
-					if(k == 5){
+					else if(k == 5){
 						p.setQualiname(cellValue);//资质
 						break;
  					}
-					if(k == 6){
+					else if(k == 6){
 						p.setInsname(cellValue);//部门
 						break;
  					}
-					if(k == 7){
+					else if(k == 7){
 						p.setBack(cellValue);//备注
 						break;
  					}
@@ -739,59 +765,59 @@ public class ImportExcelController {
 						p.setWeldedJunctionno(cellValue);//编号
 						break;
 					}
-					if(k == 1){
+					else if(k == 1){
 						p.setSerialNo(cellValue);//序列号
 						break;
 					}
-					if(k == 6){
+					else if(k == 6){
 						p.setDyne(Integer.parseInt(cellValue));//达因
 						break;
 					}
-					if(k == 8){
+					else if(k == 8){
 						p.setPipelineNo(cellValue);//管线号
 						break;
 					}
-					if(k == 9){
+					else if(k == 9){
 						p.setRoomNo(cellValue);//房间号
 						break;
 					}
-					if(k == 10){
+					else if(k == 10){
 						p.setExternalDiameter(cellValue);//上游外径
 						break;
 					}
-					if(k == 11){
+					else if(k == 11){
 						p.setNextexternaldiameter(cellValue);//下游外径
 						break;
 					}
-					if(k == 12){
+					else if(k == 12){
 						p.setWallThickness(cellValue);//上游璧厚
 						break;
 					}
-					if(k == 13){
+					else if(k == 13){
 						p.setNextwall_thickness(cellValue);//下游璧厚
 						break;
 					}
-					if(k == 16){
+					else if(k == 16){
 						p.setMaxElectricity(Double.valueOf(cellValue));//电流上限
 						break;
 					}
-					if(k == 17){
+					else if(k == 17){
 						p.setMinElectricity(Double.valueOf(cellValue));//电流下限
 						break;
 					}
-					if(k == 18){
+					else if(k == 18){
 						p.setMaxValtage(Double.valueOf(cellValue));//电压上限
 						break;
 					}
-					if(k == 19){
+					else if(k == 19){
 						p.setMinValtage(Double.valueOf(cellValue));//电压下限
 						break;
 					}
-					if(k == 22){
+					else if(k == 22){
 						p.setStartTime(cellValue);//开始时间
 						break;
 					}
-					if(k == 23){
+					else if(k == 23){
 						p.setEndTime(cellValue);//结束时间
 						break;
 					}
@@ -802,55 +828,55 @@ public class ImportExcelController {
 						p.setWeldedJunctionno(cellValue);//编号
 						break;
 					}
-					if(k == 1){
+					else if(k == 1){
 						p.setSerialNo(cellValue);//序列号
 						break;
 					}
-					if(k == 2){
+					else if(k == 2){
 						p.setUnit(cellValue);//机组
 						break;
 					}
-					if(k == 3){
+					else if(k == 3){
 						p.setArea(cellValue);//区域
 						break;
 					}
-					if(k == 4){
+					else if(k == 4){
 						p.setSystems(cellValue);//系统
 						break;
 					}
-					if(k == 5){
+					else if(k == 5){
 						p.setChildren(cellValue);//子项
 						break;
 					}
-					if(k == 7){
+					else if(k == 7){
 						p.setSpecification(cellValue);//规格
 						break;
 					}
-					if(k == 8){
+					else if(k == 8){
 						p.setPipelineNo(cellValue);//管线号
 						break;
 					}
-					if(k == 9){
+					else if(k == 9){
 						p.setRoomNo(cellValue);//房间号
 						break;
 					}
-					if(k == 14){
+					else if(k == 14){
 						p.setMaterial(cellValue);//上游材质
 						break;
 					}
-					if(k == 15){
+					else if(k == 15){
 						p.setNext_material(cellValue);//下游材质
 						break;
 					}
-					if(k == 20){
+					else if(k == 20){
 						p.setElectricity_unit(cellValue);//电流单位
 						break;
 					}
-					if(k == 21){
+					else if(k == 21){
 						p.setValtage_unit(cellValue);//电压单位
 						break;
 					}
-					if(k == 24){
+					else if(k == 24){
 						Insframework insf = new Insframework();
 						insf.setName(cellValue);
 						p.setItemid(insf);//所属部门

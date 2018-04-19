@@ -65,7 +65,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div>
 		<div id="bottomdiv" style="margin: 20px;">
-	    <table id="maintainTable" style="table-layout: fixed; width:100%;"></table>
+			<div class="functionleftdiv">焊机设备管理 >> 维修记录</div>
+		    <table id="maintainTable" style="table-layout: fixed; width:100%;"></table>
 	    </div>
 	</div>
   </body>
