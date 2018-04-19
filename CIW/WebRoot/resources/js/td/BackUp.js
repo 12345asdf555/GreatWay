@@ -168,7 +168,7 @@
 	    		  }
     		 }*/
 
-			for(var n = 0;n < dd.length;n+=53){
+			for(var n = 0;n < dd.length;n+=69){
 				if(dd.substring(8+n, 12+n)!="0000"){		
 					if(back.length==0){
 						var l=1;
@@ -210,7 +210,7 @@
     		/*var columns = $('#dg').datagrid("options").columns;*/
     		var rows = $('#dg').datagrid("getRows"); 
     			/*alert(rows[dex][columns[0][0].field]);*/
-    			for(var g = 0;g < dd.length;g+=53*3){
+    			for(var g = 0;g < dd.length;g+=69*3){
     			for(var dex=0;dex<rows.length;dex++){
     				/*alert(rows[dex][columns[0][1].field]);*/
     		    if((dd.substring(8+g, 12+g)!="0000")&&(dd.substring(4+g, 8+g)==rows[dex].fequipment_no)){
@@ -338,7 +338,7 @@
 			window.clearInterval(timer5);
 		}
 		for(var j = 0;j < 1;j++){
-			for(var i = 0;i < dd.length;i+=53){
+			for(var i = 0;i < dd.length;i+=69){
 					if(hq == dd.substring(4+i, 8+i)&&(dd.substring(8+i, 12+i))!="0000"){
 					var mach = dd.substring(4+i, 8+i);
 					var weld = dd.substring(8+i, 12+i);
