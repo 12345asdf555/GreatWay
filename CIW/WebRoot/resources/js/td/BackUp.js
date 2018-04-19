@@ -167,7 +167,6 @@
 	    			  $("#body11").append(str);
 	    		  }
     		 }*/
-
 			for(var n = 0;n < dd.length;n+=69){
 				if(dd.substring(8+n, 12+n)!="0000"){		
 					if(back.length==0){
