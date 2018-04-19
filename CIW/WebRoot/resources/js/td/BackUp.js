@@ -86,9 +86,9 @@
 		    	  if (result) {
 		    		  position = eval(result.rows);
 		    		  position1.push(position[0].fpositin);
-		    		  for(var count=0;count<position1.length;count++){
-		    			  for(var err2=0;err2<position.length;err2++){
-		    				  if(position1[count]!=position[err2].fpositin){
+	    			  for(var err2=0;err2<position.length;err2++){
+	    				  for(var count=0;count<position1.length;count++){
+		    				  if(position1[count]!=position[err2].fpositin&&count==position1.length-1){
 		    					  position1.push(position[err2].fpositin);
 		    				  }
 		    			  }
