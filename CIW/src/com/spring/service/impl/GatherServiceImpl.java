@@ -4,10 +4,12 @@ import java.math.BigInteger;
 import java.util.List;
 
 import javax.jws.WebService;
+import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.github.pagehelper.PageHelper;
 import com.spring.dao.GatherMapper;
@@ -15,7 +17,7 @@ import com.spring.dao.WeldingMachineMapper;
 import com.spring.model.Gather;
 import com.spring.page.Page;
 import com.spring.service.GatherService;
-@WebService
+
 @Service
 @Transactional
 public class GatherServiceImpl implements GatherService {
@@ -46,9 +48,16 @@ public class GatherServiceImpl implements GatherService {
 		return gm.getGatherById(id);
 	}
 
+	@Transactional
 	@Override
-	public void addGather(Gather ins) {
-		gm.addGather(ins);
+	public void addGather(Gather ins){// throws RuntimeException
+//		try{
+			gm.addGather(ins);
+			gm.addGather(null);
+//		}catch(Exception e){
+//			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//		}
+//		throw new RuntimeException("产生错误啦，傻孩子@");
 	}
 
 	@Override

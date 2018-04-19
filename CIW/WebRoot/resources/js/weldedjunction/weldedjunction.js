@@ -259,7 +259,7 @@ function importWeldingMachine(){
 						});
 					} else {
 						$('#importdiv').dialog('close');
-						$('#weldingmachineTable').datagrid('reload');
+						$('#weldedJunctionTable').datagrid('reload');
 						$.messager.alert("提示", result.msg);
 					}
 				}

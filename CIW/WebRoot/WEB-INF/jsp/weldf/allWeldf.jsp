@@ -34,6 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
    <div id="body">
+		<div class="functionleftdiv">产品管理 >> 焊缝管理</div>
         <div class="functiondiv">
         	<a href="javascript:addWeldf()" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>&nbsp;&nbsp;&nbsp;&nbsp;
         	<a href="javascript:insertSearchWeldf();" class="easyui-linkbutton" iconCls="icon-select">查找</a>

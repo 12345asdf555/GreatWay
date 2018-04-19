@@ -114,3 +114,6 @@ select::-ms-expand {
 .functiondiv{
 	float:right;margin-bottom: 5px;
 }
+.functionleftdiv{
+	float:left;margin-bottom: 5px;
+}

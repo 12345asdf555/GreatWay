@@ -38,8 +38,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <body>
 	<div id="body" >
+		 <div class="functionleftdiv">历史曲线 >> 焊缝信息</div>
 	   	 <div id="companyOverproof_btn">
-			<div style="margin-bottom: 5px;">
+			<div style="margin-bottom: 5px;float:right">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 				<input  name="wjnos" id="wjno" type="hidden" value="${wjno }"/>
