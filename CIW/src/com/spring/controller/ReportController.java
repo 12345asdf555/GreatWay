@@ -430,7 +430,7 @@ public class ReportController {
 		page = new Page(pageIndex,pageSize,total);
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String datetime = sdf.format(date);
+		String datetime = "%" + sdf.format(date) + "%";
 		List<Report> list = reportService.getAllPara(page, parent, search, datetime);
 		long total = 0;
 		if(list != null){

@@ -6,6 +6,7 @@
 	<resultMap id="wjMap" type="com.spring.model.WeldedJunction">
         <id property="id" column="fid"></id> 
         <result property="machid" column="machid"></result>  
+        <result property="counts" column="counts"></result>  
         <result property="machine_num" column="fequipment_no"></result> 
         <result property="weldedJunctionno" column="fwelded_junction_no"></result>  
         <result property="serialNo" column="fserial_no"></result>
@@ -115,7 +116,7 @@
 	</select>
 	
 	<select id="getJMByWelder" resultMap="wmMap">
-		select m.fequipment_no,m.fid machid,fwelded_junction_no,fdyne,fmax_electricity,fmin_electricity,fmax_valtage,fmin_valtage from tb_live_data l 
+		select COUNT(l.fstatus='3') counts,m.fequipment_no,m.fid machid,fwelded_junction_no,fdyne,fmax_electricity,fmin_electricity,fmax_valtage,fmin_valtage from tb_live_data l 
 		INNER join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_welding_machine m on m.fid=l.fmachine_id
 		where 1=1

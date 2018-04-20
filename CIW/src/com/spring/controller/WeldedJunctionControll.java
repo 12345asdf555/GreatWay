@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -387,6 +388,7 @@ public class WeldedJunctionControll {
 			for(WeldedJunction w:list){
 				json.put("firsttime", wjm.getFirsttime(dto, w.getMachid(),welderid , w.getWeldedJunctionno()));
 				json.put("lasttime", wjm.getLasttime(dto, w.getMachid(),welderid , w.getWeldedJunctionno()));
+				json.put("fweldingtime", new DecimalFormat("0.0").format((float)Integer.valueOf(w.getCounts().toString())/3600));
 				json.put("id", w.getId());
 				json.put("machid",w.getMachid());
 				json.put("machine_num", w.getMachine_num());

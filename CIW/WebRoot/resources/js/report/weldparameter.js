@@ -80,12 +80,12 @@ var time;
     				/*alert(rows[dex][columns[0][1].field]);*/
     		    if((dd.substring(8+g, 12+g)!="0000")&&(dd.substring(4+g, 8+g)==rows[dex].machineid)){
     			rows[dex].machinestatus=dd.substring(0+g, 2+g);
-	            if ((dd.substring(0+g, 2+g)=="03")||(dd.substring(0+g, 2+g)=="05")){
+	            if ((dd.substring(0+g, 2+g)=="03")||(dd.substring(0+g, 2+g)=="05")||(dd.substring(0+g, 2+g)=="07")){
 	            	rows[dex].macstatus = "工作";
-	            }
+	            }/*
 	            else if (dd.substring(0+g, 2+g)=="07"){
 	            	rows[dex].macstatus = "报警";
-	            }
+	            }*/
 	            else if (dd.substring(0+g, 2+g)=="00"){
 	            	rows[dex].macstatus = "待机";
 	            }
@@ -270,12 +270,12 @@ var time;
 				align : "left"
 	        }]],
 	        rowStyler:function(index,row){
-	            if ((row.machinestatus=="03")||(row.machinestatus=="05")){
+	            if ((row.machinestatus=="03")||(row.machinestatus=="05")||(row.machinestatus=="07")){
 	                return 'background-color:#00FF00;color:black;';
-	            }
+	            }/*
 	            else if (row.machinestatus=="07"){
 	                return 'background-color:#FF0000;color:black;';
-	            }
+	            }*/
 	            else if (row.machinestatus=="00"){
 	                return 'background-color:#0000CD;color:black;';
 	            }

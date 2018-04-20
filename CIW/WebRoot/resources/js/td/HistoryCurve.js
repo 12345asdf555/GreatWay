@@ -175,6 +175,12 @@ function setParam(){
 					halign : "center",
 					align : "left"
 				},{
+					field : 'fweldingtime',
+					title : '焊接时间(h)',
+					width : 150,
+					halign : "center",
+					align : "left"
+				},{
 					field : 'machid',
 					title : '焊机id',
 					width : 90,
@@ -460,7 +466,7 @@ function setParam(){
   		        }
   		    },
   		    title: {
-  		        text: '电压电流实时监测'
+  		        text: '电流电压历史回溯'
   		    },
             mapNavigation: {
                 enabled: true,

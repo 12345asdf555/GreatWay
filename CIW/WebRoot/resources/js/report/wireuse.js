@@ -65,12 +65,12 @@ var time;
     				/*alert(rows[dex][columns[0][1].field]);*/
     		    if((dd.substring(8+g, 12+g)!="0000")&&(dd.substring(4+g, 8+g)==rows[dex].machineid)){
     			rows[dex].machinestatus=dd.substring(0+g, 2+g);
-	            if ((dd.substring(0+g, 2+g)=="03")||(dd.substring(0+g, 2+g)=="05")){
+	            if ((dd.substring(0+g, 2+g)=="03")||(dd.substring(0+g, 2+g)=="05")||(dd.substring(0+g, 2+g)=="07")){
 	            	rows[dex].macstatus = "工作";
-	            }
+	            }/*
 	            else if (dd.substring(0+g, 2+g)=="07"){
 	            	rows[dex].macstatus = "报警";
-	            }
+	            }*/
 	            else if (dd.substring(0+g, 2+g)=="00"){
 	            	rows[dex].macstatus = "待机";
 	            }
@@ -97,13 +97,13 @@ var time;
     		$(".easyui-layout").layout({
     			onCollapse:function(){
     				$("#dg").datagrid({
-    					height : $("#body").height(),
+    					height : $("#body").height()-20,
     					width : $("#body").width()
     				})
     			},
     			onExpand:function(){
     				$("#dg").datagrid({
-    					height : $("#body").height(),
+    					height : $("#body").height()-20,
     					width : $("#body").width()
     				})
     			}
@@ -221,12 +221,12 @@ var time;
 			align : "left"
         }]],
         rowStyler:function(index,row){
-            if ((row.machinestatus=="03")||(row.machinestatus=="05")){
+            if ((row.machinestatus=="03")||(row.machinestatus=="05")||(row.machinestatus=="07")){
                 return 'background-color:#00FF00;color:black;';
-            }
+            }/*
             else if (row.machinestatus=="07"){
                 return 'background-color:#FF0000;color:black;';
-            }
+            }*/
             else if (row.machinestatus=="00"){
                 return 'background-color:#0000CD;color:black;';
             }
@@ -237,16 +237,9 @@ var time;
 	});
     }
 
-        function insframeworkTree(){
-        	$("#myTree").tree({  
-        		onClick : function(node){
-        			$("#dg").datagrid('load',{
-        				"insid" : node.id
-        			})
-        		 }
-        	})
-        }
-        
+        $(function(){
+        	wireuse();
+        })
     	$(function(){
 			   $.ajax({
 			   type: "post", 
@@ -280,12 +273,22 @@ var time;
 				onChange: function (n,o) {
 				if(n!="请选择..."){
     			$("#dg").datagrid('load',{
-    				"insid" : n
+    				"parent" : n
     			})
 				}
 				}
 			});
 		});
+		
+        function insframeworkTree(){
+        	$("#myTree").tree({  
+        		onClick : function(node){
+        			$("#dg").datagrid('load',{
+        				"parent" : node.id
+        			})
+        		 }
+        	})
+        }
         
         //监听窗口大小变化
           window.onresize = function() {

@@ -310,9 +310,9 @@ public class WpsController {
             				int pre = w.getFweld_prechannel();
             				String str1;
             				if(pre<16){
-            					str1 = "7E7C205213010"+Integer.toHexString(pre);
+            					str1 = "7E7C205201010"+Integer.toHexString(pre);
             				}else{
-            					str1 = "7E7C20521301"+Integer.toHexString(pre);
+            					str1 = "7E7C20520101"+Integer.toHexString(pre);
             				}
             				String gather_no = wpsService.findIpById(new BigInteger(mmid[jj]));
 							//String str1 = "7E7C20521301";
@@ -322,13 +322,13 @@ public class WpsController {
 							String str3;
 							String str4;
 							if(w.getFweld_i()<16){
-							str2 = "7C201E7C200A7C20647C20BE7C207C207C20"+"0"+Integer.toHexString(weld_i);
+							str2 = "7C201E7C20017C20647C20BEFFE27C207C20"+"0"+Integer.toHexString(weld_i);
 							}else if(w.getFweld_i()>=16&&w.getFweld_i()<256){
-							str2 = "7C201E7C200A7C20647C20BE7C207C207C20" + Integer.toHexString(weld_i);
+							str2 = "7C201E7C20017C20647C20BEFFE27C207C20" + Integer.toHexString(weld_i);
 							}else if(w.getFweld_i()==256){
-							str2 = "7C201E7C200A7C20647C20BE7C207C2001" + "7C20";
+							str2 = "7C201E7C20017C20647C20BEFFE27C2001" + "7C20";
 							}else{
-							str2 = "7C201E7C200A7C20647C20BE7C207C200" + Integer.toHexString(weld_i);
+							str2 = "7C201E7C20017C20647C20BEFFE27C200" + Integer.toHexString(weld_i);
 							}
 							if(weld_v<16){
 								str22="7C200"+Integer.toHexString(weld_v);
@@ -340,18 +340,18 @@ public class WpsController {
 								str22="0"+Integer.toHexString(weld_v);
 							}
 							if(weld_i_tx==0){
-								str3 = "7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C20"+"7C20"+"7C20";
+								str3 = "7C207C20647C20BE7C207C207C20017C207C207C200C7C207C207C207C20"+"7C20"+"7C20";
 							}else if(weld_i_tx>0&&weld_i_tx<16){
-								str3 = "7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C20"+"0"+Integer.toHexString(weld_i_tx)+"0"+Integer.toHexString(weld_i_tx);
+								str3 = "7C207C20647C20BE7C207C207C20017C207C207C200C7C207C207C207C20"+"0"+Integer.toHexString(weld_i_tx)+"0"+Integer.toHexString(weld_i_tx);
 							}else{
-								str3 = "7C207C207C20647C20BE7C207C207C200A7C207C207C200A7C207C207C20"+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_i_tx);
+								str3 = "7C207C20647C20BE7C207C207C20017C207C207C200C7C207C207C207C20"+Integer.toHexString(weld_i_tx)+Integer.toHexString(weld_i_tx);
 							}
 							if(weld_v_tx==0){
-								str4="7C20"+"7C20"+"2C7D";
+								str4="7C20"+"7C20"+"017D";
 							}else if(weld_v_tx>0&&weld_v_tx<16){
-								str4="0"+Integer.toHexString(weld_v_tx)+"0"+Integer.toHexString(weld_v_tx)+"2C7D";
+								str4="0"+Integer.toHexString(weld_v_tx)+"0"+Integer.toHexString(weld_v_tx)+"017D";
 							}else{
-								str4=Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+"2C7D";
+								str4=Integer.toHexString(weld_v_tx)+Integer.toHexString(weld_v_tx)+"017D";
 							}
 							//C8 //电流
 							//012C//电压

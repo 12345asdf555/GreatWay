@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class WeldedJunction {
 	private BigInteger id;
 	private BigInteger machid;
+	private BigInteger counts;
 	private String machine_num;
 	private String weldedJunctionno;
 	private String serialNo;
@@ -60,6 +61,12 @@ public class WeldedJunction {
 	}
 	public void setMachid(BigInteger machid) {
 		this.machid = machid;
+	}
+	public BigInteger getCounts() {
+		return counts;
+	}
+	public void setCounts(BigInteger counts) {
+		this.counts = counts;
 	}
 	public BigInteger getUpdater() {
 		return updater;
