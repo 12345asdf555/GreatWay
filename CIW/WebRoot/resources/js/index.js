@@ -1,6 +1,6 @@
 $(function(){
 	getUserInsframework();
-	addTab("欢迎使用","welcome.jsp");
+	addWelcom("欢迎使用","welcome.jsp");
 	tabsIncident();
 	$("#persondiv").hide();
 	$("#junctiondiv").hide();
@@ -195,6 +195,32 @@ function openHistoryJunction(){
 	addTab("历史曲线.","rep/historyJunction");
 }
 
+function addWelcom(title,url){
+	//该面板是否已打开
+	if(!$("#tabs").tabs('exists',title)){
+		$("#tabs").tabs('add',{    
+		    title:title,
+		    content:createFrame(url)
+		});
+	}else{
+		$("#tabs").tabs('select',title);
+	}
+	// 为选项卡绑定右键
+	$(".tabs-inner").bind('contextmenu', function(e) {
+		$('#tabMenu').menu('show', {
+			left : e.pageX,
+			top : e.pageY
+		});
+
+		var subtitle = $(this).children(".tabs-closable").text();
+
+		$('#tabMenu').data("currtab", subtitle);
+		$('#tabs').tabs('select', subtitle);
+		return false;
+	});
+	
+}
+
 function addTab(title,url){
 	//该面板是否已打开
 	if(!$("#tabs").tabs('exists',title)){
@@ -250,7 +276,9 @@ function tabsIncident(){
 	$('#closeAll').click(function() {
 		$('.tabs-inner span').each(function(i, n) {
 			var t = $(n).text();
-			$('#tabs').tabs('close', t);
+			if(t!="欢迎使用"){
+				$('#tabs').tabs('close', t);
+			}
 		});
 	});
 	// 关闭其他标签页
@@ -263,7 +291,9 @@ function tabsIncident(){
 		var nextall = $('.tabs-selected').nextAll();
 		nextall.each(function(i, n) {
 			var t = $('a:eq(0) span', $(n)).text();
-			$('#tabs').tabs('close', t);
+			if(t!="欢迎使用"){
+				$('#tabs').tabs('close', t);
+			}
 		});
 	})
 	//关闭左侧标签页
@@ -271,7 +301,9 @@ function tabsIncident(){
 		var prevall = $('.tabs-selected').prevAll();
 		prevall.each(function(i, n) {
 			var t = $('a:eq(0) span', $(n)).text();
-			$('#tabs').tabs('close', t);
+			if(t!="欢迎使用"){
+				$('#tabs').tabs('close', t);
+			}
 		});
 	});
 }

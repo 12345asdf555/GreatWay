@@ -63,7 +63,6 @@ import net.sf.json.JSONObject;
  *
  */
 
-@Transactional
 @Controller
 @RequestMapping(value = "/import", produces = { "text/json;charset=UTF-8" })
 public class ImportExcelController {

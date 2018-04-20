@@ -48,16 +48,9 @@ public class GatherServiceImpl implements GatherService {
 		return gm.getGatherById(id);
 	}
 
-	@Transactional
 	@Override
-	public void addGather(Gather ins){// throws RuntimeException
-//		try{
+	public void addGather(Gather ins){
 			gm.addGather(ins);
-			gm.addGather(null);
-//		}catch(Exception e){
-//			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-//		}
-//		throw new RuntimeException("产生错误啦，傻孩子@");
 	}
 
 	@Override

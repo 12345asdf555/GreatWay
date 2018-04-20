@@ -21,12 +21,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
 	
+	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="resources/js/echarts.js"></script>
+	<script type="text/javascript" src="resources/js/welcome.js"></script>
+	
   </head>
   
   <body style="background:#ffffff;">
-	<div style="text-align:center;padding-top: 200px;"> 
-		<h1>云智能焊接管控系统欢迎您的到来！<br/>
-		Cloud intelligent welding control system welcomes your arrival.</h1>
-	</div>
+	<div style="height:20%;width:100%;"></div>
+	<div id="person" style="float:left;height:70%;width:48%;"></div>
+	<div id="welder" style="float:right;height:70%;width:48%;"></div>
   </body>
 </html>
