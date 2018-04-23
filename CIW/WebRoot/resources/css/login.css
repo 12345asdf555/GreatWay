@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 @font-face {  
 font-family: SpringSoftBold;  
-src: url('../font/SourceHanSansCN-Bold.otf');  /*思源黑体*/
+src: url('../font/SourceHanSansCN-Medium.otf');  /*思源黑体*/
 }  
 
 body {
