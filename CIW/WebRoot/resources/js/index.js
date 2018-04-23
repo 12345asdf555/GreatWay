@@ -135,6 +135,10 @@ function openWps(){
 	addTab("工艺管理","wps/AllWps");
 }
 
+function openSpe(){
+	addTab("规范管理","wps/AllSpe");
+}
+
 function openWeldingmachineMax(){
 	addTab("焊机工时最高","companyChart/goCompanyWmMax");
 }
