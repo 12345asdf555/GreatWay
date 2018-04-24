@@ -63,8 +63,26 @@ function ws() {
 $(document).ready(function () {
 	$("#chanel").combobox({
 		onSelect: function (record) {
+    		$("#ftime").numberbox('clear');
+    		$("#fadvance").numberbox('clear');
+    		$("#fini_ele").numberbox('clear');
+    		$("#fini_vol").numberbox('clear');
+    		$("#fweld_vol").numberbox('clear');
+    		$("#farc_vol").numberbox('clear');
+    		$("#fweld_ele").numberbox('clear');
+    		$("#farc_ele").numberbox('clear');
+    		$("#fhysteresis").numberbox('clear');
+    		$("#fcharacter").numberbox('clear');
+    		$("#fweld_tuny_ele").numberbox('clear');
+    		$("#fweld_tuny_vol").numberbox('clear');
+    		$("#farc_tuny_ele").numberbox('clear');
+    		$("#farc_tuny_vol").numberbox('clear');
+    		$("#farc_tuny_vol1").numberbox('clear');
+    		$("#fweld_tuny_vol1").numberbox('clear');
+    		$('#fgas').combobox('unselect');
+    		$('#fdiameter').combobox('unselect');
+    		$('#fmaterial').combobox('unselect');
 		if(node11!=null){
-			$('#fselect').combobox('select',102);
 			document.getElementById("yiyuan1").style.display="none";
 			document.getElementById("yiyuan3").style.display="none";
 			document.getElementById("gebie1").style.display="block";
@@ -72,12 +90,13 @@ $(document).ready(function () {
 			$.ajax({  
 			      type : "post",  
 			      async : false,
-			      url : "wps/getAllSpe?machine="+node11.id+"&chanel="+1+"&cla="+102,  
+			      url : "wps/getAllSpe?machine="+node11.id+"&chanel="+record.value+"&cla="+102,  
 			      data : {},  
 			      dataType : "json", //返回数据形式为json  
 			      success : function(result) {
 			          if (result) {
 			        	yshu = eval(result.rows);
+			        	if(yshu.length!=0){
 			      		$('#chanel').combobox('select',yshu[0].FWPSNum);
 			    		$("#ftime").numberbox('setValue',yshu[0].ftime);
 			    		$("#fadvance").numberbox('setValue',yshu[0].fadvance);
@@ -96,7 +115,12 @@ $(document).ready(function () {
 			    		$("#fweld_tuny_vol").numberbox('setValue',yshu[0].fweld_tuny_vol);
 			    		$("#farc_tuny_ele").numberbox('setValue',yshu[0].farc_tuny_ele);
 			    		$("#farc_tuny_vol").numberbox('setValue',yshu[0].Fdiameter);
+			    		$("#farc_tuny_vol1").numberbox('setValue',yshu[0].Fdiameter);
+			    		$("#fweld_tuny_vol1").numberbox('setValue',yshu[0].fweld_tuny_vol);
+			        	}else{
+			        		alert("未查询到相关数据，请尝试索取。");
 			        	}
+			          }
 			      },
 			      error : function(errorMsg) {  
 			          alert("数据请求失败，请联系系统管理员!");  
@@ -114,23 +138,28 @@ function chushihua(){
 	document.getElementById("gebie3").style.display="block";
 	$('#chanel').combobox('select',1);
 	$('#fselect').combobox('select',102);
-/*	$("#ftime").numberbox('setValue',30.0);
+	$("#ftime").numberbox('setValue',30.0);
 	$("#fadvance").numberbox('setValue',1.0);
-	$("#fini_ele").numberbox('setValue',100.0);
-	$("#fweld_ele").numberbox('setValue',100.0);
-	$("#farc_ele").numberbox('setValue',100.0);
+	$("#fini_ele").numberbox('setValue',100);
+	$("#fweld_ele").numberbox('setValue',100);
+	$("#farc_ele").numberbox('setValue',100);
 	$("#fhysteresis").numberbox('setValue',1.0);
 	$("#fcharacter").numberbox('setValue',0);
 	$('#fgas').combobox('select',121);
 	$('#fdiameter').combobox('select',132);
 	$('#fmaterial').combobox('select',91);
-	$("#fweld_tuny_ele").numberbox('setValue',0.0);
-	$("#farc_tuny_ele").numberbox('setValue',0.0);
-	$("#fini_vol").numberbox('setValue',19);
-	$("#fweld_vol").numberbox('setValue',19);
-	$("#farc_vol").numberbox('setValue',19);
-	$("#fweld_tuny_vol").numberbox('setValue',0);
-	$("#farc_tuny_vol").numberbox('setValue',0);*/
+	$("#fweld_tuny_ele").numberbox('setValue',0);
+	$("#farc_tuny_ele").numberbox('setValue',0);
+	$("#fini_vol").numberbox('setValue',19.0);
+	$("#fweld_vol").numberbox('setValue',19.0);
+	$("#farc_vol").numberbox('setValue',19.0);
+	$("#fweld_tuny_vol").numberbox('setValue',0.0);
+	$("#farc_tuny_vol").numberbox('setValue',0.0);
+	$("#fini_vol1").numberbox('setValue',0);
+	$("#fweld_vol1").numberbox('setValue',0);
+	$("#farc_vol1").numberbox('setValue',0);
+	$("#fweld_tuny_vol1").numberbox('setValue',0);
+	$("#farc_tuny_vol1").numberbox('setValue',0);
 }
 
 $(document).ready(function () {
@@ -142,77 +171,11 @@ $(document).ready(function () {
 			document.getElementById("yiyuan3").style.display="none";
 			document.getElementById("gebie1").style.display="block";
 			document.getElementById("gebie3").style.display="block";
-			$.ajax({  
-			      type : "post",  
-			      async : false,
-			      url : "wps/getAllSpe?machine="+node11.id+"&chanel="+1+"&cla="+102,  
-			      data : {},  
-			      dataType : "json", //返回数据形式为json  
-			      success : function(result) {
-			          if (result) {
-			        	yshu = eval(result.rows);
-			      		$('#chanel').combobox('select',yshu[0].FWPSNum);
-			    		$("#ftime").numberbox('setValue',yshu[0].ftime);
-			    		$("#fadvance").numberbox('setValue',yshu[0].fadvance);
-			    		$("#fini_ele").numberbox('setValue',yshu[0].fini_ele);
-			    		$("#fini_vol").numberbox('setValue',yshu[0].fini_vol);
-			    		$("#fweld_vol").numberbox('setValue',yshu[0].fweld_vol);
-			    		$("#farc_vol").numberbox('setValue',yshu[0].farc_vol);
-			    		$("#fweld_ele").numberbox('setValue',yshu[0].fweld_ele);
-			    		$("#farc_ele").numberbox('setValue',yshu[0].farc_ele);
-			    		$("#fhysteresis").numberbox('setValue',yshu[0].fhysteresis);
-			    		$("#fcharacter").numberbox('setValue',yshu[0].Fweld_V_MAX);
-			    		$('#fgas').combobox('select',yshu[0].Fweld_Alter_V);
-			    		$('#fdiameter').combobox('select',yshu[0].Fweld_PreChannel);
-			    		$('#fmaterial').combobox('select',yshu[0].Fweld_Alter_I);
-			    		$("#fweld_tuny_ele").numberbox('setValue',yshu[0].fweld_tuny_ele);
-			    		$("#fweld_tuny_vol").numberbox('setValue',yshu[0].fweld_tuny_vol);
-			    		$("#farc_tuny_ele").numberbox('setValue',yshu[0].farc_tuny_ele);
-			    		$("#farc_tuny_vol").numberbox('setValue',yshu[0].Fdiameter);
-			          }  
-			      },
-			      error : function(errorMsg) {  
-			          alert("数据请求失败，请联系系统管理员!");  
-			      }  
-			 });
 		}else{
 			document.getElementById("yiyuan1").style.display="block";
 			document.getElementById("yiyuan3").style.display="block";
 			document.getElementById("gebie1").style.display="none";
 			document.getElementById("gebie3").style.display="none";
-			$.ajax({  
-			      type : "post",  
-			      async : false,
-			      url : "wps/getAllSpe?machine="+node11.id+"&chanel="+1+"&cla="+103,  
-			      data : {},  
-			      dataType : "json", //返回数据形式为json  
-			      success : function(result) {
-			          if (result) {
-			        	yshu = eval(result.rows);
-			      		$('#chanel').combobox('select',yshu[0].FWPSNum);
-			    		$("#ftime").numberbox('setValue',yshu[0].ftime);
-			    		$("#fadvance").numberbox('setValue',yshu[0].fadvance);
-			    		$("#fini_ele").numberbox('setValue',yshu[0].fini_ele);
-		    			$("#fini_vol1").numberbox('setValue',yshu[0].fini_vol);
-			    		$("#fweld_vol1").numberbox('setValue',yshu[0].fweld_vol);
-			    		$("#farc_vol1").numberbox('setValue',yshu[0].farc_vol);
-			    		$("#fweld_ele").numberbox('setValue',yshu[0].fweld_ele);
-			    		$("#farc_ele").numberbox('setValue',yshu[0].farc_ele);
-			    		$("#fhysteresis").numberbox('setValue',yshu[0].fhysteresis);
-			    		$("#fcharacter").numberbox('setValue',yshu[0].Fweld_V_MAX);
-			    		$('#fgas').combobox('select',yshu[0].Fweld_Alter_V);
-			    		$('#fdiameter').combobox('select',yshu[0].Fweld_PreChannel);
-			    		$('#fmaterial').combobox('select',yshu[0].Fweld_Alter_I);
-			    		$("#fweld_tuny_ele").numberbox('setValue',yshu[0].fweld_tuny_ele);
-			    		$("#fweld_tuny_vol1").numberbox('setValue',yshu[0].fweld_tuny_vol);
-			    		$("#farc_tuny_ele").numberbox('setValue',yshu[0].farc_tuny_ele);
-			    		$("#farc_tuny_vol1").numberbox('setValue',yshu[0].Fdiameter);
-			          }  
-			      },
-			      error : function(errorMsg) {  
-			          alert("数据请求失败，请联系系统管理员!");  
-			      }  
-			 });
 		}
 			}
 		}
@@ -246,7 +209,7 @@ function editWps(){
 	}
 }
 //提交
-function save(){
+function save(value){
 	var url2 = "";
 	var finitial;
 	var fcontroller;
@@ -306,14 +269,18 @@ function save(){
 	      dataType : "json", //返回数据形式为json  
 	      success : function(result) {
 				if (!result.success) {
+					if(value==0){
 					$.messager.show( {
 						title : 'Error',
 						msg : result.errorMsg
 					});
+					}
 				} else {
+					if(value==0){
 					$.messager.alert("提示", messager);
 					$('#dlg').dialog('close');
 					$('#dg').datagrid('reload');
+					}
 				}
 	      },
 	      error : function(errorMsg) {  
@@ -362,45 +329,45 @@ function suoqu(){
 	if(symbol==0){
 		window.setTimeout(function() {
 			if(symbol==0){
-				document.onreadystatechange = completeLoading();  
-				   
-				//加载状态为complete时移除loading效果 
-				function completeLoading() {
-				        var loadingMask = document.getElementById('loadingDiv');  
-				        loadingMask.parentNode.removeChild(loadingMask);  
-				}
 				alert("索取失败");
-				socketfc.close();
+/*				socketfc.close();*/
 			}
 		}, 5000)
 	}
 	socketfc.onmessage = function(msg) {
 		var strdata1=msg.data;
-		if(strdata1.substring(0,6)=="7E0156"){
+		if(strdata1.substring(4,6)=="56"){
         var strdata2=strdata1.replace(/7C20/g, '00');
         var strdata3=strdata2.replace(/7C5E/g, '7E');
         var strdata4=strdata3.replace(/7C5C/g, '7C');
         var da =strdata4.replace(/7C5D/g, '7D');
+        if(da.substring(10,12)=="FF"){
+    		symbol++;
+    		socketfc.close();
+    		if(socketfc.readyState!=1){
+        		alert("此通道没有规范，请尝试新建规范，可恢复默认值进行参考");
+    			}
+        }else{
 		$('#chanel').combobox('select',parseInt(da.substring(10,12),16));
 		$("#ftime").numberbox('setValue',parseInt(da.substring(12,16),16));
 		$("#fadvance").numberbox('setValue',parseInt(da.substring(16,20),16));
 		$("#fini_ele").numberbox('setValue',parseInt(da.substring(20,24),16));
-		$("#fini_vol").numberbox('setValue',parseInt(da.substring(24,28),16));
-		$("#fini_vol1").numberbox('setValue',parseInt(da.substring(28,32),16));
+		$("#fini_vol").numberbox('setValue',(parseInt(da.substring(24,28),16)/10).toFixed(1));
+		$("#fini_vol1").numberbox('setValue',(parseInt(da.substring(28,32),16)/10).toFixed(1));
 		$("#fweld_ele").numberbox('setValue',parseInt(da.substring(32,36),16));
-		$("#fweld_vol").numberbox('setValue',parseInt(da.substring(36,40),16));
-		$("#fweld_vol1").numberbox('setValue',parseInt(da.substring(40,44),16));
+		$("#fweld_vol").numberbox('setValue',(parseInt(da.substring(36,40),16)/10).toFixed(1));
+		$("#fweld_vol1").numberbox('setValue',(parseInt(da.substring(40,44),16)/10).toFixed(1));
 		$("#farc_ele").numberbox('setValue',parseInt(da.substring(44,48),16));
-		$("#farc_vol").numberbox('setValue',parseInt(da.substring(48,52),16));
-		$("#farc_vol1").numberbox('setValue',parseInt(da.substring(52,56),16));
+		$("#farc_vol").numberbox('setValue',(parseInt(da.substring(48,52),16)/10).toFixed(1));
+		$("#farc_vol1").numberbox('setValue',(parseInt(da.substring(52,56),16)/10).toFixed(1));
 		$("#fhysteresis").numberbox('setValue',parseInt(da.substring(56,60),16));
 		$("#fcharacter").numberbox('setValue',parseInt(da.substring(60,64),16));
-		if(parseInt(da.substring(64,66),16)==1){
+		if(parseInt(da.substring(64,66),16)==0){
 			$('#fgas').combobox('select',121);
-		}else if(parseInt(da.substring(64,66),16)==3){
+		}else if(parseInt(da.substring(64,66),16)==1){
 			$('#fgas').combobox('select',122);
 		}else{
-			$('#fgas').combobox('select',120);
+			$('#fgas').combobox('select',122);
 		}
 		if(parseInt(da.substring(66,68),16)==10){
 			$('#fdiameter').combobox('select',131);
@@ -422,14 +389,18 @@ function suoqu(){
 		}
 //		parsevar(da.substring(68,70),16);
 		$("#fweld_tuny_ele").numberbox('setValue',parseInt(da.substring(76,78),16));
-		$("#fweld_tuny_vol").numberbox('setValue',parseInt(da.substring(78,80),16));
 		$("#farc_tuny_ele").numberbox('setValue',parseInt(da.substring(80,82),16));
-		$("#farc_tuny_vol").numberbox('setValue',parseInt(da.substring(82,84),16));
+		$("#fweld_tuny_vol").numberbox('setValue',(parseInt(da.substring(78,80),16)/10).toFixed(1));
+		$("#farc_tuny_vol").numberbox('setValue',(parseInt(da.substring(82,84),16)/10).toFixed(1));
+		$("#fweld_tuny_vol1").numberbox('setValue',(parseInt(da.substring(78,80),16)/10).toFixed(1));
+		$("#farc_tuny_vol1").numberbox('setValue',(parseInt(da.substring(82,84),16)/10).toFixed(1));
 		symbol++;
 		socketfc.close();
-		alert("索取成功");
+		if(socketfc.readyState!=1){
+			alert("索取成功");
+			}
 		
-		}
+		}}
 	}
 }
 }
@@ -443,7 +414,16 @@ function xiafa(){
 				alert("您的浏览器不支持WebSocket");
 				return;
 			}
+			symbol=0;
 			socketfc = new WebSocket(data1);
+			if(symbol==0){
+			window.setTimeout(function() {
+				if(symbol==0){
+					alert("下发失败");
+					socketfc.close();
+				}
+			}, 5000)
+			}
 			socketfc.onopen = function() {
 				var chanel = parseInt($('#chanel').numberbox('getValue')).toString(16);
 				if(chanel.length<2){
@@ -473,7 +453,7 @@ function xiafa(){
 			        	fini_ele = "0" + fini_ele;
 			        }
 			      }
-				var fini_vol = parseInt($('#fini_vol').numberbox('getValue')).toString(16);
+				var fini_vol = parseInt($('#fini_vol').numberbox('getValue')*10).toString(16);
 				if(fini_vol.length<4){
 					var length = 4 - fini_vol.length;
 			        for(var i=0;i<length;i++){
@@ -494,7 +474,7 @@ function xiafa(){
 			        	fweld_ele = "0" + fweld_ele;
 			        }
 			      }
-				var fweld_vol = parseInt($('#fweld_vol').numberbox('getValue')).toString(16);
+				var fweld_vol = parseInt($('#fweld_vol').numberbox('getValue')*10).toString(16);
 				if(fweld_vol.length<4){
 					var length = 4 - fweld_vol.length;
 			        for(var i=0;i<length;i++){
@@ -515,7 +495,7 @@ function xiafa(){
 			        	farc_ele = "0" + farc_ele;
 			        }
 			      }
-				var farc_vol = parseInt($('#farc_vol').numberbox('getValue')).toString(16);
+				var farc_vol = parseInt($('#farc_vol').numberbox('getValue')*10).toString(16);
 				if(farc_vol.length<4){
 					var length = 4 - farc_vol.length;
 			        for(var i=0;i<length;i++){
@@ -596,7 +576,7 @@ function xiafa(){
 			        	fweld_tuny_ele = "0" + fweld_tuny_ele;
 			        }
 			      }
-				var fweld_tuny_vol = parseInt($('#fweld_tuny_vol').numberbox('getValue')).toString(16);
+				var fweld_tuny_vol = parseInt($('#fweld_tuny_vol').numberbox('getValue')*10).toString(16);
 				if(fweld_tuny_vol.length<2){
 					var length = 2 - fweld_tuny_vol.length;
 			        for(var i=0;i<length;i++){
@@ -610,7 +590,7 @@ function xiafa(){
 			        	farc_tuny_ele = "0" + farc_tuny_ele;
 			        }
 			      }
-				var farc_tuny_vol = parseInt($('#farc_tuny_vol').numberbox('getValue')).toString(16);
+				var farc_tuny_vol = parseInt($('#farc_tuny_vol').numberbox('getValue')*10).toString(16);
 				if(farc_tuny_vol.length<2){
 					var length = 2 - farc_tuny_vol.length;
 			        for(var i=0;i<length;i++){
@@ -640,23 +620,35 @@ function xiafa(){
 			
 			var xiafasend2 = (xiafasend1+checksend).substring(2);
 			
-			var xiafasend3 = xiafasend2.replace(/7E/g, '7C5E');
-			var xiafasend4 = xiafasend3.replace(/7C/g, '7C5C');
-			var xiafasend1 = xiafasend4.replace(/00/g, '7C20');
-			var xiafasend5 = xiafasend1.replace(/7D/g, '7C5D').toUpperCase();
+			var xiafasend4 = xiafasend2.replace(/7C/g, '7C5C');
+			var xiafasend3 = xiafasend4.replace(/7E/g, '7C5E');
+			var fuer="";
+			for(var er=0;er<(xiafasend3.length/2);er++){
+				if(xiafasend3.substring(er*2,er*2+2)=="00"){
+					fuer = fuer+"7C20"
+				}else{
+					fuer = fuer+xiafasend3.substring(er*2,er*2+2);
+				}
+			}
+			var xiafasend5 = fuer.replace(/7D/g, '7C5D').toUpperCase();
 			
 			var xiafasend = "7E" + xiafasend5 + "7D";
 			socketfc.send(xiafasend);
 			socketfc.onmessage = function(msg) {
 				var fan = msg.data;
 				if(fan.substring(0,2)=="7E"){
+					symbol++;
 					if(parseInt(fan.substring(10,12),16)==1){
-						alert("下发失败");
 						socketfc.close();
-						socketfc=null;
+						if(socketfc.readyState!=1){
+							alert("下发失败");
+							}
 					}else{
-						alert("下发成功");
 						socketfc.close();
+						if(socketfc.readyState!=1){
+							save(1);
+							alert("下发成功");
+							}
 					}
 				}
 			}
@@ -671,7 +663,16 @@ function xiafa(){
 				return;
 			}
 			/*$.messager.alert("提示", "正在下发，请稍等。。。");*/
-				socketfc = new WebSocket(data1);
+			symbol=0;
+			socketfc = new WebSocket(data1);
+			if(symbol==0){
+			window.setTimeout(function() {
+				if(symbol==0){
+					alert("下发失败");
+					socketfc.close();
+				}
+			}, 5000)
+			}
 				socketfc.onopen = function() {
 					var chanel = parseInt($('#chanel').numberbox('getValue')).toString(16);
 					if(chanel.length<2){
@@ -701,7 +702,7 @@ function xiafa(){
 				        	fini_ele = "0" + fini_ele;
 				        }
 				      }
-					var fini_vol = parseInt($('#fini_vol').numberbox('getValue')).toString(16);
+					var fini_vol = parseInt($('#fini_vol').numberbox('getValue')*10).toString(16);
 					if(fini_vol.length<4){
 						var length = 4 - fini_vol.length;
 				        for(var i=0;i<length;i++){
@@ -722,7 +723,7 @@ function xiafa(){
 				        	fweld_ele = "0" + fweld_ele;
 				        }
 				      }
-					var fweld_vol = parseInt($('#fweld_vol').numberbox('getValue')).toString(16);
+					var fweld_vol = parseInt($('#fweld_vol').numberbox('getValue')*10).toString(16);
 					if(fweld_vol.length<4){
 						var length = 4 - fweld_vol.length;
 				        for(var i=0;i<length;i++){
@@ -743,7 +744,7 @@ function xiafa(){
 				        	farc_ele = "0" + farc_ele;
 				        }
 				      }
-					var farc_vol = parseInt($('#farc_vol').numberbox('getValue')).toString(16);
+					var farc_vol = parseInt($('#farc_vol').numberbox('getValue')*10).toString(16);
 					if(farc_vol.length<4){
 						var length = 4 - farc_vol.length;
 				        for(var i=0;i<length;i++){
@@ -867,23 +868,35 @@ function xiafa(){
 			
 			var xiafasend2 = (xiafasend1+checksend).substring(2);
 			
-			var xiafasend3 = xiafasend2.replace(/7E/g, '7C5E');
-			var xiafasend4 = xiafasend3.replace(/7C/g, '7C5C');
-			var xiafasend1 = xiafasend4.replace(/00/g, '7C20');
-			var xiafasend5 = xiafasend1.replace(/7D/g, '7C5D').toUpperCase();
+			var xiafasend4 = xiafasend2.replace(/7C/g, '7C5C');
+			var xiafasend3 = xiafasend4.replace(/7E/g, '7C5E');
+			var fuer="";
+			for(var er=0;er<(xiafasend3.length/2);er++){
+				if(xiafasend3.substring(er*2,er*2+2)=="00"){
+					fuer = fuer+"7C20"
+				}else{
+					fuer = fuer+xiafasend3.substring(er*2,er*2+2);
+				}
+			}
+			var xiafasend5 = fuer.replace(/7D/g, '7C5D').toUpperCase();
 			
 			var xiafasend = "7E" + xiafasend5 + "7D";
 			socketfc.send(xiafasend);
 			socketfc.onmessage = function(msg) {
 				var fan = msg.data;
 				if(fan.substring(0,2)=="7E"){
+					symbol++;
 					if(parseInt(fan.substring(10,12),16)==1){
-						alert("下发失败");
 						socketfc.close();
-						socketfc=null;
+						if(socketfc.readyState==1){
+							alert("下发失败");
+							}
 					}else{
-						alert("下发成功");
 						socketfc.close();
+						if(socketfc.readyState!=1){
+							save(1);
+							alert("下发成功");
+							}
 					}
 				}
 			}

@@ -40,8 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div id="body">
 	        <div class="fitem" region="left">
 	            	<lable>通道号：</lable>
-	                <select class="easyui-combobox" name="chanel" id="chanel">
-	                	<option value="0"></option>
+	                <select class="easyui-combobox" name="chanel" id="chanel" data-options="editable:false">
 	                	<option value="1">通道号1</option>
 					    <option value="2">通道号2</option>
 					    <option value="3">通道号3</option>
@@ -81,7 +80,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <div class="fitem" align="left">
 	            	<lable><span class="required">*</span>一元/个别：</lable>
 	                <select class="easyui-combobox" name="fselect" id="fselect" data-options="editable:false" onChange="changeValue(current,old)">
-	                	<option value="0"></option>
 	                    <option value="102">个别</option>
 					    <option value="101">一元</option>
 	                </select>
@@ -114,7 +112,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <input name="fadvance" id="fadvance" class="easyui-numberbox" data-options="precision:1">(0.1s)
 	            	<lable><span class="required">*</span>气体：</lable>
 	                <select class="easyui-combobox" name="fgas" id="fgas" data-options="editable:false">
-	                	<option value="120"></option>
 	                	<option value="121">CO2</option>
 					    <option value="122">MAG</option>
 	                </select>
@@ -132,11 +129,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	            <div class="fitem" align="left">
 	            	<lable><span class="required">*</span>初期电流：</lable>
-	                <input name="fini_ele" id="fini_ele" class="easyui-numberbox" data-options="required:true,precision:1">(A)
+	                <input name="fini_ele" id="fini_ele" class="easyui-numberbox" data-options="required:true">(A)
 	            	<lable><span class="required">*</span>焊接电流：</lable>
-	                <input name="fweld_ele" id="fweld_ele" class="easyui-numberbox" data-options="required:true,precision:1">(A)
+	                <input name="fweld_ele" id="fweld_ele" class="easyui-numberbox" data-options="required:true">(A)
 	                <lable><span class="required">*</span>收弧电流：</lable>
-	                <input name="farc_ele" id="farc_ele" class="easyui-numberbox" data-options="required:true,precision:1">(A)
+	                <input name="farc_ele" id="farc_ele" class="easyui-numberbox" data-options="required:true">(A)
 	            </div>
 	            <div class="fitem" id="yiyuan1" align="left">
 	            	<lable><span class="required">*</span>初期电压（一元）：</lable>
@@ -148,17 +145,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	            <div class="fitem" id="gebie1" align="left">
 	            	<lable><span class="required">*</span>初期电压：</lable>
-	                <input name="fini_vol" id="fini_vol" class="easyui-numberbox" data-options="required:true">(V)
+	                <input name="fini_vol" id="fini_vol" class="easyui-numberbox" data-options="required:true,precision:1">(V)
 	            	<lable><span class="required">*</span>焊接电压：</lable>
-	                <input name="fweld_vol" id="fweld_vol" class="easyui-numberbox" data-options="required:true">(V)
+	                <input name="fweld_vol" id="fweld_vol" class="easyui-numberbox" data-options="required:true,precision:1">(V)
 	                <lable><span class="required">*</span>收弧电压：</lable>
-	                <input name="farc_vol" id="farc_vol" class="easyui-numberbox" data-options="required:true">(V)
+	                <input name="farc_vol" id="farc_vol" class="easyui-numberbox" data-options="required:true,precision:1">(V)
 	            </div>
 	            <div class="fitem" id="yiyuan2" align="left">
 	            	<lable><span class="required">*</span>焊接电流微调：</lable>
-	                <input name="fweld_tuny_ele" id="fweld_tuny_ele" class="easyui-numberbox" data-options="required:true,precision:1">(A)
+	                <input name="fweld_tuny_ele" id="fweld_tuny_ele" class="easyui-numberbox" data-options="required:true">(A)
 	            	<lable><span class="required">*</span>收弧电流微调：</lable>
-	                <input name="farc_tuny_ele" id="farc_tuny_ele" class="easyui-numberbox" data-options="required:true,precision:1">(A)
+	                <input name="farc_tuny_ele" id="farc_tuny_ele" class="easyui-numberbox" data-options="required:true">(A)
 	            </div>
 	            <div class="fitem" id="yiyuan3" align="left">
 	            	<lable><span class="required">*</span>焊接电压微调(一元)：</lable>
@@ -168,14 +165,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	            <div class="fitem" id="gebie3" align="left">
 	            	<lable><span class="required">*</span>焊接电压微调：</lable>
-	                <input name="fweld_tuny_vol" id="fweld_tuny_vol" class="easyui-numberbox" data-options="required:true">(V)
+	                <input name="fweld_tuny_vol" id="fweld_tuny_vol" class="easyui-numberbox" data-options="required:true,precision:1">(V)
 	            	<lable><span class="required">*</span>收弧电压微调：</lable>
-	                <input name="farc_tuny_vol" id="farc_tuny_vol" class="easyui-numberbox" data-options="required:true">(V)
+	                <input name="farc_tuny_vol" id="farc_tuny_vol" class="easyui-numberbox" data-options="required:true,precision:1">(V)
 	            </div>
 	            <div>
 					<a href="javascript:suoqu();" class="easyui-linkbutton" iconCls="icon-ok">索取规范</a>
-					<a href="javascript:save();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
-					<a href="javascript:xiafa();" class="easyui-linkbutton" iconCls="icon-ok">下传规范</a>
+					<a href="javascript:save(0);" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+					<a href="javascript:xiafa();" class="easyui-linkbutton" iconCls="icon-ok">下发规范</a>
 					<a href="javascript:chushihua();" class="easyui-linkbutton" iconCls="icon-ok">恢复默认值</a>
 				</div>
 	    </div>

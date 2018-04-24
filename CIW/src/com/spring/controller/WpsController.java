@@ -141,7 +141,7 @@ public class WpsController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			if(findAll.size()==0){
+			/*if(findAll.size()==0){
 				json.put("FWPSNum", 1);//通道号
 				json.put("Fweld_I", 62);//初期条件
 				json.put("Fweld_V", 62);//溶孔深度
@@ -175,7 +175,7 @@ public class WpsController {
 					json.put("Fdiameter", 0.0);//收弧微调电压
 				}
 				ary.add(json);
-			}else{
+			}else{*/
 			for(Wps wps:findAll){
 				json.put("FID", wps.getFid());
 				json.put("FWPSNum", wps.getWelderid());
@@ -203,11 +203,9 @@ public class WpsController {
 				json.put("Fdiameter", wps.getFdiameter());
 				ary.add(json);
 			}
-			}
 		}catch(Exception e){
 			e.getMessage();
 		}
-		obj.put("total", total);
 		obj.put("rows", ary);
 		return obj.toString();
 	}
