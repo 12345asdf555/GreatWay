@@ -29,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
 	<script type="text/javascript" src="resources/js/highcharts.js"></script>
+	<script type="text/javascript" src="resources/js/echarts.js"></script>
 	<script type="text/javascript" src="resources/js/getTimeADay.js"></script>
 	<script type="text/javascript" src="resources/js/exporting.js"></script>
 	<script type="text/javascript" src="resources/js/map.js"></script>
@@ -52,20 +53,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:serachCompanyOverproof();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
 			</div>
 		</div>
-		<div id="dgtb" style="width:100%;height:50%;">
+		<div id="dgtb" style="width:100%;height:100%;">
 			<table id="dg" style="table-layout:fixed;width:100%;"></table>
-<!-- 			<a class="easyui-linkbutton"  href="javascript:addtime()" iconCls="icon-add">加速</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-<!-- 			<a class="easyui-linkbutton" href="javascript:reducetime()" iconCls="icon-remove">减速</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-<!-- 			<a class="easyui-linkbutton"  href="javascript:starttime()" iconCls="icon-play">开始</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-<!-- 			<a class="easyui-linkbutton" href="javascript:stoptime()" iconCls="icon-pause">暂停</a> -->
-			<a style="float: right">温馨提示：鼠标左键选中局部曲线可进行放大；‘ctrl’+鼠标左键可进行曲线平移。</a>
+			<div id="body1" style="position:absolute;top:60%;width:100%;height:20%;"></div>
+			<div id="body2" style="position:absolute;top:82%;width:100%;height:20%"></div>
 		</div>
-		<div id="load" style="width:100%;height:50%;"></div>
-		<div id="body1" style="position:absolute;top:63%;width:100%;height:20%"></div>
-		<div id="body2" style="position:absolute;top:81.5%;width:100%;height:20%"></div>
+		<div id="load" style="width:100%;height:40%;"></div>
 	</div>
 	<style type="text/css">
-    #load{ display: none; position: absolute; top: 63%; left: 0%; width: 100%; height: 37%; background-color: #555753; z-index:1001; -moz-opacity: 0.4; opacity:.40; filter: alpha(opacity=70);}
+    #load{ display: none; position: absolute; left:0; top:60%;width: 100%; height: 40%; background-color: #555753; z-index:1001; -moz-opacity: 0.4; opacity:.40; filter: alpha(opacity=70);}
 	#show{display: none; position: absolute; top: 80%; left: 45%; width: 10%; height: 5%; padding: 8px; border: 8px solid #E8E9F7; background-color: white; z-index:1002; overflow: auto;}
 	</style>
 </body>
