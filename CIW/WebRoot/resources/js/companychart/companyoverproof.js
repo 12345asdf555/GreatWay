@@ -14,44 +14,10 @@ function setParam(){
 	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
+var array1 = new Array();
+var array2 = new Array();
+var Series = [];
 function showCompanyOverproofChart(){
-	setParam();
-	var array1 = new Array();
-	var array2 = new Array();
-	var Series = [];
-	 $.ajax({  
-         type : "post",  
-         async : false,
-         url : "companyChart/getCompanyOverproof"+chartStr,
-         data : {},  
-         dataType : "json", //返回数据形式为json  
-         success : function(result) {  
-             if (result) {
-            	 for(var i=0;i<result.arys.length;i++){
-                  	array1.push(result.arys[i].weldTime);
-            	 }
-                 for(var i=0;i<result.arys1.length;i++){
-                 	array2.push(result.arys1[i].name);
-                 	Series.push({
-                 		name : result.arys1[i].name,
-                 		type :'line',//折线图
-                 		data : result.arys1[i].overproof,
-                 		itemStyle : {
-                 			normal: {
-                 				label : {
-                 					show: true//显示每个折点的值
-                 				}
-                 			}
-                 		}
-                 	});
-                 }
-                 
-             }  
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("companyOverproofChart"));
 	//显示加载动画效果
@@ -113,7 +79,23 @@ function CompanyHourDatagrid(){
                  column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  for(var m=0;m<result.arys1.length;m++){
                 	 column.push({field:"a"+m,title:result.arys1[m].name,width:width,halign : "center",align : "left"});
+                	 array2.push(result.arys1[m].name);
+                  	 Series.push({
+                  		name : result.arys1[m].name,
+                  		type :'line',//折线图
+                  		data : result.arys1[m].overproof,
+                  		itemStyle : {
+                  			normal: {
+                  				label : {
+                  					show: true//显示每个折点的值
+                  				}
+                  			}
+                  		}
+                  	 });
                  }
+                 for(var i=0;i<result.arys.length;i++){
+                   	 array1.push(result.arys[i].weldTime);
+             	 }
              }  
          },  
         error : function(errorMsg) {  

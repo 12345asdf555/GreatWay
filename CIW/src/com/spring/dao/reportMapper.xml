@@ -184,6 +184,7 @@
 	</select>
 	
 		<select id="historyData" resultType="Report">
+<<<<<<< HEAD
 		SELECT 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
@@ -208,6 +209,8 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
+=======
+>>>>>>> branch 'master' of https://github.com/12345asdf555/GreatWay.git
 		    SELECT 
 		    <if test="dto!=null and dto!=''">
 		      <if test="dto.year!=null and dto.year!=''">

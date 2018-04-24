@@ -39,7 +39,8 @@ function showcompanyEfficiencyChart(){
                        		itemStyle : {
                        			normal: {
                        				label : {
-                       					show: true//显示每个折点的值
+                       					show: true,//显示每个折点的值
+                     					formatter: '{c}%'  
                        				}
                        			}
                        		}
@@ -92,7 +93,13 @@ function showcompanyEfficiencyChart(){
 			data: array1
 		},
 		yAxis:{
-			type: 'value'//value:数值轴，category:类目轴，time:时间轴，log:对数轴
+			type: 'value',//value:数值轴，category:类目轴，time:时间轴，log:对数轴
+			axisLabel: {  
+                  show: true,  
+                  interval: 'auto',  
+                  formatter: '{value}%'  
+            },  
+            show: true  
 		},
 		series:[
 		]
@@ -180,12 +187,6 @@ function CompanyEfficiencyDatagrid(){
 		}, {
 			field : 'num',
 			title : '完成焊口数',
-			width : 150,
-			halign : "center",
-			align : "left"
-		}, {
-			field : 'dyne',
-			title : '总达因值',
 			width : 150,
 			halign : "center",
 			align : "left"

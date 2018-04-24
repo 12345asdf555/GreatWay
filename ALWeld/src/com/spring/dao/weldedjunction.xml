@@ -107,12 +107,12 @@
 		where l.fwelder_id=#{welderid}
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
+				and FWeldTime &gt;= #{dto.dtoTime1}
 			</if>
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
+				and FWeldTime &lt;= #{dto.dtoTime2}
 			</if>
-		</if>group by m.fequipment_no,fwelded_junction_no
+		</if>group by l.fmachine_id,l.fjunction_id
 	</select>
 	
 	<insert id="addJunction" parameterType="com.spring.model.WeldedJunction">

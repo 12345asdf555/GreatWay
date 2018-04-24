@@ -939,17 +939,8 @@ public class ItemChartController {
 				json.put("wname",m.getWname());
 				json.put("wid",m.getFwelder_id());
 				String[] str = m.getJidgather().split(",");
-				String search = "and (";
-				for(int i=0;i<str.length;i++){
-					search += " fid = "+str[i];
-					if(i<str.length-1){
-						search += " or";
-					}
-				}
-				search += " )";
-				BigInteger dyne = lm.getDyneByJunctionno(search);
-				json.put("dyne",dyne);
-				json.put("weldtime",m.getWeldTime());
+				double weldtime = (double)Math.round(Double.valueOf(m.getWeldTime())*100)/100;
+				json.put("weldtime",weldtime);
 				json.put("num",str.length);
 				ary.add(json);
 			}

@@ -8,34 +8,9 @@ function setParam(){
 	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
+var array1 = new Array();
+var array2 = new Array();
 function showCompanyHourChart(){
-	setParam();
-	var array1 = new Array();
-	var array2 = new Array();
-	var parent = $("#parent").val();
-	 $.ajax({  
-         type : "post",  
-         async : false, //同步执行  
-         url : encodeURI("companyChart/getCompanyHour?parent="+parent+chartStr),
-         data : {},  
-         dataType : "json", //返回数据形式为json
-         success : function(result) {  
-             if (result) {
-                 for(var i=0;i<result.rows.length;i++){
-                 	array1.push(result.rows[i].name);
-                 	if(result.rows[i].jidgather==0){
-                     	array2.push(0);
-                 	}else{
-                     	var num = (result.rows[i].manhour/result.rows[i].jidgather).toFixed(2);
-                     	array2.push(num);
-                 	}
-                 }
-             }  
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("companyHourChart"));
 	//显示加载动画效果
@@ -108,16 +83,27 @@ function CompanyHourDatagrid(){
 			title : '事业部',
 			width : 100,
 			halign : "center",
-			align : "left"//,
-//			formatter:function(value,row,index){
+			align : "left",
+			formatter:function(value,row,index){
+				array1.push(value);
 //				return  '<a href="caustChart/goCaustHour?parent='+row.itemid+'">'+value+'</a>';
-//			}
+				return value;
+			}
 		}, {
 			field : 'jidgather',
 			title : '焊口数量',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			formatter : function(value,row,index){
+				if(value==0){
+                 	array2.push(0);
+             	}else{
+                 	var num = (row.manhour/value).toFixed(2);
+                 	array2.push(num);
+             	}
+				return value;
+			}
 		}, {
 			field : 'manhour',
 			title : '焊接工时(s)',
@@ -138,6 +124,9 @@ function CompanyHourDatagrid(){
 			align : "left",
 			hidden: true
 		}] ],
+		onLoadSuccess : function(index,row){
+			showCompanyHourChart();
+		},
 		rowStyler: function(index,row){
             if ((index % 2)!=0){
             	//处理行代背景色后无法选中
@@ -211,7 +200,6 @@ function classifyDatagrid(){
 		onLoadSuccess: function(){
 			$("#classify").datagrid("selectRow",0);
 			CompanyHourDatagrid();
-			showCompanyHourChart();
 		},
 		rowStyler: function(index,row){
             if ((index % 2)!=0){

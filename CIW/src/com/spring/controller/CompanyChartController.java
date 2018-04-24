@@ -473,7 +473,7 @@ public class CompanyChartController {
 					num[j] = 0;
 					for(ModelDto l:list){
 						if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-							num[j] = Integer.parseInt(l.getOvertime().toString());;
+							num[j] = Integer.parseInt(l.getOvertime().toString());
 						}
 					}
 				}
@@ -517,6 +517,7 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		dto.setDtoStatus(1);
 		if(!iutil.isNull(parentId)){
 			//数据权限处理
 			BigInteger uid = lm.getUserId(request);
@@ -632,6 +633,7 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		dto.setDtoStatus(0);
 		if(!iutil.isNull(parentId)){
 			//数据权限处理
 			BigInteger uid = lm.getUserId(request);
@@ -701,7 +703,7 @@ public class CompanyChartController {
 						for(ModelDto m:machine){
 							if(m.getWeldTime().equals(l.getWeldTime()) && m.getFid().equals(l.getIid())){
 								if(ins.get(i).getFname().equals(l.getFname()) && time.get(j).getWeldTime().equals(l.getWeldTime())){
-									BigInteger livecount = lm.getCountByTime(l.getIid(), "%"+l.getWeldTime()+"%",null);
+									BigInteger livecount = lm.getCountByTime(l.getIid(), l.getWeldTime(),null);
 									num[j] = (double)Math.round(l.getLoads()/livecount.doubleValue()/m.getLoads()*100*100)/100;
 								}
 							}
@@ -773,6 +775,8 @@ public class CompanyChartController {
 				dto.setYear("year");
 			}else if(type.equals("2")){
 				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
 			}else if(type.equals("4")){
 				dto.setWeek("week");
 			}
@@ -994,17 +998,8 @@ public class CompanyChartController {
 				json.put("wname",m.getWname());
 				json.put("wid",m.getFwelder_id());
 				String[] str = m.getJidgather().split(",");
-				String search = "and (";
-				for(int i=0;i<str.length;i++){
-					search += " fid = "+str[i];
-					if(i<str.length-1){
-						search += " or";
-					}
-				}
-				search += " )";
-				BigInteger dyne = lm.getDyneByJunctionno(search);
-				json.put("dyne",dyne);
-				json.put("weldtime",m.getWeldTime());
+				double weldtime = (double)Math.round(Double.valueOf(m.getWeldTime())*100)/100;
+				json.put("weldtime",weldtime);
 				json.put("num",str.length);
 				ary.add(json);
 			}
