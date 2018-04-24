@@ -591,6 +591,7 @@ public class ReportController {
 		String parentId = request.getParameter("parent");
 		String insid = request.getParameter("insid");
 		String type = request.getParameter("otype");
+		String welderid = request.getParameter("welderid");
 		BigInteger mach = new BigInteger(request.getParameter("mach"));
 		WeldDto dto = new WeldDto();
 		if(!iutil.isNull(parentId)){
@@ -627,11 +628,11 @@ public class ReportController {
 			}
 		}
 		String str = request.getParameter("searchStr");
-		String fid = request.getParameter("fid");
+		String fid = "00"+request.getParameter("fid");
 		pageIndex = 1;
 		pageSize = 52224;
 		page = new Page(pageIndex,pageSize,total);
-		List<Report> list = reportService.historyData(page,dto,fid,mach);
+		List<Report> list = reportService.historyData(page,dto,fid,mach,welderid);
 		long total = 0;
 		
 		if(list != null){
@@ -657,7 +658,7 @@ public class ReportController {
 					ary.add(json);
 				}
 				for(pageIndex=2;pageIndex<=total;pageIndex++){
-					List<Report> list1 = reportService.historyData(page,dto,fid,mach);
+					List<Report> list1 = reportService.historyData(page,dto,fid,mach,welderid);
 					for(Report repo1:list1){
 						json.put("ele", repo1.getFstandardele());
 						json.put("vol", repo1.getFstandardvol());

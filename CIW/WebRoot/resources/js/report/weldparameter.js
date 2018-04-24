@@ -69,6 +69,8 @@ var time;
 			};
 			//获得消息事件
 			socket.onmessage = function(msg) {
+				var xxx = msg.data;
+				if(xxx.substring(0,2)!="7E"){
 				/*alert(msg.data);*/
 				dd = msg.data;
 //				alert(dd);
@@ -108,6 +110,7 @@ var time;
 	    		}
 	    	    }
 			}
+		}
 			})
 	}
 				

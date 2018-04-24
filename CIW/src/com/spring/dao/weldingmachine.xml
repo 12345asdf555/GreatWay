@@ -103,6 +103,10 @@
 		SELECT fid FROM tb_welding_machine where finsframework_id = #{insfId}
 	</select>
 	
+	<select id="getMachineByIns"  resultMap="wmMap">
+		SELECT fid,fequipment_no FROM tb_welding_machine where finsframework_id = #{id}
+	</select>
+	
 	<select id="getEquipmentnoCount" resultType="java.lang.Integer">
 		SELECT count(*) FROM tb_welding_machine WHERE fequipment_no = #{eno}
 	</select>

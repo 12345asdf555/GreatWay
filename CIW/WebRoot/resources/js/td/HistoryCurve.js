@@ -110,10 +110,7 @@ function setParam(){
 				singleSelect : true,
 				rownumbers : true,
 				showPageList : false,
-				columns : [ [  {
-				    field:'ck',
-					checkbox:true
-				}, {
+				columns : [ [ {
 					field : 'id',
 					title : '序号',
 					width : 30,
@@ -234,7 +231,7 @@ function setParam(){
 
 					   $.ajax({
 						   type: "post", 
-						   url: "rep/historyCurve"+chartStr+"&fid="+row.weldedJunctionno+"&mach="+row.machid,
+						   url: "rep/historyCurve"+chartStr+"&fid="+row.weldedJunctionno+"&mach="+row.machid+"&welderid="+$("#welderid").val(),
 						   dataType: "json",
 						   data: {},
 						   success: function (result) {
@@ -297,6 +294,9 @@ function setParam(){
 	
 	//加速
 	function addtime(){
+		if(lable==1){
+			starttime();
+		}else{
 		time -= 500;
 		if(time<=100){
 			time = 100;
@@ -305,10 +305,14 @@ function setParam(){
 		window.clearInterval(timer2);
 		refresh1();
 		refresh2();
+		}
 	}
 
 	//减速
 	function reducetime(){
+		if(lable==1){
+			starttime();
+		}else{
 		time += 500;
 		if(time>=10000){
 			time = 10000;
@@ -317,6 +321,7 @@ function setParam(){
 		window.clearInterval(timer2);
 		refresh1();
 		refresh2();
+		}
 	}
 	
 	//暂停

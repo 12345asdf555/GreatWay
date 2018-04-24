@@ -19,9 +19,11 @@ import com.spring.dto.WeldDto;
 import com.spring.model.Dictionarys;
 import com.spring.model.Insframework;
 import com.spring.model.MyUser;
+import com.spring.model.WeldingMachine;
 import com.spring.page.Page;
 import com.spring.service.DictionaryService;
 import com.spring.service.InsframeworkService;
+import com.spring.service.WeldingMachineService;
 import com.spring.util.IsnullUtil;
 
 import net.sf.json.JSONArray;
@@ -40,6 +42,9 @@ public class InsframeworkController {
 	
 	@Autowired
 	private DictionaryService dm;
+	
+	@Autowired
+	private WeldingMachineService wmm;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -402,6 +407,114 @@ public class InsframeworkController {
         str = str.substring(0, str.length()-1); 
         return str;  
     } 
+	
+	/**
+	 * 组织机构下面的焊机
+	 */
+	@RequestMapping("/getMachine")
+	@ResponseBody
+	public void getMachine(HttpServletResponse response){
+        String str ="";  
+        StringBuilder json = new StringBuilder();  
+        // 拼接根节点  
+        Insframework b = im.getBloc();
+        if(b!=null){  
+	        json.append("[");  
+	        json.append("{\"id\":" +b.getId());
+	        json.append(",\"text\":\"" +b.getName()+ "\"");
+	        json.append(",\"state\":\"open\"");  
+	        // 获取根节点下的所有子节点  
+	        List<Insframework> treeList = im.getConmpany();
+	        // 遍历子节点下的子节点  
+	        if(treeList!=null && treeList.size()!=0){  
+	            json.append(",\"children\":[");  
+	            for (Insframework t : treeList) {  
+	                  
+	                json.append("{\"id\":" +String.valueOf(t.getId()));   
+	                json.append(",\"text\":\"" +t.getName() + "\"");   
+	                json.append(",\"state\":\"open\"");   
+	                  
+	                // 该节点有子节点  
+	                // 设置为关闭状态,而从构造异步加载tree  
+	              
+	                List<Insframework> tList = im.getCause(t.getId());  
+	                if(tList!=null && tList.size()!=0){// 存在子节点  
+	                     json.append(",\"children\":[");  
+	                     json.append(dealJsonFormats(tList));// 存在子节点的都放在一个工具类里面处理了
+	                     json.append("]");  
+	                }  
+	                json.append("},");  
+	            }  
+	            str = json.toString();  
+	            str = str.substring(0, str.length()-1);  
+	            str+="]}]";
+	        }
+              
+        }  
+        try {
+            response.getWriter().print(str);  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }  
+	}
+	
+	public String dealJsonFormats(List<Insframework> tList){  
+        StringBuilder json = new StringBuilder();  
+        for (Insframework tree : tList) {  
+            json.append("{\"id\":" +String.valueOf(tree.getId()));   
+            json.append(",\"text\":\"" +tree.getName() + "\"");   
+            json.append(",\"state\":\"open\"");
+            
+            // 获取根节点下的所有子节点  
+            List<Insframework> treeLists = im.getCause(tree.getId());
+            // 遍历子节点下的子节点  
+            if(treeLists!=null && treeLists.size()!=0){  
+                json.append(",\"children\":["); 
+                json.append(dealJsonFormat1(treeLists));// 存在子节点的都放在一个工具类里面处理
+                json.append("]");  
+            }  
+            json.append("},");  
+        }  
+        String str = json.toString();  
+        str = str.substring(0, str.length()-1);
+        return str;  
+    } 
+	
+	public String dealJsonFormat1(List<Insframework> tList){  
+        StringBuilder json = new StringBuilder();  
+        for (Insframework tree : tList) {  
+            json.append("{\"id\":" +String.valueOf(tree.getId()));   
+            json.append(",\"text\":\"" +tree.getName() + "\"");   
+            json.append(",\"state\":\"open\"");
+            
+            // 获取根节点下的所有子节点  
+            List<WeldingMachine> treeLists = wmm.getMachineByIns(tree.getId());
+            // 遍历子节点下的子节点  
+            if(treeLists!=null && treeLists.size()!=0){  
+                json.append(",\"children\":["); 
+                json.append(dealJsonFormats2(treeLists));// 存在子节点的都放在一个工具类里面处理
+                json.append("]");  
+            }  
+            json.append("},");  
+        }  
+        String str = json.toString();  
+        str = str.substring(0, str.length()-1);
+        return str;  
+    } 
+	
+	public String dealJsonFormats2(List<WeldingMachine> treeLists){  
+        StringBuilder json = new StringBuilder();  
+        for (WeldingMachine tree : treeLists) {  
+            json.append("{\"id\":" +tree.getId());   
+            json.append(",\"text\":\"" +tree.getEquipmentNo() + "\"");   
+            json.append(",\"state\":\"open\"");
+            json.append("},");  
+        }  
+        String str = json.toString();  
+        str = str.substring(0, str.length()-1); 
+        return str;  
+    }
+
 	
 	/**
 	 * 判断用户操作权限

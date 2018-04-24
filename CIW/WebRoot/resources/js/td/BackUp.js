@@ -158,9 +158,10 @@
 		socket.onmessage = function(msg) {
 			/*alert(msg.data);*/	
 			/*alert("有数据");*/
+			var xxx = msg.data;
+			if(xxx.substring(0,2)!="7E"){
+			dd = msg.data;
 			symbol++;
-			dd = msg.data;	
-			
 /*			for(var b=0;b<position1.length;b++){
 	    		  if($("#pposition"+b+"").length<=0){
 	    			  var str = "<a id='pposition"+b+"' href='javascript:void(0);' onclick='rece1(\""+position1[b]+"\")'><i class='iconfont icon-bijiben'></i>"+position1[b]+"</a></br>";
@@ -237,6 +238,7 @@
     			}
     			rowdex++;
     			}
+			}
     	
 		};
 		//关闭事件

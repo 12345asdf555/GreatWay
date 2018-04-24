@@ -125,6 +125,14 @@ public class WeldingMachineController {
 	}
 	
 	/**
+	 * 焊机规范管理
+	 */
+	@RequestMapping("/goSpecify")
+	public String goSpecify(){
+		return "specification/specification";
+	}
+	
+	/**
 	 * 显示焊机列表
 	 * @return
 	 */

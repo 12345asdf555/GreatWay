@@ -101,10 +101,10 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public List<Report> historyData(Page page,WeldDto dto,String fid,BigInteger mach) {
+	public List<Report> historyData(Page page,WeldDto dto,String fid,BigInteger mach,String welderid) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		// TODO Auto-generated method stub
-		return mapper.historyData(dto,fid,mach);
+		return mapper.historyData(dto,fid,mach,welderid);
 	}
 	
 }

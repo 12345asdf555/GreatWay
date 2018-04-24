@@ -93,4 +93,8 @@ public interface WeldingMachineService {
 	 */
 	BigInteger getMachineCountByManu(BigInteger mid,BigInteger id);
 	List<WeldingMachine> getAllMachine();
+	/**
+	 * 根据组织机构获取对应焊机
+	 */
+	List<WeldingMachine> getMachineByIns(BigInteger id);
 }

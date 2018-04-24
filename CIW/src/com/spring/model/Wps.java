@@ -30,6 +30,21 @@ public class Wps {
 	private String fback;
 	private String fname;
 	private double fdiameter;
+	private double ftime;
+	private double fadvance;
+	private double fhysteresis;
+	private double fini_ele;
+	private double fini_vol;
+	private double fweld_ele;
+	private double fweld_vol;
+	private double farc_ele;
+	private double farc_vol;
+	private double fweld_tuny_ele;
+	private double fweld_tuny_vol;
+	private double farc_tuny_ele;
+	private String finitial;
+	private String fcontroller;
+	private String fmode;
 	public Wps(){
 		super();
 	}
@@ -183,7 +198,7 @@ public class Wps {
 	public void setFdiameter(double fdiameter){
 		this.fdiameter = fdiameter;
 	}
-	public Wps(long fid,BigInteger insid,BigInteger macid,String insname,BigInteger welderid,String weldername,String updatename,String fwpsnum,int fweld_i,int fweld_v,int fweld_i_max,int fweld_i_min,int fweld_v_max,int fweld_v_min,int fweld_alter_i,int fweld_alter_v,int fweld_prechannel,Date fcreatedate,Date fupdatedate,long fcreater,long fupdater,long fowner,String fback,String fname,double fdiameter) {
+	public Wps(long fid,BigInteger insid,BigInteger macid,String insname,BigInteger welderid,String weldername,String updatename,String fwpsnum,int fweld_i,int fweld_v,int fweld_i_max,int fweld_i_min,int fweld_v_max,int fweld_v_min,int fweld_alter_i,int fweld_alter_v,int fweld_prechannel,Date fcreatedate,Date fupdatedate,long fcreater,long fupdater,long fowner,String fback,String fname,double fdiameter,double ftime,double fadvance,double fhysteresis,double fini_ele,double fini_vol,double fweld_ele,double fweld_vol,double farc_ele,double farc_vol,double fweld_tuny_ele,double fweld_tuny_vol,double farc_tuny_ele,String finitial,String fcontroller,String fmode) {
 		super();
 		this.macid = macid;
 		this.insname = insname;
@@ -210,5 +225,110 @@ public class Wps {
 		this.fback = fback;
 		this.fname = fname;
 		this.fdiameter = fdiameter;
+		this.ftime = ftime;
+		this.fadvance = fadvance;
+		this.fhysteresis = fhysteresis;
+		this.fini_ele = fini_ele;
+		this.fini_vol = fini_vol;
+		this.fweld_ele = fweld_ele;
+		this.fweld_vol = fweld_vol;
+		this.farc_ele = farc_ele;
+		this.farc_vol = farc_vol;
+		this.fweld_tuny_ele = fweld_tuny_ele;
+		this.fweld_tuny_vol = fweld_tuny_vol;
+		this.farc_tuny_ele = farc_tuny_ele;
+		this.finitial = finitial;
+		this.fcontroller = fcontroller;
+		this.fmode = fmode;
+	}
+	public double getFtime() {
+		return ftime;
+	}
+	public void setFtime(double ftime) {
+		this.ftime = ftime;
+	}
+	public double getFadvance() {
+		return fadvance;
+	}
+	public void setFadvance(double fadvance) {
+		this.fadvance = fadvance;
+	}
+	public double getFhysteresis() {
+		return fhysteresis;
+	}
+	public void setFhysteresis(double fhysteresis) {
+		this.fhysteresis = fhysteresis;
+	}
+	public double getFini_ele() {
+		return fini_ele;
+	}
+	public void setFini_ele(double fini_ele) {
+		this.fini_ele = fini_ele;
+	}
+	public double getFini_vol() {
+		return fini_vol;
+	}
+	public void setFini_vol(double fini_vol) {
+		this.fini_vol = fini_vol;
+	}
+	public double getFweld_ele() {
+		return fweld_ele;
+	}
+	public void setFweld_ele(double fweld_ele) {
+		this.fweld_ele = fweld_ele;
+	}
+	public double getFweld_vol() {
+		return fweld_vol;
+	}
+	public void setFweld_vol(double fweld_vol) {
+		this.fweld_vol = fweld_vol;
+	}
+	public double getFarc_ele() {
+		return farc_ele;
+	}
+	public void setFarc_ele(double farc_ele) {
+		this.farc_ele = farc_ele;
+	}
+	public double getFarc_vol() {
+		return farc_vol;
+	}
+	public void setFarc_vol(double farc_vol) {
+		this.farc_vol = farc_vol;
+	}
+	public double getFweld_tuny_ele() {
+		return fweld_tuny_ele;
+	}
+	public void setFweld_tuny_ele(double fweld_tuny_ele) {
+		this.fweld_tuny_ele = fweld_tuny_ele;
+	}
+	public double getFweld_tuny_vol() {
+		return fweld_tuny_vol;
+	}
+	public void setFweld_tuny_vol(double fweld_tuny_vol) {
+		this.fweld_tuny_vol = fweld_tuny_vol;
+	}
+	public double getFarc_tuny_ele() {
+		return farc_tuny_ele;
+	}
+	public void setFarc_tuny_ele(double farc_tuny_ele) {
+		this.farc_tuny_ele = farc_tuny_ele;
+	}
+	public String getFinitial() {
+		return finitial;
+	}
+	public void setFinitial(String finitial) {
+		this.finitial = finitial;
+	}
+	public String getFcontroller() {
+		return fcontroller;
+	}
+	public void setFcontroller(String fcontroller) {
+		this.fcontroller = fcontroller;
+	}
+	public String getFmode() {
+		return fmode;
+	}
+	public void setFmode(String fmode) {
+		this.fmode = fmode;
 	}
 }

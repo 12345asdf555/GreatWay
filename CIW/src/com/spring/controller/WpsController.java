@@ -66,6 +66,11 @@ public class WpsController {
 	public String AllUser(HttpServletRequest request){
 		return "weldwps/allWps";
 	}
+	
+	@RequestMapping("/AllSpe")
+	public String AllSpe(HttpServletRequest request){
+		return "specification/allSpe";
+	}
 
 	@RequestMapping("/getAllWps")
 	@ResponseBody
@@ -123,10 +128,100 @@ public class WpsController {
 		return obj.toString();
 	}
 	
+	@RequestMapping("/getAllSpe")
+	@ResponseBody
+	public String getAllSpe(HttpServletRequest request){
+		BigInteger machine = new BigInteger(request.getParameter("machine"));
+		BigInteger chanel = new BigInteger(request.getParameter("chanel"));
+		BigInteger cla = new BigInteger(request.getParameter("cla"));
+		List<Wps> findAll = wpsService.findAllSpe(machine,chanel,cla);
+
+		request.setAttribute("wpsList", findAll);
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			if(findAll.size()==0){
+				json.put("FWPSNum", 1);//通道号
+				json.put("Fweld_I", 62);//初期条件
+				json.put("Fweld_V", 62);//溶孔深度
+				json.put("Fweld_I_MAX",102);//一元个别
+				json.put("Fweld_I_MIN", 111);//收弧模式
+				json.put("Fweld_V_MAX", 0);//电弧特性
+				json.put("Fweld_V_MIN", 0);//模式
+				json.put("Fweld_Alter_I", 91);//材料
+				json.put("Fweld_Alter_V", 121);//气体
+				json.put("Fweld_PreChannel", 132);//半径
+				json.put("ftime", 30.0);
+				json.put("fadvance", 1.0);
+				json.put("fhysteresis", 1.0);
+				json.put("fini_ele", 100.0);//初期电流
+				json.put("fweld_ele", 100.0);//焊接电流
+				json.put("farc_ele", 100.0);//收弧电流
+				json.put("fweld_tuny_ele", 0.0);//焊接微调电流
+				json.put("fweld_tuny_vol", 0.0);//焊接微调电压
+				json.put("farc_tuny_ele", 0.0);//收弧微调电流
+				if(Integer.valueOf(cla.toString())==102){
+					json.put("fini_vol", 19.0);//初期电压
+					json.put("fweld_vol", 19.0);//焊接电压
+					json.put("farc_vol", 19.0);//收弧电压
+					json.put("fweld_tuny_vol", 0.0);//焊接微调电压
+					json.put("Fdiameter", 0.0);//收弧微调电压
+				}else{
+					json.put("fini_vol", 0.0);//初期电压
+					json.put("fweld_vol", 0.0);//焊接电压
+					json.put("farc_vol", 0.0);//收弧电压
+					json.put("fweld_tuny_vol", 0.0);//焊接微调电压
+					json.put("Fdiameter", 0.0);//收弧微调电压
+				}
+				ary.add(json);
+			}else{
+			for(Wps wps:findAll){
+				json.put("FID", wps.getFid());
+				json.put("FWPSNum", wps.getWelderid());
+				json.put("Fweld_I", wps.getFinitial());
+				json.put("Fweld_V", wps.getFcontroller());
+				json.put("Fweld_I_MAX",wps.getInsname());
+				json.put("Fweld_I_MIN", wps.getWeldername());
+				json.put("Fweld_V_MAX", wps.getFweld_v_max());
+				json.put("Fweld_V_MIN", wps.getFmode());
+				json.put("Fweld_Alter_I", wps.getUpdatename());
+				json.put("Fweld_Alter_V", wps.getFback());
+				json.put("Fweld_PreChannel", wps.getFname());
+				json.put("ftime", wps.getFtime());
+				json.put("fadvance", wps.getFadvance());
+				json.put("fhysteresis", wps.getFhysteresis());
+				json.put("fini_ele", wps.getFini_ele());
+				json.put("fini_vol", wps.getFini_vol());
+				json.put("fweld_ele", wps.getFweld_ele());
+				json.put("fweld_vol", wps.getFweld_vol());
+				json.put("farc_ele", wps.getFarc_ele());
+				json.put("farc_vol", wps.getFarc_vol());
+				json.put("fweld_tuny_ele", wps.getFweld_tuny_ele());
+				json.put("fweld_tuny_vol", wps.getFweld_tuny_vol());
+				json.put("farc_tuny_ele", wps.getFarc_tuny_ele());
+				json.put("Fdiameter", wps.getFdiameter());
+				ary.add(json);
+			}
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("total", total);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
 	@RequestMapping("/toAddWps")
 	public String toAddUser(HttpServletRequest request){
 		return "weldwps/addWps";
 	}
+	
+	@RequestMapping("/toAddSpe")
+	public String toAddSpe(HttpServletRequest request){
+		return "specification/addSpe";
+	}
+	
 	
 	@RequestMapping("/toUpdateWps")
 	public String toUpdateWps(@RequestParam BigInteger fid,HttpServletRequest request){
@@ -136,6 +231,13 @@ public class WpsController {
 		request.setAttribute("update", sdf.format(wps.getFupdatedate()));
 		request.setAttribute("create", sdf.format(wps.getFcreatedate()));
 		return "weldwps/editWps";
+	}
+	
+	@RequestMapping("/toUpdateSpe")
+	public String toUpdateSpe(@RequestParam BigInteger fid,HttpServletRequest request){
+		Wps wps = wpsService.findSpeById(fid);
+		request.setAttribute("wps", wps);
+		return "specification/editSpe";
 	}
 	
 	@RequestMapping("/toDestroyWps")
@@ -148,6 +250,87 @@ public class WpsController {
 		return "weldwps/destroyWps";
 	}
 	
+	@RequestMapping("/toDestroySpe")
+	public String toDestroySpe(@RequestParam BigInteger fid,HttpServletRequest request){
+		Wps wps = wpsService.findSpeById(fid);
+		request.setAttribute("wps", wps);
+		return "specification/destroySpe";
+	}
+	
+	@RequestMapping("/apSpe")
+	@ResponseBody
+	public String apSpe(HttpServletRequest request){
+		Wps wps = new Wps();
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		JSONObject obj = new JSONObject();
+		Integer finitial = Integer.valueOf(request.getParameter("finitial"));
+		Integer fcontroller = Integer.valueOf(request.getParameter("fcontroller"));
+		Integer fmode = Integer.valueOf(request.getParameter("fmode"));
+		Integer fselect = Integer.valueOf(request.getParameter("fselect"));
+		Integer farc = Integer.valueOf(request.getParameter("farc"));
+		Integer fmaterial = Integer.valueOf(request.getParameter("fmaterial"));
+		Integer fgas = Integer.valueOf(request.getParameter("fgas"));
+		BigInteger fdiameter = new BigInteger(request.getParameter("fdiameter"));
+		Integer chanel = Integer.valueOf(request.getParameter("chanel"));
+		double ftime = Double.valueOf(request.getParameter("ftime"));
+		double fadvance = Double.valueOf(request.getParameter("fadvance"));
+		double fini_ele = Double.valueOf(request.getParameter("fini_ele"));
+		double fweld_ele = Double.valueOf(request.getParameter("fweld_ele"));
+		double farc_ele = Double.valueOf(request.getParameter("farc_ele"));
+		double fhysteresis = Double.valueOf(request.getParameter("fhysteresis"));
+		int fcharacter = Integer.valueOf(request.getParameter("fcharacter"));
+		double fweld_tuny_ele = Double.valueOf(request.getParameter("fweld_tuny_ele"));
+		double farc_tuny_ele = Double.valueOf(request.getParameter("farc_tuny_ele"));
+		double fini_vol = Double.valueOf(request.getParameter("fini_vol"));
+		double fweld_vol = Double.valueOf(request.getParameter("fweld_vol"));
+		double farc_vol = Double.valueOf(request.getParameter("farc_vol"));
+		double fweld_tuny_vol = Double.valueOf(request.getParameter("fweld_tuny_vol"));
+		double farc_tuny_vol = Double.valueOf(request.getParameter("farc_tuny_vol"));
+		BigInteger machine=new BigInteger(request.getParameter("machine"));
+		try{
+			wps.setFweld_i_max(chanel);
+			wps.setFweld_i_min(finitial);
+			wps.setFweld_alter_i(fcontroller);
+			wps.setFweld_v_min(fmode);
+			wps.setFweld_i(fselect);
+			wps.setFweld_v(farc);
+			wps.setFweld_v_max(fcharacter);
+			wps.setFweld_prechannel(fmaterial);
+			wps.setFweld_alter_v(fgas);
+			wps.setInsid(fdiameter);
+			wps.setFtime(ftime);
+			wps.setFadvance(fadvance);
+			wps.setFhysteresis(fhysteresis);
+			wps.setFini_ele(fini_ele);
+			wps.setFini_vol(fini_vol);
+			wps.setFweld_ele(fweld_ele);
+			wps.setFweld_vol(fweld_vol);
+			wps.setFarc_ele(farc_ele);
+			wps.setFarc_vol(farc_vol);
+			wps.setFweld_tuny_ele(fweld_tuny_ele);
+			wps.setFweld_tuny_vol(fweld_tuny_vol);
+			wps.setFarc_tuny_ele(farc_tuny_ele);
+			wps.setFdiameter(farc_tuny_vol);
+			wps.setMacid(machine);
+			wps.setFcreater(myuser.getId());
+			wps.setFupdater(myuser.getId());
+			if(wpsService.findCount(machine,chanel,fselect)<=0){
+				wpsService.saveSpe(wps);
+			}else{
+				wpsService.updateSpe(wps);
+			}
+			obj.put("success", true);
+		}catch(Exception e){
+			obj.put("success", false);
+			obj.put("errorMsg", e.getMessage());
+		}
+		return obj.toString();
+/*		return "redirect:/user/AllUser";*/
+	}
+	
 	@RequestMapping("/addWps")
 	@ResponseBody
 	public String addUser(HttpServletRequest request){
@@ -158,24 +341,14 @@ public class WpsController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		JSONObject obj = new JSONObject();
 		try{
-	        wps.setFweld_i( Integer.parseInt(request.getParameter("Fweld_I")));
-	        wps.setFweld_v( Integer.parseInt(request.getParameter("Fweld_V")));
-	        wps.setFweld_i_max(Integer.parseInt(request.getParameter("Fweld_I_MAX")));
-	        wps.setFweld_i_min(Integer.parseInt(request.getParameter("Fweld_I_MIN")));
-	        wps.setFweld_v_max(Integer.parseInt(request.getParameter("Fweld_V_MAX")));
-	        wps.setFweld_v_min(Integer.parseInt(request.getParameter("Fweld_V_MIN")));
-	        wps.setFweld_alter_i(Integer.parseInt(request.getParameter("Fweld_Alter_I")));
-	        wps.setFweld_alter_v(Integer.parseInt(request.getParameter("Fweld_Alter_V")));
-	        wps.setFweld_prechannel(Integer.parseInt(request.getParameter("Fweld_PreChannel")));
-	        wps.setFback(request.getParameter("Fback"));
-	        wps.setFname(request.getParameter("Fname"));
-			wps.setFwpsnum(request.getParameter("fwn"));
+	        wps.setFinitial(request.getParameter("finitial"));
+	        wps.setFcontroller(request.getParameter("fcontroller"));
+
 			wps.setFcreater(myuser.getId());
 			wps.setFupdater(myuser.getId());
 			wps.setFowner(Long.parseLong(request.getParameter("ins")));
 			wps.setFcreatedate(sdf.parse(sdf.format((new Date()).getTime())));
 			wps.setFupdatedate(sdf.parse(sdf.format((new Date()).getTime())));
-			wps.setFdiameter(Double.valueOf(request.getParameter("Fdiameter")));
 			wpsService.save(wps);
 			obj.put("success", true);
 		}catch(Exception e){

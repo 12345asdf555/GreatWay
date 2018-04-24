@@ -101,6 +101,8 @@ function webclient(){
 		},5000);
 	};
 	socket.onmessage = function(msg) {
+		var xxx = msg.data;
+		if(xxx.substring(0,2)!="7E"){
 		redata=msg.data;
 		//53改为69
 		for(var i = 0;i < redata.length;i+=69){
@@ -158,6 +160,7 @@ function webclient(){
 			}, 2950)
 		}
 		symbol=1;
+		}
 	};
 	//关闭事件
 	socket.onclose = function(e) {

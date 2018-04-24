@@ -80,4 +80,34 @@ public class WpsServiceImpl implements WpsService{
 		// TODO Auto-generated method stub
 		mapper.deleteHistory(fid);
 	}
+
+	@Override
+	public List<Wps> findAllSpe(BigInteger machine, BigInteger chanel, BigInteger cla) {
+		// TODO Auto-generated method stub
+		return mapper.findAllSpe(machine, chanel,cla);
+	}
+
+	@Override
+	public Wps findSpeById(BigInteger fid) {
+		// TODO Auto-generated method stub
+		return mapper.findSpeById(fid);
+	}
+
+	@Override
+	public int findCount(BigInteger machine, Integer chanel, Integer fselect) {
+		// TODO Auto-generated method stub
+		return mapper.findCount(machine, chanel, fselect);
+	}
+
+	@Override
+	public void saveSpe(Wps wps) {
+		// TODO Auto-generated method stub
+		mapper.saveSpe(wps);
+	}
+
+	@Override
+	public void updateSpe(Wps wps) {
+		// TODO Auto-generated method stub
+		mapper.updateSpe(wps);
+	}
 }
