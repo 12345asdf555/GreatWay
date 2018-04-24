@@ -184,7 +184,6 @@
 	</select>
 	
 		<select id="historyData" resultType="Report">
-<<<<<<< HEAD
 		SELECT 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
@@ -200,7 +199,7 @@
 				weekofyear(fweldtime),
 			</if>
 		</if>
-		`felectricity` fstandardele,`fvoltage` fstandardvol,`FWeldTime` fweldingtime FROM `tb_live_data` WHERE fjunction_id=#{fid} and fmachine_id=#{mach} and fstatus='3'
+		`felectricity` fstandardele,`fvoltage` fstandardvol,`FWeldTime` fweldingtime FROM `tb_live_data` WHERE fjunction_id=#{fid} and fmachine_id=#{mach} and fstatus='3' and `fwelder_id`=#{welderid}
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}
@@ -209,31 +208,5 @@
 				and fweldtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-=======
->>>>>>> branch 'master' of https://github.com/12345asdf555/GreatWay.git
-		    SELECT 
-		    <if test="dto!=null and dto!=''">
-		      <if test="dto.year!=null and dto.year!=''">
-		        DATE_FORMAT( fweldtime,  '%Y' ),
-		      </if>
-		      <if test="dto.month!=null and dto.month!=''">
-		        DATE_FORMAT( fweldtime,  '%Y-%m' ),
-		      </if>
-		      <if test="dto.day!=null and dto.day!=''">
-		        DATE_FORMAT( fweldtime,  '%Y-%m-%d' ),
-		      </if>
-		      <if test="dto.week!=null and dto.week!=''">
-		        weekofyear(fweldtime),
-		      </if>
-		    </if>
-		    `felectricity` fstandardele,`fvoltage` fstandardvol,`FWeldTime` fweldingtime FROM `tb_live_data` WHERE fjunction_id=#{fid} and fmachine_id=#{mach} and fstatus='3'
-		    <if test="dto!=null and dto!=''">
-		      <if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-		        and fweldtime &gt;= #{dto.dtoTime1}
-		      </if>
-		      <if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-		        and fweldtime &lt;= #{dto.dtoTime2}
-		      </if>
-		    </if>
 	</select>
 </mapper>
