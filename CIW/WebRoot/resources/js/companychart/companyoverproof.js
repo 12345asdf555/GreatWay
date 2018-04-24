@@ -62,6 +62,7 @@ function showCompanyOverproofChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function CompanyHourDatagrid(){
@@ -127,9 +128,15 @@ function CompanyHourDatagrid(){
 }
 
 function serachCompanyOverproof(){
+	$("#chartLoading").show();
+	array1 = new Array();
+	array2 = new Array();
+	Series = [];
 	chartStr = "";
-	showCompanyOverproofChart();
-	CompanyHourDatagrid();
+	setTimeout(function(){
+		CompanyHourDatagrid();
+		showCompanyOverproofChart();
+	},500);
 }
 
 //监听窗口大小变化

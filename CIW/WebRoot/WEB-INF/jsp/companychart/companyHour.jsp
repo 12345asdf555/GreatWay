@@ -36,6 +36,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+	<div id="chartLoading" style="width:100%;height:100%;">
+		<div id="chartShow" style="width:160px;" align="center"><img src="resources/images/load1.gif"/>数据加载中，请稍候...</div>
+	</div>
     <div>
 	  	<div id="caustHour_btn">
 			<div style="margin-bottom: 5px;">
@@ -66,8 +69,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:close();" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 			</div>
 			<div style="margin-bottom: 5px;" id="classify_btn">
-				<a href="javascript:serachClassify();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
-				<a href="javascript:commitChecked();" class="easyui-linkbutton"  iconCls="icon-ok" >提交选中数据</a>
+				<a href="javascript:serachClassify();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
+				<a href="javascript:commitChecked();" class="easyui-linkbutton"  iconCls="icon-over" >提交选中数据</a>
 			</div>
 			<table id="classify" style="table-layout: fixed; width:100%;"></table>
 		</div>

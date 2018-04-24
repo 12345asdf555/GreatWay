@@ -63,6 +63,7 @@ function showCompanyIdleChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function CaustIdleDatagrid(){
@@ -139,9 +140,15 @@ function otypecombobox(){
 }
 
 function serachcompanyIdle(){
+	$("#chartLoading").show();
+	array1 = new Array();
+	array2 = new Array();
+	Series = [];
 	chartStr = "";
-	CaustIdleDatagrid();
-	showCompanyIdleChart();
+	setTimeout(function() {
+		CaustIdleDatagrid();
+		showCompanyIdleChart();
+	}, 500)
 }
 
 //监听窗口大小变化

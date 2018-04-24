@@ -14,9 +14,9 @@ function setParam(){
 	chartStr = "?type="+type+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
+var charts;
 var array1 = new Array();
 var array2 = new Array();
-var array3 = new Array();
 function showcompanyUseChart(){
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("companyUseChart"));
@@ -27,7 +27,7 @@ function showcompanyUseChart(){
 	});
 	option = {
 		title:{
-			text: "公司部单台设备运行数据统计"
+			text: ""
 		},
 		tooltip:{
 			trigger: 'axis',//坐标轴触发，即是否跟随鼠标集中显示数据
@@ -66,6 +66,7 @@ function showcompanyUseChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function CaustUseDatagrid(){
@@ -97,11 +98,7 @@ function CaustUseDatagrid(){
 			title : '型号',
 			width : 100,
 			halign : "center",
-			align : "left",
-			formatter : function(value,row,index){
-				array3.push(value);
-             	return value;
-			}
+			align : "left"
 		}, {
 			field : 'time',
 			title : '时长(h)',
@@ -126,6 +123,16 @@ function CaustUseDatagrid(){
                 color.class="rowColor";
                 return color;
             }
+		},
+		onLoadSuccess : function(index,row){
+		    if(!charts){
+		         return;
+		    }
+		    //更新数据
+		     var option = charts.getOption();
+		     option.series[0].data = array2;
+		     option.xAxis[0].data = array1;
+		     charts.setOption(option);    
 		}
 	});
 }
@@ -157,9 +164,14 @@ function typecombobox(){
 }
 
 function serachcompanyUse(){
+	$("#chartLoading").show();
+	array1 = new Array();
+	array2 = new Array();
 	chartStr = "";
-	CaustUseDatagrid();
-	showcompanyUseChart();
+	setTimeout(function(){
+		CaustUseDatagrid();
+		showcompanyUseChart();
+	},500);
 }
 
 //监听窗口大小变化

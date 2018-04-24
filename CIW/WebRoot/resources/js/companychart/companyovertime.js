@@ -62,6 +62,7 @@ function showCompanyOverptimeChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function CompanytimeDatagrid(){
@@ -129,9 +130,15 @@ function CompanytimeDatagrid(){
 }
 
 function serachCompanyOvertime(){
+	$("#chartLoading").show();
+	Series = [];
+	array1 = new Array();
+	array2 = new Array();
 	chartStr = "";
-	showCompanyOverptimeChart();
-	CompanytimeDatagrid();
+	setTimeout(function(){
+		CompanytimeDatagrid();
+		showCompanyOverptimeChart();
+	},500);
 }
 
 //监听窗口大小变化

@@ -18,7 +18,6 @@ function setParam(){
 function showcompanyEfficiencyChart(){
 	setParam();
 	var array1 = new Array();
-	var array2 = new Array();
 	var Series = [];
 	 $.ajax({  
          type : "post",  
@@ -109,6 +108,7 @@ function showcompanyEfficiencyChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function typecombobox(){
@@ -206,8 +206,11 @@ function CompanyEfficiencyDatagrid(){
 function serachEfficiencyCompany(){
 	chartStr = "";
 	$("#nextparent").val("");
-	showcompanyEfficiencyChart();
-	CompanyEfficiencyDatagrid();
+	$("#chartLoading").show();
+	setTimeout(function() {
+		CompanyEfficiencyDatagrid();
+		showcompanyEfficiencyChart();
+	}, 500)
 }
 
 //监听窗口大小变化

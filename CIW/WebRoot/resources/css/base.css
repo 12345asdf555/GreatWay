@@ -117,3 +117,29 @@ select::-ms-expand {
 .functionleftdiv{
 	float:left;margin-bottom: 5px;
 }
+#chartLoading{ 
+	display: none; 
+	position: absolute; 
+	left:0; 
+	top:0;
+	width: 100%; 
+	height: 100%; 
+	background-color: #dfe0e0; 
+	z-index:1001; 
+	-moz-opacity: 0.4; 
+	opacity:.40; 
+	filter: alpha(opacity=70);
+}
+#chartShow{
+	position: absolute; 
+	top: 40%; 
+	left: 40%; 
+	width: 10%; 
+	height: 5%; 
+	padding: 8px; 
+	border: 8px solid #E8E9F7; 
+	background-color: white; 
+	z-index:1002; 
+	overflow: auto;
+}
+	

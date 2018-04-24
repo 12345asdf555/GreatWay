@@ -61,6 +61,7 @@ function showCompanyHourChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function CompanyHourDatagrid(){
@@ -215,12 +216,17 @@ function classifyDatagrid(){
 function commitChecked(){
 	chartStr = "";
 	search = "";
+	array1 = new Array();
+	array2 = new Array();
+	$("#chartLoading").show();
 	var rows = $("#classify").datagrid("getSelected");
 	search += " (fmaterial='"+rows.material+"' and fexternal_diameter='"+rows.external_diameter+"' and fwall_thickness='"+rows.wall_thickness+"' and fnextExternal_diameter='"+rows.nextExternal_diameter+
 	"' and fnextwall_thickness ='"+rows.nextwall_thickness+"' and fnext_material ='"+rows.nextmaterial+"')";
 	chartStr += "&search="+search;
-	CompanyHourDatagrid();
-	showCompanyHourChart();
+	setTimeout(function(){
+		CompanyHourDatagrid();
+		showCompanyHourChart();
+	},500);
 }
 
 //监听窗口大小变化

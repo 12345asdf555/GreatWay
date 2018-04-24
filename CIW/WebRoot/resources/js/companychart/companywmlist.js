@@ -14,29 +14,11 @@ function setParam(){
 	chartStr = "?parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&status="+status;
 }
 
+var charts;
+var array1 = new Array();
+var array2 = new Array();
+var Series = [];
 function showCompanyLoadsChart(){
-	setParam();
-	var array1 = new Array();
-	var array2 = new Array();
-	var Series = [];
-	 $.ajax({  
-         type : "post",  
-         async : false,
-         url : "companyChart/getCompanyWmList"+chartStr,
-         data : {},  
-         dataType : "json", //返回数据形式为json  
-         success : function(result) {  
-             if (result) {
-            	 for(var i=0;i<result.rows.length;i++){
-                  	array1.push(result.rows[i].equipment);
-                  	array2.push(result.rows[i].num.toFixed(2));
-            	 }
-             }  
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("companywmlistChart"));
 	//显示加载动画效果
@@ -101,6 +83,7 @@ function showCompanyLoadsChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function CompanyloadsDatagrid(){
@@ -119,6 +102,10 @@ function CompanyloadsDatagrid(){
 				width : 100,
 				halign : "center",
 				align : "left",
+				formatter : function(value,row,index){
+					array1.push(value);
+                  	return value;
+				}
 			}, {
 				field : 'num',
 				title : '工时(h)',
@@ -126,6 +113,7 @@ function CompanyloadsDatagrid(){
 				halign : "center",
 				align : "left",
 				formatter:function(value,row,index){
+                  	array2.push(value.toFixed(2));
 					return value.toFixed(2);
 				}
 			}] ],
@@ -136,14 +124,31 @@ function CompanyloadsDatagrid(){
                     color.class="rowColor";
                     return color;
 	            }
-	        }
+	        },
+			onLoadSuccess : function(index,row){
+			    if(!charts){
+			         return;
+			    }
+			    //更新数据
+			     var option = charts.getOption();
+			     option.series[0].data = array2;
+			     option.series[1].data = array2;
+			     option.xAxis[0].data = array1;
+			     charts.setOption(option);    
+			}
 	 })
 }
 
 function serachCompanywmlist(){
+	$("#chartLoading").show();
+	Series = [];
+	array1 = new Array();
+	array2 = new Array();
 	chartStr = "";
-	showCompanyLoadsChart();
-	CompanyloadsDatagrid();
+	setTimeout(function(){
+		CompanyloadsDatagrid();
+		showCompanyLoadsChart();
+	},500);
 }
 
 //监听窗口大小变化

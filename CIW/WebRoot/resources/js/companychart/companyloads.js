@@ -68,6 +68,7 @@ function showCompanyLoadsChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function CompanyloadsDatagrid(){
@@ -134,9 +135,15 @@ function CompanyloadsDatagrid(){
 }
 
 function serachCompanyloads(){
+	$("#chartLoading").show();
+	array1 = new Array();
+	array2 = new Array();
+	Series = [];
 	chartStr = "";
-	showCompanyLoadsChart();
-	CompanyloadsDatagrid();
+	setTimeout(function(){
+		CompanyloadsDatagrid();
+		showCompanyLoadsChart();
+	},500);
 }
 
 //监听窗口大小变化

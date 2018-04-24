@@ -11,7 +11,7 @@ function setParam(){
 	var parent = $("#parent").val();
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2
+	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
 var array1 = new Array();
@@ -68,6 +68,7 @@ function showCompanynoLoadsChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function CompanynoloadsDatagrid(){
@@ -134,9 +135,15 @@ function CompanynoloadsDatagrid(){
 }
 
 function serachCompanynoloads(){
+	$("#chartLoading").show();
+	array1 = new Array();
+	array2 = new Array();
+	Series = [];
 	chartStr = "";
-	showCompanynoLoadsChart();
-	CompanynoloadsDatagrid();
+	setTimeout(function() {
+		CompanynoloadsDatagrid();
+		showCompanynoLoadsChart();
+	}, 500);
 }
 
 //监听窗口大小变化
