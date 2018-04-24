@@ -860,7 +860,6 @@ function xiafa(){
 				var k=parseInt(tstr1,16);
 				check += k;
 			}
-
 			var checksend = parseInt(check).toString(16);
 			var a2 = checksend.length;
 			checksend = checksend.substring(a2-2,a2);
