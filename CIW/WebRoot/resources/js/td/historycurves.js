@@ -13,7 +13,6 @@ function setParam(){
 var time1 = new Array();
 var vol = new Array();
 var ele = new Array();
-var result1 = new Array();
 function Junction(){
 	setParam();
 	$("#dg").datagrid( {
@@ -118,8 +117,9 @@ function Junction(){
 }
 
 function loadChart(row){
-	$('#body1').html("");
-	$('#body2').html("");
+	time1 = new Array();
+	vol = new Array();
+	ele = new Array();
 	document.getElementById("load").style.display="block";
 	var sh = '<div id="show" style="width:150px;" align="center"><img src="resources/images/load1.gif"/>数据加载中，请稍候...</div>';
 	$("#body").append(sh);
