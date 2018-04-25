@@ -15,7 +15,14 @@ public class Insframework {
 	private BigInteger parent;
 	private int type;
 	private String typename;
+	private String parentname;
 	
+	public String getParentname() {
+		return parentname;
+	}
+	public void setParentname(String parentname) {
+		this.parentname = parentname;
+	}
 	public String getTypename() {
 		return typename;
 	}

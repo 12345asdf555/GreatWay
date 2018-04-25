@@ -114,7 +114,6 @@ function Junction(){
         onSelect : function(index,row){
         	loadChart(row);
         }
-        
 	});
 }
 
@@ -272,6 +271,10 @@ function volChart(){
         } ]
     };
     myChart.setOption(option);
+}
+
+function serachCompanyOverproof(){
+	Junction();
 }
 
 //监听窗口大小变化

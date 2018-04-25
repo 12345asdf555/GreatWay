@@ -64,4 +64,8 @@ public class DictionaryServiceImpl implements DictionaryService {
 	public int getvaluebyname(int typeid,String valuename) {
 		return dictionaryMapper.getvaluebyname(typeid,valuename);
 	}
+	@Override
+	public String getDicValueByType(int value) {
+		return dictionaryMapper.getDicValueByType(value);
+	}
 }

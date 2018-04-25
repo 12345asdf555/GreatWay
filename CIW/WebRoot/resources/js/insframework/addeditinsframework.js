@@ -1,6 +1,4 @@
 $(function(){
-	parentCombobox();
-	typeCombobox();
 	$('#dlg').dialog( {
 		onClose : function() {
 			$('#typeid').combobox('clear');
@@ -14,8 +12,9 @@ $(function(){
 
 var url = "";
 var flag = 1;
-function addInsframework(){
+function newInsframework(){
 	flag = 1;
+	insfcombobox(0,0);
 	$('#dlg').window( {
 		title : "新增组织机构",
 		modal : true
@@ -26,9 +25,9 @@ function addInsframework(){
 }
 
 function editInsframework(){
-	allparentCombobox();
 	flag = 2;
 	var row = $('#insframeworkTable').datagrid('getSelected');
+	insfcombobox(row.typeid,row.id);
 	if (row) {
 		$('#dlg').window( {
 			title : "修改组织机构",
@@ -69,12 +68,6 @@ function saveInsframework(){
 					$.messager.alert("提示", messager);
 					$('#dlg').dialog('close');
 					$('#insframeworkTable').datagrid('reload');
-//					var url = "insframework/goInsframework";
-//					var img = new Image();
-//				    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-//				    url = img.src;  // 此时相对路径已经变成绝对路径
-//				    img.src = null; // 取消请求
-//					window.location.href = encodeURI(url);
 				}
 			}
 			
@@ -85,22 +78,27 @@ function saveInsframework(){
 	});
 }
 
-//父节点
-function parentCombobox(){
+//上级项目/类型
+function insfcombobox(type,id){
 	$.ajax({  
         type : "post",  
         async : false,
-        url : "insframework/getParent",  
+        url : "insframework/getParent?type="+type+"&id="+id,  
         data : {},  
         dataType : "json", //返回数据形式为json  
         success : function(result) {
             if (result) {
-                var optionStr = '';  
+                var optionStr1 = '',optionStr2 = '';  
                 for (var i = 0; i < result.ary.length; i++) {  
-                    optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+                    optionStr1 += "<option value=\"" + result.ary[i].id + "\" >"  
                             + result.ary[i].name + "</option>";  
                 }  
-                $("#parentid").html(optionStr);
+                $("#parentid").html(optionStr1);
+                for (var i = 0; i < result.arys.length; i++) {  
+                    optionStr2 += "<option value=\"" + result.arys[i].id + "\" >"  
+                            + result.arys[i].name + "</option>";  
+                }  
+                $("#typeid").html(optionStr2);
             }  
         },  
         error : function(errorMsg) {  
@@ -108,53 +106,30 @@ function parentCombobox(){
         }  
    }); 
 	$("#parentid").combobox();
+	$("#typeid").combobox();
+	$("#fm").form("disableValidation");
 }
 
-function allparentCombobox(){
+function addInsframework(){
 	$.ajax({  
         type : "post",  
         async : false,
-        url : "insframework/getParent?flag="+true,  
+        url : "insframework/getUserInsfid",  
         data : {},  
         dataType : "json", //返回数据形式为json  
         success : function(result) {
             if (result) {
-                var optionStr = '';  
-                for (var i = 0; i < result.ary.length; i++) {  
-                    optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
-                            + result.ary[i].name + "</option>";  
-                }  
-                $("#parentid").html(optionStr);
+                if(!result.flag){
+                	alert("项目部人员无法执行此操作");
+                }else{
+                	newInsframework();
+                }
             }  
         },  
         error : function(errorMsg) {  
             alert("数据请求失败，请联系系统管理员!");  
         }  
    }); 
-	$("#parentid").combobox();
 }
-//类型
-function typeCombobox(){
-	$.ajax({  
-      type : "post",  
-      async : false,
-      url : "insframework/getType",  
-      data : {},  
-      dataType : "json", //返回数据形式为json  
-      success : function(result) {
-          if (result) {
-              var optionStr = '';  
-              for (var i = 0; i < result.ary.length; i++) {  
-                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
-                          + result.ary[i].name + "</option>";  
-              }
-              $("#typeid").html(optionStr);
-          }  
-      },  
-      error : function(errorMsg) {  
-          alert("数据请求失败，请联系系统管理员!");  
-      }  
- }); 
-	$("#typeid").combobox();
-}
+
 
