@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="findAllSpe" resultType="Wps">
-		select s.`fid` fid,s.`fspe_num` welderid,d1.fvaluename finitial,d2.fvaluename fcontroller,d3.fvaluename insname,d4.fvaluename weldername,s.fcharacter fweld_v_max,d5.fvaluename fmode,d7.fvaluename updatename,d8.fvaluename fback,d9.fvaluename fname,s.ftime,s.fhysteresis,s.fadvance,s.fini_ele ,s.fini_vol,s.fweld_ele,s.fweld_vol,s.farc_ele,s.farc_vol,s.fweld_tuny_ele,s.fweld_tuny_vol,s.farc_tuny_ele,s.farc_tuny_ele fdiameter FROM tb_specification s 
+		select s.`fid` fid,s.`fspe_num` welderid,d1.fvaluename finitial,d2.fvaluename fcontroller,d3.fvaluename insname,d4.fvaluename weldername,s.fcharacter fweld_v_max,d5.fvaluename fmode,d7.fvaluename updatename,d8.fvaluename fback,d9.fvaluename fname,s.ftime,s.fhysteresis,s.fadvance,s.fini_ele ,s.fini_vol,s.fini_vol1,s.fweld_ele,s.fweld_vol,s.fweld_vol1,s.farc_ele,s.farc_vol,s.farc_vol1,s.fweld_tuny_ele,s.fweld_tuny_vol,s.farc_tuny_ele,s.farc_tuny_ele fdiameter FROM tb_specification s 
 		INNER JOIN tb_dictionary d1 ON d1.fvalue=s.finitial
 		INNER JOIN tb_dictionary d2 ON d2.fvalue=s.fcontroller
 		INNER JOIN tb_dictionary d3 ON d3.fvalue=s.fselect
@@ -39,7 +39,7 @@
 	</select>
 	
 	<select id="findSpeById" parameterType="BigInteger" resultType="Wps">
-		select s.`fid` fid,s.`fspe_num` fwpsnum,d1.fvaluename finitial,d2.fvaluename fcontroller,d3.fvaluename insname,d4.fvaluename weldername,s.fcharacter fweld_v_max,d5.fvaluename fmode,d7.fvaluename updatename,d8.fvaluename fback,d9.fvaluename fname,s.fini_ele ,s.fini_vol,s.fweld_ele,s.fweld_vol,s.farc_ele,s.farc_vol,s.fweld_tuny_ele,s.fweld_tuny_vol,s.farc_tuny_ele,s.farc_tuny_ele fdiameter FROM tb_specification s 
+		select s.`fid` fid,s.`fspe_num` fwpsnum,d1.fvaluename finitial,d2.fvaluename fcontroller,d3.fvaluename insname,d4.fvaluename weldername,s.fcharacter fweld_v_max,d5.fvaluename fmode,d7.fvaluename updatename,d8.fvaluename fback,d9.fvaluename fname,s.fini_ele ,s.fini_vol,s.fini_vol1,s.fweld_ele,s.fweld_vol,s.fweld_vol1,s.farc_ele,s.farc_vol,s.farc_vol1,s.fweld_tuny_ele,s.fweld_tuny_vol,s.farc_tuny_ele,s.farc_tuny_ele fdiameter FROM tb_specification s 
 		INNER JOIN tb_dictionary d1 ON d1.fvalue=s.finitial
 		INNER JOIN tb_dictionary d2 ON d2.fvalue=s.fcontroller
 		INNER JOIN tb_dictionary d3 ON d3.fvalue=s.fselect
@@ -60,11 +60,11 @@
 	</update>
 	
 	<insert id="saveSpe" parameterType="Wps">
-		INSERT INTO `tb_specification`(`fspe_num`, `finitial`, `fcontroller`, `fselect`, `farc`, `fcharacter`, `fmode`, `ftime`, `fmaterial`, `fadvance`, `fhysteresis`, `fgas`, `fdiameter`, `fini_ele`, `fini_vol`, `fweld_ele`, `fweld_vol`, `farc_ele`, `farc_vol`, `fweld_tuny_ele`, `fweld_tuny_vol`, `farc_tuny_ele`, `farc_tuny_vol`, `fmachine_id`, `Fcreater`, `Fupdater`) VALUES (#{fweld_i_max},#{fweld_i_min},#{fweld_alter_i},#{fweld_i},#{fweld_v},#{fweld_v_max},#{fweld_v_min},#{ftime},#{fweld_prechannel},#{fadvance},#{fhysteresis},#{fweld_alter_v},#{insid},#{fini_ele},#{fini_vol},#{fweld_ele},#{fweld_vol},#{farc_ele},#{farc_vol},#{fweld_tuny_ele},#{fweld_tuny_vol},#{farc_tuny_ele},#{fdiameter},#{macid},#{fcreater},#{fupdater})
+		INSERT INTO `tb_specification`(`fspe_num`, `finitial`, `fcontroller`, `fselect`, `farc`, `fcharacter`, `fmode`, `ftime`, `fmaterial`, `fadvance`, `fhysteresis`, `fgas`, `fdiameter`, `fini_ele`, `fini_vol`, `fini_vol1`, `fweld_ele`, `fweld_vol`, `fweld_vol1`, `farc_ele`, `farc_vol`, `farc_vol1`, `fweld_tuny_ele`, `fweld_tuny_vol`, `farc_tuny_ele`, `farc_tuny_vol`, `fmachine_id`, `Fcreater`, `Fupdater`) VALUES (#{fweld_i_max},#{fweld_i_min},#{fweld_alter_i},#{fweld_i},#{fweld_v},#{fweld_v_max},#{fweld_v_min},#{ftime},#{fweld_prechannel},#{fadvance},#{fhysteresis},#{fweld_alter_v},#{insid},#{fini_ele},#{fini_vol},#{fini_vol1},#{fweld_ele},#{fweld_vol},#{fweld_vol1},#{farc_ele},#{farc_vol},#{farc_vol1},#{fweld_tuny_ele},#{fweld_tuny_vol},#{farc_tuny_ele},#{fdiameter},#{macid},#{fcreater},#{fupdater})
 	</insert>
 	
 	<update id="updateSpe" parameterType="Wps">
-		UPDATE `tb_specification` SET `finitial`=#{fweld_i_min},`fcontroller`=#{fweld_alter_i},`farc`=#{fweld_v},`fcharacter`=#{fweld_v_max},`fmode`=#{fweld_v_min},`ftime`=#{ftime},`fmaterial`=#{fweld_prechannel},`fadvance`=#{fadvance},`fhysteresis`=#{fhysteresis},`fgas`=#{fweld_alter_v},`fdiameter`=#{insid},`fini_ele`=#{fini_ele},`fini_vol`=#{fini_vol},`fweld_ele`=#{fweld_ele},`fweld_vol`=#{fweld_vol},`farc_ele`=#{farc_ele},`farc_vol`=#{farc_vol},`fweld_tuny_ele`=#{fweld_tuny_ele},`fweld_tuny_vol`=#{fweld_tuny_vol},`farc_tuny_ele`=#{farc_tuny_ele},`farc_tuny_vol`=#{fdiameter},`Fupdater`=#{fupdater} WHERE `fmachine_id`=#{macid} AND `fspe_num`=#{fweld_i_max} AND `fselect`=#{fweld_i}
+		UPDATE `tb_specification` SET `finitial`=#{fweld_i_min},`fcontroller`=#{fweld_alter_i},`farc`=#{fweld_v},`fcharacter`=#{fweld_v_max},`fmode`=#{fweld_v_min},`ftime`=#{ftime},`fmaterial`=#{fweld_prechannel},`fadvance`=#{fadvance},`fhysteresis`=#{fhysteresis},`fgas`=#{fweld_alter_v},`fdiameter`=#{insid},`fini_ele`=#{fini_ele},`fini_vol`=#{fini_vol},`fini_vol1`=#{fini_vol1},`fweld_ele`=#{fweld_ele},`fweld_vol`=#{fweld_vol},`fweld_vol1`=#{fweld_vol1},`farc_ele`=#{farc_ele},`farc_vol`=#{farc_vol},`farc_vol1`=#{farc_vol1},`fweld_tuny_ele`=#{fweld_tuny_ele},`fweld_tuny_vol`=#{fweld_tuny_vol},`farc_tuny_ele`=#{farc_tuny_ele},`farc_tuny_vol`=#{fdiameter},`Fupdater`=#{fupdater} WHERE `fmachine_id`=#{macid} AND `fspe_num`=#{fweld_i_max} AND `fselect`=#{fweld_i}
 	</update>
 	
 	<select id="getUsernameCount" parameterType="String" resultType="java.lang.Integer">

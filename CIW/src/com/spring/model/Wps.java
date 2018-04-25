@@ -35,10 +35,13 @@ public class Wps {
 	private double fhysteresis;
 	private double fini_ele;
 	private double fini_vol;
+	private double fini_vol1;
 	private double fweld_ele;
 	private double fweld_vol;
+	private double fweld_vol1;
 	private double farc_ele;
 	private double farc_vol;
+	private double farc_vol1;
 	private double fweld_tuny_ele;
 	private double fweld_tuny_vol;
 	private double farc_tuny_ele;
@@ -198,7 +201,7 @@ public class Wps {
 	public void setFdiameter(double fdiameter){
 		this.fdiameter = fdiameter;
 	}
-	public Wps(long fid,BigInteger insid,BigInteger macid,String insname,BigInteger welderid,String weldername,String updatename,String fwpsnum,int fweld_i,int fweld_v,int fweld_i_max,int fweld_i_min,int fweld_v_max,int fweld_v_min,int fweld_alter_i,int fweld_alter_v,int fweld_prechannel,Date fcreatedate,Date fupdatedate,long fcreater,long fupdater,long fowner,String fback,String fname,double fdiameter,double ftime,double fadvance,double fhysteresis,double fini_ele,double fini_vol,double fweld_ele,double fweld_vol,double farc_ele,double farc_vol,double fweld_tuny_ele,double fweld_tuny_vol,double farc_tuny_ele,String finitial,String fcontroller,String fmode) {
+	public Wps(long fid,BigInteger insid,BigInteger macid,String insname,BigInteger welderid,String weldername,String updatename,String fwpsnum,int fweld_i,int fweld_v,int fweld_i_max,int fweld_i_min,int fweld_v_max,int fweld_v_min,int fweld_alter_i,int fweld_alter_v,int fweld_prechannel,Date fcreatedate,Date fupdatedate,long fcreater,long fupdater,long fowner,String fback,String fname,double fdiameter,double ftime,double fadvance,double fhysteresis,double fini_ele,double fini_vol,double fini_vol1,double fweld_ele,double fweld_vol,double fweld_vol1,double farc_ele,double farc_vol,double farc_vol1,double fweld_tuny_ele,double fweld_tuny_vol,double farc_tuny_ele,String finitial,String fcontroller,String fmode) {
 		super();
 		this.macid = macid;
 		this.insname = insname;
@@ -230,10 +233,12 @@ public class Wps {
 		this.fhysteresis = fhysteresis;
 		this.fini_ele = fini_ele;
 		this.fini_vol = fini_vol;
+		this.fini_vol1 = fini_vol1;
 		this.fweld_ele = fweld_ele;
-		this.fweld_vol = fweld_vol;
+		this.fweld_vol = fweld_vol1;
 		this.farc_ele = farc_ele;
 		this.farc_vol = farc_vol;
+		this.farc_vol1 = farc_vol1;
 		this.fweld_tuny_ele = fweld_tuny_ele;
 		this.fweld_tuny_vol = fweld_tuny_vol;
 		this.farc_tuny_ele = farc_tuny_ele;
@@ -330,5 +335,23 @@ public class Wps {
 	}
 	public void setFmode(String fmode) {
 		this.fmode = fmode;
+	}
+	public double getFini_vol1() {
+		return fini_vol1;
+	}
+	public void setFini_vol1(double fini_vol1) {
+		this.fini_vol1 = fini_vol1;
+	}
+	public double getFweld_vol1() {
+		return fweld_vol1;
+	}
+	public void setFweld_vol1(double fweld_vol1) {
+		this.fweld_vol1 = fweld_vol1;
+	}
+	public double getFarc_vol1() {
+		return farc_vol1;
+	}
+	public void setFarc_vol1(double farc_vol1) {
+		this.farc_vol1 = farc_vol1;
 	}
 }

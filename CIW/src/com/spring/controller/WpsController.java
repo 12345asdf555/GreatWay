@@ -193,10 +193,13 @@ public class WpsController {
 				json.put("fhysteresis", wps.getFhysteresis());
 				json.put("fini_ele", wps.getFini_ele());
 				json.put("fini_vol", wps.getFini_vol());
+				json.put("fini_vol1", wps.getFini_vol1());
 				json.put("fweld_ele", wps.getFweld_ele());
 				json.put("fweld_vol", wps.getFweld_vol());
+				json.put("fweld_vol1", wps.getFweld_vol1());
 				json.put("farc_ele", wps.getFarc_ele());
 				json.put("farc_vol", wps.getFarc_vol());
+				json.put("farc_vol1", wps.getFarc_vol1());
 				json.put("fweld_tuny_ele", wps.getFweld_tuny_ele());
 				json.put("fweld_tuny_vol", wps.getFweld_tuny_vol());
 				json.put("farc_tuny_ele", wps.getFarc_tuny_ele());
@@ -285,6 +288,9 @@ public class WpsController {
 		double fini_vol = Double.valueOf(request.getParameter("fini_vol"));
 		double fweld_vol = Double.valueOf(request.getParameter("fweld_vol"));
 		double farc_vol = Double.valueOf(request.getParameter("farc_vol"));
+		double fini_vol1 = Double.valueOf(request.getParameter("fini_vol1"));
+		double fweld_vol1 = Double.valueOf(request.getParameter("fweld_vol1"));
+		double farc_vol1 = Double.valueOf(request.getParameter("farc_vol1"));
 		double fweld_tuny_vol = Double.valueOf(request.getParameter("fweld_tuny_vol"));
 		double farc_tuny_vol = Double.valueOf(request.getParameter("farc_tuny_vol"));
 		BigInteger machine=new BigInteger(request.getParameter("machine"));
@@ -304,10 +310,13 @@ public class WpsController {
 			wps.setFhysteresis(fhysteresis);
 			wps.setFini_ele(fini_ele);
 			wps.setFini_vol(fini_vol);
+			wps.setFini_vol(fini_vol1);
 			wps.setFweld_ele(fweld_ele);
 			wps.setFweld_vol(fweld_vol);
+			wps.setFweld_vol(fweld_vol1);
 			wps.setFarc_ele(farc_ele);
 			wps.setFarc_vol(farc_vol);
+			wps.setFarc_vol(farc_vol1);
 			wps.setFweld_tuny_ele(fweld_tuny_ele);
 			wps.setFweld_tuny_vol(fweld_tuny_vol);
 			wps.setFarc_tuny_ele(farc_tuny_ele);
