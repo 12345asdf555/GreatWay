@@ -10,6 +10,7 @@ var socketfc=null;
 var yshu;
 var node11;
 var symbol=0;
+var symbol1=0;
 $(function(){
 //	inscombobox();
 	$('#dlg').dialog( {
@@ -69,6 +70,9 @@ $(document).ready(function () {
     		$("#fini_vol").numberbox('clear');
     		$("#fweld_vol").numberbox('clear');
     		$("#farc_vol").numberbox('clear');
+    		$("#fini_vol1").numberbox('clear');
+    		$("#fweld_vol1").numberbox('clear');
+    		$("#farc_vol1").numberbox('clear');
     		$("#fweld_ele").numberbox('clear');
     		$("#farc_ele").numberbox('clear');
     		$("#fhysteresis").numberbox('clear');
@@ -102,8 +106,11 @@ $(document).ready(function () {
 			    		$("#fadvance").numberbox('setValue',yshu[0].fadvance);
 			    		$("#fini_ele").numberbox('setValue',yshu[0].fini_ele);
 			    		$("#fini_vol").numberbox('setValue',yshu[0].fini_vol);
+			    		$("#fini_vol1").numberbox('setValue',yshu[0].fini_vol1);
 			    		$("#fweld_vol").numberbox('setValue',yshu[0].fweld_vol);
+			    		$("#fweld_vol1").numberbox('setValue',yshu[0].fweld_vol1);
 			    		$("#farc_vol").numberbox('setValue',yshu[0].farc_vol);
+			    		$("#farc_vol1").numberbox('setValue',yshu[0].farc_vol1);
 			    		$("#fweld_ele").numberbox('setValue',yshu[0].fweld_ele);
 			    		$("#farc_ele").numberbox('setValue',yshu[0].farc_ele);
 			    		$("#fhysteresis").numberbox('setValue',yshu[0].fhysteresis);
@@ -210,6 +217,7 @@ function editWps(){
 }
 //提交
 function save(value){
+	yanzheng();
 	var url2 = "";
 	var finitial;
 	var fcontroller;
@@ -231,9 +239,10 @@ function save(value){
     }
     var fselect = $('#fselect').combobox('getValue');
     var farc = $('#farc').combobox('getValue');
-    var fmaterial = $('#fmaterial').combobox('getValue');
-    var fgas = $('#fgas').combobox('getValue');
-    var fdiameter = $('#fdiameter').combobox('getValue');
+//    var fmaterial = $('#fmaterial').combobox('getValue');
+    var fmaterial = document.getElementById('fmaterial').value;
+    var fgas = document.getElementById('fgas').value;
+    var fdiameter = document.getElementById('fdiameter').value;
     var chanel = $('#chanel').combobox('getValue');
 	var ftime = $('#ftime').numberbox('getValue');
 	var fadvance = $('#fadvance').numberbox('getValue');
@@ -244,22 +253,22 @@ function save(value){
 	var fcharacter = $('#fcharacter').numberbox('getValue');
 	var fweld_tuny_ele = $('#fweld_tuny_ele').numberbox('getValue');
 	var farc_tuny_ele = $('#farc_tuny_ele').numberbox('getValue');
+	var fini_vol = $('#fini_vol').numberbox('getValue');
+	var fweld_vol = $('#fweld_vol').numberbox('getValue');
+	var farc_vol = $('#farc_vol').numberbox('getValue');
+	var fini_vol1 = $('#fini_vol1').numberbox('getValue');
+	var fweld_vol1 = $('#fweld_vol1').numberbox('getValue');
+	var farc_vol1 = $('#farc_vol1').numberbox('getValue');
 	if(fselect==102){
-		var fini_vol = $('#fini_vol').numberbox('getValue');
-		var fweld_vol = $('#fweld_vol').numberbox('getValue');
-		var farc_vol = $('#farc_vol').numberbox('getValue');
 		var fweld_tuny_vol = $('#fweld_tuny_vol').numberbox('getValue');
 		var farc_tuny_vol = $('#farc_tuny_vol').numberbox('getValue');
 	}else{
-		var fini_vol = $('#fini_vol1').numberbox('getValue');
-		var fweld_vol = $('#fweld_vol1').numberbox('getValue');
-		var farc_vol = $('#farc_vol1').numberbox('getValue');
 		var fweld_tuny_vol = $('#fweld_tuny_vol1').numberbox('getValue');
 		var farc_tuny_vol = $('#farc_tuny_vol1').numberbox('getValue');
 	}
     var machine = node11.id;
 	messager = "保存成功！";
-	url2 = "wps/apSpe"+"?finitial="+finitial+"&fcontroller="+fcontroller+"&fmode="+fmode+"&fselect="+fselect+"&farc="+farc+"&fmaterial="+fmaterial+"&fgas="+fgas+"&fdiameter="+fdiameter+"&chanel="+chanel+"&ftime="+ftime+"&fadvance="+fadvance+"&fini_ele="+fini_ele+"&fweld_ele="+fweld_ele+"&farc_ele="+farc_ele+"&fhysteresis="+fhysteresis+"&fcharacter="+fcharacter+"&machine="+machine+"&fweld_tuny_ele="+fweld_tuny_ele+"&farc_tuny_ele="+farc_tuny_ele+"&fini_vol="+fini_vol+"&fweld_vol="+fweld_vol+"&farc_vol="+farc_vol+"&fweld_tuny_vol="+fweld_tuny_vol+"&farc_tuny_vol="+farc_tuny_vol;
+	url2 = "wps/apSpe"+"?finitial="+finitial+"&fcontroller="+fcontroller+"&fmode="+fmode+"&fselect="+fselect+"&farc="+farc+"&fmaterial="+fmaterial+"&fgas="+fgas+"&fdiameter="+fdiameter+"&chanel="+chanel+"&ftime="+ftime+"&fadvance="+fadvance+"&fini_ele="+fini_ele+"&fweld_ele="+fweld_ele+"&farc_ele="+farc_ele+"&fhysteresis="+fhysteresis+"&fcharacter="+fcharacter+"&machine="+machine+"&fweld_tuny_ele="+fweld_tuny_ele+"&farc_tuny_ele="+farc_tuny_ele+"&fini_vol="+fini_vol+"&fini_vol1="+fini_vol1+"&fweld_vol="+fweld_vol+"&fweld_vol1="+fweld_vol1+"&farc_vol="+farc_vol+"&farc_vol1="+farc_vol1+"&fweld_tuny_vol="+fweld_tuny_vol+"&farc_tuny_vol="+farc_tuny_vol;
 //	url2 = "wps/apSpe";
 	$.ajax({  
 	      type : "post",  
@@ -406,6 +415,7 @@ function suoqu(){
 }
 
 function xiafa(){
+	yanzheng();
 	if($('#fselect').combobox('getValue')==102){
 		if(($('#fweld_tuny_vol').numberbox('getValue')>5||$('#fweld_tuny_vol').numberbox('getValue')<0)){
 			alert("个别模式下微调电压范围为0~5")
@@ -414,11 +424,11 @@ function xiafa(){
 				alert("您的浏览器不支持WebSocket");
 				return;
 			}
-			symbol=0;
+			symbol1=0;
 			socketfc = new WebSocket(data1);
-			if(symbol==0){
+			if(symbol1==0){
 			window.setTimeout(function() {
-				if(symbol==0){
+				if(symbol1==0){
 					alert("下发失败");
 					socketfc.close();
 				}
@@ -523,7 +533,7 @@ function xiafa(){
 			        	fcharacter = "0" + fcharacter;
 			        }
 			      }
-				var fgas = parseInt($('#fgas').combobox('getValue')).toString(16);
+				var fgas = parseInt(document.getElementById('fgas').value).toString(16);
 				if(fgas==parseInt(121).toString(16)){
 					fgas="1";
 				}else if(fgas==parseInt(122).toString(16)){
@@ -537,7 +547,7 @@ function xiafa(){
 			        	fgas = "0" + fgas;
 			        }
 			      }
-				var fdiameter = parseInt($('#fdiameter').combobox('getValue')).toString(16);
+				var fdiameter = parseInt(document.getElementById('fdiameter').value).toString(16);
 				if(fdiameter==parseInt(131).toString(16)){
 					fdiameter="A";
 				}else if(fdiameter==parseInt(132).toString(16)){
@@ -553,7 +563,7 @@ function xiafa(){
 			        	fdiameter = "0" + fdiameter;
 			        }
 			      }
-				var fmaterial = parseInt($('#fmaterial').combobox('getValue')).toString(16);
+				var fmaterial = parseInt(document.getElementById('fmaterial').value).toString(16);
 				if(fmaterial==parseInt(91).toString(16)){
 					fmaterial="0";
 				}else if(fmaterial==parseInt(92).toString(16)){
@@ -637,7 +647,7 @@ function xiafa(){
 			socketfc.onmessage = function(msg) {
 				var fan = msg.data;
 				if(fan.substring(0,2)=="7E"){
-					symbol++;
+					symbol1++;
 					if(parseInt(fan.substring(10,12),16)==1){
 						socketfc.close();
 						if(socketfc.readyState!=1){
@@ -663,11 +673,11 @@ function xiafa(){
 				return;
 			}
 			/*$.messager.alert("提示", "正在下发，请稍等。。。");*/
-			symbol=0;
+			symbol1=0;
 			socketfc = new WebSocket(data1);
-			if(symbol==0){
+			if(symbol1==0){
 			window.setTimeout(function() {
-				if(symbol==0){
+				if(symbol1==0){
 					alert("下发失败");
 					socketfc.close();
 				}
@@ -772,7 +782,7 @@ function xiafa(){
 				        	fcharacter = "0" + fcharacter;
 				        }
 				      }
-					var fgas = parseInt($('#fgas').combobox('getValue')).toString(16);
+					var fgas = parseInt(document.getElementById('fgas').value).toString(16);
 					if(fgas==parseInt(121).toString(16)){
 						fgas="1";
 					}else if(fgas==parseInt(122).toString(16)){
@@ -786,7 +796,7 @@ function xiafa(){
 				        	fgas = "0" + fgas;
 				        }
 				      }
-					var fdiameter = parseInt($('#fdiameter').combobox('getValue')).toString(16);
+					var fdiameter = parseInt(document.getElementById('fdiameter').value).toString(16);
 					if(fdiameter==parseInt(131).toString(16)){
 						fdiameter="A";
 					}else if(fdiameter==parseInt(132).toString(16)){
@@ -802,7 +812,7 @@ function xiafa(){
 				        	fdiameter = "0" + fdiameter;
 				        }
 				      }
-					var fmaterial = parseInt($('#fmaterial').combobox('getValue')).toString(16);
+					var fmaterial = parseInt(document.getElementById('fmaterial').value).toString(16);
 					if(fmaterial==parseInt(91).toString(16)){
 						fmaterial="0";
 					}else if(fmaterial==parseInt(92).toString(16)){
@@ -885,7 +895,7 @@ function xiafa(){
 			socketfc.onmessage = function(msg) {
 				var fan = msg.data;
 				if(fan.substring(0,2)=="7E"){
-					symbol++;
+					symbol1++;
 					if(parseInt(fan.substring(10,12),16)==1){
 						socketfc.close();
 						if(socketfc.readyState==1){
@@ -902,5 +912,65 @@ function xiafa(){
 			}
 		}
 		}
+	}
+}
+
+function yanzheng(){
+	if($('#ftime').numberbox('getValue')==""){
+		$("#ftime").numberbox('setValue',30.0);
+	};
+	if($('#fadvance').numberbox('getValue')==""){
+		$("#fadvance").numberbox('setValue',1.0);
+	}
+	if($('#fini_ele').numberbox('getValue')==""){
+		$("#fini_ele").numberbox('setValue',100.0);
+	}
+	if($('#fweld_ele').numberbox('getValue')==""){
+		$("#fweld_ele").numberbox('setValue',100.0);
+	}
+	if($('#farc_ele').numberbox('getValue')==""){
+		$("#farc_ele").numberbox('setValue',100.0);
+	}
+	if($('#fhysteresis').numberbox('getValue')==""){
+		$("#fhysteresis").numberbox('setValue',1.0);
+	}
+	if($('#fcharacter').numberbox('getValue')==""){
+		$("#fcharacter").numberbox('setValue',0);
+	}
+	if($('#fweld_tuny_ele').numberbox('getValue')==""){
+		$("#fweld_tuny_ele").numberbox('setValue',0.0);
+	}
+	if($('#farc_tuny_ele').numberbox('getValue')==""){
+		$("#farc_tuny_ele").numberbox('setValue',0.0);
+	}
+	if($('#fini_vol').numberbox('getValue')==""){
+		$("#fini_vol").numberbox('setValue',19.0);
+	}
+	if($('#fweld_vol').numberbox('getValue')==""){
+		$("#fweld_vol").numberbox('setValue',19.0);
+	}
+	if($('#farc_vol').numberbox('getValue')==""){
+		$("#farc_vol").numberbox('setValue',19.0);
+	}
+	if($('#fini_vol1').numberbox('getValue')==""){
+		$("#fini_vol1").numberbox('setValue',0.0);
+	}
+	if($('#fweld_vol1').numberbox('getValue')==""){
+		$("#fweld_vol1").numberbox('setValue',0.0);
+	}
+	if($('#farc_vol1').numberbox('getValue')==""){
+		$("#farc_vol1").numberbox('setValue',0.0);
+	}
+	if($('#fweld_tuny_vol').numberbox('getValue')==""){
+		$("#fweld_tuny_vol").numberbox('setValue',0.0);
+	}
+	if($('#farc_tuny_vol').numberbox('getValue')==""){
+		$("#farc_tuny_vol").numberbox('setValue',0.0);
+	}
+	if($('#fweld_tuny_vol1').numberbox('getValue')==""){
+		$("#fweld_tuny_vol1").numberbox('setValue',0);
+	}
+	if($('#farc_tuny_vol1').numberbox('getValue')==""){
+		$("#farc_tuny_vol1").numberbox('setValue',0);
 	}
 }
