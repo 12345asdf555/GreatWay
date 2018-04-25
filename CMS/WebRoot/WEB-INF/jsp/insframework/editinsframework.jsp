@@ -30,11 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/insframework/addeditinsframework.js"></script>
 	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
 	<script type="text/javascript">
-		$(function(){
-			if($("#parent").combobox('getValue')==0){
-				$("#parent").combobox('setValue','无');
-			}
-		})
 	</script>
   </head>
   
@@ -46,6 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">组织机构编辑<br/><lable style="color:red">(谨慎操作!)</lable></div>
 				<div class="fitem">
 					<lable>名称</lable>
+					<input type="hidden" id="flag" value="0"/>
 					<input type="hidden" id="id" value="${insf.id }"/>
 					<input type="hidden" id="validname" value="${insf.name }"/>
 					<input class="easyui-textbox" name="name" id="name" value="${insf.name }" data-options="validType:'insfnameValidate',required:true"/>

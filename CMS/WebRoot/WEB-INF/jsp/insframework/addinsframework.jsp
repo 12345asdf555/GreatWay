@@ -39,6 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">新增组织机构<br/><lable style="color:red">(谨慎操作!)</lable></div>
 				<div class="fitem">
 					<lable>名称</lable>
+					<input type="hidden" id="flag" value="1"/>
 					<input class="easyui-textbox" name="name" id="name" data-options="validType:'insfnameValidate',required:true"/>
 				</div>
 				<div class="fitem">

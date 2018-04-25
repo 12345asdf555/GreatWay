@@ -33,6 +33,10 @@
 		SELECT fvalue, fvaluename FROM tb_dictionary WHERE ftypeid=#{typeid}
 	</select>
 	
+	<select id="getDicValueByType" resultType="java.lang.String">
+		SELECT fvaluename FROM tb_dictionary WHERE fvalue = #{value}
+	</select>
+	
 	<select id="getDicValueByValue" resultMap="dMap">
 		SELECT fvalue, fvaluename FROM tb_dictionary WHERE ftypeid=#{typeid} and fvalue>#{value}
 	</select>

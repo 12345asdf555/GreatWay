@@ -153,6 +153,33 @@ function insframeworkTree(){
 	})
 }
 
+function addInsframework(){
+	$.ajax({  
+        type : "post",  
+        async : false,
+        url : "insframework/getUserInsfid",  
+        data : {},  
+        dataType : "json", //返回数据形式为json  
+        success : function(result) {
+            if (result) {
+                if(!result.flag){
+                	alert("项目部人员无法执行此操作");
+                }else{
+					var url = "insframework/goaddInsframework";
+					var img = new Image();
+				    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+				    url = img.src;  // 此时相对路径已经变成绝对路径
+				    img.src = null; // 取消请求
+					window.location.href = encodeURI(url);
+                }
+            }  
+        },  
+        error : function(errorMsg) {  
+            alert("数据请求失败，请联系系统管理员!");  
+        }  
+   }); 
+}
+
 //监听窗口大小变化
 window.onresize = function() {
 	setTimeout(domresize, 500);
