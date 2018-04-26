@@ -5,10 +5,19 @@ $(function(){
 			$('#itemid').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
-	})
+	});
 	$("#fm").form("disableValidation");
+	$("#weldedJunctionno").textbox('textbox').blur(function(){
+		var wjno = $("#weldedJunctionno").val();
+		var len = wjno.length;
+		if(len!=6){
+			for(var i=0;i<6-len;i++){
+				wjno = "0"+wjno;
+			}
+		}
+		$("#weldedJunctionno").textbox('setValue',wjno);
+	});
 })
-
 
 var url = "";
 var flag = 1;
@@ -66,12 +75,6 @@ function save(){
 					$.messager.alert("提示", messager);
 					$('#dlg').dialog('close');
 					$('#weldedJunctionTable').datagrid('reload');
-//					var url = "weldedjunction/goWeldedJunction";
-//					var img = new Image();
-//				    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
-//				    url = img.src;  // 此时相对路径已经变成绝对路径
-//				    img.src = null; // 取消请求
-//					window.location.href = encodeURI(url);
 				}
 			}
 			
