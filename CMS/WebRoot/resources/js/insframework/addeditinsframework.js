@@ -1,6 +1,10 @@
 $(function(){
-	parentCombobox();
-	typeCombobox();
+	var flagstatus = $("#flag").val();
+	if(flagstatus==0){
+		insfcombobox($("#type").val(),id);
+	}else{
+		insfcombobox(0,0);
+	}
 	updatetext();
 	$("#fm").form("disableValidation");
 })
@@ -30,9 +34,6 @@ function saveInsframework(){
 		url2 = url+"?parent="+parent+"&type="+type;
 	}else{
 		messager = "修改成功！";
-		if($("#parent").combobox('getValue')=='无'){
-			parent = 0;
-		}
 		url2 = url+"&parent="+parent+"&type="+type;
 	}
 	$('#fm').form('submit', {
@@ -73,53 +74,35 @@ function updatetext(){
 	$("#parent").combobox('select',parent);
 }
 
-//父节点
-function parentCombobox(){
-	$.ajax({  
-        type : "post",  
-        async : false,
-        url : "insframework/getParent",  
-        data : {},  
-        dataType : "json", //返回数据形式为json  
-        success : function(result) {
-            if (result) {
-                var optionStr = '';  
-                for (var i = 0; i < result.ary.length; i++) {  
-                    optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
-                            + result.ary[i].name + "</option>";  
-                }  
-                $("#parent").html(optionStr);
-            }  
-        },  
-        error : function(errorMsg) {  
-            alert("数据请求失败，请联系系统管理员!");  
-        }  
-   }); 
-	$("#parent").combobox();
-}
-
-//类型
-function typeCombobox(){
-	$.ajax({  
+//上级项目/类型
+function insfcombobox(type,id){
+	$.ajax({
       type : "post",  
       async : false,
-      url : "insframework/getType",  
+      url : "insframework/getParent?type="+type+"&id="+id,  
       data : {},  
       dataType : "json", //返回数据形式为json  
       success : function(result) {
           if (result) {
-              var optionStr = '';  
+              var optionStr1 = '',optionStr2 = '';  
               for (var i = 0; i < result.ary.length; i++) {  
-                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+                  optionStr1 += "<option value=\"" + result.ary[i].id + "\" >"  
                           + result.ary[i].name + "</option>";  
-              }
-              $("#typeid").html(optionStr);
+              }  
+              $("#parent").html(optionStr1);
+              for (var i = 0; i < result.arys.length; i++) {  
+                  optionStr2 += "<option value=\"" + result.arys[i].id + "\" >"  
+                          + result.arys[i].name + "</option>";  
+              }  
+              $("#typeid").html(optionStr2);
           }  
       },  
       error : function(errorMsg) {  
           alert("数据请求失败，请联系系统管理员!");  
       }  
  }); 
+	$("#parent").combobox();
 	$("#typeid").combobox();
+	$("#fm").form("disableValidation");
 }
 

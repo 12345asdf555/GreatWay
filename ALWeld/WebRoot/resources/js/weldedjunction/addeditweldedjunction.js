@@ -13,10 +13,6 @@ $(function(){
 	})  
 })
 
-//function checkwjno(){
-//	alert(12343);
-//}
-
 var url = "";
 var flag = 1;
 function addWeldedjunction(){

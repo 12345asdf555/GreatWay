@@ -1,6 +1,9 @@
 package com.greatway.manager;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.greatway.model.*;
 import com.greatway.page.Page;
 
@@ -44,4 +47,11 @@ public interface DictionaryManager {
 	 * @return
 	 */
 	int getvaluebyname(int typeid,String valuename);
+	
+	/**
+	 * 根据值获取值名称
+	 * @param value 值
+	 * @return
+	 */
+	String getDicValueByType(int value);
 }

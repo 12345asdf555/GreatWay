@@ -269,7 +269,7 @@ public class InsframeworkController {
 						ins.add(ins.size(),insf);
 					}
 				}else{
-					ins = im.getInsIdByParent(i.getId(),24);
+					ins = im.getInsIdByParent(i.getId(),23);
 					if(type==23){
 						Insframework insf = new Insframework();
 						BigInteger parent = im.getParentById(instype.get(0).getId());

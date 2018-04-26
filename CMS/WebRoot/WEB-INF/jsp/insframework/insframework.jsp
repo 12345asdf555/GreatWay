@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	
 	  	<div id="insframework_btn">
 			<div style="margin-bottom: 5px;">
-				<a href="insframework/goaddInsframework" class="easyui-linkbutton" iconCls="icon-add">新增</a>
+				<a href="javascript:addInsframework()" class="easyui-linkbutton" iconCls="icon-add">新增</a>
 				<a href="javascript:insertSearchInsf();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
 			</div>
 		</div>
