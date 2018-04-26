@@ -338,14 +338,14 @@ function suoqu(){
 	if(symbol==0){
 		window.setTimeout(function() {
 			if(symbol==0){
+				socketfc.close();
 				alert("索取失败");
-/*				socketfc.close();*/
 			}
 		}, 5000)
 	}
 	socketfc.onmessage = function(msg) {
 		var strdata1=msg.data;
-		if(strdata1.substring(4,6)=="56"){
+		if((strdata1.substring(4,6)=="56")||(strdata1.substring(0,8)=="7E7C2056")){
         var strdata2=strdata1.replace(/7C20/g, '00');
         var strdata3=strdata2.replace(/7C5E/g, '7E');
         var strdata4=strdata3.replace(/7C5C/g, '7C');
@@ -646,7 +646,7 @@ function xiafa(){
 			socketfc.send(xiafasend);
 			socketfc.onmessage = function(msg) {
 				var fan = msg.data;
-				if(fan.substring(0,2)=="7E"){
+				if(fan.substring(4,6)=="52"){
 					symbol1++;
 					if(parseInt(fan.substring(10,12),16)==1){
 						socketfc.close();
@@ -894,7 +894,7 @@ function xiafa(){
 			socketfc.send(xiafasend);
 			socketfc.onmessage = function(msg) {
 				var fan = msg.data;
-				if(fan.substring(0,2)=="7E"){
+				if(fan.substring(4,6)=="52"){
 					symbol1++;
 					if(parseInt(fan.substring(10,12),16)==1){
 						socketfc.close();
