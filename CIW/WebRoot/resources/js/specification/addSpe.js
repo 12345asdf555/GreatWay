@@ -408,7 +408,6 @@ function suoqu(){
 		if(socketfc.readyState!=1){
 			alert("索取成功");
 			}
-		
 		}}
 	}
 }
