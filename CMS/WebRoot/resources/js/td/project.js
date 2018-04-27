@@ -192,8 +192,8 @@ function newSearch(){
 		    			        	document.getElementById("position"+i+"").value=pos;
 		    			        }})
 			            		document.getElementById("btnReg"+i+"").value=dd.substring(4+index, 8+index);
-			            		document.getElementById("voltage"+i+"").value=parseInt(dd.substring(16+index, 20+index),16);
-			            		document.getElementById("electricity"+i+"").value=parseInt(dd.substring(12+index, 16+index),16);
+			            		document.getElementById("voltage"+i+"").value=parseInt(dd.substring(16+index, 20+index));
+			            		document.getElementById("electricity"+i+"").value=parseInt(dd.substring(12+index, 16+index));
 			            		document.getElementById("welderNo"+i+"").value=parseInt(dd.substring(8+index, 12+index),16);
 		            		/*document.getElementById("position"+i+"").value=c[index].fposition;*/
 		            		}

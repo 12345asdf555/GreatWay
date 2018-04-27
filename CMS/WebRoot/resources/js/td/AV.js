@@ -70,7 +70,7 @@
 				for(var j = 0;j < 1;j++){
 					for(var i = 0;i < dd.length;i+=53){
 						if(va == dd.substring(4+i, 8+i)&&dd.substring(8+i, 12+i)!="0000"){
-						var mach = parseInt(dd.substring(4+i, 8+i),16);
+						var mach = dd.substring(4+i, 8+i);
 						var weld = dd.substring(8+i, 12+i);
 						var dati = dd.substring(20+i, 39+i);
 						var val = Date.parse(dati);
@@ -84,8 +84,8 @@
 						}
 						time1[jj] = val;
 						var xx = dd.substring(12+i, 16+i);
-						num1[jj] = parseInt(xx,16);
-						num2[jj] = parseInt(dd.substring(16+i, 20+i),16);
+						num1[jj] = parseInt(xx);
+						num2[jj] = parseInt(dd.substring(16+i, 20+i));
 						maxele = parseInt(dd.substring(41+i, 44+i));
 						minele = parseInt(dd.substring(44+i, 47+i));
 						maxvol = parseInt(dd.substring(47+i, 50+i));
