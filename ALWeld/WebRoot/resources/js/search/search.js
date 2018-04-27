@@ -516,7 +516,7 @@ function searchWJCombobox(){
 		"<option value='felectricity_unit'>电流单位</option>" +
 		"<option value='fvaltage_unit'>电压单位</option>" +
 		"<option value='fstart_time'>开始时间</option>" +
-		"<option value='fend_time'>完成时间</option>" +
+		"<option value='fend_time'>完成时间</option>" ;
 //		"<option value='fcreatetime'>创建时间</option>" +
 //		"<option value='	fupdatetime'>修改时间</option>" +
 //		"<option value='fupdatecount'>修改次数</option>";
