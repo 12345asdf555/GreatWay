@@ -406,31 +406,31 @@ function suoqu(){
 	        	sconx = "0" + sconx;
 	        }
 	      }
-		if(sconx.substring(0,1)=="1"){
+		if(sconx.substring(7,8)=="1"){
 			$("#finitial").prop("checked",true);
 		}else{
 			$("#finitial").prop("checked",false);
 		}
-		if(sconx.substring(1,4)=="000"){
+		if(sconx.substring(3,6)=="000"){
 			$('#farc').combobox('select',111);
-		}else if(sconx.substring(1,4)=="100"){
+		}else if(sconx.substring(1,4)=="001"){
 			$('#farc').combobox('select',112);
 		}else if(sconx.substring(1,4)=="010"){
 			$('#farc').combobox('select',113);
 		}else{
 			$('#farc').combobox('select',114);
 		}
-		if(sconx.substring(5,6)=="0"){
+		if(sconx.substring(2,3)=="0"){
 			$('#fselect').combobox('select',102);
 		}else{
 			$('#fselect').combobox('select',101);
 		}
-		if(sconx.substring(6,7)=="1"){
+		if(sconx.substring(1,2)=="1"){
 			$("#fcontroller").prop("checked",true);
 		}else{
 			$("#fcontroller").prop("checked",false);
 		}
-		if(sconx.substring(7,8)=="1"){
+		if(sconx.substring(0,1)=="1"){
 			$("#fmode").prop("checked",true);
 		}else{
 			$("#fmode").prop("checked",false);
@@ -651,33 +651,33 @@ function xiafa(){
 			      }
 				var con="";
 				if($('#finitial').is(':checked')){
-					con=con+"1";
+					con="1"+con;
 				}else{
-					con=con+"0";
+					con="0"+con;
 				}
 				if($('#farc').combobox('getValue')==111){
-					con=con+"0000";
+					con="0000"+con;
 				}else if($('#farc').combobox('getValue')==112){
-					con=con+"1000";
+					con="0001"+con;
 				}else if($('#farc').combobox('getValue')==113){
-					con=con+"0100";
+					con="0010"+con;
 				}else{
-					con=con+"0010";
+					con="0100"+con;
 				}
 				if($('#fselect').combobox('getValue')==101){
-					con=con+"1";
+					con="1"+con;
 				}else{
-					con=con+"0";
+					con="0"+con;
 				}
 				if($('#fcontroller').is(':checked')){
-					con=con+"1";
+					con="1"+con;
 				}else{
-					con=con+"0";
+					con="0"+con;
 				}
 				if($('#fmode').is(':checked')){
-					con=con+"1";
+					con="1"+con;
 				}else{
-					con=con+"0";
+					con="0"+con;
 				}
 				con = parseInt(con,2);
 				con = parseInt(con).toString(16);
@@ -938,33 +938,33 @@ function xiafa(){
 				      }
 					var con="";
 					if($('#finitial').is(':checked')){
-						con=con+"1";
+						con="1"+con;
 					}else{
-						con=con+"0";
+						con="0"+con;
 					}
 					if($('#farc').combobox('getValue')==111){
-						con=con+"0000";
+						con="0000"+con;
 					}else if($('#farc').combobox('getValue')==112){
-						con=con+"1000";
+						con="0001"+con;
 					}else if($('#farc').combobox('getValue')==113){
-						con=con+"0100";
+						con="0010"+con;
 					}else{
-						con=con+"0010";
+						con="0100"+con;
 					}
 					if($('#fselect').combobox('getValue')==101){
-						con=con+"1";
+						con="1"+con;
 					}else{
-						con=con+"0";
+						con="0"+con;
 					}
 					if($('#fcontroller').is(':checked')){
-						con=con+"1";
+						con="1"+con;
 					}else{
-						con=con+"0";
+						con="0"+con;
 					}
 					if($('#fmode').is(':checked')){
-						con=con+"1";
+						con="1"+con;
 					}else{
-						con=con+"0";
+						con="0"+con;
 					}
 					con = parseInt(con,2);
 					con = parseInt(con).toString(16);
