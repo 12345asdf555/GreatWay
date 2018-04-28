@@ -755,7 +755,7 @@
 			</if>
 		</if>
 		group by fmachine_id ,weldTime
-		) A group by fid
+		) A group by fid ,fwelder_id
 		)temp
 	</select>
 	
@@ -1759,6 +1759,7 @@
 		case when round(sum(fworktime)/60/60)&gt;#{minnum}+#{avgnum}*8 and round(sum(fworktime)/60/60)&lt;=#{minnum}+#{avgnum}*9 then 1 else 0 end as num9,
 		case when round(sum(fworktime)/60/60)&gt;#{minnum}+#{avgnum}*9 and round(sum(fworktime)/60/60)&lt;=#{minnum}+10+#{avgnum}*10 then 1 else 0 end as num10
 		FROM tb_work l left join tb_welder w on l.fwelder_id = w.fwelder_no
+		inner join tb_welded_junction j on l.fjunction_id = j.fwelded_junction_no
 		inner join tb_insframework i on i.fid = l.fitemid
 		inner join tb_insframework ins on ins.fid = i.fparent
 		where 1=1  

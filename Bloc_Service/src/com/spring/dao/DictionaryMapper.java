@@ -29,5 +29,6 @@ public interface DictionaryMapper extends Mapper<Dictionarys> {
 	List<Dictionarys> getDicValueByValue(@Param("typeid")int typeid,@Param("value")int value);
 	
 	int getvaluebyname(@Param("typeid")int typeid,@Param("valuename")String valuename);
-	
+
+	String getDicValueByType(@Param("value")int value);
 }

@@ -66,7 +66,6 @@ function showcompanyUseChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
-	$("#chartLoading").hide();
 }
 
 function CaustUseDatagrid(){
@@ -129,10 +128,11 @@ function CaustUseDatagrid(){
 		         return;
 		    }
 		    //更新数据
-		     var option = charts.getOption();
-		     option.series[0].data = array2;
-		     option.xAxis[0].data = array1;
-		     charts.setOption(option);    
+		    var option = charts.getOption();
+		    option.series[0].data = array2;
+		    option.xAxis[0].data = array1;
+		    charts.setOption(option);    
+		 	$("#chartLoading").hide();
 		}
 	});
 }
@@ -170,7 +170,6 @@ function serachcompanyUse(){
 	chartStr = "";
 	setTimeout(function(){
 		CaustUseDatagrid();
-		showcompanyUseChart();
 	},500);
 }
 

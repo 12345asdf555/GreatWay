@@ -16,45 +16,10 @@ function setParam(){
 	chartStr += "&item="+item+"&otype="+otype+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&number="+number;
 }
 
+var array1 = new Array();
+var array2 = new Array();
+var Series = [];
 function showItemOverptimeChart(){
-	setParam();
-	var array1 = new Array();
-	var array2 = new Array();
-	var Series = [];
-	var parent = $("#parent").val();
-	 $.ajax({  
-         type : "post",  
-         async : false,
-         url : "itemChart/getItemOvertime?parent="+parent+chartStr,
-         data : {},  
-         dataType : "json", //返回数据形式为json  
-         success : function(result) {  
-             if (result) {
-            	 for(var i=0;i<result.rows.length;i++){
-                  	array1.push(result.rows[i].weldTime);
-            	 }
-                 for(var i=0;i<result.arys.length;i++){
-                 	array2.push(result.arys[i].name);
-                 	Series.push({
-                 		name : result.arys[i].name,
-                 		type :'line',//折线图
-                 		data : result.arys[i].num,
-                 		itemStyle : {
-                 			normal: {
-                 				label : {
-                 					show: true//显示每个折点的值
-                 				}
-                 			}
-                 		}
-                 	});
-                 }
-                 
-             }  
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("itemOvertimeChart"));
 	//显示加载动画效果
@@ -99,6 +64,7 @@ function showItemOverptimeChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function ItemtimeDatagrid(){
@@ -118,13 +84,28 @@ function ItemtimeDatagrid(){
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
                  column.push({field:"weldTime",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
-                 
+                 for(var i=0;i<result.rows.length;i++){
+                   	array1.push(result.rows[i].weldTime);
+             	 }
                  for(var m=0;m<result.arys.length;m++){
                 	 column.push({field:"overtime",title:result.arys[m].name+"(次)",width:width,halign : "center",align : "left",
                 		 formatter : function(value,row,index){
                 			 return "<a href='junctionChart/goJunctionOvertime?parent="+row.id+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&number="+number+"'>"+value+"</a>";
                 		 }
                 	 },{field:"id",title:"项目id",width:width,halign : "center",align : "left",hidden : true});
+                   	array2.push(result.arys[m].name);
+                   	Series.push({
+                   		name : result.arys[m].name,
+                   		type :'line',//折线图
+                   		data : result.arys[m].num,
+                   		itemStyle : {
+                   			normal: {
+                   				label : {
+                   					show: true//显示每个折点的值
+                   				}
+                   			}
+                   		}
+                   	});
                  }
              }  
          },  
@@ -177,9 +158,15 @@ function ItemtimeCombobox(){
 
 
 function serachItemOvertime(){
+	$("#chartLoading").show();
+	Series = [];
+	array1 = new Array();
+	array2 = new Array();
 	chartStr = "";
-	showItemOverptimeChart();
-	ItemtimeDatagrid();
+	setTimeout(function(){
+		ItemtimeDatagrid();
+		showItemOverptimeChart();
+	},500);
 }
 
 //监听窗口大小变化

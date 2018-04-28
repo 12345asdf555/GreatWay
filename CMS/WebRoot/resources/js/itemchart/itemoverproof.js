@@ -16,44 +16,10 @@ function setParam(){
 	chartStr = "?otype="+otype+"&parent="+parent+"&item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
+var array1 = new Array();
+var array2 = new Array();
+var Series = [];
 function showitemOverproofChart(){
-	setParam();
-	var array1 = new Array();
-	var array2 = new Array();
-	var Series = [];
-	 $.ajax({  
-         type : "post",  
-         async : false,
-         url : "itemChart/getItemOverproof"+chartStr,
-         data : {},  
-         dataType : "json", //返回数据形式为json  
-         success : function(result) {  
-             if (result) {
-            	 for(var i=0;i<result.rows.length;i++){
-                   	array1.push(result.rows[i].weldTime);
-             	 }
-                  for(var i=0;i<result.arys.length;i++){
-                  	array2.push(result.arys[i].name);
-                 	Series.push({
-                 		name : result.arys[i].name,
-                 		type :'line',//折线图
-                 		data : result.arys[i].num,
-                 		itemStyle : {
-                 			normal: {
-                 				label : {
-                 					show: true//显示每个折点的值
-                 				}
-                 			}
-                 		}
-                 	});
-                 }
-                 
-             }  
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("itemOverproofChart"));
 	//显示加载动画效果
@@ -98,6 +64,7 @@ function showitemOverproofChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function ItemoverproofDatagrid(){
@@ -118,7 +85,23 @@ function ItemoverproofDatagrid(){
                  
                  for(var m=0;m<result.arys.length;m++){
                 	 column.push({field:"overproof",title:result.arys[m].name+"(s)",width:width,halign : "center",align : "left"},{field:"itemid",title:"项目id",width:width,halign : "center",align : "left",hidden : true});
+                	 array2.push(result.arys[m].name);
+                  	 Series.push({
+                  		 name : result.arys[m].name,
+                  		 type :'line',//折线图
+                  		 data : result.arys[m].num,
+                  		 itemStyle : {
+                  			 normal: {
+                  				 label : {
+                  					 show: true//显示每个折点的值
+                  				 }
+                  			 }
+                  		 }
+                  	 });
                  }
+            	 for(var i=0;i<result.rows.length;i++){
+                   	array1.push(result.rows[i].weldTime);
+             	 }
              }  
          },  
         error : function(errorMsg) {  
@@ -169,9 +152,15 @@ function ItemtimeCombobox(){
 }
 
 function serachitemoverproof(){
+	$("#chartLoading").show();
+	array1 = new Array();
+	array2 = new Array();
+	Series = [];
 	chartStr = "";
-	showitemOverproofChart();
-	ItemoverproofDatagrid();
+	setTimeout(function(){
+		ItemoverproofDatagrid();
+		showitemOverproofChart();
+	},500);
 }
 
 //监听窗口大小变化

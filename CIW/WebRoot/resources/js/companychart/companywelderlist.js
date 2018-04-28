@@ -84,7 +84,6 @@ function showCompanyLoadsChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
-	$("#chartLoading").hide();
 }
 
 function CompanyloadsDatagrid(){
@@ -131,11 +130,12 @@ function CompanyloadsDatagrid(){
 			         return;
 			    }
 			    //更新数据
-			     var option = charts.getOption();
-			     option.series[0].data = array2;
-			     option.series[1].data = array2;
-			     option.xAxis[0].data = array1;
-			     charts.setOption(option);    
+			    var option = charts.getOption();
+			    option.series[0].data = array2;
+			    option.series[1].data = array2;
+			    option.xAxis[0].data = array1;
+			    charts.setOption(option);
+			 	$("#chartLoading").hide();
 			}
 	 })
 }
@@ -148,7 +148,6 @@ function serachCompanywmlist(){
 	chartStr = "";
 	setTimeout(function(){
 		CompanyloadsDatagrid();
-		showCompanyLoadsChart();
 	},500);
 }
 

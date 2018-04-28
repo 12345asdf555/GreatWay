@@ -40,4 +40,11 @@ public interface DictionaryWebService {
 	 */
 	int getvaluebyname(String object);
 	
+	/**
+	 * 根据值获取值名称
+	 * @param object 值id
+	 * @return
+	 */
+	Object getDicValueByType(String object);
+	
 }

@@ -371,8 +371,9 @@ public class JunctionChartController {
 		String time2 = request.getParameter("time2");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		dto.setDtoStatus(1);
 		if(iutil.isNull(weldtime)){
-			dto.setTime("%"+weldtime+"%");
+			dto.setTime(weldtime+"%");
 		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -441,8 +442,9 @@ public class JunctionChartController {
 		String time1 = request.getParameter("time1");
 		String time2 = request.getParameter("time2");
 		WeldDto dto = new WeldDto();
+		dto.setDtoStatus(1);
 		if(iutil.isNull(weldtime)){
-			dto.setTime("%"+weldtime+"%");
+			dto.setTime(weldtime+"%");
 		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);

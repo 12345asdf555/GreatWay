@@ -342,6 +342,8 @@ function tabsIncident(){
 	});
 }
 
-function pageupclick(){
-	alert("点我干吗");
+//选中时改变背景颜色
+function changeColor(obj){
+	$("ul li").css("backgroundColor","#ffffff");
+	obj.style.background = "#ffe48d";
 }

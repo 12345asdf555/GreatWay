@@ -112,4 +112,13 @@ public class DictionaryServiceImpl implements DictionaryService {
 			return -1;
 		}
 	}
+
+	@Override
+	public String getDicValueByType(int value) {
+		try{
+			return dictionaryMapper.getDicValueByType(value);
+		}catch(Exception e){
+			return null;
+		}
+	}
 }

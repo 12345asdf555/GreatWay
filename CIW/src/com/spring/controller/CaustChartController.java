@@ -1048,14 +1048,22 @@ public class CaustChartController {
 				if(m!=null){
 					if(m.getAvgnum()==0){
 						m.setAvgnum(2);
-						num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						if(m.getMinnum()>0){
+							num1[0] = m.getMinnum()-1+"-"+(m.getMinnum()+m.getAvgnum());
+						}else{
+							num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						}
 						for(int i=1;i<10;i++){
 							oldnum = m.getMinnum()+m.getAvgnum()*i+1;
 							newnum = m.getMinnum()+m.getAvgnum()*(i+1);
 							num1[i] = oldnum+"-"+newnum;
 						}
 					}else{
-						num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						if(m.getMinnum()>0){
+							num1[0] = m.getMinnum()-1+"-"+(m.getMinnum()+m.getAvgnum());
+						}else{
+							num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						}
 						for(int i=1;i<9;i++){
 							oldnum = m.getMinnum()+m.getAvgnum()*i+1;
 							newnum = m.getMinnum()+m.getAvgnum()*(i+1);

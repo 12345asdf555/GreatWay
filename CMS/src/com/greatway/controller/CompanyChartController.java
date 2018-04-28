@@ -510,6 +510,7 @@ public class CompanyChartController {
 		String parentId = request.getParameter("parent");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		dto.setDtoStatus(1);
 		if(!iutil.isNull(parentId)){
 			//数据权限处理
 			BigInteger uid = lm.getUserId(request);
@@ -643,7 +644,7 @@ public class CompanyChartController {
 			}
 		}
 		BigInteger parent = null;
-		dto.setDtoStatus(1);
+		dto.setDtoStatus(0);
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -779,6 +780,8 @@ public class CompanyChartController {
 				dto.setYear("year");
 			}else if(type.equals("2")){
 				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
 			}else if(type.equals("4")){
 				dto.setWeek("week");
 			}

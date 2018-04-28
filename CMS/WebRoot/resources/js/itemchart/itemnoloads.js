@@ -17,45 +17,10 @@ function setParam(){
 	chartStr = "?otype="+otype+"&parent="+parent+"&item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
+var array1 = new Array();
+var array2 = new Array();
+var Series = [];
 function showitemNoLoadsChart(){
-	setParam();
-	var array1 = new Array();
-	var array2 = new Array();
-	var Series = [];
-	 $.ajax({  
-         type : "post",  
-         async : false,
-         url : "itemChart/getItemNoLoads"+chartStr,
-         data : {},  
-         dataType : "json", //返回数据形式为json  
-         success : function(result) {  
-             if (result) {
-            	 for(var i=0;i<result.rows.length;i++){
-                  	array1.push(result.rows[i].weldTime);
-            	 }
-                 for(var i=0;i<result.arys.length;i++){
-                 	array2.push(result.arys[i].name);
-                 	Series.push({
-                 		name : result.arys[i].name,
-                 		type :'line',//折线图
-                 		data : result.arys[i].num,
-                 		itemStyle : {
-                 			normal: {
-                 				label : {
-                 					show: true,//显示每个折点的值
-                 					formatter: '{c}%'  
-                 				}
-                 			}
-                 		}
-                 	});
-                 }
-                 
-             }  
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("itemNoLoadsChart"));
 	//显示加载动画效果
@@ -106,6 +71,7 @@ function showitemNoLoadsChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 
@@ -124,13 +90,30 @@ function ItemnoloadsDatagrid(){
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
                  column.push({field:"weldTime",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
-                 
+
+            	 for(var i=0;i<result.rows.length;i++){
+                  	array1.push(result.rows[i].weldTime);
+            	 }
                  for(var m=0;m<result.arys.length;m++){
                 	 column.push({field:"loads",title:result.arys[m].name+"(空载率)",width:width,halign : "center",align : "left",
                 		 formatter : function(value,row,index){
                 			 return "<a href='junctionChart/goDetailNoLoads?itemid="+row.itemid+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"'>"+value+"%"+"</a>";
                 		 }
                 	 },{field:"itemid",title:"项目id",width:width,halign : "center",align : "left",hidden : true});
+                  	 array2.push(result.arys[m].name);
+                  	 Series.push({
+                  		 name : result.arys[m].name,
+                  		 type :'line',//折线图
+                  		 data : result.arys[m].num,
+                  		 itemStyle : {
+                  			 normal: {
+                  				 label : {
+                  					 show: true,//显示每个折点的值
+                  					 formatter: '{c}%'  
+                  				 }
+                  			 }
+                  		 }
+                  	 });
                  }
              }  
          },  
@@ -183,9 +166,15 @@ function ItemtimeCombobox(){
 
 
 function serachitemnoloads(){
+	$("#chartLoading").show();
+	array1 = new Array();
+	array2 = new Array();
+	Series = [];
 	chartStr = "";
-	showitemNoLoadsChart();
-	ItemnoloadsDatagrid();
+	setTimeout(function() {
+		ItemnoloadsDatagrid();
+		showitemNoLoadsChart();
+	}, 500);
 }
 
 //监听窗口大小变化

@@ -117,6 +117,7 @@ function showcaustEfficiencyChart(){
 		min = str[0],max=str[1];
 		CaustEfficiencyDatagrid();
 	});
+	$("#chartLoading").hide();
 }
 
 function CaustEfficiencyDatagrid(){
@@ -214,8 +215,11 @@ function typecombobox(){
 function serachEfficiencyCaust(){
 	chartStr = "",min="",max="";
 	$("#nextparent").val("");
-	showcaustEfficiencyChart();
-	CaustEfficiencyDatagrid();
+	$("#chartLoading").show();
+	setTimeout(function() {
+		showcaustEfficiencyChart();
+		CaustEfficiencyDatagrid();
+	}, 500)
 }
 
 //监听窗口大小变化

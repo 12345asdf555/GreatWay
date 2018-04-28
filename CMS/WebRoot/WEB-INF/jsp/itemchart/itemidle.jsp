@@ -29,11 +29,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/echarts.js"></script>
 	<script type="text/javascript" src="resources/js/session-overdue.js"></script>
-	<script type="text/javascript" src="resources/js/getTimeByYear.js"></script>
+	<script type="text/javascript" src="resources/js/getTime.js"></script>
 	<script type="text/javascript" src="resources/js/itemchart/itemidle.js"></script>
   </head>
   
   <body class="easyui-layout">
+	<div id="chartLoading" style="width:100%;height:100%;">
+		<div id="chartShow" style="width:160px;" align="center"><img src="resources/images/load1.gif"/>数据加载中，请稍候...</div>
+	</div>
     <div id="body" region="center"  hide="true"  split="true" title="项目部焊机闲置率" style="background: witch; height: 335px;">
 	  	<div id="itemidle_btn">
 			<div style="margin-bottom: 5px;">

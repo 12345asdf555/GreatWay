@@ -1,6 +1,10 @@
 $(function(){
 	classifyDatagrid();
 })
+
+$(document).ready(function(){
+	showCaustHourChart();
+})
 var chartStr = "";
 
 function setParam(){
@@ -9,34 +13,10 @@ function setParam(){
 	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
+var charts;
+var array1 = new Array();
+var array2 = new Array();
 function showCaustHourChart(){
-	setParam();
-	var array1 = new Array();
-	var array2 = new Array();
-	var parent = $("#parent").val();
-	 $.ajax({  
-         type : "post",  
-         async : false, //同步执行  
-         url : encodeURI("caustChart/getCaustHour?parent="+parent+chartStr),
-         data : {},  
-         dataType : "json", //返回数据形式为json  
-         success : function(result) {  
-             if (result) {  
-                 for(var i=0;i<result.rows.length;i++){
-                 	array1.push(result.rows[i].name);
-                 	if(result.rows[i].jidgather==0){
-                     	array2.push(0);
-                 	}else{
-                     	var num = (result.rows[i].manhour/result.rows[i].jidgather).toFixed(2);
-                     	array2.push(num);
-                 	}
-                 }
-             }  
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("caustHourChart"));
 	//显示加载动画效果
@@ -111,6 +91,13 @@ function CaustHourDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter:function(value,row,index){
+				array1.push(value);
+				if(row.jidgather==0){
+                 	array2.push(0);
+             	}else{
+                 	var num = (row.manhour/row.jidgather).toFixed(2);
+                 	array2.push(num);
+             	}
 				return '<a href="itemChart/goItemHour?item='+row.itemid+'">'+value+'</a>';
 			}
 		}, {
@@ -144,7 +131,18 @@ function CaustHourDatagrid(){
 			halign : "center",
 			align : "left",
 			hidden: true
-		}] ]
+		}] ],
+		onLoadSuccess : function(index,row){
+			if(!charts){
+		         return;
+		    }
+		    //更新数据
+		     var option = charts.getOption();
+		     option.series[0].data = array2;
+		     option.xAxis[0].data = array1;
+		     charts.setOption(option);    
+		 	 $("#chartLoading").hide();
+		}
 	});
 }
 
@@ -206,7 +204,6 @@ function classifyDatagrid(){
 		onLoadSuccess: function(){
 			$("#classify").datagrid("selectRow",0);
 			CaustHourDatagrid();
-			showCaustHourChart();
 		}
 	});
 }
@@ -214,12 +211,16 @@ function classifyDatagrid(){
 function commitChecked(){
 	chartStr = "";
 	search = "";
+	array1 = new Array();
+	array2 = new Array();
+	$("#chartLoading").show();
 	var rows = $("#classify").datagrid("getSelected");
 	search += " (fmaterial='"+rows.material+"' and fexternal_diameter='"+rows.external_diameter+"' and fwall_thickness='"+rows.wall_thickness+"' and fnextExternal_diameter='"+rows.nextExternal_diameter+
 	"' and fnextwall_thickness ='"+rows.nextwall_thickness+"' and fnext_material ='"+rows.nextmaterial+"')";
 	chartStr += "&search="+search;
-	showCaustHourChart();
-	CaustHourDatagrid();
+	setTimeout(function(){
+		CaustHourDatagrid();
+	},500);
 }
 
 function serachCaustHour(){

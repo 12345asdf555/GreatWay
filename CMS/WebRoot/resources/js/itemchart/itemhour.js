@@ -1,38 +1,17 @@
 $(function(){
 	classifyDatagrid();
 })
+
+$(document).ready(function(){
+	showItemHourChart();
+})
 var chartStr = "";
 var search;
 
+var charts;
+var array1 = new Array();
+var array2 = new Array();
 function showItemHourChart(){
-	var array1 = new Array();
-	var array2 = new Array();
-	var item = $("#item").val();
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	 $.ajax({  
-         type : "post",  
-         async : false, //同步执行
-         url : encodeURI("itemChart/getitemHour?item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+chartStr),
-         data : {},  
-         dataType : "json", //返回数据形式为json  
-         success : function(result) {  
-             if (result) {  
-                 for(var i=0;i<result.rows.length;i++){
-                 	array1.push(result.rows[i].material+"+"+result.rows[i].nextmaterial+"+"+result.rows[i].externalDiameter+"+"+result.rows[i].nextexternaldiameter+"+"+result.rows[i].wallThickness+"+"+result.rows[i].nextwall_thickness);
-                 	if(result.rows[i].jidgather==0){
-                     	array2.push(0);
-                 	}else{
-                     	var num = (result.rows[i].manhour/result.rows[i].jidgather).toFixed(2);
-                     	array2.push(num);
-                 	}
-                 }
-             }  
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    });
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("itemHourChart"));
 	//显示加载动画效果
@@ -109,6 +88,13 @@ function itemHourDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter:function(value,row,index){
+				array1.push(row.material+"+"+row.nextmaterial+"+"+row.externalDiameter+"+"+row.nextexternaldiameter+"+"+row.wallThickness+"+"+row.nextwall_thickness); 
+				if(row.jidgather==0){
+                 	array2.push(0);
+             	}else{
+                 	var num = (row.manhour/row.jidgather).toFixed(2);
+                 	array2.push(num);
+             	}
 				var str = row.material+"+"+row.nextmaterial+"+"+row.externalDiameter+"+"+row.nextexternaldiameter+"+"+row.wallThickness+"+"+row.nextwall_thickness;
 				return '<a href="junctionChart/goJunctionHour?material='+encodeURI(row.material)+'&nextmaterial='+encodeURI(row.nextmaterial)+'&externalDiameter='+encodeURI(row.externalDiameter)+'&nextexternaldiameter='+encodeURI(row.nextexternaldiameter)+
 				'&wallThickness='+encodeURI(row.wallThickness)+'&nextwall_thickness='+encodeURI(row.nextwall_thickness)+'&itemid='+row.itemid+'&time1='+dtoTime1+'&time2='+dtoTime2+'">'+str+'</a>';
@@ -186,7 +172,18 @@ function itemHourDatagrid(){
 			halign : "center",
 			align : "left",
 			hidden: true
-		}] ]
+		}] ],
+		onLoadSuccess : function(index,row){
+			if(!charts){
+		         return;
+		    }
+		    //更新数据
+		     var option = charts.getOption();
+		     option.series[0].data = array2;
+		     option.xAxis[0].data = array1;
+		     charts.setOption(option);    
+		 	 $("#chartLoading").hide();
+		}
 	});
 }
 
@@ -249,7 +246,6 @@ function classifyDatagrid(){
 		toolbar : '#classify_btn',
 		onLoadSuccess: function(){
 			$("#classify").datagrid("selectRow",0);
-			showItemHourChart();
 			itemHourDatagrid();
 		}
 	});
@@ -257,6 +253,8 @@ function classifyDatagrid(){
 function commitChecked(){
 	chartStr = "";
 	search = "";
+	array1 = new Array();
+	array2 = new Array();
 	var rows = $("#classify").datagrid("getSelections");
 	if(rows==null || rows==""){
 		alert("您还没有选中行！");
@@ -271,8 +269,9 @@ function commitChecked(){
 			"' and fnextwall_thickness ='"+rows[i].nextwall_thickness+"' and Fnext_material ='"+rows[i].nextmaterial+"')";
 		}
 		chartStr = "&search="+search;
-		showItemHourChart();
-		itemHourDatagrid();
+		setTimeout(function(){
+			itemHourDatagrid();
+		},500);
 	}
 }
 

@@ -44,4 +44,11 @@ public interface DictionaryService {
 	 * @return
 	 */
 	int getvaluebyname(int typeid,String valuename);
+
+	/**
+	 * 根据值获取值名称
+	 * @param value 值
+	 * @return
+	 */
+	String getDicValueByType(int value);
 }

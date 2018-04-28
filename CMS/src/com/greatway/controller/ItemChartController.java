@@ -292,6 +292,7 @@ public class ItemChartController {
 		String item = request.getParameter("item");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		dto.setDtoStatus(1);
 		BigInteger parent = null;
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -648,7 +649,7 @@ public class ItemChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		BigInteger parent = null;
-		dto.setDtoStatus(1);
+		dto.setDtoStatus(0);
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -760,6 +761,8 @@ public class ItemChartController {
 				dto.setYear("year");
 			}else if(type.equals("2")){
 				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
 			}else if(type.equals("4")){
 				dto.setWeek("week");
 			}

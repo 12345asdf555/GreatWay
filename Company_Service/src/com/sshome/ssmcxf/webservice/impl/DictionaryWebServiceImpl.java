@@ -119,4 +119,14 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 		}
 	}
 
+	@Override
+	public Object getDicValueByType(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			return ds.getDicValueByType(json.getInt("VALUEID"));
+		}catch(Exception e){
+			return null;
+		}
+	}
+
 }

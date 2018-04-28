@@ -407,6 +407,7 @@ public class BlocChartController {
 		String time2 = request.getParameter("dtoTime2");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
+		dto.setDtoStatus(1);
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -510,7 +511,7 @@ public class BlocChartController {
 		String time2 = request.getParameter("dtoTime2");
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
-		dto.setDtoStatus(1);
+		dto.setDtoStatus(0);
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -635,10 +636,13 @@ public class BlocChartController {
 				dto.setYear("year");
 			}else if(type.equals("2")){
 				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
 			}else if(type.equals("4")){
 				dto.setWeek("week");
 			}
-		}List<LiveData> time = null;
+		}
+		List<LiveData> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));

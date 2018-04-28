@@ -12,30 +12,10 @@ function setParam(){
 	chartStr = "?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
+var charts;
+var array1 = new Array();
+var array2 = new Array();
 function showitemUseChart(){
-	setParam();
-	var array1 = new Array();
-	var array2 = new Array();
-	var array3 = new Array();
-	 $.ajax({  
-         type : "post",  
-         async : false, //同步执行  
-         url : "itemChart/getItemUse"+chartStr,
-         data : {},  
-         dataType : "json", //返回数据形式为json  
-         success : function(result) {  
-             if (result) {  
-                 for(var i=0;i<result.rows.length;i++){
-                 	array1.push(result.rows[i].fname);
-                 	array2.push(result.rows[i].time);
-                 	array3.push(result.rows[i].type);
-                 }
-             }  
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("itemUseChart"));
 	//显示加载动画效果
@@ -106,7 +86,12 @@ function ItemUseDatagrid(){
 			title : '厂家',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			formatter : function(value,row,index){
+				array1.push(value);
+				array2.push(row.time);
+             	return value;
+			}
 		}, {
 			field : 'type',
 			title : '型号',
@@ -125,14 +110,29 @@ function ItemUseDatagrid(){
 			width : 100,
 			halign : "center",
 			align : "left"
-		}] ]
+		}] ],
+		onLoadSuccess : function(index,row){
+		    if(!charts){
+		         return;
+		    }
+		    //更新数据
+		    var option = charts.getOption();
+		    option.series[0].data = array2;
+		    option.xAxis[0].data = array1;
+		    charts.setOption(option);    
+		 	$("#chartLoading").hide();
+		}
 	});
 }
 
 function serachitemUse(){
+	$("#chartLoading").show();
+	array1 = new Array();
+	array2 = new Array();
 	chartStr = "";
-	ItemUseDatagrid();
-	showitemUseChart();
+	setTimeout(function(){
+		ItemUseDatagrid();
+	},500);
 }
 
 //监听窗口大小变化

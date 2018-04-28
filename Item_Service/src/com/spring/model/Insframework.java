@@ -17,6 +17,14 @@ public class Insframework {
 	private String typename;
 	private String creator;
 	private String modifier;
+	private String parentname;
+	
+	public String getParentname() {
+		return parentname;
+	}
+	public void setParentname(String parentname) {
+		this.parentname = parentname;
+	}
 	
 	public String getCreator() {
 		return creator;

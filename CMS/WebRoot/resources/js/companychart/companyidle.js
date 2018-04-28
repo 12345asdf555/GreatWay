@@ -15,43 +15,10 @@ function setParam(){
 	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
+var array1 = new Array();
+var array2 = new Array();
+var Series = [];
 function showCompanyIdleChart(){
-	setParam();
-	var array1 = new Array();
-	var array2 = new Array();
-	var Series = [];
-	 $.ajax({  
-         type : "post",  
-         async : false, //同步执行  
-         url : "companyChart/getCompanyIdle"+chartStr,
-         data : {},  
-         dataType : "json", //返回数据形式为json  
-         success : function(result) {  
-        	 if (result) {
-            	 for(var i=0;i<result.arys.length;i++){
-                  	array1.push(result.arys[i].weldTime);
-            	 }
-                 for(var i=0;i<result.arys1.length;i++){
-                 	array2.push(result.arys1[i].name);
-                 	Series.push({
-                 		name : result.arys1[i].name,
-                 		type :'line',//折线图
-                 		data : result.arys1[i].idle,
-                 		itemStyle : {
-                 			normal: {
-                 				label : {
-                 					show: true//显示每个折点的值
-                 				}
-                 			}
-                 		}
-                 	});
-                 }
-             }
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("companyIdleChart"));
 	//显示加载动画效果
@@ -96,6 +63,7 @@ function showCompanyIdleChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function CaustIdleDatagrid(){
@@ -111,9 +79,25 @@ function CaustIdleDatagrid(){
              if (result) {
             	 var width=$("#body").width()/result.rows.length;
                  column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
-                 
+
+                 for(var x=0;x<result.arys.length;x++){
+                 	array1.push(result.arys[x].weldTime);
+                 }
                  for(var m=0;m<result.arys1.length;m++){
                 	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustIdle?parent="+result.arys1[m].id+"'>"+result.arys1[m].name+"(台)</a>",width:width,halign : "center",align : "left"});
+                	 array2.push(result.arys1[m].name);
+                   	 Series.push({
+                  		name : result.arys1[m].name,
+                  		type :'line',//折线图
+                  		data : result.arys1[m].idle,
+                  		itemStyle : {
+                  			normal: {
+                  				label : {
+                  					show: true//显示每个折点的值
+                  				}
+                  			}
+                  		}
+                  	});
                  }
              }  
          },  
@@ -140,16 +124,24 @@ function CaustIdleDatagrid(){
 function otypecombobox(){
 	var optionFields = "<option value='1'>一年</option>" +
 	"<option value='2'>一月</option>" +
+	"<option value='3'>一日</option>" +
 	"<option value='4'>一周</option>";
 	$("#otype").html(optionFields);
 	$("#otype").combobox();
-	$('#otype').combobox('select',"2");
+	$('#otype').combobox('select',"3");
 }
 
 function serachcompanyIdle(){
+	$("#chartLoading").show();
+	array1 = new Array();
+	array2 = new Array();
+	Series = [];
 	chartStr = "";
-	CaustIdleDatagrid();
-	showCompanyIdleChart();
+	setTimeout(function() {
+		CaustIdleDatagrid();
+		showCompanyIdleChart();
+	}, 500)
+	chartStr = "";
 }
 
 //监听窗口大小变化

@@ -118,6 +118,7 @@ function showcompanyEfficiencyChart(){
 		min = str[0],max=str[1];
 	    CompanyEfficiencyDatagrid();
 	});
+	$("#chartLoading").hide();
 }
 
 function typecombobox(){
@@ -213,8 +214,11 @@ function CompanyEfficiencyDatagrid(){
 function serachEfficiencyCompany(){
 	chartStr = "",min="",max="";
 	$("#nextparent").val("");
-	showcompanyEfficiencyChart();
-	CompanyEfficiencyDatagrid();
+	$("#chartLoading").show();
+	setTimeout(function() {
+		showcompanyEfficiencyChart();
+		CompanyEfficiencyDatagrid();
+	}, 500)
 }
 
 //监听窗口大小变化

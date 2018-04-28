@@ -17,42 +17,10 @@ function setParam(){
 	chartStr = "?otype="+otype+"&parent="+parent+"&item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
+var array1 = new Array();
+var array2 = new Array();
+var Series = [];
 function showitemidleChart(){
-	setParam();
-	var array1 = new Array();
-	var array2 = new Array();
-	var Series = [];
-	 $.ajax({  
-         type : "post",  
-         async : false,
-         url : "itemChart/getItemIdle"+chartStr,
-         data : {},  
-         dataType : "json", //返回数据形式为json  
-         success : function(result) {  
-             if (result) {
-            	 for(var i=0;i<result.rows.length;i++){
-                  	array1.push(result.rows[i].weldTime);
-            	 } 
-             	array2.push(result.arys[0].name);
-             	Series.push({
-             		name : result.arys[0].name,
-             		type :'line',//折线图
-             		data : result.arys[0].num,
-             		itemStyle : {
-             			normal: {
-             				label : {
-             					show: true//显示每个折点的值
-             				}
-             			}
-             		}
-             	});
-                 
-             }  
-         },  
-        error : function(errorMsg) {  
-             alert("图表请求数据失败啦!");  
-         }  
-    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("itemidleChart"));
 	//显示加载动画效果
@@ -97,6 +65,7 @@ function showitemidleChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	$("#chartLoading").hide();
 }
 
 function ItemtimeCombobox(){
@@ -140,6 +109,22 @@ function ItemidleDatagrid(){
             	 var width=$("#body").width()/result.rows.length;
                  column.push({field:"weldTime",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  column.push({field:"num",title:"闲置数量(台)",width:width,halign : "center",align : "left"});
+                 for(var i=0;i<result.rows.length;i++){
+                   	array1.push(result.rows[i].weldTime);
+             	 } 
+              	 array2.push(result.arys[0].name);
+              	 Series.push({
+              		 name : result.arys[0].name,
+              		 type :'line',//折线图
+              		 data : result.arys[0].num,
+              		 itemStyle : {
+              			 normal: {
+              				 label : {
+              					 show: true//显示每个折点的值
+              				 }
+              			 }
+              		 }
+              	 });
              }  
          },  
         error : function(errorMsg) {  
@@ -165,16 +150,23 @@ function ItemidleDatagrid(){
 function otypecombobox(){
 	var optionFields = "<option value='1'>一年</option>" +
 	"<option value='2'>一月</option>" +
+	"<option value='3'>一日</option>" +
 	"<option value='4'>一周</option>";
 	$("#otype").html(optionFields);
 	$("#otype").combobox();
-	$('#otype').combobox('select',"2");
+	$('#otype').combobox('select',"3");
 }
 
 function serachitemIdle(){
+	$("#chartLoading").show();
+	array1 = new Array();
+	array2 = new Array();
+	Series = [];
 	chartStr = "";
-	showitemidleChart();
-	ItemidleDatagrid();
+	setTimeout(function() {
+		ItemidleDatagrid();
+		showitemidleChart();
+	}, 500)
 }
 
 //监听窗口大小变化

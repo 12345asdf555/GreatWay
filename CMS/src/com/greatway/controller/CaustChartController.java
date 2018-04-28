@@ -494,6 +494,7 @@ public class CaustChartController {
 		String type = request.getParameter("otype");
 		WeldDto dto = new WeldDto();
 		BigInteger pid = null;
+		dto.setDtoStatus(1);
 		if(!iutil.isNull(parentId)){
 			//数据权限处理
 			BigInteger uid = lm.getUserId(request);
@@ -637,7 +638,7 @@ public class CaustChartController {
 			}
 		}
 		BigInteger parent = null;
-		dto.setDtoStatus(1);
+		dto.setDtoStatus(0);
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -780,6 +781,8 @@ public class CaustChartController {
 				dto.setYear("year");
 			}else if(type.equals("2")){
 				dto.setMonth("month");
+			}else if(type.equals("3")){
+				dto.setDay("day");
 			}else if(type.equals("4")){
 				dto.setWeek("week");
 			}
@@ -1062,21 +1065,29 @@ public class CaustChartController {
 				if(m!=null){
 					if(m.getAvgnum()==0){
 						m.setAvgnum(2);
-						num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						if(m.getMinnum()>0){
+							num1[0] = m.getMinnum()-1+"-"+(m.getMinnum()+m.getAvgnum());//-1是为了避免最小数取整而导致查询时搜索不到
+						}else{
+							num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						}
 						for(int i=1;i<10;i++){
 							oldnum = m.getMinnum()+m.getAvgnum()*i+1;
 							newnum = m.getMinnum()+m.getAvgnum()*(i+1);
 							num1[i] = oldnum+"-"+newnum;
 						}
 					}else{
-						num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						if(m.getMinnum()>0){
+							num1[0] = m.getMinnum()-1+"-"+(m.getMinnum()+m.getAvgnum());
+						}else{
+							num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						}
 						for(int i=1;i<9;i++){
 							oldnum = m.getMinnum()+m.getAvgnum()*i+1;
 							newnum = m.getMinnum()+m.getAvgnum()*(i+1);
 							num1[i] = oldnum+"-"+newnum;
 						}
 						maxnum = m.getMinnum()+m.getAvgnum()*10+10;
-						num1[9] = newnum+"-"+maxnum;
+						num1[9] = newnum+1+"-"+maxnum;
 					}
 					efficiency = lm.getEfficiencyChart(dto, parent, m.getMinnum(), m.getAvgnum());
 					for(ModelDto e:efficiency){

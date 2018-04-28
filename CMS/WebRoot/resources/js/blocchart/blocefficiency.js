@@ -118,6 +118,7 @@ function showblocEfficiencyChart(){
 		min = str[0],max=str[1];
 		BlocEfficiencyDatagrid();
 	});
+	$("#chartLoading").hide();
 }
 
 function typecombobox(){
@@ -212,8 +213,11 @@ function BlocEfficiencyDatagrid(){
 
 function serachEfficiencyBloc(){
 	chartStr = "",min="",max="";
-	showblocEfficiencyChart();
-	BlocEfficiencyDatagrid();
+	$("#chartLoading").show();
+	setTimeout(function() {
+		showblocEfficiencyChart();
+		BlocEfficiencyDatagrid();
+	}, 500)
 }
 
 //监听窗口大小变化
