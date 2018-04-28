@@ -197,6 +197,21 @@ function eleChart(){
             max : 650,
             min : 0
         } ],
+        dataZoom: [
+            {
+                type: 'slider',
+                show: true,
+                xAxisIndex: [0],
+                start: 1,
+                end: 35,
+            },
+            {
+                type: 'inside',
+                xAxisIndex: [0],
+                start: 1,
+                end: 35,
+            }
+        ],
         series : [ {
             symbolSize : 5,//气泡大小
       		name : '电流',
@@ -255,6 +270,21 @@ function volChart(){
             max : 150,
             min : 0
         } ],
+        dataZoom: [
+            {
+                type: 'slider',
+                show: true,
+                xAxisIndex: [0],
+                start: 1,
+                end: 35,
+            },
+            {
+                type: 'inside',
+                xAxisIndex: [0],
+                start: 1,
+                end: 35,
+            }
+        ],
         series : [ {
             symbolSize : 5,//气泡大小
       		name : '电压',

@@ -143,7 +143,9 @@ function chushihua(){
 	document.getElementById("yiyuan3").style.display="none";
 	document.getElementById("gebie1").style.display="block";
 	document.getElementById("gebie3").style.display="block";
-	$('#chanel').combobox('select',1);
+	$("#fmode").prop("checked",false);
+	$("#finitial").prop("checked",false);
+	$("#fcontroller").prop("checked",false);
 	$('#fselect').combobox('select',102);
 	$("#ftime").numberbox('setValue',30.0);
 	$("#fadvance").numberbox('setValue',1.0);
@@ -223,17 +225,17 @@ function save(value){
 	var fcontroller;
 	var fmode;
     if($("#finitial").is(":checked")==true){
-        finitial = $('#finitial').combobox('getValue');
+        finitial = 61;
     }else{
     	finitial = 62;
     }
     if($("#fcontroller").is(":checked")==true){
-    	fcontroller = $('#fcontroller').combobox('getValue');
+    	fcontroller = 61;
     }else{
     	fcontroller = 62;
     }
     if($("#finitial").is(":checked")==true){
-    	fmode = $('#fmode').combobox('fmode');
+    	fmode = 61;
     }else{
     	fmode = 62;
     }
@@ -338,14 +340,14 @@ function suoqu(){
 	if(symbol==0){
 		window.setTimeout(function() {
 			if(symbol==0){
+				socketfc.close();
 				alert("索取失败");
-/*				socketfc.close();*/
 			}
 		}, 5000)
 	}
 	socketfc.onmessage = function(msg) {
 		var strdata1=msg.data;
-		if(strdata1.substring(4,6)=="56"){
+		if((strdata1.substring(4,6)=="56")||(strdata1.substring(0,8)=="7E7C2056")){
         var strdata2=strdata1.replace(/7C20/g, '00');
         var strdata3=strdata2.replace(/7C5E/g, '7E');
         var strdata4=strdata3.replace(/7C5C/g, '7C');
@@ -389,12 +391,49 @@ function suoqu(){
 		}
 		if(parseInt(da.substring(68,70),16)==0){
 			$('#fmaterial').combobox('select',91);
-		}else if(parseInt(da.substring(66,68),16)==1){
+		}else if(parseInt(da.substring(68,70),16)==1){
 			$('#fmaterial').combobox('select',92);
-		}else if(parseInt(da.substring(66,68),16)==4){
+		}else if(parseInt(da.substring(68,70),16)==4){
 			$('#fmaterial').combobox('select',93);
 		}else{
 			$('#fmaterial').combobox('select',94);
+		}
+		var sconx = parseInt(da.substring(74,76),16);
+		sconx = sconx.toString(2);
+		if(sconx.length<8){
+	        var length = 8 - sconx.length;
+	        for(var i=0;i<length;i++){
+	        	sconx = "0" + sconx;
+	        }
+	      }
+		if(sconx.substring(7,8)=="1"){
+			$("#finitial").prop("checked",true);
+		}else{
+			$("#finitial").prop("checked",false);
+		}
+		if(sconx.substring(3,6)=="000"){
+			$('#farc').combobox('select',111);
+		}else if(sconx.substring(1,4)=="001"){
+			$('#farc').combobox('select',112);
+		}else if(sconx.substring(1,4)=="010"){
+			$('#farc').combobox('select',113);
+		}else{
+			$('#farc').combobox('select',114);
+		}
+		if(sconx.substring(2,3)=="0"){
+			$('#fselect').combobox('select',102);
+		}else{
+			$('#fselect').combobox('select',101);
+		}
+		if(sconx.substring(1,2)=="1"){
+			$("#fcontroller").prop("checked",true);
+		}else{
+			$("#fcontroller").prop("checked",false);
+		}
+		if(sconx.substring(0,1)=="1"){
+			$("#fmode").prop("checked",true);
+		}else{
+			$("#fmode").prop("checked",false);
 		}
 //		parsevar(da.substring(68,70),16);
 		$("#fweld_tuny_ele").numberbox('setValue',parseInt(da.substring(76,78),16));
@@ -403,12 +442,12 @@ function suoqu(){
 		$("#farc_tuny_vol").numberbox('setValue',(parseInt(da.substring(82,84),16)/10).toFixed(1));
 		$("#fweld_tuny_vol1").numberbox('setValue',(parseInt(da.substring(78,80),16)/10).toFixed(1));
 		$("#farc_tuny_vol1").numberbox('setValue',(parseInt(da.substring(82,84),16)/10).toFixed(1));
+		
 		symbol++;
 		socketfc.close();
 		if(socketfc.readyState!=1){
 			alert("索取成功");
 			}
-		
 		}}
 	}
 }
@@ -533,13 +572,14 @@ function xiafa(){
 			        	fcharacter = "0" + fcharacter;
 			        }
 			      }
-				var fgas = parseInt(document.getElementById('fgas').value).toString(16);
+//				alert($('#fgas').combobox('getValue'));
+				var fgas = parseInt($('#fgas').combobox('getValue')).toString(16);
 				if(fgas==parseInt(121).toString(16)){
-					fgas="1";
-				}else if(fgas==parseInt(122).toString(16)){
-					fgas="3";
-				}else{
 					fgas="0";
+				}else if(fgas==parseInt(122).toString(16)){
+					fgas="1";
+				}else{
+					fgas="3";
 				}
 				if(fgas.length<2){
 					var length = 2 - fgas.length;
@@ -547,7 +587,8 @@ function xiafa(){
 			        	fgas = "0" + fgas;
 			        }
 			      }
-				var fdiameter = parseInt(document.getElementById('fdiameter').value).toString(16);
+//				alert($('#fdiameter').combobox('getValue'));
+				var fdiameter = parseInt($('#fdiameter').combobox('getValue')).toString(16);
 				if(fdiameter==parseInt(131).toString(16)){
 					fdiameter="A";
 				}else if(fdiameter==parseInt(132).toString(16)){
@@ -563,7 +604,8 @@ function xiafa(){
 			        	fdiameter = "0" + fdiameter;
 			        }
 			      }
-				var fmaterial = parseInt(document.getElementById('fmaterial').value).toString(16);
+//				alert($('#fmaterial').combobox('getValue'));
+				var fmaterial = parseInt($('#fmaterial').combobox('getValue')).toString(16);
 				if(fmaterial==parseInt(91).toString(16)){
 					fmaterial="0";
 				}else if(fmaterial==parseInt(92).toString(16)){
@@ -607,8 +649,46 @@ function xiafa(){
 			        	farc_tuny_vol = "0" + farc_tuny_vol;
 			        }
 			      }
+				var con="";
+				if($('#finitial').is(':checked')){
+					con="1"+con;
+				}else{
+					con="0"+con;
+				}
+				if($('#farc').combobox('getValue')==111){
+					con="0000"+con;
+				}else if($('#farc').combobox('getValue')==112){
+					con="0001"+con;
+				}else if($('#farc').combobox('getValue')==113){
+					con="0010"+con;
+				}else{
+					con="0100"+con;
+				}
+				if($('#fselect').combobox('getValue')==101){
+					con="1"+con;
+				}else{
+					con="0"+con;
+				}
+				if($('#fcontroller').is(':checked')){
+					con="1"+con;
+				}else{
+					con="0"+con;
+				}
+				if($('#fmode').is(':checked')){
+					con="1"+con;
+				}else{
+					con="0"+con;
+				}
+				con = parseInt(con,2);
+				con = parseInt(con).toString(16);
+				if(con.length<2){
+					var length = 2 - con.length;
+			        for(var i=0;i<length;i++){
+			        	con = "0" + con;
+			        }
+			      }
 			var xiafasend1 = "7E00520101"+chanel+ftime+fadvance+fini_ele+fini_vol+fini_vol1+fweld_ele+fweld_vol+fweld_vol1+farc_ele+farc_vol+farc_vol1+fhysteresis+fcharacter+fgas
-			+fdiameter+fmaterial+"000000"+fweld_tuny_ele+fweld_tuny_vol+farc_tuny_ele+farc_tuny_vol;
+			+fdiameter+fmaterial+"0000"+con+fweld_tuny_ele+fweld_tuny_vol+farc_tuny_ele+farc_tuny_vol;
 			
 		/*	var xiafasend2 = xiafasend1.replace(/00/g, '7C20');
 			var xiafasend3 = xiafasend2.replace(/7E/g, '7C5E');
@@ -646,7 +726,7 @@ function xiafa(){
 			socketfc.send(xiafasend);
 			socketfc.onmessage = function(msg) {
 				var fan = msg.data;
-				if(fan.substring(0,2)=="7E"){
+				if(fan.substring(4,6)=="52"){
 					symbol1++;
 					if(parseInt(fan.substring(10,12),16)==1){
 						socketfc.close();
@@ -856,8 +936,46 @@ function xiafa(){
 				        	farc_tuny_vol = "0" + farc_tuny_vol;
 				        }
 				      }
+					var con="";
+					if($('#finitial').is(':checked')){
+						con="1"+con;
+					}else{
+						con="0"+con;
+					}
+					if($('#farc').combobox('getValue')==111){
+						con="0000"+con;
+					}else if($('#farc').combobox('getValue')==112){
+						con="0001"+con;
+					}else if($('#farc').combobox('getValue')==113){
+						con="0010"+con;
+					}else{
+						con="0100"+con;
+					}
+					if($('#fselect').combobox('getValue')==101){
+						con="1"+con;
+					}else{
+						con="0"+con;
+					}
+					if($('#fcontroller').is(':checked')){
+						con="1"+con;
+					}else{
+						con="0"+con;
+					}
+					if($('#fmode').is(':checked')){
+						con="1"+con;
+					}else{
+						con="0"+con;
+					}
+					con = parseInt(con,2);
+					con = parseInt(con).toString(16);
+					if(con.length<2){
+						var length = 2 - con.length;
+				        for(var i=0;i<length;i++){
+				        	con = "0" + con;
+				        }
+				      }
 			var xiafasend1 = "7E00520101"+chanel+ftime+fadvance+fini_ele+fini_vol+fini_vol1+fweld_ele+fweld_vol+fweld_vol1+farc_ele+farc_vol+farc_vol1+fhysteresis+fcharacter+fgas
-			+fdiameter+fmaterial+"000000"+fweld_tuny_ele+fweld_tuny_vol+farc_tuny_ele+farc_tuny_vol;
+			+fdiameter+fmaterial+"0000"+con+fweld_tuny_ele+fweld_tuny_vol+farc_tuny_ele+farc_tuny_vol;
 			
 		/*	var xiafasend2 = xiafasend1.replace(/00/g, '7C20');
 			var xiafasend3 = xiafasend2.replace(/7E/g, '7C5E');
@@ -894,7 +1012,7 @@ function xiafa(){
 			socketfc.send(xiafasend);
 			socketfc.onmessage = function(msg) {
 				var fan = msg.data;
-				if(fan.substring(0,2)=="7E"){
+				if(fan.substring(4,6)=="52"){
 					symbol1++;
 					if(parseInt(fan.substring(10,12),16)==1){
 						socketfc.close();

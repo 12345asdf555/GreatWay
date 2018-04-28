@@ -165,13 +165,19 @@ function setParam(){
 					align : "left"
 				},{
 					field : 'firsttime',
-					title : '开始焊接时间',
+					title : '开始时间',
 					width : 150,
 					halign : "center",
 					align : "left"
 				},{
 					field : 'lasttime',
-					title : '焊接终止时间',
+					title : '终止时间',
+					width : 150,
+					halign : "center",
+					align : "left"
+				},{
+					field : 'fweldingtime',
+					title : '焊接时间(h)',
 					width : 150,
 					halign : "center",
 					align : "left"

@@ -61,7 +61,7 @@ public class ExportExcelController {
 			String[] titles = new String[]{"设备编码","设备类型","入厂时间","所属项目","状态","厂家","厂家类型","是否在网","采集序号","位置"};
 			Object[][] data = new Object[list.size()][10];
 			for(int i =0; i<list.size();i++){
-				data[i][0] = Integer.parseInt(list.get(i).getEquipmentNo(), 16);
+				data[i][0] = list.get(i).getEquipmentNo();
 				data[i][1] = list.get(i).getTypename();
 				data[i][2] = list.get(i).getJoinTime();
 				data[i][3] = list.get(i).getInsframeworkId().getName();
@@ -75,7 +75,7 @@ public class ExportExcelController {
 				}
 				Gather gather = list.get(i).getGatherId();
 				if(gather!=null){
-					data[i][8] = Integer.parseInt(gather.getGatherNo(), 16);
+					data[i][8] = gather.getGatherNo();
 				}else{
 					data[i][8] = null;
 				}
@@ -126,7 +126,7 @@ public class ExportExcelController {
 			String[] titles = new String[]{"设备编码","维修人员","维修起始时间","维修结束时间","维修类型","维修说明"};
 			Object[][] data = new Object[list.size()][6];
 			for(int i =0; i<list.size();i++){
-				data[i][0] = Integer.parseInt(list.get(i).getWelding().getEquipmentNo(), 16);
+				data[i][0] = list.get(i).getWelding().getEquipmentNo();
 				data[i][1] = list.get(i).getMaintenance().getViceman();
 				data[i][2] = list.get(i).getMaintenance().getStartTime();
 				data[i][3] = list.get(i).getMaintenance().getEndTime();

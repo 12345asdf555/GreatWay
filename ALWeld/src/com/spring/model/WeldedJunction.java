@@ -17,6 +17,7 @@ public class WeldedJunction {
 	private BigInteger machid;
 	private String machine_num;
 	private String weldedJunctionno;
+	private BigInteger counts;
 	private String serialNo;
 	private String pipelineNo;
 	private String roomNo;
@@ -252,6 +253,12 @@ public class WeldedJunction {
 	}
 	public void setNext_material(String next_material) {
 		this.next_material = next_material;
+	}
+	public BigInteger getCounts() {
+		return counts;
+	}
+	public void setCounts(BigInteger counts) {
+		this.counts = counts;
 	}
 	
 }

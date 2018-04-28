@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class WeldedJunctionControll {
 	public String goEditWeldedJunction(HttpServletRequest request){
 		BigInteger id = new BigInteger(request.getParameter("id"));
 		WeldedJunction wj = wjm.getWeldedJunctionById(id);
+		wj.setWeldedJunctionno(wj.getWeldedJunctionno().substring(2, 8));
 		request.setAttribute("wj", wj);
 		return "weldingjunction/editweldedjunction";
 	}
@@ -65,6 +67,7 @@ public class WeldedJunctionControll {
 	public String goRemoveWeldedJunction(HttpServletRequest request){
 		BigInteger id = new BigInteger(request.getParameter("id"));
 		WeldedJunction wj = wjm.getWeldedJunctionById(id);
+		wj.setWeldedJunctionno(wj.getWeldedJunctionno().substring(2, 8));
 		request.setAttribute("wj", wj);
 		return "weldingjunction/removeweldedjunction";
 	}
@@ -72,13 +75,7 @@ public class WeldedJunctionControll {
 	@RequestMapping("/getWeldJun")
 	public String getWeldJun(HttpServletRequest request){
 		if(request.getParameter("fid")!=null&&request.getParameter("fid")!=""){
-			welderid = Integer.toHexString(Integer.valueOf(request.getParameter("fid")));
-			if(welderid.length()!=4){
-                int lenth=4-welderid.length();
-                for(int i=0;i<lenth;i++){
-                	welderid="0"+welderid;
-                }
-              }
+			welderid = request.getParameter("fid");
 		}
 		return "td/HistoryCurve";
 	}
@@ -87,6 +84,7 @@ public class WeldedJunctionControll {
 	public String goShowMoreJunction(HttpServletRequest request,@RequestParam String id){
 		try{
 			WeldedJunction wj = wjm.getWeldedJunctionById(new BigInteger(id));
+			wj.setWeldedJunctionno(wj.getWeldedJunctionno().substring(2, 8));
 			request.setAttribute("wj", wj);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -100,7 +98,9 @@ public class WeldedJunctionControll {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String serach = request.getParameter("searchStr");
-		
+		if(serach!=null&&serach.substring(1,20).equals("fwelded_junction_no")){
+			serach=serach.substring(0,24)+"00"+serach.substring(24,serach.length());
+		}
 		page = new Page(pageIndex,pageSize,total);
 		List<WeldedJunction> list = wjm.getWeldedJunctionAll(page, serach);
 		long total = 0;
@@ -116,7 +116,7 @@ public class WeldedJunctionControll {
 		try{
 			for(WeldedJunction w:list){
 				json.put("id", w.getId());
-				json.put("weldedJunctionno", w.getWeldedJunctionno());
+				json.put("weldedJunctionno", w.getWeldedJunctionno().substring(2, 8));
 				json.put("serialNo", w.getSerialNo());
 				json.put("pipelineNo", w.getPipelineNo());
 				json.put("roomNo", w.getRoomNo());
@@ -164,7 +164,7 @@ public class WeldedJunctionControll {
 			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			wj.setCreater(new BigInteger(user.getId()+""));
 			wj.setUpdater(new BigInteger(user.getId()+""));
-			wj.setWeldedJunctionno(request.getParameter("weldedjunctionno"));
+			wj.setWeldedJunctionno("00"+request.getParameter("weldedjunctionno"));
 			wj.setSerialNo(request.getParameter("serialNo"));
 			wj.setUnit(request.getParameter("unit"));
 			wj.setArea(request.getParameter("area"));
@@ -212,7 +212,7 @@ public class WeldedJunctionControll {
 			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			wj.setUpdater(new BigInteger(user.getId()+""));
 			wj.setId(new BigInteger(request.getParameter("id")));
-			wj.setWeldedJunctionno(request.getParameter("weldedjunctionno"));
+			wj.setWeldedJunctionno("00"+request.getParameter("weldedjunctionno"));
 			wj.setSerialNo(request.getParameter("serialNo"));
 			wj.setUnit(request.getParameter("unit"));
 			wj.setArea(request.getParameter("area"));
@@ -340,6 +340,7 @@ public class WeldedJunctionControll {
 			for(WeldedJunction w:list){
 				json.put("firsttime", wjm.getFirsttime(dto, w.getMachid(),welderid , w.getWeldedJunctionno()));
 				json.put("lasttime", wjm.getLasttime(dto, w.getMachid(),welderid , w.getWeldedJunctionno()));
+				json.put("fweldingtime", new DecimalFormat("0.0000").format((float)Integer.valueOf(w.getCounts().toString())/3600));
 				json.put("id", w.getId());
 				json.put("machid",w.getMachid());
 				json.put("machine_num", Integer.parseInt(w.getMachine_num(), 16));
