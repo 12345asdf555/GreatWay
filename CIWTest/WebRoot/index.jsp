@@ -54,6 +54,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <li class="libottom"  onclick="changeColor(this)"><a href="javascript:openParameter()"><div><img src="resources/images/c-14.png" />&nbsp;&nbsp;参数设置</div></a></li>
 				</ul>
 			</div>
+			<div title="生产数据统计" data-options="iconCls:'icon-num'">
+				<ul>
+			        <li onclick="changeColor(this)"><a href="javascript:openItemData()" ><div><img src="resources/images/c-11.png" />&nbsp;&nbsp;班组生产数据</div></a></li>
+					<li onclick="changeColor(this)"><a href="javascript:openWeldingMachine()"><div><img src="resources/images/c-12.png" />&nbsp;&nbsp;设备生产数据</div></a></li>
+				    <li onclick="changeColor(this)"><a href="javascript:openMachine()"><div><img src="resources/images/c-6.png" />&nbsp;&nbsp;人员生产数据</div></a></li>
+			        <li class="libottom"  onclick="changeColor(this)"><a href="javascript:openParameter()"><div><img src="resources/images/c-14.png" />&nbsp;&nbsp;班组生产数据</div></a></li>
+				</ul>
+			</div>
 			<div title="生产数据分析" data-options="iconCls:'icon-num'">
 				<ul>
 			        <li onclick="changeColor(this)">
