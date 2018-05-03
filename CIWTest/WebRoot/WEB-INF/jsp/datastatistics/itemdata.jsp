@@ -25,21 +25,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="resources/js/getTime.js"></script>
+	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
+	<script type="text/javascript" src="resources/js/getTimeToHours.js"></script>
 	<script type="text/javascript" src="resources/js//datastatistics/itemdata.js"></script>
   </head>
   
   <body>
-    <div>
-	  	<div id="ItemData_btn">
+    <div id="body">
+	  	<div id="dg_btn">
 			<div style="margin-bottom: 5px;">
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
-				<a href="javascript:serachItemData();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
+				<a href="javascript:serach();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
 			</div>
 		</div>
-	    <table id="itemDataTable" style="table-layout: fixed; width:100%;"></table>
+	    <table id="dg" style="table-layout: fixed; width:100%;"></table>
     </div>
   </body>
 </html>
