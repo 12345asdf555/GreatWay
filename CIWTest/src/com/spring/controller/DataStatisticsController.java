@@ -34,8 +34,6 @@ public class DataStatisticsController {
 	private DataStatisticsService dss;
 
 	IsnullUtil iutil = new IsnullUtil();
-	private  final BigInteger HOUR_SECOND = new BigInteger("120");
-	private  final BigInteger MINUTE_SECOND = new BigInteger("60");
 	
 	/**
 	 * 跳转班组生产数据页面
