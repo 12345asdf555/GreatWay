@@ -1,5 +1,6 @@
 package com.spring.service.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,8 +40,8 @@ import com.spring.service.TdService;
 			return mapper.findAlldiv(ins);
 		}
 		
-		public List<Td> getAllPosition(){
-			return mapper.getAllPosition();
+		public List<Td> getAllPosition(BigInteger parent){
+			return mapper.getAllPosition(parent);
 		}
 		
 		public long findIns(long uid){

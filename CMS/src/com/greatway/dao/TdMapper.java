@@ -1,5 +1,6 @@
 package com.greatway.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -11,7 +12,7 @@ public interface TdMapper {
 	List<Td> findAllpro(long ins);
 	List<Td> findAllcom();
 	List<Td> findAlldiv(long ins);
-	List<Td> getAllPosition();
+	List<Td> getAllPosition(@Param("parent")BigInteger parent);
 	long findAllIns(long uid);
 	long findInsid(String insname);
 	String findweld(String weldid);

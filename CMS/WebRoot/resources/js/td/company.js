@@ -90,7 +90,7 @@ function newSearch(){
   		                }, 3000);
 				} */    
 				
-				for(var n = 0;n < dat.length;n+=159){
+				for(var n = 0;n < dat.length;n+=207){
 					if((dat.substring(0+n, 2+n)=="03")||(dat.substring(0+n, 2+n)=="05")||(dat.substring(0+n, 2+n)=="07")||(dat.substring(0+n, 2+n)=="00")){		
 						if(on1.length==0){
 							var l1=1;
@@ -167,7 +167,7 @@ function newSearch(){
 			        	ddd = eval(data.rows);
 			        }})
 					for(var h = 0;h<ddd.length;h++){
-			        for(var k=0;k<dat.length;k=k+159){
+			        for(var k=0;k<dat.length;k=k+207){
 				if(dat.substring(2+k, 4+k)==ddd[h].fid){
 					num++;
         				if(dat.substring(0+k, 2+k)=="03"||dat.substring(0+k, 2+k)=="05"){
@@ -194,7 +194,7 @@ function newSearch(){
 				}
 				document.getElementById("status"+index+"").value = num;	
 		}					
-		            	for(var q=0;q<dat.length;q=q+159){
+		            	for(var q=0;q<dat.length;q=q+207){
         				if(dat.substring(0+q, q+2)=="03"||dat.substring(0+q, 2+q)=="05"){
         					onn1++;
         					document.getElementById("onn").value=onn1;
@@ -207,8 +207,8 @@ function newSearch(){
 	            			waitn++;
 	            			document.getElementById("waitn").value=waitn;
 	            		}
-	            		document.getElementById("offn").value=Math.ceil((dat.length)/159)-onn1-warningn-waitn;     	
-		    			document.getElementById("statusn").value=Math.ceil((dat.length)/159);
+	            		document.getElementById("offn").value=Math.ceil((dat.length)/207)-onn1-warningn-waitn;     	
+		    			document.getElementById("statusn").value=Math.ceil((dat.length)/207);
 		            	}
 
 		};

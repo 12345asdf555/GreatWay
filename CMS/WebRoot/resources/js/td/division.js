@@ -66,7 +66,7 @@ function newSearch(){
 			socket.onmessage = function(msg) {
 				dat = msg.data;
 				
-				for(var n = 0;n < dat.length;n+=159){
+				for(var n = 0;n < dat.length;n+=207){
 					if((dat.substring(0+n, 2+n)=="03")||(dat.substring(0+n, 2+n)=="05")||(dat.substring(0+n, 2+n)=="07")||(dat.substring(0+n, 2+n)=="00")){		
 						if(on1.length==0){
 							var l1=1;
@@ -153,7 +153,7 @@ function newSearch(){
 		            			$("#box").append(str);
 			            		}
 			    				$("#btnReg"+index).html(da[index].fname);
-		            		for(var l=0;l<dat.length;l=l+159){
+		            		for(var l=0;l<dat.length;l=l+207){
 		            			if(da[index].fid==dat.substring(l+2, l+4)){
 		        					num++;
 		            				if(dat.substring(0+l, 2+l)=="03"||dat.substring(0+l, 2+l)=="05"){

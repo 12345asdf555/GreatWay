@@ -92,7 +92,7 @@ function newSearch(){
 				/*alert(msg.data);*/
 				dd = msg.data;
 				if(num3==0){
-				for(var dex = 0;dex < dd.length;dex=dex+159)
+				for(var dex = 0;dex < dd.length;dex=dex+207)
             	{
             		if(dd.substring(2+dex, 4+dex) == da[0].fid){
             			xxx++;
@@ -101,7 +101,7 @@ function newSearch(){
             		}
 				num3++;
 				}
-				for(var n = 0;n < dd.length;n+=159){
+				for(var n = 0;n < dd.length;n+=207){
 					if((dd.substring(0+n, 2+n)=="03")||(dd.substring(0+n, 2+n)=="05")||(dd.substring(0+n, 2+n)=="07")||(dd.substring(0+n, 2+n)=="00")){		
 						if(on1.length==0){
 							var l1=1;
@@ -135,7 +135,7 @@ function newSearch(){
 					}
 					};
 				i = 0;	            	
-            	for(var index = 0;index < dd.length;index=index+159)
+            	for(var index = 0;index < dd.length;index=index+207)
             	{
             		num=0;num0 = 0;num1 = 0;num2 = 0;
             	/*var i = Math.floor(index/3);*/

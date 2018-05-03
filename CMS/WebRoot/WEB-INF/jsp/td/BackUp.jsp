@@ -30,18 +30,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/highcharts.js"></script>
 	<script type="text/javascript" src="resources/js/exporting.js"></script>
 	<script type="text/javascript" src="resources/js/td/BackUp.js"></script>
+	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
 	<!-- <script type="text/javascript" src="resources/js/rmeffect.js"></script> -->
 
   </head>
   
 <body class="easyui-layout">
+	<jsp:include  page="../insframeworktree.jsp"/>
 	<div id="body" region="center"  hide="true"  split="true" title="实时界面" style="background: #eee; height: 335px;">
-		<div id="body1" style="width:15%;height:100%;float:left">
+<!-- 		<div id="body1" style="width:15%;height:100%;float:left">
 			<div class="easyui-accordion" fit="true" border="false" id="accordiondiv">
 			    <div id="body11" title="设备位置" ></div>
 			</div>
-		</div>
-		<div id="body2" style="width:15%;height:15%;float:left;position:absolute;left:15.5%;top:8%;">
+		</div> -->
+		<div id="body2" style="width:15%;height:15%;float:left;position:absolute;left:5%;top:8%;">
 		<div style="position:absolute;left:5%;top:30%;"><label>电流：</label></div>
 		<div class="wrap">
 		<div class="clock">
@@ -112,12 +114,12 @@ readonly="readonly">
 		</div>
 		</div>
 		</div>
-		<div id="body31" style="width:65%;height:25%;position:absolute;left:36%;">
+		<div id="body31" style="width:75%;height:20%;position:absolute;left:25%;">
 		</div>
-		<div id="body32" style="width:65%;height:25%;position:absolute;left:36%;top:29%;">
+		<div id="body32" style="width:75%;height:20%;position:absolute;left:25%;top:27%;">
 		</div>
-		<div id="body5" style="width:15%;height:15%;position:absolute;left:15.5%;top:20%;">
-		<div style="position:absolute;left:7%;top:35%;"><label>电压：</label></div>
+		<div id="body5" style="width:15%;height:15%;position:absolute;left:5%;top:20%;">
+		<div style="position:absolute;left:5%;top:35%;"><label>电压：</label></div>
 		<div class="wrap">
 		<div class="clock">
 			
@@ -171,13 +173,30 @@ readonly="readonly">
 		</div>
 		</div>
 		</div>
-		<div id="body6" style="position:absolute;left:16%;top:35%;"><label>焊机编号：</label>
+		<div id="body6" style="position:absolute;left:5%;top:35%;"><label>焊机编号：</label>
 		<input name="macname" id="macname" readonly="true" style="text-align:center">
 		</div>
-		<div id="body7" style="position:absolute;left:16%;top:45%;"><label>焊工姓名：</label>
+		<div id="body7" style="position:absolute;left:5%;top:45%;"><label>焊工姓名：</label>
 		<input name="welname" id="welname" readonly="true" style="text-align:center">
 		</div>
-		<div id="body4" style="width:85%;height:45%;position:absolute;left:15.2%;top:54.5%;">
+		<div style="width:100%;height:45%;position:absolute;top:50%;">
+			<div style="margin-bottom:10px;float:left;">
+	            <label for="zu" style="text-align:center;display:inline-block">组织机构：</label><input name="zu" id="zu" class="easyui-textbox">
+	        </div>
+			<div style="margin-bottom:10px;float:left;">
+	            <div style=" width:17px; height:15px; background-color:#00FF00; border-radius:25px; float:left;"></div><label for="on" style="text-align:center;display:inline-block">工作总数：</label><input name="on" id="on" class="easyui-textbox" editable="false" value="0">
+	        </div>
+	        <div style="margin-bottom:10px;float:left;">
+	            <div style=" width:17px; height:15px; background-color:#FF0000; border-radius:25px; float:left;"></div><label for="warning" style="text-align:center;display:inline-block">报警总数：</label><input name="warning" id="warning" class="easyui-textbox" editable="false" value="0">
+	        </div>
+	        <div style="margin-bottom:10px;float:left;">
+	            <div style=" width:17px; height:15px; background-color:#0000CD; border-radius:25px; float:left;"></div><label for="wait" style="text-align:center;display:inline-block">待机总数：</label> <input name="wait" id="wait" class="easyui-textbox" editable="false" value="0">
+	        </div>
+	        <div style="margin-bottom:10px;float:left;">
+	            <div style=" width:17px; height:15px; background-color:#A9A9A9; border-radius:25px; float:left;"></div><label for="off" style="text-align:center;display:inline-block">关机总数：</label> <input name="off" id="off" class="easyui-textbox" editable="false" value="0">
+	        </div>
+		</div>
+		<div id="body4" style="width:100%;height:45%;position:absolute;top:55%;">
 			<table id="dg" style="table-layout:fixed;width:100%"></table>
 		</div>
 	</div>
