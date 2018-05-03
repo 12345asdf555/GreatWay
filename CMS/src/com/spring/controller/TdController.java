@@ -16,6 +16,7 @@ import com.greatway.manager.WeldingMachineManager;
 import com.spring.model.MyUser;
 import com.spring.model.Td;
 import com.spring.service.TdService;
+import com.greatway.util.IsnullUtil;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -29,6 +30,8 @@ public class TdController {
 	@Autowired
 	private InsframeworkManager insfService;
 	private Td td;
+	
+	IsnullUtil iutil = new IsnullUtil();
 	
 	/**
 	 * 获取所有用户列表
@@ -397,14 +400,22 @@ public class TdController {
 	@RequestMapping("/getAllPosition")
 	@ResponseBody
 	public String getAllPosition(HttpServletRequest request){
-		
-		List<Td> getAP = tdService.getAllPosition();		
+		String parentId = request.getParameter("parent");
+		BigInteger parent = null;
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		List<Td> getAP = tdService.getAllPosition(parent);
 		JSONObject obj = new JSONObject();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
 			for(Td td:getAP){
-				json.put("fpositin",td.getPosition());
+				json.put("fid",td.getId());
+				json.put("fequipment_no", td.getFequipment_no());
+				json.put("fposition", td.getFposition());
+				json.put("finsid", td.getFci());
+				json.put("finsname", td.getFcn());
 				ary.add(json);
 			}
 		}catch(Exception e){
