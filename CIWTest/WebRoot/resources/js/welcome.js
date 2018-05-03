@@ -325,4 +325,4 @@ function refreshWelderData(data){
 window.setInterval(function () {
 	var data = [{value:work.length, name:'工作'},{value:wait.length, name:'待机'},{value:machine.length-work.length-wait.length, name:'关机'}];
 	refreshWelderData(data);
-},5000);
+},30000);

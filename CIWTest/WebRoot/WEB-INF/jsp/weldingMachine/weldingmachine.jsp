@@ -51,7 +51,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</form>
 		</div>
-		
 	    <table id="weldingmachineTable" style="table-layout: fixed; width:100%;"></table>
 		
 		<!-- 自定义多条件查询 -->

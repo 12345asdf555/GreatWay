@@ -55,6 +55,7 @@
 		<mapper resource="com/spring/dao/parameterMapper.xml"/>
 		<mapper resource="com/spring/dao/reportMapper.xml"/>
 		<mapper resource="com/spring/dao/productMapper.xml"/>
+		<mapper resource="com/spring/dao/datastatisticsMapper.xml"/>
 	</mappers>
 
 </configuration>  

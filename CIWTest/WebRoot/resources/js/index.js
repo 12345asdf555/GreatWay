@@ -66,6 +66,10 @@ function openMachineChart(){
 	}
 }
 
+function openItemData(){
+	addTab("班组生产数据","datastatistics/goItemData");
+}
+
 function openUser(){
 	addTab("用户管理","user/AllUser");
 }
