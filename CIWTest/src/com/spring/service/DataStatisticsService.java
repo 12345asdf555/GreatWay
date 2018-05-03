@@ -31,7 +31,7 @@ public interface DataStatisticsService {
 	DataStatistics getParameter();
 	
 	/**
-	 * 获取工作的焊机数，焊口数以及焊接时长
+	 * 获取工作的焊机数，焊口数
 	 * @param itemid  项目部id
 	 * @param dto 扩展参数类
 	 * @return
@@ -61,4 +61,17 @@ public interface DataStatisticsService {
 	 * @return
 	 */
 	DataStatistics getWorkTimeAndEleVol(BigInteger itemid,WeldDto dto);
+	
+	/**
+	 * 获取所有的焊机id，编号以及组织机构id，名称
+	 * @return
+	 */
+	List<DataStatistics> getAllMachine(Page page);
+	
+	/**
+	 * 获取所有的焊工编号，姓名
+	 * @param page
+	 * @return
+	 */
+	List<DataStatistics> getAllWelder(Page page);
 }

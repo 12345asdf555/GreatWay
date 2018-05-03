@@ -38,7 +38,7 @@ public class DataStatisticsController {
 	private  final BigInteger MINUTE_SECOND = new BigInteger("60");
 	
 	/**
-	 * 跳转公司超标页面
+	 * 跳转班组生产数据页面
 	 * @param request
 	 * @return
 	 */
@@ -46,7 +46,32 @@ public class DataStatisticsController {
 	public String goItemProductionData(HttpServletRequest request){
 		return "datastatistics/itemdata";
 	}
+
+	/**
+	 * 跳转设备生产数据页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goMachineData")
+	public String goMachineProductionData(HttpServletRequest request){
+		return "datastatistics/machinedata";
+	}
 	
+	/**
+	 * 跳转人员生产数据页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goPersonData")
+	public String goPersonProductionData(HttpServletRequest request){
+		return "datastatistics/persondata";
+	}
+	
+	/**
+	 * 跳转班组生产数据报表
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/getItemData")
 	@ResponseBody
 	public String getItemProductionData(HttpServletRequest request){
@@ -94,7 +119,7 @@ public class DataStatisticsController {
 						json.put("t5", work.getJunctionnum());//焊接焊缝数
 						json.put("t6", getTimeStrBySecond(weldtime.getWorktime()));//焊接时间
 						double useratio =(double)Math.round(Double.valueOf(machinenum)/Double.valueOf(i.getTotal())*100*100)/100;
-						BigInteger weldingproductivity =weldtime.getWorktime().divide(starttime).multiply(new BigInteger("100"));
+						double weldingproductivity = (double)Math.round(weldtime.getWorktime().doubleValue()/starttime.doubleValue()*100*100)/100;
 						json.put("t4", useratio);//设备利用率
 						json.put("t8", weldingproductivity);//焊接效率
 					}
@@ -108,9 +133,9 @@ public class DataStatisticsController {
 						double  time = (weldtime.getWorktime().divide(new BigInteger("60"))).doubleValue();
 						String[] str = parameter.getWireweight().split(",");
 						double wireweight =Double.valueOf(str[0]);
-						double wire = (double)Math.round(wireweight*parameter.getSpeed()*time*100)/100;
-						double air = (double)Math.round(parameter.getAirflow()*time*100)/100;
-						double  electric = (double)Math.round(time*weldtime.getElectricity()*weldtime.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;
+						double wire = (double)Math.round(wireweight*parameter.getSpeed()*time*100)/100;//焊丝消耗量=焊丝|焊丝重量*送丝速度*焊接时间
+						double air = (double)Math.round(parameter.getAirflow()*time*100)/100;//气体消耗量=气体流量*焊接时间
+						double  electric = (double)Math.round(time*weldtime.getElectricity()*weldtime.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 						json.put("t9", wire);//焊丝消耗
 						json.put("t11", air);//气体消耗
 						json.put("t10", electric);//电能消耗
@@ -144,6 +169,192 @@ public class DataStatisticsController {
 		return obj.toString();
 	}
 	
+	
+	/**
+	 * 跳转设备生产数据报表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getMachineData")
+	@ResponseBody
+	public String getMachineProductionData(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		page = new Page(pageIndex,pageSize,total);
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONObject title = new JSONObject();
+		WeldDto dto = new WeldDto();
+		JSONArray titleary = new JSONArray();
+		long total = 0;
+		try{
+			if(iutil.isNull(time1)){
+				dto.setDtoTime1(time1);
+			}
+			if(iutil.isNull(time2)){
+				dto.setDtoTime2(time2);
+			}
+			List<DataStatistics> list = dss.getAllMachine(page);
+			if(list != null){
+				PageInfo<DataStatistics> pageinfo = new PageInfo<DataStatistics>(list);
+				total = pageinfo.getTotal();
+			}
+			for(DataStatistics i:list){
+				dto.setMachineid(i.getId());
+				json.put("t0", i.getInsname());
+				json.put("t1", i.getName());
+				DataStatistics junctionnum = dss.getWorkNum(i.getInsid(), dto);
+				if(junctionnum.getJunctionnum()!=0){
+					json.put("t2", junctionnum.getJunctionnum());//焊接焊缝数
+					DataStatistics weld = dss.getWorkTimeAndEleVol(i.getInsid(), dto);
+					json.put("t3", getTimeStrBySecond(weld.getWorktime()));//焊接时间
+					BigInteger worktime = dss.getStaringUpTime(i.getInsid(), dto);
+					json.put("t4", getTimeStrBySecond(worktime));//工作时间
+					double weldingproductivity = (double)Math.round(weld.getWorktime().doubleValue()/worktime.doubleValue()*100*100)/100;
+					json.put("t5", weldingproductivity);//焊接效率
+					DataStatistics parameter = dss.getParameter();
+					BigInteger standytime = dss.getStandytime(i.getInsid(), dto);
+					if(parameter!=null){
+						double standytimes = 0;
+						if(standytime!=null){
+							standytimes = (standytime.divide(new BigInteger("60"))).doubleValue();
+						}
+						double  time = (weld.getWorktime().divide(new BigInteger("60"))).doubleValue();
+						String[] str = parameter.getWireweight().split(",");
+						double wireweight =Double.valueOf(str[0]);
+						double wire = (double)Math.round(wireweight*parameter.getSpeed()*time*100)/100;//焊丝消耗量=焊丝|焊丝重量*送丝速度*焊接时间
+						double air = (double)Math.round(parameter.getAirflow()*time*100)/100;//气体消耗量=气体流量*焊接时间
+						double  electric = (double)Math.round(time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						json.put("t6", wire);//焊丝消耗
+						json.put("t7", electric);//电能消耗
+						json.put("t8", air);//气体消耗
+					}
+				}else{
+					json.put("t2", 0);
+					json.put("t3", "00:00:00");
+					json.put("t4", "00:00:00");
+					json.put("t5", 0);
+					json.put("t6", 0);
+					json.put("t7", 0);
+					json.put("t8", 0);
+				}
+				ary.add(json);
+			}
+			//表头
+			String [] str = {"所属班组","设备编号","焊接焊缝数","焊接时间","工作时间","焊接效率(%)","焊丝消耗(KG)","电能消耗(KWH)","气体消耗(L)"};
+			for(int i=0;i<str.length;i++){
+				title.put("title", str[i]);
+				titleary.add(title);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("ary", titleary);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	
+	/**
+	 * 跳转人员生产数据报表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getPersonData")
+	@ResponseBody
+	public String getPersonProductionData(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		page = new Page(pageIndex,pageSize,total);
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONObject title = new JSONObject();
+		WeldDto dto = new WeldDto();
+		JSONArray titleary = new JSONArray();
+		long total = 0;
+		try{
+			if(iutil.isNull(time1)){
+				dto.setDtoTime1(time1);
+			}
+			if(iutil.isNull(time2)){
+				dto.setDtoTime2(time2);
+			}
+			List<DataStatistics> list = dss.getAllWelder(page);
+			if(list != null){
+				PageInfo<DataStatistics> pageinfo = new PageInfo<DataStatistics>(list);
+				total = pageinfo.getTotal();
+			}
+			for(DataStatistics i:list){
+				dto.setWelderno(i.getSerialnumber());
+				json.put("t0", i.getSerialnumber());
+				json.put("t1", i.getName());
+				DataStatistics junctionnum = dss.getWorkNum(null, dto);
+				if(junctionnum.getJunctionnum()!=0){
+					json.put("t2", junctionnum.getJunctionnum());//焊接焊缝数
+					DataStatistics weld = dss.getWorkTimeAndEleVol(null, dto);
+					json.put("t3", getTimeStrBySecond(weld.getWorktime()));//焊接时间
+					BigInteger worktime = dss.getStaringUpTime(null, dto);
+					json.put("t4", getTimeStrBySecond(worktime));//工作时间
+					double weldingproductivity = (double)Math.round(weld.getWorktime().doubleValue()/worktime.doubleValue()*100*100)/100;
+					json.put("t5", weldingproductivity);//焊接效率
+					DataStatistics parameter = dss.getParameter();
+					BigInteger standytime = dss.getStandytime(null, dto);
+					if(parameter!=null){
+						double standytimes = 0;
+						if(standytime!=null){
+							standytimes = (standytime.divide(new BigInteger("60"))).doubleValue();
+						}
+						double  time = (weld.getWorktime().divide(new BigInteger("60"))).doubleValue();
+						String[] str = parameter.getWireweight().split(",");
+						double wireweight =Double.valueOf(str[0]);
+						double wire = (double)Math.round(wireweight*parameter.getSpeed()*time*100)/100;//焊丝消耗量=焊丝|焊丝重量*送丝速度*焊接时间
+						double air = (double)Math.round(parameter.getAirflow()*time*100)/100;//气体消耗量=气体流量*焊接时间
+						double  electric = (double)Math.round(time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						json.put("t6", wire);//焊丝消耗
+						json.put("t7", electric);//电能消耗
+						json.put("t8", air);//气体消耗
+					}
+				}else{
+					json.put("t2", 0);
+					json.put("t3", "00:00:00");
+					json.put("t4", "00:00:00");
+					json.put("t5", 0);
+					json.put("t6", 0);
+					json.put("t7", 0);
+					json.put("t8", 0);
+				}
+				ary.add(json);
+			}
+			//表头
+			String [] str = {"焊工编号","焊工名称","焊接焊缝数","焊接时间","工作时间","焊接效率(%)","焊丝消耗(KG)","电能消耗(KWH)","气体消耗(L)"};
+			for(int i=0;i<str.length;i++){
+				title.put("title", str[i]);
+				titleary.add(title);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("ary", titleary);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
 	public String getTimeStrBySecond(BigInteger timeParam ) {
 		BigInteger[] str = timeParam.divideAndRemainder(new BigInteger("60"));//divideAndRemainder返回数组。第一个是商第二个时取模
 		BigInteger second = str[1];
@@ -153,14 +364,14 @@ public class DataStatisticsController {
     		BigInteger minute = minstr[1];
     		BigInteger hour = minuteTemp.divide(new BigInteger("60"));
             if (hour.compareTo(new BigInteger("0"))>0) {
-                return (hour.compareTo(new BigInteger("10"))>0 ? (hour + "") : ("0" + hour)) + ":" + (minute.compareTo(new BigInteger("10"))>0 ? (minute + "") : ("0" + minute))
-                        + ":" + (second .compareTo(new BigInteger("10"))>0 ? (second + "") : ("0" + second));
+                return (hour.compareTo(new BigInteger("9"))>0 ? (hour + "") : ("0" + hour)) + ":" + (minute.compareTo(new BigInteger("9"))>0 ? (minute + "") : ("0" + minute))
+                        + ":" + (second .compareTo(new BigInteger("9"))>0 ? (second + "") : ("0" + second));
             } else {
-                return "00:" + (minute.compareTo(new BigInteger("10"))>0 ? (minute + "") : ("0" + minute)) + ":"
-                        + (second .compareTo(new BigInteger("10"))>0 ? (second + "") : ("0" + second));
+                return "00:" + (minute.compareTo(new BigInteger("9"))>0 ? (minute + "") : ("0" + minute)) + ":"
+                        + (second .compareTo(new BigInteger("9"))>0 ? (second + "") : ("0" + second));
             }
         } else {
-            return "00:00:" + (second .compareTo(new BigInteger("10"))>0 ? (second + "") : ("0" + second));
+            return "00:00:" + (second .compareTo(new BigInteger("9"))>0 ? (second + "") : ("0" + second));
         }
 	}
 }

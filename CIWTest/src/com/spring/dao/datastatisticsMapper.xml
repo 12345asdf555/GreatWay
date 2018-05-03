@@ -5,7 +5,9 @@
 
 	<resultMap id="dataMap" type="com.spring.model.DataStatistics">
 		<id property="id" column="fid"></id> 
-        <result property="name" column="fname"></result>  
+        <result property="name" column="fname"></result>
+        <result property="insid" column="insid"></result>
+        <result property="insname" column="insname"></result>
         <result property="total" column="total"></result>  
         <result property="num" column="num"></result>  
        	<result property="machinenum" column="machinenum"></result>
@@ -17,6 +19,7 @@
        	<result property="standbypower" column="fstandby_power"></result>
        	<result property="electricity" column="electricity"></result>
        	<result property="voltage" column="voltage"></result>
+       	<result property="serialnumber" column="serialnumber"></result>
 	</resultMap>
 	
 	<!-- 获取项目部焊机总数 -->
@@ -82,14 +85,20 @@
 		
 	</select>
 	
-	<!-- 获取工作的焊机数，焊口数以及焊接时长 -->
+	<!-- 获取工作的焊机数，焊口数-->
 	<select id="getWorkNum" resultMap="dataMap">
-		select count(DISTINCT(fmachine_id)) machinenum,count(DISTINCT(fjunction_id)) junctionnum,sum(fworktime) work
+		select count(DISTINCT(fmachine_id)) machinenum,count(DISTINCT(fjunction_id)) junctionnum
 		from tb_work where 1=1
 		<if test="itemid!=null and itemid!=''">
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.welderno!=null and dto.welderno!=''">
+				and fwelder_id = #{dto.welderno}
+			</if>
+			<if test="dto.machineid!=null and dto.machineid!=''">
+				and fmachine_id = #{dto.machineid}
+			</if>
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
 			</if>
@@ -107,6 +116,12 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.welderno!=null and dto.welderno!=''">
+				and fwelder_id = #{dto.welderno}
+			</if>
+			<if test="dto.machineid!=null and dto.machineid!=''">
+				and fmachine_id = #{dto.machineid}
+			</if>
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
 			</if>
@@ -120,6 +135,12 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.welderno!=null and dto.welderno!=''">
+				and fwelder_id = #{dto.welderno}
+			</if>
+			<if test="dto.machineid!=null and dto.machineid!=''">
+				and fmachine_id = #{dto.machineid}
+			</if>
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
 			</if>
@@ -133,6 +154,12 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.welderno!=null and dto.welderno!=''">
+				and fwelder_id = #{dto.welderno}
+			</if>
+			<if test="dto.machineid!=null and dto.machineid!=''">
+				and fmachine_id = #{dto.machineid}
+			</if>
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
 			</if>
@@ -148,12 +175,19 @@
 		SELECT fwire_weight,fspeed,fair_flow_volume,fstandby_power from tb_parameter
 	</select>
 	
+	<!-- 待机时长 -->
 	<select id="getStandytime" resultType="java.math.BigInteger">
 		select sum(fstandbytime) worktime from tb_standby where 1=1 
 		<if test="itemid!=null and itemid!=''">
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.welderno!=null and dto.welderno!=''">
+				and fwelder_id = #{dto.welderno}
+			</if>
+			<if test="dto.machineid!=null and dto.machineid!=''">
+				and fmachine_id = #{dto.machineid}
+			</if>
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
 			</if>
@@ -163,6 +197,7 @@
 		</if>
 	</select>
 	
+	<!-- 焊接时长及平均电流电压 -->
 	<select id="getWorkTimeAndEleVol" resultMap="dataMap">
 		SELECT avg(ele) electricity,avg(vol) voltage ,sum(t) worktime from (
 		select avg(felectricity) ele,avg(fvoltage) vol,sum(fworktime) t from tb_work where 1=1 
@@ -170,6 +205,12 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.welderno!=null and dto.welderno!=''">
+				and fwelder_id = #{dto.welderno}
+			</if>
+			<if test="dto.machineid!=null and dto.machineid!=''">
+				and fmachine_id = #{dto.machineid}
+			</if>
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
 			</if>
@@ -183,6 +224,12 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.welderno!=null and dto.welderno!=''">
+				and fwelder_id = #{dto.welderno}
+			</if>
+			<if test="dto.machineid!=null and dto.machineid!=''">
+				and fmachine_id = #{dto.machineid}
+			</if>
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
 			</if>
@@ -192,5 +239,14 @@
 		</if>
 		)temp
 	</select>
+
+	<!-- 查询所有焊机id，编号，组织机构id及名称 -->
+	<select id="getAllMachine" resultMap="dataMap">
+		SELECT m.fid,m.fequipment_no fname,i.fid insid,fname insname FROM tb_welding_machine m inner join tb_insframework i on i.fid = m.finsframework_id where ftype=23
+	</select>
 	
+	<!--查询所有焊工编号，姓名 -->
+	<select id="getAllWelder" resultMap="dataMap">
+		SELECT fwelder_no serialnumber,fname FROM tb_welder
+	</select>
 </mapper>

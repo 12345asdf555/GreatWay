@@ -4,7 +4,9 @@ import java.math.BigInteger;
 
 public class DataStatistics {
 	private BigInteger id;
+	private BigInteger insid;
 	private String name;
+	private String insname;
 	private int total;
 	private int num;
 	private String wireweight;
@@ -16,11 +18,31 @@ public class DataStatistics {
 	private BigInteger worktime; 
 	private double voltage;
 	private double electricity;
+	private String serialnumber;
+	
+	public String getSerialnumber() {
+		return serialnumber;
+	}
+	public void setSerialnumber(String serialnumber) {
+		this.serialnumber = serialnumber;
+	}
 	public BigInteger getId() {
 		return id;
 	}
 	public void setId(BigInteger id) {
 		this.id = id;
+	}
+	public BigInteger getInsid() {
+		return insid;
+	}
+	public void setInsid(BigInteger insid) {
+		this.insid = insid;
+	}
+	public String getInsname() {
+		return insname;
+	}
+	public void setInsname(String insname) {
+		this.insname = insname;
 	}
 	public String getName() {
 		return name;

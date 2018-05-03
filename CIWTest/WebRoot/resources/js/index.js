@@ -70,6 +70,18 @@ function openItemData(){
 	addTab("班组生产数据","datastatistics/goItemData");
 }
 
+function openMachineData(){
+	addTab("设备生产数据","datastatistics/goMachineData");
+}
+
+function openPersonData(){
+	addTab("人员生产数据","datastatistics/goPersonData");
+}
+
+function openWorkpieceData(){
+	addTab("工件生产数据","datastatistics/goWorkpieceData");
+}
+
 function openUser(){
 	addTab("用户管理","user/AllUser");
 }

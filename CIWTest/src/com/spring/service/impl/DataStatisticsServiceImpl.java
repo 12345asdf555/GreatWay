@@ -56,4 +56,16 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 		return ds.getWorkTimeAndEleVol(itemid, dto);
 	}
 
+	@Override
+	public List<DataStatistics> getAllMachine(Page page) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return ds.getAllMachine();
+	}
+
+	@Override
+	public List<DataStatistics> getAllWelder(Page page) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return ds.getAllWelder();
+	}
+
 }
