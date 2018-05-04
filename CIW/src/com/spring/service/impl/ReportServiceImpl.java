@@ -41,9 +41,9 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public List<Report> findAllWelder(Page page, BigInteger iid, String str) {
+	public List<Report> findAllWelder(Page page,WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return mapper.findAllWelder(iid, str);
+		return mapper.findAllWelder(dto);
 	}
 
 	public long getWeldingTime(WeldDto dto, BigInteger machid,String weldid) {
@@ -94,9 +94,8 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public List<Report> getAllPara(Page page, BigInteger parent, String str, String time) {
+	public List<Report> getAllPara(BigInteger parent, String str, String time) {
 		// TODO Auto-generated method stub
-		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		return mapper.getAllPara(parent, str, time);
 	}
 

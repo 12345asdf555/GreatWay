@@ -42,10 +42,10 @@ public class Td {
 	public void setVoltage(double voltage) {
 		this.voltage = voltage;
 	}
-	public String getPosition(){
+	public String getFposition(){
 		return fposition;
 	}
-	public void setPosition(String fposition) {
+	public void setFposition(String fposition) {
 		this.fposition = fposition;
 	}
 	public String getFwelder_no(){

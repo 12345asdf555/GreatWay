@@ -82,9 +82,15 @@ public class WpsServiceImpl implements WpsService{
 	}
 
 	@Override
-	public List<Wps> findAllSpe(BigInteger machine, BigInteger chanel, BigInteger cla) {
+	public List<Wps> findAllSpe(BigInteger machine, BigInteger chanel) {
 		// TODO Auto-generated method stub
-		return mapper.findAllSpe(machine, chanel,cla);
+		return mapper.findAllSpe(machine, chanel);
+	}
+	
+	@Override
+	public List<Wps> findSpe(BigInteger machine, String chanel) {
+		// TODO Auto-generated method stub
+		return mapper.findSpe(machine, chanel);
 	}
 
 	@Override
@@ -94,9 +100,9 @@ public class WpsServiceImpl implements WpsService{
 	}
 
 	@Override
-	public int findCount(BigInteger machine, Integer chanel, Integer fselect) {
+	public int findCount(BigInteger machine, String chanel) {
 		// TODO Auto-generated method stub
-		return mapper.findCount(machine, chanel, fselect);
+		return mapper.findCount(machine, chanel);
 	}
 
 	@Override
@@ -109,5 +115,10 @@ public class WpsServiceImpl implements WpsService{
 	public void updateSpe(Wps wps) {
 		// TODO Auto-generated method stub
 		mapper.updateSpe(wps);
+	}
+
+	public List<Wps> AllSpe(BigInteger machine,String ch) {
+		// TODO Auto-generated method stub
+		return mapper.AllSpe(machine,ch);
 	}
 }

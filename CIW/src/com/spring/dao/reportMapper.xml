@@ -33,14 +33,26 @@
 	</select>
 	
 	<select id="findAllWelder" resultType="Report">
-		SELECT `fid` id,`fname` fname,`fwelder_no` fweldernum,`FCellPhone` fphone,`Fowner`,`Fback` fback FROM tb_welder WHERE 1=1 
-		<if test="iid!=null and iid!=''">
-			and `Fowner`= #{iid}
+		SELECT w.fwelder_no fweldernum,w.fname fname,w.FCellPhone num3,w.Fback fback,m.fequipment_no fmachineid,m.fmodel fmachinemodel,SUM(o.fworktime) result1 FROM tb_welder w LEFT JOIN tb_work o ON w.fwelder_no=o.fwelder_id LEFT JOIN tb_welding_machine m ON o.fmachine_id=m.fid WHERE 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and o.fstarttime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and o.fendtime &lt;= #{dto.dtoTime2}
+			</if>
 		</if>
-		<if test="str!=null and str!=''">
-			and ${str}
+		UNION
+		SELECT w.fwelder_no fweldernum,w.fname fname,w.FCellPhone num3,w.Fback fback,null fequipment_no,null fmodel,0 fworktime FROM tb_welder w WHERE w.fwelder_no NOT IN (SELECT DISTINCT tb_work.fwelder_id FROM tb_work WHERE 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fstarttime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fendtime &lt;= #{dto.dtoTime2}
+			</if>
 		</if>
-		 ORDER by `fid`
+		)
 	</select>
 	
 	<select id="findMachine" resultType="Report">
@@ -157,7 +169,7 @@
 		)temp
 	</select>
 	
-	<select id="getAllPara" resultType="Report">
+<!-- 	<select id="getAllPara" resultType="Report">
 	SELECT * from ( 
     select * from(SELECT eno,model,time,fstandardele,fstandardvol,dia,id from ( 
     SELECT m.fid id,m.fmodel model, m.fequipment_no eno,l.FWeldTime time,ms.Fweld_I fstandardele,ms.fweld_v fstandardvol,ms.Fdiameter dia from 
@@ -181,6 +193,10 @@
 	</if>
     ) 
 )temp
+	</select> -->
+	
+	<select id="getAllPara" resultType="Report">
+		SELECT m.fid id,m.fequipment_no eno,m.fmodel model,mw.Fweld_I fstandardele,mw.Fweld_v fstandardvol,mw.Fdiameter dia FROM tb_welding_machine m LEFT JOIN tb_wps_welddevices ww ON m.fid=ww.FWeldDevicesID LEFT JOIN tb_mainwps mw ON ww.FWeldWPSID=mw.FID GROUP BY m.fequipment_no
 	</select>
 	
 		<select id="historyData" resultType="Report">
