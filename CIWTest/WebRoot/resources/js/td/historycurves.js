@@ -1,5 +1,7 @@
 $(function(){
 	Junction();
+	$("#little").hide();
+	$("#body1").height($("#elebody").height()-30);
 })
 
 function setParam(){
@@ -122,7 +124,7 @@ function loadChart(row){
 	ele = new Array();
 	document.getElementById("load").style.display="block";
 	var sh = '<div id="show" style="width:150px;" align="center"><img src="resources/images/load1.gif"/>数据加载中，请稍候...</div>';
-	$("#body").append(sh);
+	$("#bodys").append(sh);
 	document.getElementById("show").style.display="block";
 	chartStr = "";
 	setParam();
@@ -157,9 +159,11 @@ function loadChart(row){
 		});
 }
 
+
 function eleChart(){
     var myChart = echarts.init(document.getElementById('body1'));
     var option = {
+        backgroundColor: '#fff',
         title : {
             text : '电流'
         },
@@ -215,9 +219,11 @@ function eleChart(){
     myChart.setOption(option);
 }
 
+
 function volChart(){
     var myChart = echarts.init(document.getElementById('body2'));
     var option = {
+    	backgroundColor: '#fff',
         title : {
             text : '电压'
         },
@@ -277,6 +283,35 @@ function serachCompanyOverproof(){
 	Junction();
 }
 
+function fullScreen(){
+	var row = $("#dg").datagrid('getSelected');
+	if(row==null){
+		alert("请先选择焊口");
+	}else{
+		$("#elebody").height('50%');
+		$("#elebody").css({'top':'0px'});
+		$("#body1").height($("#elebody").height()-30);
+		$("#body2").height('50%');
+		$("#body2").css({'top':'50%'});
+		echarts.init(document.getElementById('body1')).resize();
+		echarts.init(document.getElementById('body2')).resize();
+		$("#full").hide();
+		$("#little").show();
+	}
+}
+
+function theSmallScreen(){
+	$("#elebody").height('25%');
+	$("#elebody").css({'top':'58%'});
+	$("#body1").height($("#elebody").height()-30);
+	$("#body2").height('20%');
+	$("#body2").css({'top':'82%'});
+	echarts.init(document.getElementById('body1')).resize();
+	echarts.init(document.getElementById('body2')).resize();
+	$("#full").show();
+	$("#little").hide();
+}
+
 //监听窗口大小变化
 window.onresize = function() {
 	setTimeout(domresize, 500);
@@ -288,4 +323,11 @@ function domresize() {
 		height : $("#dgtb").height()/2,
 		width : $("#dgtb").width()
 	});
+
+	$("#body1").height($("#elebody").height()-30);
+	$("#body1").width('100%');
+	$("#body2").height('50%');
+	$("#body2").width('100%');
+	echarts.init(document.getElementById('body1')).resize();
+	echarts.init(document.getElementById('body2')).resize();
 }
