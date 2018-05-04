@@ -3,6 +3,8 @@
  */
 var namex;
 var time;
+var rowdex=0;
+var back = new Array();
 	$(function(){
 		$.ajax({  
 		      type : "post",  
@@ -70,6 +72,37 @@ var time;
 			//获得消息事件
 			socket.onmessage = function(msg) {
 				var xxx = msg.data;
+				
+				var dd = msg.data;
+				for(var n = 0;n < dd.length;n+=69){
+					if(dd.substring(8+n, 12+n)!="0000"){		
+						if(back.length==0){
+							var l=1;
+							var ll=0;
+							for(var a=0;a<l;a++){
+								if(dd.substring(4+n, 8+n)!=back[a]){
+									back.push(dd.substring(4+n, 8+n));		
+								}else{
+									continue;
+								}
+							}
+						}else{
+						l=back.length;
+						var ll=0;
+						for(var a=0;a<l;a++){
+							/*alert(dd.substring(4+n, 8+n));*/
+							if(dd.substring(4+n, 8+n)!=back[a]){
+								ll++;	
+								if(ll==back.length){
+								back.push(dd.substring(4+n, 8+n));
+								}		
+							}else{
+								continue;
+							}
+						}
+						}
+					}};
+				
 				if(xxx.substring(0,2)!="7E"){
 				/*alert(msg.data);*/
 				dd = msg.data;
@@ -109,6 +142,19 @@ var time;
     		    }
 	    		}
 	    	    }
+    			
+    			if((rowdex<back.length)&&(rows.length!=0)){
+    			for(var dex1=0;dex1<rows.length;dex1++){
+    				if(back[rowdex]==rows[dex1].machineid){    
+    				        $('#dg').datagrid('insertRow', {  
+    				            index:0,  
+    				            row:rows[dex1],  
+    				        });     
+    				        $('#dg').datagrid('deleteRow', dex1+1);//删除一行
+    				}
+    			}
+    			rowdex++;
+    			}
 			}
 		}
 			})
@@ -155,13 +201,13 @@ var time;
 			width : $("#body").width(),
 			idField : 'id',
 			toolbar : "#toolbar",
-			pageSize : 10,
-			pageList : [ 10, 20, 30, 40, 50 ],
+//			pageSize : 10,
+//			pageList : [ 10, 20, 30, 40, 50 ],
 			url : "rep/getTime",
 			singleSelect : true,
 			rownumbers : true,
-			pagination : true,
-			showPageList : false,
+			pagination : false,
+//			showPageList : false,
 			columns : [ [ /*{
 				field : 'wsid',
 				title : '车间号',

@@ -371,20 +371,20 @@ public class ReportController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
-		pageIndex = Integer.parseInt(request.getParameter("page"));
-		pageSize = Integer.parseInt(request.getParameter("rows"));
+//		pageIndex = Integer.parseInt(request.getParameter("page"));
+//		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String search = request.getParameter("searchStr");
 		String parentId = request.getParameter("parent");
 		BigInteger parent = null;
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
 		}
-		page = new Page(pageIndex,pageSize,total);
+//		page = new Page(pageIndex,pageSize,total);
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String datetime = "%" + sdf.format(date) + "%";
 //		List<WeldingMachine> list = wmm.getWeldingMachineAll(page,parent,search);
-		List<Report> list = reportService.getAllPara(page, parent, search, datetime);
+		List<Report> list = reportService.getAllPara(parent, search, datetime);
 		long total = 0;
 		if(list != null){
 			PageInfo<Report> pageinfo = new PageInfo<Report>(list);
@@ -395,10 +395,11 @@ public class ReportController {
 		 for(Report wm1:list){
 /*		 long zx = reportService.getZxTime(wm1.getId(), datetime);
 		 long hj = reportService.getHjTime(wm1.getId(), datetime);*/
+		 json.put("id", wm1.getId());
 		 json.put("afv", r1.getFafv());
 		 json.put("standardele", wm1.getFstandardele());
 		 json.put("standardvol", wm1.getFstandardvol());
-		 json.put("boottime", wm1.getTime());
+		 json.put("boottime", "");
 		 json.put("machineid", wm1.getEno());
 		 json.put("machinemodel", wm1.getModel());
 		 json.put("macstatus", "关机");
@@ -419,19 +420,19 @@ public class ReportController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
-		pageIndex = Integer.parseInt(request.getParameter("page"));
-		pageSize = Integer.parseInt(request.getParameter("rows"));
+//		pageIndex = Integer.parseInt(request.getParameter("page"));
+//		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String search = request.getParameter("searchStr");
 		String parentId = request.getParameter("parent");
 		BigInteger parent = null;
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
 		}
-		page = new Page(pageIndex,pageSize,total);
+//		page = new Page(pageIndex,pageSize,total);
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String datetime = "%" + sdf.format(date) + "%";
-		List<Report> list = reportService.getAllPara(page, parent, search, datetime);
+		List<Report> list = reportService.getAllPara(parent, search, datetime);
 		long total = 0;
 		if(list != null){
 			PageInfo<Report> pageinfo = new PageInfo<Report>(list);
@@ -513,7 +514,7 @@ public class ReportController {
 			iid = new BigInteger(insid);
 		}
 		page = new Page(pageIndex,pageSize,total);
-		List<Report> list = reportService.findAllWelder(page, iid, str);
+		List<Report> list = reportService.findAllWelder(page,dto);
 		long total = 0;
 		
 		if(list != null){
@@ -530,27 +531,22 @@ public class ReportController {
 		String times;
 		try{
 			for(Report repo:list){
-				List<Report> mach = reportService.findMachine(repo.getFweldernum());
-				if(mach.isEmpty()){
+					json.put("machinemodel", repo.getFmachinemodel());
+					json.put("machineid", repo.getFmachineid());
 					json.put("fname", repo.getFname());
-					json.put("phone", repo.getFphone());
+					json.put("phone", repo.getNum3());
 					json.put("weldernum", repo.getFweldernum());
 					json.put("back", repo.getFback());
-					json.put("machinemodel", "");
-					json.put("machineid", "");
-					json.put("valuetime", "00:00:00");
-					ary.add(json);
-				}else{
-				for(Report report:mach){
-					json.put("machinemodel", report.getFmachinemodel());
-					json.put("machineid", report.getFname());
-					long hour = reportService.getWeldingTime(dto, report.getId(),repo.getFweldernum())/3600;
+					if(repo.getResult1().toString()=="0"){
+						json.put("valuetime", "00:00:00");
+					}else{
+					long hour = Integer.valueOf(repo.getResult1().toString())/3600;
 					if(hour<10){
 						hour1 = "0" + String.valueOf(hour) + ":";
 					}else{
 						hour1 = String.valueOf(hour) + ":";
 					}
-					long last = reportService.getWeldingTime(dto, report.getId(),repo.getFweldernum())%3600;
+					long last = Integer.valueOf(repo.getResult1().toString())%3600;
 					long minute = last/60;
 					if(minute<10){
 						minute1 = "0" + String.valueOf(minute) + ":";
@@ -565,13 +561,8 @@ public class ReportController {
 					}
 					times = hour1 + minute1 + second1;
 					json.put("valuetime", times);
-					json.put("fname", repo.getFname());
-					json.put("phone", repo.getFphone());
-					json.put("weldernum", repo.getFweldernum());
-					json.put("back", repo.getFback());
+					}
 					ary.add(json);
-				}
-				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();

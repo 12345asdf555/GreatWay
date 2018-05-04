@@ -13,7 +13,7 @@ public interface ReportService {
 	BigInteger getWpsid(BigInteger machid);
 	Report getWps(BigInteger wpsid);
 	Report getSyspara();
-	List<Report> findAllWelder(Page page, BigInteger iid,String str);
+	List<Report> findAllWelder(Page page,WeldDto dto);
 	List<Report> findMachine(String weldid);
 	long getWeldingTime(WeldDto dto,BigInteger machid,String weldid);
 	long getOnTime(WeldDto dto,BigInteger machid);
@@ -22,6 +22,6 @@ public interface ReportService {
 	long getHjTime(BigInteger machid,String time);
 	long getZxTime(BigInteger machid,String time);
 	String getFirstTime(BigInteger machid,String time);
-	List<Report> getAllPara(Page page, BigInteger parent,String str,String time);
+	List<Report> getAllPara(BigInteger parent,String str,String time);
 	List<Report> historyData(Page page,WeldDto dto,String fid,BigInteger mach, String welderid);
 }

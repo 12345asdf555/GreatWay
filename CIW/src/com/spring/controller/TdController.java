@@ -64,6 +64,13 @@ public class TdController {
 		return "td/BackUp";
 	}
 	
+	@RequestMapping("/goNextcurve")
+	public String goNextcurve(HttpServletRequest request){
+		String value = request.getParameter("value");
+		request.setAttribute("value", value);
+		return "td/nextCurve";
+	}
+	
 	@RequestMapping("/AllTdd")
 	public String AllTdd(HttpServletRequest request){
 		request.setAttribute("divi", request.getParameter("value"));
@@ -370,15 +377,22 @@ public class TdController {
 	@RequestMapping("/getAllPosition")
 	@ResponseBody
 	public String getAllPosition(HttpServletRequest request){
-		
-		List<Td> getAP = tdService.getAllPosition();		
+		String parentId = request.getParameter("parent");
+		BigInteger parent = null;
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		List<Td> getAP = tdService.getAllPosition(parent);
 		JSONObject obj = new JSONObject();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		try{
 			for(Td td:getAP){
-				json.put("fpositin",td.getPosition());
-				json.put("fequip", td.getFequipment_no());
+				json.put("fid",td.getId());
+				json.put("fequipment_no", td.getFequipment_no());
+				json.put("fposition", td.getFposition());
+				json.put("finsid", td.getFci());
+				json.put("finsname", td.getFcn());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -388,7 +402,7 @@ public class TdController {
 		return obj.toString();
 	}
 	
-	@RequestMapping("/isnull")
+/*	@RequestMapping("/isnull")
 	@ResponseBody
 	public String isnull(HttpServletRequest request){
 		JSONObject obj = new JSONObject();
@@ -398,16 +412,16 @@ public class TdController {
 		try{
 			for(Td td:getAP){
 				json.put("fequipment_no",td.getFequipment_no());
-				json.put("fposition", td.getPosition());
+				json.put("fposition", td.getFposition());
 				ary.add(json);
 			}
 		}catch(Exception e){
-			/*e.getMessage();*/
+			e.getMessage();
 		}
 		obj.put("total", total);
 		obj.put("rows", ary);
 		return obj.toString();
-	}
+	}*/
 	
 	@RequestMapping("/geInsname")
 	@ResponseBody
