@@ -1,12 +1,14 @@
 $(function(){
 	dgDatagrid();
+	itemcombobox();
 })
 
 var chartStr = "";
 function setParam(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr += "?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	var item = $("#item").combobox('getValue');
+	chartStr += "?item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
 function dgDatagrid(){
@@ -47,6 +49,9 @@ function dgDatagrid(){
         		                 color.class="rowColor";
         		                 return color;
         		             }
+        		         },
+        		         onBeforeLoad : function(param){
+     		        		$("#chartLoading").hide();
         		         }
                  };
             	 $('#dg').datagrid(grid);  
@@ -58,9 +63,36 @@ function dgDatagrid(){
    }); 
 }
 
+function itemcombobox(){
+	$.ajax({  
+      type : "post",  
+      async : false,
+      url : "datastatistics/getAllInsframework",  
+      data : {},  
+      dataType : "json", //返回数据形式为json  
+      success : function(result) {  
+          if (result) {
+              var optionStr = '';
+              for (var i = 0; i < result.ary.length; i++) {  
+                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+                          + result.ary[i].name + "</option>";
+              }
+              $("#item").html(optionStr);
+          }  
+      },  
+      error : function(errorMsg) {  
+          alert("数据请求失败，请联系系统管理员!");  
+      }  
+	}); 
+	$("#item").combobox();
+}
+
 function serach(){
+	$("#chartLoading").show();
 	chartStr = "";
-	dgDatagrid();
+	setTimeout(function(){
+		dgDatagrid();
+	},500);
 }
 
 //监听窗口大小变化

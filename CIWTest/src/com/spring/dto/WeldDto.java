@@ -31,7 +31,14 @@ public class WeldDto {
 	private String second;
 	private BigInteger machineid;
 	private String welderno;
+	private String junctionno;
 	
+	public String getJunctionno() {
+		return junctionno;
+	}
+	public void setJunctionno(String junctionno) {
+		this.junctionno = junctionno;
+	}
 	public BigInteger getMachineid() {
 		return machineid;
 	}

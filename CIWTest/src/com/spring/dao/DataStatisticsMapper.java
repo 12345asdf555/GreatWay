@@ -26,7 +26,11 @@ public interface DataStatisticsMapper  extends Mapper<DataStatistics>{
 	
 	DataStatistics getWorkTimeAndEleVol(@Param("itemid") BigInteger itemid,@Param("dto") WeldDto dto);
 	
-	List<DataStatistics> getAllMachine();
+	List<DataStatistics> getAllMachine(@Param("item") BigInteger item);
 	
 	List<DataStatistics> getAllWelder();
+	
+	List<DataStatistics> getAllJunction(@Param("junctionno") String junctionno);
+	
+	List<DataStatistics> getAllInsframe();
 }

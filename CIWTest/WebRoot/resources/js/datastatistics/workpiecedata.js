@@ -6,7 +6,8 @@ var chartStr = "";
 function setParam(){
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	chartStr += "?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	var junctionno = $("#junctionno").val();
+	chartStr += "?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&junctionno="+junctionno;
 }
 
 function dgDatagrid(){
@@ -15,7 +16,7 @@ function dgDatagrid(){
 	$.ajax({  
         type : "post",  
         async : false,
-        url : "datastatistics/getItemData"+chartStr,
+        url : "datastatistics/getWorkpieceData"+chartStr,
         data : {},  
         dataType : "json", //返回数据形式为json  
         success : function(result) {
@@ -30,7 +31,7 @@ function dgDatagrid(){
             			 fitColumns : true,
         				 height : $("#body").height(),
         				 width : $("#body").width(),
-        				 url : "datastatistics/getItemData"+chartStr,
+        				 url : "datastatistics/getWorkpieceData"+chartStr,
         				 pageSize : 10,
         				 pageList : [ 10, 20, 30, 40, 50 ],
         				 singleSelect : true,
@@ -49,7 +50,7 @@ function dgDatagrid(){
         		             }
         		         },
         		         onBeforeLoad : function(param){
-     		        		$("#chartLoading").hide();
+        		        		$("#chartLoading").hide();
         		         }
                  };
             	 $('#dg').datagrid(grid);  

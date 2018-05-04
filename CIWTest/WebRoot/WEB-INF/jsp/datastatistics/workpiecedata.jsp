@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
 	<script type="text/javascript" src="resources/js/getTimeToHours.js"></script>
-	<script type="text/javascript" src="resources/js//datastatistics/persondata.js"></script>
+	<script type="text/javascript" src="resources/js//datastatistics/workpiecedata.js"></script>
   </head>
   
   <body>
@@ -38,6 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	  	<div id="dg_btn">
 			<div style="margin-bottom: 5px;">
+				焊缝编号：
+				<input class="easyui-textbox" name="junctionno" id="junctionno"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">

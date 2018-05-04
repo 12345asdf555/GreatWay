@@ -116,6 +116,9 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.junctionno!=null and dto.junctionno!=''">
+				and fjunction_id = #{dto.junctionno}
+			</if>
 			<if test="dto.welderno!=null and dto.welderno!=''">
 				and fwelder_id = #{dto.welderno}
 			</if>
@@ -135,6 +138,9 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.junctionno!=null and dto.junctionno!=''">
+				and fjunction_id = #{dto.junctionno}
+			</if>
 			<if test="dto.welderno!=null and dto.welderno!=''">
 				and fwelder_id = #{dto.welderno}
 			</if>
@@ -154,6 +160,9 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.junctionno!=null and dto.junctionno!=''">
+				and fjunction_id = #{dto.junctionno}
+			</if>
 			<if test="dto.welderno!=null and dto.welderno!=''">
 				and fwelder_id = #{dto.welderno}
 			</if>
@@ -182,6 +191,9 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.junctionno!=null and dto.junctionno!=''">
+				and fjunction_id = #{dto.junctionno}
+			</if>
 			<if test="dto.welderno!=null and dto.welderno!=''">
 				and fwelder_id = #{dto.welderno}
 			</if>
@@ -205,6 +217,9 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.junctionno!=null and dto.junctionno!=''">
+				and fjunction_id = #{dto.junctionno}
+			</if>
 			<if test="dto.welderno!=null and dto.welderno!=''">
 				and fwelder_id = #{dto.welderno}
 			</if>
@@ -224,6 +239,9 @@
 			and fitemid= #{itemid}
 		</if>
 		<if test="dto!=null and dto!=''">
+			<if test="dto.junctionno!=null and dto.junctionno!=''">
+				and fjunction_id = #{dto.junctionno}
+			</if>
 			<if test="dto.welderno!=null and dto.welderno!=''">
 				and fwelder_id = #{dto.welderno}
 			</if>
@@ -243,10 +261,26 @@
 	<!-- 查询所有焊机id，编号，组织机构id及名称 -->
 	<select id="getAllMachine" resultMap="dataMap">
 		SELECT m.fid,m.fequipment_no fname,i.fid insid,fname insname FROM tb_welding_machine m inner join tb_insframework i on i.fid = m.finsframework_id where ftype=23
+		<if test="item!=null and item!=''">
+			and i.fid = #{item}
+		</if>
 	</select>
 	
 	<!--查询所有焊工编号，姓名 -->
 	<select id="getAllWelder" resultMap="dataMap">
 		SELECT fwelder_no serialnumber,fname FROM tb_welder
+	</select>
+	
+	<!-- 查询所有焊缝编号，组织机构名称 -->
+	<select id="getAllJunction" resultMap="dataMap">
+		SELECT fwelded_junction_no serialnumber,i.fid,i.fname FROM tb_welded_junction j INNER join tb_insframework i on i.fid = j.fitemId where 1=1
+		<if test="junctionno!=null and junctionno!=''">
+			and fwelded_junction_no like #{junctionno}
+		</if>
+	</select>
+	
+	<!-- 查询所有项目部组织机构 -->
+	<select id="getAllInsframe"  resultMap="dataMap">
+		SELECT fid,fname FROM tb_insframework where ftype=23
 	</select>
 </mapper>

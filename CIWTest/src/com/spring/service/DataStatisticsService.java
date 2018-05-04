@@ -3,6 +3,8 @@ package com.spring.service;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.dto.WeldDto;
 import com.spring.model.DataStatistics;
 import com.spring.page.Page;
@@ -64,9 +66,11 @@ public interface DataStatisticsService {
 	
 	/**
 	 * 获取所有的焊机id，编号以及组织机构id，名称
+	 * @param page 分页
+	 * @param itemid 组织机构id
 	 * @return
 	 */
-	List<DataStatistics> getAllMachine(Page page);
+	List<DataStatistics> getAllMachine(Page page,BigInteger itemid);
 	
 	/**
 	 * 获取所有的焊工编号，姓名
@@ -74,4 +78,18 @@ public interface DataStatisticsService {
 	 * @return
 	 */
 	List<DataStatistics> getAllWelder(Page page);
+	
+	/**
+	 * 获取所有悍缝编号及组织机构id，name
+	 * @param page 分页
+	 * @param junctionno 焊缝编号
+	 * @return
+	 */
+	List<DataStatistics> getAllJunction(Page page,String junctionno);
+	
+	/**
+	 * 获取所有项目部组织机构
+	 * @return
+	 */
+	List<DataStatistics> getAllInsframe();
 }

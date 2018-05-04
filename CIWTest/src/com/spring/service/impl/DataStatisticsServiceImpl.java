@@ -57,15 +57,26 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 	}
 
 	@Override
-	public List<DataStatistics> getAllMachine(Page page) {
+	public List<DataStatistics> getAllMachine(Page page,BigInteger itemid) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return ds.getAllMachine();
+		return ds.getAllMachine(itemid);
 	}
 
 	@Override
 	public List<DataStatistics> getAllWelder(Page page) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		return ds.getAllWelder();
+	}
+
+	@Override
+	public List<DataStatistics> getAllJunction(Page page, String junctionno) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return ds.getAllJunction(junctionno);
+	}
+
+	@Override
+	public List<DataStatistics> getAllInsframe() {
+		return ds.getAllInsframe();
 	}
 
 }

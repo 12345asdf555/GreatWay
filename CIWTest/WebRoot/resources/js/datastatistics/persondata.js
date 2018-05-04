@@ -47,6 +47,9 @@ function dgDatagrid(){
         		                 color.class="rowColor";
         		                 return color;
         		             }
+        		         },
+        		         onBeforeLoad : function(param){
+     		        		$("#chartLoading").hide();
         		         }
                  };
             	 $('#dg').datagrid(grid);  
@@ -59,8 +62,11 @@ function dgDatagrid(){
 }
 
 function serach(){
+	$("#chartLoading").show();
 	chartStr = "";
-	dgDatagrid();
+	setTimeout(function(){
+		dgDatagrid();
+	},500);
 }
 
 //监听窗口大小变化
