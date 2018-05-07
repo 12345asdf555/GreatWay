@@ -181,7 +181,7 @@ readonly="readonly">
 		</div>
 		<div style="width:100%;height:45%;position:absolute;top:50%;">
 			<div style="margin-bottom:10px;float:left;">
-	            <label for="zu" style="text-align:center;display:inline-block">组织机构：</label><input name="zu" id="zu" class="easyui-textbox">
+	            <label for="zu" style="text-align:center;display:inline-block">组织机构：</label><input name="zu" id="zu" editable="false" class="easyui-textbox">
 	        </div>
 			<div style="margin-bottom:10px;float:left;">
 	            <div style=" width:17px; height:15px; background-color:#00FF00; border-radius:25px; float:left;"></div><label for="on" style="text-align:center;display:inline-block">工作总数：</label><input name="on" id="on" class="easyui-textbox" editable="false" value="0">
