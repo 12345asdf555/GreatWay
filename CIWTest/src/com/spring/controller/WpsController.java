@@ -474,7 +474,7 @@ public class WpsController {
 	        String[] ss = str.split(",");
 	        for (int i = 0; i < ss.length; i++) {
 				json.put("machineid", ss[i]);
-				json.put("num", co);
+				json.put("num", "1-"+co);
 				json.put("readynum", 0);
 				ary.add(json);
 	        }

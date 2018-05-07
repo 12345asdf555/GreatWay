@@ -1243,7 +1243,7 @@ function savecopy(){
 						}
 				}else{
 					rows1[xx].readynum=x;
-					if(x==rows1[xx].num){
+					if("1-"+x==rows1[xx].num){
 						rows1[xx].readynum="已完成";
 						$('#ro1').datagrid('refreshRow', xx);
 						xx++;
@@ -1274,7 +1274,7 @@ function savecopy(){
 }
 
 function ccp(){
-	if(x==rows1[xx].num){
+	if("1-"+x==rows1[xx].num){
 		x=0;
 	}
 	var chanel = parseInt(yshu1[x].FWPSNum).toString(16);
