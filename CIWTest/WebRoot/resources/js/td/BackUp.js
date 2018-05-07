@@ -85,11 +85,11 @@
 		      success : function(result) {
 		    	  if (result) {
 		    		  position = eval(result.rows);
-		    		  position1.push(position[0].fpositin);
+		    		  position1.push(position[0].fposition);
 	    			  for(var err2=0;err2<position.length;err2++){
 	    				  for(var count=0;count<position1.length;count++){
-		    				  if(position1[count]!=position[err2].fpositin&&count==position1.length-1){
-		    					  position1.push(position[err2].fpositin);
+		    				  if(position1[count]!=position[err2].fposition&&count==position1.length-1){
+		    					  position1.push(position[err2].fposition);
 		    				  }
 		    			  }
 		    		  }
@@ -304,8 +304,8 @@
 		/*online(position[0].fpositin);*/
     	for(var i = 0;i < dd.length;i+=159){
         	for(var err1=0;err1<position.length;err1++){
-        		if(position[err1].fequip==dd.substring(4+i, 8+i)){
-        	    	po=position[err1].fpositin;
+        		if(position[err1].fequipment_no==dd.substring(4+i, 8+i)){
+        	    	po=position[err1].fposition;
         		}
         	}
     	}
@@ -408,14 +408,14 @@
 		/*online(position[0].fpositin);*/
     	for(var i = 0;i < dd.length;i+=159){
         	for(var err1=0;err1<position.length;err1++){
-        		if(position[err1].fequip==dd.substring(4+i, 8+i)){
-        	    	po=position[err1].fpositin;
+        		if(position[err1].fequipment_no==dd.substring(4+i, 8+i)){
+        	    	po=position[err1].fposition;
         		}
         	}
     	}
 		for(var ba=0;ba<back.length;ba++){
 			for(var baa=0;baa<position.length;baa++){
-				if(back[ba]==position[baa].fequip){
+				if(back[ba]==position[baa].fequipment_no){
 					rece2(back[ba]);
 				}
 			}
@@ -424,7 +424,7 @@
 		timer1=window.setInterval(function(){
 			for(var t=0;t<back.length;t++){
 				for(var baa1=0;baa1<position.length;baa1++){
-					if(back[t]==position[baa1].fequip){
+					if(back[t]==position[baa1].fequipment_no){
 						rece2(back[t]);
 			    		datatable();
 			    		back.length=0;
@@ -464,7 +464,7 @@
 			idField : 'id',
 /*			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50 ],*/
-			url : 'td/isnull?posit='+po,
+			url : 'td/getAllPosition',
 			singleSelect : false,
 			rownumbers : true,
 			pagination : false,
