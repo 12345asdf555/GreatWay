@@ -8,9 +8,14 @@ var data1;
 var da;
 var socketfc=null;
 var yshu;
+var yshu1;
 var node11;
 var symbol=0;
 var symbol1=0;
+var symbol2;
+var x=0;
+var xx=0;
+var rows1;
 $(function(){
 //	inscombobox();
 	$('#dlg').dialog( {
@@ -36,7 +41,33 @@ $(function(){
 	          alert("数据请求失败，请联系系统管理员!");  
 	      }  
 	 });
-
+	
+	$("#ro").datagrid( {
+		height : $("#divro").height(),
+		width : $("#divro").width(),
+		idField : 'id',
+		url : "rep/getTime",
+		singleSelect : false,
+		rownumbers : true,
+        columns : [ [ {
+		    field:'ck',
+			checkbox:true
+		},{
+			field : 'id',
+			title : '序号',
+			width : 50,
+			halign : "center",
+			align : "left",
+			hidden:true
+		}, {
+			field : 'machineid',
+			title : '焊机编号',
+//			width : 80,
+			halign : "center",
+			align : "left"
+		}
+		] ]
+	});
  })
  
  function w() {
@@ -86,6 +117,7 @@ $(document).ready(function () {
     		$('#fgas').combobox('unselect');
     		$('#fdiameter').combobox('unselect');
     		$('#fmaterial').combobox('unselect');
+    		$('#fselect').combobox('unselect');
 		if(node11!=null){
 			document.getElementById("yiyuan1").style.display="none";
 			document.getElementById("yiyuan3").style.display="none";
@@ -94,7 +126,7 @@ $(document).ready(function () {
 			$.ajax({  
 			      type : "post",  
 			      async : false,
-			      url : "wps/getAllSpe?machine="+node11.id+"&chanel="+record.value+"&cla="+102,  
+			      url : "wps/getAllSpe?machine="+node11.id+"&chanel="+record.value,  
 			      data : {},  
 			      dataType : "json", //返回数据形式为json  
 			      success : function(result) {
@@ -102,6 +134,7 @@ $(document).ready(function () {
 			        	yshu = eval(result.rows);
 			        	if(yshu.length!=0){
 			      		$('#chanel').combobox('select',yshu[0].FWPSNum);
+			      		$('#fselect').combobox('select',yshu[0].Fweld_I_MAX);
 			    		$("#ftime").numberbox('setValue',yshu[0].ftime);
 			    		$("#fadvance").numberbox('setValue',yshu[0].fadvance);
 			    		$("#fini_ele").numberbox('setValue',yshu[0].fini_ele);
@@ -124,6 +157,16 @@ $(document).ready(function () {
 			    		$("#farc_tuny_vol").numberbox('setValue',yshu[0].Fdiameter);
 			    		$("#farc_tuny_vol1").numberbox('setValue',yshu[0].Fdiameter);
 			    		$("#fweld_tuny_vol1").numberbox('setValue',yshu[0].fweld_tuny_vol);
+			    		if(yshu[0].Fweld_I=="1"){
+			    			$("#finitial").prop("checked",true);
+			    		}
+			    		$('#farc').combobox('select',yshu[0].Fweld_I_MIN);
+			    		if(yshu[0].Fweld_V=="1"){
+			    			$("#fcontroller").prop("checked",true);
+			    		}
+			    		if(yshu[0].Fweld_V_MIN=="1"){
+			    			$("#fmode").prop("checked",true);
+			    		}
 			        	}else{
 			        		alert("未查询到相关数据，请尝试索取。");
 			        	}
@@ -143,7 +186,9 @@ function chushihua(){
 	document.getElementById("yiyuan3").style.display="none";
 	document.getElementById("gebie1").style.display="block";
 	document.getElementById("gebie3").style.display="block";
-	$('#chanel').combobox('select',1);
+	$("#fmode").prop("checked",false);
+	$("#finitial").prop("checked",false);
+	$("#fcontroller").prop("checked",false);
 	$('#fselect').combobox('select',102);
 	$("#ftime").numberbox('setValue',30.0);
 	$("#fadvance").numberbox('setValue',1.0);
@@ -223,19 +268,19 @@ function save(value){
 	var fcontroller;
 	var fmode;
     if($("#finitial").is(":checked")==true){
-        finitial = $('#finitial').combobox('getValue');
+        finitial = 1;
     }else{
-    	finitial = 62;
+    	finitial = 0;
     }
     if($("#fcontroller").is(":checked")==true){
-    	fcontroller = $('#fcontroller').combobox('getValue');
+    	fcontroller = 1;
     }else{
-    	fcontroller = 62;
+    	fcontroller = 0;
     }
     if($("#finitial").is(":checked")==true){
-    	fmode = $('#fmode').combobox('fmode');
+    	fmode = 1;
     }else{
-    	fmode = 62;
+    	fmode = 0;
     }
     var fselect = $('#fselect').combobox('getValue');
     var farc = $('#farc').combobox('getValue');
@@ -302,7 +347,6 @@ function insframeworkTree(){
 	$("#speTree").tree({  
 		onClick : function(node){
 			$('#chanel').combobox('select',0);
-			$('#fselect').combobox('select',0);
 			node11 = $(this).tree("getSelected");
 			var leve = $(this).tree("getLevel", node11.target);
 			if((leve==1)||(leve==2)||(leve==3)||(leve==4)){
@@ -311,7 +355,6 @@ function insframeworkTree(){
 				document.getElementById("body").style.display="block";
 				document.getElementById("bodyy").style.display="none";
 				$('#chanel').combobox('select',1);
-				$('#fselect').combobox('select',102);
 			}
 		 }
 	})
@@ -338,14 +381,14 @@ function suoqu(){
 	if(symbol==0){
 		window.setTimeout(function() {
 			if(symbol==0){
+				socketfc.close();
 				alert("索取失败");
-/*				socketfc.close();*/
 			}
 		}, 5000)
 	}
 	socketfc.onmessage = function(msg) {
 		var strdata1=msg.data;
-		if(strdata1.substring(4,6)=="56"){
+		if((strdata1.substring(4,6)=="56")||(strdata1.substring(0,8)=="7E7C2056")){
         var strdata2=strdata1.replace(/7C20/g, '00');
         var strdata3=strdata2.replace(/7C5E/g, '7E');
         var strdata4=strdata3.replace(/7C5C/g, '7C');
@@ -389,12 +432,49 @@ function suoqu(){
 		}
 		if(parseInt(da.substring(68,70),16)==0){
 			$('#fmaterial').combobox('select',91);
-		}else if(parseInt(da.substring(66,68),16)==1){
+		}else if(parseInt(da.substring(68,70),16)==1){
 			$('#fmaterial').combobox('select',92);
-		}else if(parseInt(da.substring(66,68),16)==4){
+		}else if(parseInt(da.substring(68,70),16)==4){
 			$('#fmaterial').combobox('select',93);
 		}else{
 			$('#fmaterial').combobox('select',94);
+		}
+		var sconx = parseInt(da.substring(74,76),16);
+		sconx = sconx.toString(2);
+		if(sconx.length<8){
+	        var length = 8 - sconx.length;
+	        for(var i=0;i<length;i++){
+	        	sconx = "0" + sconx;
+	        }
+	      }
+		if(sconx.substring(7,8)=="1"){
+			$("#finitial").prop("checked",true);
+		}else{
+			$("#finitial").prop("checked",false);
+		}
+		if(sconx.substring(3,6)=="000"){
+			$('#farc').combobox('select',111);
+		}else if(sconx.substring(1,4)=="001"){
+			$('#farc').combobox('select',112);
+		}else if(sconx.substring(1,4)=="010"){
+			$('#farc').combobox('select',113);
+		}else{
+			$('#farc').combobox('select',114);
+		}
+		if(sconx.substring(2,3)=="0"){
+			$('#fselect').combobox('select',102);
+		}else{
+			$('#fselect').combobox('select',101);
+		}
+		if(sconx.substring(1,2)=="1"){
+			$("#fcontroller").prop("checked",true);
+		}else{
+			$("#fcontroller").prop("checked",false);
+		}
+		if(sconx.substring(0,1)=="1"){
+			$("#fmode").prop("checked",true);
+		}else{
+			$("#fmode").prop("checked",false);
 		}
 //		parsevar(da.substring(68,70),16);
 		$("#fweld_tuny_ele").numberbox('setValue',parseInt(da.substring(76,78),16));
@@ -403,12 +483,12 @@ function suoqu(){
 		$("#farc_tuny_vol").numberbox('setValue',(parseInt(da.substring(82,84),16)/10).toFixed(1));
 		$("#fweld_tuny_vol1").numberbox('setValue',(parseInt(da.substring(78,80),16)/10).toFixed(1));
 		$("#farc_tuny_vol1").numberbox('setValue',(parseInt(da.substring(82,84),16)/10).toFixed(1));
+		
 		symbol++;
 		socketfc.close();
 		if(socketfc.readyState!=1){
 			alert("索取成功");
 			}
-		
 		}}
 	}
 }
@@ -533,13 +613,14 @@ function xiafa(){
 			        	fcharacter = "0" + fcharacter;
 			        }
 			      }
-				var fgas = parseInt(document.getElementById('fgas').value).toString(16);
+//				alert($('#fgas').combobox('getValue'));
+				var fgas = parseInt($('#fgas').combobox('getValue')).toString(16);
 				if(fgas==parseInt(121).toString(16)){
-					fgas="1";
-				}else if(fgas==parseInt(122).toString(16)){
-					fgas="3";
-				}else{
 					fgas="0";
+				}else if(fgas==parseInt(122).toString(16)){
+					fgas="1";
+				}else{
+					fgas="3";
 				}
 				if(fgas.length<2){
 					var length = 2 - fgas.length;
@@ -547,7 +628,8 @@ function xiafa(){
 			        	fgas = "0" + fgas;
 			        }
 			      }
-				var fdiameter = parseInt(document.getElementById('fdiameter').value).toString(16);
+//				alert($('#fdiameter').combobox('getValue'));
+				var fdiameter = parseInt($('#fdiameter').combobox('getValue')).toString(16);
 				if(fdiameter==parseInt(131).toString(16)){
 					fdiameter="A";
 				}else if(fdiameter==parseInt(132).toString(16)){
@@ -563,7 +645,8 @@ function xiafa(){
 			        	fdiameter = "0" + fdiameter;
 			        }
 			      }
-				var fmaterial = parseInt(document.getElementById('fmaterial').value).toString(16);
+//				alert($('#fmaterial').combobox('getValue'));
+				var fmaterial = parseInt($('#fmaterial').combobox('getValue')).toString(16);
 				if(fmaterial==parseInt(91).toString(16)){
 					fmaterial="0";
 				}else if(fmaterial==parseInt(92).toString(16)){
@@ -607,8 +690,46 @@ function xiafa(){
 			        	farc_tuny_vol = "0" + farc_tuny_vol;
 			        }
 			      }
+				var con="";
+				if($('#finitial').is(':checked')){
+					con="1"+con;
+				}else{
+					con="0"+con;
+				}
+				if($('#farc').combobox('getValue')==111){
+					con="0000"+con;
+				}else if($('#farc').combobox('getValue')==112){
+					con="0001"+con;
+				}else if($('#farc').combobox('getValue')==113){
+					con="0010"+con;
+				}else{
+					con="0100"+con;
+				}
+				if($('#fselect').combobox('getValue')==101){
+					con="1"+con;
+				}else{
+					con="0"+con;
+				}
+				if($('#fcontroller').is(':checked')){
+					con="1"+con;
+				}else{
+					con="0"+con;
+				}
+				if($('#fmode').is(':checked')){
+					con="1"+con;
+				}else{
+					con="0"+con;
+				}
+				con = parseInt(con,2);
+				con = parseInt(con).toString(16);
+				if(con.length<2){
+					var length = 2 - con.length;
+			        for(var i=0;i<length;i++){
+			        	con = "0" + con;
+			        }
+			      }
 			var xiafasend1 = "7E00520101"+chanel+ftime+fadvance+fini_ele+fini_vol+fini_vol1+fweld_ele+fweld_vol+fweld_vol1+farc_ele+farc_vol+farc_vol1+fhysteresis+fcharacter+fgas
-			+fdiameter+fmaterial+"000000"+fweld_tuny_ele+fweld_tuny_vol+farc_tuny_ele+farc_tuny_vol;
+			+fdiameter+fmaterial+"0000"+con+fweld_tuny_ele+fweld_tuny_vol+farc_tuny_ele+farc_tuny_vol;
 			
 		/*	var xiafasend2 = xiafasend1.replace(/00/g, '7C20');
 			var xiafasend3 = xiafasend2.replace(/7E/g, '7C5E');
@@ -646,7 +767,7 @@ function xiafa(){
 			socketfc.send(xiafasend);
 			socketfc.onmessage = function(msg) {
 				var fan = msg.data;
-				if(fan.substring(0,2)=="7E"){
+				if(fan.substring(4,6)=="52"){
 					symbol1++;
 					if(parseInt(fan.substring(10,12),16)==1){
 						socketfc.close();
@@ -856,8 +977,46 @@ function xiafa(){
 				        	farc_tuny_vol = "0" + farc_tuny_vol;
 				        }
 				      }
+					var con="";
+					if($('#finitial').is(':checked')){
+						con="1"+con;
+					}else{
+						con="0"+con;
+					}
+					if($('#farc').combobox('getValue')==111){
+						con="0000"+con;
+					}else if($('#farc').combobox('getValue')==112){
+						con="0001"+con;
+					}else if($('#farc').combobox('getValue')==113){
+						con="0010"+con;
+					}else{
+						con="0100"+con;
+					}
+					if($('#fselect').combobox('getValue')==101){
+						con="1"+con;
+					}else{
+						con="0"+con;
+					}
+					if($('#fcontroller').is(':checked')){
+						con="1"+con;
+					}else{
+						con="0"+con;
+					}
+					if($('#fmode').is(':checked')){
+						con="1"+con;
+					}else{
+						con="0"+con;
+					}
+					con = parseInt(con,2);
+					con = parseInt(con).toString(16);
+					if(con.length<2){
+						var length = 2 - con.length;
+				        for(var i=0;i<length;i++){
+				        	con = "0" + con;
+				        }
+				      }
 			var xiafasend1 = "7E00520101"+chanel+ftime+fadvance+fini_ele+fini_vol+fini_vol1+fweld_ele+fweld_vol+fweld_vol1+farc_ele+farc_vol+farc_vol1+fhysteresis+fcharacter+fgas
-			+fdiameter+fmaterial+"000000"+fweld_tuny_ele+fweld_tuny_vol+farc_tuny_ele+farc_tuny_vol;
+			+fdiameter+fmaterial+"0000"+con+fweld_tuny_ele+fweld_tuny_vol+farc_tuny_ele+farc_tuny_vol;
 			
 		/*	var xiafasend2 = xiafasend1.replace(/00/g, '7C20');
 			var xiafasend3 = xiafasend2.replace(/7E/g, '7C5E');
@@ -894,7 +1053,7 @@ function xiafa(){
 			socketfc.send(xiafasend);
 			socketfc.onmessage = function(msg) {
 				var fan = msg.data;
-				if(fan.substring(0,2)=="7E"){
+				if(fan.substring(4,6)=="52"){
 					symbol1++;
 					if(parseInt(fan.substring(10,12),16)==1){
 						socketfc.close();
@@ -973,4 +1132,416 @@ function yanzheng(){
 	if($('#farc_tuny_vol1').numberbox('getValue')==""){
 		$("#farc_tuny_vol1").numberbox('setValue',0);
 	}
+}
+
+function copy(value){
+	$("#ro").datagrid('reload');
+	$('#divro').window( {
+		title : "选择焊机",
+		modal : true
+	});
+	$('#divro').window('open');
+	symbol2 = value;
+}
+
+function savecopy(){
+	var smachine = node11.id;
+	var rows = $("#ro").datagrid("getSelections");
+    var str="";
+	for(var i=0; i<rows.length; i++){
+		str += rows[i].id+",";
+	};
+	if(symbol2==1){
+		var url="wps/findCount?mac="+smachine+"&str="+str+"&chanel="+"";
+	}else{
+		var chanel = $('#chanel').numberbox('getValue');
+		var url="wps/findCount?mac="+smachine+"&str="+str+"&chanel="+chanel;
+	}
+	$("#ro1").datagrid( {
+		height : $("#divro1").height(),
+		width : $("#divro1").width(),
+		idField : 'id',
+		url : url,
+		singleSelect : false,
+		rownumbers : true,
+        columns : [ [ {
+			field : 'machineid',
+			title : '焊机编号',
+//			width : 80,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'num',
+			title : '通道数',
+//			width : 80,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'readynum',
+			title : '已完成数',
+//			width : 80,
+			halign : "center",
+			align : "left"
+		}
+		] ]
+	});
+	var r = confirm("确认复制吗？");
+	if(r==true){
+		x=0;
+		xx=0;
+		$('#divro').dialog('close');
+		$('#divro1').window( {
+			title : "参数复制进行中，请稍等。。。",
+			modal : true
+		});
+		$('#divro1').window('open');
+		if(symbol2==1){
+			var url1="wps/Spe?machine="+node11.id+"&chanel="+"";
+		}else{
+			var chanel1 = $('#chanel').numberbox('getValue');
+			var url1="wps/Spe?machine="+node11.id+"&chanel="+chanel1;
+		}
+		$.ajax({  
+		      type : "post",  
+		      async : false,
+		      url : url1,  
+		      data : {},  
+		      dataType : "json", //返回数据形式为json  
+		      success : function(result) {
+		          if (result) {
+		        	yshu1 = eval(result.rows);
+		        	}else{
+		        		alert("未查询到相关数据，请尝试索取保存。");
+		        	}
+		      },
+		      error : function(errorMsg) {  
+		          alert("数据请求失败，请联系系统管理员!");  
+		      }  
+		 });
+		
+		socketfc = new WebSocket(data1);
+		if(symbol1==0){
+		window.setTimeout(function() {
+			if(symbol1==0){
+				alert("复制失败");
+//				socketfc.close();
+			}
+		}, 5000)
+		}
+		socketfc.onopen = function() {
+			rows1 = $("#ro1").datagrid("getRows");
+			ccp();
+		}
+		socketfc.onmessage = function(msg) {
+			var fan = msg.data;
+			if(fan.substring(4,6)=="52"){
+				symbol1++;
+				if(parseInt(fan.substring(10,12),16)==1){
+					socketfc.close();
+					if(socketfc.readyState==1){
+						alert("复制失败");
+						}
+				}else{
+					rows1[xx].readynum=x;
+					if("1-"+x==rows1[xx].num){
+						rows1[xx].readynum="已完成";
+						$('#ro1').datagrid('refreshRow', xx);
+						xx++;
+						if(xx==rows1.length){
+								socketfc.close();
+								if(socketfc.readyState!=1){
+									wait();									
+									alert("复制成功");
+									x=0;
+									xx=0;
+									$('#divro1').dialog('close');
+									rows1.length=0;
+							}
+								
+						}else{
+							ccp();
+						}
+					}else{
+					$('#ro1').datagrid('refreshRow', xx);
+					ccp();
+					}
+				}
+			}
+			}
+	}else{
+	$('#divro').dialog('close');
+}
+}
+
+function ccp(){
+	if("1-"+x==rows1[xx].num){
+		x=0;
+	}
+	var chanel = parseInt(yshu1[x].FWPSNum).toString(16);
+	if(chanel.length<2){
+        var length = 2 - chanel.length;
+        for(var i=0;i<length;i++){
+        	chanel = "0" + chanel;
+        }
+      }
+	var ftime = parseInt(yshu1[x].ftime).toString(16);
+	if(ftime.length<4){
+		var length = 4 - ftime.length;
+        for(var i=0;i<length;i++){
+        	ftime = "0" + ftime;
+        }
+      }
+	var fadvance = parseInt(yshu1[x].fadvance).toString(16);
+	if(fadvance.length<4){
+		var length = 4 - fadvance.length;
+        for(var i=0;i<length;i++){
+        	fadvance = "0" + fadvance;
+        }
+      }
+	var fini_ele = parseInt(yshu1[x].fini_ele).toString(16);
+	if(fini_ele.length<4){
+		var length = 4 - fini_ele.length;
+        for(var i=0;i<length;i++){
+        	fini_ele = "0" + fini_ele;
+        }
+      }
+	var fini_vol = parseInt(yshu1[x].fini_vol).toString(16);
+	if(fini_vol.length<4){
+		var length = 4 - fini_vol.length;
+        for(var i=0;i<length;i++){
+        	fini_vol = "0" + fini_vol;
+        }
+      }
+	var fini_vol1 = parseInt(yshu1[x].fini_vol1).toString(16);
+	if(fini_vol1.length<4){
+		var length = 4 - fini_vol1.length;
+        for(var i=0;i<length;i++){
+        	fini_vol1 = "0" + fini_vol1;
+        }
+      }
+	var fweld_ele = parseInt(yshu1[x].fweld_ele).toString(16);
+	if(fweld_ele.length<4){
+		var length = 4 - fweld_ele.length;
+        for(var i=0;i<length;i++){
+        	fweld_ele = "0" + fweld_ele;
+        }
+      }
+	var fweld_vol = parseInt(yshu1[x].fweld_vol).toString(16);
+	if(fweld_vol.length<4){
+		var length = 4 - fweld_vol.length;
+        for(var i=0;i<length;i++){
+        	fweld_vol = "0" + fweld_vol;
+        }
+      }
+	var fweld_vol1 = parseInt(yshu1[x].fweld_vol1).toString(16);
+	if(fweld_vol1.length<4){
+		var length = 4 - fweld_vol1.length;
+        for(var i=0;i<length;i++){
+        	fweld_vol1 = "0" + fweld_vol1;
+        }
+      }
+	var farc_ele = parseInt(yshu1[x].farc_ele).toString(16);
+	if(farc_ele.length<4){
+		var length = 4 - farc_ele.length;
+        for(var i=0;i<length;i++){
+        	farc_ele = "0" + farc_ele;
+        }
+      }
+	var farc_vol = parseInt(yshu1[x].farc_vol).toString(16);
+	if(farc_vol.length<4){
+		var length = 4 - farc_vol.length;
+        for(var i=0;i<length;i++){
+        	farc_vol = "0" + farc_vol;
+        }
+      }
+	var farc_vol1 = parseInt(yshu1[x].farc_vol1).toString(16);
+	if(farc_vol1.length<4){
+		var length = 4 - farc_vol1.length;
+        for(var i=0;i<length;i++){
+        	farc_vol1 = "0" + farc_vol1;
+        }
+      }
+	var fhysteresis = parseInt(yshu1[x].fhysteresis).toString(16);
+	if(fhysteresis.length<4){
+		var length = 4 - fhysteresis.length;
+        for(var i=0;i<length;i++){
+        	fhysteresis = "0" + fhysteresis;
+        }
+      }
+	var fcharacter = parseInt(yshu1[x].Fweld_V_MAX).toString(16);
+	if(fcharacter.length<4){
+		var length = 4 - fcharacter.length;
+        for(var i=0;i<length;i++){
+        	fcharacter = "0" + fcharacter;
+        }
+      }
+	var fgas = parseInt(yshu1[0].Fweld_Alter_V).toString(16);
+	if(fgas==parseInt(121).toString(16)){
+		fgas="1";
+	}else if(fgas==parseInt(122).toString(16)){
+		fgas="3";
+	}else{
+		fgas="0";
+	}
+	if(fgas.length<2){
+		var length = 2 - fgas.length;
+        for(var i=0;i<length;i++){
+        	fgas = "0" + fgas;
+        }
+      }
+	var fdiameter = parseInt(yshu1[x].Fweld_PreChannel).toString(16);
+	if(fdiameter==parseInt(131).toString(16)){
+		fdiameter="A";
+	}else if(fdiameter==parseInt(132).toString(16)){
+		fdiameter="C";
+	}else if(fdiameter==parseInt(133).toString(16)){
+		fdiameter="E";
+	}else{
+		fdiameter="10";
+	}
+	if(fdiameter.length<2){
+		var length = 2 - fdiameter.length;
+        for(var i=0;i<length;i++){
+        	fdiameter = "0" + fdiameter;
+        }
+      }
+	var fmaterial = parseInt(yshu1[x].Fweld_Alter_I).toString(16);
+	if(fmaterial==parseInt(91).toString(16)){
+		fmaterial="0";
+	}else if(fmaterial==parseInt(92).toString(16)){
+		fmaterial="1";
+	}else if(fmaterial==parseInt(93).toString(16)){
+		fmaterial="4";
+	}else{
+		fmaterial="5";
+	}
+	if(fmaterial.length<2){
+        var length = 2 - fmaterial.length;
+        for(var i=0;i<length;i++){
+        	fmaterial = "0" + fmaterial;
+        }
+      }
+	var fweld_tuny_ele = parseInt(yshu1[x].fweld_tuny_ele).toString(16);
+	if(fweld_tuny_ele.length<2){
+		var length = 2 - fweld_tuny_ele.length;
+        for(var i=0;i<length;i++){
+        	fweld_tuny_ele = "0" + fweld_tuny_ele;
+        }
+      }
+	var fweld_tuny_vol = parseInt(yshu1[x].fweld_tuny_vol).toString(16);
+	if(fweld_tuny_vol.length<2){
+		var length = 2 - fweld_tuny_vol.length;
+        for(var i=0;i<length;i++){
+        	fweld_tuny_vol = "0" + fweld_tuny_vol;
+        }
+      }
+	var farc_tuny_ele = parseInt(yshu1[x].farc_tuny_ele).toString(16);
+	if(farc_tuny_ele.length<2){
+		var length = 2 - farc_tuny_ele.length;
+        for(var i=0;i<length;i++){
+        	farc_tuny_ele = "0" + farc_tuny_ele;
+        }
+      }
+	var farc_tuny_vol = parseInt(yshu1[x].Fdiameter).toString(16);
+	if(farc_tuny_vol.length<2){
+		var length = 2 - farc_tuny_vol.length;
+        for(var i=0;i<length;i++){
+        	farc_tuny_vol = "0" + farc_tuny_vol;
+        }
+      }
+	var con1="";
+	con1=yshu1[x].Fweld_I+con1;
+	if(yshu1[x].Fweld_I_MIN==111){
+		con1="0000"+con1;
+	}else if(yshu1[x].Fweld_I_MIN==112){
+		con1="0001"+con1;
+	}else if(yshu1[x].Fweld_I_MIN==113){
+		con1="0010"+con1;
+	}else{
+		con1="0100"+con1;
+	}
+	if(yshu1[x].Fweld_I_MAX==101){
+		con1="1"+con1;
+	}else{
+		con1="0"+con1;
+	}
+	con1=yshu1[x].Fweld_V+con1;
+	con1=yshu1[x].Fweld_V_MIN+con1;
+	con1 = parseInt(con1,2);
+	con1 = parseInt(con1).toString(16);
+	if(con1.length<2){
+		var length = 2 - con1.length;
+        for(var i=0;i<length;i++){
+        	con1 = "0" + con1;
+        }
+      }
+var xiafasend1 = "7E00520101"+chanel+ftime+fadvance+fini_ele+fini_vol+fini_vol1+fweld_ele+fweld_vol+fweld_vol1+farc_ele+farc_vol+farc_vol1+fhysteresis+fcharacter+fgas
++fdiameter+fmaterial+"0000"+con1+fweld_tuny_ele+fweld_tuny_vol+farc_tuny_ele+farc_tuny_vol;
+
+var xxx = xiafasend1.toUpperCase();
+var check = 0;
+for (var i = 0; i < (xxx.length/2); i++)
+{
+var tstr1=xxx.substring(i*2, i*2+2);
+var k=parseInt(tstr1,16);
+check += k;
+}
+var checksend = parseInt(check).toString(16);
+var a2 = checksend.length;
+checksend = checksend.substring(a2-2,a2);
+checksend = checksend.toUpperCase();
+
+var xiafasend2 = (xiafasend1+checksend).substring(2);
+
+var xiafasend4 = xiafasend2.replace(/7C/g, '7C5C');
+var xiafasend3 = xiafasend4.replace(/7E/g, '7C5E');
+var fuer="";
+for(var er=0;er<(xiafasend3.length/2);er++){
+if(xiafasend3.substring(er*2,er*2+2)=="00"){
+	fuer = fuer+"7C20"
+}else{
+	fuer = fuer+xiafasend3.substring(er*2,er*2+2);
+}
+}
+var xiafasend5 = fuer.replace(/7D/g, '7C5D').toUpperCase();
+
+var xiafasend = "7E" + xiafasend5 + "7D";
+socketfc.send(xiafasend);
+	x++;
+}
+
+function wait(){
+	var smachine = node11.id;
+	var rows = $("#ro").datagrid("getSelections");
+    var str="";
+	for(var i=0; i<rows.length; i++){
+		str += rows[i].id+",";
+	};
+	if(symbol2==1){
+		var url="wps/saveCopy?mac="+smachine+"&str="+str+"&chanel="+"";
+	}else{
+		var chanel = $('#chanel').numberbox('getValue');
+		var url="wps/saveCopy?mac="+smachine+"&str="+str+"&chanel="+chanel;
+	}
+	$.ajax({  
+	      type : "post",  
+	      async : false,
+	      url : url,  
+	      data : {},  
+	      dataType : "json", //返回数据形式为json  
+	      success : function(result) {
+				if (!result.success) {
+					$.messager.show( {
+						title : 'Error',
+						msg : result.errorMsg
+					});
+				} else {
+					$('#ro').datagrid('clearSelections');
+					$('#ro').datagrid('reload');
+					}
+	      },
+	      error : function(errorMsg) {  
+	          alert("数据请求失败，请联系系统管理员!");  
+	      }  
+	 });
 }

@@ -33,4 +33,20 @@ public interface DataStatisticsMapper  extends Mapper<DataStatistics>{
 	List<DataStatistics> getAllJunction(@Param("junctionno") String junctionno);
 	
 	List<DataStatistics> getAllInsframe();
+	
+	List<DataStatistics> getWeldItemInCount(@Param("dto") WeldDto dto);
+	
+	List<DataStatistics> getWeldItemOutCount(@Param("dto") WeldDto dto);
+	
+	List<DataStatistics> getWeldMachineInCount(@Param("dto") WeldDto dto,@Param("itemid") BigInteger itemid);
+	
+	List<DataStatistics> getWeldMachineOutCount(@Param("dto") WeldDto dto,@Param("itemid") BigInteger itemid);
+	
+	List<DataStatistics> getWeldPersonInCount(@Param("dto") WeldDto dto);
+	
+	List<DataStatistics> getWeldPersonOutCount(@Param("dto") WeldDto dto);
+	
+	List<DataStatistics> getWeldPieceInCount(@Param("dto") WeldDto dto,@Param("junctionno") String junctionno);
+	
+	List<DataStatistics> getWeldPieceOutCount(@Param("dto") WeldDto dto,@Param("junctionno") String junctionno);
 }

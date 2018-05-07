@@ -99,9 +99,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            	<table>
 	            		<tr>
 			  				<td class="leftTd"><lable>初期条件：</lable></td>
-			  				<td class="rightTd"><input name="finitial" id="finitial" type="checkbox" value="61"/></td>
+			  				<td class="rightTd"><input name="finitial" id="finitial" type="checkbox" value="1"/></td>
 			  				<td class="leftTd"><lable>熔深控制：</lable></td>
-			  				<td class="rightTd"><input name="fcontroller" id="fcontroller" type="checkbox" value="61"/></td>
+			  				<td class="rightTd"><input name="fcontroller" id="fcontroller" type="checkbox" value="1"/></td>
 			  			</tr>
 	            	</table>
 	            </div>
@@ -133,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  				<td class="leftTd"><lable><span class="required">*</span>电弧特性：</lable></td>
 			  				<td class="rightTd"><input id="fcharacter" name="fcharacter" class="easyui-numberbox">(±1)</td>
 			  				<td class="leftTd"><lable>柔软电弧模式：</lable></td>
-			  				<td class="rightTd"><input name="fmode" id="fmode" type="checkbox" value="61"></td>
+			  				<td class="rightTd"><input name="fmode" id="fmode" type="checkbox" value="1"></td>
 			  			</tr>
 	            	</table>
 	            </div>
@@ -164,6 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  					<select class="easyui-combobox" name="fgas" id="fgas" data-options="editable:false">
 				                	<option value="121">CO2</option>
 								    <option value="122">MAG</option>
+								    <option value="123">MIG</option>
 				                </select>
 				            </td>
 				         </tr>
@@ -268,19 +269,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            	<table aligin="center">
 	            		<tr>
 			  				<td class="leftTd"></td>
-			  				<td style="text-align: center;width: 350px;"><a href="javascript:suoqu();" class="easyui-linkbutton" iconCls="icon-ok">索取规范</a>
+			  				<td style="text-align: center;width: 350px;">
+			  					<a href="javascript:suoqu();" class="easyui-linkbutton" iconCls="icon-ok">索取规范</a>
 			  					<a href="javascript:save(0);" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
 			  					<a href="javascript:xiafa();" class="easyui-linkbutton" iconCls="icon-ok">下发规范</a>
-			  					<a href="javascript:chushihua();" class="easyui-linkbutton" iconCls="icon-ok">恢复默认值</a></td>
+			  					<a href="javascript:chushihua();" class="easyui-linkbutton" iconCls="icon-ok">恢复默认值</a>
+			  					<a href="javascript:copy(1);" class="easyui-linkbutton" iconCls="icon-ok">焊机参数复制</a>
+			  					<a href="javascript:copy(0);" class="easyui-linkbutton" iconCls="icon-ok">单通道复制</a></td>
 			  				<td class="rightTd"></td>
 			  			</tr>
 	            	</table>
 				</div>
 			</form>
 	    </div>
-	    <div id="div1" class="easyui-dialog" style="width:400px;height:400px" closed="true" buttons="#dlg-ro"algin="center">
+	    <div id="divro" class="easyui-dialog" style="width:200px;height:400px" closed="true" buttons="#dlg-ro"algin="center">
 	        <table id="ro" style="table-layout:fixed;width:100%;" ></table>
         </div>
+        <div id="dlg-ro">
+			<a href="javascript:savecopy();" class="easyui-linkbutton" iconCls="icon-ok">下一步</a>
+			<a href="javascript:$('#divro').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel" >取消</a>
+		</div>
+		
+		<div id="divro1" class="easyui-dialog" style="width:400px;height:400px" closed="true" buttons="#dlg-ro1"algin="center">
+	        <table id="ro1" style="table-layout:fixed;width:100%;" ></table>
+        </div>
+        <div id="dlg-ro1">
+			<a href="javascript:$('#divro1').dialog('close');" class="easyui-linkbutton" iconCls="icon-ok">确定</a>
+			<a href="javascript:$('#divro1').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel" >取消</a>
+		</div>
     </div>
 </body>
 </html>

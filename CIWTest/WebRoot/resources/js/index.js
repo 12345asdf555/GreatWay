@@ -82,6 +82,22 @@ function openWorkpieceData(){
 	addTab("工件生产数据","datastatistics/goWorkpieceData");
 }
 
+function openWeldItemData(){
+	addTab("班组焊接数据","datastatistics/goWeldItemData");
+}
+
+function openWeldMachineData(){
+	addTab("设备焊接数据","datastatistics/goWeldMachineData");
+}
+
+function openWeldPersonData(){
+	addTab("人员焊接数据","datastatistics/goWeldPersonData");
+}
+
+function openWeldWorkpieceData(){
+	addTab("工件焊接数据","datastatistics/goWeldWorkpieceData");
+}
+
 function openUser(){
 	addTab("用户管理","user/AllUser");
 }

@@ -12,7 +12,7 @@ public interface TdService {
 	List<Td> findAllpro(long ins);
 	List<Td> findAllcom();
 	List<Td> findAlldiv(long ins);
-	List<Td> getAllPosition();
+	List<Td> getAllPosition(BigInteger parent);
 	String findweld(String weldid);
 	String findInsname(long uid);
 	long findInsid(String insname);

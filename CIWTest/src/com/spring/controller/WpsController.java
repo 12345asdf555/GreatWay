@@ -133,8 +133,7 @@ public class WpsController {
 	public String getAllSpe(HttpServletRequest request){
 		BigInteger machine = new BigInteger(request.getParameter("machine"));
 		BigInteger chanel = new BigInteger(request.getParameter("chanel"));
-		BigInteger cla = new BigInteger(request.getParameter("cla"));
-		List<Wps> findAll = wpsService.findAllSpe(machine,chanel,cla);
+		List<Wps> findAll = wpsService.findAllSpe(machine,chanel);
 
 		request.setAttribute("wpsList", findAll);
 		JSONObject json = new JSONObject();
@@ -176,6 +175,53 @@ public class WpsController {
 				}
 				ary.add(json);
 			}else{*/
+			for(Wps wps:findAll){
+				json.put("FID", wps.getFid());
+				json.put("FWPSNum", wps.getWelderid());
+				json.put("Fweld_I", wps.getFinitial());
+				json.put("Fweld_V", wps.getFcontroller());
+				json.put("Fweld_I_MAX",wps.getInsname());
+				json.put("Fweld_I_MIN", wps.getWeldername());
+				json.put("Fweld_V_MAX", wps.getFweld_v_max());
+				json.put("Fweld_V_MIN", wps.getFmode());
+				json.put("Fweld_Alter_I", wps.getUpdatename());
+				json.put("Fweld_Alter_V", wps.getFback());
+				json.put("Fweld_PreChannel", wps.getFname());
+				json.put("ftime", wps.getFtime());
+				json.put("fadvance", wps.getFadvance());
+				json.put("fhysteresis", wps.getFhysteresis());
+				json.put("fini_ele", wps.getFini_ele());
+				json.put("fini_vol", wps.getFini_vol());
+				json.put("fini_vol1", wps.getFini_vol1());
+				json.put("fweld_ele", wps.getFweld_ele());
+				json.put("fweld_vol", wps.getFweld_vol());
+				json.put("fweld_vol1", wps.getFweld_vol1());
+				json.put("farc_ele", wps.getFarc_ele());
+				json.put("farc_vol", wps.getFarc_vol());
+				json.put("farc_vol1", wps.getFarc_vol1());
+				json.put("fweld_tuny_ele", wps.getFweld_tuny_ele());
+				json.put("fweld_tuny_vol", wps.getFweld_tuny_vol());
+				json.put("farc_tuny_ele", wps.getFarc_tuny_ele());
+				json.put("Fdiameter", wps.getFdiameter());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/Spe")
+	@ResponseBody
+	public String Spe(HttpServletRequest request){
+		BigInteger machine = new BigInteger(request.getParameter("machine"));
+		String ch = request.getParameter("chanel");
+		List<Wps> findAll = wpsService.AllSpe(machine,ch);
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
 			for(Wps wps:findAll){
 				json.put("FID", wps.getFid());
 				json.put("FWPSNum", wps.getWelderid());
@@ -324,7 +370,7 @@ public class WpsController {
 			wps.setMacid(machine);
 			wps.setFcreater(myuser.getId());
 			wps.setFupdater(myuser.getId());
-			if(wpsService.findCount(machine,chanel,fselect)<=0){
+			if(wpsService.findCount(machine,chanel.toString())<=0){
 				wpsService.saveSpe(wps);
 			}else{
 				wpsService.updateSpe(wps);
@@ -334,6 +380,111 @@ public class WpsController {
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
 		}
+		return obj.toString();
+/*		return "redirect:/user/AllUser";*/
+	}
+	
+	@RequestMapping("/saveCopy")
+	@ResponseBody
+	public String saveCopy(HttpServletRequest request){
+		Wps wps = new Wps();
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		JSONObject obj = new JSONObject();
+		String ch = request.getParameter("chanel");
+		String str = request.getParameter("str");
+		BigInteger mac = new BigInteger(request.getParameter("mac"));
+		List<Wps> findAll = wpsService.findSpe(mac,ch);
+		try{
+	        if(null!=str&&""!=str){
+	        String[] ss = str.split(",");
+	        for (int i = 0; i < ss.length; i++) {
+			for(Wps spe:findAll){
+			if(wpsService.findCount(new BigInteger(ss[i]),String.valueOf(spe.getFweld_i_max()))<=0){
+				spe.setMacid(new BigInteger(ss[i]));
+				spe.setFcreater(myuser.getId());
+				spe.setFupdater(myuser.getId());
+				wpsService.saveSpe(spe);
+			}else{
+				spe.setMacid(new BigInteger(ss[i]));
+				spe.setFupdater(myuser.getId());
+				wpsService.updateSpe(spe);
+			}
+			}
+	        }
+	        }
+			obj.put("success", true);
+		}catch(Exception e){
+			obj.put("success", false);
+			obj.put("errorMsg", e.getMessage());
+		}
+		return obj.toString();
+/*		return "redirect:/user/AllUser";*/
+	}
+	
+	@RequestMapping("/findCount")
+	@ResponseBody
+	public String findCount(HttpServletRequest request){
+		Wps wps = new Wps();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		String ch = request.getParameter("chanel");
+		String str = request.getParameter("str");
+		BigInteger mac = new BigInteger(request.getParameter("mac"));
+		try{
+			int co;
+			if(null!=ch&&""!=ch){
+				co=1;
+			}else{
+				co = wpsService.findCount(mac,ch);
+			}
+			List<Wps> findAll = wpsService.findSpe(mac,ch);
+/*			for(Wps ps:findAll){
+				ps.getFweld_i_max()
+				ps.getFtime()
+				ps.getFadvance()
+				ps.getFini_ele()
+				ps.getFini_vol()
+				ps.getFini_vol1()
+				ps.getFweld_ele()
+				ps.getFweld_vol()
+				ps.getFweld_vol1()
+				ps.getFarc_ele()
+				ps.getFarc_vol()
+				ps.getFarc_vol1()
+				ps.getFhysteresis()
+				ps.getFweld_v_max()
+				ps.getFweld_alter_v()
+				ps.getInsid()
+				ps.getFweld_prechannel()
+				ps.getFweld_i_min()
+				ps.getFweld_v()
+				ps.getFweld_i()
+				ps.getFweld_alter_i()
+				ps.getFweld_v_min()
+				ps.getFweld_tuny_ele()
+				ps.getFweld_tuny_vol()
+				ps.getFarc_tuny_ele()
+				ps.getFdiameter()
+			}*/
+	        if(null!=str&&""!=str){
+	        String[] ss = str.split(",");
+	        for (int i = 0; i < ss.length; i++) {
+				json.put("machineid", ss[i]);
+				json.put("num", "1-"+co);
+				json.put("readynum", 0);
+				ary.add(json);
+	        }
+	        }
+			obj.put("success", true);
+		}catch(Exception e){
+			obj.put("success", false);
+			obj.put("errorMsg", e.getMessage());
+		}
+		obj.put("rows", ary);
 		return obj.toString();
 /*		return "redirect:/user/AllUser";*/
 	}
