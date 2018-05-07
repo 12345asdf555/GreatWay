@@ -797,6 +797,9 @@ public class DataStatisticsController {
 		JSONObject obj = new JSONObject();
 		try{
 			List<DataStatistics> list = dss.getAllInsframe();
+			json.put("id", 0);
+			json.put("name", "全部");
+			ary.add(json);
 			for(DataStatistics i:list){
 				json.put("id", i.getId());
 				json.put("name", i.getName());

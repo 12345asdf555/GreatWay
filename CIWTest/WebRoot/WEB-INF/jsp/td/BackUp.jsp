@@ -112,9 +112,9 @@ readonly="readonly">
 		</div>
 		</div>
 		</div>
-		<div id="body31" style="width:65%;height:25%;position:absolute;left:36%;z-index:999;border:1px solid red;">
+		<div id="body31" style="width:65%;height:25%;position:absolute;left:36%;">
 		</div>
-		<div id="body32" style="width:65%;height:25%;position:absolute;left:36%;top:29%;z-index:999;border:1px solid black;">
+		<div id="body32" style="width:65%;height:25%;position:absolute;left:36%;top:29%;">
 		</div>
 		<div id="body5" style="width:15%;height:15%;position:absolute;left:15.5%;top:20%;">
 		<div style="position:absolute;left:7%;top:35%;"><label>电压：</label></div>
@@ -177,8 +177,6 @@ readonly="readonly">
 		<div id="body7" style="position:absolute;left:16%;top:45%;"><label>焊工姓名：</label>
 		<input name="welname" id="welname" readonly="true" style="text-align:center">
 		</div>
-		<a href="javascript:fullScreen()" class="easyui-linkbutton" iconCls="icon-select" id="full">全屏显示</a>
-		<a href="javascript:theSmallScreen()" class="easyui-linkbutton" iconCls="icon-select" id="little">还原</a>
 		<div id="body4" style="width:85%;height:45%;position:absolute;left:15.2%;top:54.5%;">
 			<table id="dg" style="table-layout:fixed;width:100%"></table>
 		</div>
