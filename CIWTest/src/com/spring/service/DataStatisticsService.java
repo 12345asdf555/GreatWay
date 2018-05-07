@@ -92,4 +92,68 @@ public interface DataStatisticsService {
 	 * @return
 	 */
 	List<DataStatistics> getAllInsframe();
+
+	/**
+	 * 获取组织机构正常焊接时间
+	 * @param page 分页
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<DataStatistics> getWeldItemInCount(Page page, WeldDto dto);
+	
+	/**
+	 * 获取组织机构超规范焊接时间
+	 * @param page 分页
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<DataStatistics> getWeldItemOutCount(Page page, WeldDto dto);
+	
+	/**
+	 * 获取焊机正常焊接时间
+	 * @param page 分页
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<DataStatistics> getWeldMachineInCount(Page page, WeldDto dto ,BigInteger itemid);
+	
+	/**
+	 * 获取焊机超规范焊接时间
+	 * @param page 分页
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<DataStatistics> getWeldMachineOutCount(Page page, WeldDto dto ,BigInteger itemid);
+	
+	/**
+	 * 获取焊工正常焊接时间
+	 * @param page 分页
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<DataStatistics> getWeldPersonInCount(Page page, WeldDto dto);
+	
+	/**
+	 * 获取焊工超规范焊接时间
+	 * @param page 分页
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<DataStatistics> getWeldPersonOutCount(Page page, WeldDto dto);
+	
+	/**
+	 * 获取工件正常焊接时间
+	 * @param page 分页
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<DataStatistics> getWeldPieceInCount(Page page, WeldDto dto,String junctionno);
+	
+	/**
+	 * 获取工件超规范焊接时间
+	 * @param page 分页
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	List<DataStatistics> getWeldPieceOutCount(Page page, WeldDto dto,String junctionno);
 }

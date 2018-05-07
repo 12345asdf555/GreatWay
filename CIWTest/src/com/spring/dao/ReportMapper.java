@@ -12,7 +12,7 @@ public interface ReportMapper {
 	BigInteger getWpsid(BigInteger machid);
 	Report getWps(BigInteger wpsid);
 	Report getSyspara();
-	List<Report> findAllWelder(@Param("iid")BigInteger iid,@Param("str")String str);
+	List<Report> findAllWelder(@Param("dto") WeldDto dto);
 	List<Report> findMachine(String weldid);
 	long getWeldingTime(@Param("dto") WeldDto dto,@Param("machid") BigInteger machid,@Param("weldid") String weldid);
 	long getOnTime(@Param("dto") WeldDto dto,@Param("machid") BigInteger machid);

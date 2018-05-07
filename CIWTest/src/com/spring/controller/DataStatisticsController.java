@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,6 +76,47 @@ public class DataStatisticsController {
 	@RequestMapping("/goWorkpieceData")
 	public String goWorkpieceProductionData(HttpServletRequest request){
 		return "datastatistics/workpiecedata";
+	}
+	
+	/**
+	 * 跳转班组焊接数据页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goWeldItemData")
+	public String goWeldItemProductionData(HttpServletRequest request){
+		return "welddatastatistics/itemdata";
+	}
+
+	/**
+	 * 跳转设备焊接数据页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goWeldMachineData")
+	public String goWeldMachineProductionData(HttpServletRequest request){
+		return "welddatastatistics/machinedata";
+	}
+	
+	/**
+	 * 跳转人员焊接数据页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goWeldPersonData")
+	public String goWeldPersonProductionData(HttpServletRequest request){
+		return "welddatastatistics/persondata";
+	}
+	
+	
+	/**
+	 * 跳转人员焊接数据页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goWeldWorkpieceData")
+	public String goWeldWorkpieceProductionData(HttpServletRequest request){
+		return "welddatastatistics/workpiecedata";
 	}
 	
 	/**
@@ -166,6 +208,76 @@ public class DataStatisticsController {
 			}
 			//表头
 			String [] str = {"所属班组","设备总数","开机设备数","实焊设备数","设备利用率(%)","焊接焊缝数","焊接时间","工作时间","焊接效率(%)","焊丝消耗(KG)","电能消耗(KWH)","气体消耗(L)"};
+			for(int i=0;i<str.length;i++){
+				title.put("title", str[i]);
+				titleary.add(title);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("ary", titleary);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	
+	/**
+	 * 跳转班组焊接数据报表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getWeldItemData")
+	@ResponseBody
+	public String getWeldItemProductionData(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		page = new Page(pageIndex,pageSize,total);
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONObject title = new JSONObject();
+		WeldDto dto = new WeldDto();
+		JSONArray titleary = new JSONArray();
+		long total = 0;
+		try{
+			if(iutil.isNull(time1)){
+				dto.setDtoTime1(time1);
+			}
+			if(iutil.isNull(time2)){
+				dto.setDtoTime2(time2);
+			}
+			List<DataStatistics> ilist = dss.getWeldItemInCount(page,dto);
+			List<DataStatistics> olist = dss.getWeldItemOutCount(page,dto);
+			
+			if(ilist != null){
+				PageInfo<DataStatistics> pageinfo = new PageInfo<DataStatistics>(ilist);
+				total = pageinfo.getTotal();
+			}
+			for(DataStatistics i:ilist){
+				for(DataStatistics o:olist){
+					if(i.getName().equals(o.getName())){
+						json.put("t0", i.getName());//所属班组
+						json.put("t1", getTimeStrBySecond(i.getInsid().add(o.getInsid())));//累计焊接时间
+						json.put("t2", getTimeStrBySecond(i.getInsid()));//正常焊接时长
+						json.put("t3", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
+						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
+							json.put("t4", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
+						}else{
+							json.put("t4",0);
+						}
+						ary.add(json);
+					}
+				}
+			}
+			//表头
+			String [] str = {"所属班组","累计焊接时间","正常段时长","超规范时长","规范符合率"};
 			for(int i=0;i<str.length;i++){
 				title.put("title", str[i]);
 				titleary.add(title);
@@ -278,6 +390,81 @@ public class DataStatisticsController {
 	}
 	
 	/**
+	 * 跳转设备焊接数据报表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getWeldMachineData")
+	@ResponseBody
+	public String getWeldMachineProductionData(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		String item = request.getParameter("item");
+		page = new Page(pageIndex,pageSize,total);
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONObject title = new JSONObject();
+		WeldDto dto = new WeldDto();
+		JSONArray titleary = new JSONArray();
+		BigInteger itemid = null;
+		long total = 0;
+		try{
+			if(iutil.isNull(time1)){
+				dto.setDtoTime1(time1);
+			}
+			if(iutil.isNull(time2)){
+				dto.setDtoTime2(time2);
+			}
+			if(iutil.isNull(item)){
+				itemid = new BigInteger(item);
+			}
+			List<DataStatistics> ilist = dss.getWeldMachineInCount(page,dto,itemid);
+			List<DataStatistics> olist = dss.getWeldMachineOutCount(page,dto,itemid);
+			
+			if(ilist != null){
+				PageInfo<DataStatistics> pageinfo = new PageInfo<DataStatistics>(ilist);
+				total = pageinfo.getTotal();
+			}
+			for(DataStatistics i:ilist){
+				for(DataStatistics o:olist){
+					if(i.getName().equals(o.getName())){
+						json.put("t0", i.getInsname());//所属班组
+						json.put("t1", i.getName());//焊机编号
+						json.put("t2", getTimeStrBySecond(i.getInsid().add(o.getInsid())));//累计焊接时间
+						json.put("t3", getTimeStrBySecond(i.getInsid()));//正常焊接时长
+						json.put("t4", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
+						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
+							json.put("t5", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
+						}else{
+							json.put("t5",0);
+						}
+						ary.add(json);
+					}
+				}
+			}
+			//表头
+			String [] str = {"所属班组","设备编码","累计焊接时间","正常段时长","超规范时长","规范符合率"};
+			for(int i=0;i<str.length;i++){
+				title.put("title", str[i]);
+				titleary.add(title);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("ary", titleary);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	/**
 	 * 跳转人员生产数据报表
 	 * @param request
 	 * @return
@@ -369,7 +556,75 @@ public class DataStatisticsController {
 		return obj.toString();
 	}
 	
-	
+	/**
+	 * 跳转人员焊接数据报表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getWeldPersonData")
+	@ResponseBody
+	public String getWeldPersonProductionData(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		page = new Page(pageIndex,pageSize,total);
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONObject title = new JSONObject();
+		WeldDto dto = new WeldDto();
+		JSONArray titleary = new JSONArray();
+		long total = 0;
+		try{
+			if(iutil.isNull(time1)){
+				dto.setDtoTime1(time1);
+			}
+			if(iutil.isNull(time2)){
+				dto.setDtoTime2(time2);
+			}
+			List<DataStatistics> ilist = dss.getWeldPersonInCount(page,dto);
+			List<DataStatistics> olist = dss.getWeldPersonOutCount(page,dto);
+			
+			if(ilist != null){
+				PageInfo<DataStatistics> pageinfo = new PageInfo<DataStatistics>(ilist);
+				total = pageinfo.getTotal();
+			}
+			for(DataStatistics i:ilist){
+				for(DataStatistics o:olist){
+					if((i.getInsname()).equals(o.getInsname())){
+						json.put("t0", i.getInsname());//焊工编号
+						json.put("t1", i.getName());//焊工 姓名
+						json.put("t2", getTimeStrBySecond(i.getInsid().add(o.getInsid())));//累计焊接时间
+						json.put("t3", getTimeStrBySecond(i.getInsid()));//正常焊接时长
+						json.put("t4", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
+						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
+							json.put("t5", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
+						}else{
+							json.put("t5",0);
+						}
+						ary.add(json);
+					}
+				}
+			}
+			//表头
+			String [] str = {"焊工编号","焊工姓名","累计焊接时间","正常段时长","超规范时长","规范符合率"};
+			for(int i=0;i<str.length;i++){
+				title.put("title", str[i]);
+				titleary.add(title);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("ary", titleary);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
 	
 	/**
 	 * 跳转人员生产数据报表
@@ -460,6 +715,75 @@ public class DataStatisticsController {
 		return obj.toString();
 	}
 	
+	/**
+	 * 跳转工件焊接数据报表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getWeldWorkpieceData")
+	@ResponseBody
+	public String getWeldWorkpieceProductionData(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
+		String junctionno = request.getParameter("junctionno");
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		page = new Page(pageIndex,pageSize,total);
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONObject title = new JSONObject();
+		WeldDto dto = new WeldDto();
+		JSONArray titleary = new JSONArray();
+		long total = 0;
+		try{
+			if(iutil.isNull(time1)){
+				dto.setDtoTime1(time1);
+			}
+			if(iutil.isNull(time2)){
+				dto.setDtoTime2(time2);
+			}
+			List<DataStatistics> ilist = dss.getWeldPieceInCount(page,dto,"%"+ junctionno+"%");
+			List<DataStatistics> olist = dss.getWeldPieceOutCount(page,dto,"%"+ junctionno+"%");
+			
+			if(ilist != null){
+				PageInfo<DataStatistics> pageinfo = new PageInfo<DataStatistics>(ilist);
+				total = pageinfo.getTotal();
+			}
+			for(DataStatistics i:ilist){
+				for(DataStatistics o:olist){
+					if((i.getInsname()).equals(o.getInsname())){
+						json.put("t0", i.getInsname());//工件编号
+						json.put("t1", getTimeStrBySecond(i.getInsid().add(o.getInsid())));//累计焊接时间
+						json.put("t2", getTimeStrBySecond(i.getInsid()));//正常焊接时长
+						json.put("t3", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
+						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
+							json.put("t4", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
+						}else{
+							json.put("t4",0);
+						}
+						ary.add(json);
+					}
+				}
+			}
+			//表头
+			String [] str = {"焊缝编号","累计焊接时间","正常段时长","超规范时长","规范符合率"};
+			for(int i=0;i<str.length;i++){
+				title.put("title", str[i]);
+				titleary.add(title);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("ary", titleary);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
 
 	/**
 	 * 获取组织机构
