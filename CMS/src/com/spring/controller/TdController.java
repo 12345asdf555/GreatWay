@@ -58,7 +58,7 @@ public class TdController {
 		if(dic==21){
 		String insname = tdService.findInsname(tdService.findIns(uid));
 		request.setAttribute("insname", insname);
-		return "td/company";
+		return "td/BackUp";
 		}else{
 		return "/Error";
 		}
@@ -67,7 +67,7 @@ public class TdController {
 	@RequestMapping("/AllTdd")
 	public String AllTdd(HttpServletRequest request){
 		request.setAttribute("divi", request.getParameter("value"));
-		return "td/division";
+		return "td/BackUp";
 	}
 	
 	@RequestMapping("/AllTddp")
@@ -76,7 +76,7 @@ public class TdController {
 		String fname = insfService.getInsframeworkById(insfid);
 		request.setAttribute("proj", insfid);
 		request.setAttribute("fname", fname);
-		return "td/project";
+		return "td/BackUp";
 	}
 	
 	@RequestMapping("/AllTddi")
@@ -89,7 +89,7 @@ public class TdController {
 		if(dic==22){
 		String insname = tdService.findInsname(tdService.findIns(uid));
 		request.setAttribute("divi", insname);
-		return "td/division";
+		return "td/BackUp";
 		}else{
 			return "/Error";
 			}
@@ -105,7 +105,7 @@ public class TdController {
 		if(dic==23){
 		String insname = tdService.findInsname(tdService.findIns(uid));
 		request.setAttribute("proj", insname);
-		return "td/project";
+		return "td/BackUp";
 		}else{
 			return "/Error";
 		}
