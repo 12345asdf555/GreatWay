@@ -508,11 +508,10 @@
 				and a.fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		<if test="junctionno!='%%'">
+		<if test="junctionno!=null and junctionno!=''">
 			and j.fwelded_junction_no like #{junctionno}
 		</if>
 		    GROUP BY j.fid
-		<if test="junctionno=='%%'">
 		UNION
 		SELECT j.fwelded_junction_no insname,0 insid FROM tb_welded_junction j where
 		    j.fid NOT IN (
@@ -526,7 +525,12 @@
 				and a.fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
+		<if test="junctionno!=null and junctionno!=''">
+			and j.fwelded_junction_no like #{junctionno}
+		</if>
 		    GROUP BY j.fid)
+		<if test="junctionno!=null and junctionno!=''">
+			and j.fwelded_junction_no like #{junctionno}
 		</if>
 		)temp 
 	</select>
@@ -544,11 +548,10 @@
 				and a.fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		<if test="junctionno!='%%'">
+		<if test="junctionno!=null and junctionno!=''">
 			and j.fwelded_junction_no like #{junctionno}
 		</if>
-		    GROUP BY j.fid
-		<if test="junctionno=='%%'">    
+		    GROUP BY j.fid   
 		UNION
 		SELECT j.fwelded_junction_no insname,0 insid FROM tb_welded_junction j 
 		where j.fid NOT IN (
@@ -563,8 +566,13 @@
 				and a.fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
+		<if test="junctionno!=null and junctionno!=''">
+			and j.fwelded_junction_no like #{junctionno}
+		</if>
 		    GROUP BY j.fid)
-		</if>    
+		<if test="junctionno!=null and junctionno!=''">
+			and j.fwelded_junction_no like #{junctionno}
+		</if>
 		)temp 
 	</select>
 </mapper>
