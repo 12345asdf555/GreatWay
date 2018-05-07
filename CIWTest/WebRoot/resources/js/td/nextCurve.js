@@ -33,6 +33,7 @@
 	var minvol=0;
 	var rows;
 	var fmch;
+	var tongdao;
 	var sint=0;
 	var led=["0,1,2,4,5,6","2,5","0,2,3,4,6","0,2,3,5,6","1,2,3,5","0,1,3,5,6","0,1,3,4,5,6","0,2,5","0,1,2,3,4,5,6","0,1,2,3,5,6"];
 	$(function(){
@@ -83,6 +84,23 @@
 		          if (result) {
 		        	  welderName=eval(result.rows);
 		          }  
+		      },
+		      error : function(errorMsg) {  
+		          alert("数据请求失败，请联系系统管理员!");  
+		      }  
+		 });
+		$.ajax({  
+		      type : "post",  
+		      async : false,
+		      url : "wps/Spe?machine="+document.getElementById("in2")+"&chanel="+"",  
+		      data : {},  
+		      dataType : "json", //返回数据形式为json  
+		      success : function(result) {
+		          if (result) {
+		        	tongdao = eval(result.rows);
+		        	}else{
+		        		alert("未查询到相关数据，请尝试索取保存。");
+		        	}
 		      },
 		      error : function(errorMsg) {  
 		          alert("数据请求失败，请联系系统管理员!");  
@@ -415,8 +433,8 @@
 			for(var i = 0;i < redata.length;i+=69){
 				if(redata.substring(8+i, 12+i)!="0000"){
 					if(redata.substring(4+i, 8+i)==document.getElementById("in2").value){
-						ele.push(parseInt(redata.substring(12+i, 16+i),16));
-						vol.push(parseFloat((parseInt(redata.substring(16+i, 20+i),16)/10).toFixed(2)));
+						ele.push(parseInt(redata.substring(12+i, 16+i)));
+						vol.push(parseFloat((parseInt(redata.substring(16+i, 20+i))/10).toFixed(2)));
 						time.push(Date.parse(redata.substring(20+i, 39+i)));
 						maxele = parseInt(redata.substring(41+i, 44+i));
 						minele = parseInt(redata.substring(44+i, 47+i));

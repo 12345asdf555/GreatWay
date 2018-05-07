@@ -207,8 +207,8 @@ $(function(){
 								document.getElementById("lab3"+fmch[f].fequipment_no).innerHTML="操作人员："+welderName[k].fname;
 							}
 						}
-						document.getElementById("lab4"+fmch[f].fequipment_no).innerHTML="焊接电流："+parseInt(redata.substring(12+i, 16+i),16)+"A";
-						document.getElementById("lab5"+fmch[f].fequipment_no).innerHTML="焊接电压："+parseFloat((parseInt(redata.substring(16+i, 20+i),16)/10).toFixed(2))+"V";
+						document.getElementById("lab4"+fmch[f].fequipment_no).innerHTML="焊接电流："+parseInt(redata.substring(12+i, 16+i))+"A";
+						document.getElementById("lab5"+fmch[f].fequipment_no).innerHTML="焊接电压："+parseFloat((parseInt(redata.substring(16+i, 20+i))/10).toFixed(2))+"V";
 						if(redata.substring(0+i, 2+i)=="03"||redata.substring(0+i, 2+i)=="05"||redata.substring(0+i, 2+i)=="07"){
 							document.getElementById(f).src="resources/images/ROBOTdj.png";
 						}else{
