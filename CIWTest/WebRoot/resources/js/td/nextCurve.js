@@ -462,6 +462,7 @@
 					}
 				}
 			};
+			
 			if((time.length)%3==1){
 				ele[time.length] = ele[time.length-1];
 				ele[time.length+1] = ele[time.length-1];
