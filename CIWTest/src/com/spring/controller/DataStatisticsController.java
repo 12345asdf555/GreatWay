@@ -264,8 +264,8 @@ public class DataStatisticsController {
 				for(DataStatistics o:olist){
 					if(i.getName().equals(o.getName())){
 						json.put("t0", i.getName());//所属班组
-						json.put("t1", getTimeStrBySecond(i.getInsid().add(o.getInsid())));//累计焊接时间
-						json.put("t2", getTimeStrBySecond(i.getInsid()));//正常焊接时长
+						json.put("t1", getTimeStrBySecond(i.getInsid()));//累计焊接时间
+						json.put("t2", getTimeStrBySecond(i.getInsid().subtract(o.getInsid())));//正常焊接时长
 						json.put("t3", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
 						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
 							json.put("t4", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
@@ -437,8 +437,8 @@ public class DataStatisticsController {
 					if(i.getName().equals(o.getName())){
 						json.put("t0", i.getInsname());//所属班组
 						json.put("t1", i.getName());//焊机编号
-						json.put("t2", getTimeStrBySecond(i.getInsid().add(o.getInsid())));//累计焊接时间
-						json.put("t3", getTimeStrBySecond(i.getInsid()));//正常焊接时长
+						json.put("t2", getTimeStrBySecond(i.getInsid()));//累计焊接时间
+						json.put("t3", getTimeStrBySecond(i.getInsid().subtract(o.getInsid())));//正常焊接时长
 						json.put("t4", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
 						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
 							json.put("t5", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
@@ -599,8 +599,8 @@ public class DataStatisticsController {
 					if((i.getInsname()).equals(o.getInsname())){
 						json.put("t0", i.getInsname());//焊工编号
 						json.put("t1", i.getName());//焊工 姓名
-						json.put("t2", getTimeStrBySecond(i.getInsid().add(o.getInsid())));//累计焊接时间
-						json.put("t3", getTimeStrBySecond(i.getInsid()));//正常焊接时长
+						json.put("t2", getTimeStrBySecond(i.getInsid()));//累计焊接时间
+						json.put("t3", getTimeStrBySecond(i.getInsid().subtract(o.getInsid())));//正常焊接时长
 						json.put("t4", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
 						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
 							json.put("t5", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
@@ -758,8 +758,8 @@ public class DataStatisticsController {
 				for(DataStatistics o:olist){
 					if((i.getInsname()).equals(o.getInsname())){
 						json.put("t0", i.getInsname());//工件编号
-						json.put("t1", getTimeStrBySecond(i.getInsid().add(o.getInsid())));//累计焊接时间
-						json.put("t2", getTimeStrBySecond(i.getInsid()));//正常焊接时长
+						json.put("t1", getTimeStrBySecond(i.getInsid()));//累计焊接时间
+						json.put("t2", getTimeStrBySecond(i.getInsid().subtract(o.getInsid())));//正常焊接时长
 						json.put("t3", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
 						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
 							json.put("t4", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
