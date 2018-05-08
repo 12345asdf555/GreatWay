@@ -33,12 +33,20 @@ public interface DataStatisticsService {
 	DataStatistics getParameter();
 	
 	/**
-	 * 获取工作的焊机数，焊口数
+	 * 获取工作的焊机数
 	 * @param itemid  项目部id
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	DataStatistics getWorkNum(BigInteger itemid,WeldDto dto);
+	DataStatistics getWorkMachineNum(BigInteger itemid,WeldDto dto);
+
+	/**
+	 * 获取工作的焊口数
+	 * @param itemid  项目部id
+	 * @param dto 扩展参数类
+	 * @return
+	 */
+	DataStatistics getWorkJunctionNum(BigInteger itemid,WeldDto dto);
 	
 	/**
 	 * 获取开机总时长

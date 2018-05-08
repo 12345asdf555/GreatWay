@@ -16,7 +16,9 @@ public interface DataStatisticsMapper  extends Mapper<DataStatistics>{
 
 	int getStartingUpMachineNum(@Param("itemid") BigInteger itemid,@Param("dto") WeldDto dto);
 	
-	DataStatistics getWorkNum(@Param("itemid") BigInteger itemid,@Param("dto") WeldDto dto);
+	DataStatistics getWorkMachineNum(@Param("itemid") BigInteger itemid,@Param("dto") WeldDto dto);
+	
+	DataStatistics getWorkJunctionNum(@Param("itemid") BigInteger itemid,@Param("dto") WeldDto dto);
 	
 	BigInteger  getStaringUpTime(@Param("itemid") BigInteger itemid,@Param("dto") WeldDto dto);
 	

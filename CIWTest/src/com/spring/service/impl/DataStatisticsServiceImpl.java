@@ -37,8 +37,13 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 	}
 
 	@Override
-	public DataStatistics getWorkNum(BigInteger itemid, WeldDto dto) {
-		return ds.getWorkNum(itemid, dto);
+	public DataStatistics getWorkMachineNum(BigInteger itemid, WeldDto dto) {
+		return ds.getWorkMachineNum(itemid, dto);
+	}
+
+	@Override
+	public DataStatistics getWorkJunctionNum(BigInteger itemid, WeldDto dto) {
+		return ds.getWorkJunctionNum(itemid, dto);
 	}
 
 	@Override
