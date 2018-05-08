@@ -33,13 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="body">
     	<div class="functiondiv">
         	<a href="javascript:addDictionary()" class="easyui-linkbutton" iconCls="icon-newadd">新增</a>
-		    	<select class="easyui-combobox" id="fields" style="margin-left:100px;" data-options="editable:false">
-		    		<option value='fvaluename'>名称</option>
-		    		<option value='fback'>类型</option>
-		    	</select>
-	    		<input class="easyui-textbox" id="content" />
-	    		<input class="easyui-textbox" id="content1" />
-		    	<a href="javascript:searchDic();" class="easyui-linkbutton" iconCls="icon-select">查询</a>
+				<input class="easyui-textbox" value="类型" readonly="readonly"/> = 
+				<select class="easyui-combobox" name="content" id="content" data-options="editable:false"" ></select>
     	</div>
     	<table id="dg" style="table-layout:fixed;width:100%"></table>
     	<!-- 添加修改 -->
@@ -70,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</div>
     			<div class="fitem">
     				<lable>类型</lable>
-			    	<input name="typeid" id="typeid" class="easyui-textbox" readonly="true"/>
+			    	<input name="desc" id="desc" class="easyui-textbox" readonly="true"/>
     			</div>
 			</form>
 		</div>

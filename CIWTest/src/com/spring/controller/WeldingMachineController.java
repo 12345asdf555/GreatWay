@@ -183,7 +183,7 @@ public class WeldingMachineController {
 					json.put("iId", wm.getInsframeworkId().getId());
 				}
 				if( wm.getManufacturerId()!=null && !"".equals(wm.getManufacturerId())){
-					json.put("manufacturerName", wm.getManufacturerId().getName()+" - "+wm.getManufacturerId().getType());
+					json.put("manufacturerName", wm.getManufacturerId().getName());
 					json.put("manuno", wm.getManufacturerId().getId());
 				}
 				json.put("model",wm.getModel());
@@ -316,11 +316,10 @@ public class WeldingMachineController {
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			List<EquipmentManufacturer> list = wmm.getManuAll();
-			for(EquipmentManufacturer es:list){
-				json.put("id", es.getId());
-				json.put("name", es.getName());
-				json.put("type", es.getType());
+			List<Dictionarys> dictionary = dm.getDictionaryValue(14);
+			for(Dictionarys d:dictionary){
+				json.put("id", d.getValue());
+				json.put("name", d.getValueName());
 				ary.add(json);
 			}
 		}catch(Exception e){
