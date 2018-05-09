@@ -99,7 +99,7 @@ $(function(){
 		        	fmch=eval(result.rows);
 		        	for(var f=0;f<fmch.length;f++){
 						var	str = '<div style="width:25%;height:20%;float:left">'+
-						'<div style="width:30%;height:100%;float:left"><img id='+f+' src="resources/images/WDgj.png" onclick="javascript:imgfun(this.id)" width="100%" height="80%"></div>'+
+						'<div style="width:30%;height:100%;float:left"><img id='+f+' src="resources/images/WDgj.png" onclick="javascript:imgfun(this.id)" width="100%" height="70%"></div>'+
 						'<div style="float:left">'+
 						'<div><label id="lab1'+fmch[f].fequipment_no+'">设备编号：'+fmch[f].fequipment_no+'</label></div>'+
 						'<div><label id="lab2'+fmch[f].fequipment_no+'">焊缝编号：--</label></div>'+
