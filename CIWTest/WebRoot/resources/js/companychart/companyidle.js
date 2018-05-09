@@ -85,7 +85,7 @@ function CaustIdleDatagrid(){
                 }
                  for(var m=0;m<result.arys1.length;m++){
                   	array2.push(result.arys1[m].name);
-                  	column.push({field:"a"+m,title:result.arys1[m].name,width:width,halign : "center",align : "left"});
+                  	column.push({field:"a"+m,title:result.arys1[m].name+"(台)",width:width,halign : "center",align : "left"});
                   	Series.push({
                  		name : result.arys1[m].name,
                  		type :'line',//折线图

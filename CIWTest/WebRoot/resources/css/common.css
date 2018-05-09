@@ -26,10 +26,8 @@ FILTER:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#
 
 .tenghan-bottom{
 	height:30px;
-	text-align:center;
+	text-align:right;
 	padding-top: 10px; 
-	color:#0254ad;
-	font-weight: bold;
 	position:fixed;
     bottom:0;
     width:100%;

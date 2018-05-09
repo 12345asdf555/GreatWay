@@ -17,6 +17,8 @@
 		<result property="statusname" column="statusname" />
 		<result property="creater" column="fcreater" />
 		<result property="updater" column="fupdater" />
+        <result property="mvalueid" column="mid"></result>  
+        <result property="mvaluename" column="mname"></result>  
         <association property="insframeworkId" column="finsframework_id" javaType="com.spring.model.Insframework">  
             <id property="id" column="iid"></id> 
             <result property="name" column="iname"></result>  
@@ -24,12 +26,6 @@
             <result property="code" column="fcode"></result>
         	<result property="parent" column="fparent"></result>
         	<result property="type" column="ftype"></result>
-        </association>
-        <association property="manufacturerId" column="fmanufacturer_id" javaType="com.spring.model.EquipmentManufacturer">  
-            <id property="id" column="mid"></id> 
-            <result property="name" column="mname"></result>  
-            <result property="type" column="mtype"></result>  
-            <result property="typeValue" column="ftypevalue"></result>
         </association>
         <association property="gatherId" column="fgather_id" javaType="com.spring.model.Gather">  
             <id property="id" column="gid"></id> 
@@ -132,7 +128,7 @@ SELECT
 	<insert id="addWeldingMachine" parameterType="com.spring.model.WeldingMachine" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO tb_welding_machine(fIP, ftype_id, fequipment_no, fstatus_id, fposition, finsframework_id, 
 		fmanufacturer_id,fgather_id, fisnetworking, fjoin_time, fmodel, fcreater, fcreatedate) VALUES 
-		(#{ip},#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{isnetworking},#{joinTime},#{model},#{creater},now())
+		(#{ip},#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{mvalueid},#{gatherId.id},#{isnetworking},#{joinTime},#{model},#{creater},now())
 	</insert>
 	
 	<update id="editGatherid"  parameterType="java.math.BigInteger">
@@ -141,7 +137,7 @@ SELECT
 	
 	<update id="editWeldingMachine"  parameterType="com.spring.model.WeldingMachine">
 		UPDATE tb_welding_machine SET fIP=#{ip},ftype_id=#{typeId},fequipment_no=#{equipmentNo},fstatus_id=#{statusId},
-		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{manufacturerId.id},fgather_id=#{gatherId.id},
+		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{mvalueid},fgather_id=#{gatherId.id},
 		fisnetworking=#{isnetworking},fjoin_time=#{joinTime},fmodel=#{model},fupdater=#{updater},fupdatedate=now() where fid = #{id}
 	</update>
 	

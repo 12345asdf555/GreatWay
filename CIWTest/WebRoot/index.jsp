@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<!-- 头部 -->
   	<div region="north" style="height: 98px;" id="north">
 		<div class="head-wrap">
-			<a href="" class="logo"><img src="resources/images/1_03.png" /></a>
+			<a href="" class="logo"><img src="resources/images/weldmeslog.png" /></a>
 			<div class="search-wrap">
                     <img src="resources/images/1_06.png" />
 					<a href="user/logout" id="username">欢迎您，</a>&nbsp;|
@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div data-options="region:'south',split:true" style="height:40px;">
    		<div class="tenghan-bottom">
-	    	Copyright 1998-2017 上海腾悍智能科技有限公司
+			<div style="margin-right:50px;"><a href="" class="logo"><img src="resources/images/weldmesbottom.png" /></a></div>
 		</div>
 	</div>
 

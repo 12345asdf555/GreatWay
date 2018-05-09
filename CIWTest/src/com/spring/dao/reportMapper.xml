@@ -215,7 +215,10 @@
 				weekofyear(fweldtime),
 			</if>
 		</if>
-		`felectricity` fstandardele,`fvoltage` fstandardvol,`FWeldTime` fweldingtime FROM `tb_live_data` WHERE fjunction_id=#{fid} and fmachine_id=#{mach} and fstatus='3' and `fwelder_id`=#{welderid}
+		`felectricity` fstandardele,`fvoltage` fstandardvol,`FWeldTime` fweldingtime FROM `tb_live_data` WHERE fjunction_id=#{fid} and fmachine_id=#{mach} and fstatus='3' 
+		<if test="welderid!=null and welderid!=''">
+			and `fwelder_id`=#{welderid}
+		</if>
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fweldtime &gt;= #{dto.dtoTime1}

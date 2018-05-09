@@ -755,7 +755,7 @@
 			</if>
 		</if>
 		group by fmachine_id ,weldTime
-		) A group by fid ,fwelder_id
+		) A group by fid,weldTime
 		)temp
 	</select>
 	
@@ -1513,10 +1513,10 @@
 	<!-- 公司单台设备运行数据统计 -->
 	<select id="getCompanyUse" resultMap="dtoMap">
 		select * from(
-		select sum(fworktime)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_work l 
+		select sum(fworktime)/60/60 time,d.fvaluename fname,d.fvalue fid from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
-		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
-		where w.finsframework_id in (select fid from tb_insframework where fparent=#{parent})
+        inner join tb_dictionary d on d.fvalue = w.fmanufacturer_id
+		where w.finsframework_id in (select fid from tb_insframework where fparent=15)
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
@@ -1525,15 +1525,15 @@
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by e.fid,e.ftype
+		group by d.fvalue
 		union
-		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
-		where fid not in
+		select 0 time,fvaluename fname ,fvalue fid from tb_dictionary
+		where ftypeid=14 and fvalue not in
 		(
-		select e.fid from tb_work l 
+		select d.fvalue from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
-		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
-		where w.finsframework_id in (select fid from tb_insframework where fparent=#{parent})
+        inner join tb_dictionary d on d.fvalue = w.fmanufacturer_id
+		where w.finsframework_id in (select fid from tb_insframework where fparent=15)
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
@@ -1542,7 +1542,7 @@
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by e.fid,e.ftype
+		group by d.fvalue
 		)
 		)temp order by fname ,time desc
 	</select>

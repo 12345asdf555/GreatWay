@@ -84,7 +84,7 @@ function CompanytimeDatagrid(){
                   	 array1.push(result.arys[i].weldTime);
             	 }
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:result.arys1[m].name,width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:result.arys1[m].name+"(台)",width:width,halign : "center",align : "left"});
                 	 array2.push(result.arys1[m].name);
                   	 Series.push({
                   		name : result.arys1[m].name,

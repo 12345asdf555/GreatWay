@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<input class="easyui-textbox" name="valueName" id="valueName" readonly="readonly"/>
     			</div>
     			<div class="fitem">
-    				<lable>类型</lable>
+    				<lable><span class="required">*</span>类型</lable>
 			    	<input name="desc" id="desc" class="easyui-textbox" readonly="true"/>
     			</div>
 			</form>

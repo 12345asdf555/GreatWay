@@ -190,7 +190,10 @@ function eleChart(){
             start : 0
         },
         grid : {
-            y2 : $("#body1").height()//图表高度
+			left:'8%',//组件距离容器左边的距离
+			right:'5%',
+			top:"5%",
+			bottom:60
         },
         xAxis : [ {
 			type:'category',
@@ -250,6 +253,10 @@ function volChart(){
             start : 0
         },
         grid : {
+			left:'8%',//组件距离容器左边的距离
+			right:'5%',
+			top:"5%",
+			bottom:60,
             y2 : $("#body2").height()//图表高度
         },
         xAxis : [ {
@@ -290,7 +297,7 @@ function fullScreen(){
 	}else{
 		$("#elebody").height('50%');
 		$("#elebody").css({'top':'0px'});
-		$("#body1").height($("#elebody").height()-30);
+		$("#body1").height($("#elebody").height()-23);
 		$("#body2").height('50%');
 		$("#body2").css({'top':'50%'});
 		echarts.init(document.getElementById('body1')).resize();
@@ -303,7 +310,7 @@ function fullScreen(){
 function theSmallScreen(){
 	$("#elebody").height('25%');
 	$("#elebody").css({'top':'58%'});
-	$("#body1").height($("#elebody").height()-30);
+	$("#body1").height($("#elebody").height()-23);
 	$("#body2").height('20%');
 	$("#body2").css({'top':'82%'});
 	echarts.init(document.getElementById('body1')).resize();
@@ -323,11 +330,19 @@ function domresize() {
 		height : $("#dgtb").height()/2,
 		width : $("#dgtb").width()
 	});
-
-	$("#body1").height($("#elebody").height()-30);
-	$("#body1").width('100%');
-	$("#body2").height('50%');
-	$("#body2").width('100%');
+	if($("#full").is(":hidden")){//全屏模式
+		$("#elebody").height('50%');
+		$("#elebody").css({'top':'0px'});
+		$("#body1").height($("#elebody").height()-23);
+		$("#body2").height('50%');
+		$("#body2").css({'top':'50%'});
+	}else{
+		$("#elebody").height('25%');
+		$("#elebody").css({'top':'58%'});
+		$("#body1").height($("#elebody").height()-23);
+		$("#body2").height('20%');
+		$("#body2").css({'top':'82%'});
+	}
 	echarts.init(document.getElementById('body1')).resize();
 	echarts.init(document.getElementById('body2')).resize();
 }

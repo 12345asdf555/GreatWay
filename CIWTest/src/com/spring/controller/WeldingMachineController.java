@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.spring.model.Dictionarys;
-import com.spring.model.EquipmentManufacturer;
 import com.spring.model.Gather;
 import com.spring.model.Insframework;
 import com.spring.model.MyUser;
@@ -178,13 +177,11 @@ public class WeldingMachineController {
 				json.put("typeId", wm.getTypeId());
 				json.put("statusName", wm.getStatusname());
 				json.put("statusId", wm.getStatusId());
+				json.put("manufacturerName", wm.getMvaluename());
+				json.put("manuno", wm.getMvalueid());
 				if( wm.getInsframeworkId()!=null && !"".equals(wm.getInsframeworkId())){
 					json.put("insframeworkName", wm.getInsframeworkId().getName());
 					json.put("iId", wm.getInsframeworkId().getId());
-				}
-				if( wm.getManufacturerId()!=null && !"".equals(wm.getManufacturerId())){
-					json.put("manufacturerName", wm.getManufacturerId().getName());
-					json.put("manuno", wm.getManufacturerId().getId());
 				}
 				json.put("model",wm.getModel());
 				if(wm.getGatherId()!=null && !("").equals(wm.getGatherId())){
@@ -362,9 +359,7 @@ public class WeldingMachineController {
 			ins.setId(new BigInteger(request.getParameter("iId")));
 			wm.setInsframeworkId(ins);
 			wm.setStatusId(Integer.parseInt(request.getParameter("sId")));
-			EquipmentManufacturer em = new EquipmentManufacturer();
-			em.setId(new BigInteger(request.getParameter("manuno")));
-			wm.setManufacturerId(em);
+			wm.setMvalueid(Integer.parseInt(request.getParameter("manuno")));
 			wmm.addWeldingMachine(wm);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -418,10 +413,7 @@ public class WeldingMachineController {
 					}
 				}
 			}
-			
-			EquipmentManufacturer em = new EquipmentManufacturer();
-			em.setId(new BigInteger(request.getParameter("manuno")));
-			wm.setManufacturerId(em);
+			wm.setMvalueid(Integer.parseInt(request.getParameter("manuno")));
 			wmm.editWeldingMachine(wm);
 			obj.put("success", true);
 		}catch(Exception e){

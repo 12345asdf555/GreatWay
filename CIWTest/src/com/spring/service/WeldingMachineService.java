@@ -3,7 +3,6 @@ package com.spring.service;
 import java.math.BigInteger;
 import java.util.List;
 
-import com.spring.model.EquipmentManufacturer;
 import com.spring.model.WeldingMachine;
 import com.spring.page.Page;
 
@@ -18,12 +17,6 @@ public interface WeldingMachineService {
 	 * 查询所有焊机信息
 	 */
 	List<WeldingMachine> getWeldingMachine(String str);
-	
-	/**
-	 * 查询所有厂商信息
-	 * @return
-	 */
-	List<EquipmentManufacturer> getManuAll();
 	
 	/**
 	 * 新增设备
@@ -63,14 +56,6 @@ public interface WeldingMachineService {
 	 * @return
 	 */
 	int getGatheridCount(BigInteger itemid,String gather);
-	
-	/**
-	 * 根据厂商值和类型查找厂商id
-	 * @param value 厂商名字
-	 * @param type 厂商类型
-	 * @return
-	 */
-	BigInteger getManuidByValue(String value,String type);
 	
 	/**
 	 * 根据id查找记录

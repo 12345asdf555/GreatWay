@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.spring.dto.WeldDto;
 import com.spring.model.DataStatistics;
-import com.spring.model.EquipmentManufacturer;
 import com.spring.page.Page;
 import com.spring.service.DataStatisticsService;
-import com.spring.service.InsframeworkService;
-import com.spring.service.LiveDataService;
 import com.spring.util.IsnullUtil;
 
 import net.sf.json.JSONArray;

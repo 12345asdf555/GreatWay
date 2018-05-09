@@ -28,11 +28,11 @@
 	</head>
 
 	<body onLoad="document.f.j_username.focus();">
-	  	<div style="height:460px;;width:397px;position:fixed;right:15%;margin-top: 10%;">
+	  	<div id="bodydiv">
 	    <div id="logindiv">
 	    	<div id="formdiv">
 	    		<form name="f" action="<c:url value='j_spring_security_check'/>" method="POST">
-	    			<table width="100%" align="center">
+	    			<table width="85%" align="center">
 		                <tr>
 		                    <td>用户名</td>
 				            <td align="center">
@@ -41,18 +41,18 @@
 				            </td>
 		                </tr>
 		                <tr>
-				            <td>密&nbsp;&nbsp;&nbsp;码</td>
+				            <td>密码</td>
 				            <td align="center"><input type='password' name='j_password'></td>
 		                </tr>
 <!-- 		                <tr><td><input type="checkbox" name="_spring_security_remember_me"></td><td> 两周内自动登录</td></tr> -->
 				        <tr>
-				            <td align="center" colspan="2">
-				            	<br/>
-				                <input name="submit" type="submit" value="确&nbsp;&nbsp;&nbsp;定" id="loginbutton">
+				        	<td></td>
+				            <td align="center">
+				                <input name="submit" type="submit" value="登录" id="loginbutton">
 				            </td>
 				        </tr>
 				        <tr>
-				        	<td colspan="2" align="center">
+				        	<td colspan="2" align="center" style="text-size:12px">
 							    <c:if test="${not empty param.login_error}">
 							       <font color="red">
 							           用户名或密码不正确，请重新输入。

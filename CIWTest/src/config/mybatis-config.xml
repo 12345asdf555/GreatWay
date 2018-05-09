@@ -47,7 +47,6 @@
 		<mapper resource="com/spring/dao/weldingMaintenance.xml" />
 		<mapper resource="com/spring/dao/welder.xml" />
 		<mapper resource="com/spring/dao/weldedjunction.xml" />
-		<mapper resource="com/spring/dao/equipmentmanufacturer.xml" />
 		<mapper resource="com/spring/dao/insframework.xml" />
 		<mapper resource="com/spring/dao/gather.xml"/>
 		<mapper resource="com/spring/dao/livedata.xml"/>
