@@ -71,4 +71,10 @@ import com.spring.service.TdService;
 		public List<Td> getAllMachine(String position) {
 			return mapper.findMachine(position);
 		}
+
+		@Override
+		public List<Td> getMachine(BigInteger mach,BigInteger parent) {
+			// TODO Auto-generated method stub
+			return mapper.getMachine(mach,parent);
+		}
 	}

@@ -106,6 +106,7 @@ $(function(){
 						'<div><label id="lab3'+fmch[f].fequipment_no+'">操作人员：--</label></div>'+
 						'<div><label id="lab4'+fmch[f].fequipment_no+'">焊接电流：--A</label></div>'+
 						'<div><label id="lab5'+fmch[f].fequipment_no+'">焊接电压：--V</label></div>'+
+						'<div><label id="lab6'+fmch[f].fequipment_no+'">焊机状态：--</label></div>'+
 						'</div>'+
 						'</div>';
 						$("#bodys").append(str);
@@ -209,10 +210,85 @@ $(function(){
 						}
 						document.getElementById("lab4"+fmch[f].fequipment_no).innerHTML="焊接电流："+parseInt(redata.substring(12+i, 16+i))+"A";
 						document.getElementById("lab5"+fmch[f].fequipment_no).innerHTML="焊接电压："+parseFloat((parseInt(redata.substring(16+i, 20+i))/10).toFixed(2))+"V";
-						if(redata.substring(0+i, 2+i)=="03"||redata.substring(0+i, 2+i)=="05"||redata.substring(0+i, 2+i)=="07"){
+						var mstatus=redata.substring(0+i, 2+i);
+						switch (mstatus){
+						case "00":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：待机";
+							document.getElementById(f).src="resources/images/i_blue.png";
+							break;
+						case "01":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-010 焊枪开关OFF等待";
 							document.getElementById(f).src="resources/images/ROBOTdj.png";
-						}else{
+							break;
+						case "02":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-000工作停止";
 							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "03":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：焊接";
+							document.getElementById(f).src="resources/images/i_green.png";
+							break;						
+						case "04":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：电流过低";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+							
+						case "05":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：收弧";
+							document.getElementById(f).src="resources/images/i_green.png";
+							break;
+						case "06":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：电流过高";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "07":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：启弧";
+							document.getElementById(f).src="resources/images/i_green.png";
+							break;
+						case "08":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：电压过低";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "09":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：电压过高";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "10":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-100控制电源异常";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "15":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-150一次输入电压过高";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "16":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-160一次输入电压过低";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "20":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-200一次二次电流检出异常";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "21":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-210电压检出异常";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "22":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-220逆变电路反馈异常";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "30":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-300温度异常";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "70":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-700输出过流异常";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
+						case "71":
+							document.getElementById("lab6"+fmch[f].fequipment_no).innerHTML="焊机状态：E-710输入缺相异常";
+							document.getElementById(f).src="resources/images/ROBOTdj.png";
+							break;
 						}
 					}
 				}

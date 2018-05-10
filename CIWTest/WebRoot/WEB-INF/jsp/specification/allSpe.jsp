@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="resources/js/datagrid-filter.js"></script>
 	<script type="text/javascript" src="resources/js/specification/allSpe.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
 	<script type="text/javascript" src="resources/js/specification/addSpe.js"></script>
@@ -282,8 +283,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</form>
 	    </div>
-	    <div id="divro" class="easyui-dialog" style="width:200px;height:400px" closed="true" buttons="#dlg-ro"algin="center">
-	        <table id="ro" style="table-layout:fixed;width:100%;" ></table>
+	    <div id="divro" class="easyui-dialog" style="width:400px;height:400px" closed="true" buttons="#dlg-ro"algin="center">
+	    	<div style="text-align:center;height:25px">
+	    		<lable id="mu"></lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    		所属班组：<select class="easyui-combobox" name="item" id="item" data-options="editable:false" onChange="changeValue(current,old)"></select>
+	    	</div>
+	    	<div id="tab" style="text-align:center;height:300px">
+	    		<table id="ro" style="table-layout:fixed;width:100%;" ></table>
+	    	</div>
         </div>
         <div id="dlg-ro">
 			<a href="javascript:savecopy();" class="easyui-linkbutton" iconCls="icon-ok">下一步</a>

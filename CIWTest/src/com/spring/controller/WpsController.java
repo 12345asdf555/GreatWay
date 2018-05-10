@@ -27,9 +27,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.spring.model.MyUser;
+import com.spring.model.Td;
 import com.spring.model.User;
 import com.spring.model.Wps;
 import com.spring.page.Page;
+import com.spring.service.TdService;
 import com.spring.service.WpsService;
 import com.spring.util.IsnullUtil;
 
@@ -48,6 +50,8 @@ public class WpsController {
 	private String wpspre;
 	@Autowired
 	private WpsService wpsService;
+	@Autowired
+	private TdService tdService;
 	
     public static final String IP_ADDR = "121.196.222.216";//服务器地址   
     public static final int PORT = 5555;//服务器端口号  
@@ -441,44 +445,22 @@ public class WpsController {
 			}else{
 				co = wpsService.findCount(mac,ch);
 			}
-			List<Wps> findAll = wpsService.findSpe(mac,ch);
-/*			for(Wps ps:findAll){
-				ps.getFweld_i_max()
-				ps.getFtime()
-				ps.getFadvance()
-				ps.getFini_ele()
-				ps.getFini_vol()
-				ps.getFini_vol1()
-				ps.getFweld_ele()
-				ps.getFweld_vol()
-				ps.getFweld_vol1()
-				ps.getFarc_ele()
-				ps.getFarc_vol()
-				ps.getFarc_vol1()
-				ps.getFhysteresis()
-				ps.getFweld_v_max()
-				ps.getFweld_alter_v()
-				ps.getInsid()
-				ps.getFweld_prechannel()
-				ps.getFweld_i_min()
-				ps.getFweld_v()
-				ps.getFweld_i()
-				ps.getFweld_alter_i()
-				ps.getFweld_v_min()
-				ps.getFweld_tuny_ele()
-				ps.getFweld_tuny_vol()
-				ps.getFarc_tuny_ele()
-				ps.getFdiameter()
-			}*/
+			BigInteger parent = null;
+			List<Td> getAP = tdService.getAllPosition(parent);
+			for(Td td:getAP){
 	        if(null!=str&&""!=str){
 	        String[] ss = str.split(",");
 	        for (int i = 0; i < ss.length; i++) {
-				json.put("machineid", ss[i]);
+	        	if(td.getId()==Long.valueOf(ss[i])){
+				json.put("machineid", td.getFequipment_no());
+				json.put("insname", td.getFcn());
 				json.put("num", "1-"+co);
 				json.put("readynum", 0);
 				ary.add(json);
+	        	}
 	        }
 	        }
+		}
 			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);

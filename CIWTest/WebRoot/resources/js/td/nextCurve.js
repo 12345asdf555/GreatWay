@@ -446,7 +446,7 @@
 							document.getElementById("in4").value="待机";
 							document.getElementById("in4").style.backgroundColor="#0000CD";
 							document.getElementById("td1").style.backgroundColor="#0000CD";
-							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							document.getElementById("mrjpg").src="resources/images/i_blue.png";
 							break;
 						case "01":
 							document.getElementById("in4").value="E-010 焊枪开关OFF等待";
@@ -464,7 +464,7 @@
 							document.getElementById("in4").value="焊接";
 							document.getElementById("in4").style.backgroundColor="#00FF00";
 							document.getElementById("td1").style.backgroundColor="#00FF00";
-							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							document.getElementById("mrjpg").src="resources/images/i_green.png";
 							break;						
 						case "04":
 							document.getElementById("in4").value="电流过低";
@@ -477,7 +477,7 @@
 							document.getElementById("in4").value="收弧";
 							document.getElementById("in4").style.backgroundColor="#00FF00";
 							document.getElementById("td1").style.backgroundColor="#00FF00";
-							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							document.getElementById("mrjpg").src="resources/images/i_green.png";
 							break;
 						case "06":
 							document.getElementById("in4").value="电流过高";
@@ -489,7 +489,7 @@
 							document.getElementById("in4").value="启弧";
 							document.getElementById("in4").style.backgroundColor="#00FF00";
 							document.getElementById("td1").style.backgroundColor="#00FF00";
-							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							document.getElementById("mrjpg").src="resources/images/i_green.png";
 							break;
 						case "08":
 							document.getElementById("in4").value="电压过低";
@@ -558,16 +558,6 @@
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						}
-/*						if(redata.substring(0+i, 2+i)=="03"||redata.substring(0+i, 2+i)=="05"||redata.substring(0+i, 2+i)=="07"){
-							document.getElementById("in4").value="工作";
-							document.getElementById("in4").style.backgroundColor="#00FF00";
-							document.getElementById("td1").style.backgroundColor="#00FF00";
-							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-						}else{
-							document.getElementById("in4").value="待机";
-							document.getElementById("td1").style.backgroundColor="bule";
-							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-						}*/
 						document.getElementById("in7").value=parseInt(redata.substring(12+i, 16+i));
 						document.getElementById("in8").value=parseFloat((parseInt(redata.substring(16+i, 20+i))/10).toFixed(2));
 						for(var k=0;k<welderName.length;k++){

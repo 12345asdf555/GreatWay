@@ -16,6 +16,7 @@ var symbol2;
 var x=0;
 var xx=0;
 var rows1;
+var itemrow;
 $(function(){
 //	inscombobox();
 	$('#dlg').dialog( {
@@ -41,33 +42,28 @@ $(function(){
 	          alert("数据请求失败，请联系系统管理员!");  
 	      }  
 	 });
-	
-	$("#ro").datagrid( {
-		height : $("#divro").height(),
-		width : $("#divro").width(),
-		idField : 'id',
-		url : "rep/getTime",
-		singleSelect : false,
-		rownumbers : true,
-        columns : [ [ {
-		    field:'ck',
-			checkbox:true
-		},{
-			field : 'id',
-			title : '序号',
-			width : 50,
-			halign : "center",
-			align : "left",
-			hidden:true
-		}, {
-			field : 'machineid',
-			title : '焊机编号',
-//			width : 80,
-			halign : "center",
-			align : "left"
-		}
-		] ]
-	});
+	$.ajax({  
+	    type : "post",  
+	    async : false,
+	    url : "datastatistics/getAllInsframework",  
+	    data : {},  
+	    dataType : "json", //返回数据形式为json  
+	    success : function(result) {  
+	        if (result) {
+	        	itemrow=eval(result);
+	            var optionStr = '';
+	            for (var i = 0; i < result.ary.length; i++) {  
+	                optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+	                        + result.ary[i].name + "</option>";
+	            }
+	            $("#item").html(optionStr);
+	        }  
+	    },  
+	    error : function(errorMsg) {  
+	        alert("数据请求失败，请联系系统管理员!");  
+	    }  
+		}); 
+		$("#item").combobox();
  })
  
  function w() {
@@ -355,10 +351,53 @@ function insframeworkTree(){
 				document.getElementById("body").style.display="block";
 				document.getElementById("bodyy").style.display="none";
 				$('#chanel').combobox('select',1);
+				$("#ro").datagrid( {
+					fitColumns : true,
+					height : $("#tab").height(),
+					width : $("#tab").width(),
+					idField : 'id',
+					url : "td/getMachine?mach="+node11.id,
+					singleSelect : false,
+					rownumbers : true,
+			        columns : [ [ {
+					    field:'ck',
+						checkbox:true
+					},{
+						field : 'fid',
+						title : '序号',
+						width : 50,
+						halign : "center",
+						align : "left",
+						hidden:true
+					}, {
+						field : 'fequipment_no',
+						title : '目标焊机编号',
+						width : 80,
+						halign : "center",
+						align : "left"
+					}, {
+						field : 'finsname',
+						title : '所属班组',
+						width : 80,
+						halign : "center",
+						align : "left"
+					}
+					] ]
+				});
 			}
 		 }
 	})
 }
+
+$(document).ready(function () {
+	$("#item").combobox({
+		onSelect: function (record) {
+			$("#ro").datagrid('load',{
+				"parent" : record.value
+			})
+		}
+	});
+});
 
 function suoqu(){
 	symbol=0;
@@ -1135,9 +1174,9 @@ function yanzheng(){
 }
 
 function copy(value){
-	$("#ro").datagrid('reload');
+	document.getElementById("mu").innerHTML="源目标焊机："+node11.text;
 	$('#divro').window( {
-		title : "选择焊机",
+		title : "目标焊机选择",
 		modal : true
 	});
 	$('#divro').window('open');
@@ -1149,7 +1188,7 @@ function savecopy(){
 	var rows = $("#ro").datagrid("getSelections");
     var str="";
 	for(var i=0; i<rows.length; i++){
-		str += rows[i].id+",";
+		str += rows[i].fid+",";
 	};
 	if(symbol2==1){
 		var url="wps/findCount?mac="+smachine+"&str="+str+"&chanel="+"";
@@ -1158,6 +1197,7 @@ function savecopy(){
 		var url="wps/findCount?mac="+smachine+"&str="+str+"&chanel="+chanel;
 	}
 	$("#ro1").datagrid( {
+		fitColumns : true,
 		height : $("#divro1").height(),
 		width : $("#divro1").width(),
 		idField : 'id',
@@ -1167,13 +1207,19 @@ function savecopy(){
         columns : [ [ {
 			field : 'machineid',
 			title : '焊机编号',
-//			width : 80,
+			width : 80,
+			halign : "center",
+			align : "left"
+		},{
+			field : 'insname',
+			title : '所属班组',
+			width : 80,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'num',
 			title : '通道数',
-//			width : 80,
+			width : 80,
 			halign : "center",
 			align : "left"
 		}, {
@@ -1515,7 +1561,7 @@ function wait(){
 	var rows = $("#ro").datagrid("getSelections");
     var str="";
 	for(var i=0; i<rows.length; i++){
-		str += rows[i].id+",";
+		str += rows[i].fid+",";
 	};
 	if(symbol2==1){
 		var url="wps/saveCopy?mac="+smachine+"&str="+str+"&chanel="+"";
