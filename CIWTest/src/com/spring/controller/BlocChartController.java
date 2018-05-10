@@ -232,7 +232,7 @@ public class BlocChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -244,7 +244,7 @@ public class BlocChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -256,7 +256,7 @@ public class BlocChartController {
 			List<ModelDto> list = lm.getBlocOverproof(dto);
 			List<LiveData> ins = lm.getBlocChildren();
 			BigInteger[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -331,7 +331,7 @@ public class BlocChartController {
 		if(!iutil.isNull(number)){
 			number = "0";
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -342,7 +342,7 @@ public class BlocChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -354,7 +354,7 @@ public class BlocChartController {
 			List<ModelDto> list = lm.getBlocOvertime(dto, number);
 			List<LiveData> ins = lm.getBlocChildren();
 			int[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -424,7 +424,7 @@ public class BlocChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -435,7 +435,7 @@ public class BlocChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -448,7 +448,7 @@ public class BlocChartController {
 			List<ModelDto> machine = lm.getBlocMachineCount(dto, null);
 			List<LiveData> ins = lm.getBlocChildren();
 			double[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -522,7 +522,7 @@ public class BlocChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -533,7 +533,7 @@ public class BlocChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -546,7 +546,7 @@ public class BlocChartController {
 			List<ModelDto> machine = lm.getBlocMachineCount(dto, null);
 			List<LiveData> ins = lm.getBlocChildren();
 			double[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -625,7 +625,7 @@ public class BlocChartController {
 			}else if(type.equals("4")){
 				dto.setWeek("week");
 			}
-		}List<LiveData> time = null;
+		}List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -636,7 +636,7 @@ public class BlocChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -648,7 +648,7 @@ public class BlocChartController {
 			List<ModelDto> list = lm.getBlocIdle(dto);
 			List<LiveData> ins = lm.getBlocChildren();
 			double[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}

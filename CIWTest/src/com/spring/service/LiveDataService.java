@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.spring.model.LiveData;
 import com.spring.model.WeldedJunction;
 import com.spring.dto.ModelDto;
@@ -72,7 +70,7 @@ public interface LiveDataService {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<LiveData> getAllTime(Page page,WeldDto dto);
+	List<ModelDto> getAllTime(Page page,WeldDto dto);
 	
 	/**
 	 * 公司工艺超标统计
@@ -278,7 +276,7 @@ public interface LiveDataService {
 	 * @param dto
 	 * @return
 	 */
-	List<LiveData> getAllTimes(WeldDto dto);
+	List<ModelDto> getAllTimes(WeldDto dto);
 	
 	/**
 	 * 集团焊接工时

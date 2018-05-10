@@ -67,7 +67,7 @@ public class LiveDataServiceImpl implements LiveDataService {
 	}
 
 	@Override
-	public List<LiveData> getAllTime(Page page,WeldDto dto) {
+	public List<ModelDto> getAllTime(Page page,WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
 		return live.getAllTime(dto);
 	}
@@ -213,7 +213,7 @@ public class LiveDataServiceImpl implements LiveDataService {
 	
 
 	@Override
-	public List<LiveData> getAllTimes(WeldDto dto) {
+	public List<ModelDto> getAllTimes(WeldDto dto) {
 		return live.getAllTime(dto);
 	}
 

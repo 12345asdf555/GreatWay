@@ -325,7 +325,7 @@ public class CompanyChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -336,7 +336,7 @@ public class CompanyChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -348,7 +348,7 @@ public class CompanyChartController {
 			List<ModelDto> list = lm.getCompanyOverproof(dto,parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			BigInteger[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -440,7 +440,7 @@ public class CompanyChartController {
 		if(!iutil.isNull(number)){
 			number = "0";
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -451,7 +451,7 @@ public class CompanyChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -463,7 +463,7 @@ public class CompanyChartController {
 			List<ModelDto> list = lm.getcompanyOvertime(dto, number, parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			int[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -551,7 +551,7 @@ public class CompanyChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -562,7 +562,7 @@ public class CompanyChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -575,7 +575,7 @@ public class CompanyChartController {
 			List<ModelDto> machine = lm.getCompanyMachineCount(dto, parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			double[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -667,7 +667,7 @@ public class CompanyChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -678,7 +678,7 @@ public class CompanyChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -691,7 +691,7 @@ public class CompanyChartController {
 			List<ModelDto> machine = lm.getCompanyMachineCount(dto, parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			double[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -784,7 +784,7 @@ public class CompanyChartController {
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -795,7 +795,7 @@ public class CompanyChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -807,7 +807,7 @@ public class CompanyChartController {
 			List<ModelDto> list = lm.getCompanyIdle(dto,parent);
 			List<LiveData> ins = lm.getAllInsf(parent,22);
 			double[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}

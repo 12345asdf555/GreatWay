@@ -30,7 +30,7 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<LiveData> getAllInsf(@Param("parent") BigInteger parent,@Param("type") int type);
 	
-	List<LiveData> getAllTime(@Param("dto") WeldDto dto);
+	List<ModelDto> getAllTime(@Param("dto") WeldDto dto);
 	
 	int getCountTime(@Param("welderno") String welderno,@Param("machineno") String machineno,@Param("junctionno") String junctionno,@Param("time") String time,@Param("id") BigInteger id);
 

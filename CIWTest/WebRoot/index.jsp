@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div data-options="region:'south',split:true" style="height:40px;">
    		<div class="tenghan-bottom">
-			<div style="margin-right:50px;"><a href="" class="logo"><img src="resources/images/weldmesbottom.png" /></a></div>
+			<div style="margin-right:30px;"><a href="" class="logo"><img src="resources/images/weldmesbottom.png" /></a></div>
 		</div>
 	</div>
 

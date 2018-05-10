@@ -296,7 +296,7 @@ public class CaustChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -307,7 +307,7 @@ public class CaustChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -320,7 +320,7 @@ public class CaustChartController {
 			List<ModelDto> list = lm.getCauseOverproof(dto,parent);
 			List<LiveData> ins = lm.getAllInsf(pid,23);
 			BigInteger[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -416,7 +416,7 @@ public class CaustChartController {
 		if(!iutil.isNull(number)){
 			number = "0";
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -427,7 +427,7 @@ public class CaustChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -439,7 +439,7 @@ public class CaustChartController {
 			List<ModelDto> list = lm.getCaustOvertime(dto, number, parent);
 			List<LiveData> ins = lm.getAllInsf(pid,23);
 			int[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -532,7 +532,7 @@ public class CaustChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -543,7 +543,7 @@ public class CaustChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -556,7 +556,7 @@ public class CaustChartController {
 			List<ModelDto> machine = lm.getCaustMachineCount(dto, parent);
 			List<LiveData> ins = lm.getAllInsf(pid,23);
 			double[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -653,7 +653,7 @@ public class CaustChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -664,7 +664,7 @@ public class CaustChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -677,7 +677,7 @@ public class CaustChartController {
 			List<ModelDto> machine = lm.getCaustMachineCount(dto, parent);
 			List<LiveData> ins = lm.getAllInsf(pid,23);
 			double[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}
@@ -774,7 +774,7 @@ public class CaustChartController {
 		if(iutil.isNull(parent)){
 			parentid = new BigInteger(parent);
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -785,7 +785,7 @@ public class CaustChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -797,7 +797,7 @@ public class CaustChartController {
 			List<ModelDto> list = lm.getCaustIdle(dto, parentid);
 			List<LiveData> ins = lm.getAllInsf(parentid,23);
 			double[] num = null;
-			for(LiveData live :time){
+			for(ModelDto live :time){
 				json.put("weldTime",live.getWeldTime());
 				arys.add(json);
 			}

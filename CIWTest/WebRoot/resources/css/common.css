@@ -9,7 +9,7 @@ background: -moz-linear-gradient(right, #dbefe7 , #a0cad6); /* Firefox 3.6 - 15 
 background: linear-gradient(to right, #dbefe7 , #a0cad6); 
 FILTER:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#dbefe7,endColorStr=#a0cad6); /*IE 6 7 8*/
 }
-.head-wrap .logo{display: inline-block;position: absolute;float:left;top: 15px;left:70px;width: 430px;height: 80px;background-size:contain;}
+.head-wrap .logo{display: inline-block;position: absolute;float:left;top: 15px;left:50px;width: 430px;height: 80px;background-size:contain;}
 .head-wrap .search-wrap{position: absolute;top: 30px;right: 40px;width: 220px;height: 30px;color: #0254ad;}
 
 /* 导航栏 */
@@ -27,7 +27,7 @@ FILTER:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#
 .tenghan-bottom{
 	height:30px;
 	text-align:right;
-	padding-top: 10px; 
+	padding-top: 20px; 
 	position:fixed;
     bottom:0;
     width:100%;
