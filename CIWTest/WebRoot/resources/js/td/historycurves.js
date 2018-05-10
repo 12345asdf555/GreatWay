@@ -185,10 +185,17 @@ function eleChart(){
                 }
             }
         },
-        dataZoom : {//缩放
-            show : true,
-            start : 0
-        },
+        dataZoom : [
+        	{
+                type: 'slider',
+                show: true,
+                xAxisIndex: [0]
+            },
+            {
+                type: 'inside',
+                xAxisIndex: [0]
+            }
+        ],
         grid : {
 			left:'8%',//组件距离容器左边的距离
 			right:'5%',
@@ -201,7 +208,7 @@ function eleChart(){
         } ],
         yAxis : [ {
             type : 'value',
-            max : 650,
+            max : 500,
             min : 0
         } ],
         series : [ {
@@ -248,10 +255,17 @@ function volChart(){
                 }
             }
         },
-        dataZoom : {//缩放
-            show : true,
-            start : 0
-        },
+        dataZoom : [//缩放
+            {
+                type: 'slider',
+                show: true,
+                xAxisIndex: [0]
+            },
+            {
+                type: 'inside',
+                xAxisIndex: [0]
+            }
+        ],
         grid : {
 			left:'8%',//组件距离容器左边的距离
 			right:'5%',
@@ -265,7 +279,7 @@ function volChart(){
         } ],
         yAxis : [ {
             type : 'value',
-            max : 150,
+            max : 60,
             min : 0
         } ],
         series : [ {

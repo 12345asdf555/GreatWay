@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</td>
 						<td id="td1" align="center" width="50%">
 							<label id="la4">设备状态</label>
-							<input id="in4" value="关机" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:160px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">
+							<input id="in4" value="关机" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:160px;height:32px;font-size:10px;background-color:#EEEEEE;border:0px;">
 						</td>
 					</tr>
 					<tr>
