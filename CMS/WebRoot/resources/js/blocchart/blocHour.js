@@ -92,7 +92,7 @@ function BlocHourDatagrid(){
                  	var num = (row.manhour/row.jidgather).toFixed(2);
                  	array2.push(num);
              	}
-				return  '<a href="companyChart/goCompanyHour?parent='+row.companyid+'">'+value+'</a>';
+				return  '<a href="companyChart/goCompanyHour?parent='+row.companyid+"&parentime1="+dtoTime1+"&parentime2="+dtoTime2+'">'+value+'</a>';
 			}
 		}, {
 			field : 'jidgather',

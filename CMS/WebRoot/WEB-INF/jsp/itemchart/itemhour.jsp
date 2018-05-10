@@ -45,6 +45,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input  name="time1" id="time1" type="hidden" value="${time1 }"/>
 				<input  name="time2" id="time2" type="hidden" value="${time2 }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
+				<input  name="parentime1" id="parentime1" type="hidden" value="${parentime1 }"/>
+				<input  name="parentime2" id="parentime2" type="hidden" value="${parentime2 }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">

@@ -62,8 +62,8 @@ public class JunctionChartController {
 		request.setAttribute("nextexternaldiameter",nextexternaldiameter );
 		request.setAttribute("nextmaterial", nextmaterial);
 		request.setAttribute("nextwall_thickness",nextwall_thickness );
-		request.setAttribute("time1", time1);
-		request.setAttribute("time2", time2);
+		request.setAttribute("parentime1", time1);
+		request.setAttribute("parentime2", time2);
 		lm.getUserId(request);
 		return "junctionchart/junctionhour";
 	}
@@ -203,11 +203,16 @@ public class JunctionChartController {
 				item = insm.getUserInsfId(uid).toString();
 			}
 		}
-		if(iutil.isNull(time3) || iutil.isNull(time4)){
+		if(iutil.isNull(time3)){
 			dto.setDtoTime1(time3);
+		}
+		if(iutil.isNull(time4)){
 			dto.setDtoTime2(time4);
-		}else if(iutil.isNull(time1) || iutil.isNull(time2)){
+		}
+		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
+		}
+		if( iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
 		}
 		if(iutil.isNull(item)){
@@ -467,7 +472,7 @@ public class JunctionChartController {
 		JSONObject obj = new JSONObject();
 		try{
 			for(ModelDto l:list){
-				BigInteger livecount = lm.getCountByTime(l.getFid(), "%"+weldtime+"%",l.getJid());
+				BigInteger livecount = lm.getCountByTime(l.getFid(), weldtime,l.getJid());
 				double loads = (double)Math.round(l.getLoads()/livecount.doubleValue()*100*100)/100;
 				json.put("loads", loads+"%");
 				json.put("weldtime", weldtime);

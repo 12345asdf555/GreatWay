@@ -6,9 +6,8 @@ $(function(){
 	getUserInsframework();
 	addTab("欢迎使用","welcome.jsp");
 	tabsIncident();
-	hierarchyLoding();
 })
-
+var type;
 function hierarchyLoding(){
 	$.ajax({  
 	      type : "post",  
@@ -24,18 +23,20 @@ function hierarchyLoding(){
 	            			content: $("#bloc").html(),
 	            			selected: false
 	            		});
-	              }else if(result.hierarchy==2){//公司层
-	            	  $('#accordiondiv').accordion('add', {
-	            			title: '<i class="iconfont icon-ren"></i>    公司',
-	            			content: $("#company").html(),
-	            			selected: false
-	            		});
-	              }else if(result.hierarchy==3){//事业部层
-	            	  $('#accordiondiv').accordion('add', {
-	            			title: '<i class="iconfont icon-ren"></i>    事业部',
-	            			content: $("#caust").html(),
-	            			selected: false
-	            		});
+	              }else if(result.hierarchy==2 || result.hierarchy==3){//公司层/事业部层
+	            	  if(type==21){
+		            	  $('#accordiondiv').accordion('add', {
+		            			title: '<i class="iconfont icon-ren"></i>    公司',
+		            			content: $("#company").html(),
+		            			selected: false
+		            		});
+	            	  }else if(type==22){
+		            	  $('#accordiondiv').accordion('add', {
+		            			title: '<i class="iconfont icon-ren"></i>    事业部',
+		            			content: $("#caust").html(),
+		            			selected: false
+		            		});
+	            	  }
 	              }else if(result.hierarchy==4){//项目部层
 	            	  $('#accordiondiv').accordion('add', {
 	            			title: '<i class="iconfont icon-ren"></i>    项目部',
@@ -59,8 +60,35 @@ function getUserInsframework(){
 		data : {},
 		dataType : "json",
 		success : function(result){
+			type = result.type;
 			var str = "<span>"+result.insframework+": </span><span>"+result.uname+"</span>";
 			$("#userInsframework").append(str);
+//			hierarchyLoding();
+			if(type==20){
+          	  $('#accordiondiv').accordion('add', {
+          			title: '<i class="iconfont icon-ren"></i>    集团',
+          			content: $("#bloc").html(),
+          			selected: false
+          		});
+			}else if(type==21){
+          	  $('#accordiondiv').accordion('add', {
+          			title: '<i class="iconfont icon-ren"></i>    公司',
+          			content: $("#company").html(),
+          			selected: false
+          		});
+      	  }else if(type==22){
+          	  $('#accordiondiv').accordion('add', {
+          			title: '<i class="iconfont icon-ren"></i>    事业部',
+          			content: $("#caust").html(),
+          			selected: false
+          		});
+      	  }else if(type==23){
+        	  $('#accordiondiv').accordion('add', {
+        			title: '<i class="iconfont icon-ren"></i>    项目部',
+        			content: $("#item").html(),
+        			selected: false
+        		});
+      	  }
 		},
 		error : function(errorMsg){
 			alert("数据请求失败，请联系系统管理员!");

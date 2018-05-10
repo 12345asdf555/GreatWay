@@ -42,6 +42,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div style="margin-bottom: 5px;">
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
+				<input  name="parentime1" id="parentime1" type="hidden" value="${parentime1 }"/>
+				<input  name="parentime2" id="parentime2" type="hidden" value="${parentime2 }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
@@ -56,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		按组织机构和日期对设备闲置率趋势统计：<br/>
 		统计时间段内的各部门设备闲置趋势；<br/>
 		X轴：日期<br/>
-		Y轴：显示数量(台)<br/></div>
+		Y轴：闲置数量(台)<br/></div>
 		<div id="itemidleChart" style="height:300px;width:60%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 		
 	    <table id="itemidleTable" style="table-layout: fixed; width:100%;"></table>

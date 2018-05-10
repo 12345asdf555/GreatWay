@@ -32,7 +32,14 @@ public class User{
 	private String statusname;
 	private String creator;
 	private String modifier;
+	private int type;
 	
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
 	public String getCreator() {
 		return creator;
 	}

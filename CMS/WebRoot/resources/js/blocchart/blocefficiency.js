@@ -8,11 +8,12 @@ $(document).ready(function(){
 })
 
 var min="";
-var max ="";
+var max ="",dtoTime1,dtoTime2;
 function setParam(){
+	chartStr = "";
 	var parent = $('#parent').combobox('getValue');
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var otype = $("input[name='otype']:checked").val();
 	chartStr = "?parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype"+otype+"&min="+min+"&max="+max;
 }
@@ -174,7 +175,7 @@ function BlocEfficiencyDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter : function(value,row,index){
-				return "<a href='companyChart/goCompanyEfficiency?nextparent="+row.id+"'>"+value+"</a>";
+				return "<a href='companyChart/goCompanyEfficiency?nextparent="+row.id+"&parentime1="+dtoTime1+"&parentime2="+dtoTime2+"'>"+value+"</a>";
 			}
 		}, {
 			field : 'wname',
@@ -212,7 +213,7 @@ function BlocEfficiencyDatagrid(){
 }
 
 function serachEfficiencyBloc(){
-	chartStr = "",min="",max="";
+	min="",max="";
 	$("#chartLoading").show();
 	setTimeout(function() {
 		showblocEfficiencyChart();

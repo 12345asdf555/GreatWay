@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		按组织机构和日期对设备闲置率趋势统计：<br/>
 		统计时间段内的各部门设备闲置趋势；<br/>
 		X轴：日期<br/>
-		Y轴：显示数量(台)<br/></div>
+		Y轴：闲置数量(台)<br/></div>
 		<div id="blocIdleChart" style="height:300px;width:60%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 		
 	    <table id="blocIdleTable" style="table-layout: fixed; width:100%;"></table>

@@ -5,12 +5,12 @@ var chartStr = "";
 $(document).ready(function(){
 	showCompanyOverproofChart();
 })
-
+var dtoTime1,dtoTime2;
 function setParam(){
 	var parent = $("#parent").val();
 	var otype = $("input[name='otype']:checked").val();
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
@@ -79,7 +79,7 @@ function CompanyHourDatagrid(){
             	 var width=$("#body").width()/result.rows.length;
                  column.push({field:"w",title:"时间跨度(年/月/日/周)",width:width,halign : "center",align : "left"});
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustOverproof?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"(s)</a>",width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustOverproof?parent="+result.arys1[m].itemid+"&parentime1="+dtoTime1+"&parentime2="+dtoTime2+"'>"+result.arys1[m].name+"(s)</a>",width:width,halign : "center",align : "left"});
                 	 array2.push(result.arys1[m].name);
                   	 Series.push({
                   		name : result.arys1[m].name,

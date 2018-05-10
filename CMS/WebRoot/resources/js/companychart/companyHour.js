@@ -4,10 +4,10 @@ $(function(){
 $(document).ready(function(){
 	showCompanyHourChart();
 })
-var chartStr = "";
+var chartStr = "", dtoTime1,dtoTime2;
 function setParam(){
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
@@ -96,7 +96,7 @@ function CompanyHourDatagrid(){
                  	var num = (row.manhour/row.jidgather).toFixed(2);
                  	array2.push(num);
              	}
-				return  '<a href="caustChart/goCaustHour?parent='+row.itemid+'">'+value+'</a>';
+				return  '<a href="caustChart/goCaustHour?parent='+row.itemid+"&parentime1="+dtoTime1+"&parentime2="+dtoTime2+'">'+value+'</a>';
 			}
 		}, {
 			field : 'jidgather',

@@ -12,8 +12,8 @@ function setParam(){
 	var nextwallthickness = $("#nextwallthickness").val();
 	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var time1 = $("#time1").val();
-	var time2 = $("#time2").val();
+	var time1 = $("#parentime1").val();
+	var time2 = $("#parentime2").val();
 	chartStr = "?item="+item+"&material="+encodeURI(material)+"&externalDiameter="+encodeURI(externalDiameter)+"&wallThickness="+encodeURI(wallThickness)+"&nextexternaldiameter="+encodeURI(nextexternaldiameter)+"&nextmaterial="+encodeURI(nextmaterial)+"&nextwallthickness="+encodeURI(nextwallthickness)+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&time1="+time1+"&time2="+time2;
 }
 
@@ -91,8 +91,8 @@ function itemjunctionDatagrid(){
 
 function serachjunctionHour(){
 	chartStr = "";
-	var time1 = $("#time1").val("");
-	var time2 = $("#time2").val("");
+	$("#parentime1").val("");
+	$("#parentime2").val("");
 	itemjunctionDatagrid();
 }
 

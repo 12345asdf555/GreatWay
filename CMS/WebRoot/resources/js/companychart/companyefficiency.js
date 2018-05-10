@@ -7,13 +7,13 @@ $(document).ready(function(){
 	showcompanyEfficiencyChart();
 })
 
-var min="";
-var max ="";
+var min="", max ="",dtoTime1,dtoTime2;
 function setParam(){
+	chartStr = "";
 	var parent = $('#parent').combobox('getValue');
 	var nextparent = $("#nextparent").val();
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	chartStr = "?parent="+parent+"&nextparent="+nextparent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&min="+min+"&max="+max;
 }
 
@@ -174,7 +174,7 @@ function CompanyEfficiencyDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter : function(value,row,index){
-				return "<a href='caustChart/goCaustEfficiency?nextparent="+row.id+"'>"+value+"</a>";
+				return "<a href='caustChart/goCaustEfficiency?nextparent="+row.id+"&parentime1="+dtoTime1+"&parentime2="+dtoTime2+"'>"+value+"</a>";
 			}
 		}, {
 			field : 'wname',
@@ -212,7 +212,7 @@ function CompanyEfficiencyDatagrid(){
 }
 
 function serachEfficiencyCompany(){
-	chartStr = "",min="",max="";
+	min="",max="";
 	$("#nextparent").val("");
 	$("#chartLoading").show();
 	setTimeout(function() {

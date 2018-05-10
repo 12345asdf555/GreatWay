@@ -6,12 +6,12 @@ var chartStr = "";
 $(document).ready(function(){
 	showCompanyIdleChart();
 })
-
+var dtoTime1,dtoTime2;
 function setParam(){
 	var otype = $('#otype').combobox('getValue');
 	var parent = $("#parent").val();
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
@@ -84,7 +84,7 @@ function CaustIdleDatagrid(){
                  	array1.push(result.arys[x].weldTime);
                  }
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustIdle?parent="+result.arys1[m].id+"'>"+result.arys1[m].name+"(台)</a>",width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:"<a href='caustChart/goCaustIdle?parent="+result.arys1[m].id+"&parentime1="+dtoTime1+"&parentime2="+dtoTime2+"'>"+result.arys1[m].name+"(台)</a>",width:width,halign : "center",align : "left"});
                 	 array2.push(result.arys1[m].name);
                    	 Series.push({
                   		name : result.arys1[m].name,

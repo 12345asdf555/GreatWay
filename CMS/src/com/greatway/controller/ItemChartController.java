@@ -57,6 +57,8 @@ public class ItemChartController {
 		lm.getUserId(request);
 		insm.showParent(request, item);
 		request.setAttribute("item", item);
+		request.setAttribute("parentime1", request.getParameter("parentime1"));
+		request.setAttribute("parentime2", request.getParameter("parentime2"));
 		return "itemchart/itemhour";
 	}
 	
@@ -91,6 +93,8 @@ public class ItemChartController {
 		insm.showParent(request, parent);
 		lm.getUserId(request);
 		request.setAttribute("parent", parent);
+		request.setAttribute("parentime1", request.getParameter("parentime1"));
+		request.setAttribute("parentime2", request.getParameter("parentime2"));
 		return "itemchart/itemoverproof";
 	}
 	
@@ -105,6 +109,8 @@ public class ItemChartController {
 		insm.showParent(request, parent);
 		lm.getUserId(request);
 		request.setAttribute("parent",parent);
+		request.setAttribute("parentime1", request.getParameter("parentime1"));
+		request.setAttribute("parentime2", request.getParameter("parentime2"));
 		return "itemchart/itemovertime";
 	}
 	
@@ -119,6 +125,8 @@ public class ItemChartController {
 		insm.showParent(request, parent);
 		lm.getUserId(request);
 		request.setAttribute("parent",parent);
+		request.setAttribute("parentime1", request.getParameter("parentime1"));
+		request.setAttribute("parentime2", request.getParameter("parentime2"));
 		return "itemchart/itemloads";
 	}
 	
@@ -133,6 +141,8 @@ public class ItemChartController {
 		insm.showParent(request, parent);
 		lm.getUserId(request);
 		request.setAttribute("parent",parent);
+		request.setAttribute("parentime1", request.getParameter("parentime1"));
+		request.setAttribute("parentime2", request.getParameter("parentime2"));
 		return "itemchart/itemnoloads";
 	}
 	
@@ -147,6 +157,8 @@ public class ItemChartController {
 		insm.showParent(request, parent);
 		lm.getUserId(request);
 		request.setAttribute("parent",parent);
+		request.setAttribute("parentime1", request.getParameter("parentime1"));
+		request.setAttribute("parentime2", request.getParameter("parentime2"));
 		return "itemchart/itemidle";
 	}
 	
@@ -169,15 +181,11 @@ public class ItemChartController {
 	@RequestMapping("/goItemEfficiency")
 	public String goCompanyEfficiency(HttpServletRequest request){
 		String nextparent = request.getParameter("nextparent");
-		String min = request.getParameter("min");
-		String max = request.getParameter("max");
-		String time1 = request.getParameter("time1");
-		String time2 = request.getParameter("time2");
+		insm.showParent(request, nextparent);
+		lm.getUserId(request);
 		request.setAttribute("nextparent", nextparent);
-		request.setAttribute("min", min);
-		request.setAttribute("max", max);
-		request.setAttribute("time1", time1);
-		request.setAttribute("time2", time2);
+		request.setAttribute("parentime1", request.getParameter("parentime1"));
+		request.setAttribute("parentime2", request.getParameter("parentime2"));
 		return "itemchart/itemefficiency";
 	}
 	
@@ -316,7 +324,7 @@ public class ItemChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -327,7 +335,7 @@ public class ItemChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -341,22 +349,22 @@ public class ItemChartController {
 			double[] num = new double[time.size()];
 			if(list.size()>0){
 				for(int i=0;i<time.size();i++){
-					double load=0,summachine=0;
+					double[] load=new double[time.size()],summachine=new double[time.size()];
 					num[i] = 0;
 					for(ModelDto m:list){
 						for(ModelDto ma:machine){
 							if(ma.getWeldTime().equals(m.getWeldTime()) && ma.getFid().equals(m.getIid())){
 								if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-									load = m.getLoads();
-									summachine = ma.getLoads();
-									num[i] = (double)Math.round(m.getLoads()/ma.getLoads()*100*100)/100;
+									load[i] =m.getLoads();
+									summachine[i] = ma.getLoads();
+									num[i] =  (double)Math.round(m.getLoads()/ma.getLoads()*100*100)/100;
 								}
 							}
 						}
 						
 					}
 					json.put("weldTime",time.get(i).getWeldTime());
-					json.put("loads",load+"/"+summachine+"="+num[i]);
+					json.put("loads",(double) Math.round(Double.valueOf(load[i])*1000)/1000+"/"+summachine[i]+"="+num[i]);
 					json.put("itemid", list.get(0).getIid());
 					ary.add(json);
 				}
@@ -410,7 +418,7 @@ public class ItemChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -421,7 +429,7 @@ public class ItemChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -586,7 +594,7 @@ public class ItemChartController {
 		if(!iutil.isNull(number)){
 			number = "0";
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -597,7 +605,7 @@ public class ItemChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -672,7 +680,7 @@ public class ItemChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -683,7 +691,7 @@ public class ItemChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -697,23 +705,22 @@ public class ItemChartController {
 			double[] num = new double[time.size()];
 			if(list.size()>0){
 				for(int i=0;i<time.size();i++){
-					double noload=0,summachine=0; 
-					BigInteger livecount = new BigInteger("0");
+					double[] noload=new double[time.size()],summachine=new double[time.size()],livecount=new double[time.size()];
 					num[i] = 0;
 					for(ModelDto m:list){
 						for(ModelDto ma:machine){
 							if(ma.getWeldTime().equals(m.getWeldTime()) && ma.getFid().equals(m.getFid())){
 								if(time.get(i).getWeldTime().equals(m.getWeldTime())){
-									livecount = lm.getCountByTime(m.getIid(), "%"+m.getWeldTime()+"%",null);
-									noload = m.getLoads();
-									summachine = ma.getLoads();
-									num[i] = (double)Math.round(m.getLoads()/livecount.doubleValue()/ma.getLoads()*100*100)/100;
+									livecount[i] = lm.getCountByTime(m.getIid(), m.getWeldTime(),null).doubleValue();
+									noload[i] = m.getLoads();
+									summachine[i] = ma.getLoads();
+									num[i] = (double)Math.round(noload[i]/livecount[i]/summachine[i]*100*100)/100;
 								}
 							}
 						}
 					}
 					json.put("weldTime",time.get(i).getWeldTime());
-					json.put("loads",noload+"/"+livecount+"/"+summachine+"="+num[i]);
+					json.put("loads",(double) Math.round(Double.valueOf(noload[i])*1000)/1000+"/"+(double) Math.round(Double.valueOf(livecount[i])*1000)/1000+"/"+summachine[i]+"="+num[i]);
 					json.put("itemid", list.get(0).getFid());
 					ary.add(json);
 				}
@@ -767,7 +774,7 @@ public class ItemChartController {
 				dto.setWeek("week");
 			}
 		}
-		List<LiveData> time = null;
+		List<ModelDto> time = null;
 		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
 			pageIndex = Integer.parseInt(request.getParameter("page"));
 			pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -778,7 +785,7 @@ public class ItemChartController {
 		}
 		long total = 0;
 		if(time != null){
-			PageInfo<LiveData> pageinfo = new PageInfo<LiveData>(time);
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(time);
 			total = pageinfo.getTotal();
 		}
 		JSONObject json = new JSONObject();
@@ -897,8 +904,6 @@ public class ItemChartController {
 	public String getItemEfficiency(HttpServletRequest request){
 		String time1 = request.getParameter("dtoTime1");
 		String time2 = request.getParameter("dtoTime2");
-		String time3 = request.getParameter("time1");
-		String time4 = request.getParameter("time2");
 		String parentId = request.getParameter("nextparent");
 		int min = -1,max = -1;
 		if(iutil.isNull(request.getParameter("min"))){
@@ -925,11 +930,10 @@ public class ItemChartController {
 			}
 		}
 		BigInteger parent = null;
-		if(iutil.isNull(time3) || iutil.isNull(time4)){
-			dto.setDtoTime1(time3);
-			dto.setDtoTime2(time4);
-		}else if(iutil.isNull(time1) || iutil.isNull(time2)){
+		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
 			dto.setDtoTime2(time2);
 		}
 		if(iutil.isNull(parentId)){
@@ -1035,6 +1039,107 @@ public class ItemChartController {
 		obj.put("rows", ary);
 		return obj.toString();
 	}
+	
+	/**
+	 * 获取工效图表信息
+	 * @param request
+	 * @param parent
+	 * @return
+	 */
+	@RequestMapping("/getItemEfficiencyChart")
+	@ResponseBody
+	public String getItemEfficiencyChart(HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+			String time1 = request.getParameter("dtoTime1");
+			String time2 = request.getParameter("dtoTime2");
+			String nextparent = request.getParameter("nextparent");
+			WeldDto dto = new WeldDto();
+			BigInteger parent = null;
+			if(!iutil.isNull(nextparent)){
+				//处理用户数据权限
+				BigInteger uid = lm.getUserId(request);
+				String afreshLogin = (String)request.getAttribute("afreshLogin");
+				if(iutil.isNull(afreshLogin)){
+					return "0";
+				}
+				int types = insm.getUserInsfType(uid);
+				if(types==21){
+					nextparent = insm.getUserInsfId(uid).toString();
+				}else if(types==22){
+					nextparent = insm.getUserInsfId(uid).toString();
+				}else if(types==23){
+					nextparent = insm.getUserInsfId(uid).toString();
+				}
+			}
+			if(iutil.isNull(time1)){
+				dto.setDtoTime1(time1);
+			}
+			if(iutil.isNull(time2)){
+				dto.setDtoTime2(time2);
+			}
+			if(iutil.isNull(nextparent)){
+				parent = new BigInteger(nextparent);
+			}
+			List<ModelDto> list = lm.getEfficiencyChartNum(dto, parent);
+			List<ModelDto> efficiency = null;
+			String[] num1 = new String[10];
+			double[] num2 = new double[10];
+			int oldnum = 0,newnum = 0,maxnum = 0;
+			for(ModelDto m:list){
+				if(m!=null){
+					if(m.getAvgnum()==0){
+						m.setAvgnum(2);
+						if(m.getMinnum()>0){
+							num1[0] = m.getMinnum()-1+"-"+(m.getMinnum()+m.getAvgnum());//-1是为了避免最小数取整而导致查询时搜索不到
+						}else{
+							num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						}
+						for(int i=1;i<10;i++){
+							oldnum = m.getMinnum()+m.getAvgnum()*i+1;
+							newnum = m.getMinnum()+m.getAvgnum()*(i+1);
+							num1[i] = oldnum+"-"+newnum;
+						}
+					}else{
+						if(m.getMinnum()>0){
+							num1[0] = m.getMinnum()-1+"-"+(m.getMinnum()+m.getAvgnum());
+						}else{
+							num1[0] = m.getMinnum()+"-"+(m.getMinnum()+m.getAvgnum());
+						}
+						for(int i=1;i<9;i++){
+							oldnum = m.getMinnum()+m.getAvgnum()*i+1;
+							newnum = m.getMinnum()+m.getAvgnum()*(i+1);
+							num1[i] = oldnum+"-"+newnum;
+						}
+						maxnum = m.getMinnum()+m.getAvgnum()*10+10;
+						num1[9] = newnum+1+"-"+maxnum;
+					}
+					efficiency = lm.getEfficiencyChart(dto, parent, m.getMinnum(), m.getAvgnum());
+					for(ModelDto e:efficiency){
+						double sum = e.getSum1()+e.getSum2()+e.getSum3()+e.getSum4()+e.getSum5()+e.getSum6()+e.getSum7()+e.getSum8()+e.getSum9()+e.getSum10();
+						num2[0] = e.getSum1()/sum*100;num2[1] = e.getSum2()/sum*100;
+						num2[2] = e.getSum3()/sum*100;num2[3] = e.getSum4()/sum*100;
+						num2[4] = e.getSum5()/sum*100;num2[5] = e.getSum6()/sum*100;
+						num2[6] = e.getSum7()/sum*100;num2[7] = e.getSum7()/sum*100;
+						num2[8] = e.getSum9()/sum*100;num2[9] = e.getSum10()/sum*100;
+					}
+					for(int i=0;i<num2.length;i++){
+						num2[i] = (double)Math.round(num2[i]*100)/100;
+					}
+					json.put("num1", num1);
+					json.put("num2", num2);
+					ary.add(json);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
+	
 
 	@RequestMapping("/getAllItem")
 	@ResponseBody

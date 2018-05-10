@@ -42,6 +42,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div style="margin-bottom: 5px;">
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 				<input  name="parent" id="parent" type="hidden" value="${parent }"/>
+				<input  name="parentime1" id="parentime1" type="hidden" value="${parentime1 }"/>
+				<input  name="parentime2" id="parentime2" type="hidden" value="${parentime2 }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
@@ -51,8 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="radio" class="radioStyle" name="otype" value="3" checked="checked" />日
 				<input type="radio" class="radioStyle" name="otype" value="4" />周
 				<input class="easyui-combobox" name="item" id="item">
-				<input class="easyui-textbox" id="hours" name="hours" value="一天" readonly="readonly"/>
-				超时待机:
+				一天超时待机:
 				<input class="easyui-numberbox" name="number" id="number" value="30">分钟
 				<a href="javascript:serachItemOvertime();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>

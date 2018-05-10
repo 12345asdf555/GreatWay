@@ -70,7 +70,7 @@ public interface LiveDataManager {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<LiveData> getAllTime(Page page,WeldDto dto);
+	List<ModelDto> getAllTime(Page page,WeldDto dto);
 	
 	/**
 	 * 公司工艺超标统计
@@ -277,7 +277,7 @@ public interface LiveDataManager {
 	 * @param dto
 	 * @return
 	 */
-	List<LiveData> getAllTimes(WeldDto dto);
+	List<ModelDto> getAllTimes(WeldDto dto);
 	
 	/**
 	 * 集团焊接工时

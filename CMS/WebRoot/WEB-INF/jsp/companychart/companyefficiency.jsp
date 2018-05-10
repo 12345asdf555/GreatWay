@@ -41,6 +41,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	<div id="companyEfficiency_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="nextparent" id="nextparent" type="hidden" value="${nextparent }"/>
+				<input  name="parentime1" id="parentime1" type="hidden" value="${parentime1 }"/>
+				<input  name="parentime2" id="parentime2" type="hidden" value="${parentime2 }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--

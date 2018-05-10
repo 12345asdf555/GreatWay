@@ -5,12 +5,12 @@ var chartStr = "";
 $(document).ready(function(){
 	showcaustNoLoadsChart();
 })
-
+var dtoTime1,dtoTime2;
 function setParam(){
 	var otype = $("input[name='otype']:checked").val();
 	var parent = $("#parent").val();
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var otype = $("input[name='otype']:checked").val();
 	chartStr = "?otype="+otype+"&parent="+parent+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
@@ -90,7 +90,7 @@ function CaustnoloadsDatagrid(){
                     	array1.push(result.arys[i].weldTime);
               	 }
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='itemChart/goItemNoLoads?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"(空载率)</a>",width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:"<a href='itemChart/goItemNoLoads?parent="+result.arys1[m].itemid+"&parentime1="+dtoTime1+"&parentime2="+dtoTime2+"'>"+result.arys1[m].name+"(空载率)</a>",width:width,halign : "center",align : "left"});
                 	 array2.push(result.arys1[m].name);
                      Series.push({
                    		name : result.arys1[m].name,

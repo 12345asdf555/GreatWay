@@ -5,11 +5,11 @@ var chartStr = "";
 $(document).ready(function(){
 	showCaustOverptimeChart();
 })
-
+var dtoTime1,dtoTime2;
 function setParam(){
 	var otype = $("input[name='otype']:checked").val();
-	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
-	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	var number = $("#number").val();
 	chartStr += "&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&otype="+otype+"&number="+number;
 }
@@ -84,7 +84,7 @@ function CausttimeDatagrid(){
                   	 array1.push(result.arys[i].weldTime);
             	 }
                  for(var m=0;m<result.arys1.length;m++){
-                	 column.push({field:"a"+m,title:"<a href='itemChart/goItemOvertime?parent="+result.arys1[m].itemid+"'>"+result.arys1[m].name+"(次)</a>",width:width,halign : "center",align : "left"});
+                	 column.push({field:"a"+m,title:"<a href='itemChart/goItemOvertime?parent="+result.arys1[m].itemid+"&parentime1="+dtoTime1+"&parentime2="+dtoTime2+"'>"+result.arys1[m].name+"(次)</a>",width:width,halign : "center",align : "left"});
                 	 array2.push(result.arys1[m].name);
                   	 Series.push({
                   		name : result.arys1[m].name,

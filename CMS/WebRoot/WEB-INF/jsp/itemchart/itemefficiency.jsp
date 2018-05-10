@@ -34,21 +34,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body class="easyui-layout">
+	<div id="chartLoading" style="width:100%;height:100%;">
+		<div id="chartShow" style="width:160px;" align="center"><img src="resources/images/load1.gif"/>数据加载中，请稍候...</div>
+	</div>
     <div id="body" region="center"  hide="true"  split="true" title="项目部工效" style="background: witch; height: 335px;">
 	  	<div id="itemEfficiency_btn">
 			<div style="margin-bottom: 5px;">
 				<input  name="nextparent" id="nextparent" type="hidden" value="${nextparent }"/>
-				<input  name="max" id="max" type="hidden" value="${max }"/>
-				<input  name="min" id="min" type="hidden" value="${min }"/>
-				<input  name="time1" id="time1" type="hidden" value="${time1 }"/>
-				<input  name="time2" id="time2" type="hidden" value="${time2 }"/>
 				<input  name="afresh" id="afresh" type="hidden" value="${afreshLogin }"/>
+				<input  name="parentime1" id="parentime1" type="hidden" value="${parentime1 }"/>
+				<input  name="parentime2" id="parentime2" type="hidden" value="${parentime2 }"/>
 				时间：
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
 				<a href="javascript:serachEfficiencyItem();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
-		</div>		
+		</div>
+		<div><h2>${str }</h2></div>	
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
+		按组织机构和日期对工效统计:<br/>
+		统计时间段内的员工效率所占百分比；<br/>
+		X轴:时间(小时)<br/>
+		Y轴:工效百分比<br/></div>
+		<div id="itemEfficiencyChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
 	    <table id="itemEfficiencyTable" style="table-layout: fixed; width:100%;"></table>
 	</div>
   </body>
