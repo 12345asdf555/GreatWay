@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
-import com.spring.dao.EquipmentManufacturerMapper;
 import com.spring.dao.InsframeworkMapper;
 import com.spring.dao.WeldingMachineMapper;
-import com.spring.model.EquipmentManufacturer;
 import com.spring.model.WeldingMachine;
 import com.spring.page.Page;
 import com.spring.service.WeldingMachineService;
@@ -22,8 +20,7 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 	
 	@Autowired
 	private WeldingMachineMapper wmm;
-	@Autowired
-	private EquipmentManufacturerMapper em;
+
 	@Autowired
 	private InsframeworkMapper im;
 	
@@ -60,11 +57,6 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 	}
 
 	@Override
-	public List<EquipmentManufacturer> getManuAll() {
-		return em.getmanuAll();
-	}
-
-	@Override
 	public int getEquipmentnoCount(String eno) {
 		return wmm.getEquipmentnoCount(eno);
 	}
@@ -72,11 +64,6 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 	@Override
 	public int getGatheridCount(BigInteger itemid,String gather) {
 		return wmm.getGatheridCount(itemid,gather);
-	}
-
-	@Override
-	public BigInteger getManuidByValue(String value,String type) {
-		return em.getManuidByValue(value,type);
 	}
 
 	@Override

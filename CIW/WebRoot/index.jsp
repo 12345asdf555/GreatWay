@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<!-- 头部 -->
   	<div region="north" style="height: 98px;" id="north">
 		<div class="head-wrap">
-			<a href="" class="logo"><img src="resources/images/1_03.png" /></a>
+			<a href="" class="logo"><img src="resources/images/weldmeslog.png" /></a>
 			<div class="search-wrap">
                     <img src="resources/images/1_06.png" />
 					<a href="user/logout" id="username">欢迎您，</a>&nbsp;|
@@ -52,6 +52,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li onclick="changeColor(this)"><a href="javascript:openWeldingMachine()"><div><img src="resources/images/c-12.png" />&nbsp;&nbsp;焊机设备管理</div></a></li>
 				    <li onclick="changeColor(this)"><a href="javascript:openMachine()"><div><img src="resources/images/c-10.png" />&nbsp;&nbsp;维修记录管理</div></a></li>
 			        <li class="libottom"  onclick="changeColor(this)"><a href="javascript:openParameter()"><div><img src="resources/images/c-14.png" />&nbsp;&nbsp;参数设置</div></a></li>
+				</ul>
+			</div>
+			<div title="生产数据统计" data-options="iconCls:'icon-num'">
+				<ul>
+			        <li onclick="changeColor(this)"><a href="javascript:openItemData()" ><div><img src="resources/images/c-11.png" />&nbsp;&nbsp;班组生产数据</div></a></li>
+					<li onclick="changeColor(this)"><a href="javascript:openMachineData()"><div><img src="resources/images/c-12.png" />&nbsp;&nbsp;设备生产数据</div></a></li>
+				    <li onclick="changeColor(this)"><a href="javascript:openPersonData()"><div><img src="resources/images/c-6.png" />&nbsp;&nbsp;人员生产数据</div></a></li>
+			        <li onclick="changeColor(this)"><a href="javascript:openWorkpieceData()"><div><img src="resources/images/c-7.png" />&nbsp;&nbsp;工件生产数据</div></a></li>
+			        <li class="libottom"  onclick="changeColor(this)"><a href="javascript:openFauit()"><div><img src="resources/images/s-10.png" />&nbsp;&nbsp;故障报表</div></a></li>
+				</ul>
+			</div>
+			<div title="焊接数据统计" data-options="iconCls:'icon-num'">
+				<ul>
+			        <li onclick="changeColor(this)"><a href="javascript:openWeldItemData()" ><div><img src="resources/images/c-11.png" />&nbsp;&nbsp;班组焊接数据</div></a></li>
+					<li onclick="changeColor(this)"><a href="javascript:openWeldMachineData()"><div><img src="resources/images/c-12.png" />&nbsp;&nbsp;设备焊接数据</div></a></li>
+				    <li onclick="changeColor(this)"><a href="javascript:openWeldPersonData()"><div><img src="resources/images/c-6.png" />&nbsp;&nbsp;人员焊接数据</div></a></li>
+			        <li class="libottom"  onclick="changeColor(this)"><a href="javascript:openWeldWorkpieceData()"><div><img src="resources/images/c-7.png" />&nbsp;&nbsp;工件焊接数据</div></a></li>
 				</ul>
 			</div>
 			<div title="生产数据分析" data-options="iconCls:'icon-num'">
@@ -155,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div data-options="region:'south',split:true" style="height:40px;">
    		<div class="tenghan-bottom">
-	    	Copyright 1998-2017 上海腾悍智能科技有限公司
+			<div style="margin-right:30px;"><a href="" class="logo"><img src="resources/images/weldmesbottom.png" /></a></div>
 		</div>
 	</div>
 

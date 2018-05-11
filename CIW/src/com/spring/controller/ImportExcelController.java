@@ -33,11 +33,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.spring.model.EquipmentManufacturer;
 import com.spring.model.Gather;
 import com.spring.model.Insframework;
 import com.spring.model.MaintenanceRecord;
@@ -103,7 +101,7 @@ public class ImportExcelController {
 			for(WeldingMachine wm : list){
 				wm.setTypeId(dm.getvaluebyname(4,wm.getTypename()));
 				wm.setStatusId(dm.getvaluebyname(3,wm.getStatusname()));
-				wm.getManufacturerId().setId(wmm.getManuidByValue(wm.getManufacturerId().getName(),wm.getManufacturerId().getType()));
+				wm.setMvalueid(dm.getvaluebyname(14, wm.getMvaluename()));
 				String name = wm.getInsframeworkId().getName();
 				wm.getInsframeworkId().setId(wmm.getInsframeworkByName(name));
 				Gather gather = wm.getGatherId();
@@ -436,7 +434,6 @@ public class ImportExcelController {
 			int cellStart = row.getFirstCellNum();
 			int cellEnd = row.getLastCellNum();
 			WeldingMachine dit = new WeldingMachine();
-			EquipmentManufacturer manu = new EquipmentManufacturer();
 			for(int k = cellStart; k<= cellEnd;k++){
 				Cell cell = row.getCell(k);
 				if(null == cell){
@@ -478,7 +475,7 @@ public class ImportExcelController {
 						break;
 					}
 					//采集序号机设备序号只能是数字
-					else if(k == 8){
+					else if(k == 7){
 						Gather g = new Gather();
 						g.setGatherNo(cellValue);
 						dit.setGatherId(g);//采集序号
@@ -506,16 +503,10 @@ public class ImportExcelController {
 						break;
  					}
 					else if(k == 5){
- 						manu.setName(cellValue);
- 						dit.setManufacturerId(manu);//厂家
+ 						dit.setMvaluename(cellValue);//厂家
 						break;
  					}
 					else if(k == 6){
- 						manu.setType(cellValue);
- 						dit.setManufacturerId(manu);//厂家类型
-						break;
- 					}
-					else if(k == 7){
 						if(cellValue.equals("是")){
 	 						dit.setIsnetworking(0);//是否在网
 						}else{
@@ -524,21 +515,21 @@ public class ImportExcelController {
 						break;
  					}
 					//采集序号机设备序号只能是数字
-					else if(k == 8){
+					else if(k == 7){
 						Gather g = new Gather();
 						g.setGatherNo(cellValue);
 						dit.setGatherId(g);//采集序号
 						break;
 					}
-					else if(k == 9){
+					else if(k == 8){
 						dit.setPosition(cellValue);//位置
 						break;
 					}
-					else if(k == 10){
+					else if(k == 9){
 						dit.setIp(cellValue);//ip地址
 						break;
 					}
-					else if(k == 11){
+					else if(k == 10){
 						dit.setModel(cellValue);//设备型号
 						break;
 					}

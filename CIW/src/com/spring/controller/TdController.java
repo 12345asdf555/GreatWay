@@ -61,7 +61,7 @@ public class TdController {
 		long uid = myuser.getId();
 		String insname = tdService.findInsname(tdService.findIns(uid));
 		request.setAttribute("insname", insname);*/
-		return "td/BackUp";
+		return "td/newCurve";
 	}
 	
 	@RequestMapping("/goNextcurve")
@@ -383,6 +383,35 @@ public class TdController {
 			parent = new BigInteger(parentId);
 		}
 		List<Td> getAP = tdService.getAllPosition(parent);
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+			for(Td td:getAP){
+				json.put("fid",td.getId());
+				json.put("fequipment_no", td.getFequipment_no());
+				json.put("fposition", td.getFposition());
+				json.put("finsid", td.getFci());
+				json.put("finsname", td.getFcn());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/getMachine")
+	@ResponseBody
+	public String getMachine(HttpServletRequest request){
+		String mach = request.getParameter("mach");
+		String parentId = request.getParameter("parent");
+		BigInteger parent = null;
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+		}
+		List<Td> getAP = tdService.getMachine(new BigInteger(mach),parent);
 		JSONObject obj = new JSONObject();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();

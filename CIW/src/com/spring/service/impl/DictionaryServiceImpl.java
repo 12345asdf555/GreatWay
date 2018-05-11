@@ -32,8 +32,6 @@ public class DictionaryServiceImpl implements DictionaryService {
 	}
 	@Override
 	public void editDictionary(Dictionarys d) {
-//		int value= dictionaryMapper.getDictionaryMaxValue(d.getTypeid());
-//		d.setValue(value+1);
 		dictionaryMapper.editDictionary(d);
 		
 	}
@@ -67,5 +65,9 @@ public class DictionaryServiceImpl implements DictionaryService {
 	@Override
 	public String getDicValueByType(int value) {
 		return dictionaryMapper.getDicValueByType(value);
+	}
+	@Override
+	public List<Dictionarys> getDictionaryType() {
+		return dictionaryMapper.getDictionaryType();
 	}
 }

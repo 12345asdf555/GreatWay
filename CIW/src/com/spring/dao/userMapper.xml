@@ -38,7 +38,7 @@
 	 <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->  
 	<select id="findById" parameterType="int" resultType="User">
 		select tb_users.id id,tb_users.users_name userName,tb_users.users_password userPassword,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_insframework.fid insid,tb_insframework.fname insname ,d.fvaluename statusname from tb_users left join tb_insframework on tb_users.users_insframework=tb_insframework.fid
-		INNER JOIN tb_dictionary d on d.fvalue = tb_users.status where tb_users.id=#{id}
+		INNER JOIN tb_dictionary d on d.fvalue = tb_users.status where d.ftypeid=6 and tb_users.id=#{id}
 	</select>
 	
 	<select id="findByName" parameterType="String" resultType="int">
@@ -52,7 +52,7 @@
 	<select id="findAll" resultType="User">
 		select tb_users.id id,tb_users.users_name userName,users_password userPassword,tb_users.users_login_name userLoginName,tb_users.users_phone userPhone,tb_users.users_email userEmail,tb_users.users_insframework userInsframework,tb_users.users_position userPosition,tb_users.status status,tb_insframework.fid insid,tb_insframework.fname insname,d.fvaluename statusname from tb_users 
 		INNER JOIN tb_dictionary d on d.fvalue = tb_users.status
-		left join tb_insframework on tb_users.users_insframework=tb_insframework.fid  where 1=1
+		left join tb_insframework on tb_users.users_insframework=tb_insframework.fid  where d.ftypeid=6
 		<if test="parent!=null and parent!=''">
 			and tb_insframework.fid = #{parent}
 		</if>

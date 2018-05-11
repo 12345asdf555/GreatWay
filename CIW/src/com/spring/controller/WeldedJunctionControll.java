@@ -99,9 +99,7 @@ public class WeldedJunctionControll {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String serach = request.getParameter("searchStr");
-		if(serach!=null&&serach.substring(1,20).equals("fwelded_junction_no")){
-			serach=serach.substring(0,24)+"00"+serach.substring(24,serach.length());
-		}
+		
 		page = new Page(pageIndex,pageSize,total);
 		List<WeldedJunction> list = wjm.getWeldedJunctionAll(page, serach);
 		long total = 0;

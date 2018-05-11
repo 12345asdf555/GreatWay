@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
 <body>
-	<div id="body" >
+	<div id="bodys" >
 		 <div class="functionleftdiv">历史曲线 >> 焊缝信息</div>
 	   	 <div id="companyOverproof_btn">
 			<div style="margin-bottom: 5px;float:right">
@@ -55,13 +55,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div id="dgtb" style="width:100%;height:100%;">
 			<table id="dg" style="table-layout:fixed;width:100%;"></table>
-			<div id="body1" style="position:absolute;top:60%;width:100%;height:20%;"></div>
-			<div id="body2" style="position:absolute;top:82%;width:100%;height:20%"></div>
+<!-- 			<a href="javascript:fullScreen()" class="easyui-linkbutton" iconCls="icon-select" id="full" >全屏显示</a> -->
 		</div>
-		<div id="load" style="width:100%;height:40%;"></div>
+		<div id="load" style="width:100%;height:42%;"></div>
+		<div id="elebody" style="position:absolute;top:58%;width:100%;height:25%;z-index:999;background:#fff;">
+			<a href="javascript:fullScreen()" class="easyui-linkbutton" iconCls="icon-select" id="full">全屏显示</a>
+			<a href="javascript:theSmallScreen()" class="easyui-linkbutton" iconCls="icon-select" id="little">还原</a>
+			<div id="body1" style="position:absolute;top:23;width:100%;z-index:999;"></div>
+		</div>
+		<div id="body2" style="position:absolute;top:82%;width:100%;height:20%;z-index:999;"></div>
 	</div>
 	<style type="text/css">
-    #load{ display: none; position: absolute; left:0; top:60%;width: 100%; height: 40%; background-color: #555753; z-index:1001; -moz-opacity: 0.4; opacity:.40; filter: alpha(opacity=70);}
+    #load{ display: none; position: absolute; left:0; top:60%;width: 100%; height: 40%; background-color: #555753; z-index:1001; -moz-opacity: 0.4; opacity:0.4; filter: alpha(opacity=70);}
 	#show{display: none; position: absolute; top: 80%; left: 45%; width: 10%; height: 5%; padding: 8px; border: 8px solid #E8E9F7; background-color: white; z-index:1002; overflow: auto;}
 	</style>
 </body>

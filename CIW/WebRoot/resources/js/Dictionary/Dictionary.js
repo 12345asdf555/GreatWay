@@ -1,28 +1,19 @@
 $(function(){
-	DictionaryDataGrid();
 	contentCombobox();
 	typeCombobox();
-	$("#content").next().hide();
+	DictionaryDataGrid();
 	$('#dlg').dialog( {
 		onClose : function() {
 			$('#desc').combobox('clear');
 			$("#fm").form("disableValidation");
 		}
 	})
-	$("#fields").combobox({
-		onChange: function (newValue, oldValue) {
-			if(newValue=="fback"){
-				$("#content").next().show();
-				$("#content1").next().hide();
-			}else{
-				$("#content").next().hide();
-				$("#content1").next().show();
-			}
-		}
-	});
 	$("#fm").form("disableValidation");
 });
+var searchStr="";
 function DictionaryDataGrid(){
+	searchStr="";
+	searchStr=" ftypeid = "+$("#content").combobox('getValue');
 	$("#dg").datagrid({
 		fitColumns:true,
 		height:$("#body").height(),
@@ -30,7 +21,7 @@ function DictionaryDataGrid(){
 		idField:'id',
 		pageSize:10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url:"Dictionary/getDictionaryAll",
+		url:"Dictionary/getDictionaryAll?searchStr= "+searchStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,
@@ -113,6 +104,7 @@ function addDictionary(){
 	});
 	$('#dlg').window('open');
 	$('#fm').form('clear');
+	$("#desc").combobox('setValue',$("#content").combobox('getValue'));
 	url = "Dictionary/addDictionary";
 }
 
@@ -183,77 +175,85 @@ function removeDictionary(){
 function remove(){
 	$.messager.confirm('提示', '此操作不可撤销，是否确认删除?', function(flag) {
 		if (flag) {
-			$.ajax({  
-		        type : "post",  
-		        async : false,
-		        url : url,  
-		        data : {},  
-		        dataType : "json", //返回数据形式为json  
-		        success : function(result) {
-		            if (result) {
-		            	if (!result.success) {
-							$.messager.show( {
-								title : 'Error',
-								msg : result.msg
-							});
-						} else {
-							$.messager.alert("提示", "删除成功！");
-							$('#rdlg').dialog('close');
-							$('#dg').datagrid('reload');
-						}
-		            }  
-		        },  
-		        error : function(errorMsg) {  
-		            alert("数据请求失败，请联系系统管理员!");  
-		        }  
-		   }); 
+			$.messager.confirm('警告', '三思啊～此操作可能导致系统崩溃，还要继续此操作吗？', function(flag) {
+				if (flag) {
+					$.ajax({  
+				        type : "post",  
+				        async : false,
+				        url : url, 
+				        data : {}, 
+				        dataType : "json", //返回数据形式为json  
+				        success : function(result) {
+				            if (result) {
+				            	if (!result.success) {
+									$.messager.show( {
+										title : 'Error',
+										msg : result.msg
+									});
+								} else {
+									$.messager.alert("提示", "删除成功！");
+									$('#rdlg').dialog('close');
+									$('#dg').datagrid('reload');
+								}
+				            }  
+				        },  
+				        error : function(errorMsg) {  
+				            alert("数据请求失败，请联系系统管理员!");  
+				        }  
+				   }); 
+				}
+			});
 		}
-	});
-}
-
-function searchDic(){
-	var cols=$("#fields").combobox("getValue");
-	var content = "";
-	if(cols=='fback'){
-		content=$("#content").combobox('getText');
-	}else{
-		content=$("#content1").val();
-	}
-	var searchStr=cols+" like '%"+content+"%'";
-	$('#dg').datagrid('load', {
-		"searchStr" : searchStr
 	});
 }
 
 //设备类型
 function typeCombobox(){
-	var optionStr = 
-	"<option value='1'>账户类型</option>"+
-	"<option value='2'>组织机构</option>"+
-	"<option value='3'>焊机状态</option>"+
-	"<option value='4'>焊机类型</option>"+
-	"<option value='5'>维修类型</option>"+
-	"<option value='6'>用户状态</option>"+
-	"<option value='7'>焊工资质</option>"+
-	"<option value='8'>焊工级别</option>"+
-	"<option value='9'>焊接材质</option>";  
-    $("#desc").append(optionStr);
+	$.ajax({  
+      type : "post",  
+      async : false,
+      url : "Dictionary/getDictionaryType",  
+      data : {},  
+      dataType : "json", //返回数据形式为json  
+      success : function(result) {
+          var optionStr = "";
+          if (result) {
+              for (var i = 0; i < result.ary.length; i++) {  
+                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+                          + result.ary[i].name + "</option>";  
+              }
+              $("#desc").html(optionStr);
+          }  
+      }
+	}); 
 	$("#desc").combobox();
 }
 //设备类型
 function contentCombobox(){
-	optionStr = 
-		"<option value='1'>账户类型</option>"+
-		"<option value='2'>组织机构</option>"+
-		"<option value='3'>焊机状态</option>"+
-		"<option value='4'>焊机类型</option>"+
-		"<option value='5'>维修类型</option>"+
-		"<option value='6'>用户状态</option>"+
-		"<option value='7'>焊工资质</option>"+
-		"<option value='8'>焊工级别</option>"+
-		"<option value='9'>焊接材质</option>";
-	$("#content").append(optionStr);
-	$("#content").combobox();
+	$.ajax({  
+	      type : "post",  
+	      async : false,
+	      url : "Dictionary/getDictionaryType",  
+	      data : {},  
+	      dataType : "json", //返回数据形式为json  
+	      success : function(result) {
+	          var optionStr = "";
+	          if (result) {
+	              for (var i = 0; i < result.ary.length; i++) {  
+	                  optionStr += "<option value=\"" + result.ary[i].id + "\" >"  
+	                          + result.ary[i].name + "</option>";  
+	              }
+	              $("#content").html(optionStr);
+	          }  
+	      }
+		});
+		$("#content").combobox({
+			onChange: function () {
+				DictionaryDataGrid();
+			}
+		});
+		var data = $('#content').combobox('getData');
+		$('#content').combobox('select',data[0].value);
 }
 //监听窗口大小变化
 window.onresize = function() {

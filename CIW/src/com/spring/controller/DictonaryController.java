@@ -143,4 +143,26 @@ public class DictonaryController {
 		}
 		return obj.toString();
 	}
+	
+
+	@RequestMapping("/getDictionaryType")
+	@ResponseBody
+	public String getDictionaryType(){
+		JSONObject obj=new JSONObject();
+		JSONObject json=new JSONObject();
+		JSONArray ary=new JSONArray();
+		try{
+			List<Dictionarys> list = dictionaryManager.getDictionaryType();
+			for(Dictionarys d:list){
+				json.put("id", d.getTypeid());
+				json.put("name", d.getBack());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
+	
 }

@@ -596,34 +596,60 @@
 	</select>-->
 	
 	<!-- 查询所有在范围内的时间 -->
-	<select id="getAllTime" resultMap="liveMap">
-		select * from(
-		SELECT fid,
+	<select id="getAllTime" resultMap="dtoMap">
+		select * from (
+		SELECT 
 		<if test="dto!=null and dto!=''">
 			<if test="dto.year!=null and dto.year!=''">
-				DATE_FORMAT( fweldtime,  '%Y' )
+				DATE_FORMAT( fstarttime,  '%Y' )
 			</if>
 			<if test="dto.month!=null and dto.month!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m' )
+				DATE_FORMAT( fstarttime,  '%Y-%m' )
 			</if>
 			<if test="dto.day!=null and dto.day!=''">
-				DATE_FORMAT( fweldtime,  '%Y-%m-%d' )
+				DATE_FORMAT( fstarttime,  '%Y-%m-%d' )
 			</if>
 			<if test="dto.week!=null and dto.week!=''">
-				weekofyear(fweldtime)
+				weekofyear(fstarttime)
 			</if>
 		</if> weldTime
-		 FROM tb_live_data WHERE 1=1
-		 <if test="dto!=null and dto!=''">
+		FROM tb_work WHERE 1=1
+		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime &gt;= #{dto.dtoTime1}
+				and fstarttime &gt;= #{dto.dtoTime1}
 			</if>
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
-				and fweldtime &lt;= #{dto.dtoTime2}
+				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
 		group by weldTime
-		) temp
+        UNION  
+		SELECT 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fstarttime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fstarttime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fstarttime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fstarttime)
+			</if>
+		</if> weldTime
+		FROM tb_standby WHERE 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fstarttime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fendtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by weldTime
+     	)temp
 	</select>
 	
 	<select id="getAllInsf" resultMap="liveMap">
@@ -755,7 +781,7 @@
 			</if>
 		</if>
 		group by fmachine_id ,weldTime
-		) A group by fid ,fwelder_id
+		) A group by fid,weldTime
 		)temp
 	</select>
 	
@@ -1513,10 +1539,10 @@
 	<!-- 公司单台设备运行数据统计 -->
 	<select id="getCompanyUse" resultMap="dtoMap">
 		select * from(
-		select sum(fworktime)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_work l 
+		select sum(fworktime)/60/60 time,d.fvaluename fname,d.fvalue fid from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
-		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
-		where w.finsframework_id in (select fid from tb_insframework where fparent=#{parent})
+        inner join tb_dictionary d on d.fvalue = w.fmanufacturer_id
+		where d.ftypeid=14 and w.finsframework_id in (select fid from tb_insframework where fparent=15)
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
@@ -1525,15 +1551,15 @@
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by e.fid,e.ftype
+		group by d.fvalue
 		union
-		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
-		where fid not in
+		select 0 time,fvaluename fname ,fvalue fid from tb_dictionary
+		where ftypeid=14 and fvalue not in
 		(
-		select e.fid from tb_work l 
+		select d.fvalue from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
-		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
-		where w.finsframework_id in (select fid from tb_insframework where fparent=#{parent})
+        inner join tb_dictionary d on d.fvalue = w.fmanufacturer_id
+		where d.ftypeid=14 and w.finsframework_id in (select fid from tb_insframework where fparent=15)
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
 				and fstarttime &gt;= #{dto.dtoTime1}
@@ -1542,7 +1568,7 @@
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by e.fid,e.ftype
+		group by d.fvalue
 		)
 		)temp order by fname ,time desc
 	</select>
@@ -1900,16 +1926,29 @@
 	
 	<!-- 	根据组织机构及时间点获取工作总时长 -->
 	<select id="getCountByTime" resultType="java.math.BigInteger">
-		select COUNT(l.fid) from tb_live_data l 
+		select sum(time) from (
+		select sum(fworktime) time from tb_work l 
 		INNER JOIN tb_insframework i on i.fid = l.fitemid 
 		INNER JOIN tb_insframework ins on ins.fid = i.fparent 
-		where FWeldTime &gt; #{time} and FWeldTime &lt; date_sub(#{time},interval -1 day)
+		where fstarttime &gt;= #{time} and fendtime &lt;= date_sub(date_sub(#{time},interval -1 day),interval 0 minute)
 		<if test="parent!=null and parent!=''">
 			and (i.fid=#{parent} or ins.fid=#{parent} or ins.fparent=#{parent})
 		</if>
 		<if test="mid!=null and mid!=''">
 			and fmachine_id = #{mid}
 		</if>
+     	UNION ALL
+     	select sum(fstandbytime) time from tb_standby l 
+		INNER JOIN tb_insframework i on i.fid = l.fitemid 
+		INNER JOIN tb_insframework ins on ins.fid = i.fparent 
+		where fstarttime &gt;= #{time} and fendtime &lt;= date_sub(date_sub(#{time},interval -1 day),interval 0 minute)
+		<if test="parent!=null and parent!=''">
+			and (i.fid=#{parent} or ins.fid=#{parent} or ins.fparent=#{parent})
+		</if>
+		<if test="mid!=null and mid!=''">
+			and fmachine_id = #{mid}
+		</if>
+		)temp
 	</select>
 	
 	<!-- 获取焊机使用时间排行之最top10 -->

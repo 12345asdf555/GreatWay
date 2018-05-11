@@ -17,6 +17,8 @@
 		<result property="statusname" column="statusname" />
 		<result property="creater" column="fcreater" />
 		<result property="updater" column="fupdater" />
+        <result property="mvalueid" column="mid"></result>  
+        <result property="mvaluename" column="mname"></result>  
         <association property="insframeworkId" column="finsframework_id" javaType="com.spring.model.Insframework">  
             <id property="id" column="iid"></id> 
             <result property="name" column="iname"></result>  
@@ -24,12 +26,6 @@
             <result property="code" column="fcode"></result>
         	<result property="parent" column="fparent"></result>
         	<result property="type" column="ftype"></result>
-        </association>
-        <association property="manufacturerId" column="fmanufacturer_id" javaType="com.spring.model.EquipmentManufacturer">  
-            <id property="id" column="mid"></id> 
-            <result property="name" column="mname"></result>  
-            <result property="type" column="mtype"></result>  
-            <result property="typeValue" column="ftypevalue"></result>
         </association>
         <association property="gatherId" column="fgather_id" javaType="com.spring.model.Gather">  
             <id property="id" column="gid"></id> 
@@ -44,15 +40,15 @@
 
 	<select id="getWeldingMachineAll" resultMap="wmMap"  parameterType="java.lang.String">
 		SELECT 
-		w.fid fid,w.fIP fIP,w.fmodel model,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
-		,m.fname mname,fisnetworking,fposition,m.ftype mtype,d.fvaluename statusname,di.fvaluename typename
+		w.fid fid,w.fIP fIP,w.fmodel model,fstatus_id, i.fid iid,ftype_id,g.fid gid,dic.fvalue mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		,dic.fvaluename mname,fisnetworking,fposition,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w
 		LEFT JOIN tb_insframework i ON w.finsframework_id = i.fid
-		LEFT JOIN tb_equipment_manufacturer m ON w.fmanufacturer_id = m.fid
         INNER JOIN tb_dictionary d ON d.fvalue = w.fstatus_id
         INNER JOIN tb_dictionary di ON di.fvalue = w.ftype_id
+        INNER JOIN tb_dictionary dic ON dic.fvalue = w.fmanufacturer_id
 		left JOIN tb_gather g ON g.fid = w.fgather_id
-		where 1=1 
+		where (d.ftypeid=3 and di.ftypeid=4 and dic.ftypeid=14)
 		<if test="parent!=null and parent!=''">
 			and i.fid=#{parent}
 		</if>
@@ -63,32 +59,32 @@
 	</select>
 	
 	<select id="getAllMachine" resultMap="wmMap">
-		SELECT 
-		w.fid fid,w.fIP fIP,w.fmodel model,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
-		,m.fname mname,fisnetworking,fposition,m.ftype mtype,d.fvaluename statusname,di.fvaluename typename
+SELECT 
+		w.fid fid,w.fIP fIP,w.fmodel model,fstatus_id, i.fid iid,ftype_id,g.fid gid,dic.fvalue mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		,dic.fvaluename mname,fisnetworking,fposition,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w
 		LEFT JOIN tb_insframework i ON w.finsframework_id = i.fid
 		LEFT JOIN tb_insframework ins ON ins.fid = i.fparent
 		LEFT JOIN tb_insframework insf ON insf.fid = ins.fparent
-		LEFT JOIN tb_equipment_manufacturer m ON w.fmanufacturer_id = m.fid
+        INNER JOIN tb_dictionary dic ON dic.fvalue = w.fmanufacturer_id
         INNER JOIN tb_dictionary d ON d.fvalue = w.fstatus_id
         INNER JOIN tb_dictionary di ON di.fvalue = w.ftype_id
 		left JOIN tb_gather g ON g.fid = w.fgather_id
-		where 1=1 
+		where (d.ftypeid=3 and di.ftypeid=4 and dic.ftypeid=14) 
 		ORDER BY w.fid
 	</select>
 	
 	<select id="getWeldingMachineById"  resultMap="wmMap"  parameterType="java.math.BigInteger">
-		SELECT 
-		w.fid fid,w.fIP fIP,fmodel model,fstatus_id, i.fid iid,g.fid gid,ftype_id,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
-		,m.fname mname,fisnetworking,fposition,d.fvaluename statusname,di.fvaluename typename
+        SELECT 
+		w.fid fid,w.fIP fIP,fmodel model,fstatus_id, i.fid iid,g.fid gid,ftype_id,dic.fvalue mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		,dic.fvaluename mname,fisnetworking,fposition,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w
 		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid
-		INNER JOIN tb_equipment_manufacturer m ON w.fmanufacturer_id = m.fid
+        INNER JOIN tb_dictionary dic ON dic.fvalue = w.fmanufacturer_id
         INNER JOIN tb_dictionary d ON d.fvalue = w.fstatus_id
         INNER JOIN tb_dictionary di ON di.fvalue = w.ftype_id
 		left JOIN tb_gather g ON g.fid = w.fgather_id
-		where w.fid = #{wid}
+		where (d.ftypeid=3 and di.ftypeid=4 and dic.ftypeid=14) and w.fid = #{wid}
 	</select>
 	
 	<select id="getEquipmentno" resultMap="wmMap">
@@ -132,7 +128,7 @@
 	<insert id="addWeldingMachine" parameterType="com.spring.model.WeldingMachine" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO tb_welding_machine(fIP, ftype_id, fequipment_no, fstatus_id, fposition, finsframework_id, 
 		fmanufacturer_id,fgather_id, fisnetworking, fjoin_time, fmodel, fcreater, fcreatedate) VALUES 
-		(#{ip},#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{isnetworking},#{joinTime},#{model},#{creater},now())
+		(#{ip},#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{mvalueid},#{gatherId.id},#{isnetworking},#{joinTime},#{model},#{creater},now())
 	</insert>
 	
 	<update id="editGatherid"  parameterType="java.math.BigInteger">
@@ -141,7 +137,7 @@
 	
 	<update id="editWeldingMachine"  parameterType="com.spring.model.WeldingMachine">
 		UPDATE tb_welding_machine SET fIP=#{ip},ftype_id=#{typeId},fequipment_no=#{equipmentNo},fstatus_id=#{statusId},
-		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{manufacturerId.id},fgather_id=#{gatherId.id},
+		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{mvalueid},fgather_id=#{gatherId.id},
 		fisnetworking=#{isnetworking},fjoin_time=#{joinTime},fmodel=#{model},fupdater=#{updater},fupdatedate=now() where fid = #{id}
 	</update>
 	

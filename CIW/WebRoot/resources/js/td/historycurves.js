@@ -1,5 +1,7 @@
 $(function(){
 	Junction();
+	$("#little").hide();
+	$("#body1").height($("#elebody").height()-30);
 })
 
 function setParam(){
@@ -122,7 +124,7 @@ function loadChart(row){
 	ele = new Array();
 	document.getElementById("load").style.display="block";
 	var sh = '<div id="show" style="width:150px;" align="center"><img src="resources/images/load1.gif"/>数据加载中，请稍候...</div>';
-	$("#body").append(sh);
+	$("#bodys").append(sh);
 	document.getElementById("show").style.display="block";
 	chartStr = "";
 	setParam();
@@ -157,9 +159,11 @@ function loadChart(row){
 		});
 }
 
+
 function eleChart(){
     var myChart = echarts.init(document.getElementById('body1'));
     var option = {
+        backgroundColor: '#fff',
         title : {
             text : '电流'
         },
@@ -181,12 +185,22 @@ function eleChart(){
                 }
             }
         },
-        dataZoom : {//缩放
-            show : true,
-            start : 0
-        },
+        dataZoom : [
+        	{
+                type: 'slider',
+                show: true,
+                xAxisIndex: [0]
+            },
+            {
+                type: 'inside',
+                xAxisIndex: [0]
+            }
+        ],
         grid : {
-            y2 : $("#body1").height()//图表高度
+			left:'8%',//组件距离容器左边的距离
+			right:'5%',
+			top:"5%",
+			bottom:60
         },
         xAxis : [ {
 			type:'category',
@@ -194,24 +208,9 @@ function eleChart(){
         } ],
         yAxis : [ {
             type : 'value',
-            max : 650,
+            max : 500,
             min : 0
         } ],
-        dataZoom: [
-            {
-                type: 'slider',
-                show: true,
-                xAxisIndex: [0],
-                start: 1,
-                end: 35,
-            },
-            {
-                type: 'inside',
-                xAxisIndex: [0],
-                start: 1,
-                end: 35,
-            }
-        ],
         series : [ {
             symbolSize : 5,//气泡大小
       		name : '电流',
@@ -230,9 +229,11 @@ function eleChart(){
     myChart.setOption(option);
 }
 
+
 function volChart(){
     var myChart = echarts.init(document.getElementById('body2'));
     var option = {
+    	backgroundColor: '#fff',
         title : {
             text : '电压'
         },
@@ -254,11 +255,22 @@ function volChart(){
                 }
             }
         },
-        dataZoom : {//缩放
-            show : true,
-            start : 0
-        },
+        dataZoom : [//缩放
+            {
+                type: 'slider',
+                show: true,
+                xAxisIndex: [0]
+            },
+            {
+                type: 'inside',
+                xAxisIndex: [0]
+            }
+        ],
         grid : {
+			left:'8%',//组件距离容器左边的距离
+			right:'5%',
+			top:"5%",
+			bottom:60,
             y2 : $("#body2").height()//图表高度
         },
         xAxis : [ {
@@ -267,24 +279,9 @@ function volChart(){
         } ],
         yAxis : [ {
             type : 'value',
-            max : 150,
+            max : 60,
             min : 0
         } ],
-        dataZoom: [
-            {
-                type: 'slider',
-                show: true,
-                xAxisIndex: [0],
-                start: 1,
-                end: 35,
-            },
-            {
-                type: 'inside',
-                xAxisIndex: [0],
-                start: 1,
-                end: 35,
-            }
-        ],
         series : [ {
             symbolSize : 5,//气泡大小
       		name : '电压',
@@ -307,6 +304,35 @@ function serachCompanyOverproof(){
 	Junction();
 }
 
+function fullScreen(){
+	var row = $("#dg").datagrid('getSelected');
+	if(row==null){
+		alert("请先选择焊口");
+	}else{
+		$("#elebody").height('50%');
+		$("#elebody").css({'top':'0px'});
+		$("#body1").height($("#elebody").height()-23);
+		$("#body2").height('50%');
+		$("#body2").css({'top':'50%'});
+		echarts.init(document.getElementById('body1')).resize();
+		echarts.init(document.getElementById('body2')).resize();
+		$("#full").hide();
+		$("#little").show();
+	}
+}
+
+function theSmallScreen(){
+	$("#elebody").height('25%');
+	$("#elebody").css({'top':'58%'});
+	$("#body1").height($("#elebody").height()-23);
+	$("#body2").height('20%');
+	$("#body2").css({'top':'82%'});
+	echarts.init(document.getElementById('body1')).resize();
+	echarts.init(document.getElementById('body2')).resize();
+	$("#full").show();
+	$("#little").hide();
+}
+
 //监听窗口大小变化
 window.onresize = function() {
 	setTimeout(domresize, 500);
@@ -318,4 +344,19 @@ function domresize() {
 		height : $("#dgtb").height()/2,
 		width : $("#dgtb").width()
 	});
+	if($("#full").is(":hidden")){//全屏模式
+		$("#elebody").height('50%');
+		$("#elebody").css({'top':'0px'});
+		$("#body1").height($("#elebody").height()-23);
+		$("#body2").height('50%');
+		$("#body2").css({'top':'50%'});
+	}else{
+		$("#elebody").height('25%');
+		$("#elebody").css({'top':'58%'});
+		$("#body1").height($("#elebody").height()-23);
+		$("#body2").height('20%');
+		$("#body2").css({'top':'82%'});
+	}
+	echarts.init(document.getElementById('body1')).resize();
+	echarts.init(document.getElementById('body2')).resize();
 }

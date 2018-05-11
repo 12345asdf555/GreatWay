@@ -24,17 +24,30 @@ public class WeldingMachine {
 	private String model;
 	private BigInteger creater;
 	private BigInteger updater;
+	private int mvalueid;
+	private String mvaluename;
 	@Transient
 	private Gather gatherId;
 	@Transient
 	private Insframework insframeworkId;
-	@Transient
-	private EquipmentManufacturer manufacturerId;
 	
 	//导入时用来暂存值
 	private String typename;
 	private String statusname;
 	
+	
+	public int getMvalueid() {
+		return mvalueid;
+	}
+	public void setMvalueid(int mvalueid) {
+		this.mvalueid = mvalueid;
+	}
+	public String getMvaluename() {
+		return mvaluename;
+	}
+	public void setMvaluename(String mvaluename) {
+		this.mvaluename = mvaluename;
+	}
 	public BigInteger getCreater() {
 		return creater;
 	}
@@ -106,12 +119,6 @@ public class WeldingMachine {
 	}
 	public void setInsframeworkId(Insframework insframeworkId) {
 		this.insframeworkId = insframeworkId;
-	}
-	public EquipmentManufacturer getManufacturerId() {
-		return manufacturerId;
-	}
-	public void setManufacturerId(EquipmentManufacturer manufacturerId) {
-		this.manufacturerId = manufacturerId;
 	}
 	public String getTypename() {
 		return typename;

@@ -27,6 +27,10 @@
 		select * from tb_dictionary where fid=#{id};
 	</select>
 	
+	<select id="getDictionaryType" resultMap="dMap">
+		SELECT ftypeid ,fback FROM tb_dictionary GROUP BY ftypeid
+	</select>
+	
 	<select id="getDictionaryValue" resultMap="dMap">
 		SELECT fvalue, fvaluename FROM tb_dictionary WHERE ftypeid=#{typeid}
 	</select>

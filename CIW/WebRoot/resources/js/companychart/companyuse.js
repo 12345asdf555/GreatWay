@@ -93,14 +93,8 @@ function CaustUseDatagrid(){
              	return value;
 			}
 		}, {
-			field : 'type',
-			title : '型号',
-			width : 100,
-			halign : "center",
-			align : "left"
-		}, {
 			field : 'time',
-			title : '时长(h)',
+			title : '焊接平均时长(h)',
 			width : 100,
 			halign : "center",
 			align : "left",

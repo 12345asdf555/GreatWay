@@ -13,6 +13,7 @@ public interface TdMapper {
 	List<Td> findAllcom();
 	List<Td> findAlldiv(long ins);
 	List<Td> getAllPosition(@Param("parent")BigInteger parent);
+	List<Td> getMachine(@Param("mach")BigInteger mach,@Param("parent")BigInteger parent);
 	long findAllIns(long uid);
 	long findInsid(String insname);
 	String findweld(String weldid);

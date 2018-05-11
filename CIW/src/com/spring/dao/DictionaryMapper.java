@@ -12,6 +12,8 @@ import tk.mybatis.mapper.common.Mapper;
 public interface DictionaryMapper extends Mapper<Dictionarys> {
 	List<Dictionarys> getDictionaryAll(@Param("str")String str);
 	
+	List<Dictionarys> getDictionaryType();
+	
 	void addDictionary(Dictionarys d);
 	
 	void editDictionary(Dictionarys d);

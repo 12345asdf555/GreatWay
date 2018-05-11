@@ -29,7 +29,28 @@ public class WeldDto {
 	private String time;
 	private String hour;
 	private String second;
+	private BigInteger machineid;
+	private String welderno;
+	private String junctionno;
 	
+	public String getJunctionno() {
+		return junctionno;
+	}
+	public void setJunctionno(String junctionno) {
+		this.junctionno = junctionno;
+	}
+	public BigInteger getMachineid() {
+		return machineid;
+	}
+	public void setMachineid(BigInteger machineid) {
+		this.machineid = machineid;
+	}
+	public String getWelderno() {
+		return welderno;
+	}
+	public void setWelderno(String welderno) {
+		this.welderno = welderno;
+	}
 	public String getHour() {
 		return hour;
 	}

@@ -58,28 +58,29 @@ public class ExportExcelController {
 			String str=(String) request.getSession().getAttribute("searchStr");
 			List<WeldingMachine> list = wmm.getWeldingMachine(str);
 			
-			String[] titles = new String[]{"设备编码","设备类型","入厂时间","所属项目","状态","厂家","厂家类型","是否在网","采集序号","位置"};
-			Object[][] data = new Object[list.size()][10];
+			String[] titles = new String[]{"设备编码","设备类型","入厂时间","所属项目","状态","厂家","是否在网","采集序号","位置","ip地址","设备型号"};
+			Object[][] data = new Object[list.size()][11];
 			for(int i =0; i<list.size();i++){
 				data[i][0] = list.get(i).getEquipmentNo();
 				data[i][1] = list.get(i).getTypename();
 				data[i][2] = list.get(i).getJoinTime();
 				data[i][3] = list.get(i).getInsframeworkId().getName();
 				data[i][4] = list.get(i).getStatusname();
-				data[i][5] = list.get(i).getManufacturerId().getName();
-				data[i][6] = list.get(i).getManufacturerId().getType();
+				data[i][5] = list.get(i).getMvaluename();
 				if(list.get(i).getIsnetworking()==0){
-					data[i][7] = "是";
+					data[i][6] = "是";
 				}else{
-					data[i][7] = "否";
+					data[i][6] = "否";
 				}
 				Gather gather = list.get(i).getGatherId();
 				if(gather!=null){
-					data[i][8] = gather.getGatherNo();
+					data[i][7] = gather.getGatherNo();
 				}else{
-					data[i][8] = null;
+					data[i][7] = null;
 				}
-				data[i][9] = list.get(i).getPosition();
+				data[i][8] = list.get(i).getPosition();
+				data[i][9] = list.get(i).getIp();
+				data[i][10] = list.get(i).getModel();
 			}
 			filename = "焊机设备" + sdf.format(new Date()) + ".xls";
 

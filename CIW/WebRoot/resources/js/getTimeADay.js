@@ -10,9 +10,7 @@ function getOldTime(){
     var year = now.getFullYear();//年  
     var month = now.getMonth() + 1;//月  
     var day = now.getDate();//日
-    var hh = now.getHours();//时  
-    var mm = now.getMinutes();//分  
-    var ss = now.getSeconds();//秒  
+    var hh = now.getHours();//时
     
     var oldtime = year + "-";
       
@@ -29,17 +27,7 @@ function getOldTime(){
     if(hh < 10){
         oldtime += "0";
     }
-    oldtime += hh + ":";
-    
-    if (mm < 10){
-    	oldtime += '0';
-    }
-    oldtime += mm + ":";
-       
-    if (ss < 10){
-    	oldtime += '0';
-    }
-    oldtime += ss;
+    oldtime += hh + ":00:00"
 	$("#dtoTime1").datetimebox('setValue',oldtime);
 }
 
@@ -50,9 +38,7 @@ function getNewTime(){
     var year = now.getFullYear();//年  
     var month = now.getMonth() + 1;//月  
     var day = now.getDate();//日
-    var hh = now.getHours();//时  
-    var mm = now.getMinutes();//分  
-    var ss = now.getSeconds();//秒  
+    var hh = now.getHours();//时
     
     var nowtime = year + "-";
       
@@ -69,16 +55,6 @@ function getNewTime(){
     if(hh < 10){
         nowtime += "0";
     }
-    nowtime += hh + ":";
-    
-    if (mm < 10){
-    	nowtime += '0';
-    }
-    nowtime += mm + ":";
-       
-    if (ss < 10){
-    	nowtime += '0';
-    }
-    nowtime += ss;
+    nowtime += hh + ":00:00";
 	$("#dtoTime2").datetimebox('setValue',nowtime);
 }
