@@ -126,7 +126,6 @@ public class DataStatisticsController {
 	 */
 	@RequestMapping("/goFauit")
 	public String goFauit(HttpServletRequest request){
-		request.setAttribute("id",request.getParameter("id"));
 		request.setAttribute("t1",request.getParameter("t1"));
 		request.setAttribute("t2",request.getParameter("t2"));
 		request.setAttribute("fauit",request.getParameter("fauit"));
@@ -870,9 +869,6 @@ public class DataStatisticsController {
 			}
 			if(iutil.isNull(time2)){
 				dto.setDtoTime2(time2);
-			}
-			if(iutil.isNull(request.getParameter("id"))){
-				dto.setDtoId(new BigInteger(request.getParameter("id")));
 			}
 			List<DataStatistics> list = dss.getFauit(page, dto, fauit);
 			if(list != null){

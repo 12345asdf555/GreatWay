@@ -38,7 +38,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	  	<div id="dg_btn">
 			<div style="margin-bottom: 5px;">
-				<input type="hidden" id="id" value="${id }"/>
 				<input type="hidden" id="t1" value="${t1 }"/>
 				<input type="hidden" id="t2" value="${t2 }"/>
 				<input type="hidden" id="fauitid" value="${fauit }"/>

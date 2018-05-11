@@ -87,7 +87,7 @@ function getBack(){
     img.src = url;  // 设置相对路径给Image, 此时会发送出请求
     url = img.src;  // 此时相对路径已经变成绝对路径
     img.src = null; // 取消请求
-	window.location.href = encodeURI(url)+"?t1="+t1+"&t2="+t2+"&fauit="+fauit+"&id="+id;
+	window.location.href = encodeURI(url)+"?t1="+t1+"&t2="+t2+"&fauit="+fauit;
 }
 
 //监听窗口大小变化

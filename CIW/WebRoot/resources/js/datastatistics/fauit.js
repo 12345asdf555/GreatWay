@@ -5,8 +5,8 @@ $(function(){
 	if($("#t2").val()){
 		$("#dtoTime2").datetimebox('setValue',$("#t2").val());
 	}
-	dgDatagrid();
 	fauitcombobox();
+	dgDatagrid();
 })
 
 var chartStr = "",dtoTime1,dtoTime2,fauit;
@@ -14,8 +14,7 @@ function setParam(){
 	dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	fauit = $("#fauit").combobox('getValue');
-	var id = $("#id").val();
-	chartStr += "?fauit="+fauit+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&id="+id;
+	chartStr += "?fauit="+fauit+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
 function dgDatagrid(){
@@ -107,7 +106,7 @@ function fauitcombobox(){
 
 function serach(){
 	$("#t1").val("");
-	$("#t2").val("");
+	$("#t2").val(""); 
 	$("#chartLoading").show();
 	chartStr = "";
 	setTimeout(function(){
