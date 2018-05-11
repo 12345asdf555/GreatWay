@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.spring.dto.WeldDto;
 import com.spring.model.DataStatistics;
+import com.spring.model.Dictionarys;
 import com.spring.page.Page;
 import com.spring.service.DataStatisticsService;
+import com.spring.service.DictionaryService;
 import com.spring.util.IsnullUtil;
 
 import net.sf.json.JSONArray;
@@ -31,6 +33,8 @@ public class DataStatisticsController {
 	
 	@Autowired
 	private DataStatisticsService dss;
+	@Autowired
+	private DictionaryService dm;
 
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -114,6 +118,28 @@ public class DataStatisticsController {
 	@RequestMapping("/goWeldWorkpieceData")
 	public String goWeldWorkpieceProductionData(HttpServletRequest request){
 		return "welddatastatistics/workpiecedata";
+	}
+	
+	/**
+	 * 跳转故障报表页面
+	 * @return
+	 */
+	@RequestMapping("/goFauit")
+	public String goFauit(){
+		return "datastatistics/fauit";
+	}
+	
+	/**
+	 * 跳转故障报表明细页面
+	 * @return
+	 */
+	@RequestMapping("/goFauitDetail")
+	public String goFauitDetail(HttpServletRequest request){
+		request.setAttribute("id",request.getParameter("id"));
+		request.setAttribute("parenttime1",request.getParameter("time1"));
+		request.setAttribute("parenttime2",request.getParameter("time2"));
+		request.setAttribute("fauit",request.getParameter("fauit"));
+		return "datastatistics/fauitdetail";
 	}
 	
 	/**
@@ -805,6 +831,136 @@ public class DataStatisticsController {
 		return obj.toString();
 	}
 
+	
+	/**
+	 * 跳转故障报表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getFauit")
+	@ResponseBody
+	public String getFauit(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		int fauit = 0 ;
+		if(iutil.isNull(request.getParameter("fauit"))){
+			fauit  = Integer.parseInt(request.getParameter("fauit"));
+		}
+		page = new Page(pageIndex,pageSize,total);
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONObject title = new JSONObject();
+		WeldDto dto = new WeldDto();
+		JSONArray titleary = new JSONArray();
+		long total = 0;
+		try{
+			if(iutil.isNull(time1)){
+				dto.setDtoTime1(time1);
+			}
+			if(iutil.isNull(time2)){
+				dto.setDtoTime2(time2);
+			}
+			List<DataStatistics> list = dss.getFauit(page, dto, fauit);
+			if(list != null){
+				PageInfo<DataStatistics> pageinfo = new PageInfo<DataStatistics>(list);
+				total = pageinfo.getTotal();
+			}
+			for(DataStatistics i:list){
+				json.put("t0", i.getId());
+				json.put("t1", i.getName());
+				json.put("t2", i.getInsname());
+				json.put("t3", i.getValuename());
+				json.put("t4", i.getNum());
+				ary.add(json);
+			}
+			//表头
+			String [] str = {"序号","焊机编号","焊机归属","故障类型","故障次数"};
+			for(int i=0;i<str.length;i++){
+				title.put("title", str[i]);
+				titleary.add(title);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("ary", titleary);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	/**
+	 * 跳转故障明细报表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getFauitDeatil")
+	@ResponseBody
+	public String getFauitDeatil(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		BigInteger id = null;
+		int fauit = 0 ;
+		if(iutil.isNull(request.getParameter("fauit"))){
+			fauit  = Integer.parseInt(request.getParameter("fauit"));
+		}
+		if(iutil.isNull(request.getParameter("id"))){
+			id  = new BigInteger(request.getParameter("id"));
+		}
+		page = new Page(pageIndex,pageSize,total);
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONObject title = new JSONObject();
+		WeldDto dto = new WeldDto();
+		JSONArray titleary = new JSONArray();
+		long total = 0;
+		try{
+			if(iutil.isNull(time1)){
+				dto.setDtoTime1(time1);
+			}
+			if(iutil.isNull(time2)){
+				dto.setDtoTime2(time2);
+			}
+			List<DataStatistics> list = dss.getFauitDetail(page, dto, id, fauit);
+			if(list != null){
+				PageInfo<DataStatistics> pageinfo = new PageInfo<DataStatistics>(list);
+				total = pageinfo.getTotal();
+			}
+			for(DataStatistics i:list){
+				json.put("t0", i.getName());
+				json.put("t1", i.getInsname());
+				json.put("t2", i.getValuename());
+				json.put("t3", i.getTime());
+				ary.add(json);
+			}
+			//表头
+			String [] str = {"焊机编号","焊机归属","故障类型","故障发生时间"};
+			for(int i=0;i<str.length;i++){
+				title.put("title", str[i]);
+				titleary.add(title);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("total", total);
+		obj.put("ary", titleary);
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
 	/**
 	 * 获取组织机构
 	 * @return
@@ -823,6 +979,33 @@ public class DataStatisticsController {
 			for(DataStatistics i:list){
 				json.put("id", i.getId());
 				json.put("name", i.getName());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
+	
+	/**
+	 * 获取故障类型
+	 * @return
+	 */
+	@RequestMapping("/getAllFauit")
+	@ResponseBody
+	public String getAllFauit(){
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			List<Dictionarys> dictionary = dm.getDictionaryValue(15);
+			json.put("id", 0);
+			json.put("name", "全部");
+			ary.add(json);
+			for(Dictionarys d:dictionary){
+				json.put("id", d.getValue());
+				json.put("name", d.getValueName());
 				ary.add(json);
 			}
 		}catch(Exception e){

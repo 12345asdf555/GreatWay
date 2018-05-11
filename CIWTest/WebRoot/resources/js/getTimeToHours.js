@@ -6,11 +6,10 @@ $(function(){
 function getOldTime(){
 	//获取当前时间
 	var now = new Date();  
-	now.setDate(now.getDate()-1);//获取1天前的日期 
+	now.setDate(now.getDate());//获取当前的日期 
     var year = now.getFullYear();//年  
     var month = now.getMonth() + 1;//月  
     var day = now.getDate();//日
-    var hh = now.getHours();//时
     
     var oldtime = year + "-";
       
@@ -22,12 +21,7 @@ function getOldTime(){
     if(day < 10){
         oldtime += "0";
     }          
-    oldtime += day + " ";
-    
-    if(hh < 10){
-        oldtime += "0";
-    }
-    oldtime += hh + ":00:00";
+    oldtime += day + " 00:00:00";
 	$("#dtoTime1").datetimebox('setValue',oldtime);
 }
 

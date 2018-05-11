@@ -19,7 +19,21 @@ public class DataStatistics {
 	private double voltage;
 	private double electricity;
 	private String serialnumber;
+	private String valuename;
+	private String time;
 	
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	public String getValuename() {
+		return valuename;
+	}
+	public void setValuename(String valuename) {
+		this.valuename = valuename;
+	}
 	public String getSerialnumber() {
 		return serialnumber;
 	}

@@ -164,4 +164,23 @@ public interface DataStatisticsService {
 	 * @return
 	 */
 	List<DataStatistics> getWeldPieceOutCount(Page page, WeldDto dto,String junctionno);
+	
+	/**
+	 * 获取焊机故障
+	 * @param page 分页
+	 * @param dto 扩展参数类
+	 * @param value 故障类型id
+	 * @return
+	 */
+	List<DataStatistics> getFauit(Page page,WeldDto dto,int value);
+	
+	/**
+	 * 获取焊机故障明细
+	 * @param page 分页
+	 * @param dto 扩展dto类
+	 * @param id 焊机id
+	 * @param value 故障类型id
+	 * @return
+	 */
+	List<DataStatistics> getFauitDetail(Page page,WeldDto dto,BigInteger id,int value);
 }

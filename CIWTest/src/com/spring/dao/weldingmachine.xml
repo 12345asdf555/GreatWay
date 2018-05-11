@@ -48,7 +48,7 @@
         INNER JOIN tb_dictionary di ON di.fvalue = w.ftype_id
         INNER JOIN tb_dictionary dic ON dic.fvalue = w.fmanufacturer_id
 		left JOIN tb_gather g ON g.fid = w.fgather_id
-		where 1=1 
+		where (d.ftypeid=3 and di.ftypeid=4 and dic.ftypeid=14)
 		<if test="parent!=null and parent!=''">
 			and i.fid=#{parent}
 		</if>
@@ -70,7 +70,7 @@ SELECT
         INNER JOIN tb_dictionary d ON d.fvalue = w.fstatus_id
         INNER JOIN tb_dictionary di ON di.fvalue = w.ftype_id
 		left JOIN tb_gather g ON g.fid = w.fgather_id
-		where 1=1 
+		where (d.ftypeid=3 and di.ftypeid=4 and dic.ftypeid=14) 
 		ORDER BY w.fid
 	</select>
 	
@@ -84,7 +84,7 @@ SELECT
         INNER JOIN tb_dictionary d ON d.fvalue = w.fstatus_id
         INNER JOIN tb_dictionary di ON di.fvalue = w.ftype_id
 		left JOIN tb_gather g ON g.fid = w.fgather_id
-		where w.fid = #{wid}
+		where (d.ftypeid=3 and di.ftypeid=4 and dic.ftypeid=14) and w.fid = #{wid}
 	</select>
 	
 	<select id="getEquipmentno" resultMap="wmMap">

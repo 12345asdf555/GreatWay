@@ -65,6 +65,9 @@ function openMachineChart(){
 		$("#machineimg").css("transform","rotate(0deg)");
 	}
 }
+function openFauit(){
+	addTab("故障报表","datastatistics/goFauit");
+}
 
 function openItemData(){
 	addTab("班组生产数据","datastatistics/goItemData");

@@ -87,57 +87,61 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 	@Override
 	public List<DataStatistics> getWeldItemInCount(Page page, WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		// TODO Auto-generated method stub
 		return ds.getWeldItemInCount(dto);
 	}
 
 	@Override
 	public List<DataStatistics> getWeldItemOutCount(Page page, WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		// TODO Auto-generated method stub
 		return ds.getWeldItemOutCount(dto);
 	}
 
 	@Override
 	public List<DataStatistics> getWeldMachineInCount(Page page, WeldDto dto ,BigInteger itemid) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		// TODO Auto-generated method stub
 		return ds.getWeldMachineInCount(dto,itemid);
 	}
 
 	@Override
 	public List<DataStatistics> getWeldMachineOutCount(Page page, WeldDto dto ,BigInteger itemid) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		// TODO Auto-generated method stub
 		return ds.getWeldMachineOutCount(dto,itemid);
 	}
 
 	@Override
 	public List<DataStatistics> getWeldPersonInCount(Page page, WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		// TODO Auto-generated method stub
 		return ds.getWeldPersonInCount(dto);
 	}
 
 	@Override
 	public List<DataStatistics> getWeldPersonOutCount(Page page, WeldDto dto) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		// TODO Auto-generated method stub
 		return ds.getWeldPersonOutCount(dto);
 	}
 
 	@Override
 	public List<DataStatistics> getWeldPieceInCount(Page page, WeldDto dto,String junctionno) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		// TODO Auto-generated method stub
 		return ds.getWeldPieceInCount(dto,junctionno);
 	}
 
 	@Override
 	public List<DataStatistics> getWeldPieceOutCount(Page page, WeldDto dto,String junctionno) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		// TODO Auto-generated method stub
 		return ds.getWeldPieceOutCount(dto,junctionno);
+	}
+
+	@Override
+	public List<DataStatistics> getFauit(Page page, WeldDto dto, int value) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return ds.getFauit(dto, value);
+	}
+
+	@Override
+	public List<DataStatistics> getFauitDetail(Page page, WeldDto dto, BigInteger id, int value) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return ds.getFauitDetail(dto, id, value);
 	}
 
 }

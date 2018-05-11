@@ -20,6 +20,8 @@
        	<result property="electricity" column="electricity"></result>
        	<result property="voltage" column="voltage"></result>
        	<result property="serialnumber" column="serialnumber"></result>
+       	<result property="valuename" column="fvaluename"></result>
+       	<result property="time" column="time"></result>
 	</resultMap>
 	
 	<!-- 获取项目部焊机总数 -->
@@ -596,5 +598,49 @@
 			and j.fwelded_junction_no like #{junctionno}
 		</if>
 		)temp 
+	</select>
+	
+	<!-- 故障报表 -->
+	<select id="getFauit"  resultMap="dataMap">
+		SELECT m.fid,m.fequipment_no fname,i.fname insname,d.fvaluename,sum(falarmtime) num FROM tb_warn l 
+		INNER JOIN tb_welding_machine m on m.fid = l.fmachine_id 
+		INNER JOIN tb_insframework i on i.fid = m.finsframework_id 
+		INNER JOIN tb_dictionary d on d.fvalue = l.fstatus
+		where d.ftypeid=15 
+		<if test="value>0">
+			and d.fvalue=#{value}
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fstarttime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fendtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by m.fid
+	</select>
+	
+	<!-- 故障报表 -->
+	<select id="getFauitDetail"  resultMap="dataMap">
+		SELECT m.fequipment_no fname,i.fname insname,d.fvaluename,FWeldTime time FROM tb_live_data l 
+		INNER JOIN tb_welding_machine m ON m.fid = l.fmachine_id 
+		INNER JOIN tb_insframework i on i.fid = m.finsframework_id 
+		INNER join tb_dictionary d on d.fvalue=l.fstatus 
+		where d.ftypeid=15
+		<if test="id!=null and id!=''">
+			and fmachine_id=#{id}
+		</if>
+		<if test="value>0">
+			and d.fvalue=#{value}
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and FWeldTime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and FWeldTime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
 	</select>
 </mapper>
