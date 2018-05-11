@@ -24,12 +24,12 @@
 	 <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->  
 	<select id="findById" parameterType="int" resultType="Resources">
 		select id id, resources_name resourceName,resources_type resourceType,resources_address resourceAddress,resources_desc resourceDesc,status status,d.fvaluename statusname from tb_resources 
-		INNER JOIN tb_dictionary d on d.fvalue = tb_resources.status where id=#{id}
+		INNER JOIN tb_dictionary d on d.fvalue = tb_resources.status where  d.ftypeid=6 and id=#{id}
 	</select>
 	
 	<select id="findAll" resultType="Resources">
 		select id id,resources_name resourceName,resources_type resourceType,resources_address resourceAddress,resources_desc resourceDesc,status status,d.fvaluename statusname from tb_resources 
-		INNER JOIN tb_dictionary d on d.fvalue = tb_resources.status where 1=1
+		INNER JOIN tb_dictionary d on d.fvalue = tb_resources.status where  d.ftypeid=6
 		<if test="str!=null and str!=''">
 			and ${str}
 		</if>

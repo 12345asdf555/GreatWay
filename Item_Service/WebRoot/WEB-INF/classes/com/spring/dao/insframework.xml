@@ -20,7 +20,7 @@
 		SELECT i.fid,i.fname,i.flogogram,i.fcode,i.fparent,i.ftype,ins.fname fparentname,d.fvaluename typename FROM tb_insframework i 
 		INNER JOIN tb_dictionary d on d.fvalue = i.ftype
 		left join tb_insframework ins on ins.fid = i.fparent
-		where 1=1
+		where  d.ftypeid=2
 		<if test="parent!=null and parent!=''">
 			 and i.fparent=#{parent}
 		</if>
@@ -91,7 +91,7 @@
 	</select>
 	
 	<select id="getInsfAllById" resultMap="insMap">
-		select i.*,d.fvaluename typename from tb_insframework i INNER JOIN tb_dictionary d on d.fvalue = i.ftype where i.fid = #{id}
+		select i.*,d.fvaluename typename from tb_insframework i INNER JOIN tb_dictionary d on d.fvalue = i.ftype where  d.ftypeid=2 and i.fid = #{id}
 	</select>
 	
 	<select id="getInsframeworkNameCount" resultType="java.lang.Integer">

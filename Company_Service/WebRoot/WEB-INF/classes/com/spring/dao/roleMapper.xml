@@ -59,7 +59,7 @@
 	 <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->  
 	<select id="findById" parameterType="int" resultType="Role">
 		select tb_roles.id id,tb_roles.roles_name roleName,tb_roles.roles_desc roleDesc,tb_roles.status roleStatus,d.fvaluename statusname from tb_roles 
-		INNER JOIN tb_dictionary d on d.fvalue = tb_roles.status where tb_roles.id=#{id}
+		INNER JOIN tb_dictionary d on d.fvalue = tb_roles.status where d.ftypeid=6 and tb_roles.id=#{id}
 	</select>
 	
 	<select id="findByAuthorityId" parameterType="int" resultType="String">
@@ -72,7 +72,7 @@
 	
 	<select id="findAll" resultType="Role">
 		select tb_roles.id id,tb_roles.roles_name roleName,tb_roles.roles_desc roleDesc,tb_roles.status roleStatus,d.fvaluename statusname from tb_roles 
-		INNER JOIN tb_dictionary d on d.fvalue = tb_roles.status where 1=1
+		INNER JOIN tb_dictionary d on d.fvalue = tb_roles.status where d.ftypeid=6
 	    <if test="str!=null and str!=''">
 			and ${str}
 		</if>
