@@ -1,4 +1,10 @@
 $(function(){
+	if($("#t1").val()){
+		$("#dtoTime1").datetimebox('setValue',$("#t1").val());
+	}
+	if($("#t2").val()){
+		$("#dtoTime2").datetimebox('setValue',$("#t2").val());
+	}
 	dgDatagrid();
 	fauitcombobox();
 })
@@ -8,7 +14,8 @@ function setParam(){
 	dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	fauit = $("#fauit").combobox('getValue');
-	chartStr += "?fauit="+fauit+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
+	var id = $("#id").val();
+	chartStr += "?fauit="+fauit+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&id="+id;
 }
 
 function dgDatagrid(){
@@ -95,9 +102,12 @@ function fauitcombobox(){
       }  
 	}); 
 	$("#fauit").combobox();
+	$('#fauit').combobox('select',$('#fauitid').val());
 }
 
 function serach(){
+	$("#t1").val("");
+	$("#t1").val("");
 	$("#chartLoading").show();
 	chartStr = "";
 	setTimeout(function(){

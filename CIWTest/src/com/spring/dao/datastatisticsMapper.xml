@@ -617,6 +617,9 @@
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
+			<if test="dto.dtoId!=null and dto.dtoId!=''">
+				and m.fid = #{dto.dtoId}
+			</if>
 		</if>
 		group by m.fid
 	</select>

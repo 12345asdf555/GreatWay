@@ -1,19 +1,21 @@
 $(function(){
-	if($("#parenttime1").val()){
-		$("#dtoTime1").datetimebox('setValue',$("#parenttime1").val());
+	t1 = $("#parenttime1").val();
+	t2 = $("#parenttime2").val();
+	if(t1){
+		$("#dtoTime1").datetimebox('setValue',t1);
 	}
-	if($("#parenttime2").val()){
-		$("#dtoTime2").datetimebox('setValue',$("#parenttime2").val());
+	if(t2){
+		$("#dtoTime2").datetimebox('setValue',t2);
 	}
 	dgDatagrid();
 })
 
-var chartStr = "",dtoTime1,dtoTime2;
+var chartStr = "",dtoTime1,dtoTime2,fauit,id,t1,t2;
 function setParam(){
 	dtoTime1 = $("#dtoTime1").datetimebox('getValue');
 	dtoTime2 = $("#dtoTime2").datetimebox('getValue');
-	var fauit = $("#fauit").val();
-	var id = $("#id").val();
+	fauit = $("#fauit").val();
+	id = $("#id").val();
 	chartStr += "?fauit="+fauit+"&id="+id+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2;
 }
 
@@ -77,6 +79,15 @@ function serach(){
 	setTimeout(function(){
 		dgDatagrid();
 	},500);
+}
+
+function getBack(){
+	var url = "datastatistics/goFauit";
+	var img = new Image();
+    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+    url = img.src;  // 此时相对路径已经变成绝对路径
+    img.src = null; // 取消请求
+	window.location.href = encodeURI(url)+"?t1="+t1+"&t2="+t2+"&fauit="+fauit+"&id="+id;
 }
 
 //监听窗口大小变化

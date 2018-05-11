@@ -46,6 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
 				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
 				<a href="javascript:serach();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
+				<a href="javascript:getBack();" class="easyui-linkbutton" iconCls="icon-next" >返回</a>
 			</div>
 		</div>
 	    <table id="dg" style="table-layout: fixed; width:100%;"></table>
