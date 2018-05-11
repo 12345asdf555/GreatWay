@@ -107,7 +107,7 @@ function fauitcombobox(){
 
 function serach(){
 	$("#t1").val("");
-	$("#t1").val("");
+	$("#t2").val("");
 	$("#chartLoading").show();
 	chartStr = "";
 	setTimeout(function(){
