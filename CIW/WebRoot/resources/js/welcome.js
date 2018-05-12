@@ -94,11 +94,11 @@ function webclient(){
 		}
 	},10000);
 	socket.onopen = function() {
-		setTimeout(function(){
+/*		setTimeout(function(){
 			if(symbol==0){
 				alert("在线统计连接成功，但未接收到任何数据");
 			}
-		},5000);
+		},5000);*/
 	};
 	socket.onmessage = function(msg) {
 		var xxx = msg.data;
