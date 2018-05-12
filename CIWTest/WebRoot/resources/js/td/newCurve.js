@@ -106,7 +106,7 @@ $(function(){
 						'<div><label id="lab3'+fmch[f].fequipment_no+'">操作人员：--</label></div>'+
 						'<div><label id="lab4'+fmch[f].fequipment_no+'">焊接电流：--A</label></div>'+
 						'<div><label id="lab5'+fmch[f].fequipment_no+'">焊接电压：--V</label></div>'+
-						'<div><label id="lab6'+fmch[f].fequipment_no+'">焊机状态：--</label></div>'+
+						'<div><label id="lab6'+fmch[f].fequipment_no+'">焊机状态：关机</label></div>'+
 						'</div>'+
 						'</div>';
 						$("#bodys").append(str);
@@ -156,11 +156,11 @@ $(function(){
 			        var loadingMask = document.getElementById('loadingDiv');  
 			        loadingMask.parentNode.removeChild(loadingMask);  
 			}
-			setTimeout(function(){
+/*			setTimeout(function(){
 				if(symbol==0){
 					alert("连接成功，但未接收到任何数据");
 				}
-			},5000);
+			},5000);*/
 		};
 		socket.onmessage = function(msg) {
 			redata=msg.data;

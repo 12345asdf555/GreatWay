@@ -137,11 +137,11 @@
 				        var loadingMask = document.getElementById('loadingDiv');  
 				        loadingMask.parentNode.removeChild(loadingMask);  
 				}
-				setTimeout(function(){
+/*				setTimeout(function(){
 					if(symbol==0){
 						alert("连接成功，但未接收到任何数据");
 					}
-				},5000);
+				},5000);*/
 			};
 			socket.onmessage = function(msg) {
 				redata=msg.data;
