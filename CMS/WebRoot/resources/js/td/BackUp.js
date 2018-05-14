@@ -649,6 +649,7 @@ $(function(){
 		vol.length=0;
 		ele.length=0;
 		time.length=0;
+		symbol=0;
 		}
 		for(var i = 0;i < redata.length;i+=69){
 			if(redata.substring(8+i, 12+i)!="0000"){
@@ -711,7 +712,7 @@ $(function(){
 			vol[time.length] = vol[time.length-1];
 			time[time.length] = time[time.length-1]+1000;
 		}
-		if(value1==0){
+		if(symbol==0&&time.length!=0){
 			elecurve();
 			volcurve();
 			symbol++;
