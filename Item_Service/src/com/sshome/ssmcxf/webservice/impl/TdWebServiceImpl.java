@@ -1,5 +1,6 @@
 package com.sshome.ssmcxf.webservice.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,10 @@ public class TdWebServiceImpl implements TdWebService{
 	}
 
 	@Override
-	public Object getAllPosition() {
+	public Object getAllPosition(String object) {
 		try{
-			List<Td> list = ts.getAllPosition();
+			JSONObject json = JSONObject.fromObject(object);
+			List<Td> list = ts.getAllPosition(BigInteger.valueOf(json.getLong("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;

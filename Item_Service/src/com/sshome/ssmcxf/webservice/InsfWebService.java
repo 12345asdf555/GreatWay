@@ -57,7 +57,7 @@ public interface InsfWebService {
 	 * 查看公司级
 	 * @return
 	 */
-	Object getCompany();
+	Object getCompany(String object);
 	
 	/**
 	 * 查看公司级子级
