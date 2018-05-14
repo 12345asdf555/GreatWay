@@ -189,7 +189,7 @@ function typecombobox(){
 	$.ajax({  
       type : "post",  
       async : false,
-      url : "caustChart/getItem",  
+      url : "caustChart/getItem?parent="+$("#nextparent").val(),  
       data : {},  
       dataType : "json", //返回数据形式为json  
       success : function(result) {  

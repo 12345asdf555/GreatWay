@@ -1288,7 +1288,38 @@
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		GROUP BY weldTime,fequipment_no )k group by weldTime,fid
+		GROUP BY weldTime,fequipment_no 
+		UNION
+        SELECT  m.fid mid,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fstarttime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fstarttime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fstarttime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fstarttime)
+			</if>
+		</if> weldTime ,insf.fname,insf.fid FROM tb_standby l
+		INNER JOIN tb_welding_machine m ON m.fid = l.fmachine_id
+		INNER JOIN tb_insframework i ON i.fid = l.fitemid
+		INNER JOIN tb_insframework ins on ins.fid = i.fparent
+		INNER JOIN tb_insframework insf ON insf.fid = ins.fparent
+		WHERE  1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fstarttime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fendtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY weldTime,fequipment_no
+		)k group by weldTime,fid
 		) TEMP
 	</select>
 
@@ -1326,7 +1357,40 @@
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		GROUP BY weldTime,fequipment_no )k group by weldTime,fid
+		GROUP BY weldTime,fequipment_no 
+		UNION
+        SELECT  m.fid mid,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fstarttime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fstarttime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fstarttime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fstarttime)
+			</if>
+		</if> weldTime ,ins.fname,ins.fid FROM tb_standby l
+		INNER JOIN tb_welding_machine m ON m.fid = l.fmachine_id
+		INNER JOIN tb_insframework i ON i.fid = l.fitemid
+		INNER JOIN tb_insframework ins on ins.fid = i.fparent
+		WHERE  1=1
+		<if test="parent!=null and parent!=''">
+			and (i.fid = #{parent} OR ins.fid = #{parent} OR ins.fparent=#{parent}) 
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fstarttime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fendtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY weldTime,fequipment_no
+		)k group by weldTime,fid
 		) TEMP
 	</select>
 
@@ -1364,7 +1428,40 @@
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		GROUP BY weldTime,fequipment_no )k group by weldTime,fid
+		GROUP BY weldTime,fequipment_no 
+		UNION
+        SELECT  m.fid mid,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fstarttime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fstarttime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fstarttime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fstarttime)
+			</if>
+		</if> weldTime ,i.fname,i.fid FROM tb_standby l
+		INNER JOIN tb_welding_machine m ON m.fid = l.fmachine_id
+		INNER JOIN tb_insframework i ON i.fid = l.fitemid
+		INNER JOIN tb_insframework ins on ins.fid = i.fparent
+		WHERE  1=1
+		<if test="parent!=null and parent!=''">
+			    and (i.fparent=#{parent} or ins.fparent=#{parent})
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fstarttime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fendtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY weldTime,fequipment_no
+		)k group by weldTime,fid
 		) TEMP
 	</select>
 	
@@ -1398,7 +1495,36 @@
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		GROUP BY weldTime,fequipment_no )k group by weldTime,fid
+		GROUP BY weldTime,fequipment_no 
+		UNION
+        SELECT  m.fid mid,
+		<if test="dto!=null and dto!=''">
+			<if test="dto.year!=null and dto.year!=''">
+				DATE_FORMAT( fstarttime,  '%Y' )
+			</if>
+			<if test="dto.month!=null and dto.month!=''">
+				DATE_FORMAT( fstarttime,  '%Y-%m' )
+			</if>
+			<if test="dto.day!=null and dto.day!=''">
+				DATE_FORMAT( fstarttime,  '%Y-%m-%d' )
+			</if>
+			<if test="dto.week!=null and dto.week!=''">
+				weekofyear(fstarttime)
+			</if>
+		</if> weldTime ,i.fname,i.fid FROM tb_standby l
+		INNER JOIN tb_welding_machine m ON m.fid = l.fmachine_id
+		INNER JOIN tb_insframework i ON i.fid = l.fitemid
+		WHERE  i.fid = #{itemid}
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fstarttime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fendtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY weldTime,fequipment_no
+		)k group by weldTime,fid
 		) TEMP
 	</select>
 	

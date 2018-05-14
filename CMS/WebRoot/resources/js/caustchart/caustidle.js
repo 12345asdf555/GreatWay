@@ -107,7 +107,7 @@ function CaustIdleDatagrid(){
     }); 
 	 $("#caustIdleTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#caustIdleTable").height()-$("#caustIdle_btn").height()-40,
+			height : $("#body").height() - $("#caustIdleChart").height()-$("#caustIdle_btn").height()-40,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
@@ -139,8 +139,8 @@ function serachcaustIdle(){
 	Series = [];
 	chartStr = "";
 	setTimeout(function() {
-		showcaustIdleTable();
 		CaustIdleDatagrid();
+		showcaustIdleTable();
 	}, 500)
 }
 

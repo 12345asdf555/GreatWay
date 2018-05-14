@@ -28,7 +28,7 @@ function junctionOvertimeDatagrid(){
 			align : "left"
 		}, {
 			field : 'overtime',
-			title : '超时(次)',
+			title : '超时(台)',
 			width : 100,
 			halign : "center",
 			align : "left"

@@ -88,7 +88,7 @@ function ItemtimeDatagrid(){
                    	array1.push(result.rows[i].weldTime);
              	 }
                  for(var m=0;m<result.arys.length;m++){
-                	 column.push({field:"overtime",title:result.arys[m].name+"(次)",width:width,halign : "center",align : "left",
+                	 column.push({field:"overtime",title:result.arys[m].name+"(台)",width:width,halign : "center",align : "left",
                 		 formatter : function(value,row,index){
                 			 return "<a href='junctionChart/goJunctionOvertime?parent="+row.id+"&weldtime="+row.weldTime+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+"&number="+number+"'>"+value+"</a>";
                 		 }

@@ -344,11 +344,12 @@ public class ItemChartController {
 		JSONArray arys = new JSONArray();
 		JSONObject object = new JSONObject();
 		try{
+			Insframework ins =  insm.getInsById(parent);;
 			List<ModelDto> list = lm.getItemLoads(dto, parent);
 			List<ModelDto> machine = lm.getCaustMachineCount(dto, parent);
 			double[] num = new double[time.size()];
-			if(list.size()>0){
-				for(int i=0;i<time.size();i++){
+			for(int i=0;i<time.size();i++){
+				if(list.size()>0){
 					double[] load=new double[time.size()],summachine=new double[time.size()];
 					num[i] = 0;
 					for(ModelDto m:list){
@@ -363,12 +364,21 @@ public class ItemChartController {
 						}
 						
 					}
-					json.put("weldTime",time.get(i).getWeldTime());
 					json.put("loads",(double) Math.round(Double.valueOf(load[i])*1000)/1000+"/"+summachine[i]+"="+num[i]);
 					json.put("itemid", list.get(0).getIid());
+					json.put("weldTime",time.get(i).getWeldTime());
+					ary.add(json);
+				}else{
+					json.put("loads",0);
+					json.put("itemid", ins.getId());
+					json.put("weldTime",time.get(i).getWeldTime());
 					ary.add(json);
 				}
-				object.put("name", list.get(0).getFname());
+			}
+			if(list.size()<=0){
+				object.put("name", ins.getName());
+			}else{
+				object.put("name",list.get(0).getFname());
 			}
 			object.put("num", num);
 			arys.add(object);
@@ -438,11 +448,12 @@ public class ItemChartController {
 		JSONArray arys = new JSONArray();
 		JSONObject object = new JSONObject();
 		try{
+			Insframework ins = insm.getInsById(id);
 			List<ModelDto> list = lm.getItemOverproof(dto, id);
 			BigInteger[] num = new BigInteger[time.size()];
-			if(list.size()>0){
-				for(int i=0;i<time.size();i++){
-					num[i] = new BigInteger("0");
+			for(int i=0;i<time.size();i++){
+				num[i] = new BigInteger("0");
+				if(list.size()>0){
 					for(ModelDto m:list){
 						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
 							num[i] = m.getOverproof();
@@ -452,8 +463,15 @@ public class ItemChartController {
 					json.put("overproof",num[i]);
 					json.put("itemid", list.get(0).getFid());
 					ary.add(json);
+				}else{
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("overproof",num[i]);
+					json.put("itemid", ins.getId());
+					ary.add(json);
 				}
-				object.put("name", list.get(0).getFname());
+			}
+			if(list.size()<=0){
+				object.put("name", ins.getName());
 			}
 			object.put("num", num);
 			arys.add(object);
@@ -493,7 +511,7 @@ public class ItemChartController {
 		}
 		BigInteger parent = null;
 		if(iutil.isNull(weldtime)){
-			dto.setTime("%"+weldtime+"%");
+			dto.setTime(weldtime+"%");
 		}
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
@@ -614,11 +632,12 @@ public class ItemChartController {
 		JSONArray arys = new JSONArray();
 		JSONObject object = new JSONObject();
 		try{
+			Insframework ins = insm.getInsById(dto.getParent());
 			List<ModelDto> list = lm.getItemOvertime(dto, number);
 			String[] num = new String[time.size()];
-			if(list.size()>0){
-				for(int i=0;i<time.size();i++){
-					num[i] = "0";
+			for(int i=0;i<time.size();i++){
+				num[i] = "0";
+				if(list.size()>0){
 					for(ModelDto m:list){
 						if(time.get(i).getWeldTime().equals(m.getWeldTime())){
 							num[i] = m.getOvertime();
@@ -628,8 +647,15 @@ public class ItemChartController {
 					json.put("overtime",num[i]);
 					json.put("id", list.get(0).getFid());
 					ary.add(json);
+				}else{
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("overtime",num[i]);
+					json.put("id", ins.getId());
+					ary.add(json);
 				}
-				object.put("name", list.get(0).getFname());
+			}
+			if(list.size()<=0){
+				object.put("name", ins.getName());
 			}
 			object.put("num", num);
 			arys.add(object);
@@ -700,11 +726,12 @@ public class ItemChartController {
 		JSONArray arys = new JSONArray();
 		JSONObject object = new JSONObject();
 		try{
+			Insframework ins = insm.getInsById(parent);
 			List<ModelDto> list = lm.getItemNOLoads(dto, parent,null);
 			List<ModelDto> machine = lm.getCaustMachineCount(dto, parent);
 			double[] num = new double[time.size()];
-			if(list.size()>0){
-				for(int i=0;i<time.size();i++){
+			for(int i=0;i<time.size();i++){
+				if(list.size()>0){
 					double[] noload=new double[time.size()],summachine=new double[time.size()],livecount=new double[time.size()];
 					num[i] = 0;
 					for(ModelDto m:list){
@@ -723,8 +750,18 @@ public class ItemChartController {
 					json.put("loads",(double) Math.round(Double.valueOf(noload[i])*1000)/1000+"/"+(double) Math.round(Double.valueOf(livecount[i])*1000)/1000+"/"+summachine[i]+"="+num[i]);
 					json.put("itemid", list.get(0).getFid());
 					ary.add(json);
+				}else{
+					json.put("weldTime",time.get(i).getWeldTime());
+					json.put("loads", 0);
+					json.put("itemid", ins.getId());
+					ary.add(json);
 				}
-				object.put("name", list.get(0).getFname());
+			}
+
+			if(list.size()<=0){
+				object.put("name", ins.getName());
+			}else{
+				object.put("name",list.get(0).getFname());
 			}
 			object.put("num", num);
 			arys.add(object);
@@ -1166,6 +1203,8 @@ public class ItemChartController {
 			if(type==21){
 				parent = insm.getUserInsfId(uid);
 			}else if(type==22){
+				parent = insm.getUserInsfId(uid);
+			}else if(type==23){
 				parent = insm.getUserInsfId(uid);
 			}
 		}
