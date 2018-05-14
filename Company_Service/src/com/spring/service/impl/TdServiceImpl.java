@@ -1,5 +1,6 @@
 package com.spring.service.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -50,9 +51,9 @@ import com.spring.service.TdService;
 			}
 		}
 		
-		public List<Td> getAllPosition(){
+		public List<Td> getAllPosition(BigInteger parent){
 			try{
-				return mapper.getAllPosition();
+				return mapper.getAllPosition(parent);
 			}catch(Exception e){
 				return null;
 			}
