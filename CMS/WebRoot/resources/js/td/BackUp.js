@@ -15,6 +15,7 @@ var symbol1=0;
 var sym=0;
 var timerele;
 var timervol;
+var change;
 var socket;
 var redata;
 var rowdex=0;
@@ -78,6 +79,7 @@ $(function(){
 	          alert("数据请求失败，请联系系统管理员!");  
 	      }  
 	 });
+	datatable();
     websocket();
 })
     function websocket() {
@@ -99,7 +101,6 @@ $(function(){
 			}
 		},10000);
 		socket.onopen = function() {
-			datatable();
 			//监听加载状态改变  
 			document.onreadystatechange = completeLoading();  
 			   
@@ -111,14 +112,18 @@ $(function(){
 			setTimeout(function(){
 				if(symbol==0){
 					alert("连接成功，但未接收到任何数据");
+					rows = $('#dg').datagrid("getRows");
+					$("#off").textbox("setValue", rows.length);
 				}
 			},5000);
 		};
 		socket.onmessage = function(msg) {
 			redata=msg.data;
-			
+			rows = $('#dg').datagrid("getRows");
     		for(var i = 0;i < redata.length;i+=69){
     			if(redata.substring(8+i, 12+i)!="0000"){
+    				for(var y=0;y<rows.length;y++){
+    					if(rows[y].finsid==redata.substring(2+i,4+i)){
     				if(redata.substring(0+i,2+i)=="03"||redata.substring(0+i,2+i)=="05"||redata.substring(0+i,2+i)=="07"){
     					if(work.length==0){
     						work.push(redata.substring(4+i, 8+i));
@@ -149,10 +154,10 @@ $(function(){
     					}
     				}
     			}
+    				}
+    			}
     		};
     		//新增定时器
-			
-			rows = $('#dg').datagrid("getRows");
     		if(symbol1==0){
     			dglength = rows.length;
     			window.setInterval(function() {
@@ -167,6 +172,8 @@ $(function(){
     		$("#off").textbox("setValue", dglength-wait.length-work.length);
 			for(var i = 0;i < redata.length;i+=69){
 				if(redata.substring(8+i, 12+i)!="0000"){
+    				for(var y=0;y<rows.length;y++){
+    					if(rows[y].finsid==redata.substring(2+i,4+i)){
 					if(machine.length==0){
 						machine.push(redata.substring(4+i, 8+i));
 					}else{
@@ -182,6 +189,8 @@ $(function(){
 							}
 						}
 					}
+				}
+			}
 				}
 			};
 			iview(machine[0],symbol);
@@ -213,7 +222,7 @@ $(function(){
 			rowdex++;
 			}
 			if(symbol==0){
-				window.setInterval(function() {
+				change = window.setInterval(function() {
 					sint++;
 					if(sint<machine.length){
 						iview(machine[sint],0);
@@ -299,19 +308,18 @@ $(function(){
 				halign : "center",
 				align : "left"
 			},{
-				field : 'fci',
+				field : 'finsid',
 				title : '组织机构id',
 				width : 100,
 				halign : "center",
 				align : "left",
 				hidden : true
 			},{
-				field : 'fcn',
+				field : 'finsname',
 				title : '组织机构名称',
 				width : 100,
 				halign : "center",
-				align : "left",
-				hidden : true
+				align : "left"
 			},{
 				field : 'fstatus_id',
 				title : '设备状态',
@@ -343,7 +351,7 @@ $(function(){
 	                return 'background-color:#FF0000;color:black;';
 	            }*/
 	            else if (row.fstatus_id=="00"){
-	                return 'background-color:#0000CD;color:black;';
+	                return 'background-color:#1C86EE;color:black;';
 	            }
 	            else{
 	                return 'background-color:#A9A9A9;color:black;';
@@ -644,22 +652,23 @@ $(function(){
 		}
 		for(var i = 0;i < redata.length;i+=69){
 			if(redata.substring(8+i, 12+i)!="0000"){
-				if(parseInt(redata.substring(4+i, 8+i),16)==value){
-					ele.push(parseInt(redata.substring(12+i, 16+i),16));
-					vol.push(parseFloat((parseInt(redata.substring(16+i, 20+i),16)/10).toFixed(2)));
+				if(redata.substring(4+i, 8+i)==value){
+					ele.push(parseInt(redata.substring(12+i, 16+i)));
+//					vol.push(parseFloat((parseInt(redata.substring(16+i, 20+i))/10).toFixed(2)));
+					vol.push(parseInt(redata.substring(16+i, 20+i)));
 					time.push(Date.parse(redata.substring(20+i, 39+i)));
 					maxele = parseInt(redata.substring(41+i, 44+i));
 					minele = parseInt(redata.substring(44+i, 47+i));
 					maxvol = parseInt(redata.substring(47+i, 50+i));
 					minvol = parseInt(redata.substring(50+i, 53+i));
-					var backele=parseInt(redata.substring(12+i, 16+i),16).toString();
+					var backele=parseInt(redata.substring(12+i, 16+i)).toString();
 					if(backele.length<4){
 						var elelen=backele.length;
 						for(var na=0;na<4-elelen;na++){
 							backele="0"+backele;
 						}
 					}
-					var backvol=parseInt(redata.substring(16+i, 20+i),16).toString();
+					var backvol=parseInt(redata.substring(16+i, 20+i)).toString();
 					if(backvol.length<4){
 						var vollen=backvol.length;
 						for(var nan=0;nan<4-vollen;nan++){
@@ -681,8 +690,8 @@ $(function(){
 						}
 					}
 					for(var n=0;n<rows.length;n++){
-						if(rows[n].fci==parseInt(redata.substring(2+i, 4+i))){
-							$("#zu").textbox("setValue", rows[n].fcn);
+						if(rows[n].finsid==parseInt(redata.substring(2+i, 4+i))){
+							$("#zu").textbox("setValue", rows[n].finsname);
 							break;
 						}
 					}

@@ -26,6 +26,7 @@ import com.greatway.model.Insframework;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
 import com.spring.model.MyUser;
+import com.spring.service.TdService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -37,6 +38,10 @@ public class InsframeworkController {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
+	private BigInteger value3;
+	
+	@Autowired
+	private TdService tdService;
 	
 	@Autowired
 	private InsframeworkManager im;
@@ -473,6 +478,31 @@ public class InsframeworkController {
 	@RequestMapping("/getConmpany")
 	@ResponseBody
 	public void getConmpany(HttpServletResponse response){
+		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+			    .getAuthentication()  
+			    .getPrincipal();
+		long uid = myuser.getId();
+		int dic=tdService.findDic(uid);
+		BigInteger value1;
+		BigInteger value2;
+		
+		if(dic==20){
+			value1=null;
+			value2=null;
+			value3=null;
+		}else if(dic==21){
+			value1=im.getUserInsfId(BigInteger.valueOf(uid));
+			value2=null;
+			value3=null;
+		}else if(dic==22){
+			value1=im.getParent(im.getUserInsfId(BigInteger.valueOf(uid))).getId();
+			value2=im.getUserInsfId(BigInteger.valueOf(uid));
+			value3=null;
+		}else{
+			value1=im.getParent(im.getParent(im.getUserInsfId(BigInteger.valueOf(uid))).getId()).getId();
+			value2=im.getParent(im.getUserInsfId(BigInteger.valueOf(uid))).getId();
+			value3=im.getUserInsfId(BigInteger.valueOf(uid));
+		}
         String str ="";  
         StringBuilder json = new StringBuilder();  
         // 拼接根节点  
@@ -483,7 +513,7 @@ public class InsframeworkController {
 	        json.append(",\"text\":\"" +b.getName()+ "\"");
 	        json.append(",\"state\":\"open\"");  
 	        // 获取根节点下的所有子节点  
-	        List<Insframework> treeList = im.getConmpany();
+	        List<Insframework> treeList = im.getConmpany(value1);
 	        // 遍历子节点下的子节点  
 	        if(treeList!=null && treeList.size()!=0){  
 	            json.append(",\"children\":[");  
@@ -496,7 +526,7 @@ public class InsframeworkController {
 	                // 该节点有子节点  
 	                // 设置为关闭状态,而从构造异步加载tree  
 	              
-	                List<Insframework> tList = im.getCause(t.getId());  
+	                List<Insframework> tList = im.getCause(t.getId(),value2);  
 	                if(tList!=null && tList.size()!=0){// 存在子节点  
 	                     json.append(",\"children\":[");  
 	                     json.append(dealJsonFormat(tList));// 存在子节点的都放在一个工具类里面处理了
@@ -525,7 +555,7 @@ public class InsframeworkController {
             json.append(",\"state\":\"open\"");
             
             // 获取根节点下的所有子节点  
-            List<Insframework> treeLists = im.getCause(tree.getId());
+            List<Insframework> treeLists = im.getCause(tree.getId(),value3);
             // 遍历子节点下的子节点  
             if(treeLists!=null && treeLists.size()!=0){  
                 json.append(",\"children\":["); 

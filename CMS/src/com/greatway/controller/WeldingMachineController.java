@@ -142,6 +142,12 @@ public class WeldingMachineController {
 		BigInteger parent = null;
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
+		}else{
+			MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+				    .getAuthentication()  
+				    .getPrincipal();
+			long uid = myuser.getId();
+			parent = im.getUserInsfId(BigInteger.valueOf(uid));
 		}
 		request.getSession().setAttribute("searchStr", searchStr);
 		page = new Page(pageIndex,pageSize,total);

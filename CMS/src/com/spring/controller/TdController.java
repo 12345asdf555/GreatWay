@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.WeldingMachineManager;
+import com.greatway.model.Insframework;
 import com.spring.model.MyUser;
 import com.spring.model.Td;
 import com.spring.service.TdService;
@@ -30,6 +31,9 @@ public class TdController {
 	@Autowired
 	private InsframeworkManager insfService;
 	private Td td;
+	
+	@Autowired
+	private InsframeworkManager im;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -55,13 +59,14 @@ public class TdController {
 			    .getPrincipal();
 		long uid = myuser.getId();
 		int dic=tdService.findDic(uid);
-		if(dic==21){
+		return "td/BackUp";
+/*		if(dic==21){
 		String insname = tdService.findInsname(tdService.findIns(uid));
 		request.setAttribute("insname", insname);
 		return "td/BackUp";
 		}else{
 		return "/Error";
-		}
+		}*/
 	}
 	
 	@RequestMapping("/AllTdd")
@@ -86,13 +91,13 @@ public class TdController {
 			    .getPrincipal();
 		long uid = myuser.getId();
 		int dic=tdService.findDic(uid);
-		if(dic==22){
+/*		if(dic==22){*/
 		String insname = tdService.findInsname(tdService.findIns(uid));
 		request.setAttribute("divi", insname);
 		return "td/BackUp";
-		}else{
+/*		}else{
 			return "/Error";
-			}
+			}*/
 	}
 	
 	@RequestMapping("/AllTdp")
@@ -102,13 +107,13 @@ public class TdController {
 			    .getPrincipal();
 		long uid = myuser.getId();
 		int dic=tdService.findDic(uid);
-		if(dic==23){
+/*		if(dic==23){*/
 		String insname = tdService.findInsname(tdService.findIns(uid));
 		request.setAttribute("proj", insname);
 		return "td/BackUp";
-		}else{
+/*		}else{
 			return "/Error";
-		}
+		}*/
 	}
 	
 	@RequestMapping("/AllTdad")
@@ -402,24 +407,63 @@ public class TdController {
 	public String getAllPosition(HttpServletRequest request){
 		String parentId = request.getParameter("parent");
 		BigInteger parent = null;
-		if(iutil.isNull(parentId)){
-			parent = new BigInteger(parentId);
-		}
-		List<Td> getAP = tdService.getAllPosition(parent);
 		JSONObject obj = new JSONObject();
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
-		try{
-			for(Td td:getAP){
-				json.put("fid",td.getId());
-				json.put("fequipment_no", td.getFequipment_no());
-				json.put("fposition", td.getFposition());
-				json.put("finsid", td.getFci());
-				json.put("finsname", td.getFcn());
-				ary.add(json);
+		if(iutil.isNull(parentId)){
+			parent = new BigInteger(parentId);
+			List<Td> getAP = tdService.getAllPosition(parent);
+			try{
+				for(Td td:getAP){
+					json.put("fid",td.getId());
+					json.put("fequipment_no", td.getFequipment_no());
+					json.put("fposition", td.getFposition());
+					json.put("finsid", td.getFci());
+					json.put("finsname", td.getFcn());
+					ary.add(json);
+				}
+			}catch(Exception e){
+				e.getMessage();
 			}
-		}catch(Exception e){
-			e.getMessage();
+		}else{
+			MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+				    .getAuthentication()  
+				    .getPrincipal();
+			long uid = myuser.getId();
+			if(im.getInsByUserid(BigInteger.valueOf(uid)).get(0).getType()==20){
+				List<Td> getAP = tdService.getAllPosition(parent);
+				try{
+					for(Td td:getAP){
+						json.put("fid",td.getId());
+						json.put("fequipment_no", td.getFequipment_no());
+						json.put("fposition", td.getFposition());
+						json.put("finsid", td.getFci());
+						json.put("finsname", td.getFcn());
+						ary.add(json);
+					}
+				}catch(Exception e){
+					e.getMessage();
+				}
+			}else{
+				List<Insframework> in = im.getInsIdByParent(im.getInsByUserid(BigInteger.valueOf(uid)).get(0).getId(),24);
+				List<Td> getAP = tdService.getAllPosition(parent);
+				try{
+					for(Td td:getAP){
+						for(Insframework ins:in){
+							if(td.getFci()==Integer.valueOf(ins.getId().toString())){
+								json.put("fid",td.getId());
+								json.put("fequipment_no", td.getFequipment_no());
+								json.put("fposition", td.getFposition());
+								json.put("finsid", td.getFci());
+								json.put("finsname", td.getFcn());
+								ary.add(json);
+							}
+						}
+					}
+				}catch(Exception e){
+					e.getMessage();
+				}
+			}
 		}
 		obj.put("rows", ary);
 		return obj.toString();

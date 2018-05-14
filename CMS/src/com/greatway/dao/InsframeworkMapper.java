@@ -31,9 +31,9 @@ public interface InsframeworkMapper extends Mapper<Insframework>{
 	
 	void deleteInsframework(@Param("id")BigInteger id);
 	
-	List<Insframework> getConmpany();
+	List<Insframework> getConmpany(@Param("value1")BigInteger value1);
 	
-	List<Insframework> getCause(@Param("id")BigInteger id);
+	List<Insframework> getCause(@Param("id")BigInteger id,@Param("value2")BigInteger value2);
 	
 	Insframework getParent(@Param("id")BigInteger id);
 	

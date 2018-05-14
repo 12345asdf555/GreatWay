@@ -1,10 +1,12 @@
 package com.greatway.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.WelderManager;
 import com.greatway.model.Welder;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
+import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -30,6 +34,9 @@ public class WelderController {
 	
 	@Autowired
 	private WelderManager wm;
+	@Autowired
+	private InsframeworkManager im;
+	
 	IsnullUtil iutil = new IsnullUtil();
 	
 	@RequestMapping("/goWelder")
@@ -44,6 +51,13 @@ public class WelderController {
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String search = request.getParameter("searchStr");
 		
+		if(search==null){
+			MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+				    .getAuthentication()  
+				    .getPrincipal();
+			long uid = myuser.getId();
+			search = "i.fid=" + im.getUserInsfId(BigInteger.valueOf(uid));
+		}
 		page = new Page(pageIndex,pageSize,total);
 		List<Welder> list =wm.getWelderAll(page, search);
 		long total = 0;

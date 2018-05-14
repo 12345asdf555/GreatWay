@@ -95,6 +95,12 @@ public class GatherController {
 		BigInteger parent = null;
 		if(iutil.isNull(parentid)){
 			parent = new BigInteger(parentid);
+		}else{
+			MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+				    .getAuthentication()  
+				    .getPrincipal();
+			long uid = myuser.getId();
+			parent = im.getUserInsfId(BigInteger.valueOf(uid));
 		}
 		page = new Page(pageIndex,pageSize,total);
 		

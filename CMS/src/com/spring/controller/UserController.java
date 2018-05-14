@@ -100,6 +100,12 @@ public class UserController {
 		BigInteger parent = null;
 		if(iutil.isNull(parentId)){
 			parent = new BigInteger(parentId);
+		}else{
+			MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+				    .getAuthentication()  
+				    .getPrincipal();
+			long uid = myuser.getId();
+			parent = im.getUserInsfId(BigInteger.valueOf(uid));
 		}
 		page = new Page(pageIndex,pageSize,total);
 		List<User> findAll = userService.findAll(page,parent,search);

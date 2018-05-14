@@ -88,13 +88,13 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 	}
 
 	@Override
-	public List<Insframework> getConmpany() {
-		return im.getConmpany();
+	public List<Insframework> getConmpany(BigInteger value1) {
+		return im.getConmpany(value1);
 	}
 
 	@Override
-	public List<Insframework> getCause(BigInteger id) {
-		return im.getCause(id);
+	public List<Insframework> getCause(BigInteger id,BigInteger value2) {
+		return im.getCause(id,value2);
 	}
 
 	@Override
