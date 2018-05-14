@@ -117,7 +117,7 @@
 		inner join tb_insframework ins on ins.fid = i.fparent 
 		where i.ftype=#{type}
 		<if test="parent!=null and parent!=''">
-			and (i.fparent = #{parent} or ins.fparent = #{parent})
+			and (i.fid = #{parent} or i.fparent = #{parent} or ins.fparent = #{parent})
 		</if>
 	</select>
 	

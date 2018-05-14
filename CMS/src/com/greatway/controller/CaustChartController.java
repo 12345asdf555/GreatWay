@@ -950,22 +950,27 @@ public class CaustChartController {
 		JSONObject json = new JSONObject();
 		JSONArray ary = new JSONArray();
 		JSONObject obj = new JSONObject();
+		String parentid = request.getParameter("parent");
 		BigInteger parent = null;
 		//数据权限处理
-		BigInteger uid = lm.getUserId(request);
-		String afreshLogin = (String)request.getAttribute("afreshLogin");
-		if(iutil.isNull(afreshLogin)){
-			json.put("id", 0);
-			json.put("name", "无");
-			ary.add(json);
-			obj.put("ary", ary);
-			return obj.toString();
-		}
-		int type = insm.getUserInsfType(uid);
-		if(type==21){
-			parent = insm.getUserInsfId(uid);
-		}else if(type==22){
-			parent = insm.getUserInsfId(uid);
+		if(iutil.isNull(parentid)){
+			parent = new BigInteger(parentid);
+		}else{
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				json.put("id", 0);
+				json.put("name", "无");
+				ary.add(json);
+				obj.put("ary", ary);
+				return obj.toString();
+			}
+			int type = insm.getUserInsfType(uid);
+			if(type==21){
+				parent = insm.getUserInsfId(uid);
+			}else if(type==22){
+				parent = insm.getUserInsfId(uid);
+			}
 		}
 		try{
 			List<Insframework> list = insm.getInsByType(23,parent);

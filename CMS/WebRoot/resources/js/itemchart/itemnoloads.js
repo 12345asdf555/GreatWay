@@ -160,12 +160,17 @@ function ItemtimeCombobox(){
       }  
 	}); 
 	$("#item").combobox();
-	var data = $("#item").combobox('getData');
-	$("#item").combobox('select',data[0].value);
+	if($("#parent").val()){
+		$("#item").combobox('setValue',$("#parent").val());
+	}else{
+		var data = $("#item").combobox('getData');
+		$("#item").combobox('select',data[0].value);
+	}
 }
 
 
 function serachitemnoloads(){
+	$("#parent").val("");
 	$("#chartLoading").show();
 	array1 = new Array();
 	array2 = new Array();

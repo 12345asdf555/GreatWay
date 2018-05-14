@@ -107,7 +107,7 @@ function BlocIdleDatagrid(){
     }); 
 	 $("#blocIdleTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#blocIdle_btn").height()-$("#blocIdle_btn").height()-40,
+			height : $("#body").height() - $("#blocIdleChart").height()-$("#blocIdle_btn").height()-40,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
