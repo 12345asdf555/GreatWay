@@ -204,10 +204,9 @@ public class DataStatisticsController {
 						standytimes = standytime.doubleValue()/60;
 					}
 					if(weldtime!=null){
-						time = weldtime.getWorktime().doubleValue()/60;
-						electric = (double)Math.round(weldtime.getWorktime().doubleValue()/60*weldtime.getElectricity()*weldtime.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((weldtime.getWorktime().doubleValue()/60*weldtime.getElectricity()*weldtime.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
-						electric = (double)Math.round(time+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}
 					json.put("t10", electric);//电能消耗
 				}else{
@@ -308,7 +307,7 @@ public class DataStatisticsController {
 						json.put("t2", getTimeStrBySecond(i.getInsid().subtract(o.getInsid())));//正常焊接时长
 						json.put("t3", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
 						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
-							json.put("t4", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
+							json.put("t4", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().subtract(o.getInsid()).toString())/(Integer.valueOf(i.getInsid().toString()))));//规范符合率
 						}else{
 							json.put("t4",0);
 						}
@@ -317,7 +316,7 @@ public class DataStatisticsController {
 				}
 			}
 			//表头
-			String [] str = {"所属班组","累计焊接时间","正常段时长","超规范时长","规范符合率"};
+			String [] str = {"所属班组","累计焊接时间","正常段时长","超规范时长","规范符合率(%)"};
 			for(int i=0;i<str.length;i++){
 				title.put("title", str[i]);
 				titleary.add(title);
@@ -393,9 +392,9 @@ public class DataStatisticsController {
 					}
 					if(weld!=null){
 						time = weld.getWorktime().doubleValue()/60;
-						electric = (double)Math.round(time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
-						electric = (double)Math.round(time+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}
 					json.put("t7", electric);//电能消耗
 				}else{
@@ -492,7 +491,7 @@ public class DataStatisticsController {
 						json.put("t3", getTimeStrBySecond(i.getInsid().subtract(o.getInsid())));//正常焊接时长
 						json.put("t4", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
 						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
-							json.put("t5", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
+							json.put("t5", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().subtract(o.getInsid()).toString())/(Integer.valueOf(i.getInsid().toString()))));//规范符合率
 						}else{
 							json.put("t5",0);
 						}
@@ -501,7 +500,7 @@ public class DataStatisticsController {
 				}
 			}
 			//表头
-			String [] str = {"所属班组","设备编码","累计焊接时间","正常段时长","超规范时长","规范符合率"};
+			String [] str = {"所属班组","设备编码","累计焊接时间","正常段时长","超规范时长","规范符合率(%)"};
 			for(int i=0;i<str.length;i++){
 				title.put("title", str[i]);
 				titleary.add(title);
@@ -571,9 +570,9 @@ public class DataStatisticsController {
 					}
 					if(weld!=null){
 						time = weld.getWorktime().doubleValue()/60;
-						electric = (double)Math.round(time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
-						electric = (double)Math.round(time+standytimes*parameter.getStandbypower()*100)/100;
+						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;
 					}
 					json.put("t7", electric);//电能消耗
 				}else{
@@ -664,7 +663,7 @@ public class DataStatisticsController {
 						json.put("t3", getTimeStrBySecond(i.getInsid().subtract(o.getInsid())));//正常焊接时长
 						json.put("t4", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
 						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
-							json.put("t5", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
+							json.put("t5", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().subtract(o.getInsid()).toString())/(Integer.valueOf(i.getInsid().toString()))));//规范符合率
 						}else{
 							json.put("t5",0);
 						}
@@ -673,7 +672,7 @@ public class DataStatisticsController {
 				}
 			}
 			//表头
-			String [] str = {"焊工编号","焊工姓名","累计焊接时间","正常段时长","超规范时长","规范符合率"};
+			String [] str = {"焊工编号","焊工姓名","累计焊接时间","正常段时长","超规范时长","规范符合率(%)"};
 			for(int i=0;i<str.length;i++){
 				title.put("title", str[i]);
 				titleary.add(title);
@@ -742,9 +741,9 @@ public class DataStatisticsController {
 					}
 					if(weld!=null){
 						time = weld.getWorktime().doubleValue()/60;
-						electric = (double)Math.round(time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
-						electric = (double)Math.round(time+standytimes*parameter.getStandbypower()*100)/100;
+						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;
 					}
 					json.put("t5", electric);//电能消耗
 				}else{
@@ -834,7 +833,7 @@ public class DataStatisticsController {
 						json.put("t2", getTimeStrBySecond(i.getInsid().subtract(o.getInsid())));//正常焊接时长
 						json.put("t3", getTimeStrBySecond(o.getInsid()));//超规范焊接时长
 						if(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString())!=0){
-							json.put("t4", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().toString())/(Integer.valueOf(i.getInsid().toString())+Integer.valueOf(o.getInsid().toString()))));//规范符合率
+							json.put("t4", new DecimalFormat("0.00").format((float)Integer.valueOf(i.getInsid().subtract(o.getInsid()).toString())/(Integer.valueOf(i.getInsid().toString()))));//规范符合率
 						}else{
 							json.put("t4",0);
 						}
@@ -843,7 +842,7 @@ public class DataStatisticsController {
 				}
 			}
 			//表头
-			String [] str = {"焊缝编号","累计焊接时间","正常段时长","超规范时长","规范符合率"};
+			String [] str = {"焊缝编号","累计焊接时间","正常段时长","超规范时长","规范符合率(%)"};
 			for(int i=0;i<str.length;i++){
 				title.put("title", str[i]);
 				titleary.add(title);

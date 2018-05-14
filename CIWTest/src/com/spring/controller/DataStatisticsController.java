@@ -204,10 +204,9 @@ public class DataStatisticsController {
 						standytimes = standytime.doubleValue()/60;
 					}
 					if(weldtime!=null){
-						time = weldtime.getWorktime().doubleValue()/60;
-						electric = (double)Math.round(weldtime.getWorktime().doubleValue()/60*weldtime.getElectricity()*weldtime.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((weldtime.getWorktime().doubleValue()/60*weldtime.getElectricity()*weldtime.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
-						electric = (double)Math.round(time+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}
 					json.put("t10", electric);//电能消耗
 				}else{
@@ -393,9 +392,9 @@ public class DataStatisticsController {
 					}
 					if(weld!=null){
 						time = weld.getWorktime().doubleValue()/60;
-						electric = (double)Math.round(time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
-						electric = (double)Math.round(time+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}
 					json.put("t7", electric);//电能消耗
 				}else{
@@ -571,9 +570,9 @@ public class DataStatisticsController {
 					}
 					if(weld!=null){
 						time = weld.getWorktime().doubleValue()/60;
-						electric = (double)Math.round(time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
-						electric = (double)Math.round(time+standytimes*parameter.getStandbypower()*100)/100;
+						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;
 					}
 					json.put("t7", electric);//电能消耗
 				}else{
@@ -742,9 +741,9 @@ public class DataStatisticsController {
 					}
 					if(weld!=null){
 						time = weld.getWorktime().doubleValue()/60;
-						electric = (double)Math.round(time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
-						electric = (double)Math.round(time+standytimes*parameter.getStandbypower()*100)/100;
+						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;
 					}
 					json.put("t5", electric);//电能消耗
 				}else{
