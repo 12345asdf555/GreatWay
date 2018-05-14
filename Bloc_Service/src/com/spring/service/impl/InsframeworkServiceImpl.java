@@ -120,18 +120,18 @@ public class InsframeworkServiceImpl implements InsframeworkService {
 	}
 
 	@Override
-	public List<Insframework> getConmpany() {
+	public List<Insframework> getConmpany(BigInteger value1) {
 		try{
-			return im.getConmpany();
+			return im.getConmpany(value1);
 		}catch(Exception e){
 			return null;
 		}
 	}
 
 	@Override
-	public List<Insframework> getCause(BigInteger id) {
+	public List<Insframework> getCause(BigInteger id,BigInteger value2) {
 		try{
-			return im.getCause(id);
+			return im.getCause(id,value2);
 		}catch(Exception e){
 			return null;
 		}

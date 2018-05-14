@@ -61,7 +61,8 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			boolean flag = ds.addDictionary(d);
 			obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+d.getId()+"\"}";
 			//获取集团下所有公司
-			List<Insframework> company = is.getConmpany();
+			BigInteger parent=null;
+			List<Insframework> company = is.getConmpany(parent);
 			for(Insframework i:company){
 				Client companyclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(i.getId().toString()));
 				Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
@@ -97,7 +98,8 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			d.setModifier(json.getString("MODIFIER"));
 			boolean flag = ds.editDictionary(d);
 			//获取集团下所有公司
-			List<Insframework> company = is.getConmpany();
+			BigInteger parent=null;
+			List<Insframework> company = is.getConmpany(parent);
 			for(Insframework i:company){
 				Client companyclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(i.getId().toString()));
 				Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
@@ -138,7 +140,8 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			JSONObject json = JSONObject.fromObject(obj2);
 			boolean flag = ds.deleteDictionary(json.getInt("ID"));
 			//获取集团下所有公司
-			List<Insframework> company = is.getConmpany();
+			BigInteger parent=null;
+			List<Insframework> company = is.getConmpany(parent);
 			for(Insframework i:company){
 				Client companyclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(i.getId().toString()));
 				Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  

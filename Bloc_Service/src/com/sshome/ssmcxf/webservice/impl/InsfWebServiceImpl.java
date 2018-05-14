@@ -123,9 +123,10 @@ public class InsfWebServiceImpl implements InsfWebService {
 	}
 
 	@Override
-	public Object getCompany() {
+	public Object getCompany(String object) {
 		try{
-			 List<Insframework> list = is.getConmpany();
+			JSONObject json = JSONObject.fromObject(object);
+			 List<Insframework> list = is.getConmpany(new BigInteger(json.getString("INSFID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;
@@ -136,7 +137,7 @@ public class InsfWebServiceImpl implements InsfWebService {
 	public Object getCause(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<Insframework> list = is.getCause(new BigInteger(json.getString("INSFID")));
+			List<Insframework> list = is.getCause(new BigInteger(json.getString("INSFID")),new BigInteger(json.getString("ID")));
 			return JSON.toJSONString(list);
 		}catch(Exception e){
 			return null;

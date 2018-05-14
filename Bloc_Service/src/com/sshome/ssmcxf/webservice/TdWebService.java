@@ -3,7 +3,7 @@ package com.sshome.ssmcxf.webservice;
 public interface TdWebService {
 	Object findAll(String object);
 	Object findAlldiv(String object);
-	Object getAllPosition();
+	Object getAllPosition(String object);
 	long findIns(String object);
 	long findInsid(String object);
 	String findweld(String object);
