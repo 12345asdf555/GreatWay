@@ -201,10 +201,10 @@ public class DataStatisticsController {
 					weldtime = dss.getWorkTimeAndEleVol(i.getId(),dto);//获取焊接时长，平均电流电压
 					double standytimes = 0,time=0,electric=0;
 					if(standytime!=null){
-						standytimes = standytime.doubleValue()/60;
+						standytimes = standytime.doubleValue()/60/60;
 					}
 					if(weldtime!=null){
-						electric = (double)Math.round((weldtime.getWorktime().doubleValue()/60*weldtime.getElectricity()*weldtime.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((weldtime.getWorktime().doubleValue()/60/60*(weldtime.getElectricity()*weldtime.getVoltage())/1000+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
 						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}
@@ -388,11 +388,10 @@ public class DataStatisticsController {
 					weld = dss.getWorkTimeAndEleVol(i.getInsid(), dto);
 					double standytimes = 0,time=0,electric=0;
 					if(standytime!=null){
-						standytimes = standytime.doubleValue()/60;
+						standytimes = standytime.doubleValue()/60/60;
 					}
 					if(weld!=null){
-						time = weld.getWorktime().doubleValue()/60;
-						electric = (double)Math.round((time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						electric = (double)Math.round((weld.getWorktime().doubleValue()/60/60*(weld.getElectricity()*weld.getVoltage())/1000+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
 						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}
@@ -566,11 +565,11 @@ public class DataStatisticsController {
 					weld = dss.getWorkTimeAndEleVol(null, dto);
 					double standytimes = 0,time=0,electric=0;
 					if(standytime!=null){
-						standytimes = standytime.doubleValue()/60;
+						standytimes = standytime.doubleValue()/60/60;
 					}
 					if(weld!=null){
-						time = weld.getWorktime().doubleValue()/60;
-						electric = (double)Math.round((time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						time = weld.getWorktime().doubleValue()/60/60;
+						electric = (double)Math.round((time*(weld.getElectricity()*weld.getVoltage())/1000+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
 						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;
 					}
@@ -737,11 +736,11 @@ public class DataStatisticsController {
 
 					double standytimes = 0,time=0,electric=0;
 					if(standytime!=null){
-						standytimes = standytime.doubleValue()/60;
+						standytimes = standytime.doubleValue()/60/60;
 					}
 					if(weld!=null){
-						time = weld.getWorktime().doubleValue()/60;
-						electric = (double)Math.round((time*weld.getElectricity()*weld.getVoltage()+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
+						time = weld.getWorktime().doubleValue()/60/60;
+						electric = (double)Math.round((time*(weld.getElectricity()*weld.getVoltage())/1000+standytimes*parameter.getStandbypower()/1000)*100)/100;//电能消耗量=焊接时间*焊接平均电流*焊接平均电压+待机时间*待机功率
 					}else{
 						electric = (double)Math.round((time+standytimes*parameter.getStandbypower()/1000)*100)/100;
 					}
