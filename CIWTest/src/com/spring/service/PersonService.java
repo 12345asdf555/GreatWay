@@ -17,4 +17,10 @@ public interface PersonService {
 	int getUsernameCount(String welderno);
 	void update(Person welder);
 	void delete(BigInteger fid);
+
+	/**
+	 * 获取所有焊工
+	 * @return
+	 */
+	List<Person> getWelder();
 }

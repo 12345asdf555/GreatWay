@@ -79,4 +79,9 @@ public class PersonServiceImpl implements PersonService{
 		return mapper.getUsernameCount(welderno);
 	}
 
+	@Override
+	public List<Person> getWelder() {
+		return mapper.findAll(null, null);
+	}
+
 }

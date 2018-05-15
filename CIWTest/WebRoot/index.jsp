@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/index.js"></script>
+	<script type="text/javascript" src="resources/js/indexFauit.js"></script>
 	<style type="text/css">
 		a{text-decoration:none;color:inherit;outline:none;}
 	</style>
@@ -172,7 +173,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div data-options="region:'south',split:true" style="height:40px;">
    		<div class="tenghan-bottom">
-			<div style="margin-right:30px;"><a href="" class="logo"><img src="resources/images/weldmesbottom.png" /></a></div>
+   			<div  style="margin-left:30px;float:left" id="fauitContent"></div>
+			<div style="margin-right:30px;float:right"><a href="javascript:void(0)" class="logo"><img src="resources/images/weldmesbottom.png" /></a></div>
 		</div>
 	</div>
 

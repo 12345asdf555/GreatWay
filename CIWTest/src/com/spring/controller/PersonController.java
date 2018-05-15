@@ -1,8 +1,6 @@
 package com.spring.controller;
 
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.spring.model.MyUser;
 import com.spring.model.Person;
+import com.spring.model.WeldingMachine;
 import com.spring.page.Page;
-import com.spring.service.DictionaryService;
-import com.spring.service.InsframeworkService;
 import com.spring.service.PersonService;
+import com.spring.service.WeldingMachineService;
 import com.spring.util.IsnullUtil;
 
 import net.sf.json.JSONArray;
@@ -36,12 +34,9 @@ public class PersonController {
 	private int total = 0;
 	@Autowired
 	private PersonService welderService;
-	
+
 	@Autowired
-	private InsframeworkService im;
-	
-	@Autowired
-	private DictionaryService dm;
+	private WeldingMachineService  machineService;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -270,4 +265,39 @@ public class PersonController {
 		}
 		return data + "";
 	}
+	
+	/**
+	 * 获取焊工焊机信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getWelderMachine")
+	@ResponseBody
+	public String getWelderMachine(HttpServletRequest request){
+		JSONObject welderjson = new JSONObject();
+		JSONArray welderary = new JSONArray();
+		JSONObject machinerjson = new JSONObject();
+		JSONArray machineary = new JSONArray();
+		JSONObject obj = new JSONObject();
+		try{
+			List<Person> welderlist = welderService.getWelder();
+			List<WeldingMachine> machinelist = machineService.getAllMachine();
+			for(Person welder:welderlist){
+				welderjson.put("weldername", welder.getName());
+				welderjson.put("welderno", welder.getWelderno());
+				welderary.add(welderjson);
+			}
+			for(WeldingMachine machine:machinelist){
+				machinerjson.put("insfname", machine.getInsframeworkId().getName());
+				machinerjson.put("machineno", machine.getEquipmentNo());
+				machineary.add(machinerjson);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("welderary", welderary);
+		obj.put("machineary", machineary);
+		return obj.toString();
+	}
+	
 }

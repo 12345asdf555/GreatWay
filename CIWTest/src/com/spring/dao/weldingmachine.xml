@@ -59,7 +59,7 @@
 	</select>
 	
 	<select id="getAllMachine" resultMap="wmMap">
-SELECT 
+		SELECT 
 		w.fid fid,w.fIP fIP,w.fmodel model,fstatus_id, i.fid iid,ftype_id,g.fid gid,dic.fvalue mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
 		,dic.fvaluename mname,fisnetworking,fposition,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w

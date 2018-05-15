@@ -258,7 +258,7 @@ function refreshPersonData(data){
 window.setInterval(function () {
 	var data = [{value:weld.length, name:'在线'},{value:namex.length-weld.length, name:'离线'}];
 	refreshPersonData(data);
-},5000);
+},30000);
 
 var weldercharts;
 function showWelderChart(){
