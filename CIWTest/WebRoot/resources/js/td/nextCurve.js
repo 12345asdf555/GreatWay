@@ -445,31 +445,31 @@
 						case "00":
 							document.getElementById("in4").value="待机";
 							document.getElementById("in4").style.backgroundColor="#0000CD";
-							document.getElementById("td1").style.backgroundColor="#0000CD";
+//							document.getElementById("td1").style.backgroundColor="#0000CD";
 							document.getElementById("mrjpg").src="resources/images/i_blue.png";
 							break;
 						case "01":
 							document.getElementById("in4").value="E-010 焊枪开关OFF等待";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "02":
 							document.getElementById("in4").value="E-000工作停止";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "03":
 							document.getElementById("in4").value="焊接";
 							document.getElementById("in4").style.backgroundColor="#00FF00";
-							document.getElementById("td1").style.backgroundColor="#00FF00";
+//							document.getElementById("td1").style.backgroundColor="#00FF00";
 							document.getElementById("mrjpg").src="resources/images/i_green.png";
 							break;						
 						case "04":
 							document.getElementById("in4").value="电流过低";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 							
@@ -477,84 +477,84 @@
 							document.getElementById("in4").value="收弧";
 							document.getElementById("in4").style.backgroundColor="#00FF00";
 							document.getElementById("td1").style.backgroundColor="#00FF00";
-							document.getElementById("mrjpg").src="resources/images/i_green.png";
+//							document.getElementById("mrjpg").src="resources/images/i_green.png";
 							break;
 						case "06":
 							document.getElementById("in4").value="电流过高";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "07":
 							document.getElementById("in4").value="启弧";
 							document.getElementById("in4").style.backgroundColor="#00FF00";
-							document.getElementById("td1").style.backgroundColor="#00FF00";
+//							document.getElementById("td1").style.backgroundColor="#00FF00";
 							document.getElementById("mrjpg").src="resources/images/i_green.png";
 							break;
 						case "08":
 							document.getElementById("in4").value="电压过低";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "09":
 							document.getElementById("in4").value="电压过高";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "10":
 							document.getElementById("in4").value="E-100控制电源异常";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "15":
 							document.getElementById("in4").value="E-150一次输入电压过高";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "16":
 							document.getElementById("in4").value="E-160一次输入电压过低";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "20":
 							document.getElementById("in4").value="E-200一次二次电流检出异常";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "21":
 							document.getElementById("in4").value="E-210电压检出异常";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "22":
 							document.getElementById("in4").value="E-220逆变电路反馈异常";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "30":
 							document.getElementById("in4").value="E-300温度异常";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "70":
 							document.getElementById("in4").value="E-700输出过流异常";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						case "71":
 							document.getElementById("in4").value="E-710输入缺相异常";
 							document.getElementById("in4").style.backgroundColor="#FF0000";
-							document.getElementById("td1").style.backgroundColor="#FF0000";
+//							document.getElementById("td1").style.backgroundColor="#FF0000";
 							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
 							break;
 						}
