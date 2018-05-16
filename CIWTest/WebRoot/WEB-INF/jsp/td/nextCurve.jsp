@@ -52,41 +52,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<tr>
 						<td align="center" width="50%">
 							<label id="la1">设备序号</label>
-							<input id="in1" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:160px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">
+							<input id="in1" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:200px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">
 						</td>
 						<td align="center" width="50%">
 							<label id="la2">设备编号</label>
-							<input id="in2" value="${value}" readonly="readonly" type="text" disabled="true" style="text-align:center;color:#000000;width:160px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">
+							<input id="in2" value="${value}" readonly="readonly" type="text" disabled="true" style="text-align:center;color:#000000;width:200px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">
 						</td>
 					</tr>
 					<tr>
 						<td align="center" width="50%">
 							<label id="la3">机型</label>
-							<input id="in3" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:160px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">
+							<input id="in3" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:200px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">
 						</td>
 						<td id="td1" align="center" width="50%">
 							<label id="la4">设备状态</label>
-							<input id="in4" value="关机" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:160px;height:32px;font-size:10px;background-color:#EEEEEE;border:0px;">
+							<input id="in4" value="关机" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:200px;height:32px;font-size:10px;background-color:#EEEEEE;border:0px;">
 						</td>
 					</tr>
 					<tr>
 						<td align="center" width="50%">
 							<label id="la5">预置电流</label>
-							<input id="in5" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:160px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">A
+							<input id="in5" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:200px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">A
 						</td>
 						<td align="center" width="50%">
 							<label id="la6">预置电压</label>
-							<input id="in6" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:160px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">V
+							<input id="in6" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:200px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">V
 						</td>
 					</tr>
 					<tr>
 						<td align="center" width="50%">
 							<label id="la7">焊接电流</label>
-							<input id="in7" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:160px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">A
+							<input id="in7" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:200px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">A
 						</td>
 						<td align="center" width="50%">
 							<label id="la8">焊接电压</label>
-							<input id="in8" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:160px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">V
+							<input id="in8" value="" type="text" readonly="readonly" disabled="true" style="text-align:center;color:#000000;width:200px;height:32px;font-size:18px;background-color:#EEEEEE;border:0px;">V
 						</td>
 					</tr>
 				</tbody>
