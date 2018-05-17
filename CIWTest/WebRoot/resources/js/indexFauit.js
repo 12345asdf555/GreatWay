@@ -113,9 +113,6 @@ function view(){
 	for(var i = 0;i < redata.length;i+=69){
 		var mstatus=redata.substring(0+i, 2+i);//故障状态
 		switch (mstatus){
-		case "00":
-			content("待机",i);
-			break;
 			case "01":
 				content("E-010 焊枪开关OFF等待",i);
 				break;
