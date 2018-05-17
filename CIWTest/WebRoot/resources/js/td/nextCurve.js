@@ -36,6 +36,10 @@
 	var fmch;
 	var tongdao;
 	var sint=0;
+    var series;
+    var chart;
+    var series1;
+    var chart1;
 	var led=["0,1,2,4,5,6","2,5","0,2,3,4,6","0,2,3,5,6","1,2,3,5","0,1,3,5,6","0,1,3,4,5,6","0,2,5","0,1,2,3,4,5,6","0,1,2,3,5,6"];
 	$(function(){
 		var width = $("#treeDiv").width();
@@ -179,56 +183,14 @@
 			}
 		}
 		
+		
 		function elecurve(){
 	  		Highcharts.setOptions({
 	  		    global: {
 	  		        useUTC: false
 	  		    }
 	  		});
-	  		function activeLastPointToolip(chart) {
-	  		    var points = chart.series[0].points;
-	  		    chart.yAxis[0].removePlotLine('plot-line-1');
-	  		    chart.yAxis[0].removePlotLine('plot-line-2');
-	/*  		    chart.tooltip.refresh(points[points.length -1]);
-	  		    chart.tooltip.refresh(points1[points1.length -1]);*/
-	  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-	  		  		value:maxele, //在值为2的地方 
-	  		  		width:2, //标示线的宽度为2px 
-	  		  		color: 'red', //标示线的颜色 
-	  		  	    dashStyle:'longdashdot',
-	  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
-			          label:{
-	    		            text:'最高电流',     //标签的内容
-	    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-	    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-	    		        }
-	  		  	});
-	  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-	  		  		value:minele, //在值为2的地方 
-	  		  		width:2, //标示线的宽度为2px 
-	  		  		color: 'red', //标示线的颜色 
-	  		  	    dashStyle:'longdashdot',
-	  		  		id: 'plot-line-2', //标示线的id，在删除该标示线的时候需要该id标示 });
-			          label:{
-	    		            text:'最低电流',     //标签的内容
-	    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-	    		            x:10                     //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-	    		        }
-	  		  	})	  	
-	  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-	  		  		value:(minele+maxele)/2, //在值为2的地方 
-	  		  		width:2, //标示线的宽度为2px 
-	  		  		color: 'red', //标示线的颜色 
-	  		  	    dashStyle:'longdashdot',
-	  		  		id: 'plot-line-0', //标示线的id，在删除该标示线的时候需要该id标示 });
-			          label:{
-	    		            text:'预置电流',     //标签的内容
-	    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-	    		            x:10                     //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-	    		        }
-	  		  	})	  	
-	  		}
-	 
+
 	  		$('#body31').highcharts({
 	  		    chart: {
 	  		        type: 'spline',
@@ -237,137 +199,9 @@
 	  		        events: {
 	  		            load: function () {
 	  		                // set up the updating of the chart each second
-	  		                var series = this.series[0],
+	  		                    series = this.series[0],
 	  		                    chart = this,
-	  		                    z=0;
-	  		                	timerele = window.setInterval(function () {
-	  		                    /*var x = (new Date()).getTime()+t,*/ // current time
-	  		                		if(time.length!=0&&z<time.length){
-	  		  						var mstatus=machstatus[z];
-	  								switch (mstatus){
-	  								case "00":
-	  									document.getElementById("in4").value="待机";
-	  									document.getElementById("in4").style.backgroundColor="#84baed";
-//	  									document.getElementById("td1").style.backgroundColor="#0000CD";
-	  									document.getElementById("mrjpg").src="resources/images/i_blue.png";
-	  									break;
-	  								case "01":
-	  									document.getElementById("in4").value="E-010 焊枪开关OFF等待";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "02":
-	  									document.getElementById("in4").value="E-000工作停止";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "03":
-	  									document.getElementById("in4").value="焊接";
-	  									document.getElementById("in4").style.backgroundColor="#00FF00";
-//	  									document.getElementById("td1").style.backgroundColor="#00FF00";
-	  									document.getElementById("mrjpg").src="resources/images/i_green.png";
-	  									break;						
-	  								case "04":
-	  									document.getElementById("in4").value="电流过低";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  									
-	  								case "05":
-	  									document.getElementById("in4").value="收弧";
-	  									document.getElementById("in4").style.backgroundColor="#00FF00";
-//	  									document.getElementById("td1").style.backgroundColor="#00FF00";
-	  									document.getElementById("mrjpg").src="resources/images/i_green.png";
-	  									break;
-	  								case "06":
-	  									document.getElementById("in4").value="电流过高";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "07":
-	  									document.getElementById("in4").value="启弧";
-	  									document.getElementById("in4").style.backgroundColor="#00FF00";
-//	  									document.getElementById("td1").style.backgroundColor="#00FF00";
-	  									document.getElementById("mrjpg").src="resources/images/i_green.png";
-	  									break;
-	  								case "08":
-	  									document.getElementById("in4").value="电压过低";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "09":
-	  									document.getElementById("in4").value="电压过高";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "10":
-	  									document.getElementById("in4").value="E-100控制电源异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "15":
-	  									document.getElementById("in4").value="E-150一次输入电压过高";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "16":
-	  									document.getElementById("in4").value="E-160一次输入电压过低";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "20":
-	  									document.getElementById("in4").value="E-200一次二次电流检出异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "21":
-	  									document.getElementById("in4").value="E-210电压检出异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "22":
-	  									document.getElementById("in4").value="E-220逆变电路反馈异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "30":
-	  									document.getElementById("in4").value="E-300温度异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "70":
-	  									document.getElementById("in4").value="E-700输出过流异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "71":
-	  									document.getElementById("in4").value="E-710输入缺相异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								}
-			  		                    var x = time[z],
-			  		                        y = ele[z];
-			  		                    z++;
-			  		                    series.addPoint([x, y], true, true);
-			  		                    activeLastPointToolip(chart);
-	  		                		}
-	  		                }, 1000);
+	  		                	timerele = window.setInterval(function () {}, 1000);
 	  		            }
 	  		        }
 	  		    },
@@ -435,6 +269,8 @@
 	  		}, function(c) {
 	  		    activeLastPointToolip(c)
 	  		});
+	  		
+	  		activeLastPointToolip(chart);
 		}
 		
 		function volcurve(){
@@ -443,49 +279,6 @@
 	  		        useUTC: false
 	  		    }
 	  		});
-	  		function activeLastPointToolip(chart) {
-	  		    var points = chart.series[0].points;
-	  		    chart.yAxis[0].removePlotLine('plot-line-3');
-	  		    chart.yAxis[0].removePlotLine('plot-line-4');
-	/*  		    chart.tooltip.refresh(points[points.length -1]);
-	  		    chart.tooltip.refresh(points1[points1.length -1]);*/
-	  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-	  		  		value:maxvol, //在值为2的地方 
-	  		  		width:2, //标示线的宽度为2px 
-	  		  		color: 'black', //标示线的颜色 
-	  		  	    dashStyle:'longdashdot',
-	  		  		id: 'plot-line-3', //标示线的id，在删除该标示线的时候需要该id标示 });
-			          label:{
-	    		            text:'最高电压',     //标签的内容
-	    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-	    		            x:10  
-	    		        }
-	  		  	})
-	  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-	  		  		value:minvol, //在值为2的地方 
-	  		  		width:2, //标示线的宽度为2px 
-	  		  		color: 'black', //标示线的颜色 
-	  		  	    dashStyle:'longdashdot',
-	  		  		id: 'plot-line-4', //标示线的id，在删除该标示线的时候需要该id标示 });
-			          label:{
-	    		            text:'最低电压',     //标签的内容
-	    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-	    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-	    		        }
-	  		  	})
-	  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
-	  		  		value:(minvol+maxvol)/2, //在值为2的地方 
-	  		  		width:2, //标示线的宽度为2px 
-	  		  		color: 'black', //标示线的颜色 
-	  		  	    dashStyle:'longdashdot',
-	  		  		id: 'plot-line-5', //标示线的id，在删除该标示线的时候需要该id标示 });
-			          label:{
-	    		            text:'预置电压',     //标签的内容
-	    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
-	    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
-	    		        }
-	  		  	})		  	
-	  		}
 	 
 	  		$('#body32').highcharts({
 	  		    chart: {
@@ -495,137 +288,8 @@
 	  		        events: {
 	  		            load: function () {
 	  		                // set up the updating of the chart each second
-	  		                var series = this.series[0],
-	  		                    chart = this,
-			                    z=0;
-			                	timervol = window.setInterval(function () {
-			                    /*var x = (new Date()).getTime()+t,*/ // current time
-			                		if(time.length!=0&&z<time.length){
-		  		                    var x = time[z],
-		  		                        y = vol[z];
-	  		  						var mstatus=machstatus[z];
-	  								switch (mstatus){
-	  								case "00":
-	  									document.getElementById("in4").value="待机";
-	  									document.getElementById("in4").style.backgroundColor="#84baed";
-//	  									document.getElementById("td1").style.backgroundColor="#0000CD";
-	  									document.getElementById("mrjpg").src="resources/images/i_blue.png";
-	  									break;
-	  								case "01":
-	  									document.getElementById("in4").value="E-010 焊枪开关OFF等待";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "02":
-	  									document.getElementById("in4").value="E-000工作停止";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "03":
-	  									document.getElementById("in4").value="焊接";
-	  									document.getElementById("in4").style.backgroundColor="#00FF00";
-//	  									document.getElementById("td1").style.backgroundColor="#00FF00";
-	  									document.getElementById("mrjpg").src="resources/images/i_green.png";
-	  									break;						
-	  								case "04":
-	  									document.getElementById("in4").value="电流过低";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  									
-	  								case "05":
-	  									document.getElementById("in4").value="收弧";
-	  									document.getElementById("in4").style.backgroundColor="#00FF00";
-//	  									document.getElementById("td1").style.backgroundColor="#00FF00";
-	  									document.getElementById("mrjpg").src="resources/images/i_green.png";
-	  									break;
-	  								case "06":
-	  									document.getElementById("in4").value="电流过高";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "07":
-	  									document.getElementById("in4").value="启弧";
-	  									document.getElementById("in4").style.backgroundColor="#00FF00";
-//	  									document.getElementById("td1").style.backgroundColor="#00FF00";
-	  									document.getElementById("mrjpg").src="resources/images/i_green.png";
-	  									break;
-	  								case "08":
-	  									document.getElementById("in4").value="电压过低";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "09":
-	  									document.getElementById("in4").value="电压过高";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "10":
-	  									document.getElementById("in4").value="E-100控制电源异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "15":
-	  									document.getElementById("in4").value="E-150一次输入电压过高";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "16":
-	  									document.getElementById("in4").value="E-160一次输入电压过低";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "20":
-	  									document.getElementById("in4").value="E-200一次二次电流检出异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "21":
-	  									document.getElementById("in4").value="E-210电压检出异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "22":
-	  									document.getElementById("in4").value="E-220逆变电路反馈异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "30":
-	  									document.getElementById("in4").value="E-300温度异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "70":
-	  									document.getElementById("in4").value="E-700输出过流异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								case "71":
-	  									document.getElementById("in4").value="E-710输入缺相异常";
-	  									document.getElementById("in4").style.backgroundColor="#FF0000";
-//	  									document.getElementById("td1").style.backgroundColor="#FF0000";
-	  									document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
-	  									break;
-	  								}
-		  		                    z++;
-		  		                    series.addPoint([x, y], true, true);
-		  		                    activeLastPointToolip(chart);
-			                		}
-	  		                }, 1000);
+	  		                    series1 = this.series[0],
+	  		                    chart1 = this;
 	  		            }
 	  		        }
 	  		    },
@@ -634,7 +298,11 @@
 	  		    },
 	  		    xAxis: {
 	  		        type: 'datetime',
-	  		        tickPixelInterval: 150
+	  		        tickPixelInterval: 150/*,
+	  		        tickWidth:0,
+		  		    labels:{
+		  		    	enabled:false
+		  		    }*/
 	  		    },
 	  		    yAxis: [{
 	                max:50, // 定义Y轴 最大值  
@@ -671,12 +339,11 @@
 	  		        data: (function () {
 	  		            // generate an array of random data
 	  		            var data = [],
-			                /*time = new Date(Date.parse("0000-00-00 00:00:00")),*/
+/*			                time = new Date(Date.parse("0000-00-00 00:00:00")),*/
 			                i;
 			            for (i = -19; i <= 0; i += 1) {
 			                data.push({
 			                    x: time[0]-1000+i*1000,
-			                	/*x: time + i*1000,*/
 			                    y: 0
 			                });
 			            }
@@ -685,11 +352,18 @@
 	  		      
 	  		    }]
 	  		}, function(c) {
-	  		    activeLastPointToolip(c)
+	  		    activeLastPointToolip1(c)
 	  		});
+	  		
+	  		activeLastPointToolip1(chart1);
 		
 		}
 		function iview(){
+			var z=0;
+			time.length=0;
+			
+			vol.length=0;
+			ele.length=0;
 			for(var i = 0;i < redata.length;i+=69){
 				if(redata.substring(8+i, 12+i)!="0000"){
 					if(redata.substring(4+i, 8+i)==document.getElementById("in2").value){
@@ -701,6 +375,11 @@
 						minele = parseInt(redata.substring(44+i, 47+i));
 						maxvol = parseInt(redata.substring(47+i, 50+i));
 						minvol = parseInt(redata.substring(50+i, 53+i));
+						if(symbol==0){
+							elecurve();
+							volcurve();
+							symbol++;
+						}
 						document.getElementById("in5").value=(maxele+minele)/2;
 						document.getElementById("in6").value=(maxvol+minvol)/2;
 						document.getElementById("in7").value=parseInt(redata.substring(12+i, 16+i));
@@ -712,10 +391,148 @@
 						}
 						document.getElementById("in11").value=redata.substring(53+i, 61+i);
 						document.getElementById("in12").value=redata.substring(61+i, 69+i);
+
+                		if(time.length!=0&&z<time.length){
+  						var mstatus=redata.substring(0+i, 2+i);
+						switch (mstatus){
+						case "00":
+							document.getElementById("in4").value="待机";
+							document.getElementById("in4").style.backgroundColor="#84baed";
+//									document.getElementById("td1").style.backgroundColor="#0000CD";
+							document.getElementById("mrjpg").src="resources/images/i_blue.png";
+							break;
+						case "01":
+							document.getElementById("in4").value="E-010 焊枪开关OFF等待";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "02":
+							document.getElementById("in4").value="E-000工作停止";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "03":
+							document.getElementById("in4").value="焊接";
+							document.getElementById("in4").style.backgroundColor="#00FF00";
+//									document.getElementById("td1").style.backgroundColor="#00FF00";
+							document.getElementById("mrjpg").src="resources/images/i_green.png";
+							break;						
+						case "04":
+							document.getElementById("in4").value="电流过低";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+							
+						case "05":
+							document.getElementById("in4").value="收弧";
+							document.getElementById("in4").style.backgroundColor="#00FF00";
+//									document.getElementById("td1").style.backgroundColor="#00FF00";
+							document.getElementById("mrjpg").src="resources/images/i_green.png";
+							break;
+						case "06":
+							document.getElementById("in4").value="电流过高";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "07":
+							document.getElementById("in4").value="启弧";
+							document.getElementById("in4").style.backgroundColor="#00FF00";
+//									document.getElementById("td1").style.backgroundColor="#00FF00";
+							document.getElementById("mrjpg").src="resources/images/i_green.png";
+							break;
+						case "08":
+							document.getElementById("in4").value="电压过低";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "09":
+							document.getElementById("in4").value="电压过高";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "10":
+							document.getElementById("in4").value="E-100控制电源异常";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "15":
+							document.getElementById("in4").value="E-150一次输入电压过高";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "16":
+							document.getElementById("in4").value="E-160一次输入电压过低";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "20":
+							document.getElementById("in4").value="E-200一次二次电流检出异常";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "21":
+							document.getElementById("in4").value="E-210电压检出异常";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "22":
+							document.getElementById("in4").value="E-220逆变电路反馈异常";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "30":
+							document.getElementById("in4").value="E-300温度异常";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "70":
+							document.getElementById("in4").value="E-700输出过流异常";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						case "71":
+							document.getElementById("in4").value="E-710输入缺相异常";
+							document.getElementById("in4").style.backgroundColor="#FF0000";
+//									document.getElementById("td1").style.backgroundColor="#FF0000";
+							document.getElementById("mrjpg").src="resources/images/ROBOTdj.png";
+							break;
+						}
+	                    var x = time[z],
+	                        y = ele[z],
+	                    	v = vol[z];
+	                    if(z==0){
+  		                    series.addPoint([x, y], true, true);
+	  		                activeLastPointToolip(chart);
+  		                    series1.addPoint([x, v], true, true);
+	  		                activeLastPointToolip1(chart1);
+	  		            
+	                    }else{
+	                    	 if(x>time[z-1]){
+	  		                  series.addPoint([x, y], true, true);
+	  		                  activeLastPointToolip(chart);
+	  		                    series1.addPoint([x, v], true, true);
+		  		                activeLastPointToolip1(chart1);
+	                    	 }
+	                    }
+                		}
 					}
 				}
+                z++;
 			};
-			
 			if((time.length)%3==1){
 				ele[time.length] = ele[time.length-1];
 				ele[time.length+1] = ele[time.length-1];
@@ -728,11 +545,6 @@
 				ele[time.length] = ele[time.length-1];
 				vol[time.length] = vol[time.length-1];
 				time[time.length] = time[time.length-1]+1000;
-			}
-			if(symbol==0&&time.length!=0){
-				elecurve();
-				volcurve();
-				symbol++;
 			}
 		}
 		
@@ -748,4 +560,95 @@
 	    		width : $("#body").width()
 	    	});
 	    }
+	    
+	    
+  		function activeLastPointToolip(chart) {
+  		    var points = chart.series[0].points;
+  		    chart.yAxis[0].removePlotLine('plot-line-0');
+  		    chart.yAxis[0].removePlotLine('plot-line-1');
+  		    chart.yAxis[0].removePlotLine('plot-line-2');
+/*  		    chart.tooltip.refresh(points[points.length -1]);
+  		    chart.tooltip.refresh(points1[points1.length -1]);*/
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:maxele, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'red', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-1', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最高电流',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	});
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:minele, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'red', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-2', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最低电流',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                     //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	})	  	
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:(minele+maxele)/2, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'red', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-0', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'预置电流',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                     //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	})	  	
+  		}
+  		
+  		function activeLastPointToolip1(chart) {
+  		    var points = chart.series[0].points;
+  		    chart.yAxis[0].removePlotLine('plot-line-3');
+  		    chart.yAxis[0].removePlotLine('plot-line-4');
+  		    chart.yAxis[0].removePlotLine('plot-line-5');
+/*  		    chart.tooltip.refresh(points[points.length -1]);
+  		    chart.tooltip.refresh(points1[points1.length -1]);*/
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:maxvol, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-3', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最高电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10  
+    		        }
+  		  	})
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:minvol, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-4', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'最低电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	})
+  		  	chart.yAxis[0].addPlotLine({ //在y轴上增加 
+  		  		value:(minvol+maxvol)/2, //在值为2的地方 
+  		  		width:2, //标示线的宽度为2px 
+  		  		color: 'black', //标示线的颜色 
+  		  	    dashStyle:'longdashdot',
+  		  		id: 'plot-line-5', //标示线的id，在删除该标示线的时候需要该id标示 });
+		          label:{
+    		            text:'预置电压',     //标签的内容
+    		            align:'center',                //标签的水平位置，水平居左,默认是水平居中center
+    		            x:10                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+    		        }
+  		  	})		  	
+  		}
 	  
