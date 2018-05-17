@@ -274,19 +274,19 @@ public class PersonController {
 	@RequestMapping("/getWelderMachine")
 	@ResponseBody
 	public String getWelderMachine(HttpServletRequest request){
-		JSONObject welderjson = new JSONObject();
-		JSONArray welderary = new JSONArray();
+//		JSONObject welderjson = new JSONObject();
+//		JSONArray welderary = new JSONArray();
 		JSONObject machinerjson = new JSONObject();
 		JSONArray machineary = new JSONArray();
 		JSONObject obj = new JSONObject();
 		try{
-			List<Person> welderlist = welderService.getWelder();
+//			List<Person> welderlist = welderService.getWelder();
 			List<WeldingMachine> machinelist = machineService.getAllMachine();
-			for(Person welder:welderlist){
-				welderjson.put("weldername", welder.getName());
-				welderjson.put("welderno", welder.getWelderno());
-				welderary.add(welderjson);
-			}
+//			for(Person welder:welderlist){
+//				welderjson.put("weldername", welder.getName());
+//				welderjson.put("welderno", welder.getWelderno());
+//				welderary.add(welderjson);
+//			}
 			for(WeldingMachine machine:machinelist){
 				machinerjson.put("insfname", machine.getInsframeworkId().getName());
 				machinerjson.put("machineno", machine.getEquipmentNo());
@@ -295,7 +295,7 @@ public class PersonController {
 		}catch(Exception e){
 			e.getMessage();
 		}
-		obj.put("welderary", welderary);
+//		obj.put("welderary", welderary);
 		obj.put("machineary", machineary);
 		return obj.toString();
 	}
