@@ -472,6 +472,8 @@ public class ItemChartController {
 			}
 			if(list.size()<=0){
 				object.put("name", ins.getName());
+			}else{
+				object.put("name",list.get(0).getFname());
 			}
 			object.put("num", num);
 			arys.add(object);
@@ -656,6 +658,8 @@ public class ItemChartController {
 			}
 			if(list.size()<=0){
 				object.put("name", ins.getName());
+			}else{
+				object.put("name",list.get(0).getFname());
 			}
 			object.put("num", num);
 			arys.add(object);
