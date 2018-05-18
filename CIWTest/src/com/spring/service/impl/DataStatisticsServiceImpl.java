@@ -144,4 +144,74 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 		return ds.getFauitDetail(dto, id, value);
 	}
 
+	@Override
+	public List<DataStatistics> getAllItemData() {
+		// TODO Auto-generated method stub
+		return ds.getItemMachineCount();
+	}
+
+	@Override
+	public List<DataStatistics> getAllMachineData(BigInteger itemid) {
+		// TODO Auto-generated method stub
+		return ds.getAllMachine(itemid);
+	}
+
+	@Override
+	public List<DataStatistics> getAllPersonData() {
+		// TODO Auto-generated method stub
+		return ds.getAllWelder();
+	}
+
+	public List<DataStatistics> getAllJunctionData(String junctionno) {
+		// TODO Auto-generated method stub
+		return ds.getAllJunction(junctionno);
+	}
+
+	@Override
+	public List<DataStatistics> getWeldItemInCountData(WeldDto dto) {
+		// TODO Auto-generated method stub
+		return ds.getWeldItemInCount(dto);
+	}
+
+	@Override
+	public List<DataStatistics> getWeldItemOutCountData(WeldDto dto) {
+		// TODO Auto-generated method stub
+		return ds.getWeldItemOutCount(dto);
+	}
+
+	@Override
+	public List<DataStatistics> getWeldMachineInCountData(WeldDto dto, BigInteger itemid) {
+		// TODO Auto-generated method stub
+		return ds.getWeldMachineInCount(dto, itemid);
+	}
+
+	@Override
+	public List<DataStatistics> getWeldMachineOutCountData(WeldDto dto, BigInteger itemid) {
+		// TODO Auto-generated method stub
+		return ds.getWeldMachineOutCount(dto, itemid);
+	}
+
+	@Override
+	public List<DataStatistics> getWeldPersonInCountData(WeldDto dto) {
+		// TODO Auto-generated method stub
+		return ds.getWeldPersonInCount(dto);
+	}
+
+	@Override
+	public List<DataStatistics> getWeldPersonOutCountData(WeldDto dto) {
+		// TODO Auto-generated method stub
+		return ds.getWeldPersonOutCount(dto);
+	}
+
+	@Override
+	public List<DataStatistics> getWeldWorkpieceInCountData(WeldDto dto, String junctionno) {
+		// TODO Auto-generated method stub
+		return ds.getWeldPieceInCount(dto, junctionno);
+	}
+
+	@Override
+	public List<DataStatistics> getWeldWorkpieceOutCountData(WeldDto dto, String junctionno) {
+		// TODO Auto-generated method stub
+		return ds.getWeldPieceOutCount(dto, junctionno);
+	}
 }

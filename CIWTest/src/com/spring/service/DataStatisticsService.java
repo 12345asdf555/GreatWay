@@ -102,7 +102,7 @@ public interface DataStatisticsService {
 	List<DataStatistics> getAllInsframe();
 
 	/**
-	 * 获取组织机构正常焊接时间
+	 * 获取组织机构累计焊接时间
 	 * @param page 分页
 	 * @param dto 扩展参数类
 	 * @return
@@ -118,7 +118,7 @@ public interface DataStatisticsService {
 	List<DataStatistics> getWeldItemOutCount(Page page, WeldDto dto);
 	
 	/**
-	 * 获取焊机正常焊接时间
+	 * 获取焊机累计焊接时间
 	 * @param page 分页
 	 * @param dto 扩展参数类
 	 * @return
@@ -134,7 +134,7 @@ public interface DataStatisticsService {
 	List<DataStatistics> getWeldMachineOutCount(Page page, WeldDto dto ,BigInteger itemid);
 	
 	/**
-	 * 获取焊工正常焊接时间
+	 * 获取焊工累计焊接时间
 	 * @param page 分页
 	 * @param dto 扩展参数类
 	 * @return
@@ -150,7 +150,7 @@ public interface DataStatisticsService {
 	List<DataStatistics> getWeldPersonOutCount(Page page, WeldDto dto);
 	
 	/**
-	 * 获取工件正常焊接时间
+	 * 获取工件累计焊接时间
 	 * @param page 分页
 	 * @param dto 扩展参数类
 	 * @return
@@ -183,4 +183,89 @@ public interface DataStatisticsService {
 	 * @return
 	 */
 	List<DataStatistics> getFauitDetail(Page page,WeldDto dto,BigInteger id,int value);
+
+	/**
+	 * 班组生产数据导出Excel
+	 * @param str
+	 * @return
+	 */
+	List<DataStatistics> getAllItemData();
+
+	/**
+	 * 设备生产数据导出Excel
+	 * @param itemid
+	 * @return
+	 */
+	List<DataStatistics> getAllMachineData(BigInteger itemid);
+	
+	/**
+	 * 人员生产数据导出Excel
+	 * @return
+	 */
+	List<DataStatistics> getAllPersonData();
+
+	/**
+	 * 工件生产数据导出Excel
+	 * @param itemid
+	 * @return
+	 */
+	List<DataStatistics> getAllJunctionData(String junctionno);
+
+	/**
+	 * 班组累计焊接时间
+	 * @param dto
+	 * @return
+	 */
+	List<DataStatistics> getWeldItemInCountData(WeldDto dto);
+
+	/**
+	 * 班组超规范焊接时间
+	 * @param dto
+	 * @return
+	 */
+	List<DataStatistics> getWeldItemOutCountData(WeldDto dto);
+
+	/**
+	 * 设备累计焊接时间
+	 * @param dto
+	 * @return
+	 */
+	List<DataStatistics> getWeldMachineInCountData(WeldDto dto,BigInteger itemid);
+
+	/**
+	 * 设备超规范焊接时间
+	 * @param dto
+	 * @return
+	 */
+	List<DataStatistics> getWeldMachineOutCountData(WeldDto dto,BigInteger itemid);
+
+	/**
+	 * 人员累计焊接时间
+	 * @param dto
+	 * @return
+	 */
+	List<DataStatistics> getWeldPersonInCountData(WeldDto dto);
+
+	/**
+	 * 人员超规范焊接时间
+	 * @param dto
+	 * @return
+	 */
+	List<DataStatistics> getWeldPersonOutCountData(WeldDto dto);
+
+	/**
+	 * 工件累计焊接时长
+	 * @param dto
+	 * @param itemid
+	 * @return
+	 */
+	List<DataStatistics> getWeldWorkpieceInCountData(WeldDto dto, String junctionno);
+
+	/**
+	 * 工件超规范焊接时长
+	 * @param dto
+	 * @param itemid
+	 * @return
+	 */
+	List<DataStatistics> getWeldWorkpieceOutCountData(WeldDto dto, String junctionno);
 }
