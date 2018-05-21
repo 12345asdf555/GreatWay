@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.spring.dto.JudgeUtil;
 import com.spring.model.EquipmentManufacturer;
 import com.spring.model.Gather;
 import com.spring.model.Insframework;
@@ -25,6 +26,7 @@ import com.spring.service.MaintainService;
 import com.spring.service.WeldingMachineService;
 import com.sshome.ssmcxf.webservice.WeldingMachineWebService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Transactional
@@ -36,25 +38,54 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	@Autowired
 	private MaintainService ms;
 	
+	private JudgeUtil jutil = new JudgeUtil();
+	
 	@Override
 	public Object getWeldingMachineAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			BigInteger parent = new BigInteger(json.getString("INSFID"));
-			String str = json.getString("STR");
-			List<WeldingMachine> list =  wms.getWeldingMachineAll(parent, str);
-			return JSON.toJSONString(list);
-		}catch(Exception e){
-			return null;
-		}
-	}
-
-	@Override
-	public Object getWeldingMachine(String object) {
-		try{
-			JSONObject json = JSONObject.fromObject(object);
-			List<WeldingMachine> list = wms.getWeldingMachine(json.getString("STR"));
-			return JSON.toJSONString(list);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
+			String id = json.getString("INSFID");
+			BigInteger insfid = null;
+			if(id!=null && !"".equals(id)){
+				insfid = new BigInteger(id);
+			}
+			List<WeldingMachine> list =  wms.getWeldingMachineAll(insfid, json.getString("STR"));
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("MACHINENO",jutil.setValue(list.get(i).getEquipmentNo()));
+				if(list.get(i).getGatherId()!=null){
+					obj.put("GATHERID",jutil.setValue(list.get(i).getGatherId().getId()));
+					obj.put("GATHERNO",jutil.setValue(list.get(i).getGatherId().getGatherNo()));
+				}else{
+					obj.put("GATHERID","");
+					obj.put("GATHERNO","");
+				}
+				if(list.get(i).getManufacturerId()!=null){
+					obj.put("MANUFACTURERID",jutil.setValue(list.get(i).getManufacturerId().getId()));
+					obj.put("MANUFACTURERNAME",jutil.setValue(list.get(i).getManufacturerId().getName()));
+				}else{
+					obj.put("MANUFACTURERID", "");
+					obj.put("MANUFACTURERNAME", "");
+				}
+				if(list.get(i).getInsframeworkId()!=null){
+					obj.put("INSFRAMEWORKID",jutil.setValue(list.get(i).getInsframeworkId().getId()));
+					obj.put("INSFRAMEWORKNAME",jutil.setValue(list.get(i).getInsframeworkId().getName()));
+				}else{
+					obj.put("INSFRAMEWORKID", "");
+					obj.put("INSFRAMEWORKNAME", "");
+				}
+				obj.put("JOINTIME",jutil.setValue(list.get(i).getJoinTime()));
+				obj.put("POSITION",jutil.setValue(list.get(i).getPosition()));
+				obj.put("ISNETWORKING",jutil.setValue(list.get(i).getIsnetworking()));
+				obj.put("STATUSID",jutil.setValue(list.get(i).getStatusId()));
+				obj.put("STATUSNAME",jutil.setValue(list.get(i).getStatusname()));
+				obj.put("TYPEID",jutil.setValue(list.get(i).getTypeId()));
+				obj.put("TYPENAME",jutil.setValue(list.get(i).getTypename()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -63,8 +94,17 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	@Override
 	public Object getManuAll() {
 		try{
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<EquipmentManufacturer> list =  wms.getManuAll();
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("NAME",jutil.setValue(list.get(i).getName()));
+				obj.put("TYPE",jutil.setValue(list.get(i).getType()));
+				obj.put("TYPEVALUE",jutil.setValue(list.get(i).getTypeValue()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -291,8 +331,41 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	public Object getWeldingMachineById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
 			WeldingMachine list = wms.getWeldingMachineById(new BigInteger(json.getString("WID")));
-			return JSON.toJSONString(list);
+			if(list!=null){
+				obj.put("ID", jutil.setValue(list.getId()));
+				obj.put("MACHINENO",jutil.setValue(list.getEquipmentNo()));
+				if(list.getGatherId()!=null){
+					obj.put("GATHERID",jutil.setValue(list.getGatherId().getId()));
+					obj.put("GATHERNO",jutil.setValue(list.getGatherId().getGatherNo()));
+				}else{
+					obj.put("GATHERID","");
+					obj.put("GATHERNO","");
+				}
+				if(list.getManufacturerId()!=null){
+					obj.put("MANUFACTURERID",jutil.setValue(list.getManufacturerId().getId()));
+					obj.put("MANUFACTURERNAME",jutil.setValue(list.getManufacturerId().getName()));
+				}else{
+					obj.put("MANUFACTURERID", "");
+					obj.put("MANUFACTURERNAME", "");
+				}
+				if(list.getInsframeworkId()!=null){
+					obj.put("INSFRAMEWORKID",jutil.setValue(list.getInsframeworkId().getId()));
+					obj.put("INSFRAMEWORKNAME",jutil.setValue(list.getInsframeworkId().getName()));
+				}else{
+					obj.put("INSFRAMEWORKID", "");
+					obj.put("INSFRAMEWORKNAME", "");
+				}
+				obj.put("JOINTIME",jutil.setValue(list.getJoinTime()));
+				obj.put("POSITION",jutil.setValue(list.getPosition()));
+				obj.put("ISNETWORKING",jutil.setValue(list.getIsnetworking()));
+				obj.put("STATUSID",jutil.setValue(list.getStatusId()));
+				obj.put("STATUSNAME",jutil.setValue(list.getStatusname()));
+				obj.put("TYPEID",jutil.setValue(list.getTypeId()));
+				obj.put("TYPENAME",jutil.setValue(list.getTypename()));
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}

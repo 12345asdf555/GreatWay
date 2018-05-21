@@ -63,15 +63,6 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 	}
 
 	@Override
-	public List<WeldingMachine> getWeldingMachine(String str) {
-		try{
-			return wmm.getWeldingMachineAll(null,str);
-		}catch(Exception e){
-			return null;
-		}
-	}
-
-	@Override
 	public BigInteger getWeldingMachineByEno(String eno) {
 		try{
 			return wmm.getWeldingMachineByEno(eno);

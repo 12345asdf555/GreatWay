@@ -16,12 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.spring.dto.JudgeUtil;
 import com.spring.model.MaintenanceRecord;
 import com.spring.model.WeldingMachine;
 import com.spring.model.WeldingMaintenance;
 import com.spring.service.MaintainService;
 import com.sshome.ssmcxf.webservice.MaintainWebService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Transactional
@@ -30,12 +32,45 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	@Autowired
 	private MaintainService ms;
 	
+	private JudgeUtil jutil = new JudgeUtil();
+	
 	@Override
 	public Object getWeldingMaintenanceAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<WeldingMaintenance> list = ms.getWeldingMaintenanceAll(json.getString("STR"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("INSFID",jutil.setValue(list.get(i).getInsfid()));
+				if(list.get(i).getMaintenance()!=null){
+					obj.put("MAINTENANCEID",jutil.setValue(list.get(i).getMaintenance().getId()));
+					obj.put("VICEMAN",jutil.setValue(list.get(i).getMaintenance().getViceman()));
+					obj.put("TYPEID",jutil.setValue(list.get(i).getMaintenance().getTypeId()));
+					obj.put("TYPENAME",jutil.setValue(list.get(i).getMaintenance().getTypename()));
+					obj.put("STARTTIME",jutil.setValue(list.get(i).getMaintenance().getStartTime()));
+					obj.put("ENDTIME",jutil.setValue(list.get(i).getMaintenance().getEndTime()));
+					obj.put("DESC",jutil.setValue(list.get(i).getMaintenance().getDesc()));
+				}else{
+					obj.put("MAINTENANCEID", "");
+					obj.put("VICEMAN", "");
+					obj.put("TYPEID", "");
+					obj.put("TYPENAME", "");
+					obj.put("STARTTIME", "");
+					obj.put("ENDTIME", "");
+					obj.put("DESC", "");
+				}
+				if(list.get(i).getWelding()!=null){
+					obj.put("MACHINEID",jutil.setValue(list.get(i).getWelding().getId()));
+					obj.put("MACHINENO",jutil.setValue(list.get(i).getWelding().getEquipmentNo()));
+				}else{
+					obj.put("MACHINEID", "");
+					obj.put("MACHINENO", "");
+				}
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -45,8 +80,25 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public Object getEndtime(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<WeldingMaintenance> list = ms.getEndtime(new BigInteger(json.getString("WID")));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				if(list.get(i).getMaintenance()!=null){
+					obj.put("VICEMAN",jutil.setValue(list.get(i).getMaintenance().getViceman()));
+					obj.put("TYPEID",jutil.setValue(list.get(i).getMaintenance().getTypeId()));
+					obj.put("STARTTIME",jutil.setValue(list.get(i).getMaintenance().getStartTime()));
+					obj.put("DESC",jutil.setValue(list.get(i).getMaintenance().getDesc()));
+				}else{
+					obj.put("VICEMAN", "");
+					obj.put("TYPEID", "");
+					obj.put("STARTTIME", "");
+					obj.put("DESC", "");
+				}
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -56,8 +108,34 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public Object getWeldingMaintenanceById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
 			WeldingMaintenance list = ms.getWeldingMaintenanceById(new BigInteger(json.getString("WID")));
-			return JSON.toJSONString(list);
+			if(list!=null){
+				obj.put("ID", jutil.setValue(list.getId()));
+				if(list.getMaintenance()!=null){
+					obj.put("MAINTENANCEID",jutil.setValue(list.getMaintenance().getId()));
+					obj.put("VICEMAN",jutil.setValue(list.getMaintenance().getViceman()));
+					obj.put("TYPEID",jutil.setValue(list.getMaintenance().getTypeId()));
+					obj.put("STARTTIME",jutil.setValue(list.getMaintenance().getStartTime()));
+					obj.put("ENDTIME",jutil.setValue(list.getMaintenance().getEndTime()));
+					obj.put("DESC",jutil.setValue(list.getMaintenance().getDesc()));
+				}else{
+					obj.put("MAINTENANCEID", "");
+					obj.put("VICEMAN", "");
+					obj.put("TYPEID", "");
+					obj.put("STARTTIME", "");
+					obj.put("ENDTIME", "");
+					obj.put("DESC", "");
+				}
+				if(list.getWelding()!=null){
+					obj.put("MACHINEID",jutil.setValue(list.getWelding().getId()));
+					obj.put("MACHINENO",jutil.setValue(list.getWelding().getEquipmentNo()));
+				}else{
+					obj.put("MACHINEID", "");
+					obj.put("MACHINENO", "");
+				}
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}
@@ -66,8 +144,15 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	@Override
 	public Object getEquipmentno() {
 		try{
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<WeldingMachine> list = ms.getEquipmentno();
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("MACHINENO", jutil.setValue(list.get(i).getEquipmentNo()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -292,8 +377,15 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	public Object getMaintainByWeldingMachinId(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<WeldingMaintenance> list = ms.getMaintainByWeldingMachinId(new BigInteger(json.getString("WID")));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("MAINTENANCEID", jutil.setValue(list.get(i).getMaintenance().getId()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}

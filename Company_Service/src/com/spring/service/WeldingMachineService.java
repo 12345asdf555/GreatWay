@@ -14,11 +14,6 @@ public interface WeldingMachineService {
 	List<WeldingMachine> getWeldingMachineAll(BigInteger parent,String str);
 	
 	/**
-	 * 查询所有焊机信息
-	 */
-	List<WeldingMachine> getWeldingMachine(String str);
-	
-	/**
 	 * 查询所有厂商信息
 	 * @return
 	 */

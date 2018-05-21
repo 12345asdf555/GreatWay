@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.spring.dto.JudgeUtil;
 import com.spring.model.Authority;
 import com.spring.service.AuthorityService;
 import com.sshome.ssmcxf.webservice.AuthorityWebService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Transactional
@@ -18,7 +20,8 @@ import net.sf.json.JSONObject;
 public class AuthorityWebServiceImpl implements AuthorityWebService {
 	@Autowired
 	private AuthorityService as;
-
+	
+	private JudgeUtil jutil = new JudgeUtil();
 	
 	@Override
 	public boolean saveAuthority(String object) {
@@ -113,8 +116,18 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public Object findAuthorityById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			Authority list = as.findById(json.getInt("AUTHID"));
-			return JSON.toJSONString(list);
+			if(list!=null){
+				obj.put("ID", jutil.setValue(list.getId()));
+				obj.put("AUTHORITYNAME",jutil.setValue(list.getAuthorityName()));
+				obj.put("AUTHORITYDESC",jutil.setValue(list.getAuthorityDesc()));
+				obj.put("STATUSID",jutil.setValue(list.getStatus()));
+				obj.put("STATUSNAME",jutil.setValue(list.getStatusname()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -124,8 +137,18 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	public Object findAllAuthority(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Authority> list = as.findAll(json.getString("STR"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("AUTHORITYNAME",jutil.setValue(list.get(i).getAuthorityName()));
+				obj.put("AUTHORITYDESC",jutil.setValue(list.get(i).getAuthorityDesc()));
+				obj.put("STATUSID",jutil.setValue(list.get(i).getStatus()));
+				obj.put("STATUSNAME",jutil.setValue(list.get(i).getStatusname()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -134,8 +157,15 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	@Override
 	public Object findAllResource() {
 		try{
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Authority> list =  as.findAllResource();
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("RESOURCENAME",jutil.setValue(list.get(i).getResourceName()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -175,8 +205,17 @@ public class AuthorityWebServiceImpl implements AuthorityWebService {
 	@Override
 	public Object getAllAuthoritys() {
 		try{
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Authority> list = as.getAllAuthoritys();
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("AUTHORITYNAME",jutil.setValue(list.get(i).getAuthorityName()));
+				obj.put("AUTHORITYDESC",jutil.setValue(list.get(i).getAuthorityDesc()));
+				obj.put("STATUSID",jutil.setValue(list.get(i).getStatus()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}

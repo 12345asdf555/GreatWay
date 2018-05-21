@@ -39,7 +39,12 @@ public class GatherWebServiceImpl implements GatherWebService{
 			JSONObject json = JSONObject.fromObject(object);
 			JSONObject obj = new JSONObject();
 			JSONArray ary = new JSONArray();
-			List<Gather> list = gs.getGatherAll(json.getString("STR"), new BigInteger(json.getString("INSFID")));
+			String id = json.getString("INSFID");
+			BigInteger insfid = null;
+			if(id!=null && !"".equals(id)){
+				insfid = new BigInteger(id);
+			}
+			List<Gather> list = gs.getGatherAll(json.getString("STR"), insfid);
 			for(int i=0;i<list.size();i++){
 				obj.put("ID", jutil.setValue(list.get(i).getId()));
 				obj.put("GATHERNO",jutil.setValue(list.get(i).getGatherNo()));
@@ -84,8 +89,20 @@ public class GatherWebServiceImpl implements GatherWebService{
 	public Object getGatherById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
 			Gather list = gs.getGatherById(new BigInteger(json.getString("ID")));
-			return JSON.toJSONString(list);
+			if(list!=null){
+				obj.put("ID", jutil.setValue(list.getId()));
+				obj.put("GATHERNO",jutil.setValue(list.getGatherNo()));
+				obj.put("STATUS",jutil.setValue(list.getStatus()));
+				obj.put("PROTOCOL",jutil.setValue(list.getProtocol()));
+				obj.put("IPURL",jutil.setValue(list.getIpurl()));
+				obj.put("MACURL",jutil.setValue(list.getMacurl()));
+				obj.put("LEAVETIME",jutil.setValue(list.getLeavetime()));
+				obj.put("ITEMNAME",jutil.setValue(list.getItemname()));
+				obj.put("ITEMID",jutil.setValue(list.getItemid()));
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}

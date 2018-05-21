@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.spring.dto.JudgeUtil;
 import com.spring.model.Td;
 import com.spring.service.TdService;
 import com.sshome.ssmcxf.webservice.TdWebService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Transactional
@@ -20,12 +22,22 @@ public class TdWebServiceImpl implements TdWebService{
 	@Autowired
 	private TdService ts;
 
+	private JudgeUtil jutil = new JudgeUtil();
+	
 	@Override
 	public Object findAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Td> list = ts.findAll(json.getString("STR"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("NAME",jutil.setValue(list.get(i).getFname()));
+				obj.put("WELDERNO",jutil.setValue(list.get(i).getFwelder_no()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -35,8 +47,17 @@ public class TdWebServiceImpl implements TdWebService{
 	public Object findAlldiv(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Td> list =  ts.findAlldiv(json.getLong("INSFID"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("INSFID", jutil.setValue(list.get(i).getInsfId()));
+				obj.put("INSFNAME",jutil.setValue(list.get(i).getInsfName()));
+				obj.put("INSFPARENT",jutil.setValue(list.get(i).getInsfParent()));
+				obj.put("INSFTYPE",jutil.setValue(list.get(i).getInsfType()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -46,8 +67,18 @@ public class TdWebServiceImpl implements TdWebService{
 	public Object getAllPosition(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Td> list = ts.getAllPosition(BigInteger.valueOf(json.getLong("INSFID")));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("MACHINENO",jutil.setValue(list.get(i).getFequipment_no()));
+				obj.put("POSITION",jutil.setValue(list.get(i).getFposition()));
+				obj.put("INSFID",jutil.setValue(list.get(i).getFci()));
+				obj.put("INSFNAME",jutil.setValue(list.get(i).getFcn()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -106,8 +137,15 @@ public class TdWebServiceImpl implements TdWebService{
 	@Override
 	public Object allWeldname() {
 		try{
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Td> list = ts.allWeldname();
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("NAME",jutil.setValue(list.get(i).getFname()));
+				obj.put("WELDERNO",jutil.setValue(list.get(i).getFwelder_no()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}

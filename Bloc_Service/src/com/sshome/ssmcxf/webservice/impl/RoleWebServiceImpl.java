@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.spring.dto.JudgeUtil;
 import com.spring.model.Role;
 import com.spring.service.RoleService;
 import com.sshome.ssmcxf.webservice.RoleWebService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Transactional
@@ -18,6 +20,8 @@ import net.sf.json.JSONObject;
 public class RoleWebServiceImpl implements RoleWebService{
 	@Autowired
 	private RoleService ros;
+	
+	private JudgeUtil jutil = new JudgeUtil();
 
 	@Override
 	public int saveRolesAuthority(String object) {
@@ -124,8 +128,16 @@ public class RoleWebServiceImpl implements RoleWebService{
 	public Object findRoleById(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
 			Role list = ros.findById(json.getInt("ROLEID"));
-			return JSON.toJSONString(list);
+			if(list!=null){
+				obj.put("ID", jutil.setValue(list.getId()));
+				obj.put("ROLENAME",jutil.setValue(list.getRoleName()));
+				obj.put("ROLEDESC",jutil.setValue(list.getRoleDesc()));
+				obj.put("STATUSID",jutil.setValue(list.getRoleStatus()));
+				obj.put("STATUSNAME",jutil.setValue(list.getStatusname()));
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}
@@ -155,8 +167,18 @@ public class RoleWebServiceImpl implements RoleWebService{
 	public Object findRoleAll(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Role> list = ros.findAll(json.getString("STR"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("ROLENAME",jutil.setValue(list.get(i).getRoleName()));
+				obj.put("ROLEDESC",jutil.setValue(list.get(i).getRoleDesc()));
+				obj.put("STATUSID",jutil.setValue(list.get(i).getRoleStatus()));
+				obj.put("STATUSNAME",jutil.setValue(list.get(i).getStatusname()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -165,8 +187,15 @@ public class RoleWebServiceImpl implements RoleWebService{
 	@Override
 	public Object findIdDescByAuthority() {
 		try{
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Role> list = ros.findAllAuthority();
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("AUTHORITYDESC",jutil.setValue(list.get(i).getAuthorityDesc()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -176,8 +205,17 @@ public class RoleWebServiceImpl implements RoleWebService{
 	public Object findAuthorityDetail(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Role> list = ros.findAuthority(json.getInt("ROLEID"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("ROLENAME",jutil.setValue(list.get(i).getRoleName()));
+				obj.put("AUTHORITYID",jutil.setValue(list.get(i).getAuthorityId()));
+				obj.put("AUTHORITYDESC",jutil.setValue(list.get(i).getAuthorityDesc()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -196,8 +234,15 @@ public class RoleWebServiceImpl implements RoleWebService{
 	@Override
 	public Object findAllUser() {
 		try{
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Role> list = ros.findAllUser();
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("USERNAME",jutil.setValue(list.get(i).getUserName()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -207,8 +252,19 @@ public class RoleWebServiceImpl implements RoleWebService{
 	public Object findUserRoleDetail(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Role> list = ros.findUser(json.getInt("ROLEID"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("ROLENAME",jutil.setValue(list.get(i).getRoleName()));
+				obj.put("ROLEDESC",jutil.setValue(list.get(i).getRoleDesc()));
+				obj.put("ROLESTATUSID",jutil.setValue(list.get(i).getRoleStatus()));
+				obj.put("USERID",jutil.setValue(list.get(i).getUserId()));
+				obj.put("USERNAME",jutil.setValue(list.get(i).getUserName()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}

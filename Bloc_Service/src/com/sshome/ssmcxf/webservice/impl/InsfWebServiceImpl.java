@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.spring.dto.JudgeUtil;
 import com.spring.model.Insframework;
 import com.spring.service.InsframeworkService;
 import com.sshome.ssmcxf.webservice.InsfWebService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Transactional
@@ -20,12 +22,27 @@ public class InsfWebServiceImpl implements InsfWebService {
 	@Autowired
 	private InsframeworkService is;
 	
+	private JudgeUtil jutil = new JudgeUtil();
+	
 	@Override
 	public Object getInsframeworkAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Insframework> list = is.getInsframeworkAll(new BigInteger(json.getString("INSFID")), json.getString("STR"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", list.get(i).getId());
+				obj.put("NAME",list.get(i).getName());
+				obj.put("LOGOGRAM",jutil.setValue(list.get(i).getLogogram()));
+				obj.put("CODE",jutil.setValue(list.get(i).getCode()));
+				obj.put("PARENTID",jutil.setValue(list.get(i).getParent()));
+				obj.put("PARENTNAME",jutil.setValue(list.get(i).getParentname()));
+				obj.put("TYPEID",jutil.setValue(list.get(i).getType()));
+				obj.put("TYPENAME",jutil.setValue(list.get(i).getTypename()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -105,8 +122,18 @@ public class InsfWebServiceImpl implements InsfWebService {
 	public Object getInsfAllById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
 			Insframework list = is.getInsfAllById(new BigInteger(json.getString("INSFID")));
-			return JSON.toJSONString(list);
+			if(list!=null){
+				obj.put("ID", list.getId());
+				obj.put("NAME",list.getName());
+				obj.put("LOGOGRAM",jutil.setValue(list.getLogogram()));
+				obj.put("CODE",jutil.setValue(list.getCode()));
+				obj.put("PARENTID",jutil.setValue(list.getParent()));
+				obj.put("TYPEID",jutil.setValue(list.getType()));
+				obj.put("TYPENAME",jutil.setValue(list.getTypename()));
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}
@@ -115,8 +142,13 @@ public class InsfWebServiceImpl implements InsfWebService {
 	@Override
 	public Object getBloc() {
 		try{
+			JSONObject obj = new JSONObject();
 			Insframework list = is.getBloc();
-			return JSON.toJSONString(list);
+			if(list!=null){
+				obj.put("ID", list.getId());
+				obj.put("NAME",list.getName());
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}
@@ -126,8 +158,20 @@ public class InsfWebServiceImpl implements InsfWebService {
 	public Object getCompany(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			 List<Insframework> list = is.getConmpany(new BigInteger(json.getString("INSFID")));
-			return JSON.toJSONString(list);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
+			String id = json.getString("INSFID");
+			BigInteger insfid = null;
+			if(id!=null && !"".equals(id)){
+				insfid = new BigInteger(id);
+			}
+			List<Insframework> list =  is.getConmpany(insfid);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", list.get(i).getId());
+				obj.put("NAME",list.get(i).getName());
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -137,8 +181,20 @@ public class InsfWebServiceImpl implements InsfWebService {
 	public Object getCause(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<Insframework> list = is.getCause(new BigInteger(json.getString("INSFID")),new BigInteger(json.getString("ID")));
-			return JSON.toJSONString(list);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
+			String id = json.getString("INSFID");
+			BigInteger insfid = null;
+			if(id!=null && !"".equals(id)){
+				insfid = new BigInteger(id);
+			}
+			List<Insframework> list =  is.getCause(new BigInteger(json.getString("COMPANYID")),insfid);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", list.get(i).getId());
+				obj.put("NAME",list.get(i).getName());
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -148,8 +204,20 @@ public class InsfWebServiceImpl implements InsfWebService {
 	public Object getWeldingMachineInsf(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<Insframework> list = is.getWeldingMachineInsf(new BigInteger(json.getString("INSFID")));
-			return JSON.toJSONString(list);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
+			String id = json.getString("INSFID");
+			BigInteger insfid = null;
+			if(id!=null && !"".equals(id)){
+				insfid = new BigInteger(id);
+			}
+			List<Insframework> list =  is.getWeldingMachineInsf(insfid);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", list.get(i).getId());
+				obj.put("NAME",list.get(i).getName());
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -159,8 +227,18 @@ public class InsfWebServiceImpl implements InsfWebService {
 	public Object getParent(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			Insframework list =  is.getParent(new BigInteger(json.getString("INSFID")));
-			return JSON.toJSONString(list);
+			JSONObject obj = new JSONObject();
+			String id = json.getString("INSFID");
+			BigInteger insfid = null;
+			if(id!=null && !"".equals(id)){
+				insfid = new BigInteger(id);
+			}
+			Insframework list = is.getParent(insfid);
+			if(list!=null){
+				obj.put("ID", list.getId());
+				obj.put("NAME",list.getName());
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}
@@ -170,8 +248,20 @@ public class InsfWebServiceImpl implements InsfWebService {
 	public Object getInsByType(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<Insframework> list = is.getInsByType(json.getInt("TYPEID"), new BigInteger(json.getString("INSFID")));
-			return JSON.toJSONString(list);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
+			String id = json.getString("INSFID");
+			BigInteger insfid = null;
+			if(id!=null && !"".equals(id)){
+				insfid = new BigInteger(id);
+			}
+			List<Insframework> list =  is.getInsByType(json.getInt("TYPEID"), insfid);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", list.get(i).getId());
+				obj.put("NAME",list.get(i).getName());
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -221,8 +311,13 @@ public class InsfWebServiceImpl implements InsfWebService {
 	public Object getInsByUserid(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<Insframework> list = is.getInsByUserid(new BigInteger(json.getString("USERID")));
-			return JSON.toJSONString(list);
+			JSONObject obj = new JSONObject();
+			List<Insframework> list =   is.getInsByUserid(new BigInteger(json.getString("USERID")));
+			if(list!=null){
+				obj.put("ID", jutil.setValue(list.get(0).getId()));
+				obj.put("TYPEID",jutil.setValue(list.get(0).getType()));
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}

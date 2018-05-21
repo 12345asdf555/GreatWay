@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.spring.dto.JudgeUtil;
 import com.spring.model.Resources;
 import com.spring.service.ResourceService;
 import com.sshome.ssmcxf.webservice.ResourceWebService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Transactional
@@ -19,6 +21,8 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 	@Autowired
 	private ResourceService rs;
 
+	private JudgeUtil jutil = new JudgeUtil();
+	
 	@Override
 	public int saveResource(String object) {
 		try{
@@ -73,8 +77,18 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 	public Object findResourceById(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
 			Resources list = rs.findById(json.getInt("ID"));
-			return JSON.toJSONString(list);
+			if(list!=null){
+				obj.put("ID", jutil.setValue(list.getId()));
+				obj.put("RESOURCENAME",jutil.setValue(list.getResourceName()));
+				obj.put("RESOURCETYPE",jutil.setValue(list.getResourceType()));
+				obj.put("RESOURCEADDRESS",jutil.setValue(list.getResourceAddress()));
+				obj.put("RESOURCEDESC",jutil.setValue(list.getResourceDesc()));
+				obj.put("STATUSID",jutil.setValue(list.getStatus()));
+				obj.put("STATUSNAME",jutil.setValue(list.getStatusname()));
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}
@@ -84,8 +98,20 @@ public class ResourceWebServiceImpl implements ResourceWebService{
 	public Object findResourceAll(String object) {
 		try{
 			JSONObject json  = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Resources> list = rs.findAll(json.getString("STR"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("RESOURCENAME",jutil.setValue(list.get(i).getResourceName()));
+				obj.put("RESOURCETYPE",jutil.setValue(list.get(i).getResourceType()));
+				obj.put("RESOURCEADDRESS",jutil.setValue(list.get(i).getResourceAddress()));
+				obj.put("RESOURCEDESC",jutil.setValue(list.get(i).getResourceDesc()));
+				obj.put("STATUSID",jutil.setValue(list.get(i).getStatus()));
+				obj.put("STATUSNAME",jutil.setValue(list.get(i).getStatusname()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}

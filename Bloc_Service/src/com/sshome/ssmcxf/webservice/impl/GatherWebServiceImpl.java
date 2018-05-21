@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.spring.dto.JudgeUtil;
 import com.spring.model.Gather;
 import com.spring.service.GatherService;
 import com.sshome.ssmcxf.webservice.GatherWebService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Transactional
@@ -20,12 +22,34 @@ public class GatherWebServiceImpl implements GatherWebService{
 
 	@Autowired
 	private GatherService gs;
+	
+	private JudgeUtil jutil = new JudgeUtil();
+	
 	@Override
 	public Object getGatherAll(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
-			List<Gather> list = gs.getGatherAll(json.getString("STR"), new BigInteger(json.getString("INSFID")));
-			return JSON.toJSONString(list);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
+			String id = json.getString("INSFID");
+			BigInteger insfid = null;
+			if(id!=null && !"".equals(id)){
+				insfid = new BigInteger(id);
+			}
+			List<Gather> list = gs.getGatherAll(json.getString("STR"), insfid);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", jutil.setValue(list.get(i).getId()));
+				obj.put("GATHERNO",jutil.setValue(list.get(i).getGatherNo()));
+				obj.put("STATUS",jutil.setValue(list.get(i).getStatus()));
+				obj.put("PROTOCOL",jutil.setValue(list.get(i).getProtocol()));
+				obj.put("IPURL",jutil.setValue(list.get(i).getIpurl()));
+				obj.put("MACURL",jutil.setValue(list.get(i).getMacurl()));
+				obj.put("LEAVETIME",jutil.setValue(list.get(i).getLeavetime()));
+				obj.put("ITEMNAME",jutil.setValue(list.get(i).getItemname()));
+				obj.put("ITEMID",jutil.setValue(list.get(i).getItemid()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -56,8 +80,20 @@ public class GatherWebServiceImpl implements GatherWebService{
 	public Object getGatherById(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
 			Gather list = gs.getGatherById(new BigInteger(json.getString("ID")));
-			return JSON.toJSONString(list);
+			if(list!=null){
+				obj.put("ID", jutil.setValue(list.getId()));
+				obj.put("GATHERNO",jutil.setValue(list.getGatherNo()));
+				obj.put("STATUS",jutil.setValue(list.getStatus()));
+				obj.put("PROTOCOL",jutil.setValue(list.getProtocol()));
+				obj.put("IPURL",jutil.setValue(list.getIpurl()));
+				obj.put("MACURL",jutil.setValue(list.getMacurl()));
+				obj.put("LEAVETIME",jutil.setValue(list.getLeavetime()));
+				obj.put("ITEMNAME",jutil.setValue(list.getItemname()));
+				obj.put("ITEMID",jutil.setValue(list.getItemid()));
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}

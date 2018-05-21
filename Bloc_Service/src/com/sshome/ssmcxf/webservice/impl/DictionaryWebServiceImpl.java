@@ -16,12 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.spring.dto.JudgeUtil;
 import com.spring.model.Dictionarys;
 import com.spring.model.Insframework;
 import com.spring.service.DictionaryService;
 import com.spring.service.InsframeworkService;
 import com.sshome.ssmcxf.webservice.DictionaryWebService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Transactional
@@ -34,12 +36,24 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 	@Autowired
 	private InsframeworkService is;
 	
+	private JudgeUtil jutil = new JudgeUtil();
+	
 	@Override
 	public Object getAllDictionary(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Dictionarys> list = ds.getAllDictionary(json.getString("STR"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("ID", list.get(i).getId());
+				obj.put("TYPEID",jutil.setValue(list.get(i).getTypeid()));
+				obj.put("VALUE",jutil.setValue(list.get(i).getValue()));
+				obj.put("VALUENAME", jutil.setValue(list.get(i).getValueName()));
+				obj.put("BACK",jutil.setValue(list.get(i).getBack()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -123,8 +137,16 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 	public Object getDictionaryByFid(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
 			Dictionarys list = ds.getDictionaryByFid(json.getInt("ID"));
-			return JSON.toJSONString(list);
+			if(list!=null){
+				obj.put("ID", list.getId());
+				obj.put("TYPEID",jutil.setValue(list.getTypeid()));
+				obj.put("VALUE",jutil.setValue(list.getValue()));
+				obj.put("VALUENAME", jutil.setValue(list.getValueName()));
+				obj.put("BACK",jutil.setValue(list.getBack()));
+			}
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			return null;
 		}
@@ -165,8 +187,15 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 	public Object getDictionaryValue(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Dictionarys> list = ds.getDictionaryValue(json.getInt("TYPEID"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("VALUE",jutil.setValue(list.get(i).getValue()));
+				obj.put("VALUENAME", jutil.setValue(list.get(i).getValueName()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
@@ -176,8 +205,15 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 	public Object getDicValueByValue(String object) {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
 			List<Dictionarys> list = ds.getDicValueByValue(json.getInt("TYPEID"), json.getInt("VALUE"));
-			return JSON.toJSONString(list);
+			for(int i=0;i<list.size();i++){
+				obj.put("VALUE",jutil.setValue(list.get(i).getValue()));
+				obj.put("VALUENAME", jutil.setValue(list.get(i).getValueName()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
 		}catch(Exception e){
 			return null;
 		}
