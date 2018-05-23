@@ -34,7 +34,7 @@ h1 {
     margin-top: 3px;
 }
 
-td div {
+#divlog {
     border: 1px solid black;
     border-radius: 20px;
     background-image: url(../images/logos.png);
@@ -77,6 +77,7 @@ input[type=text],input[type=password] {
     display: inline-block;
     font-size: inherit;
     height: 30px;
+    width:190px;
     line-height: 1;
     outline: none;
     padding: 3px 10px;

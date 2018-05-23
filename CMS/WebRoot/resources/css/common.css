@@ -61,6 +61,27 @@ body{background: #ccc;}
 .content1-wrap .boxls1{width: 30%;margin-bottom: 32px;margin-right: 0px;}
 
 
+#weak,#middle,#strength{
+	padding-left:18px;
+	padding-right:18px;
+	border-top:1px solid #84b5ed;
+	border-bottom:1px solid #84b5ed;
+	border-left:1px solid #84b5ed;
+}
+#weak{
+	border-top-left-radius:6px;
+	border-bottom-left-radius:6px;
+}
+#strength{
+	border-right:1px solid #84b5ed;
+	border-top-right-radius:6px;
+	border-bottom-right-radius:6px;
+}
+
+input{
+	border:1px solid #84b5ed;
+}
+
 
 
 

@@ -16,12 +16,21 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	 	<link rel="stylesheet" type="text/css" href="resources/css/login.css">
+	 	
+		<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+	 	<script type="text/javascript">
+	 		function flushCode() {
+			    // 每次刷新的时候获取当前时间，防止浏览器缓存刷新失败
+			    var time = new Date();
+			    document.getElementById("scode").src = "<%=request.getContextPath()%>/logincheck/checkImg?time=" + time;
+			}
+	 	</script>
 	</head>
 
 	<body onLoad="document.f.j_username.focus();">
 	    <c:if test="${not empty param.login_error}">
 	       <font color="red">
-	           登录失败，请检查您的用户名或密码。<br/><br/>
+	           登录失败，请检查您的用户名、密码或验证码是否正确。<br/><br/>
 <%-- 	           原因:<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/> --%>
 	       </font>
 	    </c:if>
@@ -36,7 +45,7 @@
 	                </tr>
 	                <tr>
 	                    <td rowspan="3">
-	                        <div>
+	                        <div id="divlog">
 	                        </div>
 	                    </td>
 	                    <td>用户名:</td>
@@ -50,6 +59,16 @@
 			            <td><input type='password' name='j_password'></td>
 	                </tr>
 	                <tr>
+			            <td>验证码:
+			            </td>
+			            <td>
+			            	<div style="float:left"><input type="text" name="code" id="code" style="width:190px;"></div>
+			            	<div style="float:left;margin-left:5px;margin-top:3px;"><img alt="验证码" id="scode" src="<%=request.getContextPath() %>/logincheck/checkImg" style="width:50px;height:25px;">
+			            	<a href="javascript:flushCode();"><img alt="" src="resources/images/flush.png" style="width:20px;height:20px;"></a></div>
+			            </td>
+	                </tr>
+	                <tr>
+	                	<td></td>
 			            <td>
 			                <input type="checkbox" name="_spring_security_remember_me">
 			            </td>
@@ -62,6 +81,8 @@
 			            </td>
 			            <td align="center">
 			                <input name="submit" type="submit" value="登录">
+			            </td>
+			            <td>
 			                <input name="reset" type="reset" value="重置">
 			            </td>
 			        </tr>

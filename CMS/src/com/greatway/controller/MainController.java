@@ -52,6 +52,7 @@ public class MainController {
 		}
 		MyUser u = (MyUser)object;
 		User list = user.getUserInsframework(new BigInteger(u.getId()+""));
+		obj.put("id", u.getId());
 		obj.put("uname", list.getUserName());
 		obj.put("type", list.getType());
 		obj.put("insframework", list.getInsname());

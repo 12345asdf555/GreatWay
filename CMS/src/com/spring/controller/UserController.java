@@ -460,4 +460,32 @@ public class UserController {
 		return obj.toString();
 	}
 	
+	/**
+	 * 修改密码
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/updatePwd")
+	@ResponseBody
+	public String updatePwd(HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		try{
+			User user = userService.findById(Integer.parseInt(request.getParameter("id")));
+			String fs = request.getParameter("pwd");
+			if(fs.length()<32){
+				String xxx = DigestUtils.md5Hex(fs);
+				user.setUserPassword(xxx);
+			}else{
+				user.setUserPassword(fs);
+			}
+			user.setModifier(request.getParameter("id"));
+		    userService.update(user);
+			obj.put("success", true);
+		}catch(Exception e){
+			obj.put("success", false);
+			obj.put("errorMsg", e.getMessage());
+		}
+		return obj.toString();
+	}
+	
 }

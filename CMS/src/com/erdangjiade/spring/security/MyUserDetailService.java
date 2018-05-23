@@ -72,18 +72,22 @@ public class MyUserDetailService implements UserDetailsService {
 				Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 				
 				String result = objects[0].toString();
-				System.out.println(result);
 				JSONObject json = JSONObject.fromObject(result);
 				id = json.getLong("id");
 				password = json.getString("userPassword");
 				System.out.println(id);
 		        auths = new ArrayList<GrantedAuthority>();    
-		        List<String> list = userService.getAuthoritiesByUsername(userName);    
-		        System.out.println(list);
+		        List<String> list = userService.getAuthoritiesByUsername(userName);
 		        for (int j = 0; j < list.size(); j++) {    
-		            auths.add(new GrantedAuthorityImpl(list.get(j)));    
-		            System.out.println("loadUserByUsername : " + list.get(j));    
+		            auths.add(new GrantedAuthorityImpl(list.get(j)));
 		        } 
+		        //验证验证码是否正确
+		        String code = (String) request.getSession().getAttribute("code");
+				String inputCode = request.getParameter("code");
+				//验证码不区分大小写
+				if(!code.toLowerCase().equals(inputCode.toLowerCase())){
+					return null;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

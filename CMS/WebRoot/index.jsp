@@ -44,10 +44,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="box clearfix">
 				<div class="box-lef fl"></div>
 				<div class="box-rig fl" id="boxrig">
-					<a href="javascript:void(0)" style="margin-right:60%">首页</a>
-					<a href="javascript:history.go(-1)" id="pageUp">返回</a>
-					<a href="javascript:void(0)" id="userInsframework"></a>
-					<a href="user/logout">注销</a>
+					<div style="float:left"><a href="javascript:void(0)" style="">首页</a></div>
+					<div style="float:right">
+						<a href="javascript:history.go(-1)" id="pageUp">返回</a>
+						<a href="javascript:void(0)" id="userInsframework"></a>
+						<a href="user/logout">注销</a>
+						<a href="javascript:updatePwd()">修改密码</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -140,6 +143,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div id="closeOther">关闭其他标签页</div>
 			<div id="closeAll">关闭全部标签页</div>
 	    </div>
+	</div>
+	<!-- 修改密码 -->
+	<div id="dlg" class="easyui-dialog" style="width: 400px; height: 300px; padding:10px 20px" closed="true" title="修改密码" buttons="#dlg-buttons">
+		<form id="fm" class="easyui-form" method="post" data-options="novalidate:true">
+		<div class="fitem">
+			<lable>用户名</lable>
+			<input type="hidden" name="uid" id="uid" readonly="true"/>
+			<input type="text" name="uname" id="uname" readonly="true"/>
+		</div>
+		<div class="fitem">
+			<lable><span class="required">*</span>密码</lable>
+			<input type="password" name="pwd" id="pwd" onkeyup="pwdKeyUp(this)" /><br/>
+		</div>
+		<div class="fitem">
+			<lable>安全程度</lable>
+			<span id="weak">弱</span><span id="middle">中</span><span id="strength">强</span>
+		</div>
+		<div class="fitem">
+			<lable><span class="required">*</span>确认密码</lable>
+			<input type="password"  name="pwds" id="pwds" data-options="required:true"/>
+		</div>
+		<div id="pwdcheck" style="color:red;width:220px;height:20px;text-align: center;margin-left:45px;"></div>
+		</form>
+	</div>
+	<div id="dlg-buttons">
+		<a href="javascript:updatePassword();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+		<a href="javascript:$('#dlg').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel" >取消</a>
 	</div>
   </body>
 </html>

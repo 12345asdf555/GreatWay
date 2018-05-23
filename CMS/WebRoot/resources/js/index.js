@@ -62,6 +62,8 @@ function getUserInsframework(){
 		success : function(result){
 			type = result.type;
 			var str = "<span>"+result.insframework+": </span><span>"+result.uname+"</span>";
+			$("#uname").val(result.uname);
+			$("#uid").val(result.id);
 			$("#userInsframework").append(str);
 //			hierarchyLoding();
 			if(type==20){
@@ -374,4 +376,93 @@ function tabsIncident(){
 function changeColor(obj){
 	$("ul li").css("backgroundColor","#ffffff");
 	obj.style.background = "#ffe48d";
+}
+
+function updatePwd(){
+	$('#dlg').window( {
+		modal : true
+	});
+	$("#dlg").dialog("open");
+	$("#pwd").val("");
+	$("#pwds").val("");
+	noticeAssign(99);
+}
+function pwdKeyUp(password){
+	var pwd = $(password).val();
+	if(pwd){
+		if(/[a-zA-Z]+/.test(pwd) && /[0-9]+/.test(pwd) && /\W+|_+/.test(pwd)) {
+			noticeAssign(2);
+		}else if(/[a-zA-Z]+/.test(pwd) || /[0-9]+/.test(pwd) || /\W+|_+/.test(pwd)) {
+			if(/[a-zA-Z]+/.test(pwd) && /[0-9]+/.test(pwd)) {
+				noticeAssign(1);
+			}else if(/[a-zA-Z]+/.test(pwd) && /\W+|_+/.test(pwd)) {
+				noticeAssign(1);
+			}else if(/[0-9]+/.test(pwd) && /\W+|_+/.test(pwd)) {
+				noticeAssign(1);
+			}else{
+				noticeAssign(0);
+			}
+		 }
+	}else{
+		noticeAssign(99);
+	}
+}
+function noticeAssign(num) {
+	 if(num == 2) {
+		 $('#weak').css({backgroundColor:''});
+		 $('#middle').css({backgroundColor:''});
+		 $('#strength').css({backgroundColor:'#ffcc33'});
+	 }else if(num == 1){
+		 $('#weak').css({backgroundColor:''});
+		 $('#middle').css({backgroundColor:'#ffcc33'});
+		 $('#strength').css({backgroundColor:''});
+	 }else if(num ==0) {
+		 $('#weak').css({backgroundColor:'#ffcc33'});
+		 $('#middle').css({backgroundColor:''});
+		 $('#strength').css({backgroundColor:''});
+	 }else{
+		 $('#weak').css({backgroundColor:''});
+		 $('#middle').css({backgroundColor:''});
+		 $('#strength').css({backgroundColor:''});
+	 }
+}
+
+function updatePassword(){
+	$("#pwdcheck").html("");
+	if(!$("#pwd").val()){
+		$("#pwdcheck").append("请输入密码");
+	}else if(!$("#pwds").val()){
+		$("#pwdcheck").append("请确认密码");
+	}else if($("#pwd").val() != $("#pwds").val()){
+		$("#pwdcheck").append("两次密码不一致");
+	}else{
+		$('#fm').form('submit', {
+			url : "user/updatePwd?id="+$("#uid").val()+"&pwd="+$("#pwd").val(),
+			success : function(result) {
+				if(result){
+					var result = eval('(' + result + ')');
+					if (!result.success) {
+						$.messager.show( {
+							title : 'Error',
+							msg : result.errorMsg
+						});
+					} else {
+						$.messager.alert("提示", "修改成功！");
+						$('#dlg').dialog('close');
+						var url = "user/logout";
+						var img = new Image();
+					    img.src = url;  // 设置相对路径给Image, 此时会发送出请求
+					    url = img.src;  // 此时相对路径已经变成绝对路径
+					    img.src = null; // 取消请求
+						window.location.href = encodeURI(url);
+						
+					}
+				}
+				
+			},  
+		    error : function(errorMsg) {  
+		        alert("数据请求失败，请联系系统管理员!");  
+		    } 
+		});
+	}
 }
