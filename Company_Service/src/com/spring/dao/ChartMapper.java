@@ -14,7 +14,23 @@ public interface ChartMapper extends Mapper<ModelDto>{
 	
 	BigInteger getDyneByJunctionno(@Param("str") String str);
 	
-	List<ModelDto> getHour(@Param("time") String time,@Param("str") String str);
+	List<ModelDto> getHour(@Param("time") String time);
 	
-	List<ModelDto> getHourClassify(@Param("str") String str);
+	List<ModelDto> getOvertime(@Param("time") String time,@Param("num") int num);
+	
+	List<ModelDto> getAllInsf();
+	
+	List<ModelDto> getOverproof(@Param("time") String time);
+	
+	List<ModelDto> getLoads(@Param("time") String time);
+	
+	List<ModelDto> getNoLoads(@Param("time") String time);
+	
+	List<ModelDto> getMachineCount(@Param("time") String time,@Param("status") int status);
+	
+	BigInteger getCountByTime(@Param("time") String time,@Param("mid") String mid);
+	
+	List<ModelDto> getIdle(@Param("time") String time);
+	
+	int getMachineCount(@Param("id") BigInteger id);
 }

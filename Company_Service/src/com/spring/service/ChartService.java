@@ -1,16 +1,53 @@
 package com.spring.service;
 
-import java.math.BigInteger;
-import java.util.List;
-
-import com.spring.dto.ModelDto;
-
 public interface ChartService {
-	List<ModelDto> getEfficiency(String time);
+	/**
+	 * 工效
+	 * @param object
+	 * @return
+	 */
+	Object getEfficiency(String object);
 	
-	BigInteger getDyneByJunctionno(String str);
+	/**
+	 * 工时
+	 * @param object
+	 * @return
+	 */
+	Object getHour(String object);
 	
-	List<ModelDto> getHour(String time,String  str);
+	/**
+	 * 超时待机
+	 * @param object
+	 * @return
+	 */
+	Object getOvertime(String object);
 	
-	List<ModelDto> getHourClassify(String str);
+	/**
+	 * 焊接工艺超标
+	 * @param object
+	 * @return
+	 */
+	Object getOverproof(String object);
+	
+	/**
+	 * 负荷率
+	 * @param object
+	 * @return
+	 */
+	Object getLoads(String object);
+
+	/**
+	 * 空载率
+	 * @param object
+	 * @return
+	 */
+	Object getNoLoads(String object);
+	
+	/**
+	 * 闲置率
+	 * @param object
+	 * @return
+	 */
+	Object getIdle(String object);
+	
 }

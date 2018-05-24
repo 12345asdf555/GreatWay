@@ -1714,12 +1714,12 @@
 		<if test="parent!=null and parent!=''">
 			AND (i.fid = #{parent} or i.fparent=#{parent} or ins.fparent=#{parent}) 
 		</if>
-		group by i.fid,w.fname
+		group by i.fid,fwelder_id
 		)A 
 		<if test="min>=0 and max>=0">
 			where roundTime &gt;=#{min} and roundTime &lt;= #{max}
 		</if>
-		group by wname
+		group by fwelder_id
 		)temp
 	</select>
 	
@@ -1745,12 +1745,12 @@
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by i.fid,w.fname
+		group by i.fid,fwelder_id
 		)A 
 		<if test="min>=0 and max>=0">
 			where roundTime &gt;=#{min} and roundTime &lt;= #{max}
 		</if>
-		group by wname
+		group by fwelder_id
 		)temp
 	</select>
 	
@@ -1775,12 +1775,12 @@
 		<if test="parent!=null and parent!=''">
 			AND (i.fid = #{parent} or i.fparent=#{parent} or ins.fparent=#{parent}) 
 		</if>
-		group by i.fid,w.fname
+		group by i.fid,fwelder_id
 		)A 
 		<if test="min>=0 and max>=0">
 			where roundTime &gt;=#{min} and roundTime &lt;= #{max}
 		</if>
-		group by wname
+		group by fwelder_id
 		)temp
 	</select>
 
@@ -1971,7 +1971,7 @@
 			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
-		</if> group by weldTime,ins.fid
+		</if> group by weldTime,i.fid
 	</select>
 	
 	<!-- 	根据组织机构及时间点获取工作总时长 -->

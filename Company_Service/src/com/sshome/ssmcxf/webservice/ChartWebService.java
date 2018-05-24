@@ -6,61 +6,54 @@ public interface ChartWebService {
 	 * @param object
 	 * @return
 	 */
-	String getEfficiency(String object);
+	Object getEfficiency(String object);
 	
 	/**
 	 * 工时
 	 * @param object
 	 * @return
 	 */
-	String getHour(String object);
-	
-	/**
-	 * 工时-获取所有焊口分类
-	 * @param object
-	 * @return
-	 */
-	String getHourClassify(String object);
+	Object getHour(String object);
 	
 	/**
 	 * 工艺超标
 	 * @param Object
 	 * @return
 	 */
-	String getOverproof(String object);
+	Object getOverproof(String object);
 	
 	/**
 	 * 超时待机
 	 * @param object
 	 * @return
 	 */
-	String getOvertime(String object);
+	Object getOvertime(String object);
 	
 	/**
 	 * 负荷率
 	 * @param object
 	 * @return
 	 */
-	String getLoads(String object);
+	Object getLoads(String object);
 	
 	/**
 	 * 空载率
 	 * @param object
 	 * @return
 	 */
-	String getNoLoads(String object);
+	Object getNoLoads(String object);
 	
 	/**
 	 * 闲置率
 	 * @param object
 	 * @return
 	 */
-	String getIdle(String object);
+	Object getIdle(String object);
 	
 	/**
 	 * 单台设备运行数据统计
 	 * @param object
 	 * @return
 	 */
-	String getUse(String object);
+	Object getUse(String object);
 }
