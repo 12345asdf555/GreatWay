@@ -1930,7 +1930,7 @@
 		select sum(fworktime) time from tb_work l 
 		INNER JOIN tb_insframework i on i.fid = l.fitemid 
 		INNER JOIN tb_insframework ins on ins.fid = i.fparent 
-		where fstarttime &gt;= #{time} and fendtime &lt;= date_sub(date_sub(#{time},interval -1 day),interval 0 minute)
+		where fstarttime &gt;= #{time} and fendtime &lt; date_sub(date_sub(#{time},interval -1 day),interval 0 minute)
 		<if test="parent!=null and parent!=''">
 			and (i.fid=#{parent} or ins.fid=#{parent} or ins.fparent=#{parent})
 		</if>
@@ -1941,7 +1941,7 @@
      	select sum(fstandbytime) time from tb_standby l 
 		INNER JOIN tb_insframework i on i.fid = l.fitemid 
 		INNER JOIN tb_insframework ins on ins.fid = i.fparent 
-		where fstarttime &gt;= #{time} and fendtime &lt;= date_sub(date_sub(#{time},interval -1 day),interval 0 minute)
+		where fstarttime &gt;= #{time} and fendtime &lt; date_sub(date_sub(#{time},interval -1 day),interval 0 minute)
 		<if test="parent!=null and parent!=''">
 			and (i.fid=#{parent} or ins.fid=#{parent} or ins.fparent=#{parent})
 		</if>
