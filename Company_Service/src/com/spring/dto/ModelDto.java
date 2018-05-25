@@ -13,6 +13,7 @@ public class ModelDto {
 	private BigInteger fid;
 	private BigInteger iid;
 	private BigInteger jid;
+	private BigInteger eid;
 	private String fname;
 	private String fwelder_id;
 	private String fmachine_id;
@@ -32,16 +33,6 @@ public class ModelDto {
 	private String type;
 	private BigInteger dyne;
 	private BigInteger num;
-	private int sum1;
-	private int sum2;
-	private int sum3;
-	private int sum4;
-	private int sum5;
-	private int sum6;
-	private int sum7;
-	private int sum8;
-	private int sum9;
-	private int sum10;
 	private int maxnum;
 	private int minnum;
 	private int avgnum;
@@ -56,198 +47,23 @@ public class ModelDto {
 	private BigInteger hous;//用来获取工时的总值
 	private String starttime;
 	private String endtime;
-	
-	public String getNextwallThickness() {
-		return nextwallThickness;
+	public BigInteger getOverproof() {
+		return overproof;
 	}
-	public void setNextwallThickness(String nextwallThickness) {
-		this.nextwallThickness = nextwallThickness;
+	public void setOverproof(BigInteger overproof) {
+		this.overproof = overproof;
 	}
-	public String getNextmaterial() {
-		return nextmaterial;
+	public String getWeldTime() {
+		return weldTime;
 	}
-	public void setNextmaterial(String nextmaterial) {
-		this.nextmaterial = nextmaterial;
+	public void setWeldTime(String weldTime) {
+		this.weldTime = weldTime;
 	}
-	public String getStarttime() {
-		return starttime;
+	public BigInteger getFid() {
+		return fid;
 	}
-	public void setStarttime(String starttime) {
-		this.starttime = starttime;
-	}
-	public String getEndtime() {
-		return endtime;
-	}
-	public void setEndtime(String endtime) {
-		this.endtime = endtime;
-	}
-	public BigInteger getHous() {
-		return hous;
-	}
-	public void setHous(BigInteger hous) {
-		this.hous = hous;
-	}
-	public String getExternalDiameter() {
-		return externalDiameter;
-	}
-	public void setExternalDiameter(String externalDiameter) {
-		this.externalDiameter = externalDiameter;
-	}
-	public String getWallThickness() {
-		return wallThickness;
-	}
-	public void setWallThickness(String wallThickness) {
-		this.wallThickness = wallThickness;
-	}
-	public String getMaterial() {
-		return material;
-	}
-	public void setMaterial(String material) {
-		this.material = material;
-	}
-	public String getNextexternaldiameter() {
-		return nextexternaldiameter;
-	}
-	public void setNextexternaldiameter(String nextexternaldiameter) {
-		this.nextexternaldiameter = nextexternaldiameter;
-	}
-	public BigInteger getItemid() {
-		return itemid;
-	}
-	public void setItemid(BigInteger itemid) {
-		this.itemid = itemid;
-	}
-	public String getJidgather() {
-		return jidgather;
-	}
-	public void setJidgather(String jidgather) {
-		this.jidgather = jidgather;
-	}	
-	public int getSum1() {
-		return sum1;
-	}
-	public void setSum1(int sum1) {
-		this.sum1 = sum1;
-	}
-	public int getSum2() {
-		return sum2;
-	}
-	public void setSum2(int sum2) {
-		this.sum2 = sum2;
-	}
-	public int getSum3() {
-		return sum3;
-	}
-	public void setSum3(int sum3) {
-		this.sum3 = sum3;
-	}
-	public int getSum4() {
-		return sum4;
-	}
-	public void setSum4(int sum4) {
-		this.sum4 = sum4;
-	}
-	public int getSum5() {
-		return sum5;
-	}
-	public void setSum5(int sum5) {
-		this.sum5 = sum5;
-	}
-	public int getSum6() {
-		return sum6;
-	}
-	public void setSum6(int sum6) {
-		this.sum6 = sum6;
-	}
-	public int getSum7() {
-		return sum7;
-	}
-	public void setSum7(int sum7) {
-		this.sum7 = sum7;
-	}
-	public int getSum8() {
-		return sum8;
-	}
-	public void setSum8(int sum8) {
-		this.sum8 = sum8;
-	}
-	public int getSum9() {
-		return sum9;
-	}
-	public void setSum9(int sum9) {
-		this.sum9 = sum9;
-	}
-	public int getSum10() {
-		return sum10;
-	}
-	public void setSum10(int sum10) {
-		this.sum10 = sum10;
-	}
-	public int getMaxnum() {
-		return maxnum;
-	}
-	public void setMaxnum(int maxnum) {
-		this.maxnum = maxnum;
-	}
-	public int getMinnum() {
-		return minnum;
-	}
-	public void setMinnum(int minnum) {
-		this.minnum = minnum;
-	}
-	public int getAvgnum() {
-		return avgnum;
-	}
-	public void setAvgnum(int avgnum) {
-		this.avgnum = avgnum;
-	}
-	public BigInteger getDyne() {
-		return dyne;
-	}
-	public void setDyne(BigInteger dyne) {
-		this.dyne = dyne;
-	}
-	public BigInteger getNum() {
-		return num;
-	}
-	public void setNum(BigInteger num) {
-		this.num = num;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public double getTime() {
-		return time;
-	}
-	public void setTime(double time) {
-		this.time = time;
-	}
-	public BigInteger getIdle() {
-		return idle;
-	}
-	public void setIdle(BigInteger idle) {
-		this.idle = idle;
-	}
-	public double getLoads() {
-		return loads;
-	}
-	public void setLoads(double loads) {
-		this.loads = loads;
-	}
-	public String getOvertime() {
-		return overtime;
-	}
-	public void setOvertime(String overtime) {
-		this.overtime = overtime;
-	}
-	public String getUploaddatetime() {
-		return uploaddatetime;
-	}
-	public void setUploaddatetime(String uploaddatetime) {
-		this.uploaddatetime = uploaddatetime;
+	public void setFid(BigInteger fid) {
+		this.fid = fid;
 	}
 	public BigInteger getIid() {
 		return iid;
@@ -260,6 +76,18 @@ public class ModelDto {
 	}
 	public void setJid(BigInteger jid) {
 		this.jid = jid;
+	}
+	public BigInteger getEid() {
+		return eid;
+	}
+	public void setEid(BigInteger eid) {
+		this.eid = eid;
+	}
+	public String getFname() {
+		return fname;
+	}
+	public void setFname(String fname) {
+		this.fname = fname;
 	}
 	public String getFwelder_id() {
 		return fwelder_id;
@@ -303,6 +131,12 @@ public class ModelDto {
 	public void setWname(String wname) {
 		this.wname = wname;
 	}
+	public BigInteger getLivecount() {
+		return livecount;
+	}
+	public void setLivecount(BigInteger livecount) {
+		this.livecount = livecount;
+	}
 	public double getFmax_electricity() {
 		return fmax_electricity;
 	}
@@ -315,35 +149,137 @@ public class ModelDto {
 	public void setFmin_electricity(double fmin_electricity) {
 		this.fmin_electricity = fmin_electricity;
 	}
-	public BigInteger getOverproof() {
-		return overproof;
+	public String getOvertime() {
+		return overtime;
 	}
-	public void setOverproof(BigInteger overproof) {
-		this.overproof = overproof;
+	public void setOvertime(String overtime) {
+		this.overtime = overtime;
 	}
-	public BigInteger getLivecount() {
-		return livecount;
+	public String getUploaddatetime() {
+		return uploaddatetime;
 	}
-	public void setLivecount(BigInteger livecount) {
-		this.livecount = livecount;
+	public void setUploaddatetime(String uploaddatetime) {
+		this.uploaddatetime = uploaddatetime;
 	}
-	public String getWeldTime() {
-		return weldTime;
+	public double getLoads() {
+		return loads;
 	}
-	public void setWeldTime(String weldTime) {
-		this.weldTime = weldTime;
+	public void setLoads(double loads) {
+		this.loads = loads;
 	}
-	public BigInteger getFid() {
-		return fid;
+	public BigInteger getIdle() {
+		return idle;
 	}
-	public void setFid(BigInteger fid) {
-		this.fid = fid;
+	public void setIdle(BigInteger idle) {
+		this.idle = idle;
 	}
-	public String getFname() {
-		return fname;
+	public double getTime() {
+		return time;
 	}
-	public void setFname(String fname) {
-		this.fname = fname;
+	public void setTime(double time) {
+		this.time = time;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public BigInteger getDyne() {
+		return dyne;
+	}
+	public void setDyne(BigInteger dyne) {
+		this.dyne = dyne;
+	}
+	public BigInteger getNum() {
+		return num;
+	}
+	public void setNum(BigInteger num) {
+		this.num = num;
+	}
+	public int getMaxnum() {
+		return maxnum;
+	}
+	public void setMaxnum(int maxnum) {
+		this.maxnum = maxnum;
+	}
+	public int getMinnum() {
+		return minnum;
+	}
+	public void setMinnum(int minnum) {
+		this.minnum = minnum;
+	}
+	public int getAvgnum() {
+		return avgnum;
+	}
+	public void setAvgnum(int avgnum) {
+		this.avgnum = avgnum;
+	}
+	public String getExternalDiameter() {
+		return externalDiameter;
+	}
+	public void setExternalDiameter(String externalDiameter) {
+		this.externalDiameter = externalDiameter;
+	}
+	public String getWallThickness() {
+		return wallThickness;
+	}
+	public void setWallThickness(String wallThickness) {
+		this.wallThickness = wallThickness;
+	}
+	public String getMaterial() {
+		return material;
+	}
+	public void setMaterial(String material) {
+		this.material = material;
+	}
+	public String getNextexternaldiameter() {
+		return nextexternaldiameter;
+	}
+	public void setNextexternaldiameter(String nextexternaldiameter) {
+		this.nextexternaldiameter = nextexternaldiameter;
+	}
+	public String getNextwallThickness() {
+		return nextwallThickness;
+	}
+	public void setNextwallThickness(String nextwallThickness) {
+		this.nextwallThickness = nextwallThickness;
+	}
+	public String getNextmaterial() {
+		return nextmaterial;
+	}
+	public void setNextmaterial(String nextmaterial) {
+		this.nextmaterial = nextmaterial;
+	}
+	public BigInteger getItemid() {
+		return itemid;
+	}
+	public void setItemid(BigInteger itemid) {
+		this.itemid = itemid;
+	}
+	public String getJidgather() {
+		return jidgather;
+	}
+	public void setJidgather(String jidgather) {
+		this.jidgather = jidgather;
+	}
+	public BigInteger getHous() {
+		return hous;
+	}
+	public void setHous(BigInteger hous) {
+		this.hous = hous;
+	}
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
 	}
 	
 }

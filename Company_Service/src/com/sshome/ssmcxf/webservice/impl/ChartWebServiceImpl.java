@@ -25,32 +25,32 @@ public class ChartWebServiceImpl implements ChartWebService {
 
 	@Override
 	public Object getOverproof(String object) {
-		return null;
+		return cs.getOverproof(object);
 	}
 
 	@Override
 	public Object getOvertime(String object) {
-		return null;
+		return cs.getOvertime(object);
 	}
 
 	@Override
 	public Object getLoads(String object) {
-		return null;
+		return cs.getLoads(object);
 	}
 
 	@Override
 	public Object getNoLoads(String object) {
-		return null;
+		return cs.getNoLoads(object);
 	}
 
 	@Override
 	public Object getIdle(String object) {
-		return null;
+		return cs.getIdle(object);
 	}
 
 	@Override
 	public Object getUse(String object) {
-		return null;
+		return cs.getUse(object);
 	}
 
 }

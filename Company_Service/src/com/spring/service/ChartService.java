@@ -50,4 +50,11 @@ public interface ChartService {
 	 */
 	Object getIdle(String object);
 	
+	/**
+	 * 单台设备运行数据统计
+	 * @param object
+	 * @return
+	 */
+	Object getUse(String object);
+	
 }

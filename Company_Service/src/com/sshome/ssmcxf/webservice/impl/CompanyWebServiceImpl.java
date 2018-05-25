@@ -68,18 +68,33 @@ public class CompanyWebServiceImpl implements CompanyWebService {
 	}
 
 
-//	@Override
-//	public String enterChart(String object) {
-//		JSONObject json = JSONObject.fromObject(object);
-//		int num = json.getInt("NUM");
-//		if(num==1){
-//			return cws.getEfficiency(object);
-//		}else if(num==2){
-//			return cws.getHour(object);
-//		}else if(num==3){
-//			return cws.getHourClassify(object);
-//		}
-//		return "抱歉，未找到您想要的报表信息！";
-//	}
+	@Override
+	public Object enterChart(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			int num = json.getInt("NUM");
+			if(num==1){
+				return cws.getEfficiency(object);
+			}else if(num==2){
+				return cws.getHour(object);
+			}else if(num==3){
+				return cws.getOvertime(object);
+			}else if(num==4){
+				return cws.getOverproof(object);
+			}else if(num==5){
+				return cws.getLoads(object);
+			}else if(num==6){
+				return cws.getNoLoads(object);
+			}else if(num==7){
+				return cws.getIdle(object);
+			}else if(num==8){
+				return cws.getUse(object);
+			}
+			return "抱歉，未找到您想要的报表信息！";
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

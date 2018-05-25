@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.dao.ChartMapper;
+import com.spring.dao.WeldingMachineMapper;
 import com.spring.dto.JudgeUtil;
 import com.spring.dto.ModelDto;
 import com.spring.service.ChartService;
@@ -22,6 +23,8 @@ import net.sf.json.JSONObject;
 public class ChartServiceImpl implements ChartService {
 	@Autowired
 	private ChartMapper cm;
+	@Autowired
+	private WeldingMachineMapper wm;
 	
 	private JudgeUtil jutil = new JudgeUtil();
 	
@@ -74,7 +77,7 @@ public class ChartServiceImpl implements ChartService {
 			String time = sdf.format(new Date(obj.getString("TIME")));
 			List<ModelDto> list = cm.getHour(time);
 			for(ModelDto l:list){
-				json.put("BLOCNAME",jutil.setValue(l.getIname()));
+				json.put("CAUSTNAME",jutil.setValue(l.getIname()));
 				json.put("ITEMNAME",jutil.setValue(l.getFname()));
 				String[] str = l.getJidgather().split(",");
 				if(l.getJidgather().equals("0")){
@@ -123,7 +126,7 @@ public class ChartServiceImpl implements ChartService {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String time = sdf.format(new Date(obj.getString("TIME")));
 			List<ModelDto> insf = cm.getAllInsf();
-			List<ModelDto> list = cm.getOvertime(time, obj.getInt("NUM"));
+			List<ModelDto> list = cm.getOvertime(time, obj.getInt("OVERTIME"));
 			for(ModelDto ins: insf){
 				int num = 0;
 				for(ModelDto l:list){
@@ -203,9 +206,9 @@ public class ChartServiceImpl implements ChartService {
 				json.put("CAUSTNAME", jutil.setValue(ins.getFname()));
 				json.put("ITEMNAME", jutil.setValue(ins.getIname()));
 				json.put("WELDTIME",time);
-				json.put("LOADS", num);
-				json.put("STANDBYTIME", worktime);
-				json.put("STANDBYMACHINE", workmachine);
+				json.put("LOADS", num+"%");
+				json.put("WORKTIME", (double) Math.round(Double.valueOf(worktime)*1000)/1000);
+				json.put("WORKMACHINE", workmachine);
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -233,7 +236,7 @@ public class ChartServiceImpl implements ChartService {
 				for(ModelDto l:list){
 					for(ModelDto m:machine){
 						if(m.getFid().equals(l.getIid()) && l.getIid().equals(ins.getFid())){
-							sumtime = cm.getCountByTime(time, l.getWeldTime()).doubleValue();
+							sumtime = cm.getCountByTime(time, l.getIid()).doubleValue();
 							num = (double)Math.round(l.getLoads()/sumtime/m.getLoads()*100*100)/100;
 							workmachine = m.getLoads();
 							worktime = l.getLoads();
@@ -243,17 +246,17 @@ public class ChartServiceImpl implements ChartService {
 				json.put("CAUSTNAME", jutil.setValue(ins.getFname()));
 				json.put("ITEMNAME", jutil.setValue(ins.getIname()));
 				json.put("WELDTIME",time);
-				json.put("LOADS", num);
-				json.put("WORKTIME", worktime);
-				json.put("WORKMACHINE", workmachine);
-				json.put("TOTALTIME", sumtime);
+				json.put("NOLOADS", num+"%");
+				json.put("STANDBYTIME", (double) Math.round(Double.valueOf(worktime)*1000)/1000);
+				json.put("STANDBYMACHINE", workmachine);
+				json.put("TOTALTIME", (double) Math.round(Double.valueOf(sumtime)*1000)/1000);
 				ary.add(json);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		if(ary.isEmpty()){
-			ary.add("{\"CAUSTNAME\":\"\",\"ITEMNAME\":\"\",\"WELDTIME\":\"\",\"LOADS\":\"\",\"WORKTIME\":\"\",\"WORKMACHINE\":\"\",\"TOTALTIME\":\"\"}");
+			ary.add("{\"CAUSTNAME\":\"\",\"ITEMNAME\":\"\",\"WELDTIME\":\"\",\"NOLOADS\":\"\",\"STANDBYTIME\":\"\",\"STANDBYMACHINE\":\"\",\"TOTALTIME\":\"\"}");
 		}
 		return ary.toString();
 	}
@@ -267,10 +270,10 @@ public class ChartServiceImpl implements ChartService {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String time = sdf.format(new Date(obj.getString("TIME")));
 			List<ModelDto> insf = cm.getAllInsf();
-			List<ModelDto> list = cm.getOvertime(time, obj.getInt("NUM"));
+			List<ModelDto> list = cm.getIdle(time);
 			for(ModelDto ins: insf){
 				double num = 0;
-				int count = cm.getMachineCount(ins.getFid());
+				int count = cm.getMachineCountByIns(ins.getFid());
 				for(ModelDto l:list){
 					if(ins.getFid().equals(l.getFid())){
 						num = count - l.getNum().doubleValue();
@@ -287,6 +290,34 @@ public class ChartServiceImpl implements ChartService {
 		}
 		if(ary.isEmpty()){
 			ary.add("{\"CAUSTNAME\":\"\",\"ITEMNAME\":\"\",\"WELDTIME\":\"\",\"IDLE\":\"\"}");
+		}
+		return ary.toString();
+	}
+
+	@Override
+	public Object getUse(String object) {
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		try{
+			JSONObject obj = JSONObject.fromObject(object);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String time = sdf.format(new Date(obj.getString("TIME")));
+			List<ModelDto> list = cm.getUse(time);
+			for(ModelDto i: list){
+				double num = wm.getMachineCountByManu(i.getEid(),i.getIid()).doubleValue();
+				json.put("CAUSTNAME", jutil.setValue(i.getFname()));
+				json.put("ITEMNAME", jutil.setValue(i.getIname()));
+				json.put("WELDTIME",time);
+				json.put("AVGTIME",  (double)Math.round(i.getTime()/num*100)/100);
+				json.put("MANUFACTURERSNAME", i.getWname());
+				json.put("MANUFACTURERSTYPE", i.getType());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		if(ary.isEmpty()){
+			ary.add("{\"CAUSTNAME\":\"\",\"ITEMNAME\":\"\",\"WELDTIME\":\"\",\"AVGTIME\":\"\",\"MANUFACTURERSNAME\":\"\",\"MANUFACTURERSTYPE\":\"\"}");
 		}
 		return ary.toString();
 	}

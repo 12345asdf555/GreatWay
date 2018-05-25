@@ -16,13 +16,6 @@ public interface ChartWebService {
 	Object getHour(String object);
 	
 	/**
-	 * 工艺超标
-	 * @param Object
-	 * @return
-	 */
-	Object getOverproof(String object);
-	
-	/**
 	 * 超时待机
 	 * @param object
 	 * @return
@@ -30,12 +23,19 @@ public interface ChartWebService {
 	Object getOvertime(String object);
 	
 	/**
+	 * 焊接工艺超标
+	 * @param object
+	 * @return
+	 */
+	Object getOverproof(String object);
+	
+	/**
 	 * 负荷率
 	 * @param object
 	 * @return
 	 */
 	Object getLoads(String object);
-	
+
 	/**
 	 * 空载率
 	 * @param object

@@ -28,9 +28,11 @@ public interface ChartMapper extends Mapper<ModelDto>{
 	
 	List<ModelDto> getMachineCount(@Param("time") String time,@Param("status") int status);
 	
-	BigInteger getCountByTime(@Param("time") String time,@Param("mid") String mid);
+	BigInteger getCountByTime(@Param("time") String time,@Param("id") BigInteger id);
 	
 	List<ModelDto> getIdle(@Param("time") String time);
 	
-	int getMachineCount(@Param("id") BigInteger id);
+	int getMachineCountByIns(@Param("id") BigInteger id);
+	
+	List<ModelDto> getUse(@Param("time") String time);
 }
