@@ -610,7 +610,7 @@
 			</if>
 		</if>
 		group by weldTime
-     	)temp
+     	)temp  order by weldTime
 	</select>
 	
 	<select id="getAllInsf" resultMap="liveMap">
