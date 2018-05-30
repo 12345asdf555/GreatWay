@@ -249,9 +249,7 @@ public class JunctionChartController {
 		try{
 			for(ModelDto l:list){
 				json.put("manhour", l.getHous());
-				String search = "and fid = "+l.getFid();
-				BigInteger dyne = lm.getDyneByJunctionno(search);
-				json.put("dyne",dyne);
+				json.put("dyne", l.getDyne());
 				json.put("name",l.getFname());
 				json.put("itemid",l.getFid());
 				json.put("starttime",l.getStarttime());

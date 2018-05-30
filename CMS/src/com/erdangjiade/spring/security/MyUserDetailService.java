@@ -7,22 +7,24 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.namespace.QName;
-import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
-import org.apache.cxf.transport.http.AbstractHTTPDestination;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes; 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.greatway.model.AuthorityParameter;
+import com.greatway.util.AuthorityHeaderInterceptor;
 import com.spring.model.MyUser;
 import com.spring.service.UserService;
 
@@ -67,15 +69,22 @@ public class MyUserDetailService implements UserDetailsService {
 				}
 				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 				Client client = dcf.createClient(webserviceurl);
+				//webservice权限认证
+				AuthorityParameter param = new AuthorityParameter("userName", "admin", "password", "123456");
+				client.getOutInterceptors().add(new AuthorityHeaderInterceptor(param)); 
+				client.getOutInterceptors().add(new LoggingOutInterceptor()); 
+				HTTPClientPolicy policy = ((HTTPConduit) client.getConduit()).getClient();
+				policy.setConnectionTimeout(30000);
+			  	policy.setReceiveTimeout(180000);
+			  	
 				String obj1 = "{\"CLASSNAME\":\"userWebServiceImpl\",\"METHOD\":\"LoadUser\"}";
 				String obj2 = "{\"LOGINNAME\":\""+userName+"\"}";
 				Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 				
 				String result = objects[0].toString();
 				JSONObject json = JSONObject.fromObject(result);
-				id = json.getLong("id");
-				password = json.getString("userPassword");
-				System.out.println(id);
+				id = json.getLong("ID");
+				password = json.getString("PASSWORD");
 		        auths = new ArrayList<GrantedAuthority>();    
 		        List<String> list = userService.getAuthoritiesByUsername(userName);
 		        for (int j = 0; j < list.size(); j++) {    

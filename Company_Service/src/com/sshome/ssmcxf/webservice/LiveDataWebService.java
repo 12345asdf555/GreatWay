@@ -69,33 +69,6 @@ public interface LiveDataWebService {
 	Object getCompanyOverproof(String object);
 	
 	/**
-	 * 超标明细
-	 * @param dto 扩展参数类
-	 * @return
-	 */
-	Object getDatailOverproof(String object);
-	
-	/**
-	 * 获取某焊工在某个时间/焊机/焊口的总工时
-	 * @param welderno焊工编号
-	 * @param machineno焊机编号
-	 * @param junctionno焊口编号
-	 * @param time时间
-	 * @return
-	 */
-	int getCountTime(String object);
-	
-	/**
-	 * 获取焊机超标
-	 * @param welderno焊工编号
-	 * @param machineno焊机编号
-	 * @param junctionno焊口编号
-	 * @param time时间
-	 * @return
-	 */
-	Object getjunctionoverproof(String object);
-	
-	/**
 	 * 获取公司超时待机统计
 	 * @param dto 扩展参数类
 	 * @param num 超时点
@@ -389,4 +362,21 @@ public interface LiveDataWebService {
 	 * @return
 	 */
 	Object getCountByTime(String object);
+	
+	/**
+	 * 根据焊工获取焊口
+	 * @param dto 扩展参数类
+	 * @param welder 焊工编号
+	 * @return
+	 */
+	Object getJunctionByWelder(String object);
+	
+	/**
+	 * 获取超标回溯
+	 * @param time 超标时间
+	 * @param welder 焊工
+	 * @param jucntion 焊口
+	 * @return
+	 */
+	Object getExcessiveBack(String object);
 }

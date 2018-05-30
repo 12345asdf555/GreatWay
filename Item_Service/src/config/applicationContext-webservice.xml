@@ -10,7 +10,23 @@
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 	
-	<jaxws:endpoint id="itemWebService" address="/itemWebService"
-		implementor="com.sshome.ssmcxf.webservice.impl.ItemWebServiceImpl" />
+	<bean id="itemWebService" class="com.sshome.ssmcxf.webservice.impl.ItemWebServiceImpl"/>
+	<bean id="inInterceptor" class="com.sshome.ssmcxf.webservice.impl.AuthInterceptor"/>
+	
+	
+	<!-- 	address的名称就是访问的WebService的name -->
+	<jaxws:server id="itemService" serviceClass="com.sshome.ssmcxf.webservice.ItemWebService" address="/itemWebService">
+    	<jaxws:serviceBean>
+			<!--  要暴露的 bean 的引用 -->
+        	<ref bean="itemWebService"/>
+    	</jaxws:serviceBean>
+    	<jaxws:inInterceptors>
+    	    <!-- 拦截处理用户名密码 -->
+        	<ref bean="inInterceptor"/>
+    	</jaxws:inInterceptors>
+ 	</jaxws:server>
+	
+<!-- 	<jaxws:endpoint id="itemWebService" address="/itemWebService" -->
+<!-- 		implementor="com.sshome.ssmcxf.webservice.impl.ItemWebServiceImpl" /> -->
 		
 </beans>

@@ -30,7 +30,7 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	
 	List<LiveData> getAllInsf(@Param("parent") BigInteger parent,@Param("type") int type);
 	
-	List<LiveData> getAllTime(@Param("dto") WeldDto dto);
+	List<ModelDto> getAllTime(@Param("dto") WeldDto dto);
 	
 	int getCountTime(@Param("welderno") String welderno,@Param("machineno") String machineno,@Param("junctionno") String junctionno,@Param("time") String time,@Param("id") BigInteger id);
 
@@ -115,4 +115,8 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	List<ModelDto> getCaustMachineCount(@Param("dto")WeldDto dto,@Param("parent")BigInteger parent);
 	
 	BigInteger getCountByTime(@Param("parent")BigInteger parent,@Param("time")String time,@Param("mid")BigInteger mid);
+	
+	List<ModelDto> getJunctionByWelder(@Param("dto")WeldDto dto,@Param("welder")String welder);
+	
+	List<ModelDto> getExcessiveBack(@Param("time")String time,@Param("welder")String welder,@Param("junction")String junction);
 }

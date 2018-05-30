@@ -373,7 +373,7 @@
 	<select id="getJunctionHous" resultMap="dtoMap">
 		SELECT *
 		FROM (
-		SELECT SUM(fworktime) AS hous, sum( fdyne ) dyne, fjunction_id fname, j.fid fid,j.fstart_time starttime,j.fend_time endtime,i.fname iname,GROUP_CONCAT(DISTINCT(w.fname)) fwelder_id
+		SELECT SUM(fworktime) AS hous,  fdyne dyne, fjunction_id fname, j.fid fid,j.fstart_time starttime,j.fend_time endtime,i.fname iname,GROUP_CONCAT(DISTINCT(w.fname)) fwelder_id
 		FROM tb_work l
 		INNER JOIN tb_welded_junction j ON l.fjunction_id = j.fwelded_junction_no
 		INNER JOIN tb_insframework i ON l.fitemid = i.fid
@@ -2009,7 +2009,7 @@
 		where l.fwelder_id=#{welder}
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
-				and fweldtime like  #{dto.dtoTime1}
+				and fweldtime &gt;=#{dto.dtoTime1}  and fweldtime &lt; date_sub(date_sub(#{dto.dtoTime1},interval -1 day),interval 0 minute)
 			</if>
 		</if>group by fjunction_id
 	</select>
@@ -2020,13 +2020,13 @@
    		select @rownum:=@rownum+1 as rownum,A.* from ( 
    		SELECT case when felectricity &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0 end as overproof,felectricity,fmax_electricity,fmin_electricity,
    		DATE_FORMAT( fweldtime, '%Y-%m-%d %h:%i:%s' ) weldtime,fwelder_id,fjunction_id,(select @rownum:=0) r1 FROM ( 
-   		select felectricity,fjunction_id,fweldtime,fwelder_id from tb_live_data where fstatus = 3 and fweldtime like #{time}) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id 
+   		select felectricity,fjunction_id,fweldtime,fwelder_id from tb_live_data where fstatus = 3 and  fweldtime &gt;= #{time} and fweldtime &lt; date_sub(date_sub(#{time},interval -1 day),interval 0 minute)) as k0 inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id 
    		inner join tb_welder w on w.fwelder_no = k0.fwelder_id where fwelder_id=#{welder} and fjunction_id=#{junction} group by weldtime) A where overproof=1 order by weldtime) E)F
  		inner join (
 		select * from (select @rownum:=@rownum+1 num,B.* from(
 		SELECT DATE_FORMAT( fweldtime, '%Y-%m-%d %h:%i:%s' ) weldtimes,(
 		select @rownum:=0) r2,case when felectricity &gt; fmax_electricity then 1 when felectricity &lt; fmin_electricity then 1 else 0 end as overproofs FROM ( 
-		select felectricity,fjunction_id,fweldtime,fwelder_id from tb_live_data where fstatus = 3 and fweldtime like #{time}) as k0 
+		select felectricity,fjunction_id,fweldtime,fwelder_id from tb_live_data where fstatus = 3 and fweldtime &gt;= #{time} and fweldtime &lt; date_sub(date_sub(#{time},interval -1 day),interval 0 minute)) as k0 
 		inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id inner join tb_welder w on w.fwelder_no = k0.fwelder_id where fwelder_id=#{welder} and fjunction_id=#{junction} group by weldtimes )B
 		where overproofs=1 order by weldtimes)C where num>1 )D on F.nums = D.num)temp
 	</select>

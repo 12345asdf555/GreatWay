@@ -79,7 +79,7 @@ public class LiveDataServiceImpl implements LiveDataService {
 	}
 
 	@Override
-	public List<LiveData> getAllTime(WeldDto dto) {
+	public List<ModelDto> getAllTime(WeldDto dto) {
 		try{
 			return live.getAllTime(dto);
 		}catch(Exception e){
@@ -95,35 +95,7 @@ public class LiveDataServiceImpl implements LiveDataService {
 			return null;
 		}
 	}
-
-	@Override
-	public List<ModelDto> getDatailOverproof(WeldDto dto,BigInteger parent) {
-		try{
-			return live.getDatailOverproof(dto,parent);
-		}catch(Exception e){
-			return null;
-		}
-	}
-
-	@Override
-	public int getCountTime(String welderno, String machineno, String junctionno, String time,BigInteger id) {
-		try{
-			return live.getCountTime(welderno, machineno, junctionno, time, id);
-		}catch(Exception e){
-			return -1;
-		}
-	}
-
-	@Override
-	public List<ModelDto> getjunctionoverproof(String welderno, String machineno, String junctionno,
-			String time, BigInteger itemid) {
-		try{
-			return live.getjunctionoverproof(welderno, machineno, junctionno, time, itemid);
-		}catch(Exception e){
-			return null;
-		}
-	}
-
+	
 	@Override
 	public List<ModelDto> getcompanyOvertime(WeldDto dto, String num,BigInteger parent) {
 		try{
@@ -296,7 +268,7 @@ public class LiveDataServiceImpl implements LiveDataService {
 	}
 
 	@Override
-	public List<LiveData> getAllTimes(WeldDto dto) {
+	public List<ModelDto> getAllTimes(WeldDto dto) {
 		try{
 			return live.getAllTime(dto);
 		}catch(Exception e){
@@ -497,6 +469,24 @@ public class LiveDataServiceImpl implements LiveDataService {
 	public BigInteger getCountByTime(BigInteger parent, String time, BigInteger mid) {
 		try{
 			return live.getCountByTime(parent, time, mid);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	@Override
+	public List<ModelDto> getJunctionByWelder(WeldDto dto, String welder) {
+		try{
+			return live.getJunctionByWelder(dto, welder);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	@Override
+	public List<ModelDto> getExcessiveBack(String time, String welder, String junction) {
+		try{
+			return live.getExcessiveBack(time, welder, junction);
 		}catch(Exception e){
 			return null;
 		}

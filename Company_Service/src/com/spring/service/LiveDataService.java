@@ -2,6 +2,7 @@ package com.spring.service;
 
 import java.math.BigInteger;
 import java.util.List;
+
 import com.spring.dto.ModelDto;
 import com.spring.dto.WeldDto;
 import com.spring.model.LiveData;
@@ -66,7 +67,7 @@ public interface LiveDataService {
 	 * @param dto 扩展参数类
 	 * @return
 	 */
-	List<LiveData> getAllTime(WeldDto dto);
+	List<ModelDto> getAllTime(WeldDto dto);
 	
 	/**
 	 * 公司工艺超标统计
@@ -74,33 +75,6 @@ public interface LiveDataService {
 	 * @return
 	 */
 	List<ModelDto> getCompanyOverproof(WeldDto dto,BigInteger parent);
-	
-	/**
-	 * 超标明细
-	 * @param dto 扩展参数类
-	 * @return
-	 */
-	List<ModelDto> getDatailOverproof(WeldDto dto,BigInteger parent);
-	
-	/**
-	 * 获取某焊工在某个时间/焊机/焊口的总工时
-	 * @param welderno焊工编号
-	 * @param machineno焊机编号
-	 * @param junctionno焊口编号
-	 * @param time时间
-	 * @return
-	 */
-	int getCountTime(String welderno,String machineno,String junctionno,String time,BigInteger id);
-	
-	/**
-	 * 获取焊机超标
-	 * @param welderno 焊工编号
-	 * @param machineno 焊机编号
-	 * @param junctionno 焊口编号
-	 * @param time时间
-	 * @return
-	 */
-	List<ModelDto> getjunctionoverproof(String welderno,String machineno,String junctionno,String time,BigInteger itemid);
 	
 	/**
 	 * 获取公司超时待机统计
@@ -266,7 +240,7 @@ public interface LiveDataService {
 	 * @param dto
 	 * @return
 	 */
-	List<LiveData> getAllTimes(WeldDto dto);
+	List<ModelDto> getAllTimes(WeldDto dto);
 	
 	/**
 	 * 集团焊接工时
@@ -415,4 +389,21 @@ public interface LiveDataService {
 	 * @return
 	 */
 	BigInteger getCountByTime(BigInteger parent,String time,BigInteger mid);
+	
+	/**
+	 * 根据焊工获取焊口
+	 * @param dto 扩展参数类
+	 * @param welder 焊工编号
+	 * @return
+	 */
+	List<ModelDto> getJunctionByWelder(WeldDto dto ,String welder);
+	
+	/**
+	 * 获取超标回溯
+	 * @param time 超标时间
+	 * @param welder 焊工
+	 * @param jucntion 焊口
+	 * @return
+	 */
+	List<ModelDto> getExcessiveBack(String time,String welder,String junction);
 }

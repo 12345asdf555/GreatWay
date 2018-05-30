@@ -1,7 +1,6 @@
 package com.sshome.ssmcxf.webservice.impl;
 
 import java.lang.reflect.Method;
-
 import javax.jws.WebService;
 
 import org.springframework.beans.factory.annotation.Autowired;
