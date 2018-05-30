@@ -126,6 +126,7 @@ public class ImportExcelController {
 				//客户端执行操作
 				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 				Client client = dcf.createClient(companyurl);
+				iutil.Authority(client);
 				String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"addWeldingMachine\"}";
 				String obj2 = "{\"EQUIPMENTNO\":\""+wm.getEquipmentNo()+"\",\"POSITION\":\""+wm.getPosition()+"\",\"ISNETWORKING\":\""+wm.getIsnetworking()+"\","
 						+ "\"JOINTIME\":\""+wm.getJoinTime()+"\",\"TYPEID\":\""+wm.getTypeId()+"\",\"STATUSID\":\""+wm.getStatusId()+"\","
@@ -186,6 +187,7 @@ public class ImportExcelController {
 				//客户端执行操作
 				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 				Client client = dcf.createClient(companyurl);
+				iutil.Authority(client);
 				String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"addMaintian\"}";
 				String obj2 = "{\"VICEMAN\":\""+wt.get(i).getMaintenance().getViceman()+"\",\"INSFID\":\""+insfid+"\",\"STARTTIME\":\""+wt.get(i).getMaintenance().getStartTime()+
 						"\",\"ENDTIME\":\""+wt.get(i).getMaintenance().getEndTime()+"\",\"DESC\":\""+wt.get(i).getMaintenance().getDesc()+"\",\"TYPEID\":\""+wt.get(i).getMaintenance().getTypeId()+

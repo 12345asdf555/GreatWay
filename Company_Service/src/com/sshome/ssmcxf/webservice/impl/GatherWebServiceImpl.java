@@ -109,7 +109,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 	}
 
 	@Override
-	public boolean addGather(String obj1,String obj2) {
+	public Object addGather(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -117,7 +117,8 @@ public class GatherWebServiceImpl implements GatherWebService{
 			//向集团层执行插入
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
-			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+			jutil.Authority(blocclient);
+			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			BigInteger id = new BigInteger(blocobj[0].toString());
 			JSONObject json = JSONObject.fromObject(obj2);
 			//获取层级id
@@ -143,13 +144,27 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setStatus(json.getString("STATUS"));
 			g.setCreator(json.getString("CREATOR"));
 			boolean flag = gs.addGather(g);
+			String result = "";
+			boolean status = false;
 			//向项目执行插入
-			Client itemclient = dcf.createClient(itemurl);
-			obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
-			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-			String result = itemobj[0].toString();
-			if(flag && result.equals("true")){
-				return true;
+			if(itemurl!=null && !"".equals(itemurl)){
+				status = true;
+				Client itemclient = dcf.createClient(itemurl);
+				jutil.Authority(itemclient);
+				obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
+				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+				result = itemobj[0].toString();
+			}
+			if(flag){
+				if(status){
+					if(result.equals("true")){
+						return true;
+					}else{
+						return false;
+					}
+				}else{
+					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+				}
 			}else{
 				return false;
 			}
@@ -168,6 +183,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 			//向集团层执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -196,6 +212,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 			boolean flag = gs.editGather(g);
 			//向项目执行操作
 			Client itemclient = dcf.createClient(itemurl);
+			jutil.Authority(itemclient);
 			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			String result = itemobj[0].toString();
 			if(flag && result.equals("true") && blocResult.equals("true")){
@@ -218,6 +235,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 			//向集团层执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -233,6 +251,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 			boolean flag = gs.deleteGather(new BigInteger(json.getString("ID")));
 			//向项目执行操作
 			Client itemclient = dcf.createClient(itemurl);
+			jutil.Authority(itemclient);
 			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			String result = itemobj[0].toString();
 			if(flag && result.equals("true") && blocResult.equals("true")){

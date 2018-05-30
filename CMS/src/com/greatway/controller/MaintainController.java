@@ -198,6 +198,7 @@ public class MaintainController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"addMaintian\"}";
 			String obj2 = "{\"VICEMAN\":\""+request.getParameter("viceman")+"\",\"INSFID\":\""+insfid+"\",\"STARTTIME\":\""+request.getParameter("startTime")+
 					"\",\"ENDTIME\":\""+request.getParameter("endTime")+"\",\"DESC\":\""+request.getParameter("desc")+"\",\"TYPEID\":\""+request.getParameter("tId")+
@@ -234,6 +235,7 @@ public class MaintainController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"updateMaintenanceRecord\"}";
 			String obj2 = "{\"MID\":\""+new BigInteger(mid)+"\",\"WID\":\""+new BigInteger(wid)+"\",\"INSFID\":\""+insfid+"\",\"VICEMAN\":\""+request.getParameter("viceman")+"\",\"STARTTIME\":\""+request.getParameter("startTime")+"\","
 					+ "\"ENDTIME\":\""+request.getParameter("endTime")+"\",\"DESC\":\""+request.getParameter("desc")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\","
@@ -272,6 +274,7 @@ public class MaintainController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"updateEndtime\"}";
 			String obj2 = "{\"MID\":\""+wid+"\",\"WELDINGID\":\""+weldingid+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\",\"INSFID\":\""+insfid+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
@@ -302,6 +305,7 @@ public class MaintainController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"deleteMaintenanceRecord\"}";
 			String obj2 = "{\"MID\":\""+wid+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\",\"INSFID\":\""+insfid+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  

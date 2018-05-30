@@ -35,7 +35,7 @@ public interface GatherWebService {
 	 * 添加采集信息
 	 * @param ins采集对象
 	 */
-	boolean addGather(String obj1,String obj2);
+	Object addGather(String obj1,String obj2);
 	
 	/**
 	 * 修改采集信息

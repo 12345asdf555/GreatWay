@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.spring.dto.JudgeUtil;
 import com.spring.model.Td;
-import com.spring.model.User;
 import com.spring.service.TdService;
 import com.sshome.ssmcxf.webservice.TdWebService;
 

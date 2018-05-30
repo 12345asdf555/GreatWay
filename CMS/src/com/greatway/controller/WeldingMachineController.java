@@ -19,14 +19,12 @@ import com.github.pagehelper.PageInfo;
 import com.greatway.manager.DictionaryManager;
 import com.greatway.manager.GatherManager;
 import com.greatway.manager.InsframeworkManager;
-import com.greatway.manager.MaintainManager;
 import com.greatway.manager.WeldingMachineManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.model.EquipmentManufacturer;
 import com.greatway.model.Gather;
 import com.greatway.model.Insframework;
 import com.greatway.model.WeldingMachine;
-import com.greatway.model.WeldingMaintenance;
 import com.greatway.page.Page;
 import com.greatway.util.IsnullUtil;
 import com.spring.model.MyUser;
@@ -44,9 +42,6 @@ public class WeldingMachineController {
 	
 	@Autowired
 	private WeldingMachineManager wmm;
-	
-	@Autowired
-	private MaintainManager maintain;
 	
 	@Autowired
 	private InsframeworkManager im;
@@ -356,6 +351,7 @@ public class WeldingMachineController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"addWeldingMachine\"}";
 			String obj2 = "{\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\",\"ISNETWORKING\":\""+request.getParameter("isnetworking")+"\","
 					+ "\"JOINTIME\":\""+request.getParameter("joinTime")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\",\"STATUSID\":\""+request.getParameter("sId")+"\","
@@ -396,6 +392,7 @@ public class WeldingMachineController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"editWeldingMachine\"}";
 			String obj2 = "{\"ID\":\""+request.getParameter("wid")+"\",\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\","
 					+ "\"ISNETWORKING\":\""+request.getParameter("isnetworking")+"\",\"JOINTIME\":\""+request.getParameter("joinTime")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\""
@@ -434,6 +431,7 @@ public class WeldingMachineController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"deleteWeldingChine\"}";
 			String obj2 = "{\"WID\":\""+wid+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\",\"INSFID\":\""+insfid+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  

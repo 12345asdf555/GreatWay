@@ -167,6 +167,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			//向集团层执行插入
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			//执行明细表插入
 			String str = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"addMaintenanceRecord\"}";
 			Object[] blocobj2 = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{str,obj2});  
@@ -211,6 +212,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			boolean flags = ms.addMaintian(wm,mr,wid);
 			//向项目执行插入
 			Client itemclient = dcf.createClient(itemurl);
+			jutil.Authority(itemclient);
 			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			String result = itemobj[0].toString();
 			if(flag && flags && result.equals("true")){
@@ -233,6 +235,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			//向集团层执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -254,6 +257,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			}
 			//向项目执行操作
 			Client itemclient = dcf.createClient(itemurl);
+			jutil.Authority(itemclient);
 			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			String result = itemobj[0].toString();
 			if(flag && result.equals("true") && blocResult.equals("true")){
@@ -275,6 +279,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			//向集团层执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -311,6 +316,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			}
 			//向项目执行操作
 			Client itemclient = dcf.createClient(itemurl);
+			jutil.Authority(itemclient);
 			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			String result = itemobj[0].toString();
 			if(flag && result.equals("true") && blocResult.equals("true")){
@@ -333,6 +339,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			//向集团层执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -350,6 +357,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			boolean flags = ms.deleteWeldingMaintenance(wm.getId());
 			//向项目执行操作
 			Client itemclient = dcf.createClient(itemurl);
+			jutil.Authority(itemclient);
 			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			String result = itemobj[0].toString();
 			if(flag && flags && result.equals("true") && blocResult.equals("true")){

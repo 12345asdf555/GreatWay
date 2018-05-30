@@ -66,6 +66,7 @@ public class InsfWebServiceImpl implements InsfWebService {
 			//向集团层执行插入
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			BigInteger id = new BigInteger(blocobj[0].toString());
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -97,6 +98,7 @@ public class InsfWebServiceImpl implements InsfWebService {
 			//向集团层执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -123,6 +125,7 @@ public class InsfWebServiceImpl implements InsfWebService {
 					itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
 					//向项目执行操作
 					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
 					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 					String str = itemobj[0].toString();
 					if(!str.equals("true")){
@@ -149,6 +152,7 @@ public class InsfWebServiceImpl implements InsfWebService {
 			//向集团层执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -167,6 +171,7 @@ public class InsfWebServiceImpl implements InsfWebService {
 					itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
 					//向项目执行操作
 					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
 					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 					String str = itemobj[0].toString();
 					if(!str.equals("true")){

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.manager.DictionaryManager;
-import com.greatway.manager.InsframeworkManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.page.Page;
+import com.greatway.util.IsnullUtil;
 import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
@@ -34,8 +34,8 @@ public class DictonaryController {
 	
 	@Autowired
 	private DictionaryManager dictionaryManager;
-	@Autowired
-	private InsframeworkManager im;
+	
+	private IsnullUtil iutil = new IsnullUtil();
 	
 	@RequestMapping("/goDictionary")
 	public String goDictionary(HttpServletRequest request){
@@ -115,6 +115,7 @@ public class DictonaryController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(blocurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"dictionaryWebServiceImpl\",\"METHOD\":\"addDictionary\"}";
 			String obj2 = "{\"BACK\":\""+request.getParameter("back")+"\",\"TYPEID\":\""+request.getParameter("typeid")+"\",\"VALUENAME\":\""+request.getParameter("valueName")+"\",\"CREATOR\":\""+myuser.getId()+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
@@ -144,6 +145,7 @@ public class DictonaryController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(blocurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"dictionaryWebServiceImpl\",\"METHOD\":\"editDictionary\"}";
 			String obj2 = "{\"ID\":\""+dic.getId()+"\",\"BACK\":\""+request.getParameter("back")+"\",\"TYPEID\":\""+request.getParameter("typeid")+"\",\"VALUENAME\":\""+request.getParameter("valueName")+"\",\"MODIFIER\":\""+myuser.getId()+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
@@ -170,6 +172,7 @@ public class DictonaryController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(blocurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"dictionaryWebServiceImpl\",\"METHOD\":\"deleteDictionary\"}";
 			String obj2 = "{\"ID\":\""+id+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  

@@ -120,6 +120,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			//向集团层执行插入
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			BigInteger id = new BigInteger(blocobj[0].toString());
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -159,6 +160,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			boolean flag = wms.addWeldingMachine(wm);
 			//向项目执行插入
 			Client itemclient = dcf.createClient(itemurl);
+			jutil.Authority(itemclient);
 			obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
 			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			String result = itemobj[0].toString();
@@ -182,6 +184,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			//向集团层执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -221,6 +224,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			boolean flag = wms.editWeldingMachine(wm);
 			//向项目执行操作
 			Client itemclient = dcf.createClient(itemurl);
+			jutil.Authority(itemclient);
 			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			String result = itemobj[0].toString();
 			if(flag && result.equals("true") && blocResult.equals("true")){
@@ -251,6 +255,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			//向集团层执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
@@ -266,6 +271,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			boolean flag = wms.deleteWeldingChine(new BigInteger(json.getString("WID")));
 			//向项目执行操作
 			Client itemclient = dcf.createClient(itemurl);
+			jutil.Authority(itemclient);
 			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			String result = itemobj[0].toString();
 			if(flag && result.equals("true") && blocResult.equals("true")){

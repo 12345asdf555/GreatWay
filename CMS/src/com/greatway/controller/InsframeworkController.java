@@ -182,6 +182,7 @@ public class InsframeworkController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(webserviceurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"insfWebServiceImpl\",\"METHOD\":\"addInsframework\"}";
 			String obj2 = "{\"NAME\":\""+request.getParameter("name")+"\",\"LOGOGRAM\":\""+request.getParameter("logogram")+"\",\"CODE\":\""+request.getParameter("code")+"\","
 					+ "\"PARENT\":\""+parent+"\",\"TYPEID\":\""+type+"\",\"CREATOR\":\""+myuser.getId()+"\"}";
@@ -241,6 +242,7 @@ public class InsframeworkController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(webserviceurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"insfWebServiceImpl\",\"METHOD\":\"editInsframework\"}";
 			String obj2 = "{\"INSFID\":\""+id+"\",\"NAME\":\""+request.getParameter("name")+"\",\"LOGOGRAM\":\""+request.getParameter("logogram")+"\",\"CODE\":\""+request.getParameter("code")+"\","
 					+ "\"PARENT\":\""+request.getParameter("parent")+"\",\"TYPEID\":\""+request.getParameter("type")+"\",\"MODIFIER\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
@@ -295,6 +297,7 @@ public class InsframeworkController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(webserviceurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"insfWebServiceImpl\",\"METHOD\":\"deleteInsframework\"}";
 			String obj2 = "{\"INSFID\":\""+id+"\",\"TYPE\":\""+type+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  

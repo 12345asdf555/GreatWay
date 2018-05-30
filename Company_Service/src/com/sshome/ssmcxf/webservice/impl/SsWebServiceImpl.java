@@ -2,23 +2,12 @@ package com.sshome.ssmcxf.webservice.impl;
 
 import java.math.BigInteger;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.namespace.QName;
-import javax.xml.ws.handler.MessageContext;
-
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.jaxws.context.WebServiceContextImpl;
-import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
-import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spring.model.Gather;
 import com.spring.service.WeldService;
 import com.sshome.ssmcxf.webservice.SsWebService;
-
-import net.sf.json.JSONObject;
 
 @Transactional
 @Service

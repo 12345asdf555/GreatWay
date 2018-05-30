@@ -153,12 +153,17 @@ public class GatherController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"addGather\"}";
 			String obj2 = "{\"GATHERNO\":\""+gather.getGatherNo()+"\",\"IPURL\":\""+gather.getIpurl()+"\",\"INSFID\":\""+gather.getItemid()+"\",\"LEAVETIME\":\""+gather.getLeavetime()+"\",\"MACURL\":\""+gather.getMacurl()+"\",\"PROTOCOL\":\""+
 					gather.getProtocol()+"\",\"STATUS\":\""+gather.getStatus()+"\",\"CREATOR\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
+				obj.put("msg", null);
+			}else if(!objects[0].toString().equals("false")){
+				obj.put("success", true);
+				obj.put("msg", objects[0].toString());
 			}else{
 				obj.put("success", false);
 				obj.put("errorMsg", "操作失败！");
@@ -188,6 +193,7 @@ public class GatherController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGather\"}";
 			String obj2 = "{\"ID\":\""+gather.getId()+"\",\"GATHERNO\":\""+gather.getGatherNo()+"\",\"IPURL\":\""+gather.getIpurl()+"\",\"INSFID\":\""+gather.getItemid()+"\",\"LEAVETIME\":\""+gather.getLeavetime()+"\",\"MACURL\":\""+gather.getMacurl()+"\",\"PROTOCOL\":\""+
 					gather.getProtocol()+"\",\"STATUS\":\""+gather.getStatus()+"\",\"MODIFIER\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
@@ -219,6 +225,7 @@ public class GatherController {
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"deleteGather\"}";
 			String obj2 = "{\"ID\":\""+id+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\",\"INSFID\":\""+insfid+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  

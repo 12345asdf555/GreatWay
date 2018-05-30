@@ -79,6 +79,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			List<Insframework> company = is.getConmpany(parent);
 			for(Insframework i:company){
 				Client companyclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(i.getId().toString()));
+				jutil.Authority(companyclient);
 				Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 				companyobj[0].toString();
 			}
@@ -86,6 +87,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			//获取公司下所有项目部
 			for(Insframework insf:item){
 				Client itemclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(insf.getId().toString()));
+				jutil.Authority(itemclient);
 				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2}); 
 				itemobj[0].toString();
 			}
@@ -116,6 +118,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			List<Insframework> company = is.getConmpany(parent);
 			for(Insframework i:company){
 				Client companyclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(i.getId().toString()));
+				jutil.Authority(companyclient);
 				Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 				companyobj[0].toString();
 			}
@@ -123,6 +126,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			//获取公司下所有项目部
 			for(Insframework insf:item){
 				Client itemclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(insf.getId().toString()));
+				jutil.Authority(itemclient);
 				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2}); 
 				itemobj[0].toString();
 			}
@@ -166,6 +170,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			List<Insframework> company = is.getConmpany(parent);
 			for(Insframework i:company){
 				Client companyclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(i.getId().toString()));
+				jutil.Authority(companyclient);
 				Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 				companyobj[0].toString();
 			}
@@ -173,6 +178,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			//获取公司下所有项目部
 			for(Insframework insf:item){
 				Client itemclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(insf.getId().toString()));
+				jutil.Authority(itemclient);
 				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2}); 
 				itemobj[0].toString();
 			}
