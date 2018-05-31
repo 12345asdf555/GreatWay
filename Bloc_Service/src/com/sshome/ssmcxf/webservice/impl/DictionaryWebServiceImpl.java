@@ -60,7 +60,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 	}
 
 	@Override
-	public boolean addDictionary(String obj1,String obj2) {
+	public Object addDictionary(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -76,22 +76,45 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+d.getId()+"\"}";
 			//获取集团下所有公司
 			BigInteger parent=null;
+			String companystr = "",itemstr = "",resultstr = "";
 			List<Insframework> company = is.getConmpany(parent);
 			for(Insframework i:company){
-				Client companyclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(i.getId().toString()));
-				jutil.Authority(companyclient);
-				Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
-				companyobj[0].toString();
+				String companyurl = request.getSession().getServletContext().getInitParameter(i.getId().toString());
+				if(companyurl!=null && !"".equals(companyurl)){
+					Client companyclient = dcf.createClient(companyurl);
+					jutil.Authority(companyclient);
+					Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+					companyobj[0].toString();
+				}else{
+					companystr = "公司";
+				}
 			}
 			List<Insframework> item = is.getInsByType(23);
 			//获取公司下所有项目部
 			for(Insframework insf:item){
-				Client itemclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(insf.getId().toString()));
-				jutil.Authority(itemclient);
-				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2}); 
-				itemobj[0].toString();
+				String itemurl = request.getSession().getServletContext().getInitParameter(insf.getId().toString());
+				if(itemurl!=null && !"".equals(itemurl)){
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2}); 
+					itemobj[0].toString();
+				}else{
+					itemstr = "项目部";
+				}
 			}
-			return flag;
+			resultstr = "未找到相关";
+			if(!"".equals(companystr) && !"".equals(itemstr)){
+				resultstr += companystr +"、"+ itemstr +"，请检查网络连接情况或是否部署服务";
+				return resultstr;
+			}else if(!"".equals(companystr)){
+				resultstr += companystr +"，请检查网络连接情况或是否部署服务";
+				return resultstr;
+			}else if(!"".equals(itemstr)){
+				resultstr += itemstr +"，请检查网络连接情况或是否部署服务";
+				return resultstr;
+			}else{
+				return flag;
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
@@ -99,7 +122,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 	}
 
 	@Override
-	public boolean editDictionary(String obj1,String obj2) {
+	public Object editDictionary(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -114,23 +137,46 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			d.setModifier(json.getString("MODIFIER"));
 			boolean flag = ds.editDictionary(d);
 			//获取集团下所有公司
-			BigInteger parent=null;
+			BigInteger parent=null;String companystr = "",itemstr = "",resultstr = "";
 			List<Insframework> company = is.getConmpany(parent);
 			for(Insframework i:company){
-				Client companyclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(i.getId().toString()));
-				jutil.Authority(companyclient);
-				Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
-				companyobj[0].toString();
+				String companyurl = request.getSession().getServletContext().getInitParameter(i.getId().toString());
+				if(companyurl!=null && !"".equals(companyurl)){
+					Client companyclient = dcf.createClient(companyurl);
+					jutil.Authority(companyclient);
+					Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+					companyobj[0].toString();
+				}else{
+					companystr = "公司";
+				}
+				//未找到该项目部，请检查网络连接情况或是否部署服务
 			}
 			List<Insframework> item = is.getInsByType(23);
 			//获取公司下所有项目部
 			for(Insframework insf:item){
-				Client itemclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(insf.getId().toString()));
-				jutil.Authority(itemclient);
-				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2}); 
-				itemobj[0].toString();
+				String itemurl = request.getSession().getServletContext().getInitParameter(insf.getId().toString());
+				if(itemurl!=null && !"".equals(itemurl)){
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2}); 
+					itemobj[0].toString();
+				}else{
+					itemstr = "项目部";
+				}
 			}
-			return flag;
+			resultstr = "未找到相关";
+			if(!"".equals(companystr) && !"".equals(itemstr)){
+				resultstr += companystr +"、"+ itemstr +"，请检查网络连接情况或是否部署服务";
+				return resultstr;
+			}else if(!"".equals(companystr)){
+				resultstr += companystr +"，请检查网络连接情况或是否部署服务";
+				return resultstr;
+			}else if(!"".equals(itemstr)){
+				resultstr += itemstr +"，请检查网络连接情况或是否部署服务";
+				return resultstr;
+			}else{
+				return flag;
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
@@ -157,7 +203,7 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 	}
 
 	@Override
-	public boolean deleteDictionary(String obj1,String obj2) {
+	public Object deleteDictionary(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -167,22 +213,46 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 			boolean flag = ds.deleteDictionary(json.getInt("ID"));
 			//获取集团下所有公司
 			BigInteger parent=null;
+			String companystr = "",itemstr = "",resultstr = "";
 			List<Insframework> company = is.getConmpany(parent);
 			for(Insframework i:company){
-				Client companyclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(i.getId().toString()));
-				jutil.Authority(companyclient);
-				Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
-				companyobj[0].toString();
+				String companyurl = request.getSession().getServletContext().getInitParameter(i.getId().toString());
+				if(companyurl!=null && !"".equals(companyurl)){
+					Client companyclient = dcf.createClient(companyurl);
+					jutil.Authority(companyclient);
+					Object[] companyobj = companyclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
+					companyobj[0].toString();
+				}else{
+					companystr = "公司";
+				}
+				//未找到该项目部，请检查网络连接情况或是否部署服务
 			}
 			List<Insframework> item = is.getInsByType(23);
 			//获取公司下所有项目部
 			for(Insframework insf:item){
-				Client itemclient = dcf.createClient(request.getSession().getServletContext().getInitParameter(insf.getId().toString()));
-				jutil.Authority(itemclient);
-				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2}); 
-				itemobj[0].toString();
+				String itemurl = request.getSession().getServletContext().getInitParameter(insf.getId().toString());
+				if(itemurl!=null && !"".equals(itemurl)){
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2}); 
+					itemobj[0].toString();
+				}else{
+					itemstr = "项目部";
+				}
 			}
-			return flag;
+			resultstr = "未找到相关";
+			if(!"".equals(companystr) && !"".equals(itemstr)){
+				resultstr += companystr +"、"+ itemstr +"，请检查网络连接情况或是否部署服务";
+				return resultstr;
+			}else if(!"".equals(companystr)){
+				resultstr += companystr +"，请检查网络连接情况或是否部署服务";
+				return resultstr;
+			}else if(!"".equals(itemstr)){
+				resultstr += itemstr +"，请检查网络连接情况或是否部署服务";
+				return resultstr;
+			}else{
+				return flag;
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;

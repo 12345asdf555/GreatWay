@@ -10,13 +10,13 @@ public interface DictionaryWebService {
 	 */
 	Object getAllDictionary(String object);
 	
-    boolean addDictionary(String obj1,String obj2);
+	Object addDictionary(String obj1,String obj2);
 	
-    boolean editDictionary(String obj1,String obj2);
+	Object editDictionary(String obj1,String obj2);
 	
     Object getDictionaryByFid(String object);
 	
-	boolean deleteDictionary(String obj1,String obj2);
+    Object deleteDictionary(String obj1,String obj2);
 	
 	/**
 	 * 获取字典值及值名称
