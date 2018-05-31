@@ -159,7 +159,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	}
 	
 	@Override
-	public boolean addMaintian(String obj1,String obj2) {
+	public Object addMaintian(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -186,7 +186,6 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 				BigInteger insfid = new BigInteger(json.getString("INSFID"));
 				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
 			}
-
 			WeldingMaintenance wm = new WeldingMaintenance();
 			MaintenanceRecord mr = new MaintenanceRecord();
 			mr.setId(new BigInteger(json.getString("RID")));
@@ -206,17 +205,21 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			w.setId(wid);
 			wm.setWelding(w);
 			wm.setId(mid);
-
 			obj2 = obj2.substring(0,obj2.length()-1)+",\"MID\":\""+mid+"\"}";
 			boolean flag = ms.addMaintenanceRecord(mr);
 			boolean flags = ms.addMaintian(wm,mr,wid);
-			//向项目执行插入
-			Client itemclient = dcf.createClient(itemurl);
-			jutil.Authority(itemclient);
-			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-			String result = itemobj[0].toString();
-			if(flag && flags && result.equals("true")){
-				return true;
+			String result = "false";
+			if(flag && flags){
+				if(itemurl!=null && !"".equals(itemurl)){
+					//向项目执行插入
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
+				}else{
+					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+				}
+				return result;
 			}else{
 				return false;
 			}
@@ -227,7 +230,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	}
 	
 	@Override
-	public boolean updateEndtime(String obj1,String obj2) {
+	public Object updateEndtime(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -255,13 +258,18 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 				//如果维修结束时间没有为空的则修改状态为启用
 				ms.editstatus(weldingid, 31);
 			}
-			//向项目执行操作
-			Client itemclient = dcf.createClient(itemurl);
-			jutil.Authority(itemclient);
-			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-			String result = itemobj[0].toString();
-			if(flag && result.equals("true") && blocResult.equals("true")){
-				return true;
+			String result = "false";
+			if(flag && blocResult.equals("true")){
+				if(itemurl!=null && !"".equals(itemurl)){
+					//向项目执行操作
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
+				}else{
+					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+				}
+				return result;
 			}else{
 				return false;
 			}
@@ -271,7 +279,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	}
 
 	@Override
-	public boolean updateMaintenanceRecord(String obj1,String obj2) {
+	public Object updateMaintenanceRecord(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -314,13 +322,18 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 				//如果维修结束时间没有为空的则修改状态为启用
 				ms.editstatus(wid, 31);
 			}
-			//向项目执行操作
-			Client itemclient = dcf.createClient(itemurl);
-			jutil.Authority(itemclient);
-			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-			String result = itemobj[0].toString();
-			if(flag && result.equals("true") && blocResult.equals("true")){
-				return true;
+			String result = "false";
+			if(flag && blocResult.equals("true")){
+				if(itemurl!=null && !"".equals(itemurl)){
+					//向项目执行操作
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
+				}else{
+					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+				}
+				return result;
 			}else{
 				return false;
 			}
@@ -331,7 +344,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 	}
 
 	@Override
-	public boolean deleteMaintenanceRecord(String obj1,String obj2) {
+	public Object deleteMaintenanceRecord(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -355,13 +368,18 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			WeldingMaintenance wm = ms.getWeldingMaintenanceById(new BigInteger(json.getString("MID")));
 			boolean flag = ms.deleteMaintenanceRecord(wm.getMaintenance().getId());
 			boolean flags = ms.deleteWeldingMaintenance(wm.getId());
-			//向项目执行操作
-			Client itemclient = dcf.createClient(itemurl);
-			jutil.Authority(itemclient);
-			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-			String result = itemobj[0].toString();
-			if(flag && flags && result.equals("true") && blocResult.equals("true")){
-				return true;
+			String result = "false";
+			if(flag && flags &&  blocResult.equals("true")){
+				if(itemurl!=null && !"".equals(itemurl)){
+					//向项目执行操作
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
+				}else{
+					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+				}
+				return result;
 			}else{
 				return false;
 			}

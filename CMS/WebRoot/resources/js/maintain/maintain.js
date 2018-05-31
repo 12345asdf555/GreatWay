@@ -128,7 +128,11 @@ function okMaintain(insfid){
 				if(result){
 	              if(result.success){
 						$('#maintainTable').datagrid('reload');
-						$.messager.alert("提示", "已完成！");
+						if(result.msg==null){
+							$.messager.alert("提示", "已完成！");
+						}else{
+							$.messager.show( {title : '提示',msg : result.msg});
+						}
 	              }else{
 	            	  $.messager.show( {
 							title : 'Error',

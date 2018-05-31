@@ -144,27 +144,19 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setStatus(json.getString("STATUS"));
 			g.setCreator(json.getString("CREATOR"));
 			boolean flag = gs.addGather(g);
-			String result = "";
-			boolean status = false;
-			//向项目执行插入
-			if(itemurl!=null && !"".equals(itemurl)){
-				status = true;
-				Client itemclient = dcf.createClient(itemurl);
-				jutil.Authority(itemclient);
-				obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
-				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-				result = itemobj[0].toString();
-			}
+			String result = "false";
 			if(flag){
-				if(status){
-					if(result.equals("true")){
-						return true;
-					}else{
-						return false;
-					}
+				//向项目执行插入
+				if(itemurl!=null && !"".equals(itemurl)){
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
 				}else{
 					return "未找到该项目部，请检查网络连接情况或是否部署服务";
 				}
+				return result;
 			}else{
 				return false;
 			}
@@ -175,7 +167,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 	}
 
 	@Override
-	public boolean editGather(String obj1,String obj2) {
+	public Object editGather(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -210,13 +202,17 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setStatus(json.getString("STATUS"));
 			g.setModifier(json.getString("MODIFIER"));
 			boolean flag = gs.editGather(g);
-			//向项目执行操作
-			Client itemclient = dcf.createClient(itemurl);
-			jutil.Authority(itemclient);
-			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-			String result = itemobj[0].toString();
-			if(flag && result.equals("true") && blocResult.equals("true")){
-				return true;
+			String result = "false";
+			if(flag && blocResult.equals("true")){
+				if(itemurl!=null && !"".equals(itemurl)){//向项目执行操作
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
+				}else{
+					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+				}
+				return result;
 			}else{
 				return false;
 			}
@@ -227,7 +223,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 	}
 
 	@Override
-	public boolean deleteGather(String obj1,String obj2) {
+	public Object deleteGather(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -249,13 +245,18 @@ public class GatherWebServiceImpl implements GatherWebService{
 				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
 			}
 			boolean flag = gs.deleteGather(new BigInteger(json.getString("ID")));
-			//向项目执行操作
-			Client itemclient = dcf.createClient(itemurl);
-			jutil.Authority(itemclient);
-			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-			String result = itemobj[0].toString();
-			if(flag && result.equals("true") && blocResult.equals("true")){
-				return true;
+			String result = "false";
+			if(flag &&  blocResult.equals("true")){
+				if(itemurl!=null && !"".equals(itemurl)){
+					//向项目执行操作
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
+				}else{
+					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+				}
+				return result;
 			}else{
 				return false;
 			}

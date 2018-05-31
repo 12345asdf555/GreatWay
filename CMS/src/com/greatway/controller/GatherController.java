@@ -160,7 +160,6 @@ public class GatherController {
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
-				obj.put("msg", null);
 			}else if(!objects[0].toString().equals("false")){
 				obj.put("success", true);
 				obj.put("msg", objects[0].toString());
@@ -200,6 +199,9 @@ public class GatherController {
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
+			}else if(!objects[0].toString().equals("false")){
+				obj.put("success", true);
+				obj.put("msg", objects[0].toString());
 			}else{
 				obj.put("success", false);
 				obj.put("errorMsg", "操作失败！");
@@ -231,6 +233,10 @@ public class GatherController {
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
 				obj.put("success", true);
+				obj.put("msg", null);
+			}else if(!objects[0].toString().equals("false")){
+				obj.put("success", true);
+				obj.put("msg", objects[0].toString());
 			}else{
 				obj.put("success", false);
 				obj.put("errorMsg", "操作失败！");

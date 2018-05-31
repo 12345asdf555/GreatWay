@@ -37,7 +37,7 @@
 	   <form name="f" action="<c:url value='j_spring_security_check'/>" method="POST">
 	        <h1>核电站焊接管理系统</h1>
 	        <div class="logindiv">
-	            <table>
+	            <table border="1">
 	                <tr>
 	                    <td colspan="3">
 	                        <img src="resources/images/gongsilogo.png" />
@@ -48,19 +48,18 @@
 	                        <div id="divlog">
 	                        </div>
 	                    </td>
-	                    <td>用户名:</td>
+	                    <td>&nbsp;&nbsp;用户名:</td>
 			            <td>
 			                <input type='text' name='j_username'  id="uname" value='<c:if test="${not empty param.login_error}">
 			                <c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>'/>
 			            </td>
 	                </tr>
 	                <tr>
-			            <td>密     码:</td>
+			            <td>&nbsp;&nbsp;密     码:</td>
 			            <td><input type='password' name='j_password'></td>
 	                </tr>
 	                <tr>
-			            <td>验证码:
-			            </td>
+			            <td>&nbsp;&nbsp;验证码:</td>
 			            <td>
 			            	<div style="float:left"><input type="text" name="code" id="code" style="width:190px;"></div>
 			            	<div style="float:left;margin-left:5px;margin-top:3px;"><img alt="验证码" id="scode" src="<%=request.getContextPath() %>/logincheck/checkImg" style="width:50px;height:25px;">

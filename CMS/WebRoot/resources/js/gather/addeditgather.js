@@ -53,11 +53,11 @@ function saveGather(){
 						msg : result.errorMsg
 					});
 				} else {
-					var time = 1000;
+					var time = 500;
 					if(result.msg==null){
-						time = 2000;
 						$.messager.alert("提示", messager);
 					}else{
+						time = 2500;
 						$.messager.show( {title : '提示',msg : result.msg});
 					}
 					window.setTimeout(function() {

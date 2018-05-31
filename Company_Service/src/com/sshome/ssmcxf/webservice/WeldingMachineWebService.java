@@ -17,17 +17,17 @@ public interface WeldingMachineWebService {
 	/**
 	 * 新增设备
 	 */
-	boolean addWeldingMachine(String obj1,String obj2);
+	Object addWeldingMachine(String obj1,String obj2);
 	
 	/**
 	 * 修改设备
 	 */
-	boolean editWeldingMachine(String obj1,String obj2);
+	Object editWeldingMachine(String obj1,String obj2);
 	
 	/**
 	 * 删除设备
 	 */
-	boolean deleteWeldingChine(String obj1,String obj2);
+	Object deleteWeldingChine(String obj1,String obj2);
 	
 	/**
 	 * 根据焊机编号查找id

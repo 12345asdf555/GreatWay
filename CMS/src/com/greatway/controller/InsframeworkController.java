@@ -178,7 +178,6 @@ public class InsframeworkController {
 				obj.put("errorMsg", "您没有新增组织机构的权限！");
 				return obj.toString();
 			}
-			
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(webserviceurl);
@@ -257,6 +256,9 @@ public class InsframeworkController {
 			}else{
 				if(objects[0].toString().equals("true")){
 					obj.put("success", true);
+				}else if(!objects[0].toString().equals("false")){
+					obj.put("success", true);
+					obj.put("msg", objects[0].toString());
 				}else{
 					obj.put("success", false);
 					obj.put("errorMsg", "操作失败！");
@@ -311,6 +313,9 @@ public class InsframeworkController {
 			}else{
 				if(objects[0].toString().equals("true")){
 					obj.put("success", true);
+				}else if(!objects[0].toString().equals("false")){
+					obj.put("success", true);
+					obj.put("msg", objects[0].toString());
 				}else{
 					obj.put("success", false);
 					obj.put("errorMsg", "操作失败！");

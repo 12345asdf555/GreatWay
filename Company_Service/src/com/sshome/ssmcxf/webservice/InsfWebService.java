@@ -19,13 +19,13 @@ public interface InsfWebService {
 	 * 修改组织机构
 	 * @param ins
 	 */
-	boolean editInsframework(String obj1,String obj2);
+	Object editInsframework(String obj1,String obj2);
 	
 	/**
 	 * 删除组织机构
 	 * @param id
 	 */
-	boolean deleteInsframework(String obj1,String obj2);
+	Object deleteInsframework(String obj1,String obj2);
 	
 	/**
 	 * 判断name是否存在

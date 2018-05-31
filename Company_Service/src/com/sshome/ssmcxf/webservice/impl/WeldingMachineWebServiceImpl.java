@@ -112,7 +112,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	}
 
 	@Override
-	public boolean addWeldingMachine(String obj1,String obj2) {
+	public Object addWeldingMachine(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -158,14 +158,19 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			ins.setId(new BigInteger(json.getString("INSFRAMEWORKID")));
 			wm.setInsframeworkId(ins);
 			boolean flag = wms.addWeldingMachine(wm);
-			//向项目执行插入
-			Client itemclient = dcf.createClient(itemurl);
-			jutil.Authority(itemclient);
-			obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
-			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-			String result = itemobj[0].toString();
-			if(flag && result.equals("true")){
-				return true;
+			String result = "false";
+			if(flag){
+				if(itemurl!=null && !"".equals(itemurl)){
+					//向项目执行插入
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
+				}else{
+					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+				}
+				return result;
 			}else{
 				return false;
 			}
@@ -176,7 +181,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	}
 
 	@Override
-	public boolean editWeldingMachine(String obj1,String obj2) {
+	public Object editWeldingMachine(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -222,21 +227,28 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			ins.setId(new BigInteger(json.getString("INSFRAMEWORKID")));
 			wm.setInsframeworkId(ins);
 			boolean flag = wms.editWeldingMachine(wm);
-			//向项目执行操作
-			Client itemclient = dcf.createClient(itemurl);
-			jutil.Authority(itemclient);
-			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-			String result = itemobj[0].toString();
-			if(flag && result.equals("true") && blocResult.equals("true")){
-				//修改焊机状态为启用时，结束所有维修任务
-				int sid = wm.getStatusId();
-				if(sid == 31){
-					List<WeldingMaintenance> list = ms.getEndtime(wm.getId());
-					for(WeldingMaintenance w : list){
-							ms.updateEndtime(w.getId());
+			String result = "false";
+			if(flag && blocResult.equals("true")){
+				if(itemurl !=null && !"".equals(itemurl)){
+					//向项目执行操作
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
+					if(result.equals("true")){
+						//修改焊机状态为启用时，结束所有维修任务
+						int sid = wm.getStatusId();
+						if(sid == 31){
+							List<WeldingMaintenance> list = ms.getEndtime(wm.getId());
+							for(WeldingMaintenance w : list){
+									ms.updateEndtime(w.getId());
+							}
+						}
 					}
+				}else{
+					return "未找到该项目部，请检查网络连接情况或是否部署服务";
 				}
-				return true;
+				return result;
 			}else{
 				return false;
 			}
@@ -247,7 +259,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 	}
 
 	@Override
-	public boolean deleteWeldingChine(String obj1,String obj2) {
+	public Object deleteWeldingChine(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -269,19 +281,26 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
 			}
 			boolean flag = wms.deleteWeldingChine(new BigInteger(json.getString("WID")));
-			//向项目执行操作
-			Client itemclient = dcf.createClient(itemurl);
-			jutil.Authority(itemclient);
-			Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-			String result = itemobj[0].toString();
-			if(flag && result.equals("true") && blocResult.equals("true")){
-				List<WeldingMaintenance> list = ms.getMaintainByWeldingMachinId(new BigInteger(json.getString("WID")));
-				for(WeldingMaintenance wm : list){
-					//删除维修记录
-					ms.deleteWeldingMaintenance(wm.getId());
-					ms.deleteMaintenanceRecord(wm.getMaintenance().getId());
+			String result = "false";
+			if(flag && blocResult.equals("true")){
+				if(itemurl !=null && !"".equals(itemurl)){
+					//向项目执行操作
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
+					if(result.equals("true")){
+						List<WeldingMaintenance> list = ms.getMaintainByWeldingMachinId(new BigInteger(json.getString("WID")));
+						for(WeldingMaintenance wm : list){
+							//删除维修记录
+							ms.deleteWeldingMaintenance(wm.getId());
+							ms.deleteMaintenanceRecord(wm.getMaintenance().getId());
+						}
+					}
+				}else{
+					return "未找到该项目部，请检查网络连接情况或是否部署服务";
 				}
-				return true;
+				return result;
 			}else{
 				return false;
 			}

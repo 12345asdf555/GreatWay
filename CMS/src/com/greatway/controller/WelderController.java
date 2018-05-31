@@ -50,14 +50,6 @@ public class WelderController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String search = request.getParameter("searchStr");
-		
-		if(search==null){
-			MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
-				    .getAuthentication()  
-				    .getPrincipal();
-			long uid = myuser.getId();
-			search = "i.fid=" + im.getUserInsfId(BigInteger.valueOf(uid));
-		}
 		page = new Page(pageIndex,pageSize,total);
 		List<Welder> list =wm.getWelderAll(page, search);
 		long total = 0;

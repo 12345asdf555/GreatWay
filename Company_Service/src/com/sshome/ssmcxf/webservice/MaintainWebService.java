@@ -35,25 +35,25 @@ public interface MaintainWebService {
 	 * 新增维修记录
 	 * @param wm
 	 */
-	boolean addMaintian(String obj1,String obj2);
+	Object addMaintian(String obj1,String obj2);
 	
 	/**
 	 * 修改结束时间为当前时间
 	 * @param wid
 	 */
-	boolean updateEndtime(String obj1,String obj2);
+	Object updateEndtime(String obj1,String obj2);
 	
 	/**
 	 * 修改
 	 * @param mr
 	 */
-	boolean updateMaintenanceRecord(String obj1,String obj2);
+	Object updateMaintenanceRecord(String obj1,String obj2);
 	
 	/**
 	 * 删除维修记录
 	 * @param mid
 	 */
-	boolean deleteMaintenanceRecord(String obj1,String obj2);
+	Object deleteMaintenanceRecord(String obj1,String obj2);
 	
 	/**
 	 * 删除焊机维修记录

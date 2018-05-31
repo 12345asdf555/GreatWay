@@ -61,12 +61,4 @@ public class LoginCheckController {
 			e.printStackTrace();
 		}
 	}
-	
-	@RequestMapping("/checkCode")
-	@ResponseBody
-	public String checkCode(HttpServletRequest request){
-		JSONObject obj = new JSONObject();
-		
-		return obj.toString();
-	}
 }

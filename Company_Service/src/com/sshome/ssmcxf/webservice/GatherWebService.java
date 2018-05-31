@@ -41,11 +41,11 @@ public interface GatherWebService {
 	 * 修改采集信息
 	 * @param ins采集对象
 	 */
-	boolean editGather(String obj1,String obj2);
+	Object editGather(String obj1,String obj2);
 	
 	/**
 	 * 删除采集信息
 	 * @param id采集id
 	 */
-	boolean deleteGather(String obj1,String obj2);
+	Object deleteGather(String obj1,String obj2);
 }

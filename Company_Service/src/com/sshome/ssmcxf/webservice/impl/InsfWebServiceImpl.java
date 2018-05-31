@@ -90,7 +90,7 @@ public class InsfWebServiceImpl implements InsfWebService {
 	}
 
 	@Override
-	public boolean editInsframework(String obj1,String obj2) {
+	public Object editInsframework(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -102,10 +102,10 @@ public class InsfWebServiceImpl implements InsfWebService {
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
+			boolean resultflag = true;
 			//获取层级id
 			String hierarchy = json.getString("HIERARCHY");
 			String itemurl = "";
-			boolean resultflag = false;
 			if(hierarchy.equals("4")){
 				itemurl = json.getString("ITEMURL");
 			}else{
@@ -119,21 +119,24 @@ public class InsfWebServiceImpl implements InsfWebService {
 				i.setType(json.getInt("TYPEID"));
 				i.setModifier(json.getString("MODIFIER"));
 				boolean flag = is.editInsframework(i);
-				boolean result = true;
+				String result = "false";
 				if(typeid==23){
 					BigInteger insfid = new BigInteger(json.getString("INSFID"));
 					itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
-					//向项目执行操作
-					Client itemclient = dcf.createClient(itemurl);
-					jutil.Authority(itemclient);
-					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-					String str = itemobj[0].toString();
-					if(!str.equals("true")){
-						result = false;
+					if(flag  && blocResult.equals("true")){
+						if(itemurl!=null && !"".equals(itemurl)){
+							//向项目执行操作
+							Client itemclient = dcf.createClient(itemurl);
+							jutil.Authority(itemclient);
+							Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+							result = itemobj[0].toString();
+						}else{
+							return "未找到该项目部，请检查网络连接情况或是否部署服务";
+						}
+						return result;
+					}else{
+						resultflag =  false;
 					}
-				}
-				if(flag && result && blocResult.equals("true")){
-					resultflag = true;
 				}
 			}
 			return resultflag;
@@ -144,7 +147,7 @@ public class InsfWebServiceImpl implements InsfWebService {
 	}
 
 	@Override
-	public boolean deleteInsframework(String obj1,String obj2) {
+	public Object deleteInsframework(String obj1,String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -156,30 +159,33 @@ public class InsfWebServiceImpl implements InsfWebService {
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
+			boolean resultflag = true;
 			//获取层级id
 			String hierarchy = json.getString("HIERARCHY");
 			String itemurl = "";
-			boolean resultflag = false;
 			if(hierarchy.equals("4")){
 				itemurl = json.getString("ITEMURL");
 			}else{
 				int type = json.getInt("TYPE");
 				boolean flag = is.deleteInsframework(new BigInteger(json.getString("INSFID")));
-				boolean result = true;
+				String result = "false";
 				if(type==23){
 					BigInteger insfid = new BigInteger(json.getString("INSFID"));
 					itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
-					//向项目执行操作
-					Client itemclient = dcf.createClient(itemurl);
-					jutil.Authority(itemclient);
-					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-					String str = itemobj[0].toString();
-					if(!str.equals("true")){
-						result = false;
+					if(flag && blocResult.equals("true")){
+						if(itemurl != null && !"".equals(itemurl)){
+							//向项目执行操作
+							Client itemclient = dcf.createClient(itemurl);
+							jutil.Authority(itemclient);
+							Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+							result = itemobj[0].toString();
+						}else{
+							return "未找到该项目部，请检查网络连接情况或是否部署服务";
+						}
+						return result;
+					}else{
+						resultflag = false;
 					}
-				}
-				if(flag && result && blocResult.equals("true")){
-					resultflag = true;
 				}
 			}
 			return resultflag;
