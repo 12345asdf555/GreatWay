@@ -46,7 +46,7 @@ public class LoginCheckController {
 				//随机生成验证码的颜色
 				graphics.setColor(new Color(random.nextInt(150), random.nextInt(200), random.nextInt(255)));
 				//设置字体，样式，大小
-				graphics.setFont(new Font("楷体", Font.BOLD, 18));
+				graphics.setFont(new Font("楷体", Font.BOLD, 20));
 				//将一个字符绘制到图片上，并制定位置（xy坐标）
 				graphics.drawString(codeChar[index] + "", (i*20)+15, 20);
 				captcha += codeChar[index];

@@ -19,10 +19,15 @@
 	 	
 		<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	 	<script type="text/javascript">
+	 		$(function(){
+				usertirm();
+	 		})
+			function usertirm(){
+				$("#uname").val($("#uname").val().replace(/\s+/g,""));
+			}
 	 		function flushCode() {
-			    // 每次刷新的时候获取当前时间，防止浏览器缓存刷新失败
-			    var time = new Date();
-			    document.getElementById("scode").src = "<%=request.getContextPath()%>/logincheck/checkImg?time=" + time;
+			    // 每次刷新的时候生成随机数，防止浏览器缓存刷新失败
+			    document.getElementById("scode").src = "<%=request.getContextPath()%>/logincheck/checkImg?flag=" + Math.random() ;
 			}
 	 	</script>
 	</head>
@@ -37,7 +42,7 @@
 	   <form name="f" action="<c:url value='j_spring_security_check'/>" method="POST">
 	        <h1>核电站焊接管理系统</h1>
 	        <div class="logindiv">
-	            <table border="1">
+	            <table>
 	                <tr>
 	                    <td colspan="3">
 	                        <img src="resources/images/gongsilogo.png" />
@@ -48,27 +53,27 @@
 	                        <div id="divlog">
 	                        </div>
 	                    </td>
-	                    <td>&nbsp;&nbsp;用户名:</td>
+	                    <td style="width:80px;">&nbsp;&nbsp;用户名:</td>
 			            <td>
-			                <input type='text' name='j_username'  id="uname" value='<c:if test="${not empty param.login_error}">
+			                <input type='text' name='j_username'  id="uname"  onkeyup="usertirm()" value='<c:if test="${not empty param.login_error}">
 			                <c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>'/>
 			            </td>
 	                </tr>
 	                <tr>
-			            <td>&nbsp;&nbsp;密     码:</td>
+			            <td style="width:80px;">&nbsp;&nbsp;密     码:</td>
 			            <td><input type='password' name='j_password'></td>
 	                </tr>
 	                <tr>
-			            <td>&nbsp;&nbsp;验证码:</td>
+			            <td style="width:80px;">&nbsp;&nbsp;验证码:</td>
 			            <td>
 			            	<div style="float:left"><input type="text" name="code" id="code" style="width:190px;"></div>
-			            	<div style="float:left;margin-left:5px;margin-top:3px;"><img alt="验证码" id="scode" src="<%=request.getContextPath() %>/logincheck/checkImg" style="width:50px;height:25px;">
-			            	<a href="javascript:flushCode();"><img alt="" src="resources/images/flush.png" style="width:20px;height:20px;"></a></div>
+			            	<div style="float:left;margin-left:5px;margin-top:3px;"><img alt="验证码" id="scode" src="<%=request.getContextPath() %>/logincheck/checkImg" style="width:60px;height:25px;">
+			            	<span onclick="flushCode()"><img alt="" src="resources/images/flush.png" style="width:20px;height:20px;"></span></div>
 			            </td>
 	                </tr>
 	                <tr>
 	                	<td></td>
-			            <td>
+			            <td style="width:80px;">&nbsp;&nbsp;
 			                <input type="checkbox" name="_spring_security_remember_me">
 			            </td>
 			            <td>
