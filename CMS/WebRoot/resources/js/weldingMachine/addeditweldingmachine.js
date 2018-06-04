@@ -4,6 +4,7 @@ $(function(){
 	manuCombobox();
 	statusRadio();
 	gatherCombobox();
+	insframeworkTree();
 	$("#iId").combobox({
         onChange:function(){  
         	itemid = $("#iId").combobox("getValue");
@@ -241,15 +242,15 @@ function statusRadio(){
 	});
 }
 
-//监听窗口大小变化
-window.onresize = function() {
-	setTimeout(domresize, 500);
-}
-
-//改变表格高宽
-function domresize() {
-	$("#weldingmachineTable").datagrid('resize', {
-		height : $("#body").height() - $("#weldingmachineTable_btn").height() - 5,
-		width : $("#body").width()
-	});
+//树形菜单点击事件
+function insframeworkTree(){
+	$("#myTree").tree({  
+		onClick : function(node){
+			$("#iId").combobox('select',node.id);
+			if($("#iId").combobox('getText')==$("#iId").combobox('getValue')){
+				alert("请选择项目部！");
+				$("#iId").combobox('clear');
+			}
+		 }
+	})
 }

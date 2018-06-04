@@ -41,9 +41,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<lable>类型</lable>
     				<select class="easyui-combobox" name="typeid" id="typeid" data-options="required:true">
     					<option value="1">账户类型</option>
-    					<option value="2">焊机状态</option>
-    					<option value="3">维修类型</option>
+    					<option value="2">组织机构</option>
+    					<option value="3">焊机状态</option>
     					<option value="4">焊机类型</option>
+    					<option value="5">维修类型</option>
+    					<option value="6">用户状态</option>
     				</select>
     			</div>
     			<div class="">

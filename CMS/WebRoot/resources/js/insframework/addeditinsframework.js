@@ -5,6 +5,7 @@ $(function(){
 	}else{
 		insfcombobox(0,0);
 	}
+	insframeworkTree();
 	updatetext();
 	$("#fm").form("disableValidation");
 })
@@ -114,3 +115,15 @@ function insfcombobox(type,id){
 	$("#fm").form("disableValidation");
 }
 
+//树形菜单点击事件
+function insframeworkTree(){
+	$("#myTree").tree({  
+		onClick : function(node){
+			$("#parent").combobox('select',node.id);
+			if($("#parent").combobox('getText')==$("#parent").combobox('getValue')){
+				alert("请选择当前用户所属组织机构或下级组织机构(项目部除外)！");
+				$("#parent").combobox('clear');
+			}
+		 }
+	})
+}

@@ -2,6 +2,7 @@ $(function(){
 	itemidCombobox();
 	protocolCombobox();
 	statusCombobox();
+	insframeworkTree();
 	var item = $("#item").val();
 //	$("#itemid").combobox({
 //        onChange:function(){
@@ -123,3 +124,15 @@ function protocolCombobox(){
 	$("#protocol").combobox();
 }
 
+//树形菜单点击事件
+function insframeworkTree(){
+	$("#myTree").tree({  
+		onClick : function(node){
+			$("#itemid").combobox('select',node.id);
+			if($("#itemid").combobox('getText')==$("#itemid").combobox('getValue')){
+				alert("请选择项目部！");
+				$("#itemid").combobox('clear');
+			}
+		 }
+	})
+}

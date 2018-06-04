@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div id="body" region="center"  hide="true"  split="true" title="修改字典" style="background: white; height: 335px;">
     		<div style="text-align: center ">
     				<form action="" id="fm" method="post" data-options="novalidate:true" style="margin:0;padding:20px 50px">
-    					<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">字典编辑</div>
+    					<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">字典编辑<lable style="color:red">(谨慎操作!)</lable></div>
     					<div>
     						<div class="fitem">
     							<lable>名称</lable>
@@ -46,9 +46,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    				<input name="type" id="type" value="${Dictionary.typeid }" type="hidden">
 			    				<select class="easyui-combobox" name="typeid" id="typeid" data-options="required:true">
 			    					<option value="1">账户类型</option>
-			    					<option value="2">焊机状态</option>
-			    					<option value="3">维修类型</option>
+			    					<option value="2">组织机构</option>
+			    					<option value="3">焊机状态</option>
 			    					<option value="4">焊机类型</option>
+			    					<option value="5">维修类型</option>
+			    					<option value="6">用户状态</option>
 			    				</select>
 			    			</div>
 			    			<div class="">
