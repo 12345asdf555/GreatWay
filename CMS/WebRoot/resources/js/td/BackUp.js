@@ -193,6 +193,16 @@ $(function(){
 			}
 				}
 			};
+			if(symbol==0){
+				change = window.setInterval(function() {
+					sint++;
+					if(sint<machine.length){
+						iview(machine[sint],0);
+					}else{
+						sint=0;
+					}
+				}, 10*60*1000)
+			}
 			iview(machine[0],symbol);
 			for(var g = 0;g < redata.length;g+=69*3){
 			for(var dex=0;dex<rows.length;dex++){
@@ -220,16 +230,6 @@ $(function(){
 				}
 			}
 			rowdex++;
-			}
-			if(symbol==0){
-				change = window.setInterval(function() {
-					sint++;
-					if(sint<machine.length){
-						iview(machine[sint],0);
-					}else{
-						sint=0;
-					}
-				}, 10*60*1000)
 			}
 		};
 		//关闭事件
@@ -411,7 +411,7 @@ $(function(){
   		                    z=0;
   		                	timerele = window.setInterval(function () {
   		                    /*var x = (new Date()).getTime()+t,*/ // current time
-  		                		if(time.length!=0){
+  		                		if(time.length!=0&&z<time.length){
 		  		                    var x = time[z],
 		  		                        y = ele[z];
 		  		                    z++;
@@ -540,7 +540,7 @@ $(function(){
 		                    z=0;
 		                	timervol = window.setInterval(function () {
 		                    /*var x = (new Date()).getTime()+t,*/ // current time
-		                		if(time.length!=0){
+		                		if(time.length!=0&&z<time.length){
 	  		                    var x = time[z],
 	  		                        y = vol[z];
 	  		                    z++;
@@ -650,6 +650,8 @@ $(function(){
 		ele.length=0;
 		time.length=0;
 		symbol=0;
+		$("#macname").val("");
+		$("#welname").val("");
 		}
 		for(var i = 0;i < redata.length;i+=69){
 			if(redata.substring(8+i, 12+i)!="0000"){
@@ -684,10 +686,12 @@ $(function(){
 					modiflyNum1(6,parseInt(backvol.charAt(1)));
 					modiflyNum1(7,parseInt(backvol.charAt(2)));
 					modiflyNum1(8,parseInt(backvol.charAt(3)));
-					document.getElementById("macname").value=value;
+//					document.getElementById("macname").value=value;
+					$("#macname").val(value);
 					for(var k=0;k<welderName.length;k++){
 						if(welderName[k].fwelder_no==redata.substring(8+i, 12+i)){
-							document.getElementById("welname").value=welderName[k].fname;
+//							document.getElementById("welname").value=welderName[k].fname;
+							$("#welname").val(welderName[k].fname);
 						}
 					}
 					for(var n=0;n<rows.length;n++){
@@ -699,7 +703,7 @@ $(function(){
 				}
 			}
 		};
-		if((time.length)%3==1){
+/*		if((time.length)%3==1){
 			ele[time.length] = ele[time.length-1];
 			ele[time.length+1] = ele[time.length-1];
 			vol[time.length] = vol[time.length-1];
@@ -711,7 +715,7 @@ $(function(){
 			ele[time.length] = ele[time.length-1];
 			vol[time.length] = vol[time.length-1];
 			time[time.length] = time[time.length-1]+1000;
-		}
+		}*/
 		if(symbol==0&&time.length!=0){
 			elecurve();
 			volcurve();
