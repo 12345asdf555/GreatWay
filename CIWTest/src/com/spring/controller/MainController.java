@@ -11,11 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.model.Insframework;
 import com.spring.model.MyUser;
 import com.spring.model.User;
+import com.spring.service.InsframeworkService;
 import com.spring.service.UserService;
 import com.spring.util.IsnullUtil;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -23,6 +26,9 @@ import net.sf.json.JSONObject;
 public class MainController {
 	@Autowired
 	private UserService user;
+	
+	@Autowired
+	private InsframeworkService is;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -54,6 +60,42 @@ public class MainController {
 		User list = user.getUserInsframework(new BigInteger(u.getId()+""));
 		obj.put("uname", list.getUserName());
 		obj.put("insframework", list.getInsname());
+		return obj.toString();
+	}
+	
+	@RequestMapping("/getHierarchy")
+	@ResponseBody
+	public String getHierarchy(){
+		JSONObject obj = new JSONObject();
+		JSONArray ary1 = new JSONArray();
+		JSONArray ary2 = new JSONArray();
+		JSONArray ary3 = new JSONArray();
+		JSONObject json1 = new JSONObject();
+		JSONObject json2 = new JSONObject();
+		JSONObject json3 = new JSONObject();
+		List<Insframework> company = is.getConmpany();
+		for(Insframework i:company){
+			json1.put("companyid", i.getId());
+			json1.put("companyname", i.getName());
+			ary1.add(json1);
+			List<Insframework> caust = is.getCause(i.getId());
+			for(Insframework j:caust){
+				json2.put("companyid", i.getId());
+				json2.put("caustid", j.getId());
+				json2.put("caustname", j.getName());
+				ary2.add(json2);
+				List<Insframework> item = is.getCause(j.getId());
+				for(Insframework x:item){
+					json3.put("caustid", j.getId());
+					json3.put("itemid", x.getId());
+					json3.put("itemname", x.getName());
+					ary3.add(json3);
+				}
+			}
+		}
+		obj.put("ary1", ary1);
+		obj.put("ary2", ary2);
+		obj.put("ary3", ary3);
 		return obj.toString();
 	}
 }

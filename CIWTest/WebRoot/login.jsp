@@ -20,11 +20,6 @@
 	 	
 		<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 		<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				$("#uname").val("");
-			})
-		</script>
 	</head>
 
 	<body onLoad="document.f.j_username.focus();">

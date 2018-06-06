@@ -205,8 +205,13 @@ function showPersonChart(){
 	});
 	option = {
 		    title: {
-		        text: '焊工在线统计',
-		        left: 'center'
+		        text: '焊工总数\n'+namex.length+'人',
+		        left: 'center',
+		        top:'45%',//标题显示在pie中间
+		        textStyle:{
+		            fontSize:12,
+		            align:'center'
+		          }
 		    },
 		    tooltip : {
 		        trigger: 'item',
@@ -216,20 +221,25 @@ function showPersonChart(){
 		        {
 		            name:'焊工在线统计',
 		            type:'pie',
-		            radius : ['10%', '70%'],
-		            center: ['50%', '50%'],
-		            color:['#3898f2','#84baed'],
+		            radius : ['50%', '70%'],
+		            color:['#F6C95E','#82B3E0'],
 		            data:[
 		                {value:weld.length, name:'在线'},
 		                {value:namex.length-weld.length, name:'离线'}
 		            ].sort(function (a, b) { return a.value - b.value; }),
-		            roseType: 'radius',
 		            label: {
+		            	widthL:10,
 		                normal: {
-		                	formatter: '{b}:{c}({d}%)',
+		                	formatter: '{b}:\n{d}%',
 		                    textStyle: {
 		                        color: '#000'
 		                    }
+		                }
+		            },
+		            labelLine: {
+		                normal: {
+		                    length: 10,
+		                    length2: 5
 		                }
 		            },
 		            animationType: 'scale',
@@ -271,8 +281,13 @@ function showWelderChart(){
 	});
 	option = {
 		    title: {
-		        text: '焊机在线统计',
-		        left: 'center'
+		        text: '焊机总数\n'+machine.length+'台',
+		        left: 'center',
+		        top:'45%',//标题显示在pie中间
+		        textStyle:{
+		            fontSize:12,
+		            align:'center'
+		          }
 		    },
 		    tooltip : {
 		        trigger: 'item',
@@ -282,21 +297,25 @@ function showWelderChart(){
 		        {
 		            name:'焊机在线统计',
 		            type:'pie',
-		            radius : ['10%', '70%'],
-		            center: ['50%', '50%'],
-		            color:['#3898f2','#b9e1f4','#84baed'],
+		            radius : ['50%', '70%'],
+		            color:['#F6C95E','#6870B3','#82B3E0'],
 		            data:[
 		                {value:work.length, name:'工作'},
 		                {value:wait.length, name:'待机'},
 		                {value:machine.length-work.length-wait.length, name:'关机'}
 		            ].sort(function (a, b) { return a.value - b.value; }),
-		            roseType: 'radius',
 		            label: {
 		                normal: {
-			            	formatter: '{b}:{c}({d}%)',
+			            	formatter: '{b}:\n{d}%',
 		                    textStyle: {
 		                        color: '#000'
 		                    }
+		                }
+		            },
+		            labelLine: {
+		                normal: {
+		                    length: 10,
+		                    length2: 5
 		                }
 		            },
 		            animationType: 'scale',

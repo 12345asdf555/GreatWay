@@ -217,12 +217,10 @@ window.setTimeout(function() {
 }, 5000);
 
 function move() {
-	console.log("计时器--------数据："+fauitstr);
     if(!fauitstr){
     	$("#content").html("");
     }else{
 	    fauitContent.scrollLeft++;
-	    console.log("距离："+fauitContent.scrollLeft+$("#fauitContent").width()+","+$("#content").width());
 		if(fauitContent.scrollLeft+$("#fauitContent").width()>=$("#content").width()){//当前数据是否已经显示完成
 	//		if(ary.length>0){
 				$("#content").append(ary[ary.length-1]);
