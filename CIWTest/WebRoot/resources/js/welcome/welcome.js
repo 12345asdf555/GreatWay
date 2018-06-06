@@ -1,4 +1,5 @@
 $(function(){
+	workRankDatagrid();
 	getNowDate();
 	getHierarchy();
 })
@@ -170,4 +171,49 @@ function caustclick(index){
 
 function itemclick(id){
 	alert("点击项目部："+id);
+}
+
+function workRankDatagrid(){
+	$("#workRankTable").datagrid( {
+		fitColumns : true,
+		scrollbarSize:0,//舍去表格右侧多余留白
+		height : $("#wcleft1_2").height(),
+		width : $("#wcleft1_2").width()-'2%',
+		url : "datastatistics/getWorkRank",
+		singleSelect : true,
+		columns : [ [ {
+			field : 'rownum',
+			title : '排名',
+			width : 100,
+			halign : "center",
+			align : "center"
+		}, {
+			field : 'welderno',
+			title : '工号',
+			width : 100,
+			halign : "center",
+			align : "center"
+		}, {
+			field : 'name',
+			title : '姓名',
+			width : 100,
+			halign : "center",
+			align : "center"
+		}, {
+			field : 'item',
+			title : '班组',
+			width : 150,
+			halign : "center",
+			align : "center"
+		}, {
+			field : 'hour',
+			title : '累计焊接工时',
+			width : 100,
+			halign : "center",
+			align : "center"
+		}] ],
+		 rowStyler: function(index, row) {
+	        return 'background-color:#A7D6BD;';  
+	    } 
+	});
 }

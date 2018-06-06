@@ -1,6 +1,5 @@
 package com.spring.dao;
 
-
 import java.math.BigInteger;
 import java.util.List;
 
@@ -55,4 +54,6 @@ public interface DataStatisticsMapper  extends Mapper<DataStatistics>{
 	List<DataStatistics> getFauit(@Param("dto") WeldDto dto,@Param("value") int value);
 	
 	List<DataStatistics> getFauitDetail(@Param("dto") WeldDto dto,@Param("id") BigInteger id,@Param("value") int value);
+	
+	List<DataStatistics> getWorkRank(@Param("parent")BigInteger parent,@Param("time")String time);
 }

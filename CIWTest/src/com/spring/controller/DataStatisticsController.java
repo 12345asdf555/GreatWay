@@ -2,6 +2,8 @@ package com.spring.controller;
 
 import java.math.BigInteger;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -1058,6 +1060,38 @@ public class DataStatisticsController {
             return "00:00:" + (second .compareTo(new BigInteger("9"))>0 ? (second + "") : ("0" + second));
         }
 	}
+	
+
+	@RequestMapping("getWorkRank")
+	@ResponseBody
+	public String getWorkRank(HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		try{ 
+			String parentid = request.getParameter("parent");
+			BigInteger parent = null;
+			if(iutil.isNull(parentid)){
+				parent = new BigInteger(parentid);
+			}
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM");
+			List<DataStatistics> list = dss.getWorkRank(parent, sdf.format(date));
+			for(int i=0;i<list.size();i++){
+				json.put("rownum", i+1);
+				json.put("welderno", list.get(i).getWelderno());
+				json.put("name", list.get(i).getName());
+				json.put("item", list.get(i).getInsname());
+				json.put("hour", (double)Math.round(list.get(i).getHour()*100)/100);
+				ary.add(json);
+			}
+			obj.put("rows", ary);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return obj.toString();
+	}
 }
+
 
 

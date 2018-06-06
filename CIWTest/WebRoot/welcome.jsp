@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/easyui.css" />
 	
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
@@ -35,6 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				焊工工作量排行<br/>Welder Work Rank List
   			</div>
   			<div id="wcleft1_2">
+	   			<table id="workRankTable" style="table-layout: fixed; width:100%;"></table>
   			</div>
   			<div id="wcleft2_1">
   				<p class="wcdate"></p>

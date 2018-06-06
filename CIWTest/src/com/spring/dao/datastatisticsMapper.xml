@@ -22,6 +22,8 @@
        	<result property="serialnumber" column="serialnumber"></result>
        	<result property="valuename" column="fvaluename"></result>
        	<result property="time" column="time"></result>
+       	<result property="welderno" column="welderno"></result>
+       	<result property="hour" column="hour"></result>
 	</resultMap>
 	
 	<!-- 获取项目部焊机总数 -->
@@ -642,5 +644,17 @@
 				and FWeldTime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
+	</select>
+	
+	<!-- 	焊工工作排行榜 -->
+	<select id="getWorkRank" resultMap="dataMap">
+		select sum(fworktime) /60/60 hour,w.fname,w.fwelder_no welderno,i.fname insname FROM  tb_work l  left JOIN  tb_welder w on w.fwelder_no = l.fwelder_id 
+		INNER join tb_insframework i on i.fid = l.fitemid INNER join tb_insframework ins on ins.fid = i.fparent 
+		where fstarttime &gt;= #{time} and fendtime &lt; date_sub(date_sub(#{time},interval -1 day),interval 0 minute)
+		<if test="parent!=null and parent!=''">
+			AND (ins.fid=#{parent})
+		</if>
+		group by w.fname ORDER by hour 
+		LIMIT 10
 	</select>
 </mapper>

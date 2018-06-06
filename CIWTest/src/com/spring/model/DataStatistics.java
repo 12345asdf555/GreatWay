@@ -21,7 +21,21 @@ public class DataStatistics {
 	private String serialnumber;
 	private String valuename;
 	private String time;
+	private double hour;
+	private String welderno;
 	
+	public double getHour() {
+		return hour;
+	}
+	public void setHour(double hour) {
+		this.hour = hour;
+	}
+	public String getWelderno() {
+		return welderno;
+	}
+	public void setWelderno(String welderno) {
+		this.welderno = welderno;
+	}
 	public String getTime() {
 		return time;
 	}

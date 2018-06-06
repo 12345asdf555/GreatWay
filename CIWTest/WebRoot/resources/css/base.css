@@ -181,6 +181,18 @@ select::-ms-expand {
 	background: #8DB2DE;
 }
 
+#wcleft1_2{
+	background: #A7D6BD;
+}
+
+#wcleft2_2{
+	background: #8FC6D4;
+}
+
+#wcleft3_2{
+	background: #8DB2DE;
+}
+
 #wcleft1_2,#wcleft2_2,#wcleft3_2{
 	border:1px solid green;
 	float:right;

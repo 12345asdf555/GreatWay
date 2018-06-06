@@ -3,8 +3,6 @@ package com.spring.service;
 import java.math.BigInteger;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.spring.dto.WeldDto;
 import com.spring.model.DataStatistics;
 import com.spring.page.Page;
@@ -268,4 +266,12 @@ public interface DataStatisticsService {
 	 * @return
 	 */
 	List<DataStatistics> getWeldWorkpieceOutCountData(WeldDto dto, String junctionno);
+	
+	/**
+	 * 焊工工作量排行
+	 * @param parent 事业部id
+	 * @param time 时间
+	 * @return
+	 */
+	List<DataStatistics> getWorkRank(BigInteger parent,String time);
 }

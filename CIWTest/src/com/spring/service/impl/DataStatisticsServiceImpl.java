@@ -214,4 +214,9 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 		// TODO Auto-generated method stub
 		return ds.getWeldPieceOutCount(dto, junctionno);
 	}
+
+	@Override
+	public List<DataStatistics> getWorkRank(BigInteger parent, String time) {
+		return ds.getWorkRank(parent, time);
+	}
 }
