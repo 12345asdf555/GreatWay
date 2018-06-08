@@ -58,4 +58,8 @@ public interface DataStatisticsMapper  extends Mapper<DataStatistics>{
 	List<DataStatistics> getWorkRank(@Param("parent")BigInteger parent,@Param("time")String time);
 	
 	DataStatistics getWorkMachineCount(@Param("itemid")BigInteger itemid,@Param("time")String time);
+	
+	List<DataStatistics> getItemWeldTime(@Param("dto")WeldDto dto);
+	
+	List<DataStatistics> getItemOverProofTime(@Param("dto")WeldDto dto);
 }

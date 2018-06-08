@@ -1,4 +1,6 @@
 $(function(){
+	$("#dtoTime1").next().hide();
+	$("#dtoTime2").next().hide();
 	getNowDate();
 	getHierarchy();
 })
@@ -121,8 +123,11 @@ function caustclick(id){
 	array2 = new Array();
 	array3 = new Array();
 	array4 = new Array();
+	ary1 = new Array();
+	ary2 = new Array();
 	workRankDatagrid(id);
 	useRatio(id);
+	loadRate(id);
 }
 
 function workRankDatagrid(id){
@@ -254,16 +259,26 @@ function usechart(){
 		yAxis:[{
 			type: 'value',
 			name: '             数量(台)',//内边距属性无效只能用空格代替
+	        nameTextStyle : {
+	            color: "989a9c" //name颜色
+	        },
             min: 0,
             max: 100,
             interval: 20,
             axisLabel:{
-            	inside:true //刻度显示在内侧
+            	inside:true,//刻度显示在内侧
+            	textStyle: {
+            		color:'#989a9c'//y轴文字颜色
+            	}
+            },
+            axisLine:{
+                lineStyle: {
+                    color: '#f3f3f3'//y轴颜色
+                }
             },
             splitLine: {
                 lineStyle: {
-                    color: '#f3f3f3', //网格线色
-                    type:'dashed'
+                    color: '#f3f3f3'//网格线色
                 }
             }
 		},{
@@ -276,41 +291,134 @@ function usechart(){
             max: 100,
             interval: 20,
             axisLabel:{
-            	inside:true //刻度显示在内侧
+            	inside:true,//刻度显示在内侧
+            	textStyle: {
+            		color:'#989a9c'//y轴文字颜色
+            	}
             },
             splitLine: {
                 lineStyle: {
-                    color: '#f3f3f3', //网格线色
-                    type:'dashed'
+                    color: '#f3f3f3'//网格线色
                 }
             }
 		}],
 		series:[{
      		name :'工作设备数',
      		type :'bar',//柱状图
+            barMaxWidth:25,//最大宽度
      		data :array2
 		},{
      		name :'设备总数',
      		type :'bar',//柱状图
+            barMaxWidth:25,//最大宽度
      		data :array3
 		},{
      		name :'设备利用率',
      		type :'line',//折线图
+       		symbol: 'circle',//实心折点
             yAxisIndex: 1,
-     		data :array4,
-     		itemStyle : {
-     			normal: {
-                    color:'#000000',  //折点颜色
-     				label : {
-     					show: true//显示每个折点的值
-     				},
-     				lineStyle:{  
-                        color:'#000000'  //折线颜色
-                    }  
-     			}
-     		}
+     		data :array4
      	}]
 	}
+	//为echarts对象加载数据
+	charts.setOption(option);
+	//隐藏动画加载效果
+	charts.hideLoading();
+}
+
+var ary1 = new Array();
+var ary2 = new Array();
+var Series = [];
+function loadRate(id){
+	$.ajax({
+		type : 'post',
+		asyn : false,
+		url : 'datastatistics/getLoadRate?parent='+id+'&time1='+$("#dtoTime1").combobox('getValue')+'&time2='+$("#dtoTime2").combobox('getValue'),
+		dataType : 'json',
+		success : function(result){
+			for(var i=0;i<result.time.length;i++){
+				ary1.push(result.time[i].weldtime);
+			}
+			for(var i=0;i<result.ary.length;i++){
+				ary2.push(result.ary[i].itemname);
+				Series.push({
+               		name : result.ary[i].itemname,
+               		type :'line',
+               		data :result.ary[i].hour,
+               		symbol: 'circle'//实心折点
+               	});
+			}
+			loadchart();
+		},
+		error : function(errorMsg){
+		      alert("数据请求失败，请联系系统管理员!");  
+		}
+	});
+}
+
+
+function loadchart(){
+  	//初始化echart实例
+	charts = echarts.init(document.getElementById("loadRateChart"));
+	//显示加载动画效果
+	charts.showLoading({
+		text: '稍等片刻,精彩马上呈现...',
+		effect:'whirling'
+	});
+	option = {
+		tooltip:{
+			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
+		},
+		legend:{
+			data: ary2,
+			backgroundColor:'#dfdfdf',
+			padding:[5,500,5,60],//上右下左，目的为产生说明与图表分离的假象
+			itemGap:30,//项与项间距
+			left:0
+		},
+		grid:{
+			left:'0%',//组件距离容器左边的距离
+			right:'0%',
+			bottom:'0%',
+			containLaber:true//区域是否包含坐标轴刻度标签
+		},
+		xAxis:{
+			type:'category',
+			data: ary1,
+			z:9, //同css的z-index
+            axisLabel:{
+            	inside:true//刻度显示在内侧
+            }
+		},
+		yAxis:[{
+			type: 'value',
+			name: '               符合率(%)',//内边距属性无效只能用空格代替
+	        nameTextStyle : {
+	            color: "989a9c" //name颜色
+	        },
+            min: 0,
+            max: 100,
+            interval: 20,
+            axisLabel:{
+            	inside:true,//刻度显示在内侧
+            	textStyle: {
+            		color:'#989a9c'//y轴文字颜色
+            	}
+            },
+            axisLine:{
+                lineStyle: {
+                    color: '#f3f3f3'//y轴颜色
+                }
+            },
+            splitLine: {
+                lineStyle: {
+                    color: '#f3f3f3'//网格线色
+                }
+            }
+		}],
+		series:[]
+	}
+	option.series = Series;
 	//为echarts对象加载数据
 	charts.setOption(option);
 	//隐藏动画加载效果
@@ -329,6 +437,7 @@ function domresize() {
 		width : $("#wcleft1_2").width()-'2%'
 	});
 	echarts.init(document.getElementById('useRatioChart')).resize();
+	echarts.init(document.getElementById('loadRateChart')).resize();
 	echarts.init(document.getElementById('person')).resize();
 	echarts.init(document.getElementById('welder')).resize();
 }

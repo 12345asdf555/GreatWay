@@ -229,4 +229,14 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 	public DataStatistics getWorkMachineCount(BigInteger itemid, String time) {
 		return ds.getWorkMachineCount(itemid, time);
 	}
+
+	@Override
+	public List<DataStatistics> getItemWeldTime(WeldDto dto) {
+		return ds.getItemWeldTime(dto);
+	}
+
+	@Override
+	public List<DataStatistics> getItemOverProofTime(WeldDto dto) {
+		return ds.getItemOverProofTime(dto);
+	}
 }

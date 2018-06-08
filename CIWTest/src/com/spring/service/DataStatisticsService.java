@@ -283,4 +283,18 @@ public interface DataStatisticsService {
 	 * @return
 	 */
 	DataStatistics getWorkMachineCount(BigInteger itemid, String time);
+	
+	/**
+	 * 获取项目部正常工作时长
+	 * @param dto 事业部id，起始时间，结束时间
+	 * @return
+	 */
+	List<DataStatistics> getItemWeldTime(WeldDto dto);
+	
+	/**
+	 * 获取项目部超标工作时长
+	 * @param dto 事业部id，起始时间，结束时间
+	 * @return
+	 */
+	List<DataStatistics> getItemOverProofTime(WeldDto dto);
 }

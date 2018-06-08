@@ -1725,7 +1725,7 @@
 .datagrid-body td,
 .datagrid-footer td {
   border-width: 0 1px 1px 0;
-  border-style: dotted;
+  border-style: solid; /*网格使用实线，原值：dotted*/
   margin: 0;
   padding: 0;
 }
@@ -1889,10 +1889,12 @@
 .datagrid-footer-inner {
   border-color: #dddddd;
 }
-.datagrid-header td,
+.datagrid-header td{/*表头不显示虚线*/
+	border:0;
+}
 .datagrid-body td,
 .datagrid-footer td {
-  border-color: #fff;/*表格虚线颜色*/
+  border-color: #f3f3f3;/*表格虚线颜色*/
 }
 .datagrid-htable,
 .datagrid-btable,
@@ -1904,15 +1906,15 @@
   background: #fafafa;
 }
 .datagrid-row-over{
-  background: #c1f9de;/*表格悬停颜色*/
+  background: #dae9de;/*表格悬停颜色*/
 }
 .datagrid-header td.datagrid-header-over {
-  background: #cdd1d0;/*表头悬停颜色*/
+  background: #dbdbdb;/*表头悬停颜色*/
   color: #000000;
   cursor: default;
 }
 .datagrid-row-selected {
-  background: #a1e2d3;/*表格选中颜色*/
+  background: #fbe3b6;/*表格选中颜色*/
   color: #000000;
 }
 .datagrid-row-editing .textbox,

@@ -3,6 +3,7 @@ package com.spring.controller;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.spring.dto.ModelDto;
 import com.spring.dto.WeldDto;
 import com.spring.model.DataStatistics;
 import com.spring.model.Dictionarys;
+import com.spring.model.LiveData;
 import com.spring.page.Page;
 import com.spring.service.DataStatisticsService;
 import com.spring.service.DictionaryService;
+import com.spring.service.LiveDataService;
 import com.spring.util.IsnullUtil;
 
 import net.sf.json.JSONArray;
@@ -37,6 +41,8 @@ public class DataStatisticsController {
 	private DataStatisticsService dss;
 	@Autowired
 	private DictionaryService dm;
+	@Autowired
+	private LiveDataService ls;
 
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -1075,7 +1081,7 @@ public class DataStatisticsController {
 				parent = new BigInteger(parentid);
 			}
 			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			List<DataStatistics> list = dss.getWorkRank(parent, sdf.format(date));
 			for(int i=0;i<list.size();i++){
 				json.put("rownum", i+1);
@@ -1114,7 +1120,7 @@ public class DataStatisticsController {
 				json.put("itemname", i.getName());//班组
 				json.put("machinenum", i.getTotal());//设备总数
 				Date date = new Date();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				DataStatistics machine = dss.getWorkMachineCount(i.getId(), sdf.format(date));
 				if(machine!=null){
 					json.put("worknum", machine.getMachinenum());//工作设备数
@@ -1129,6 +1135,75 @@ public class DataStatisticsController {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
+	
+	
+	/**
+	 * 跳转班组生产数据报表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getLoadRate")
+	@ResponseBody
+	public String getLoadRate(HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONArray timeary = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONObject timejson = new JSONObject();
+		try{
+			String parentid = request.getParameter("parent");
+			String time1 = request.getParameter("time1");
+			String time2 = request.getParameter("time2");
+			WeldDto dto = new WeldDto();
+			BigInteger parent = null;
+			if(iutil.isNull(parentid)){
+				parent = new BigInteger(parentid);
+				dto.setParent(parent);
+			}
+			dto.setDtoTime1(time1.substring(0, 10));
+			dto.setDtoTime2(time2.substring(0, 10));
+			dto.setDay("day");
+			List<DataStatistics> ilist = dss.getItemWeldTime(dto);
+			List<DataStatistics> olist = dss.getItemOverProofTime(dto);
+			List<ModelDto> time =  ls.getAllTimes(dto);
+			List<LiveData> insf = ls.getAllInsf(parent, 23);
+			List<DataStatistics> temp = ilist;
+			for(int i=0;i<ilist.size();i++){
+				double num = 100;
+				temp.get(i).setInsname(ilist.get(i).getName());
+				temp.get(i).setTime(ilist.get(i).getTime());
+				for(int o=0;o<olist.size();o++){
+					if(ilist.get(i).getId().equals(olist.get(o).getId()) && ilist.get(i).getTime().equals(olist.get(o).getTime())){
+						num = (double)Math.round(((ilist.get(i).getHour()-olist.get(o).getHour())/ilist.get(i).getHour())*100*100)/100;
+					}
+				}
+				temp.get(i).setHour(num);
+			}
+			for(ModelDto t:time){
+				timejson.put("weldtime", t.getWeldTime());//日期
+				timeary.add(timejson);
+			}
+			for(LiveData item:insf){
+				json.put("itemname", item.getFname());//班组
+				double[] num = new double[time.size()];
+				for(int i=0;i<time.size();i++){
+					num[i] = 0;
+					for(DataStatistics t:temp){
+						if(time.get(i).getWeldTime().equals(t.getTime()) && item.getFname().equals(t.getName())){
+							num[i] = t.getHour();
+						}
+					}
+				}
+				json.put("hour", num);
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("time", timeary);
 		obj.put("ary", ary);
 		return obj.toString();
 	}

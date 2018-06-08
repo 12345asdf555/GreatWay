@@ -34,7 +34,7 @@ function showcompanyEfficiencyChart(){
                        		name : '工效(1:1)',
                        		type :'line',
                        		smooth: true,//是否平滑曲线显示
-                       		data : result.ary[i].num2,
+                       		data : [result.ary[i].num2],
                        		itemStyle : {
                        			normal: {
                        				label : {
