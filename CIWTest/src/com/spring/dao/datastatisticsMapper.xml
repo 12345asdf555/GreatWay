@@ -679,7 +679,7 @@
 	
 	<!-- 查询组织机构正常焊接时长 -->
 	<select id="getItemWeldTime"  resultMap="dataMap">
-		select * from (select i.fid,i.fname,SUM(fworktime) hour,DATE_FORMAT( fstarttime,'%Y-%m-%d' ) time from tb_insframework i 
+		select * from (select i.fid,i.fname,SUM(fworktime)/60/60 hour,DATE_FORMAT( fstarttime,'%Y-%m-%d' ) time from tb_insframework i 
 		inner join tb_work w on w.fitemid=i.fid
 		where i.ftype=23
 		<if test="dto!=null and dto!=''">
@@ -700,7 +700,7 @@
 	<!-- 查询组织机构超规范焊接时长 -->
 	<select id="getItemOverProofTime"  resultMap="dataMap">
 		select * from (
-		select i.fid,i.fname,SUM(w.falarmtime) hour,DATE_FORMAT( fstarttime,'%Y-%m-%d' ) time from tb_insframework i 
+		select i.fid,i.fname,SUM(w.falarmtime)/60/60 hour,DATE_FORMAT( fstarttime,'%Y-%m-%d' ) time from tb_insframework i 
 		inner join tb_alarm w on w.fitemid=i.fid
 		where i.ftype=23
 		<if test="dto!=null and dto!=''">
