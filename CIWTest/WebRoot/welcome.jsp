@@ -24,6 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/echarts.js"></script>
 	<script type="text/javascript" src="resources/js/welcome/online.js"></script>
 	<script type="text/javascript" src="resources/js/welcome/welcome.js"></script>
@@ -33,6 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div id="wcleftdiv">
   			<div id="wcleft1_1">
   				<p class="wcdate"></p>
+  				<div style="margin-top:10px;margin-bottom:10px;"><img src="resources/images/wc-01.png" width="40%"></div>
   				焊工工作量排行<br/>Welder Work Rank List
   			</div>
   			<div id="wcleft1_2">
@@ -40,12 +42,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			</div>
   			<div id="wcleft2_1">
   				<p class="wcdate"></p>
+  				<div style="margin-top:5px;margin-bottom:5px;"><img src="resources/images/wc-02.png" width="40%"></div>
   				班组设备利用率<br/>The Utilization Rate Of Group Equipment
   			</div>
   			<div id="wcleft2_2">
+  				<div id="useRatioChart" style="width:100%;height:100%;"></div>
   			</div>
   			<div id="wcleft3_1">
   				<p class="wcdate"></p>
+  				<div style="margin-top:5px;margin-bottom:5px;"><img src="resources/images/wc-03.png" width="40%"></div>
   				焊接规范负荷率<br/>The Load Rate Of Welding Standard
   			</div>
   			<div id="wcleft3_2"></div>

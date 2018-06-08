@@ -32,16 +32,25 @@
 		select i.fid,i.fname,count(w.fid) total from tb_insframework i 
 		inner join tb_welding_machine w on w.finsframework_id=i.fid 
 		where i.ftype=23 
+		<if test="parent!=null and parent!=''">
+			and i.fparent=#{parent}
+		</if>
 		group by i.fid
 		UNION
 		select i.fid,i.fname,0 total from tb_insframework  i 
 		where i.ftype=23 
+		<if test="parent!=null and parent!=''">
+			and i.fparent=#{parent}
+		</if>
 		and i.fid not in 
 		(select i.fid from tb_insframework i 
 		inner join tb_welding_machine w on w.finsframework_id=i.fid 
 		where i.ftype=23 
+		<if test="parent!=null and parent!=''">
+			and i.fparent=#{parent}
+		</if>
 		 group by i.fid )
-		)temp
+		)temp order by fid
 	</select>
 	
 	<!-- 获取开机焊机数 -->
@@ -652,9 +661,19 @@
 		INNER join tb_insframework i on i.fid = l.fitemid INNER join tb_insframework ins on ins.fid = i.fparent 
 		where fstarttime &gt;= #{time} and fendtime &lt; date_sub(date_sub(#{time},interval -1 day),interval 0 minute)
 		<if test="parent!=null and parent!=''">
-			AND (ins.fid=#{parent})
+			AND ins.fid=#{parent}
 		</if>
 		group by w.fname ORDER by hour 
 		LIMIT 10
+	</select>
+	
+	<!-- 获取工作的焊机数-->
+	<select id="getWorkMachineCount" resultMap="dataMap">
+		select count(DISTINCT(fmachine_id)) machinenum
+		from tb_work where 1=1
+		<if test="itemid!=null and itemid!=''">
+			and fitemid= #{itemid}
+		</if>
+		and fstarttime &gt;= #{time} and fendtime &lt; date_sub(date_sub(#{time},interval -1 day),interval 0 minute)
 	</select>
 </mapper>

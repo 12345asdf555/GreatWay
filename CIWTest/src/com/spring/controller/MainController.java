@@ -69,10 +69,8 @@ public class MainController {
 		JSONObject obj = new JSONObject();
 		JSONArray ary1 = new JSONArray();
 		JSONArray ary2 = new JSONArray();
-		JSONArray ary3 = new JSONArray();
 		JSONObject json1 = new JSONObject();
 		JSONObject json2 = new JSONObject();
-		JSONObject json3 = new JSONObject();
 		List<Insframework> company = is.getConmpany();
 		for(Insframework i:company){
 			json1.put("companyid", i.getId());
@@ -84,18 +82,10 @@ public class MainController {
 				json2.put("caustid", j.getId());
 				json2.put("caustname", j.getName());
 				ary2.add(json2);
-				List<Insframework> item = is.getCause(j.getId());
-				for(Insframework x:item){
-					json3.put("caustid", j.getId());
-					json3.put("itemid", x.getId());
-					json3.put("itemname", x.getName());
-					ary3.add(json3);
-				}
 			}
 		}
 		obj.put("ary1", ary1);
 		obj.put("ary2", ary2);
-		obj.put("ary3", ary3);
 		return obj.toString();
 	}
 }

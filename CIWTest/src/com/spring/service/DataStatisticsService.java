@@ -14,7 +14,8 @@ public interface DataStatisticsService {
 	 * @param parent 组织机构父id
 	 * @return
 	 */
-	List<DataStatistics> getItemMachineCount(Page page);
+	List<DataStatistics> getItemMachineCount(Page page, BigInteger parent);
+	List<DataStatistics> getItemMachineCount(BigInteger parent);
 	
 	/**
 	 * 获取开机焊机总数
@@ -274,4 +275,12 @@ public interface DataStatisticsService {
 	 * @return
 	 */
 	List<DataStatistics> getWorkRank(BigInteger parent,String time);
+	
+	/**
+	 * 获取工作的焊机数
+	 * @param itemid
+	 * @param time
+	 * @return
+	 */
+	DataStatistics getWorkMachineCount(BigInteger itemid, String time);
 }

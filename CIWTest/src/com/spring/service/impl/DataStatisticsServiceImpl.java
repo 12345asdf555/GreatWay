@@ -21,9 +21,14 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 	private DataStatisticsMapper ds;
 	
 	@Override
-	public List<DataStatistics> getItemMachineCount(Page page) {
+	public List<DataStatistics> getItemMachineCount(Page page,BigInteger parent) {
 		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
-		return ds.getItemMachineCount();
+		return ds.getItemMachineCount(parent);
+	}
+	
+	@Override
+	public List<DataStatistics> getItemMachineCount(BigInteger parent) {
+		return ds.getItemMachineCount(parent);
 	}
 
 	@Override
@@ -147,7 +152,7 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 	@Override
 	public List<DataStatistics> getAllItemData() {
 		// TODO Auto-generated method stub
-		return ds.getItemMachineCount();
+		return ds.getItemMachineCount(null);
 	}
 
 	@Override
@@ -218,5 +223,10 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 	@Override
 	public List<DataStatistics> getWorkRank(BigInteger parent, String time) {
 		return ds.getWorkRank(parent, time);
+	}
+
+	@Override
+	public DataStatistics getWorkMachineCount(BigInteger itemid, String time) {
+		return ds.getWorkMachineCount(itemid, time);
 	}
 }

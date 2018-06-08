@@ -121,7 +121,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);
 }
 .panel-body {
-  background-color: #ffffff;
+  background-color: #E0EFE6;/*datagrid背景底色*/
   color: #000000;
   font-size: 12px;
 }
@@ -1903,14 +1903,16 @@
 .datagrid-row-alt {
   background: #fafafa;
 }
-.datagrid-row-over,
+.datagrid-row-over{
+  background: #c1f9de;/*表格悬停颜色*/
+}
 .datagrid-header td.datagrid-header-over {
-  background: #eaf2ff;
+  background: #cdd1d0;/*表头悬停颜色*/
   color: #000000;
   cursor: default;
 }
 .datagrid-row-selected {
-  background: #ffe48d;
+  background: #a1e2d3;/*表格选中颜色*/
   color: #000000;
 }
 .datagrid-row-editing .textbox,
@@ -1959,7 +1961,7 @@
   background-color: #efefef;
   border-style: solid;
   border-width: 0 0 1px 0;
-  border-color: red;/**/
+  border-color: #ffffff;
 }
 .datalist .datagrid-group-expander {
   display: none;
@@ -2033,7 +2035,7 @@
 .m-list li {
   border-style: solid;
   border-width: 0 0 1px 0;
-  border-color: red;/**/
+  border-color: #ffffff;
 }
 .m-list li>a:hover {
   background: #eaf2ff;

@@ -1,10 +1,9 @@
 $(function(){
-	workRankDatagrid();
 	getNowDate();
 	getHierarchy();
 })
 
-var companylen=0,caustlen=0;
+var companylen=0;
 function getHierarchy(){
 	$.ajax({
 		type:'post',
@@ -12,43 +11,29 @@ function getHierarchy(){
 		url:'hierarchy/getHierarchy',
 		dataType:'json',
 		success:function(result){
-			var str1 = "", str2 = "", str3 = "";
-			companylen = result.ary1.length,caustlen=result.ary2.length;
+			var str1 = "", str2 = "";
+			companylen = result.ary1.length;
+			caustclick(result.ary2[0].caustid);
 			for(var i=0;i<result.ary1.length;i++){
 				//显示公司
 				str1 = '<div class="wcrightinsframework" id="company'+i+'" onclick="companyclick('+i+')">'+
 					'<div class="wcrighttitle">'+result.ary1[i].companyname+'</div><div class="wcrighticon"><img src="resources/images/arrow.png" id="imgcompany'+i+'"/></div></div>';
 				$("#autoshowdiv").append(str1);
-				for(var j=0;j<result.ary2.length;j++){
-					if(result.ary1[i].companyid == result.ary2[j].companyid ){
-						//显示事业部
-						if(i==0){//显示第一个公司下的所有事业部
-							str2 = '<div class="wcrightinsframework" id="caust'+j+'" name="cnode'+i+'" onclick="caustclick('+j+')">'+
-								'<div class="wcrighttitle">&nbsp;&nbsp;'+result.ary2[j].caustname+'</div><div class="wcrighticon"><img src="resources/images/arrow.png" id="imgcaust'+j+'"/></div></div>';
-							$("#company"+i).after(str2);
-						}else{
-							str2 = '<div class="wcrightinsframework" hidden="true" id="caust'+j+'" name="cnode'+i+'" onclick="caustclick('+j+')">'+
-								'<div class="wcrighttitle">&nbsp;&nbsp;'+result.ary2[j].caustname+'</div><div class="wcrighticon"><img src="resources/images/arrow.png" id="imgcaust'+j+'"/></div></div>';
-							$("#company"+i).after(str2);
-						}
-						str3 = '<div class="wcul" style="padding-bottom:20px;" id="item'+j+'"  hidden="true"><ul>';
-						var flag = 0;
-						for(var x=0;x<result.ary3.length;x++){
-							if(result.ary2[j].caustid == result.ary3[x].caustid ){
-								str3 += '	<li onclick="itemclick('+result.ary3[x].itemid+')">'+result.ary3[x].itemname+'</li>';
-								flag = 1;
-							}
-						}
-						if(flag==1){
-							//显示项目部
-							str3 += '</ul></div>';
-							$("#caust"+j).after(str3);
-						}else{
-							str3 = '<div class="wcul" style="padding-bottom:40px;" id="item'+j+'"  hidden="true"><ul><li>暂无</li></ul></div>';
-							$("#caust"+j).after(str3);
-						}
+				str2 = '<div class="wcul" style="padding-bottom:30px;" id="caust'+i+'"  hidden="true"><ul>';
+				var flag = 0;
+				for(var x=0;x<result.ary2.length;x++){
+					if(result.ary1[i].companyid == result.ary2[x].companyid ){
+						str2 += '	<li onclick="caustclick('+result.ary2[x].caustid+')">'+result.ary2[x].caustname+'</li>';
+						flag = 1;
 					}
 				}
+				if(flag==1){
+					//显示项目部
+					str2 += '</ul></div>';
+				}else{
+					str2 = '<div class="wcul" style="padding-bottom:40px;" id="caust'+i+'"  hidden="true"><ul><li>暂无</li></ul></div>';
+				}
+				$("#company"+i).after(str2);
 				rightshow();
 			}
 		},
@@ -85,8 +70,7 @@ function rightshow(){
 	$("#mesimg").css("transform","rotate(180deg)");//展开按钮旋转180度
 	$("#onlineimg").css("transform","rotate(180deg)");
 	$("#imgcompany0").css("transform","rotate(180deg)");
-	$("#imgcaust0").css("transform","rotate(180deg)");
-	$("#item0").slideDown();
+	$("#caust0").slideDown();
 }
 
 //任务情况点击事件
@@ -111,10 +95,7 @@ function companymesclick(){
 	}else{
 		for(var i=0;i<companylen;i++){
 			$("#company"+i).slideUp();
-		}
-		for(var i=0;i<caustlen;i++){
 			$("#caust"+i).slideUp();
-			$("#item"+i).slideUp();
 		}
 		$("#mesimg").css("transform","rotate(0deg)");
 	}
@@ -122,98 +103,232 @@ function companymesclick(){
 
 function companyclick(index){
 	//关闭其它公司层内容
-	for(var i=0;i<caustlen;i++){
-		$("#caust"+i).slideUp();
-		$("#item"+i).slideUp();
-	}
 	for(var i=0;i<companylen;i++){
 		$("#imgcompany"+i).css("transform","rotate(0deg)");
+		$("#caust"+i).slideUp();
 	}
-	//根据name获取属性id
-	var obj = document.getElementsByName("cnode"+index);
-    for(i=0;i<obj.length;i++){
-    	if($("#"+obj[i].id).is(":hidden")){
-            $("#"+obj[i].id).slideDown();
-            for(var j=0;j<caustlen;j++){
-    			if("caust"+j == obj[i].id){
-    	            $("#imgcaust"+j).css("transform","rotate(0deg)");
-    			}
-    		}
-    		$("#imgcompany"+index).css("transform","rotate(180deg)");
-    	}else{
-            $("#"+obj[i].id).slideUp();
-    		for(var j=0;j<caustlen;j++){
-    			if("caust"+j == obj[i].id){
-        			$("#item"+j).slideUp();
-    			}
-    		}
-    		$("#imgcompany"+index).css("transform","rotate(0deg)");
-    	}
-    }
-}
-
-function caustclick(index){
-	//关闭其它事业层内容
-	for(var i=0;i<caustlen;i++){
-		if(i != index){
-			$("#item"+i).slideUp();
-			$("#imgcaust"+i).css("transform","rotate(0deg)");
-		}
-	}
-	if($("#item"+index).is(":hidden")){
-		$("#item"+index).slideDown();
-		$("#imgcaust"+index).css("transform","rotate(180deg)");
+	if($("#caust"+index).is(":hidden")){
+		$("#caust"+index).slideDown();
+		$("#imgcompany"+index).css("transform","rotate(180deg)");
 	}else{
-		$("#item"+index).slideUp();
-		$("#imgcaust"+index).css("transform","rotate(0deg)");
+		$("#caust"+index).slideUp();
+		$("#imgcompany"+index).css("transform","rotate(0deg)");
 	}
 }
 
-function itemclick(id){
-	alert("点击项目部："+id);
+function caustclick(id){
+	array1 = new Array();
+	array2 = new Array();
+	array3 = new Array();
+	array4 = new Array();
+	workRankDatagrid(id);
+	useRatio(id);
 }
 
-function workRankDatagrid(){
+function workRankDatagrid(id){
 	$("#workRankTable").datagrid( {
 		fitColumns : true,
 		scrollbarSize:0,//舍去表格右侧多余留白
 		height : $("#wcleft1_2").height(),
 		width : $("#wcleft1_2").width()-'2%',
-		url : "datastatistics/getWorkRank",
+		url : "datastatistics/getWorkRank?parent="+id,
 		singleSelect : true,
 		columns : [ [ {
 			field : 'rownum',
 			title : '排名',
 			width : 100,
 			halign : "center",
-			align : "center"
+			align : "center",
+			sortable : true,
+			sorter : function(a,b){
+				return (a>b?1:-1);
+			}
 		}, {
 			field : 'welderno',
 			title : '工号',
 			width : 100,
 			halign : "center",
-			align : "center"
+			align : "center",
+			sortable : true,
+			sorter : function(a,b){
+				return (a>b?1:-1);
+			}
 		}, {
 			field : 'name',
 			title : '姓名',
 			width : 100,
 			halign : "center",
-			align : "center"
+			align : "center",
+			sortable : true,
+			sorter : function(a,b){
+				return (a>b?1:-1);
+			}
 		}, {
 			field : 'item',
 			title : '班组',
 			width : 150,
 			halign : "center",
-			align : "center"
+			align : "center",
+			sortable : true,
+			sorter : function(a,b){
+				return (a>b?1:-1);
+			}
 		}, {
 			field : 'hour',
 			title : '累计焊接工时',
 			width : 100,
 			halign : "center",
-			align : "center"
-		}] ],
-		 rowStyler: function(index, row) {
-	        return 'background-color:#A7D6BD;';  
-	    } 
+			align : "center",
+			sortable : true,
+			sorter : function(a,b){
+				return (a>b?1:-1);
+			},
+			formatter : function(value,row,index){
+				return value + "小时";
+			}
+		}] ]
 	});
+}
+
+
+var array1 = new Array();
+var array2 = new Array();
+var array3 = new Array();
+var array4 = new Array();
+function useRatio(id){
+	$.ajax({
+		type : 'post',
+		asyn : false,
+		url : 'datastatistics/getUseRatio?parent='+id,
+		dataType : 'json',
+		success : function(result){
+			for(var i=0;i<result.ary.length;i++){
+				array1.push(result.ary[i].itemname);
+				array2.push(result.ary[i].worknum);
+				array3.push(result.ary[i].machinenum);
+				array4.push(result.ary[i].useratio);
+			}
+			usechart();
+		},
+		error : function(errorMsg){
+		      alert("数据请求失败，请联系系统管理员!");  
+		}
+	});
+}
+
+var colors = ['#f6c951', '#b6b2d8', '#595757'];
+function usechart(){
+  	//初始化echart实例
+	charts = echarts.init(document.getElementById("useRatioChart"));
+	//显示加载动画效果
+	charts.showLoading({
+		text: '稍等片刻,精彩马上呈现...',
+		effect:'whirling'
+	});
+	option = {
+		color : colors,
+		tooltip:{
+			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
+		},
+		legend:{
+			data:['工作设备数','设备总数','设备利用率'],
+			backgroundColor:'#dfdfdf',
+			padding:[5,500,5,60],//上右下左，目的为产生说明与图表分离的假象
+			itemGap:30,//项与项间距
+			left:0
+		},
+		grid:{
+			left:'0%',//组件距离容器左边的距离
+			right:'0%',
+			bottom:'0%',
+			containLaber:true//区域是否包含坐标轴刻度标签
+		},
+		xAxis:{
+			type:'category',
+			data: array1,
+			z:9, //同css的z-index
+            axisLabel:{
+            	inside:true//刻度显示在内侧
+            }
+		},
+		yAxis:[{
+			type: 'value',
+			name: '             数量(台)',//内边距属性无效只能用空格代替
+            min: 0,
+            max: 100,
+            interval: 20,
+            axisLabel:{
+            	inside:true //刻度显示在内侧
+            },
+            splitLine: {
+                lineStyle: {
+                    color: '#f3f3f3', //网格线色
+                    type:'dashed'
+                }
+            }
+		},{
+			type: 'value',
+			name: '利用率(%)                ',
+            nameTextStyle:{
+                padding: [0,50,0,0]
+            },
+            min: 0,
+            max: 100,
+            interval: 20,
+            axisLabel:{
+            	inside:true //刻度显示在内侧
+            },
+            splitLine: {
+                lineStyle: {
+                    color: '#f3f3f3', //网格线色
+                    type:'dashed'
+                }
+            }
+		}],
+		series:[{
+     		name :'工作设备数',
+     		type :'bar',//柱状图
+     		data :array2
+		},{
+     		name :'设备总数',
+     		type :'bar',//柱状图
+     		data :array3
+		},{
+     		name :'设备利用率',
+     		type :'line',//折线图
+            yAxisIndex: 1,
+     		data :array4,
+     		itemStyle : {
+     			normal: {
+                    color:'#000000',  //折点颜色
+     				label : {
+     					show: true//显示每个折点的值
+     				},
+     				lineStyle:{  
+                        color:'#000000'  //折线颜色
+                    }  
+     			}
+     		}
+     	}]
+	}
+	//为echarts对象加载数据
+	charts.setOption(option);
+	//隐藏动画加载效果
+	charts.hideLoading();
+}
+
+//监听窗口大小变化
+window.onresize = function() {
+	setTimeout(domresize, 500);
+}
+
+//改变表格高宽
+function domresize() {
+	$("#workRankTable").datagrid('resize', {
+		height : $("#wcleft1_2").height(),
+		width : $("#wcleft1_2").width()-'2%'
+	});
+	echarts.init(document.getElementById('useRatioChart')).resize();
+	echarts.init(document.getElementById('person')).resize();
+	echarts.init(document.getElementById('welder')).resize();
 }

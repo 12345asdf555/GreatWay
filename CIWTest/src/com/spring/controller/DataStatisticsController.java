@@ -178,7 +178,7 @@ public class DataStatisticsController {
 			if(iutil.isNull(time2)){
 				dto.setDtoTime2(time2);
 			}
-			List<DataStatistics> list = dss.getItemMachineCount(page);
+			List<DataStatistics> list = dss.getItemMachineCount(page,null);
 			
 			if(list != null){
 				PageInfo<DataStatistics> pageinfo = new PageInfo<DataStatistics>(list);
@@ -1089,6 +1089,47 @@ public class DataStatisticsController {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		return obj.toString();
+	}
+	
+	/**
+	 * 跳转班组生产数据报表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getUseRatio")
+	@ResponseBody
+	public String getUseRatio(HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		try{
+			String parentid = request.getParameter("parent");
+			BigInteger parent = null;
+			if(iutil.isNull(parentid)){
+				parent = new BigInteger(parentid);
+			}
+			List<DataStatistics> list = dss.getItemMachineCount(parent);
+			for(DataStatistics i:list){
+				json.put("itemname", i.getName());//班组
+				json.put("machinenum", i.getTotal());//设备总数
+				Date date = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM");
+				DataStatistics machine = dss.getWorkMachineCount(i.getId(), sdf.format(date));
+				if(machine!=null){
+					json.put("worknum", machine.getMachinenum());//工作设备数
+					double useratio =(double)Math.round(Double.valueOf(machine.getMachinenum())/Double.valueOf(i.getTotal())*100*100)/100;
+					json.put("useratio", useratio);//设备利用率
+				}else{
+					json.put("worknum", 0);//工作设备数
+					json.put("useratio", 0);//设备利用率
+				}
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
 		return obj.toString();
 	}
 }

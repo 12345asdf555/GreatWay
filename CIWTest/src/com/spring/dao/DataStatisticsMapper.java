@@ -11,7 +11,7 @@ import com.spring.model.DataStatistics;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface DataStatisticsMapper  extends Mapper<DataStatistics>{
-	List<DataStatistics> getItemMachineCount();
+	List<DataStatistics> getItemMachineCount(@Param("parent") BigInteger parent);
 
 	int getStartingUpMachineNum(@Param("itemid") BigInteger itemid,@Param("dto") WeldDto dto);
 	
@@ -56,4 +56,6 @@ public interface DataStatisticsMapper  extends Mapper<DataStatistics>{
 	List<DataStatistics> getFauitDetail(@Param("dto") WeldDto dto,@Param("id") BigInteger id,@Param("value") int value);
 	
 	List<DataStatistics> getWorkRank(@Param("parent")BigInteger parent,@Param("time")String time);
+	
+	DataStatistics getWorkMachineCount(@Param("itemid")BigInteger itemid,@Param("time")String time);
 }
