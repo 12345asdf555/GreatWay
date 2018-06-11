@@ -341,6 +341,7 @@
 }
 .combo,
 .combo-panel {
+  border: 1px solid #95B8E7;/*下拉框边框色*/
   background-color: #ffffff;
 }
 .combo {

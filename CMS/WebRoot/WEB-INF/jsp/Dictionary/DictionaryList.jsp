@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<table id="dg" style="table-layout:fixed;width:100%"></table>
     	<div id="toolbar" style="margin-bottom: 5px;">
         	<a href="Dictionary/goAddDictionary" class="easyui-linkbutton" iconCls="icon-add">新增</a>
-		    	<select class="easyui-combobox" id="fields" style="margin-left:100px;">
+		    	<select class="easyui-combobox" id="fields" style="margin-left:100px;" data-options="editable:false">
 		    		<option value='fvaluename'>名称</option>
 		    		<option value='fback'>类型</option>
 		    	</select>

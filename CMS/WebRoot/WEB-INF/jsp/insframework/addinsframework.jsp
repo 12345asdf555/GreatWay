@@ -52,11 +52,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>上级项目</lable>
-					<select class="easyui-combobox" name="parent" id="parent" data-options="required:true"></select>
+					<select class="easyui-combobox" name="parent" id="parent" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="fitem">
 					<lable>项目类型</lable>
-					<select class="easyui-combobox" name="typeid" id="typeid" data-options="required:true"></select>
+					<select class="easyui-combobox" name="typeid" id="typeid" data-options="required:true,editable:false"></select>
 				</div>
 				<div class="weldbutton">
 					<a href="javascript:addInsframework();" class="easyui-linkbutton"	iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

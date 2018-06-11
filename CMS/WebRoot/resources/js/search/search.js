@@ -550,10 +550,10 @@ function fillcontent(){
 function newSearch(){
 	index += 1;
 	var str = "<div style='margin-top:5px' id='div"+index+"'>" +
-			"<select class='fields' id='fields"+index+"'></select>&nbsp;" +
-			"<select class='condition' id='condition"+index+"'></select>&nbsp;" +
+			"<select class='fields' id='fields"+index+"' data-options='editable:false'></select>&nbsp;" +
+			"<select class='condition' id='condition"+index+"' data-options='editable:false'></select>&nbsp;" +
 			"<input class='content' id='content"+index+"'/>&nbsp;" +
-			"<select class='joint' id='joint"+index+"'></select><div/>";
+			"<select class='joint' id='joint"+index+"' data-options='editable:false'></select><div/>";
 	$("#searchdiv").append(str);
 }
 

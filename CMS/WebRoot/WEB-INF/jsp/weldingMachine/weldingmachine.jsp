@@ -53,10 +53,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 自定义多条件查询 -->
 	    <div id="searchdiv" class="easyui-dialog" style="width:800px; height:400px;" closed="true" buttons="#searchButton" title="自定义条件查询">
 	    	<div id="div0">
-		    	<select class="fields" id="fields"></select>
-		    	<select class="condition" id="condition"></select>
+		    	<select class="fields" id="fields" data-options="editable:false"></select>
+		    	<select class="condition" id="condition" data-options="editable:false"></select>
 		    	<input class="content" id="content"/>
-		    	<select class="joint" id="joint"></select>
+		    	<select class="joint" id="joint" data-options="editable:false"></select>
 		    	<a href="javascript:newSearchWeldingMachine();" class="easyui-linkbutton" iconCls="icon-add"></a>
 		    	<a href="javascript:removeSerach();" class="easyui-linkbutton" iconCls="icon-remove"></a>
 	    	</div>
