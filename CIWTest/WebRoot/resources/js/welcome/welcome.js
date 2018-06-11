@@ -5,7 +5,7 @@ $(function(){
 	getHierarchy();
 })
 
-var companylen=0;
+var companylen=0 ,flagid;
 function getHierarchy(){
 	$.ajax({
 		type:'post',
@@ -119,12 +119,14 @@ function companyclick(index){
 }
 
 function caustclick(id){
+	flagid = id;
 	array1 = new Array();
 	array2 = new Array();
 	array3 = new Array();
 	array4 = new Array();
 	ary1 = new Array();
 	ary2 = new Array();
+	Series = [];
 	workRankDatagrid(id);
 	useRatio(id);
 	loadRate(id);
@@ -424,6 +426,11 @@ function loadchart(){
 	//隐藏动画加载效果
 	charts.hideLoading();
 }
+
+//每半小时刷新一次
+window.setInterval(function() {
+	caustclick(flagid);
+}, 1800000)
 
 //监听窗口大小变化
 window.onresize = function() {
