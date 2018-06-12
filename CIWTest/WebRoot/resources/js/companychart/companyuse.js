@@ -18,6 +18,25 @@ var charts;
 var array1 = new Array();
 var array2 = new Array();
 function showcompanyUseChart(){
+	setParam();
+	 $.ajax({  
+        type : "post",  
+        async : false, //同步执行  
+        url : "companyChart/getCompanyUse"+chartStr,
+        data : {},  
+        dataType : "json", //返回数据形式为json  
+        success : function(result) {  
+            if (result) {  
+                for(var i=0;i<result.rows.length;i++){
+                	array1.push(result.rows[i].fname);
+                	array2.push(result.rows[i].time);
+                }
+            }  
+        },  
+       error : function(errorMsg) {  
+            alert("图表请求数据失败啦!");  
+        }  
+   }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("companyUseChart"));
 	//显示加载动画效果
@@ -58,6 +77,7 @@ function showcompanyUseChart(){
 			{
 				name:'时长(h)',
 				type:'bar',
+	            barMaxWidth:50,//最大宽度
 				data:array2
 			}
 		]
@@ -66,6 +86,7 @@ function showcompanyUseChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+ 	$("#chartLoading").hide();
 }
 
 function CaustUseDatagrid(){
@@ -87,21 +108,13 @@ function CaustUseDatagrid(){
 			title : '厂家',
 			width : 100,
 			halign : "center",
-			align : "left",
-			formatter : function(value,row,index){
-				array1.push(value);
-             	return value;
-			}
+			align : "left"
 		}, {
 			field : 'time',
 			title : '焊接平均时长(h)',
 			width : 100,
 			halign : "center",
-			align : "left",
-			formatter : function(value,row,index){
-				array2.push(value);
-             	return value;
-			}
+			align : "left"
 		}, {
 			field : 'num',
 			title : '数量',
@@ -116,17 +129,6 @@ function CaustUseDatagrid(){
                 color.class="rowColor";
                 return color;
             }
-		},
-		onLoadSuccess : function(index,row){
-		    if(!charts){
-		         return;
-		    }
-		    //更新数据
-		    var option = charts.getOption();
-		    option.series[0].data = array2;
-		    option.xAxis[0].data = array1;
-		    charts.setOption(option);    
-		 	$("#chartLoading").hide();
 		}
 	});
 }
@@ -164,6 +166,7 @@ function serachcompanyUse(){
 	chartStr = "";
 	setTimeout(function(){
 		CaustUseDatagrid();
+		showcompanyUseChart();
 	},500);
 }
 

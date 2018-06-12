@@ -648,7 +648,7 @@
 				and fendtime &lt;= #{dto.dtoTime2}
 			</if>
 		</if>
-		group by weldTime
+		group by weldTime order by weldTime
      	)temp
 	</select>
 	

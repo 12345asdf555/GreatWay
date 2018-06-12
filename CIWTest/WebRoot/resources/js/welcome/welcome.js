@@ -19,7 +19,7 @@ function getHierarchy(){
 			for(var i=0;i<result.ary1.length;i++){
 				//显示公司
 				str1 = '<div class="wcrightinsframework" id="company'+i+'" onclick="companyclick('+i+')">'+
-					'<div class="wcrighttitle">'+result.ary1[i].companyname+'</div><div class="wcrighticon"><img src="resources/images/arrow.png" id="imgcompany'+i+'"/></div></div>';
+					'<div class="wcrighttitle">'+result.ary1[i].companyname+'</div><div class="wcrighticon"><img src="resources/images/arrow-1.png" id="imgcompany'+i+'"/></div></div>';
 				$("#autoshowdiv").append(str1);
 				str2 = '<div class="wcul" style="padding-bottom:30px;" id="caust'+i+'"  hidden="true"><ul>';
 				var flag = 0;
