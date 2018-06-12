@@ -1058,7 +1058,7 @@ public class CompanyChartController {
 		String time1 = request.getParameter("dtoTime1");
 		WeldDto dto = new WeldDto();
 		if(iutil.isNull(time1)){
-			dto.setDtoTime1(time1+"%");
+			dto.setDtoTime1(time1);
 		}
 		
 		page = new Page(pageIndex,pageSize,total);
@@ -1104,7 +1104,7 @@ public class CompanyChartController {
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		
 		page = new Page(pageIndex,pageSize,total);
-		List<ModelDto> list = lm.getExcessiveBack(time+"%", welder, junction);
+		List<ModelDto> list = lm.getExcessiveBack(time, welder, junction);
 		long total = 0;
 		
 		if(list != null){

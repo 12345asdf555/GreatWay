@@ -98,6 +98,10 @@ function getUserInsframework(){
 	})
 }
 
+function openCompanyRunTime(){
+	addTab("集团设备运行时长","blocChart/goBlocRunTime");
+}
+
 function openOverproofRecall(){
 	addTab("焊接工艺超标回溯","companyChart/goSelectWelderJunction");
 }

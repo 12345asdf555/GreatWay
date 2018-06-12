@@ -451,4 +451,15 @@ public interface LiveDataManager {
 	 * @return
 	 */
 	List<ModelDto> getExcessiveBack(String time,String welder,String junction);
+	
+	/**
+	 * 获取集团设备运行时长
+	 * @param page 分页
+	 * @param parent 组织机构id
+	 * @param dto dto.dtoTime1 起始时间 dto.dtoTime2 结束时间 
+	 * @param startindex (limit后的参数) 返回记录行的偏移量，从0开始
+	 * @param endindex  (limit后的参数) 返回记录行的最大数目
+	 * @return
+	 */
+	List<ModelDto> getBlocRunTime(Page page, BigInteger parent, WeldDto dto, int startindex, int endindex);
 }

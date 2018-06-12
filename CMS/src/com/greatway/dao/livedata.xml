@@ -2030,5 +2030,25 @@
 		inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id inner join tb_welder w on w.fwelder_no = k0.fwelder_id where fwelder_id=#{welder} and fjunction_id=#{junction} group by weldtimes )B
 		where overproofs=1 order by weldtimes)C where num>1 )D on F.nums = D.num)temp
 	</select>
+	
+	<select id="getBlocRunTime" resultMap="dtoMap">
+		SELECT * FROM(
+		SELECT sum(fworktime)/60/60 time,fequipment_no fmachine_id,i.fname FROM tb_work l INNER JOIN tb_welding_machine m on l.fmachine_id = m.fid 
+		INNER JOIN tb_insframework i on i.fid = m.finsframework_id INNER JOIN tb_insframework ins on ins.fid = i.fparent 
+		where 1=1 
+		<if test="parent!=null and parent!=''">
+			and (i.fid = #{parent} or ins.fid = #{parent} or ins.fparent=#{parent})
+		</if>
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fstarttime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fendtime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		GROUP BY fmachine_id order by time limit #{endindex} OFFSET #{startindex}
+		)TEMP
+	</select>
 
 </mapper>

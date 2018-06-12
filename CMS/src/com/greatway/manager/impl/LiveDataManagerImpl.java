@@ -352,4 +352,10 @@ public class LiveDataManagerImpl implements LiveDataManager {
 		return live.getExcessiveBack(time, welder, junction);
 	}
 
+	@Override
+	public List<ModelDto> getBlocRunTime(Page page, BigInteger parent, WeldDto dto, int startindex, int endindex) {
+		PageHelper.startPage(page.getPageIndex(), page.getPageSize());
+		return live.getBlocRunTime(parent, dto, startindex, endindex);
+	}
+
 }

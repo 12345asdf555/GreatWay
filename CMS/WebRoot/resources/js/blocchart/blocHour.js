@@ -2,15 +2,37 @@ $(function(){
 	classifyDatagrid();
 })
 
-$(document).ready(function(){
-	showblocHourChart();
-})
 var chartStr = "";
 
 var charts;
 var array1 = new Array();
 var array2 = new Array();
 function showblocHourChart(){
+	var dtoTime1 = $("#dtoTime1").datetimebox('getValue');
+	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
+	$.ajax({  
+        type : "post",  
+        async : false, //同步执行  
+        url : encodeURI("blocChart/getBlocHour?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+chartStr),
+        data : {},  
+        dataType : "json", //返回数据形式为json  
+        success : function(result) {  
+            if (result) {  
+                for(var i=0;i<result.rows.length;i++){
+                	array1.push(result.rows[i].name);
+                	if(result.rows[i].jidgather==0){
+                    	array2.push(0);
+                	}else{
+                    	var num = (result.rows[i].manhour/result.rows[i].jidgather).toFixed(2);
+                    	array2.push(num);
+                	}
+                }
+            }  
+        },  
+       error : function(errorMsg) {  
+            alert("图表请求数据失败啦!");  
+        }  
+   }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("blocHourChart"));
 	//显示加载动画效果
@@ -53,6 +75,7 @@ function showblocHourChart(){
 			{
 				name:'工时(s)',
 				type:'bar',
+	            barMaxWidth:50,//最大宽度
 				data:array2
 			}
 		]
@@ -61,6 +84,7 @@ function showblocHourChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+	 $("#chartLoading").hide();
 }
 
 function BlocHourDatagrid(){
@@ -85,13 +109,6 @@ function BlocHourDatagrid(){
 			halign : "center",
 			align : "left",
 			formatter:function(value,row,index){
-				array1.push(value);
-				if(row.jidgather==0){
-                 	array2.push(0);
-             	}else{
-                 	var num = (row.manhour/row.jidgather).toFixed(2);
-                 	array2.push(num);
-             	}
 				return  '<a href="companyChart/goCompanyHour?parent='+row.companyid+"&parentime1="+dtoTime1+"&parentime2="+dtoTime2+'">'+value+'</a>';
 			}
 		}, {
@@ -125,18 +142,7 @@ function BlocHourDatagrid(){
 			halign : "center",
 			align : "left",
 			hidden: true
-		}] ],
-		onLoadSuccess : function(index,row){
-			if(!charts){
-		         return;
-		    }
-		    //更新数据
-		     var option = charts.getOption();
-		     option.series[0].data = array2;
-		     option.xAxis[0].data = array1;
-		     charts.setOption(option);    
-		 	 $("#chartLoading").hide();
-		}
+		}] ]
 	});
 }
 
@@ -197,6 +203,7 @@ function classifyDatagrid(){
 		onLoadSuccess: function(){
 			$("#classify").datagrid("selectRow",0);
 			BlocHourDatagrid();
+			showblocHourChart();
 		}
 	});
 }
@@ -213,6 +220,7 @@ function commitChecked(){
 	chartStr += "&search="+search;
 	setTimeout(function(){
 		BlocHourDatagrid();
+		showblocHourChart();
 	},500);
 }
 

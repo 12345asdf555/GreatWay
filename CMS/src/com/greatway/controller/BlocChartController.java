@@ -131,6 +131,17 @@ public class BlocChartController {
 	}
 	
 	/**
+	 * 跳转集团设备运行时长页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goBlocRunTime")
+	public String goBlocRunTime(HttpServletRequest request){
+		lm.getUserId(request);
+		return "blocchart/blocruntime";
+	}
+	
+	/**
 	 * 集团工时报表信息查询
 	 * @param request
 	 * @return
@@ -907,5 +918,140 @@ public class BlocChartController {
 		return obj.toString();
 	}
 
+	/**
+	 * 集团设备运行时长
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/gerBlocRunTime")
+	@ResponseBody
+	public String getBlocRunTime(HttpServletRequest request){
+		if(iutil.isNull(request.getParameter("page"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+		}
+		if(iutil.isNull(request.getParameter("rows"))){
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+		}
+		String parentid = request.getParameter("parent");
+		String time1 = request.getParameter("time1");
+		String time2 = request.getParameter("time2");
+		String[] str = request.getParameter("ranking").split("-");
+		int startindex=Integer.parseInt(str[0]),endindex=Integer.parseInt(str[1]);
+		WeldDto dto = new WeldDto();
+		BigInteger parent = null;
+		double avgnum = 0;
+		if(iutil.isNull(parentid)){
+			parent = new BigInteger(parentid);
+		}
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		Page page = new Page(pageIndex, pageSize, total);
+		List<ModelDto> list = lm.getBlocRunTime(page, parent, dto, startindex, endindex);
+		long total = 0;
+		if(list!=null){
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+			total = pageinfo.getTotal();
+		}
+		try{
+			for(ModelDto i:list){
+				avgnum += i.getTime();
+				json.put("time", (double)Math.round(i.getTime()*100)/100);
+				json.put("machineno", i.getFmachine_id());
+				json.put("itemname", i.getFname());
+				ary.add(json);
+			}
+			avgnum = (double)Math.round(avgnum/list.size()*100)/100;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("avgnum", avgnum);
+		obj.put("rows", ary);
+		obj.put("total", total);
+		return obj.toString();
+	}
+	
+	/**
+	 * 获取当前用户下的所有组织机构
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getInsframework")
+	@ResponseBody
+	public String getInsframework(HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{//数据权限处理
+			BigInteger uid = lm.getUserId(request);
+			String afreshLogin = (String)request.getAttribute("afreshLogin");
+			if(iutil.isNull(afreshLogin)){
+				json.put("id", 0);
+				json.put("name", "无");
+				ary.add(json);
+				obj.put("ary", ary);
+				return obj.toString();
+			}
+			int type = insm.getUserInsfType(uid);
+			BigInteger parent = insm.getUserInsfId(uid);
+			if(type==20){
+				List<Insframework> company = insm.getConmpany(null);
+				for(Insframework c:company){
+					json.put("id", c.getId());
+					json.put("name", c.getName());
+					ary.add(json);
+					List<Insframework> caust = insm.getCause(c.getId(), null);
+					for(Insframework ca:caust){
+						json.put("id", ca.getId());
+						json.put("name", "&nbsp;&nbsp;&nbsp;"+ca.getName());
+						ary.add(json);
+						List<Insframework> item = insm.getCause(ca.getId(), null);
+						for(Insframework i:item){
+							json.put("id", i.getId());
+							json.put("name", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+i.getName());
+							ary.add(json);
+						}
+					}
+				}
+			}else if(type==21){
+				List<Insframework> caust = insm.getCause(parent, null);
+				for(Insframework ca:caust){
+					json.put("id", ca.getId());
+					json.put("name", ca.getName());
+					ary.add(json);
+					List<Insframework> item = insm.getCause(ca.getId(), null);
+					for(Insframework i:item){
+						json.put("id", i.getId());
+						json.put("name", "&nbsp;&nbsp;&nbsp;"+i.getName());
+						ary.add(json);
+					}
+				}
+			}else if(type==22){
+				List<Insframework> item = insm.getCause(parent, null);
+				for(Insframework i:item){
+					json.put("id", i.getId());
+					json.put("name", i.getName());
+					ary.add(json);
+				}
+			}else if(type==23){
+				Insframework item = insm.getInsById(parent);
+				if(item!=null){
+					json.put("id", item.getId());
+					json.put("name", item.getName());
+					ary.add(json);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
 
 }

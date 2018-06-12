@@ -18,6 +18,25 @@ var charts;
 var array1 = new Array();
 var array2 = new Array();
 function showblocUseChart(){
+	setParam();
+	 $.ajax({  
+         type : "post",  
+         async : false, //同步执行  
+         url : "blocChart/getBlocUse"+chartStr,
+         data : {},  
+         dataType : "json", //返回数据形式为json  
+         success : function(result) {  
+             if (result) {  
+                 for(var i=0;i<result.rows.length;i++){
+                 	array1.push(result.rows[i].fname);
+                 	array2.push(result.rows[i].time);
+                 }
+             }  
+         },  
+        error : function(errorMsg) {  
+             alert("图表请求数据失败啦!");  
+         }  
+    }); 
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("blocUseChart"));
 	//显示加载动画效果
@@ -58,6 +77,7 @@ function showblocUseChart(){
 			{
 				name:'时长(h)',
 				type:'bar',
+	            barMaxWidth:50,//最大宽度
 				data:array2
 			}
 		]
@@ -66,6 +86,7 @@ function showblocUseChart(){
 	charts.setOption(option);
 	//隐藏动画加载效果
 	charts.hideLoading();
+ 	$("#chartLoading").hide();
 }
 
 function CaustUseDatagrid(){
@@ -87,12 +108,7 @@ function CaustUseDatagrid(){
 			title : '厂家',
 			width : 100,
 			halign : "center",
-			align : "left",
-			formatter : function(value,row,index){
-				array1.push(value);
-				array2.push(row.time);
-             	return value;
-			}
+			align : "left"
 		}, {
 			field : 'type',
 			title : '型号',
@@ -111,18 +127,7 @@ function CaustUseDatagrid(){
 			width : 100,
 			halign : "center",
 			align : "left"
-		}] ],
-		onLoadSuccess : function(index,row){
-		    if(!charts){
-		         return;
-		    }
-		    //更新数据
-		    var option = charts.getOption();
-		    option.series[0].data = array2;
-		    option.xAxis[0].data = array1;
-		    charts.setOption(option);    
-		 	$("#chartLoading").hide();
-		}
+		}] ]
 	});
 }
 
@@ -159,6 +164,7 @@ function serachblocUse(){
 	chartStr = "";
 	setTimeout(function(){
 		CaustUseDatagrid();
+		showblocUseChart();
 	},500);
 }
 
