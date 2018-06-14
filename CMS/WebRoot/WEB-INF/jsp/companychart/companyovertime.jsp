@@ -58,12 +58,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div><h2>${str }</h2></div>
-		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 10%;margin-left:10px;">
 		按组织机构和日期对超时待机趋势统计：<br/>
 		统计时间段内的各部门焊机超时待机趋势；<br/>
 		X轴：日期<br/>
 		Y轴：超时待机焊机数<br/></div>
-		<div id="companyOvertimeChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
+		<div id="companyOvertimeChart" style="height:50%;width:65%;margin-right: 21%;margin-left: 21%;margin-bottom:10px;"></div>
 		
 	    <table id="companyOvertimeTable" style="table-layout: fixed; width:100%;"></table>
 	    

@@ -79,9 +79,9 @@ function showcaustEfficiencyChart(){
 			data:['工效(1:1)']
 		},
 		grid:{
-			left:'6%',//组件距离容器左边的距离
+			left:'50',//组件距离容器左边的距离
 			right:'4%',
-			bottom:'7%',
+			bottom:'20',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -125,7 +125,7 @@ function CaustEfficiencyDatagrid(){
 	setParam();
 	$("#caustEfficiencyTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#caustEfficiencyChart").height()-$("#caustEfficiency_btn").height()-40,
+		height : $("#body").height() - $("#caustEfficiencyChart").height()-$("#caustEfficiency_btn").height()-15,
 		width : $("#body").width(),
 		idField : 'id',
 		pageSize : 10,
@@ -229,7 +229,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#caustEfficiencyTable").datagrid('resize', {
-		height : $("#body").height() - $("#caustEfficiencyChart").height()-$("#caustEfficiency_btn").height()-10,
+		height : $("#body").height() - $("#caustEfficiencyChart").height()-$("#caustEfficiency_btn").height()-15,
 		width : $("#body").width()
 	});
 	echarts.init(document.getElementById('caustEfficiencyChart')).resize();
