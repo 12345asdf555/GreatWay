@@ -36,9 +36,9 @@ function showBlocOverproofChart(){
 			data:array2
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'50',//组件距离容器左边的距离
 			right:'4%',
-			bottom:'7%',
+			bottom:'20',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -105,7 +105,7 @@ function BlocHourDatagrid(){
     }); 
 	 $("#blocOverproofTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#blocOverproofChart").height()-$("#blocOverproof_btn").height()-40,
+			height : $("#body").height() - $("#blocOverproofChart").height()-$("#blocOverproof_btn").height()-15,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
@@ -139,7 +139,8 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#blocOverproofTable").datagrid('resize', {
-		height : $("#body").height() - $("#blocOverproofChart").height()-$("#blocOverproof_btn").height()-10,
+		height : $("#body").height() - $("#blocOverproofChart").height()-$("#blocOverproof_btn").height()-15,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('blocOverproofChart')).resize();
 }

@@ -43,9 +43,6 @@ function showitemUseChart(){
 		effect:'whirling'
 	});
 	option = {
-		title:{
-			text: "项目部单台设备运行数据统计"
-		},
 		tooltip:{
 			trigger: 'axis',//坐标轴触发，即是否跟随鼠标集中显示数据
 		},
@@ -53,9 +50,9 @@ function showitemUseChart(){
 			data:['时长(h)']
 		},
 		grid:{
-			left:'6%',//组件距离容器左边的距离
+			left:'50',//组件距离容器左边的距离
 			right:'4%',
-			bottom:'7%',
+			bottom:'20',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -92,7 +89,7 @@ function ItemUseDatagrid(){
 	setParam();
 	$("#itemUseTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#itemUseChart").height()-$("#itemUse_btn").height()-40,
+		height : $("#body").height() - $("#itemUseChart").height()-$("#itemUse_btn").height()-15,
 		width : $("#body").width(),
 		idField : 'id',
 		url : "itemChart/getItemUse"+chartStr,
@@ -149,7 +146,8 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#itemUseTable").datagrid('resize', {
-		height : $("#body").height() - $("#itemUseChart").height()-$("#itemUse_btn").height()-10,
+		height : $("#body").height() - $("#itemUseChart").height()-$("#itemUse_btn").height()-15,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('itemUseChart')).resize();
 }

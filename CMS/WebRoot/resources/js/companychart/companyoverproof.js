@@ -142,4 +142,5 @@ function domresize() {
 		height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-10,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('companyOverproofChart')).resize();
 }

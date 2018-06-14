@@ -45,9 +45,6 @@ function showcaustUseChart(){
 		effect:'whirling'
 	});
 	option = {
-		title:{
-			text: "事业部单台设备运行数据统计"
-		},
 		tooltip:{
 			trigger: 'axis',//坐标轴触发，即是否跟随鼠标集中显示数据
 		},
@@ -180,4 +177,5 @@ function domresize() {
 		height : $("#body").height() - $("#caustUseChart").height()-$("#caustUse_btn").height()-10,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('caustUseChart')).resize();
 }

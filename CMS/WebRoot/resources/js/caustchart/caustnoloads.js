@@ -151,4 +151,5 @@ function domresize() {
 		height : $("#body").height() - $("#caustNoLoadsChart").height()-$("#caustNoLoads_btn").height()-10,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('caustNoLoadsChart')).resize();
 }

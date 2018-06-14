@@ -144,4 +144,5 @@ function domresize() {
 		height : $("#body").height() - $("#companyOvertimeChart").height()-$("#companyOvertime_btn").height()-10,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('companyOvertimeChart')).resize();
 }

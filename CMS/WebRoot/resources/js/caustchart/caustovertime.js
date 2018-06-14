@@ -144,4 +144,5 @@ function domresize() {
 		height : $("#body").height() - $("#caustOvertimeChart").height()-$("#caustOvertime_btn").height()-10,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('caustOvertimeChart')).resize();
 }

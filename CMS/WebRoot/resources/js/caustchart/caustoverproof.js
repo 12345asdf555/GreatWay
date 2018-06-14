@@ -144,4 +144,5 @@ function domresize() {
 		height : $("#body").height() - $("#caustOverproofChart").height()-$("#caustOverProof_btn").height()-10,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('caustOverproofChart')).resize();
 }

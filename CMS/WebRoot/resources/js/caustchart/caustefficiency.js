@@ -232,4 +232,5 @@ function domresize() {
 		height : $("#body").height() - $("#caustEfficiencyChart").height()-$("#caustEfficiency_btn").height()-10,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('caustEfficiencyChart')).resize();
 }

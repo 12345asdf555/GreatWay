@@ -98,8 +98,8 @@ function getUserInsframework(){
 	})
 }
 
-function openCompanyRunTime(){
-	addTab("集团设备运行时长","blocChart/goBlocRunTime");
+function openRunTime(name){
+	addTab(name+"设备运行时长","blocChart/goBlocRunTime");
 }
 
 function openOverproofRecall(){

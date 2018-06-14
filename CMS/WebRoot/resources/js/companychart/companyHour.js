@@ -245,4 +245,9 @@ function domresize() {
 		height : $("#body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-10,
 		width : $("#body").width()
 	});
+	$("#classify").datagrid('resize', {
+		height : $("#classifydiv").height(),
+		width : $("#body").width()/2
+	});
+	echarts.init(document.getElementById('companyHourChart')).resize();
 }

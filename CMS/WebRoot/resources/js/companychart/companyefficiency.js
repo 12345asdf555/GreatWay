@@ -232,4 +232,5 @@ function domresize() {
 		height : $("#body").height() - $("#companyEfficiencyChart").height()-$("#companyEfficiency_btn").height()-10,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('companyEfficiencyChart')).resize();
 }

@@ -84,4 +84,12 @@ function showOverproof(){
 	//隐藏动画加载效果
 	charts.hideLoading();
 }
+//监听窗口大小变化
+window.onresize = function() {
+	setTimeout(domresize, 500);
+}
 
+//改变图表高宽
+function domresize() {
+	echarts.init(document.getElementById('overproof')).resize();
+}

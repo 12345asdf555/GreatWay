@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li onclick="changeColor(this)"><a href="javascript:openBlocIdle()"><div><i class="iconfont icon-bijiben"></i>集团设备闲置率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openBlocHour()"><div><i class="iconfont icon-bijiben"></i>集团焊口焊接工时</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openBlocovertime()"><div><i class="iconfont icon-bijiben"></i>集团超时待机统计</div></a></li>
-    		<li onclick="changeColor(this)"><a href="javascript:openCompanyRunTime()"><div><i class="iconfont icon-bijiben"></i>集团设备运行时长</div></a></li>
+    		<li onclick="changeColor(this)"><a href="javascript:openRunTime('集团')"><div><i class="iconfont icon-bijiben"></i>集团设备运行时长</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openBlocoverproof()"><div><i class="iconfont icon-bijiben"></i>集团焊接工艺超标统计</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openOverproofRecall()"><div><i class="iconfont icon-bijiben"></i>集团焊接工艺超标回溯</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openBlocUse()"><div><i class="iconfont icon-bijiben"></i>集团单台设备运行数据统计</div></a></li>
@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyIdle()"><div><i class="iconfont icon-bijiben"></i>公司设备闲置率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyHour()"><div><i class="iconfont icon-bijiben"></i>公司焊口焊接工时</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyovertime()"><div><i class="iconfont icon-bijiben"></i>公司超时待机统计</div></a></li>
-    		<li onclick="changeColor(this)"><a href="javascript:openCompanyRunTime()"><div><i class="iconfont icon-bijiben"></i>公司设备运行时长</div></a></li>
+    		<li onclick="changeColor(this)"><a href="javascript:openRunTime('公司')"><div><i class="iconfont icon-bijiben"></i>公司设备运行时长</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyoverproof()"><div><i class="iconfont icon-bijiben"></i>公司焊接工艺超标统计</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openOverproofRecall()"><div><i class="iconfont icon-bijiben"></i>公司焊接工艺超标回溯</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyUse()"><div><i class="iconfont icon-bijiben"></i>公司单台设备运行数据统计</div></a></li>
@@ -115,6 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li onclick="changeColor(this)"><a href="javascript:openCaustIdle()"><div><i class="iconfont icon-bijiben"></i>事业部设备闲置率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCaustHour()"><div><i class="iconfont icon-bijiben"></i>事业部焊口焊接工时</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCaustovertime()"><div><i class="iconfont icon-bijiben"></i>事业部超时待机统计</div></a></li>
+    		<li onclick="changeColor(this)"><a href="javascript:openRunTime('事业部')"><div><i class="iconfont icon-bijiben"></i>事业部设备运行时长</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCaustoverproof()"><div><i class="iconfont icon-bijiben"></i>事业部焊接工艺超标统计</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openOverproofRecall()"><div><i class="iconfont icon-bijiben"></i>事业部焊接工艺超标回溯</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCaustUse()"><div><i class="iconfont icon-bijiben"></i>事业部单台设备运行数据统计</div></a></li>
@@ -130,6 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li onclick="changeColor(this)"><a href="javascript:openItemIdle()"><div><i class="iconfont icon-bijiben"></i>项目部设备闲置率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openItemHour()"><div><i class="iconfont icon-bijiben"></i>项目部焊口焊接工时</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openItemovertime()"><div><i class="iconfont icon-bijiben"></i>项目部超时待机统计</div></a></li>
+    		<li onclick="changeColor(this)"><a href="javascript:openRunTime('项目部')"><div><i class="iconfont icon-bijiben"></i>项目部设备运行时长</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openItemoverproofs()"><div><i class="iconfont icon-bijiben"></i>项目部焊接工艺超标统计</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openOverproofRecall()"><div><i class="iconfont icon-bijiben"></i>项目部焊接工艺超标回溯</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openItemUse()"><div><i class="iconfont icon-bijiben"></i>项目部单台设备运行数据统计</div></a></li>

@@ -56,9 +56,9 @@ function showChart(){
 			data:['运行时长(h)']
 		},
 		grid:{
-			left:'6%',//组件距离容器左边的距离
+			left:'50',//组件距离容器左边的距离
 			right:'4%',
-			bottom:'7%',
+			bottom:'70',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -69,7 +69,10 @@ function showChart(){
 		},
 		xAxis:{
 			type:'category',
-			data: array1
+			data: array1,
+			axisLabel : {
+				rotate: 50 //x轴文字倾斜
+			}
 		},
 		yAxis:{
 			type: 'value'//value:数值轴，category:类目轴，time:时间轴，log:对数轴
@@ -93,9 +96,8 @@ function showChart(){
 		            normal: { 
 		                lineStyle: { 
 		                    color:'#000099', //标志线颜色
-		                }, 
+		                }
 		            } 
-		           
 		        }
             } ,
 			data:array2
@@ -112,7 +114,7 @@ function dgDatagrid(){
 	setParam();
 	 $("#dg").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#charts").height()-$("#search_btn").height()-40,
+			height : $("#body").height() - $("#charts").height()-$("#search_btn").height()-15,
 			width : $("#body").width(),
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50],
@@ -203,10 +205,11 @@ window.onresize = function() {
 	setTimeout(domresize, 500);
 }
 
-//改变表格高宽
+//改变表格，图表高宽
 function domresize() {
 	$("#dg").datagrid('resize', {
-		height : $("#body").height() - $("#charts").height()-$("#search_btn").height()-10,
+		height : $("#body").height() - $("#charts").height()-$("#search_btn").height()-15,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('charts')).resize();
 }

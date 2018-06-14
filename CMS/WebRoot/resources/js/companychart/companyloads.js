@@ -149,4 +149,5 @@ function domresize() {
 		height : $("#body").height() - $("#companyLoadsChart").height()-$("#companyLoads_btn").height()-10,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('companyLoadsChart')).resize();
 }

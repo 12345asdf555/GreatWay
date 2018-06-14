@@ -152,7 +152,8 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#caustIdleTable").datagrid('resize', {
-		height : $("#body").height() - $("#caustIdleTable").height()-$("#caustIdle_btn").height()-10,
+		height : $("#body").height() - $("#caustIdleChart").height()-$("#caustIdle_btn").height()-10,
 		width : $("#body").width()
 	});
+	echarts.init(document.getElementById('caustIdleChart')).resize();
 }

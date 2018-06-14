@@ -51,9 +51,9 @@ function showblocHourChart(){
 			data:['工时(s)']
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'60',//组件距离容器左边的距离
 			right:'13%',
-			bottom:'7%',
+			bottom:'20',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -92,7 +92,7 @@ function BlocHourDatagrid(){
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	$("#blocHourTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#blocHourChart").height()-$("#blocHour_btn").height()-40,
+		height : $("#body").height() - $("#blocHourChart").height()-$("#blocHour_btn").height()-15,
 		width : $("#body").width(),
 		idField : 'id',
 		url : "blocChart/getBlocHour?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+chartStr,
@@ -236,7 +236,12 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#blocHourTable").datagrid('resize', {
-		height : $("#body").height() - $("#blocHourChart").height()-$("#blocHour_btn").height()-10,
+		height : $("#body").height() - $("#blocHourChart").height()-$("#blocHour_btn").height()-15,
 		width : $("#body").width()
 	});
+	$("#classify").datagrid('resize', {
+		height : $("#classifydiv").height(),
+		width : $("#body").width()/2
+	});
+	echarts.init(document.getElementById('blocHourChart')).resize();
 }
