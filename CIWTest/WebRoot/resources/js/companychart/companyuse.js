@@ -55,9 +55,9 @@ function showcompanyUseChart(){
 			data:['时长(h)']
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'50',//组件距离容器左边的距离
 			right:'4%',
-			bottom:'7%',
+			bottom:'20',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -93,7 +93,7 @@ function CaustUseDatagrid(){
 	setParam();
 	$("#companyUseTable").datagrid( {
 		fitColumns : true,
-		height : $("body").height() - $("#companyUseChart").height()-$("#companyUse_btn").height()-60,
+		height : $("body").height() - $("#companyUseChart").height()-$("#companyUse_btn").height()-30,
 		width : $("body").width(),
 		idField : 'id',
 		url : "companyChart/getCompanyUse"+chartStr,
@@ -178,7 +178,8 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyUseTable").datagrid('resize', {
-		height : $("body").height() - $("#companyUseChart").height()-$("#companyUse_btn").height()-60,
+		height : $("body").height()/2-$("#companyUse_btn").height()-30,
 		width : $("body").width()
 	});
+	echarts.init(document.getElementById('companyUseChart')).resize();
 }

@@ -50,13 +50,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:serachEfficiencyCompany();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
 			</div>
 		</div>
-		<div><h2>${str }</h2></div>
-		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 10%;margin-left:10px;">
 		按组织机构和日期对工效统计:<br/>
 		统计时间段内的员工效率所占百分比；<br/>
 		X轴:时间(小时)<br/>
 		Y轴:工效百分比<br/></div>
-		<div id="companyEfficiencyChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
+		<div id="companyEfficiencyChart" style="height:50%;width:65%;margin-left:21%;margin-right:21%;margin-bottom:10px;"></div>
 		
 	    <table id="companyEfficiencyTable" style="table-layout: fixed; width:100%;"></table>
 	    

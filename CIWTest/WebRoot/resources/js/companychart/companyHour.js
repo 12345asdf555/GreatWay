@@ -46,19 +46,16 @@ function showCompanyHourChart(){
 		effect:'whirling'
 	});
 	option = {
-		title:{
-			text: "焊口焊接工时"
-		},
 		tooltip:{
 			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
 		},
 		legend:{
-			data:['工时']
+			data:['工时(s)']
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
-			right:'13%',
-			bottom:'7%',
+			left:'60',//组件距离容器左边的距离
+			right:'11%',
+			bottom:'20',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -70,7 +67,7 @@ function showCompanyHourChart(){
 		xAxis:{
 			type:'category',
 			data: array1,
-			name:'组织机构'
+			name:'组织\n机构'
 		},
 		yAxis:{
 			type: 'value',//value:数值轴，category:类目轴，time:时间轴，log:对数轴
@@ -97,7 +94,7 @@ function CompanyHourDatagrid(){
 	var parent = $("#parent").val();
 	$("#companyHourTable").datagrid( {
 		fitColumns : true,
-		height : $("body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-60,
+		height : $("body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-30,
 		width : $("body").width(),
 		idField : 'id',
 		url : "companyChart/getCompanyHour?parent="+parent+chartStr,
@@ -263,7 +260,12 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyHourTable").datagrid('resize', {
-		height : $("body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-60,
+		height : $("body").height() /2-$("#caustHour_btn").height()-30,
 		width : $("body").width()
 	});
+	$("#classify").datagrid('resize', {
+		height : $("#classifydiv").height(),
+		width : $("body").width()/2
+	});
+	echarts.init(document.getElementById('companyHourChart')).resize();
 }

@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
 	<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">
 	<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
-	<table border="1" style="table-layout:fixed;width:100%;height:100%">
+	<table border="1" id=“chartdiv” style="table-layout:fixed;width:100%;height:100%">
 		<tr>
 			<td height="50%"><a href="companyChart/goCompanyWmMax"><div id="left1" style="height:100%;width:100%;float:left;"></div></a></td>
 			<td height="50%"><a href="companyChart/goCompanyWmMin"><div id="right1" style="height:100%;width:100%;float:left;"></div></a></td>

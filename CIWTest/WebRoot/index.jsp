@@ -121,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <li>
 						<div id="machinediv">
 							<ul>
-								<li onclick="changeColor(this)"><a href="javascript:openCompanyLoads()"><div><img src="resources/images/s-4.png" />&nbsp;&nbsp;焊机负载率</div></a></li>
+								<li onclick="changeColor(this)"><a href="javascript:openCompanyLoads()"><div><img src="resources/images/s-4.png" />&nbsp;&nbsp;焊机负荷率</div></a></li>
 								<li onclick="changeColor(this)"><a href="javascript:openCompanyNoLoads()"><div><img src="resources/images/s-5.png" />&nbsp;&nbsp;焊机空载率</div></a></li>
 			    				<li onclick="changeColor(this)"><a href="javascript:openCompanyIdle()"><div><img src="resources/images/s-6.png" />&nbsp;&nbsp;设备闲置率</div></a></li>
 						        <li onclick="changeColor(this)"><a href="javascript:openWeldParameter()"><div><img src="resources/images/s-15.png" />&nbsp;&nbsp;焊接参数维度表</div></a></li>

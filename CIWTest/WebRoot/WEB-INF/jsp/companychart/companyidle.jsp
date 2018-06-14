@@ -51,13 +51,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:serachcompanyIdle();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
 			</div>
 		</div>
-		<div><h2>${str }</h2></div>
-		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 10%;margin-left:10px;">
 		按组织机构和日期对设备闲置率趋势统计：<br/>
 		统计时间段内的各部门设备闲置趋势；<br/>
 		X轴：日期<br/>
 		Y轴：闲置数量(台)<br/></div>
-		<div id="companyIdleChart" style="height:300px;width:60%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
+		<div id="companyIdleChart" style="height:50%;width:60%;margin-left:21%;margin-right:21%;margin-bottom:10px;"></div>
 	    <table id="companyIdleTable" style="table-layout: fixed; width:100%;"></table>
 	</div>
   </body>

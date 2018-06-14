@@ -50,13 +50,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:serachCompanywmlist();" class="easyui-linkbutton" iconCls="icon-select" >搜索</a>
 			</div>
 		</div>
-		<div><h2>${str }</h2></div>
-		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 120px;margin-left:10px;">
+		<div id="explain" style="table-layout: fixed; width:18%; float:left;margin-top: 10%;margin-left:10px;">
 		按组织机构和日期对焊工排行趋势统计:<br/>
 		统计时间段内的排行最高的前十的焊工趋势；<br/>
 		X轴:焊工编号<br/>
 		Y轴:工时/小时<br/></div>
-		<div id="companywmlistChart" style="height:300px;width:65%; margin: 21%;margin-bottom: 20px; margin-top: 20px;"></div>
+		<div id="companywmlistChart" style="height:50%;width:65%;margin-left:21%;margin-right:21%;margin-bottom:10px;"></div>
 	    <table id="companywmlistTable" style="table-layout: fixed; width:100%;"></table>	    
 	</div>
   </body>

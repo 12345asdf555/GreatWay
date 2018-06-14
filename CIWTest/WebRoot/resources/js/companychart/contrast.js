@@ -62,9 +62,9 @@ function showMachine(status,id){
 			data:['焊机工时(h)']
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'50',//组件距离容器左边的距离
 			right:'4%',
-			bottom:'7%',
+			bottom:'20',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -152,9 +152,9 @@ function showWelder(status,id){
 			data:['焊工工时(h)']
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'50',//组件距离容器左边的距离
 			right:'4%',
-			bottom:'7%',
+			bottom:'40',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -197,5 +197,18 @@ function showWelder(status,id){
 	//隐藏动画加载效果
 	charts.hideLoading();
 	chartStr="";
+}
+//监听窗口大小变化
+window.onresize = function() {
+	setTimeout(domresize, 500);
+}
+
+//改变表格高宽
+function domresize() {
+	$("#chartdiv").css({'height':'100%','width':'100%',});
+	echarts.init(document.getElementById('left1')).resize();
+	echarts.init(document.getElementById('left2')).resize();
+	echarts.init(document.getElementById('right1')).resize();
+	echarts.init(document.getElementById('right2')).resize();
 }
 

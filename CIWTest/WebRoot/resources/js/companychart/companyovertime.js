@@ -36,9 +36,9 @@ function showCompanyOverptimeChart(){
 			data:array2
 		},
 		grid:{
-			left:'10%',//组件距离容器左边的距离
+			left:'50',//组件距离容器左边的距离
 			right:'4%',
-			bottom:'7%',
+			bottom:'20',
 			containLaber:true//区域是否包含坐标轴刻度标签
 		},
 		toolbox:{
@@ -107,7 +107,7 @@ function CompanytimeDatagrid(){
     }); 
 	 $("#companyOvertimeTable").datagrid( {
 			fitColumns : true,
-			height : $("body").height() - $("#companyOvertimeChart").height()-$("#companyOvertime_btn").height()-60,
+			height : $("body").height() - $("#companyOvertimeChart").height()-$("#companyOvertime_btn").height()-30,
 			width : $("body").width(),
 			idField : 'id',
 			pageSize : 10,
@@ -149,7 +149,8 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyOvertimeTable").datagrid('resize', {
-		height : $("body").height() - $("#companyOvertimeChart").height()-$("#companyOvertime_btn").height()-60,
+		height : $("body").height() /2-$("#companyOvertime_btn").height()-30,
 		width : $("body").width()
 	});
+	echarts.init(document.getElementById('companyOvertimeChart')).resize();
 }
