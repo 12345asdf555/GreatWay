@@ -43,9 +43,6 @@ function showItemHourChart(){
 		effect:'whirling'
 	});
 	option = {
-		title:{
-			text: "焊口焊接工时"
-		},
 		tooltip:{
 			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
 		},
@@ -96,7 +93,7 @@ function itemHourDatagrid(){
 	var dtoTime2 = $("#dtoTime2").datetimebox('getValue');
 	$("#itemHourTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#itemHourChart").height()-$("#itemHour_btn").height()-15,
+		height : $("#body").height() - $("#itemHourChart").height()-$("#itemHour_btn").height()-45,
 		width : $("#body").width(),
 		idField : 'id',
 		url : "itemChart/getitemHour?item="+item+"&dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2+chartStr,
@@ -263,6 +260,7 @@ function commitChecked(){
 	search = "";
 	array1 = new Array();
 	array2 = new Array();
+	$("#chartLoading").show();
 	var rows = $("#classify").datagrid("getSelections");
 	if(rows==null || rows==""){
 		alert("您还没有选中行！");
@@ -297,7 +295,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#itemHourTable").datagrid('resize', {
-		height : $("#body").height() - $("#itemHourChart").height()-$("#itemHour_btn").height()-15,
+		height : $("#body").height() - $("#itemHourChart").height()-$("#itemHour_btn").height()-45,
 		width : $("#body").width()
 	});
 	$("#classify").datagrid('resize', {

@@ -41,9 +41,6 @@ function showblocHourChart(){
 		effect:'whirling'
 	});
 	option = {
-		title:{
-			text: "焊口焊接工时"
-		},
 		tooltip:{
 			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
 		},

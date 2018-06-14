@@ -137,7 +137,7 @@ function ItemidleDatagrid(){
     }); 
 	 $("#itemidleTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#itemidleChart").height()-$("#itemidle_btn").height()-15,
+			height : $("#body").height() - $("#itemidleChart").height()-$("#itemidle_btn").height()-45,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
@@ -182,7 +182,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#itemidleTable").datagrid('resize', {
-		height : $("#body").height() - $("#itemidleChart").height()-$("#itemidle_btn").height()-15,
+		height : $("#body").height() - $("#itemidleChart").height()-$("#itemidle_btn").height()-45,
 		width : $("#body").width()
 	});
 	echarts.init(document.getElementById('itemidleChart')).resize();

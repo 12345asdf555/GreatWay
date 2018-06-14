@@ -407,3 +407,7 @@ select::-ms-expand {
 #chartShow img{
 	margin-right:5px;
 }
+
+#parentMsg{
+	height:30px;
+}

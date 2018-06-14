@@ -114,7 +114,7 @@ function CaustloadsDatagrid(){
     }); 
 	 $("#caustLoadsTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#caustLoadsChart").height()-$("#caustLoads_btn").height()-15,
+			height : $("#body").height() - $("#caustLoadsChart").height()-$("#caustLoads_btn").height()-45,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
@@ -148,7 +148,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#caustLoadsTable").datagrid('resize', {
-		height : $("#body").height() - $("#caustLoadsChart").height()-$("#caustLoads_btn").height()-15,
+		height : $("#body").height() - $("#caustLoadsChart").height()-$("#caustLoads_btn").height()-45,
 		width : $("#body").width()
 	});
 	echarts.init(document.getElementById('caustLoadsChart')).resize();

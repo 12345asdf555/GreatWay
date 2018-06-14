@@ -105,7 +105,7 @@ function CompanyHourDatagrid(){
     }); 
 	 $("#companyOverproofTable").datagrid( {
 			fitColumns : true,
-			height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-15,
+			height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-45,
 			width : $("#body").width(),
 			idField : 'id',
 			pageSize : 10,
@@ -139,7 +139,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyOverproofTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-15,
+		height : $("#body").height() - $("#companyOverproofChart").height()-$("#companyOverproof_btn").height()-45,
 		width : $("#body").width()
 	});
 	echarts.init(document.getElementById('companyOverproofChart')).resize();

@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:serachCaustHour();" class="easyui-linkbutton" iconCls="icon-search" >搜索</a>
 			</div>
 		</div>
-		<div><h2>${str }</h2></div>
+		<div id="parentMsg"><h2>${str }</h2></div>
 		<div id="caustHourChart" style="height:50%;width:50%;margin: auto;margin-bottom:10px;float:left;"></div>
 		<div id="classifydiv" style="height:50%;width:50%;margin: auto;margin-bottom:10px;float:right;">
 			<!-- 自定义多条件查询 -->

@@ -47,9 +47,6 @@ function showCaustHourChart(){
 		effect:'whirling'
 	});
 	option = {
-		title:{
-			text: "焊口焊接工时"
-		},
 		tooltip:{
 			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
 		},
@@ -98,7 +95,7 @@ function CaustHourDatagrid(){
 	var parent = $("#parent").val();
 	$("#caustHourTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#caustHourChart").height()-$("#caustHour_btn").height()-15,
+		height : $("#body").height() - $("#caustHourChart").height()-$("#caustHour_btn").height()-45,
 		width : $("#body").width(),
 		idField : 'id',
 		url : "caustChart/getCaustHour?parent="+parent+chartStr,
@@ -243,7 +240,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#caustHourTable").datagrid('resize', {
-		height : $("#body").height() - $("#caustHourChart").height()-$("#caustHour_btn").height()-15,
+		height : $("#body").height() - $("#caustHourChart").height()-$("#caustHour_btn").height()-45,
 		width : $("#body").width()
 	});
 	$("#classify").datagrid('resize', {

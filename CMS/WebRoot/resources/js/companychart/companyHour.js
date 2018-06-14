@@ -46,14 +46,11 @@ function showCompanyHourChart(){
 		effect:'whirling'
 	});
 	option = {
-		title:{
-			text: "焊口焊接工时"
-		},
 		tooltip:{
 			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
 		},
 		legend:{
-			data:['工时']
+			data:['工时(s)']
 		},
 		grid:{
 			left:'60',//组件距离容器左边的距离
@@ -97,7 +94,7 @@ function CompanyHourDatagrid(){
 	var parent = $("#parent").val();
 	$("#companyHourTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-15,
+		height : $("#body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-45,
 		width : $("#body").width(),
 		idField : 'id',
 		url : "companyChart/getCompanyHour?parent="+parent+chartStr,
@@ -242,7 +239,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#companyHourTable").datagrid('resize', {
-		height : $("#body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-15,
+		height : $("#body").height() - $("#companyHourChart").height()-$("#caustHour_btn").height()-45,
 		width : $("#body").width()
 	});
 	$("#classify").datagrid('resize', {
