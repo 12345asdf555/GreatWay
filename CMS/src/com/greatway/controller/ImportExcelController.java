@@ -106,6 +106,9 @@ public class ImportExcelController {
 					count2 = wmm.getGatheridCount(wm.getInsframeworkId().getId(),gather.getGatherNo());
 					gatherid = gm.getGatherByNo(gather.getGatherNo()).toString();
 				}
+				if(wm.getJoinTime()==null){
+					wm.setJoinTime("");
+				}
 				wm.setGatherId(gather);
 				//编码唯一
 				int count1 = wmm.getEquipmentnoCount(wm.getEquipmentNo());
@@ -173,7 +176,12 @@ public class ImportExcelController {
 				wt.get(i).getMaintenance().setTypeId(dm.getvaluebyname(5,wt.get(i).getMaintenance().getTypename()));
 				BigInteger wmid = wmm.getWeldingMachineByEno(wt.get(i).getWelding().getEquipmentNo());
 				wt.get(i).getWelding().setId(wmid);
-
+				if(wt.get(i).getMaintenance().getStartTime()==null){
+					wt.get(i).getMaintenance().setStartTime("");
+				}
+				if(wt.get(i).getMaintenance().getEndTime()==null){
+					wt.get(i).getMaintenance().setEndTime("");
+				}
 				//当前层级
 				String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 				//获取当前用户
@@ -192,12 +200,13 @@ public class ImportExcelController {
 				String obj2 = "{\"VICEMAN\":\""+wt.get(i).getMaintenance().getViceman()+"\",\"INSFID\":\""+insfid+"\",\"STARTTIME\":\""+wt.get(i).getMaintenance().getStartTime()+
 						"\",\"ENDTIME\":\""+wt.get(i).getMaintenance().getEndTime()+"\",\"DESC\":\""+wt.get(i).getMaintenance().getDesc()+"\",\"TYPEID\":\""+wt.get(i).getMaintenance().getTypeId()+
 						"\",\"WELDID\":\""+wt.get(i).getWelding().getId()+"\",\"CREATOR\":\""+myuser.getUsername()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
-				Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
+				Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2}); 
 				if(objects[0].toString().equals("true")){
 					obj.put("success", true);
 				}else{
 					obj.put("success", false);
-					obj.put("errorMsg", "导入失败！");
+					obj.put("msg", "导入失败！");
+					return obj.toString();
 				}
 			};
 			obj.put("success",true);
@@ -288,6 +297,14 @@ public class ImportExcelController {
 						mr.setViceman(cellValue);//维修人员
 						break;
 					}
+					if(k == 2){
+						mr.setStartTime(cellValue);//维修起始时间
+						break;
+					}
+					if(k == 3){
+						mr.setEndTime(cellValue);//维修结束时间
+						break;
+	    			}
 					if(k == 4){
 						mr.setTypename(cellValue);
 						break;
@@ -398,6 +415,10 @@ public class ImportExcelController {
 					}
 					if(k == 1){
 						dit.setTypename(cellValue);//设备类型
+						break;
+					}
+					if(k == 2){
+						dit.setJoinTime(cellValue);//入厂时间
 						break;
 					}
 					if(k == 3){

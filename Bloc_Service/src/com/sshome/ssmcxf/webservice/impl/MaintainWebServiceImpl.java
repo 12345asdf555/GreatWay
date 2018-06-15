@@ -64,6 +64,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			}
 			return JSON.toJSONString(ary);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -92,6 +93,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			}
 			return JSON.toJSONString(ary);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -129,6 +131,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			}
 			return JSON.toJSONString(obj);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -146,6 +149,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			}
 			return JSON.toJSONString(ary);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -170,6 +174,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 				return null;
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -194,6 +199,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 				return null;
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -211,6 +217,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			}
 			return flag;
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -261,6 +268,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 				return false;
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -271,6 +279,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			JSONObject json = JSONObject.fromObject(object);
 			return ms.deleteWeldingMaintenance(new BigInteger(json.getString("WID")));
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -289,6 +298,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			}
 			return JSON.toJSONString(ary);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -299,6 +309,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			JSONObject json = JSONObject.fromObject(object);
 			return ms.editstatus(new BigInteger(json.getString("WID")), json.getInt("STATUSID"));
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -309,6 +320,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			JSONObject json = JSONObject.fromObject(object);
 			return ms.getInsfidByMachineid(new BigInteger(json.getString("WID")));
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -79,6 +79,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			}
 			return JSON.toJSONString(ary);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -203,6 +204,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 				return false;
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -213,6 +215,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			JSONObject json = JSONObject.fromObject(object);
 			return wms.getWeldingMachineByEno(json.getString("ENO"));
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -223,6 +226,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			JSONObject json = JSONObject.fromObject(object);
 			return wms.getEquipmentnoCount(json.getString("ENO"));
 		}catch(Exception e){
+			e.printStackTrace();
 			return -1;
 		}
 	}
@@ -235,6 +239,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			String gather = json.getString("GATHERNO");
 			return wms.getGatheridCount(itemid, gather);
 		}catch(Exception e){
+			e.printStackTrace();
 			return -1;
 		}
 	}
@@ -245,6 +250,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			JSONObject json = JSONObject.fromObject(object);
 			return wms.getManuidByValue(json.getString("MANUNAME"), json.getString("MANUTYPE"));
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -289,6 +295,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			}
 			return JSON.toJSONString(obj);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -299,6 +306,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			JSONObject json = JSONObject.fromObject(object);
 			return wms.getInsframeworkByName(json.getString("INSFNAME"));
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -311,6 +319,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			BigInteger insid = new BigInteger(json.getString("INSFID"));
 			return wms.getMachineCountByManu(mid, insid);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
