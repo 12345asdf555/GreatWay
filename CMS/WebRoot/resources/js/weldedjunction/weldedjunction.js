@@ -207,21 +207,21 @@ function weldedJunctionDatagrid(){
 		}, {
 			field : 'edit',
 			title : '编辑',
-			width : 120,
+			width : 250,
 			halign : "center",
 			align : "left",
 			formatter: function(value,row,index){
-				var rows = row.weldedJunctionno+","+row.serialNo+","+row.pipelineNo+","+row.roomNo+","+row.unit
-				+","+row.area+","+row.systems+","+row.children+","+row.externalDiameter+","+row.wallThickness+","+row.dyne+","+row.specification+","+row.maxElectricity+","+
-				row.minElectricity+","+row.maxValtage+","+row.minValtage+","+row.material+","+row.nextexternaldiameter+","+row.itemname+","+row.startTime+","+row.endTime+
-				","+row.creatTime+","+row.updateTime+","+row.updatecount+","+row.nextwall_thickness+","+row.next_material+","+row.valtage_unit+","+row.electricity_unit;
-				var str = '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?rows='+rows+'"/>';
+				var str = '<a id="edit" class="easyui-linkbutton" href="weldedjunction/goEditWeldedJunction?id='+row.id+'"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="weldedjunction/goRemoveWeldedJunction?id='+row.id+'"/>';
+				str += '<a id="look" class="easyui-linkbutton" href="weldedjunction/goShowMoreJunction?id='+row.id+'"/>';
 				return str;
 			}
 		}] ],
 		toolbar : '#disctionaryTable_btn',
 		pagination : true,
 		onLoadSuccess: function(data){
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
 			$("a[id='look']").linkbutton({text:'查看更多',plain:true,iconCls:'icon-add'});
 		}
 	});

@@ -435,10 +435,6 @@ public class InsframeworkController {
 	}
 	
 	/**
-	 * 获取类型
-	 * @return
-	 */
-	/**
 	 * 获取登录者组织机构id
 	 * @return
 	 */

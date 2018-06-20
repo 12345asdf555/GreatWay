@@ -39,4 +39,11 @@ public interface WelderManager {
 	 * @return
 	 */
 	int getWeldernoCount(String wno);
+	
+	/**
+	 * 根据id查找焊工
+	 * @param id
+	 * @return
+	 */
+	Welder getWelderById(BigInteger id);
 }

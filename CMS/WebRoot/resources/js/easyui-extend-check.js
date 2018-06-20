@@ -154,6 +154,10 @@ $(function(){
 				weldernoValidate : {
 					validator : function(value, param){
 						if(flag){
+							var oldwelder = $("#oldwelder").val();
+							if((oldwelder!=null || oldwelder!="") && oldwelder == value){
+								return true;
+							}
 							var result = "";
 							$.ajax({
 								type : 'post',
@@ -266,6 +270,33 @@ $(function(){
 						}
 					},
 					message : '采集模块编号已经被占用'
+				},
+				
+				wjNoValidate : {
+					validator : function(value, param){
+						if(flag){
+							var oldno = $("#oldno").val();
+							if((oldno!=null || oldno!="") && oldno == value){
+								return true;
+							}
+							var result = "";
+							$.ajax({
+								type : 'post',
+								async : false,
+								url : 'weldedjunction/wjNoValidate',
+								data : {
+									"wjno" : value
+								},
+								success : function(data){
+									result = data;
+								}
+							});
+							return result;
+						}else{
+							return true;
+						}
+					},
+					message : '焊口编号已经被占用'
 				}
 			})
 })

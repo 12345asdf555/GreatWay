@@ -30,13 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body  class="easyui-layout">
   	<div id="body" region="center"  hide="true"  split="true" title="焊口" style="background: white; height: 335px;">
-	  	
 	  	<div id="disctionaryTable_btn">
 			<div style="margin-bottom: 5px;">
+				<a href="weldedjunction/goAddWeldedJunction" class="easyui-linkbutton" iconCls="icon-add">新增</a>
 				<a href="javascript:insertsearchWJ();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
 			</div>
 		</div>
-		
 	    <table id="weldedJunctionTable" style="table-layout: fixed; width:100%;"></table>
 	    
 	    <!-- 自定义多条件查询 -->

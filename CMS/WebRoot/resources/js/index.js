@@ -98,6 +98,10 @@ function getUserInsframework(){
 	})
 }
 
+function openUseratio(name){
+	addTab(name+"设备利用率","blocChart/goUseratio");
+}
+
 function openRunTime(name){
 	addTab(name+"设备运行时长","blocChart/goBlocRunTime");
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.WelderManager;
 import com.greatway.model.Welder;
 import com.greatway.page.Page;
@@ -34,8 +33,6 @@ public class WelderController {
 	
 	@Autowired
 	private WelderManager wm;
-	@Autowired
-	private InsframeworkManager im;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -43,6 +40,26 @@ public class WelderController {
 	public String goWelder(){
 		return "welder/welder";
 	}
+	
+	@RequestMapping("/goAddWelder")
+	public String goAddWeldedJunction(){
+		return "welder/addwelder";
+	}
+
+	@RequestMapping("/goEditWelder")
+	public String goEditWeldedJunction(HttpServletRequest request){
+		Welder w = wm.getWelderById(new BigInteger(request.getParameter("id")));
+		request.setAttribute("w", w);
+		return "welder/editwelder";
+	}
+
+	@RequestMapping("/goRemoveWelder")
+	public String goRemoveWeldedJunction(HttpServletRequest request){
+		Welder w = wm.getWelderById(new BigInteger(request.getParameter("id")));
+		request.setAttribute("w", w);
+		return "welder/removewelder";
+	}
+	
 	
 	@RequestMapping("/getWelderList")
 	@ResponseBody
@@ -83,6 +100,8 @@ public class WelderController {
 	public String addWelder(@ModelAttribute("we")Welder we){
 		JSONObject obj = new JSONObject();
 		try{
+			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			we.setCreator(new BigInteger(user.getId()+"").toString());
 			wm.addWelder(we);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -90,7 +109,6 @@ public class WelderController {
 			obj.put("msg", e.getMessage());
 		}
 		return obj.toString();
-		
 	}
 	
 	@RequestMapping("/editWelder")
@@ -98,6 +116,8 @@ public class WelderController {
 	public String editWelder(@ModelAttribute("we")Welder we){
 		JSONObject obj = new JSONObject();
 		try{
+			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			we.setModifier(new BigInteger(user.getId()+"").toString());
 			wm.editWelder(we);
 			obj.put("success", true);
 		}catch(Exception e){
@@ -109,11 +129,10 @@ public class WelderController {
 	
 	@RequestMapping("/removeWelder")
 	@ResponseBody
-	public String removeWelder(@ModelAttribute("we")Welder we){
-		System.out.println(we.getId());
+	public String removeWelder(HttpServletRequest request){
 		JSONObject obj = new JSONObject();
 		try{
-			wm.removeWelder(we.getId());
+			wm.removeWelder(new BigInteger(request.getParameter("id")));
 			obj.put("success", true);
 		}catch(Exception e){
 			obj.put("success", false);

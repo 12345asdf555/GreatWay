@@ -12,9 +12,16 @@ public class Welder {
 	private String welderno;
 	private String name;
 	private String iname;
+	private BigInteger iid;
 	private String creator;
 	private String modifier;
 	
+	public BigInteger getIid() {
+		return iid;
+	}
+	public void setIid(BigInteger iid) {
+		this.iid = iid;
+	}
 	public String getCreator() {
 		return creator;
 	}

@@ -45,4 +45,9 @@ public class WelderManagerImpl implements WelderManager {
 		return wm.getWeldernoCount(wno);
 	}
 
+	@Override
+	public Welder getWelderById(BigInteger id) {
+		return wm.getWelderById(id);
+	}
+
 }

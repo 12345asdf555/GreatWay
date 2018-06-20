@@ -23,25 +23,40 @@ function weldDatagrid(){
 		}, {
 			field : 'name',
 			title : '姓名',
-			width : 100,
+			width : 150,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'welderno',
 			title : '编号',
-			width : 100,
+			width : 150,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'itemname',
 			title : '所属项目',
-			width : 100,
+			width : 150,
 			halign : "center",
 			align : "left"
+		}, {
+			field : 'edit',
+			title : '编辑',
+			width : 150,
+			halign : "center",
+			align : "left",
+			formatter: function(value,row,index){
+				var str = '<a id="edit" class="easyui-linkbutton" href="welder/goEditWelder?id='+row.id+'"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="welder/goRemoveWelder?id='+row.id+'"/>';
+				return str;
+			}
 		}] ],
 		toolbar : '#welderTable_btn',
 		pagination : true,
-		fitColumns : true
+		fitColumns : true,
+		onLoadSuccess: function(data){
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
+		}
 	});
 }
 
