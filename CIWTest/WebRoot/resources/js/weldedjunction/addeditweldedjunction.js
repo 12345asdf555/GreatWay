@@ -37,7 +37,7 @@ function editWeldedjunction(){
 	var row = $('#weldedJunctionTable').datagrid('getSelected');
 	if (row) {
 		$('#dlg').window( {
-			title : "修改采集模块",
+			title : "修改焊缝",
 			modal : true
 		});
 		$('#dlg').window('open');
