@@ -45,6 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="fitem">
 				<lable>所属项目</lable>
+				<input type="hidden" id="itemid"  value="${w.iid }"  />
 				<input class="easyui-textbox" id="iid"  name="iid" readonly="readonly" value="${w.iname }" />
 			</div>
 			<div class="weldbutton">

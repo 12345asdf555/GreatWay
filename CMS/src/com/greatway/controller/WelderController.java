@@ -4,7 +4,10 @@ import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.namespace.QName;
 
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.WelderManager;
 import com.greatway.model.Welder;
 import com.greatway.page.Page;
@@ -33,6 +37,9 @@ public class WelderController {
 	
 	@Autowired
 	private WelderManager wm;
+
+	@Autowired
+	private InsframeworkManager im;
 	
 	IsnullUtil iutil = new IsnullUtil();
 	
@@ -97,32 +104,77 @@ public class WelderController {
 
 	@RequestMapping("/addWelder")
 	@ResponseBody
-	public String addWelder(@ModelAttribute("we")Welder we){
+	public String addWelder(HttpServletRequest request,@ModelAttribute("we")Welder we){
 		JSONObject obj = new JSONObject();
 		try{
-			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			we.setCreator(new BigInteger(user.getId()+"").toString());
-			wm.addWelder(we);
-			obj.put("success", true);
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, we.getIid());
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
+			String obj1 = "{\"CLASSNAME\":\"welderWebServiceImpl\",\"METHOD\":\"addWelder\"}";
+			String obj2 = "{\"NAME\":\""+we.getName()+"\",\"WELDERNO\":\""+we.getWelderno()+"\",\"INSFID\":\""+we.getIid()+"\","
+					+ "\"CREATOR\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else if(!objects[0].toString().equals("false")){
+				obj.put("success", true);
+				obj.put("msg", objects[0].toString());
+			}else{
+				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
+			}
 		}catch(Exception e){
 			obj.put("success", false);
-			obj.put("msg", e.getMessage());
+			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();
 	}
 	
 	@RequestMapping("/editWelder")
 	@ResponseBody
-	public String editWelder(@ModelAttribute("we")Welder we){
+	public String editWelder(HttpServletRequest request,@ModelAttribute("we")Welder we){
 		JSONObject obj = new JSONObject();
 		try{
-			MyUser user = (MyUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			we.setModifier(new BigInteger(user.getId()+"").toString());
-			wm.editWelder(we);
-			obj.put("success", true);
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+			//获取当前用户
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser myuser = (MyUser)object;
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, we.getIid());
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
+			String obj1 = "{\"CLASSNAME\":\"welderWebServiceImpl\",\"METHOD\":\"editWelder\"}";
+			String obj2 = "{\"ID\":\""+we.getId()+"\",\"NAME\":\""+we.getName()+"\",\"WELDERNO\":\""+we.getWelderno()+"\",\"INSFID\":\""+we.getIid()+"\","
+					+"\"MODIFIER\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else if(!objects[0].toString().equals("false")){
+				obj.put("success", true);
+				obj.put("msg", objects[0].toString());
+			}else{
+				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
+			}
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.put("success", false);
-			obj.put("msg", e.getMessage());
+			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();
 	}
@@ -132,11 +184,31 @@ public class WelderController {
 	public String removeWelder(HttpServletRequest request){
 		JSONObject obj = new JSONObject();
 		try{
-			wm.removeWelder(new BigInteger(request.getParameter("id")));
-			obj.put("success", true);
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
+			//获取项目层url
+			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
+			//获取公司发布地址
+			String companyurl = im.webserviceDto(request, new BigInteger(request.getParameter("insfid")));
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(companyurl);
+			iutil.Authority(client);
+			String obj1 = "{\"CLASSNAME\":\"welderWebServiceImpl\",\"METHOD\":\"removeWelder\"}";
+			String obj2 = "{\"ID\":\""+request.getParameter("id")+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\",\"INSFID\":\""+request.getParameter("insfid")+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else if(!objects[0].toString().equals("false")){
+				obj.put("success", true);
+				obj.put("msg", objects[0].toString());
+			}else{
+				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
+			}
 		}catch(Exception e){
-			obj.put("success", false);
-			obj.put("msg", e.getMessage());
+			obj.put("success", true);
+			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();
 	}
