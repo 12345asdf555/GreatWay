@@ -200,7 +200,7 @@ public class WeldedJunctionControll {
 			Client client = dcf.createClient(companyurl);
 			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"junctionWebServiceImpl\",\"METHOD\":\"updateJunction\"}";
-			String obj2 = "{\"ID\":\""+request.getParameter("id")+"\"JUNCTIONNO\":\""+request.getParameter("weldedJunctionno")+"\",\"SERIALNO\":\""+request.getParameter("serialNo")+"\",\"PIPELINENO\":\""+request.getParameter("pipelineNo")+"\",\"ROOMNO\":\""+request.getParameter("roomNo")+"\"," +
+			String obj2 = "{\"ID\":\""+request.getParameter("id")+"\",\"JUNCTIONNO\":\""+request.getParameter("weldedJunctionno")+"\",\"SERIALNO\":\""+request.getParameter("serialNo")+"\",\"PIPELINENO\":\""+request.getParameter("pipelineNo")+"\",\"ROOMNO\":\""+request.getParameter("roomNo")+"\"," +
 					"\"UNIT\":\""+request.getParameter("unit")+"\",\"AREA\":\""+request.getParameter("area")+"\",\"SYSTEMS\":\""+request.getParameter("systems")+"\",\"CHILDREN\":\""+request.getParameter("children")+"\",\"DYNE\":\""+request.getParameter("dyne")+"\"," +
 					"\"SPECIFICATION\":\""+request.getParameter("specification")+"\",\"MAXELECTRICITY\":\""+request.getParameter("maxElectricity")+"\",\"MINELECTRICITY\":\""+request.getParameter("minElectricity")+"\",\"MAXVALTAGE\":\""+request.getParameter("maxValtage")+"\"," +
 					"\"MINVALTAGE\":\""+request.getParameter("minValtage")+"\",\"MATERIAL\":\""+request.getParameter("material")+"\",\"NEXTMATERIAL\":\""+request.getParameter("next_material")+"\",\"EXTERNALDIAMETER\":\""+request.getParameter("externalDiameter")+"\"," +
@@ -253,7 +253,8 @@ public class WeldedJunctionControll {
 				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
-			obj.put("success", true);
+			e.printStackTrace();
+			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();

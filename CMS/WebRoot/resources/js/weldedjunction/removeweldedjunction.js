@@ -4,7 +4,7 @@ function remove(){
 			$.ajax({  
 		        type : "post",  
 		        async : false,
-		        url : "weldedjunction/removeWeldedJunction?id="+$("#id").val()+"&insfid="+$("itemid").val(),  
+		        url : "weldedjunction/removeWeldedJunction?id="+$("#id").val()+"&insfid="+$("#itemid").val(),  
 		        data : {},  
 		        dataType : "json", //返回数据形式为json  
 		        success : function(result) {

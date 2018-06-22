@@ -76,7 +76,6 @@ public class WeldedJunctionServiceImpl implements WeldedJunctionService {
 		try{
 			JSONObject json = JSONObject.fromObject(object);
 			JSONObject obj = new JSONObject();
-			JSONArray ary = new JSONArray();
 			WeldedJunction list = wjm.getWeldedJunctionById(new BigInteger(json.getString("ID")));
 			if(list!=null){
 				obj.put("ID", jutil.setValue(list.getId()));
@@ -109,9 +108,8 @@ public class WeldedJunctionServiceImpl implements WeldedJunctionService {
 				obj.put("UPDATECOUNT",jutil.setValue(list.getUpdatecount()));
 				obj.put("INSFID",jutil.setValue(list.getItemid().getId()));
 				obj.put("ITEMNAME",jutil.setValue(list.getItemid().getName()));
-				ary.add(obj);
 			}
-			return JSON.toJSONString(ary);
+			return JSON.toJSONString(obj);
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -157,8 +155,14 @@ public class WeldedJunctionServiceImpl implements WeldedJunctionService {
 			wj.setNextwall_thickness(json.getString("NEXTWALLTHICKNESS"));
 			wj.setElectricity_unit(json.getString("ELECTRICITYUNIT"));
 			wj.setValtage_unit(json.getString("VALTAGEUNIT"));
-			wj.setStartTime(json.getString("STARTTIME"));
-			wj.setEndTime(json.getString("ENDTIME"));
+			String starttime =json.getString("STARTTIME");
+			if(starttime!=null && !"".equals(starttime)){
+				wj.setStartTime(starttime);
+			}
+			String endtime =json.getString("ENDTIME");
+			if(endtime!=null && !"".equals(endtime)){
+				wj.setEndTime(endtime);
+			}
 			wj.setCreator(json.getString("CREATOR"));
 			Insframework itemid = new Insframework();
 			itemid.setId(new BigInteger(json.getString("INSFID")));
@@ -198,8 +202,14 @@ public class WeldedJunctionServiceImpl implements WeldedJunctionService {
 			wj.setNextwall_thickness(json.getString("NEXTWALLTHICKNESS"));
 			wj.setElectricity_unit(json.getString("ELECTRICITYUNIT"));
 			wj.setValtage_unit(json.getString("VALTAGEUNIT"));
-			wj.setStartTime(json.getString("STARTTIME"));
-			wj.setEndTime(json.getString("ENDTIME"));
+			String starttime =json.getString("STARTTIME");
+			if(starttime!=null && !"".equals(starttime)){
+				wj.setStartTime(starttime);
+			}
+			String endtime =json.getString("ENDTIME");
+			if(endtime!=null && !"".equals(endtime)){
+				wj.setEndTime(endtime);
+			}
 			wj.setModifier(json.getString("MODIFITER"));
 			Insframework itemid = new Insframework();
 			itemid.setId(new BigInteger(json.getString("INSFID")));
