@@ -53,14 +53,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="fitem" align="center">
 				<lable>设备位置</lable>
 				<input class="easyui-textbox" id="position" readonly="readonly" value="${w.position }"/>
-				<lable>是否联网</lable>
-				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${isnetworking }"/>
+				<lable>设备价值</lable>
+				<input class="easyui-textbox" id="money" readonly="readonly" value="${w.money }"/>
 			</div>
 			<div class="fitem" align="center">
+				<lable>是否联网</lable>
+				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${isnetworking }"/>
 				<lable>状态</lable>
 				<input class="easyui-textbox" id="statusName" readonly="readonly" value="${w.statusname }"/>
-				<lable>    </lable>
-				<input type="text" id="zhanwei" readonly="readonly" style="border: 0px;"/>
 			</div>
 	</div>
 	<div id="body2" region="center"  hide="true"  split="true" title="维修记录" style="background: witch; height: 60%;">

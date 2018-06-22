@@ -22,6 +22,7 @@ public class WeldingMachine {
 	private int statusId;
 	private String creator;
 	private String modifier;
+	private int money;
 	@Transient
 	private Gather gatherId;
 	@Transient
@@ -33,7 +34,12 @@ public class WeldingMachine {
 	private String typename;
 	private String statusname;
 	
-	
+	public int getMoney() {
+		return money;
+	}
+	public void setMoney(int money) {
+		this.money = money;
+	}
 	public String getCreator() {
 		return creator;
 	}

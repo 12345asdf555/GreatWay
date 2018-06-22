@@ -135,6 +135,7 @@ public class MaintainController {
 				json.put("wid", wm.getWelding().getId());
 				json.put("mid", wm.getMaintenance().getId());
 				json.put("viceman", wm.getMaintenance().getViceman());
+				json.put("money", wm.getMaintenance().getMoney());
 				json.put("starttime",wm.getMaintenance().getStartTime());
 				json.put("endtime", wm.getMaintenance().getEndTime());
 				json.put("typeid", wm.getMaintenance().getTypeId());
@@ -201,7 +202,7 @@ public class MaintainController {
 			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"addMaintian\"}";
 			String obj2 = "{\"VICEMAN\":\""+request.getParameter("viceman")+"\",\"INSFID\":\""+insfid+"\",\"STARTTIME\":\""+request.getParameter("startTime")+
-					"\",\"ENDTIME\":\""+request.getParameter("endTime")+"\",\"DESC\":\""+request.getParameter("desc")+"\",\"TYPEID\":\""+request.getParameter("tId")+
+					"\",\"ENDTIME\":\""+request.getParameter("endTime")+"\",\"DESC\":\""+request.getParameter("desc")+"\",\"MONEY\":\""+request.getParameter("money")+"\",\"TYPEID\":\""+request.getParameter("tId")+
 					"\",\"WELDID\":\""+request.getParameter("wId")+"\",\"CREATOR\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
@@ -241,7 +242,7 @@ public class MaintainController {
 			iutil.Authority(client);
 			String obj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"updateMaintenanceRecord\"}";
 			String obj2 = "{\"MID\":\""+new BigInteger(mid)+"\",\"WID\":\""+new BigInteger(wid)+"\",\"INSFID\":\""+insfid+"\",\"VICEMAN\":\""+request.getParameter("viceman")+"\",\"STARTTIME\":\""+request.getParameter("startTime")+"\","
-					+ "\"ENDTIME\":\""+request.getParameter("endTime")+"\",\"DESC\":\""+request.getParameter("desc")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\","
+					+ "\"ENDTIME\":\""+request.getParameter("endTime")+"\",\"DESC\":\""+request.getParameter("desc")+"\",\"MONEY\":\""+request.getParameter("money")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\","
 					+ "\"MODIFIER\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){

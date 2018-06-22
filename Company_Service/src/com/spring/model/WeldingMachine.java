@@ -18,6 +18,7 @@ public class WeldingMachine {
 	private String position;
 	private int isnetworking;
 	private String joinTime;
+	private int money;
 	private int typeId;
 	private int statusId;
 	private String creator;
@@ -33,7 +34,12 @@ public class WeldingMachine {
 	private String typename;
 	private String statusname;
 	
-	
+	public int getMoney() {
+		return money;
+	}
+	public void setMoney(int money) {
+		this.money = money;
+	}
 	public String getCreator() {
 		return creator;
 	}

@@ -47,6 +47,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" name="viceman" id="viceman" data-options="required:true"/>
 				</div>
 				<div class="fitem">
+					<lable>维修价格</lable>
+					<input class="easyui-textbox" name="money" id="money"/>
+				</div>
+				<div class="fitem">
 					<lable>起始时间</lable>
 					<input class="easyui-datetimebox" name="startTime" id="startTime" data-options="required:true"/>
 				</div>

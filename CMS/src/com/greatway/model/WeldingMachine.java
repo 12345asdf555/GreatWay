@@ -20,6 +20,7 @@ public class WeldingMachine {
 	private String joinTime;
 	private int typeId;
 	private int statusId;
+	private int money;
 	private String creator;
 	private String modifier;
 	@Transient
@@ -34,6 +35,12 @@ public class WeldingMachine {
 	private String statusname;
 	
 	
+	public int getMoney() {
+		return money;
+	}
+	public void setMoney(int money) {
+		this.money = money;
+	}
 	public String getCreator() {
 		return creator;
 	}

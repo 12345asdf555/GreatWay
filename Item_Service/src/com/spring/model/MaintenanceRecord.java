@@ -11,6 +11,7 @@ public class MaintenanceRecord {
 	private BigInteger id;
 	private String viceman;
 	private String desc;
+	private int money;
 	private String startTime;
 	private String endTime;
 	private int typeId;
@@ -19,6 +20,12 @@ public class MaintenanceRecord {
 	private String creator;
 	private String modifier;
 	
+	public int getMoney() {
+		return money;
+	}
+	public void setMoney(int money) {
+		this.money = money;
+	}
 	public String getCreator() {
 		return creator;
 	}

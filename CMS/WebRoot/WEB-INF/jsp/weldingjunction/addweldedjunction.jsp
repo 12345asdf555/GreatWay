@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>开始时间</lable>
-					<input class="easyui-datetimebox" id="startTime"  name="startTime"/>
+					<input class="easyui-datetimebox" id="startTime"  name="startTime" data-options="required:true"/>
 					<lable>完成时间</lable>
 					<input class="easyui-datetimebox" id="endTime"  name="endTime"/>
 				</div>

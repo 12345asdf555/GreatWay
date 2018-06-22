@@ -13,6 +13,7 @@
             <id property="id" column="rid"></id> 
             <result property="viceman" column="fviceman"></result>  
             <result property="desc" column="fdesc"></result>  
+            <result property="money" column="fmoney"></result>  
             <result property="startTime" column="fstart_time"></result>
         	<result property="endTime" column="fend_time"></result>
         	<result property="typeId" column="ftype_id"></result>
@@ -25,7 +26,7 @@
 	</resultMap>
 	
 	<select id="getWeldingMaintenanceAll" resultMap="mmMap">
-		SELECT m.fid fid,r.fid rid, wm.fid wid, r.ftype_id ftype_id, fequipment_no,fviceman,d.fvaluename typename,
+		SELECT m.fid fid,r.fid rid, wm.fid wid, r.ftype_id ftype_id, fequipment_no,fviceman,d.fvaluename typename,fmoney,
 		fstart_time,fend_time,fdesc,finsframework_id insfid
 		FROM tb_welding_maintenance m 
 		inner join tb_maintenance_record r on  fmaintenance_id = r.fid
@@ -41,7 +42,7 @@
 	</select>
 	
 	<select id="getWeldingMaintenanceById" resultMap="mmMap"  parameterType="java.math.BigInteger">
-		SELECT m.fid fid,r.fid rid, wm.fid wid, r.ftype_id ftype_id, fequipment_no,fviceman,
+		SELECT m.fid fid,r.fid rid, wm.fid wid, r.ftype_id ftype_id, fequipment_no,fviceman,fmoney,
 		fstart_time,fend_time,fdesc
 		FROM tb_welding_maintenance m 
 		inner join tb_maintenance_record r on  fmaintenance_id = r.fid
@@ -66,8 +67,8 @@
 	</insert>
 	
 	<insert id="addMaintenanceRecord" parameterType="com.spring.model.MaintenanceRecord">
-		INSERT INTO tb_maintenance_record(fid,ftype_id, fviceman, fdesc, fstart_time, fend_time, fcreator, fcreatetime) VALUES 
-		(#{id},#{typeId},#{viceman},#{desc},#{startTime},#{endTime},#{creator},now())
+		INSERT INTO tb_maintenance_record(fid,ftype_id, fviceman, fmoney,fdesc, fstart_time, fend_time, fcreator, fcreatetime) VALUES 
+		(#{id},#{typeId},#{viceman},#{money},#{desc},#{startTime},#{endTime},#{creator},now())
 	</insert>
 	
 	<update id="updateEndtime" parameterType="java.math.BigInteger">
@@ -75,7 +76,7 @@
 	</update>
 	
 	<update id="updateMaintenanceRecord" parameterType="com.spring.model.MaintenanceRecord">
-		UPDATE tb_maintenance_record SET ftype_id=#{typeId},fviceman=#{viceman},fdesc=#{desc},fstart_time=#{startTime},fend_time=#{endTime},fmodifier=#{modifier},fupdatetime=now()  WHERE fid=#{id}
+		UPDATE tb_maintenance_record SET ftype_id=#{typeId},fviceman=#{viceman},fmoney=#{money},fdesc=#{desc},fstart_time=#{startTime},fend_time=#{endTime},fmodifier=#{modifier},fupdatetime=now()  WHERE fid=#{id}
 	</update>
 	
 	<delete id="deleteMaintenanceRecord" parameterType="java.math.BigInteger">

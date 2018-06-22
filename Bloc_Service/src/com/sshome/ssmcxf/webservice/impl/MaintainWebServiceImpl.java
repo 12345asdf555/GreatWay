@@ -37,6 +37,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 				obj.put("ID", jutil.setValue(list.get(i).getId()));
 				obj.put("INSFID",jutil.setValue(list.get(i).getInsfid()));
 				if(list.get(i).getMaintenance()!=null){
+					obj.put("MONEY",jutil.setValue(list.get(i).getMaintenance().getMoney()));
 					obj.put("MAINTENANCEID",jutil.setValue(list.get(i).getMaintenance().getId()));
 					obj.put("VICEMAN",jutil.setValue(list.get(i).getMaintenance().getViceman()));
 					obj.put("TYPEID",jutil.setValue(list.get(i).getMaintenance().getTypeId()));
@@ -45,6 +46,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 					obj.put("ENDTIME",jutil.setValue(list.get(i).getMaintenance().getEndTime()));
 					obj.put("DESC",jutil.setValue(list.get(i).getMaintenance().getDesc()));
 				}else{
+					obj.put("MONEY", "");
 					obj.put("MAINTENANCEID", "");
 					obj.put("VICEMAN", "");
 					obj.put("TYPEID", "");
@@ -107,6 +109,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			if(list!=null){
 				obj.put("ID", jutil.setValue(list.getId()));
 				if(list.getMaintenance()!=null){
+					obj.put("MONEY",jutil.setValue(list.getMaintenance().getMoney()));
 					obj.put("MAINTENANCEID",jutil.setValue(list.getMaintenance().getId()));
 					obj.put("VICEMAN",jutil.setValue(list.getMaintenance().getViceman()));
 					obj.put("TYPEID",jutil.setValue(list.getMaintenance().getTypeId()));
@@ -114,6 +117,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 					obj.put("ENDTIME",jutil.setValue(list.getMaintenance().getEndTime()));
 					obj.put("DESC",jutil.setValue(list.getMaintenance().getDesc()));
 				}else{
+					obj.put("MONEY", "");
 					obj.put("MAINTENANCEID", "");
 					obj.put("VICEMAN", "");
 					obj.put("TYPEID", "");
@@ -186,6 +190,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			MaintenanceRecord mr = new MaintenanceRecord();
 			mr.setViceman(json.getString("VICEMAN"));
 			mr.setStartTime(json.getString("STARTTIME"));
+			mr.setMoney(json.getInt("MONEY"));
 			String endTime = json.getString("ENDTIME");
 			if(endTime!=null && !"".equals(endTime)){
 				mr.setEndTime(json.getString("ENDTIME"));
@@ -229,6 +234,7 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 			MaintenanceRecord mr = new MaintenanceRecord();
 			mr.setId(new BigInteger(json.getString("MID")));
 			mr.setViceman(json.getString("VICEMAN"));
+			mr.setMoney(json.getInt("MONEY"));
 			mr.setStartTime(json.getString("STARTTIME"));
 			String endTime = json.getString("ENDTIME");
 			if(endTime!=null && !"".equals(endTime)){

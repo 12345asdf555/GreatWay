@@ -66,6 +66,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<lable>设备位置</lable>
 				<input class="easyui-textbox" id="position" readonly="readonly" value="${w.position }"/>
 			</div>
+				<div class="fitem">
+					<lable>设备价值</lable>
+					<input class="easyui-numberbox" id="money" readonly="readonly" value="${w.money }"/>
+				</div>
 			<div class="fitem">
 				<lable>是否联网</lable>
 				<input class="easyui-textbox" id="isnetworking" readonly="readonly" value="${isnetworking }"/>

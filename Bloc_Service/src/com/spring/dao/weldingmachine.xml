@@ -9,6 +9,7 @@
 		<result property="position" column="fposition" />
 		<result property="isnetworking" column="fisnetworking" />
 		<result property="joinTime" column="fjoin_time" />
+		<result property="money" column="fmoney" />
 		<result property="typeId" column="ftype_id" />
 		<result property="statusId" column="fstatus_id" />
 		<result property="typename" column="typename" />
@@ -42,7 +43,7 @@
 
 	<select id="getWeldingMachineAll" resultMap="wmMap"  parameterType="java.lang.String">
 		SELECT 
-		w.fid fid,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		w.fid fid,fstatus_id, i.fid iid,ftype_id,g.fid gid,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname,fmoney
 		,m.fname mname,fisnetworking,fposition,m.ftype mtype,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w
 		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid
@@ -64,7 +65,7 @@
 	
 	<select id="getWeldingMachineById"  resultMap="wmMap"  parameterType="java.math.BigInteger">
 		SELECT 
-		w.fid fid,fstatus_id, i.fid iid,g.fid gid,ftype_id,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname
+		w.fid fid,fstatus_id, i.fid iid,g.fid gid,ftype_id,m.fid mid, fequipment_no,fgather_no ,fjoin_time,i.fname iname,fmoney
 		,m.fname mname,fisnetworking,fposition,d.fvaluename statusname,di.fvaluename typename
 		FROM tb_welding_machine w
 		INNER JOIN tb_insframework i ON w.finsframework_id = i.fid
@@ -109,8 +110,8 @@
 	
 	<insert id="addWeldingMachine" parameterType="com.spring.model.WeldingMachine" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO tb_welding_machine(ftype_id, fequipment_no, fstatus_id, fposition, finsframework_id, 
-		fmanufacturer_id,fgather_id, fisnetworking, fjoin_time,fcreator,fcreatetime) VALUES 
-		(#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{isnetworking},#{joinTime},#{creator},now())
+		fmanufacturer_id,fgather_id,fmoney, fisnetworking, fjoin_time,fcreator,fcreatetime) VALUES 
+		(#{typeId},#{equipmentNo},#{statusId},#{position},#{insframeworkId.id},#{manufacturerId.id},#{gatherId.id},#{money},#{isnetworking},#{joinTime},#{creator},now())
 	</insert>
 	
 	<update id="editGatherid"  parameterType="java.math.BigInteger">
@@ -120,7 +121,7 @@
 	<update id="editWeldingMachine"  parameterType="com.spring.model.WeldingMachine">
 		UPDATE tb_welding_machine SET ftype_id=#{typeId},fequipment_no=#{equipmentNo},fstatus_id=#{statusId},
 		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{manufacturerId.id},fgather_id=#{gatherId.id},
-		fisnetworking=#{isnetworking},fjoin_time=#{joinTime},fmodifier=#{modifier},fupdatetime=now() where fid = #{id}
+		fisnetworking=#{isnetworking},fjoin_time=#{joinTime},fmoney=#{money},fmodifier=#{modifier},fupdatetime=now() where fid = #{id}
 	</update>
 	
 	<update id="editstatus"  parameterType="com.spring.model.WeldingMachine">

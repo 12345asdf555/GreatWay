@@ -91,6 +91,12 @@ function weldingMachineDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
+			field : 'money',
+			title : '价值',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
 			field : 'statusId',
 			title : '状态id',
 			width : 100,

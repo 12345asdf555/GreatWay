@@ -76,6 +76,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 					obj.put("INSFRAMEWORKID", "");
 					obj.put("INSFRAMEWORKNAME", "");
 				}
+				obj.put("MONEY", jutil.setValue(list.get(i).getMoney()));
 				obj.put("JOINTIME",jutil.setValue(list.get(i).getJoinTime()));
 				obj.put("POSITION",jutil.setValue(list.get(i).getPosition()));
 				obj.put("ISNETWORKING",jutil.setValue(list.get(i).getIsnetworking()));
@@ -135,6 +136,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			}
 			WeldingMachine wm = new WeldingMachine();
 			wm.setId(id);
+			wm.setMoney(json.getInt("MONEY"));
 			wm.setEquipmentNo(json.getString("EQUIPMENTNO"));
 			wm.setPosition(json.getString("POSITION"));
 			wm.setIsnetworking(json.getInt("ISNETWORKING"));
@@ -204,6 +206,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 			}
 			WeldingMachine wm = new WeldingMachine();
 			wm.setId(new BigInteger(json.getString("ID")));
+			wm.setMoney(json.getInt("MONEY"));
 			wm.setEquipmentNo(json.getString("EQUIPMENTNO"));
 			wm.setPosition(json.getString("POSITION"));
 			wm.setIsnetworking(json.getInt("ISNETWORKING"));
@@ -382,6 +385,7 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 					obj.put("INSFRAMEWORKID", "");
 					obj.put("INSFRAMEWORKNAME", "");
 				}
+				obj.put("MONEY",jutil.setValue(list.getMoney()));
 				obj.put("JOINTIME",jutil.setValue(list.getJoinTime()));
 				obj.put("POSITION",jutil.setValue(list.getPosition()));
 				obj.put("ISNETWORKING",jutil.setValue(list.getIsnetworking()));
