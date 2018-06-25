@@ -45,6 +45,10 @@
 		SELECT fvalue FROM tb_dictionary WHERE ftypeid=#{typeid} and fvaluename=#{valuename}
 	</select>
 	
+	<select id="getBack" resultMap="dMap">
+		SELECT ftypeid,fback FROM tb_dictionary where fback !='' GROUP by fback ORDER by ftypeid
+	</select>
+	
 	<update id="editDictionary" parameterType="com.greatway.model.Dictionarys">
 		update tb_dictionary set fvaluename=#{valueName},ftypeid=#{typeid},fback=#{back},fvalue=#{value},fmodifier=#{modifier},fupdatetime=now() where fid=#{id}
 	</update>

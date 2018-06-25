@@ -120,7 +120,7 @@
 	
 	<update id="editWeldingMachine"  parameterType="com.spring.model.WeldingMachine">
 		UPDATE tb_welding_machine SET ftype_id=#{typeId},fequipment_no=#{equipmentNo},fstatus_id=#{statusId},
-		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{manufacturerId.id},fgather_id=#{gatherId.id},fmoney=#{money}
+		fposition=#{position},finsframework_id=#{insframeworkId.id},fmanufacturer_id=#{manufacturerId.id},fgather_id=#{gatherId.id},fmoney=#{money},
 		fisnetworking=#{isnetworking},fjoin_time=#{joinTime},fmodifier=#{modifier},fupdatetime=now() where fid = #{id}
 	</update>
 	

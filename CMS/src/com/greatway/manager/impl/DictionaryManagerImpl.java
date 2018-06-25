@@ -2,8 +2,6 @@ package com.greatway.manager.impl;
 
 import java.util.List;
 
-import javax.jws.WebService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,5 +65,9 @@ public class DictionaryManagerImpl implements DictionaryManager {
 	@Override
 	public String getDicValueByType(int value) {
 		return dictionaryMapper.getDicValueByType(value);
+	}
+	@Override
+	public List<Dictionarys> getBack() {
+		return dictionaryMapper.getBack();
 	}
 }

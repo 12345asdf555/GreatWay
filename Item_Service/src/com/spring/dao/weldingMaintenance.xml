@@ -26,7 +26,7 @@
 	</resultMap>
 	
 	<select id="getWeldingMaintenanceAll" resultMap="mmMap">
-		SELECT m.fid fid,r.fid rid, wm.fid wid, r.ftype_id ftype_id, fequipment_no,fviceman,d.fvaluename typename,fmoney,
+		SELECT m.fid fid,r.fid rid, wm.fid wid, r.ftype_id ftype_id, fequipment_no,fviceman,d.fvaluename typename,r.fmoney,
 		fstart_time,fend_time,fdesc,finsframework_id insfid
 		FROM tb_welding_maintenance m 
 		inner join tb_maintenance_record r on  fmaintenance_id = r.fid
@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="getWeldingMaintenanceById" resultMap="mmMap"  parameterType="java.math.BigInteger">
-		SELECT m.fid fid,r.fid rid, wm.fid wid, r.ftype_id ftype_id, fequipment_no,fviceman,fmoney,
+		SELECT m.fid fid,r.fid rid, wm.fid wid, r.ftype_id ftype_id, fequipment_no,fviceman,r.fmoney,
 		fstart_time,fend_time,fdesc
 		FROM tb_welding_maintenance m 
 		inner join tb_maintenance_record r on  fmaintenance_id = r.fid

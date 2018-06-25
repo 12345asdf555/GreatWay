@@ -197,4 +197,24 @@ public class DictonaryController {
 		}
 		return obj.toString();
 	}
+	
+	@RequestMapping("/getBack")
+	@ResponseBody
+	public String getBack(){
+		JSONObject obj = new JSONObject();
+		JSONArray ary = new JSONArray();
+		JSONObject json = new JSONObject();
+		try{
+			List<Dictionarys> list = dictionaryManager.getBack();
+			for(Dictionarys d:list){
+				json.put("typeid", d.getTypeid());
+				json.put("back", d.getBack());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
 }

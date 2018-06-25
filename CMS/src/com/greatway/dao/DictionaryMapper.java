@@ -32,4 +32,6 @@ public interface DictionaryMapper extends Mapper<Dictionarys> {
 	
 	String getDicValueByType(@Param("value")int value);
 	
+	List<Dictionarys> getBack();
+	
 }

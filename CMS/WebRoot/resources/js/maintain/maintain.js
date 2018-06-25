@@ -28,8 +28,20 @@ function mainDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
+			field : 'typename',
+			title : '维修类型',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
 			field : 'viceman',
 			title : '维修人员',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'money',
+			title : '维修价格',
 			width : 100,
 			halign : "center",
 			align : "left"
@@ -52,12 +64,6 @@ function mainDatagrid(){
 				}
 				return value;
 			}
-		}, {
-			field : 'typename',
-			title : '维修类型',
-			width : 100,
-			halign : "center",
-			align : "left"
 		}, {
 			field : 'desc',
 			title : '维修说明',

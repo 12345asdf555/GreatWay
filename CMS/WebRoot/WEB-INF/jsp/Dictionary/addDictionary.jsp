@@ -16,16 +16,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css">
+	
+	<link rel="stylesheet" type="text/css" href="resources/themes/icon.css" />
 	<link rel="stylesheet" type="text/css" href="resources/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/base.css" />
-	<link rel="stylesheet" type="text/css" href="resources/css/common.css">
-	<link rel="stylesheet" type="text/css" href="resources/css/iconfont.css">
 	
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="resources/js/Dictionary/Dictionary.js"></script>
+	<script type="text/javascript" src="resources/js/Dictionary/addeditdictionary.js"></script>
   </head>
   
   <body class="easyui-layout">
@@ -39,14 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</div>
     			<div class="fitem">
     				<lable>类型</lable>
-    				<select class="easyui-combobox" name="typeid" id="typeid" data-options="required:true,editable:false">
-    					<option value="1">账户类型</option>
-    					<option value="2">组织机构</option>
-    					<option value="3">焊机状态</option>
-    					<option value="4">焊机类型</option>
-    					<option value="5">维修类型</option>
-    					<option value="6">用户状态</option>
-    				</select>
+    				<select class="easyui-combobox" name="typeid" id="typeid" data-options="required:true,editable:false"></select>
     			</div>
     			<div class="">
     				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
