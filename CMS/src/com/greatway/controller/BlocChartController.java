@@ -1,13 +1,13 @@
 package com.greatway.controller;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -1067,7 +1067,6 @@ public class BlocChartController {
 		return obj.toString();
 	}
 
-	
 	/**
 	 * 获取当前用户下的所有组织机构
 	 * @param request
@@ -1078,6 +1077,114 @@ public class BlocChartController {
 	public String getInsframeworkType(@RequestParam BigInteger id){
 		JSONObject obj = new JSONObject();
 		obj.put("type", insm.getTypeById(id));
+		return obj.toString();
+	}
+	
+	@RequestMapping("/getUseratio")
+	@ResponseBody
+	public String getUseratio(HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		String parentid = request.getParameter("parent");
+		String time1 = request.getParameter("time1");
+		String time2 = request.getParameter("time2");
+		int flag = Integer.parseInt(request.getParameter("flag"));
+		BigInteger parent = null;
+		List<Insframework> caust = null;
+		if(iutil.isNull(parentid)){
+			parent = new BigInteger(parentid);
+		}
+		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+			page = new Page(pageIndex,pageSize,total);
+			caust = insm.getCause(page, parent);
+		}else{
+			caust = insm.getCause(parent,null);
+		}
+		long total = 0;
+		if(caust!=null){
+			PageInfo<Insframework> pageinfo = new PageInfo<Insframework>(caust);
+			total = pageinfo.getTotal();
+		}
+		try{
+			List<ModelDto> list = lm.getUseratio(time1, time2);
+			//获取时间差
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			long t1 = sdf.parse(time1).getTime();
+			long t2 = sdf.parse(time2).getTime();
+			int days = (int)((t2-t1)/(1000*60*60*24));
+			if(flag==0){//公司层
+				for(Insframework c:caust){
+					double worktime = 0;
+					for(ModelDto i:list){
+						if(i.getCaustid().equals(c.getId())){
+							worktime += i.getWorktime();
+						}
+					}
+					double wt = (double)Math.round(worktime*100)/100;
+					int num = lm.getMachineCount(c.getId());
+					double useratio = (double)Math.round(wt/num/days*100*100)/100;
+					json.put("name", c.getName());
+					json.put("day", days);
+					json.put("time", wt);
+					json.put("num", num);
+					json.put("useratio", useratio);
+					ary.add(json);
+				}
+			}else if(flag==1){
+				for(Insframework c:caust){
+					double worktime = 0;
+					for(ModelDto i:list){
+						if(i.getItemid().equals(c.getId())){
+							worktime += i.getWorktime();
+						}
+					}
+					double wt = (double)Math.round(worktime*100)/100;
+					int num = lm.getMachineCount(c.getId());
+					double useratio = (double)Math.round(wt/num/days*100*100)/100;
+					json.put("name", c.getName());
+					json.put("day", days);
+					json.put("time", wt);
+					json.put("num", num);
+					json.put("useratio", useratio);
+					ary.add(json);
+				}
+			}else if(flag==2){
+				boolean flags = false;
+				for(ModelDto i:list){
+					if(i.getItemid().equals(parent)){
+						flags = true;
+						double wt = (double)Math.round(i.getWorktime()*100)/100;
+						int num = lm.getMachineCount(i.getItemid());
+						double useratio = (double)Math.round(wt/num/days*100*100)/100;
+						json.put("name", i.getFname());
+						json.put("day", days);
+						json.put("time", wt);
+						json.put("num", num);
+						json.put("useratio", useratio);
+						ary.add(json);
+					}
+				}
+				if(!flags){
+					Insframework ins = insm.getInsById(parent);
+					if(ins!=null){
+						json.put("name", ins.getName());
+						json.put("day", days);
+						json.put("time", 0);
+						json.put("num", lm.getMachineCount(ins.getId()));
+						json.put("useratio", "0");
+						ary.add(json);
+					}
+				}
+				total = 1;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("rows", ary);
+		obj.put("total", total);
 		return obj.toString();
 	}
 }

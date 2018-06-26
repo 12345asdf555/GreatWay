@@ -121,4 +121,6 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	List<ModelDto> getExcessiveBack(@Param("time")String time,@Param("welder")String welder,@Param("junction")String junction);
 
 	List<ModelDto> getBlocRunTime(@Param("parent")BigInteger parent,@Param("dto")WeldDto dto,@Param("startindex")int startindex,@Param("endindex")int endindex);
+	
+	List<ModelDto> getUseratio(@Param("time1")String time1,@Param("time2")String time2);
 }

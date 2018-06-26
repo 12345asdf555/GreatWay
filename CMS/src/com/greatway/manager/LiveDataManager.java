@@ -462,4 +462,12 @@ public interface LiveDataManager {
 	 * @return
 	 */
 	List<ModelDto> getBlocRunTime(Page page, BigInteger parent, WeldDto dto, int startindex, int endindex);
+	
+	/**
+	 * 获取设备使用率
+	 * @param time1 起始时间(必填)
+	 * @param time2 结束时间(必填)
+	 * @return
+	 */
+	List<ModelDto> getUseratio(String time1,String time2);
 }

@@ -194,4 +194,10 @@ public class InsframeworkManagerImpl implements InsframeworkManager {
 		return companyurl;
 	}
 
+	@Override
+	public List<Insframework> getCause(Page page, BigInteger id) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return im.getCause(id, null);
+	}
+
 }

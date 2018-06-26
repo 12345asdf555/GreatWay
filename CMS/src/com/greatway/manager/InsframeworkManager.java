@@ -79,6 +79,7 @@ public interface InsframeworkManager {
 	 * @return
 	 */
 	List<Insframework> getCause(BigInteger id,BigInteger value2);
+	List<Insframework> getCause(Page page,BigInteger id);
 	
 	/**
 	 * 焊机获取项目

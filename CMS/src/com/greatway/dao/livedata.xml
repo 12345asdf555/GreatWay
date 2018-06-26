@@ -115,6 +115,8 @@
        	<result property="jidgather" column="jidgather"></result>
        	<result property="starttime" column="starttime"></result>
        	<result property="endtime" column="endtime"></result>
+       	<result property="caustid" column="caustid"></result>
+       	<result property="worktime" column="worktime"></result>
     </resultMap>
     
     <!-- 集团焊接工时 -->
@@ -2034,7 +2036,7 @@
 	<select id="getBlocRunTime" resultMap="dtoMap">
 		SELECT * FROM(
 		SELECT sum(fworktime)/60/60 time,fequipment_no fmachine_id,i.fname FROM tb_work l INNER JOIN tb_welding_machine m on l.fmachine_id = m.fid 
-		INNER JOIN tb_insframework i on i.fid = m.finsframework_id INNER JOIN tb_insframework ins on ins.fid = i.fparent 
+		INNER JOIN tb_insframework i on i.fid = l.fitemid INNER JOIN tb_insframework ins on ins.fid = i.fparent 
 		where 1=1 
 		<if test="parent!=null and parent!=''">
 			and (i.fid = #{parent} or ins.fid = #{parent} or ins.fparent=#{parent})
@@ -2049,6 +2051,12 @@
 		</if>
 		GROUP BY fmachine_id order by time limit #{endindex} OFFSET #{startindex}
 		)TEMP order by time desc
+	</select>
+	
+	<select id="getUseratio" resultMap="dtoMap">
+		SELECT ins.fid caustid,i.fid itemid,i.fname,sum(fworktime)/60/60 worktime FROM tb_work w 
+		INNER JOIN tb_insframework i on i.fid = w.fitemid INNER JOIN tb_insframework ins on ins.fid = i.fparent 
+		where fstarttime &gt;= #{time1} and fstarttime &lt;= #{time2}group by i.fid
 	</select>
 
 </mapper>

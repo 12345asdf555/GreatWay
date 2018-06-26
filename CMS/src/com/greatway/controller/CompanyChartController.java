@@ -1106,7 +1106,6 @@ public class CompanyChartController {
 		page = new Page(pageIndex,pageSize,total);
 		List<ModelDto> list = lm.getExcessiveBack(time, welder, junction);
 		long total = 0;
-		
 		if(list != null){
 			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
 			total = pageinfo.getTotal();

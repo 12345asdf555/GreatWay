@@ -358,4 +358,9 @@ public class LiveDataManagerImpl implements LiveDataManager {
 		return live.getBlocRunTime(parent, dto, startindex, endindex);
 	}
 
+	@Override
+	public List<ModelDto> getUseratio(String time1, String time2) {
+		return live.getUseratio(time1, time2);
+	}
+
 }

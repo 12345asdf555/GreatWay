@@ -58,7 +58,21 @@ public class ModelDto {
 	private BigInteger hous;//用来获取工时的总值
 	private String starttime;
 	private String endtime;
+	private BigInteger caustid;
+	private double worktime;
 
+	public double getWorktime() {
+		return worktime;
+	}
+	public void setWorktime(double worktime) {
+		this.worktime = worktime;
+	}
+	public BigInteger getCaustid() {
+		return caustid;
+	}
+	public void setCaustid(BigInteger caustid) {
+		this.caustid = caustid;
+	}
 	public double getFmax_valtage() {
 		return fmax_valtage;
 	}

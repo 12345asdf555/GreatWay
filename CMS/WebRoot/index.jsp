@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li onclick="changeColor(this)"><a href="javascript:openBlocEfficiency()"><div><i class="iconfont icon-bijiben"></i>集团工效</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openBlocLoads()"><div><i class="iconfont icon-bijiben"></i>集团设备负荷率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openBlocNoLoads()"><div><i class="iconfont icon-bijiben"></i>集团设备空载率</div></a></li>
-<!--     		<li onclick="changeColor(this)"><a href="javascript:openUseratio('集团')"><div><i class="iconfont icon-bijiben"></i>集团设备利用率</div></a></li> -->
+    		<li onclick="changeColor(this)"><a href="javascript:openUseratio('集团')"><div><i class="iconfont icon-bijiben"></i>集团设备利用率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openBlocIdle()"><div><i class="iconfont icon-bijiben"></i>集团设备闲置率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openBlocHour()"><div><i class="iconfont icon-bijiben"></i>集团焊口焊接工时</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openBlocovertime()"><div><i class="iconfont icon-bijiben"></i>集团超时待机统计</div></a></li>
@@ -97,6 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyTd()"><div><i class="iconfont icon-bijiben"></i>公司实时监测</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyLoads()"><div><i class="iconfont icon-bijiben"></i>公司设备负荷率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyNoLoads()"><div><i class="iconfont icon-bijiben"></i>公司设备空载率</div></a></li>
+    		<li onclick="changeColor(this)"><a href="javascript:openUseratio('公司')"><div><i class="iconfont icon-bijiben"></i>公司设备利用率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyIdle()"><div><i class="iconfont icon-bijiben"></i>公司设备闲置率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyHour()"><div><i class="iconfont icon-bijiben"></i>公司焊口焊接工时</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCompanyovertime()"><div><i class="iconfont icon-bijiben"></i>公司超时待机统计</div></a></li>
@@ -112,6 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li onclick="changeColor(this)"><a href="javascript:openCaustEfficiency()"><div><i class="iconfont icon-bijiben"></i>事业部工效</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCaustTd()"><div><i class="iconfont icon-bijiben"></i>事业部实时监测</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCaustLoads()"><div><i class="iconfont icon-bijiben"></i>事业部设备负荷率</div></a></li>
+    		<li onclick="changeColor(this)"><a href="javascript:openUseratio('事业部')"><div><i class="iconfont icon-bijiben"></i>事业部设备利用率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCaustNoLoads()"><div><i class="iconfont icon-bijiben"></i>事业部设备空载率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCaustIdle()"><div><i class="iconfont icon-bijiben"></i>事业部设备闲置率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openCaustHour()"><div><i class="iconfont icon-bijiben"></i>事业部焊口焊接工时</div></a></li>
@@ -129,6 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<li onclick="changeColor(this)"><a href="javascript:openItemTd()"><div><i class="iconfont icon-bijiben"></i>项目部实时监测</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openItemLoads()"><div><i class="iconfont icon-bijiben"></i>项目部设备负荷率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openItemNoLoads()"><div><i class="iconfont icon-bijiben"></i>项目部设备空载率</div></a></li>
+    		<li onclick="changeColor(this)"><a href="javascript:openUseratio('项目部')"><div><i class="iconfont icon-bijiben"></i>项目部设备利用率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openItemIdle()"><div><i class="iconfont icon-bijiben"></i>项目部设备闲置率</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openItemHour()"><div><i class="iconfont icon-bijiben"></i>项目部焊口焊接工时</div></a></li>
     		<li onclick="changeColor(this)"><a href="javascript:openItemovertime()"><div><i class="iconfont icon-bijiben"></i>项目部超时待机统计</div></a></li>

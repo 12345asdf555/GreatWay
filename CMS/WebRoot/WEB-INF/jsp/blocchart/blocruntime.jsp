@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/echarts.js"></script>
-	<script type="text/javascript" src="resources/js/getTime.js"></script>
+	<script type="text/javascript" src="resources/js/getDate.js"></script>
 	<script type="text/javascript" src="resources/js/blocchart/blocruntime.js"></script>
 
   </head>
@@ -41,8 +41,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	<div id="search_btn">
 			<div style="margin-bottom: 5px;">
 				时间：
-				<input class="easyui-datetimebox" name="dtoTime1" id="dtoTime1">--
-				<input class="easyui-datetimebox" name="dtoTime2" id="dtoTime2">
+				<input class="easyui-datebox" name="dtoTime1" id="dtoTime1">--
+				<input class="easyui-datebox" name="dtoTime2" id="dtoTime2">
 				组织机构：
 				<select class="easyui-combobox" id="parent" name="parent" data-options="editable:false"></select>
 				排名：
