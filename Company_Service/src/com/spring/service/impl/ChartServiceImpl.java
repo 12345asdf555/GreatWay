@@ -197,7 +197,7 @@ public class ChartServiceImpl implements ChartService {
 				for(ModelDto l:list){
 					for(ModelDto m:machine){
 						if(m.getFid().equals(l.getIid()) && l.getIid().equals(ins.getFid())){
-							num = (double)Math.round(l.getLoads()/m.getLoads()*100*100)/100;
+							num = (double)Math.round(l.getLoads()/m.getLoads()*10000)/10000;
 							workmachine = m.getLoads();
 							worktime = l.getLoads();
 						}
@@ -206,7 +206,7 @@ public class ChartServiceImpl implements ChartService {
 				json.put("CAUSTNAME", jutil.setValue(ins.getFname()));
 				json.put("ITEMNAME", jutil.setValue(ins.getIname()));
 				json.put("WELDTIME",time);
-				json.put("LOADS", num+"%");
+				json.put("LOADS", num);
 				json.put("WORKTIME", (double) Math.round(Double.valueOf(worktime)*1000)/1000);
 				json.put("WORKMACHINE", workmachine);
 				ary.add(json);
@@ -237,7 +237,7 @@ public class ChartServiceImpl implements ChartService {
 					for(ModelDto m:machine){
 						if(m.getFid().equals(l.getIid()) && l.getIid().equals(ins.getFid())){
 							sumtime = cm.getCountByTime(time, l.getIid()).doubleValue();
-							num = (double)Math.round(l.getLoads()/sumtime/m.getLoads()*100*100)/100;
+							num = (double)Math.round(l.getLoads()/sumtime/m.getLoads()*10000)/10000;
 							workmachine = m.getLoads();
 							worktime = l.getLoads();
 						}
@@ -246,7 +246,7 @@ public class ChartServiceImpl implements ChartService {
 				json.put("CAUSTNAME", jutil.setValue(ins.getFname()));
 				json.put("ITEMNAME", jutil.setValue(ins.getIname()));
 				json.put("WELDTIME",time);
-				json.put("NOLOADS", num+"%");
+				json.put("NOLOADS", num);
 				json.put("STANDBYTIME", (double) Math.round(Double.valueOf(worktime)*1000)/1000);
 				json.put("STANDBYMACHINE", workmachine);
 				json.put("TOTALTIME", (double) Math.round(Double.valueOf(sumtime)*1000)/1000);
