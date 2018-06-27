@@ -7,6 +7,10 @@ import java.math.BigInteger;
  * 需要创建一个dto类（也就是該类）保存所查询的字段
  * @author gpyf16
  */
+/**
+ * @author gpyf16
+ *
+ */
 public class ModelDto {
 	private BigInteger overproof;
 	private String weldTime;
@@ -60,7 +64,28 @@ public class ModelDto {
 	private String endtime;
 	private BigInteger caustid;
 	private double worktime;
-
+	private int rmoney;
+	private int mmoney;
+	private int total;
+	
+	public int getRmoney() {
+		return rmoney;
+	}
+	public void setRmoney(int rmoney) {
+		this.rmoney = rmoney;
+	}
+	public int getMmoney() {
+		return mmoney;
+	}
+	public void setMmoney(int mmoney) {
+		this.mmoney = mmoney;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
 	public double getWorktime() {
 		return worktime;
 	}

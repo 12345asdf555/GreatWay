@@ -470,4 +470,21 @@ public interface LiveDataManager {
 	 * @return
 	 */
 	List<ModelDto> getUseratio(String time1,String time2);
+	
+	/**
+	 * 获取设备维修率
+	 * @param page 分页
+	 * @param dto dtoTime1 维修起始时间 dtoTime2 维修结束时间
+	 * @return
+	 */
+	List<ModelDto> getMaintenanceratio(Page page, WeldDto dto);
+	List<ModelDto> getMaintenanceratio(WeldDto dto);
+	
+
+	/**
+	 * 获取维修总次数/总维修费用/总设备费用
+	 * @param dto dtoTime1 维修起始时间 dtoTime2 维修结束时间
+	 * @return
+	 */
+	ModelDto getSumMaintenance(WeldDto dto);
 }

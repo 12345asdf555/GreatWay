@@ -117,6 +117,9 @@
        	<result property="endtime" column="endtime"></result>
        	<result property="caustid" column="caustid"></result>
        	<result property="worktime" column="worktime"></result>
+       	<result property="rmoney" column="rmoney"></result>
+       	<result property="mmoney" column="mmoney"></result>
+       	<result property="total" column="total"></result>
     </resultMap>
     
     <!-- 集团焊接工时 -->
@@ -2037,9 +2040,10 @@
 		SELECT * FROM(
 		SELECT sum(fworktime)/60/60 time,fequipment_no fmachine_id,i.fname FROM tb_work l INNER JOIN tb_welding_machine m on l.fmachine_id = m.fid 
 		INNER JOIN tb_insframework i on i.fid = l.fitemid INNER JOIN tb_insframework ins on ins.fid = i.fparent 
+		INNER JOIN tb_insframework insf on insf.fid = ins.fparent 
 		where 1=1 
 		<if test="parent!=null and parent!=''">
-			and (i.fid = #{parent} or ins.fid = #{parent} or ins.fparent=#{parent})
+			and (i.fid = #{parent} or ins.fid = #{parent} or insf.fid=#{parent} or insf.fparent=#{parent})
 		</if>
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -2054,9 +2058,39 @@
 	</select>
 	
 	<select id="getUseratio" resultMap="dtoMap">
-		SELECT ins.fid caustid,i.fid itemid,i.fname,sum(fworktime)/60/60 worktime FROM tb_work w 
+		SELECT insf.fid, ins.fid caustid,i.fid itemid,i.fname,sum(fworktime)/60/60 worktime FROM tb_work w 
 		INNER JOIN tb_insframework i on i.fid = w.fitemid INNER JOIN tb_insframework ins on ins.fid = i.fparent 
+		INNER JOIN tb_insframework insf on insf.fid = ins.fparent 
 		where fstarttime &gt;= #{time1} and fstarttime &lt;= #{time2}group by i.fid
+	</select>
+	
+	<select id="getMaintenanceratio" resultMap="dtoMap">
+		SELECT insf.fid, insf.fname,ins.fid caustid,ins.fname iname,i.fid itemid,i.fname wname,sum(r.fmoney) rmoney,sum(m.fmoney) mmoney,count(r.fid) total FROM tb_maintenance_record r 
+		INNER JOIN tb_welding_maintenance w on w.fmaintenance_id=r.fid INNER JOIN tb_welding_machine m ON m.fid = w.fwelding_id 
+		INNER JOIN tb_insframework i on i.fid = m.finsframework_id INNER JOIN tb_insframework ins on ins.fid = i.fparent 
+		INNER JOIN tb_insframework insf on insf.fid = ins.fparent where 1=1 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fstart_time &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fend_time &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		group by i.fid
+	</select>
+	
+	<select id="getSumMaintenance" resultMap="dtoMap">
+		select count(r.fid) total,sum(r.fmoney) rmoeny,sum(m.fmoney) mmoney from tb_maintenance_record r 
+		INNER JOIN tb_welding_maintenance w on w.fmaintenance_id=r.fid INNER JOIN tb_welding_machine m ON m.fid = w.fwelding_id where 1=1
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				and fstart_time &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				and fend_time &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
 	</select>
 
 </mapper>

@@ -1,22 +1,6 @@
 $(function(){
 	flagnum=1;
 	parentCombobox();
-	dtoTime1 = $("#dtoTime1").datebox('getValue');  
-	dtoTime2 = $("#dtoTime2").datebox('getValue');
-	$("#dtoTime1").datebox({
-		onChange: function (newvalue,oldvalue) {
-			if(newvalue==null || newvalue==""){
-				$("#dtoTime1").datebox('setValue',dtoTime1);
-			}
-		}
-	})
-	$("#dtoTime2").datebox({
-		onChange: function (newvalue,oldvalue) {
-			if(newvalue==null || newvalue==""){
-				$("#dtoTime2").datebox('setValue',dtoTime2);
-			}
-		}
-	})
 })
 
 var type,flagnum,position;
@@ -68,16 +52,16 @@ function serach(){
 	flagnum = 0;
 	if(type==20){
 		position = 0;
-		activeurl = "blocChart/getUseratio?flag=0";
+		activeurl = "blocChart/getMaintenanceratio?flag=0";
 	}else if(type==21){
 		position = 0;
-		activeurl = "blocChart/getUseratio?flag=1";
+		activeurl = "blocChart/getMaintenanceratio?flag=1";
 	}else if(type==22){
 		position = 1;
-		activeurl = "blocChart/getUseratio?flag=2";
+		activeurl = "blocChart/getMaintenanceratio?flag=2";
 	}else if(type==23){
 		position = 0;
-		activeurl = "blocChart/getUseratio?flag=3";
+		activeurl = "blocChart/getMaintenanceratio?flag=3";
 	}
 	array1 = new Array();
 	array2 = new Array();
@@ -117,7 +101,7 @@ function showChart(){
             if (result) {
             	for(var i=0;i<result.rows.length;i++){
             		array1.push(result.rows[i].name);
-            		array2.push(result.rows[i].useratio);
+            		array2.push(result.rows[i].total);
             	}
             }  
         },  
@@ -134,43 +118,38 @@ function showChart(){
 	});
 	option = {
 		tooltip:{
-			trigger: 'axis'//坐标轴触发，即是否跟随鼠标集中显示数据
+			trigger: 'item'
 		},
 		legend:{
-			data:['设备利用率']
+			type : 'scroll',
+			orient : 'vertical',
+			right : '5%',
+			top : 20,
+			bottom : 20,
+			data : ['工作','待机','关机']
 		},
-		grid:{
-			left:'50',//组件距离容器左边的距离
-			right:'4%',
-			bottom:bootomnum,
-			containLaber:true//区域是否包含坐标轴刻度标签
-		},
+//		grid:{
+//			left:'50',//组件距离容器左边的距离
+//			right:'4%',
+//			bottom:bootomnum,
+//			containLaber:true//区域是否包含坐标轴刻度标签
+//		},
 		toolbox:{
 			feature:{
 				saveAsImage:{}//保存为图片
 			},
 			right:'2%'
 		},
-		xAxis:{
-			type:'category',
-			data: array1,
-			axisLabel : {
-				rotate: rotatenum //x轴文字倾斜
-			}
-		},
-		yAxis:{
-			type: 'value',//value:数值轴，category:类目轴，time:时间轴，log:对数轴
-			axisLabel: {  
-                  show: true,  
-                  interval: 'auto',  
-                  formatter: '{value}%'  
-            }
-		},
 		series:[{
 			name:'设备利用率',
-			type:'bar',
-            barMaxWidth:50,//最大宽度
-			data:array2
+			type:'pie',
+            radius : '55%',
+            center : ['40%', '50%'],
+			data:[
+                {value:4, name:'工作'},
+                {value:5, name:'待机'},
+                {value:45, name:'关机'}
+            ]
 		}]
 	}
 	//为echarts对象加载数据
@@ -200,32 +179,41 @@ function dgDatagrid(){
 				halign : "center",
 				align : "left"
 			},{
-				field : "day",
-				title : "天数",
+				field : "total",
+				title : "维修次数",
 				width : 100,
 				halign : "center",
 				align : "left"
 			},{
 				field : "time",
-				title : "设备运行时长(h)",
+				title : "维修次数占比",
 				width : 100,
 				halign : "center",
 				align : "left"
 			},{
 				field : "num",
-				title : "设备数量(台)",
+				title : "故障率",
 				width : 100,
 				halign : "center",
 				align : "left"
 			},{
 				field : "useratio",
-				title : "设备利用率",
+				title : "故障维修率",
 				width : 100,
 				halign : "center",
-				align : "left",
-				formatter : function(value,row,index){
-					return value + "%";
-				}
+				align : "left"
+			},{
+				field : "rmoney",
+				title : "维护费用",
+				width : 100,
+				halign : "center",
+				align : "left"
+			},{
+				field : "mmoney",
+				title : "设备费用",
+				width : 100,
+				halign : "center",
+				align : "left"
 			}]]
 	 })
 }

@@ -98,6 +98,10 @@ function getUserInsframework(){
 	})
 }
 
+function openMaintenance(name){
+	addTab(name+"设备维修率","blocChart/goMaintenanceratio");
+}
+
 function openUseratio(name){
 	addTab(name+"设备利用率","blocChart/goUseratio");
 }

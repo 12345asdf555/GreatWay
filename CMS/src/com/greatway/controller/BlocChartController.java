@@ -153,6 +153,17 @@ public class BlocChartController {
 		lm.getUserId(request);
 		return "blocchart/useratio";
 	}
+
+	/**
+	 * 跳转设备维修率页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/goMaintenanceratio")
+	public String goMaintenanceratio(HttpServletRequest request){
+		lm.getUserId(request);
+		return "blocchart/maintenance";
+	}
 	
 	/**
 	 * 集团工时报表信息查询
@@ -1014,42 +1025,54 @@ public class BlocChartController {
 			int type = insm.getUserInsfType(uid);
 			BigInteger parent = insm.getUserInsfId(uid);
 			if(type==20){
+				Insframework userinsf = insm.getInsById(parent);
+				json.put("id", userinsf.getId());
+				json.put("name", userinsf.getName());
+				ary.add(json);
 				List<Insframework> company = insm.getConmpany(null);
 				for(Insframework c:company){
 					json.put("id", c.getId());
-					json.put("name", c.getName());
+					json.put("name", "&nbsp;&nbsp;&nbsp;"+c.getName());
 					ary.add(json);
 					List<Insframework> caust = insm.getCause(c.getId(), null);
 					for(Insframework ca:caust){
 						json.put("id", ca.getId());
-						json.put("name", "&nbsp;&nbsp;&nbsp;"+ca.getName());
+						json.put("name", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ca.getName());
 						ary.add(json);
 						List<Insframework> item = insm.getCause(ca.getId(), null);
 						for(Insframework i:item){
 							json.put("id", i.getId());
-							json.put("name", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+i.getName());
+							json.put("name", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+i.getName());
 							ary.add(json);
 						}
 					}
 				}
 			}else if(type==21){
+				Insframework userinsf = insm.getInsById(parent);
+				json.put("id", userinsf.getId());
+				json.put("name", userinsf.getName());
+				ary.add(json);
 				List<Insframework> caust = insm.getCause(parent, null);
 				for(Insframework ca:caust){
 					json.put("id", ca.getId());
-					json.put("name", ca.getName());
+					json.put("name", "&nbsp;&nbsp;&nbsp;"+ca.getName());
 					ary.add(json);
 					List<Insframework> item = insm.getCause(ca.getId(), null);
 					for(Insframework i:item){
 						json.put("id", i.getId());
-						json.put("name", "&nbsp;&nbsp;&nbsp;"+i.getName());
+						json.put("name", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+i.getName());
 						ary.add(json);
 					}
 				}
 			}else if(type==22){
+				Insframework userinsf = insm.getInsById(parent);
+				json.put("id", userinsf.getId());
+				json.put("name", userinsf.getName());
+				ary.add(json);
 				List<Insframework> item = insm.getCause(parent, null);
 				for(Insframework i:item){
 					json.put("id", i.getId());
-					json.put("name", i.getName());
+					json.put("name", "&nbsp;&nbsp;&nbsp;"+i.getName());
 					ary.add(json);
 				}
 			}else if(type==23){
@@ -1080,6 +1103,11 @@ public class BlocChartController {
 		return obj.toString();
 	}
 	
+	/**
+	 * 利用率
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/getUseratio")
 	@ResponseBody
 	public String getUseratio(HttpServletRequest request){
@@ -1115,7 +1143,25 @@ public class BlocChartController {
 			long t1 = sdf.parse(time1).getTime();
 			long t2 = sdf.parse(time2).getTime();
 			int days = (int)((t2-t1)/(1000*60*60*24));
-			if(flag==0){//公司层
+			if(flag==0){//集团层
+				for(Insframework c:caust){
+					double worktime = 0;
+					for(ModelDto i:list){
+						if(i.getFid().equals(c.getId())){
+							worktime += i.getWorktime();
+						}
+					}
+					double wt = (double)Math.round(worktime*100)/100;
+					int num = lm.getMachineCount(c.getId());
+					double useratio = (double)Math.round(wt/num/days*100*100)/100;
+					json.put("name", c.getName());
+					json.put("day", days);
+					json.put("time", wt);
+					json.put("num", num);
+					json.put("useratio", useratio);
+					ary.add(json);
+				}
+			}else if(flag==1){//公司层
 				for(Insframework c:caust){
 					double worktime = 0;
 					for(ModelDto i:list){
@@ -1133,7 +1179,7 @@ public class BlocChartController {
 					json.put("useratio", useratio);
 					ary.add(json);
 				}
-			}else if(flag==1){
+			}else if(flag==2){
 				for(Insframework c:caust){
 					double worktime = 0;
 					for(ModelDto i:list){
@@ -1151,7 +1197,7 @@ public class BlocChartController {
 					json.put("useratio", useratio);
 					ary.add(json);
 				}
-			}else if(flag==2){
+			}else if(flag==3){
 				boolean flags = false;
 				for(ModelDto i:list){
 					if(i.getItemid().equals(parent)){
@@ -1179,6 +1225,108 @@ public class BlocChartController {
 					}
 				}
 				total = 1;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("rows", ary);
+		obj.put("total", total);
+		return obj.toString();
+	}
+	
+	/**
+	 * 维修率
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getMaintenanceratio")
+	@ResponseBody
+	public String getMaintenanceratio(HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		String parentid = request.getParameter("parent");
+		String time1 = request.getParameter("time1");
+		String time2 = request.getParameter("time2");
+		int flag = Integer.parseInt(request.getParameter("flag"));
+		WeldDto dto = new WeldDto();
+		BigInteger parent = null;
+		List<ModelDto> list = null;
+		if(iutil.isNull(parentid)){
+			parent = new BigInteger(parentid);
+		}
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		if(iutil.isNull(request.getParameter("page")) && iutil.isNull(request.getParameter("rows"))){
+			pageIndex = Integer.parseInt(request.getParameter("page"));
+			pageSize = Integer.parseInt(request.getParameter("rows"));
+			page = new Page(pageIndex,pageSize,total);
+			list = lm.getMaintenanceratio(page, dto);
+		}else{
+			list = lm.getMaintenanceratio(dto);
+		}
+		long total = 0;
+		if(list!=null){
+			PageInfo<ModelDto> pageinfo = new PageInfo<ModelDto>(list);
+			total = pageinfo.getTotal();
+		}
+		try{
+			//获取所选组织机构的所有下级部门
+			List<Insframework> insf = insm.getCause(parent, null);
+			if(flag==0){//集团层
+				for(int j=0;j<insf.size();j++){
+					boolean flagnum = false;
+					int rmoney = 0, mmoney = 0, num = 0;
+					for(int i=0;i<list.size();i++){
+						if(list.get(i).getFid().equals(insf.get(j).getId())){
+							flagnum = true;
+							rmoney += list.get(i).getRmoney();
+							mmoney += list.get(i).getMmoney();
+							num += list.get(i).getTotal();
+						}
+					}
+					if(flagnum){
+						json.put("name",insf.get(j).getName());
+						json.put("total", num);
+						json.put("rmoney", rmoney);
+						json.put("mmoney", mmoney);
+						ary.add(json);
+					}
+				}
+			}else if(flag==1){//公司层
+				for(int i=0;i<list.size();i++){
+					if(list.get(i).getIid().equals(parent)){
+						json.put("name", list.get(i).getIname());
+						json.put("total", list.get(i).getTotal());
+						json.put("rmoney", list.get(i).getRmoney());
+						json.put("mmoney", list.get(i).getMmoney());
+						ary.add(json);
+					}
+				}
+			}else if(flag==2){
+				for(int i=0;i<list.size();i++){
+					if(list.get(i).getCaustid().equals(parent)){
+						json.put("name", list.get(i).getWname());
+						json.put("total", list.get(i).getTotal());
+						json.put("rmoney", list.get(i).getRmoney());
+						json.put("mmoney", list.get(i).getMmoney());
+						ary.add(json);
+					}
+				}
+			}else if(flag==3){
+				for(int i=0;i<list.size();i++){
+					if(list.get(i).getItemid().equals(parent)){
+						json.put("name", list.get(i).getWname());
+						json.put("total", list.get(i).getTotal());
+						json.put("rmoney", list.get(i).getRmoney());
+						json.put("mmoney", list.get(i).getMmoney());
+						ary.add(json);
+					}
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();

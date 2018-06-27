@@ -363,4 +363,20 @@ public class LiveDataManagerImpl implements LiveDataManager {
 		return live.getUseratio(time1, time2);
 	}
 
+	@Override
+	public List<ModelDto> getMaintenanceratio(Page page, WeldDto dto) {
+		PageHelper.startPage(page.getPageIndex(),page.getPageSize());
+		return live.getMaintenanceratio(dto);
+	}
+
+	@Override
+	public List<ModelDto> getMaintenanceratio(WeldDto dto) {
+		return live.getMaintenanceratio(dto);
+	}
+	
+	@Override
+	public ModelDto getSumMaintenance(WeldDto dto) {
+		return live.getSumMaintenance(dto);
+	}
+
 }
