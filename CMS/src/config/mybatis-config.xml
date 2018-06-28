@@ -45,6 +45,7 @@
 		<mapper resource="com/greatway/dao/insframework.xml" />
 		<mapper resource="com/greatway/dao/gather.xml"/>
 		<mapper resource="com/greatway/dao/livedata.xml"/>
+		<mapper resource="com/greatway/dao/fault.xml"/>
 	</mappers>
 
 </configuration>  

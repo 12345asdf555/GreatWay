@@ -56,7 +56,7 @@ public class WeldingMachineManagerImpl implements WeldingMachineManager {
 
 	@Override
 	public List<EquipmentManufacturer> getManuAll() {
-		return em.getmanuAll();
+		return em.getmanuAll(null);
 	}
 
 	@Override

@@ -297,6 +297,36 @@ $(function(){
 						}
 					},
 					message : '焊口编号已经被占用'
+				},
+				
+				manuValidate : {
+					validator : function(value, param){
+						if(flag){
+							var result = "";
+							var name = $("#oldname").val();
+							var typeid = $("#typeid").val();
+							var type = $("#type").combobox('getValue');
+							if(name==value && type==typeid){
+								return true;
+							}
+							$.ajax({
+								type : 'post',
+								async : false,
+								url : 'manufacturer/getManuCount',
+								data : {
+									"name" : value,
+									"type" : type
+								},
+								success : function(data){
+									result = data;
+								}
+							});
+							return result;
+						}else{
+							return true;
+						}
+					},
+					message : '该生产厂商+类型已经被占用'
 				}
 			})
 })

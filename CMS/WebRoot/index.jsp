@@ -65,14 +65,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li onclick="changeColor(this)"><a href="javascript:openRole()"><div><i class="iconfont icon-bijiben"></i>角色管理</div></a></li>
 			<li onclick="changeColor(this)"><a href="javascript:openAuthority()"><div><i class="iconfont icon-bijiben"></i>权限管理</div></a></li>
 			<li onclick="changeColor(this)"><a href="javascript:openResource()"><div><i class="iconfont icon-bijiben"></i>资源管理</div></a></li>
-			<li onclick="changeColor(this)"><a href="javascript:openWeldingMachine()"><div><i class="iconfont icon-bijiben"></i>焊机设备管理</div></a></li>
-		    <li onclick="changeColor(this)"><a href="javascript:openMachine()"><div><i class="iconfont icon-bijiben"></i>维修记录管理</div></a></li>
+	        <li  onclick="changeColor(this)"><a href="javascript:openDictionary()"><div><i class="iconfont icon-bijiben"></i>字典管理</div></a></li>
 	        <li onclick="changeColor(this)"><a href="javascript:openWedJunction()"><div><i class="iconfont icon-bijiben"></i>焊口管理</div></a></li>
 	        <li onclick="changeColor(this)"><a href="javascript:openWelder()"><div><i class="iconfont icon-bijiben"></i>焊工管理</div></a></li>
+			<li onclick="changeColor(this)"><a href="javascript:openWeldingMachine()"><div><i class="iconfont icon-bijiben"></i>焊机设备管理</div></a></li>
+		    <li onclick="changeColor(this)"><a href="javascript:openMachine()"><div><i class="iconfont icon-bijiben"></i>维修记录管理</div></a></li>
+		    <li onclick="changeColor(this)"><a href="javascript:openFault()"><div><i class="iconfont icon-bijiben"></i>故障代码管理</div></a></li>
+		    <li onclick="changeColor(this)"><a href="javascript:openManufacturer()"><div><i class="iconfont icon-bijiben"></i>生产厂商管理</div></a></li>
 	        <li onclick="changeColor(this)"><a href="javascript:openInsframework()"><div><i class="iconfont icon-bijiben"></i>组织机构管理</div></a></li>
-	        <li onclick="changeColor(this)"><a href="javascript:openGather()"><div><i class="iconfont icon-bijiben"></i>采集模块管理</div></a></li>
-	        <li  style="margin-bottom: 10px;" onclick="changeColor(this)"><a href="javascript:openDictionary()"><div><i class="iconfont icon-bijiben"></i>字典管理</div></a></li>
-        </ul>
+	        <li style="margin-bottom: 10px;" onclick="changeColor(this)"><a href="javascript:openGather()"><div><i class="iconfont icon-bijiben"></i>采集模块管理</div></a></li>
+	   	</ul>
     </div>
 	<!-- 集团 -->
 	<div id="bloc" >

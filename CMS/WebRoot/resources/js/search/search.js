@@ -5,6 +5,83 @@ var condition="";
 var content="";
 var joint = "";
 var flag = true;
+
+//生产厂商进入查询
+function insertSearchManufacturer(){
+	$("#searchdiv").dialog("open");
+	searchManuCombobox();
+	initSearch();
+}
+
+//生产厂商下拉框
+function searchManuCombobox(){
+	var optionFields = 
+		"<option value='fname'>生产厂商</option>" +
+		"<option value='fvaluename'>厂商类型</option>" +
+		"<option value='ftype_value'>厂商类型值</option>";
+	$(".fields").html(optionFields);
+	createSearchCombobox();
+}
+
+
+//新增生产厂商查询条件
+function newSearchManufacturer(){
+	fillcontent();
+	newSearch();
+	searchManuCombobox();
+	initSearch();
+}
+
+//生产厂商执行查询
+function searchManufacturer(){
+	fillcontent();
+	if(!getContent()){
+		return;
+	}
+	$('#dg').datagrid('load', {
+		"searchStr" : searchStr
+	});
+	$("#searchdiv").dialog("close");
+	searchStr="";
+}
+//故障代码进入查询
+function insertSearchFault(){
+	$("#searchdiv").dialog("open");
+	searchFaultCombobox();
+	initSearch();
+}
+
+//故障代码下拉框
+function searchFaultCombobox(){
+	var optionFields = 
+		"<option value='fcode'>故障代码</option>" +
+		"<option value='fvaluename'>故障类别</option>" +
+		"<option value='fdesc'>故障描述</option>";
+	$(".fields").html(optionFields);
+	createSearchCombobox();
+}
+
+
+//新增故障代码查询条件
+function newSearchFault(){
+	fillcontent();
+	newSearch();
+	searchFaultCombobox();
+	initSearch();
+}
+
+//故障代码执行查询
+function searchFault(){
+	fillcontent();
+	if(!getContent()){
+		return;
+	}
+	$('#dg').datagrid('load', {
+		"searchStr" : searchStr
+	});
+	$("#searchdiv").dialog("close");
+	searchStr="";
+}
 //工时分类进入查询
 function serachClassify(){
 	$("#searchdiv").dialog("open");

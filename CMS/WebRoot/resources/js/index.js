@@ -145,6 +145,14 @@ function openMachine(){
 	addTab("维修记录管理","maintain/goMaintain");
 }
 
+function openFault(){
+	addTab("故障代码管理","fault/goFault");
+}
+
+function openManufacturer(){
+	addTab("生产厂商管理","manufacturer/goManufacturer");
+}
+
 function openWedJunction(){
 	addTab("焊口列表","weldedjunction/goWeldedJunction");
 }
