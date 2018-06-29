@@ -74,7 +74,7 @@ public class WeldingMachineServiceImpl implements WeldingMachineService {
 	@Override
 	public List<EquipmentManufacturer> getManuAll() {
 		try{
-			return em.getmanuAll();
+			return em.getmanuAll(null);
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;

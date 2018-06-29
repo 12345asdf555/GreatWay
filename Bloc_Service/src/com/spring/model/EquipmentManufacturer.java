@@ -13,7 +13,14 @@ public class EquipmentManufacturer {
 	private String typeValue;
 	private String creator;
 	private String modifier;
+	private int typeid;
 	
+	public int getTypeid() {
+		return typeid;
+	}
+	public void setTypeid(int typeid) {
+		this.typeid = typeid;
+	}
 	public String getCreator() {
 		return creator;
 	}

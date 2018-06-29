@@ -155,15 +155,17 @@
     
     <select id="getUse" resultMap="dtoMap">
     	select * from(
-		select ins.fname,i.fid iid,i.fname iname,e.fid eid,e.fname wname,e.ftype type,sum(fworktime)/60/60 time from tb_work l 
+		select ins.fname,i.fid iid,i.fname iname,e.fid eid,e.fname wname,d.fvaluename type,sum(fworktime)/60/60 time from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid
+		inner join tb_dictionary d on d.fvalue = e.ftype
      	inner join tb_insframework i on i.fid = w.finsframework_id
      	inner join tb_insframework ins on ins.fid = i.fparent
 		where fstarttime &gt;= #{time} and fendtime &lt; date_sub(date_sub(#{time} ,interval -1 day),interval 0 minute)
 		group by e.fid,e.ftype
     	union 
-    	select ins.fname,i.fid iid,i.fname iname,m.fid eid,m.fname wname,m.ftype,0 time from tb_insframework i INNER JOIN tb_insframework ins on ins.fid = i.fparent,tb_equipment_manufacturer m WHERE i.ftype=23 and i.fid not in (select i.fid  from tb_work l 
+    	select ins.fname,i.fid iid,i.fname iname,m.fid eid,m.fname wname,d.fvaluename type,0 time from tb_insframework i INNER JOIN tb_insframework ins on ins.fid = i.fparent,
+    	tb_equipment_manufacturer m inner join tb_dictionary d on d.fvalue = m.ftype WHERE i.ftype=23 and i.fid not in (select i.fid  from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid
      	inner join tb_insframework i on i.fid = w.finsframework_id

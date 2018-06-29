@@ -1541,9 +1541,10 @@
 	<!-- 集团单台设备运行数据统计 -->
 	<select id="getBlocUse" resultMap="dtoMap">
 		select * from(
-		select sum(fworktime)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_work l 
+		select sum(fworktime)/60/60 time,e.fname fname,d.fvaluename type,e.fid fid from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
+		INNER JOIN tb_dictionary d on d.fvalue = e.ftype
 		where w.finsframework_id in 
 		(select i.fid from tb_insframework  i inner join  tb_insframework ins on ins.fid = i.fparent where ins.fparent=#{parent})
 		<if test="dto!=null and dto!=''">
@@ -1556,8 +1557,8 @@
 		</if>
 		group by  e.fid,e.ftype
 		union
-		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
-		where fid not in
+		select 0 time,fname ,d.fvaluename type,e.fid from tb_equipment_manufacturer e INNER JOIN tb_dictionary d on d.fvalue = e.ftype
+		where e.fid not in
 		(
 		select e.fid from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
@@ -1580,9 +1581,10 @@
 	<!-- 公司单台设备运行数据统计 -->
 	<select id="getCompanyUse" resultMap="dtoMap">
 		select * from(
-		select sum(fworktime)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_work l 
+		select sum(fworktime)/60/60 time,e.fname fname,d.fvaluename type,e.fid fid from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
+		INNER JOIN tb_dictionary d on d.fvalue = e.ftype
 		where w.finsframework_id in (select fid from tb_insframework where fparent=#{parent})
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -1594,8 +1596,8 @@
 		</if>
 		group by e.fid,e.ftype
 		union
-		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
-		where fid not in
+		select 0 time,fname ,d.fvaluename type,e.fid from tb_equipment_manufacturer e INNER JOIN tb_dictionary d on d.fvalue = e.ftype
+		where e.fid not in
 		(
 		select e.fid from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
@@ -1617,9 +1619,10 @@
 	<!-- 事业部单台设备运行数据统计 -->
 	<select id="getCaustUse" resultMap="dtoMap">
 		select * from(
-		select sum(fworktime)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_work l 
+		select sum(fworktime)/60/60 time,e.fname fname,d.fvaluename type,e.fid fid from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid 
+		INNER JOIN tb_dictionary d on d.fvalue = e.ftype
 		where w.finsframework_id =#{insid}
 		<if test="dto!=null and dto!=''">
 			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
@@ -1631,8 +1634,8 @@
 		</if>
 		group by e.fid,e.ftype
 		union
-		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
-		where fid not in
+		select 0 time,fname ,d.fvaluename type,e.fid from tb_equipment_manufacturer e INNER JOIN tb_dictionary d on d.fvalue = e.ftype
+		where e.fid not in
 		(
 		select e.fid from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
@@ -1653,9 +1656,10 @@
 	
 	<select id="getItemUse" resultMap="dtoMap">
 		select * from(
-		select sum(fworktime)/60/60 time,e.fname fname,e.ftype type,e.fid fid from tb_work l 
+		select sum(fworktime)/60/60 time,e.fname fname,d.fvaluename type,e.fid fid from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id
 		inner join tb_equipment_manufacturer e on w.fmanufacturer_id = e.fid  
+		INNER JOIN tb_dictionary d on d.fvalue = e.ftype
  		inner join  tb_insframework i on i.fid = w.finsframework_id  
  		inner join  tb_insframework ins on ins.fid = i.fparent 
  		inner join  tb_insframework insf on insf.fid = ins.fparent 
@@ -1670,8 +1674,8 @@
 		</if>
 		group by e.fid,e.ftype
 		union
-		select 0 time,fname ,ftype type,fid from tb_equipment_manufacturer
-		where fid not in
+		select 0 time,fname ,d.fvaluename type,e.fid from tb_equipment_manufacturer e INNER JOIN tb_dictionary d on d.fvalue = e.ftype
+		where e.fid not in
 		(
 		select e.fid from tb_work l 
 		inner join tb_welding_machine w on w.fid = l.fmachine_id

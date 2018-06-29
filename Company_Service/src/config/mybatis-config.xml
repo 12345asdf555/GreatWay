@@ -43,9 +43,9 @@
 		<mapper resource="com/spring/dao/tdMapper.xml" />
 		<mapper resource="com/spring/dao/livedata.xml" />
 		<mapper resource="com/spring/dao/weldMapper.xml" />
-		<mapper resource="com/spring/dao/chart.xml" />
 		<mapper resource="com/spring/dao/welder.xml" />
 		<mapper resource="com/spring/dao/weldedjunction.xml" />
+		<mapper resource="com/spring/dao/fault.xml" />
 	</mappers>
 
 </configuration>  
