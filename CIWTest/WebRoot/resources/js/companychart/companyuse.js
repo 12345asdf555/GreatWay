@@ -77,7 +77,7 @@ function showcompanyUseChart(){
 			{
 				name:'时长(h)',
 				type:'bar',
-	            barMaxWidth:50,//最大宽度
+	            barMaxWidth:20,//最大宽度
 				data:array2
 			}
 		]

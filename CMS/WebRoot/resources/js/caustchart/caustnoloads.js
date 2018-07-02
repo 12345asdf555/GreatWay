@@ -44,7 +44,10 @@ function showcaustNoLoadsChart(){
 		},
 		toolbox:{
 			feature:{
-				saveAsImage:{}//保存为图片
+				dataView : {show: true, readOnly: false},
+	            magicType : {show: true, type: ['line', 'bar']},
+	            restore : {show: true},
+	            saveAsImage : {show: true}//保存为图片
 			},
 			right:'2%'
 		},
@@ -95,6 +98,7 @@ function CaustnoloadsDatagrid(){
                      Series.push({
                    		name : result.arys1[m].name,
                    		type :'line',//折线图
+                        barMaxWidth:20,//柱状图最大宽度
                    		data : result.arys1[m].loads,
                    		itemStyle : {
                    			normal: {

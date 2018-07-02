@@ -35,6 +35,7 @@ function showItemEfficiencyChart(){
                        	Series.push({
                        		name : '工效(1:1)',
                        		type :'line',//折线图
+                            barMaxWidth:20,//柱状图最大宽度
                        		smooth: true,//是否平滑曲线显示
                        		data : result.ary[i].num2,
                        		itemStyle : {
@@ -85,7 +86,10 @@ function showItemEfficiencyChart(){
 		},
 		toolbox:{
 			feature:{
-				saveAsImage:{}//保存为图片
+				dataView : {show: true, readOnly: false},
+	            magicType : {show: true, type: ['line', 'bar']},
+	            restore : {show: true},
+	            saveAsImage : {show: true}//保存为图片
 			},
 			right:'2%'
 		},
@@ -168,7 +172,8 @@ function ItemEfficiencyDatagrid(){
 			title : '总达因值',
 			width : 150,
 			halign : "center",
-			align : "left"
+			align : "left",
+			hidden : true
 		}] ],
 		pagination : true
 	});

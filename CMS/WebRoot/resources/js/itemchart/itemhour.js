@@ -57,7 +57,10 @@ function showItemHourChart(){
 		},
 		toolbox:{
 			feature:{
-				saveAsImage:{}//保存为图片
+				dataView : {show: true, readOnly: false},
+	            magicType : {show: true, type: ['line', 'bar']},
+	            restore : {show: true},
+	            saveAsImage : {show: true}//保存为图片
 			},
 			right:'2%'
 		},
@@ -74,7 +77,7 @@ function showItemHourChart(){
 			{
 				name:'工时(s)',
 				type:'bar',
-	            barMaxWidth:50,//最大宽度
+	            barMaxWidth:20,//最大宽度
 				data:array2
 			}
 		]
@@ -137,7 +140,8 @@ function itemHourDatagrid(){
 			title : '达因',
 			width : 100,
 			halign : "center",
-			align : "left"
+			align : "left",
+			hidden : true
 		}, {
 			field : 'material',
 			title : '上游材质',

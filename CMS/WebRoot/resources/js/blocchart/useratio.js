@@ -1,6 +1,7 @@
 $(function(){
 	flagnum=1;
 	parentCombobox();
+	dgDatagrid();
 	dtoTime1 = $("#dtoTime1").datebox('getValue');  
 	dtoTime2 = $("#dtoTime2").datebox('getValue');
 	$("#dtoTime1").datebox({
@@ -17,6 +18,11 @@ $(function(){
 			}
 		}
 	})
+})
+
+
+$(document).ready(function(){
+	chart();
 })
 
 var type,flagnum,position;
@@ -100,12 +106,6 @@ var array1 = new Array();
 var array2 = new Array();
 var avg = 0;
 function showChart(){
-	var bootomnum,rotatenum;
-	if(position==0){
-		bootomnum=20,rotatenum=0;
-	}else{
-		bootomnum=70,rotatenum=50;
-	}
 	setParam();
 	 $.ajax({  
         type : "post",  
@@ -125,6 +125,16 @@ function showChart(){
             alert("请求数据失败啦,请联系系统管理员!");  
         }  
    }); 
+	 chart();
+}
+
+function chart(){
+	var bootomnum,rotatenum;
+	if(position==0){
+		bootomnum=20,rotatenum=0;
+	}else{
+		bootomnum=70,rotatenum=50;
+	}
    	//初始化echart实例
 	charts = echarts.init(document.getElementById("charts"));
 	//显示加载动画效果
@@ -147,7 +157,10 @@ function showChart(){
 		},
 		toolbox:{
 			feature:{
-				saveAsImage:{}//保存为图片
+				dataView : {show: true, readOnly: false},
+	            magicType : {show: true, type: ['line', 'bar']},
+	            restore : {show: true},
+	            saveAsImage : {show: true}//保存为图片
 			},
 			right:'2%'
 		},
@@ -169,7 +182,7 @@ function showChart(){
 		series:[{
 			name:'设备利用率',
 			type:'bar',
-            barMaxWidth:50,//最大宽度
+            barMaxWidth:20,//最大宽度
 			data:array2
 		}]
 	}

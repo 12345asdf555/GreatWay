@@ -77,7 +77,7 @@ function showCompanyHourChart(){
 			{
 				name:'工时(s)',
 				type:'bar',
-	            barMaxWidth:50,//最大宽度
+	            barMaxWidth:20,//最大宽度
 				data:array2
 			}
 		]

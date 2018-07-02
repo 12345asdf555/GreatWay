@@ -83,7 +83,7 @@ function showMachine(status,id){
 		series:[{
      		name :'焊机工时(h)',
      		type :'bar',//柱状图
-            barMaxWidth:50,//最大宽度
+            barMaxWidth:20,//最大宽度
      		data :array2
 		},{
      		name :'焊机工时(h)',
@@ -173,7 +173,7 @@ function showWelder(status,id){
 		series:[{
      		name :'焊工工时(h)',
      		type :'bar',//柱状图
-            barMaxWidth:50,//最大宽度
+            barMaxWidth:20,//最大宽度
      		data :array2
 		},{
      		name :'焊工工时(h)',

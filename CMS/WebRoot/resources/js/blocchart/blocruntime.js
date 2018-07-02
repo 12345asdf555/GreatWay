@@ -63,7 +63,10 @@ function showChart(){
 		},
 		toolbox:{
 			feature:{
-				saveAsImage:{}//保存为图片
+				dataView : {show: true, readOnly: false},
+	            magicType : {show: true, type: ['line', 'bar']},
+	            restore : {show: true},
+	            saveAsImage : {show: true}//保存为图片
 			},
 			right:'2%'
 		},
@@ -80,7 +83,7 @@ function showChart(){
 		series:[{
 			name:'运行时长(h)',
 			type:'bar',
-            barMaxWidth:50,//最大宽度
+            barMaxWidth:20,//最大宽度
             markLine: {
                 data: [
                     {yAxis: avg, name: '平均时长'}
