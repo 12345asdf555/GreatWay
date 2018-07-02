@@ -1231,7 +1231,7 @@
 	<select id="getDetailNoLoads" resultMap="dtoMap">
 		SELECT * 
 		FROM (
-		SELECT SUM(fstandbytime) AS loads,fstarttime weldTime,i.fname,i.fid,fmachine_id
+		SELECT SUM(fstandbytime) AS loads,fstarttime weldTime,i.fname,i.fid,fequipment_no fmachine_id
 		FROM tb_standby l
         INNER JOIN tb_insframework i ON l.fitemid = i.fid 
 		LEFT JOIN tb_welding_machine m ON m.fid = l.fmachine_id

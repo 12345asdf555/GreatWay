@@ -5,7 +5,7 @@ function removeManufacturer(){
 			$.ajax({  
 		        type : "post",  
 		        async : false,
-		        url : "manufacturer/removeManufacturer?id="+id,  
+		        url : "manufacturer/removeManufacturer?id="+id+"&uid="+$("#creator").val(),  
 		        data : {},  
 		        dataType : "json", //返回数据形式为json  
 		        success : function(result) {

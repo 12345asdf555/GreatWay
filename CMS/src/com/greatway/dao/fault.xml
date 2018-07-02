@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="getFaultById" resultMap="faultMap">
-		SELECT f.fid,fcode,fdesc,ftype,d.fvaluename FROM tb_fault_code f INNER JOIN tb_dictionary d on d.fvalue = f.ftype where ftypeid = 7 and f.fid = #{id}
+		SELECT f.fid,fcode,fdesc,ftype,d.fvaluename,f.fcreator FROM tb_fault_code f INNER JOIN tb_dictionary d on d.fvalue = f.ftype where ftypeid = 7 and f.fid = #{id}
 	</select>
 	
 	<insert id="addFault" parameterType="com.greatway.model.Fault" useGeneratedKeys="true" keyProperty="id">

@@ -65,6 +65,7 @@ public class FaultServiceImpl implements FaultService {
 				obj.put("CODE",jutil.setValue(list.getCode()));
 				obj.put("TYPEID",jutil.setValue(list.getType()));
 				obj.put("TYPENAME",jutil.setValue(list.getValuename()));
+				obj.put("CREATOR",jutil.setValue(list.getCreator()));
 				obj.put("DESC",jutil.setValue(list.getDesc()));
 			}
 			return JSON.toJSONString(obj);
@@ -87,14 +88,12 @@ public class FaultServiceImpl implements FaultService {
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			BigInteger id = new BigInteger(blocobj[0].toString());
 			JSONObject json = JSONObject.fromObject(obj2);
-			//获取层级id
-			String hierarchy = json.getString("HIERARCHY");
 			String itemurl = "";
-			if(hierarchy.equals("4")){
-				itemurl = json.getString("ITEMURL");
-			}else{
+			boolean exists = false;
+			if(json.getString("INSFID")!=null && !"".equals(json.getString("INSFID"))){
 				BigInteger insfid = new BigInteger(json.getString("INSFID"));
 				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+				exists = true;
 			}
 			Fault f = new Fault();
 			f.setId(id);
@@ -105,17 +104,21 @@ public class FaultServiceImpl implements FaultService {
 			boolean flag = fm.addFault(f);
 			String result = "false";
 			if(flag){
-				//向项目执行插入
-				if(itemurl!=null && !"".equals(itemurl)){
-					Client itemclient = dcf.createClient(itemurl);
-					jutil.Authority(itemclient);
-					obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
-					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-					result = itemobj[0].toString();
+				//为项目时向项目执行插入
+				if(exists){
+					if(itemurl!=null && !"".equals(itemurl)){
+						Client itemclient = dcf.createClient(itemurl);
+						jutil.Authority(itemclient);
+						obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
+						Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+						result = itemobj[0].toString();
+					}else{
+						return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					}
+					return result;
 				}else{
-					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					return true;
 				}
-				return result;
 			}else{
 				return false;
 			}
@@ -138,14 +141,12 @@ public class FaultServiceImpl implements FaultService {
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
-			//获取层级id
-			String hierarchy = json.getString("HIERARCHY");
 			String itemurl = "";
-			if(hierarchy.equals("4")){
-				itemurl = json.getString("ITEMURL");
-			}else{
+			boolean exists = false;
+			if(json.getString("INSFID")!=null && !"".equals(json.getString("INSFID"))){
 				BigInteger insfid = new BigInteger(json.getString("INSFID"));
 				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+				exists = true;
 			}
 			Fault f = new Fault();
 			f.setId(new BigInteger(json.getString("ID")));
@@ -156,15 +157,19 @@ public class FaultServiceImpl implements FaultService {
 			boolean flag = fm.editFault(f);
 			String result = "false";
 			if(flag && blocResult.equals("true")){
-				if(itemurl!=null && !"".equals(itemurl)){//向项目执行操作
-					Client itemclient = dcf.createClient(itemurl);
-					jutil.Authority(itemclient);
-					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-					result = itemobj[0].toString();
+				if(exists){
+					if(itemurl!=null && !"".equals(itemurl)){//向项目执行操作
+						Client itemclient = dcf.createClient(itemurl);
+						jutil.Authority(itemclient);
+						Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+						result = itemobj[0].toString();
+					}else{
+						return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					}
+					return result;
 				}else{
-					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					return true;
 				}
-				return result;
 			}else{
 				return false;
 			}
@@ -187,28 +192,30 @@ public class FaultServiceImpl implements FaultService {
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
-			//获取层级id
-			String hierarchy = json.getString("HIERARCHY");
 			String itemurl = "";
-			if(hierarchy.equals("4")){
-				itemurl = json.getString("ITEMURL");
-			}else{
+			boolean exists = false;
+			if(json.getString("INSFID")!=null && !"".equals(json.getString("INSFID"))){
 				BigInteger insfid = new BigInteger(json.getString("INSFID"));
 				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+				exists = true;
 			}
 			boolean flag = fm.deleteFault(new BigInteger(json.getString("ID")));
 			String result = "false";
 			if(flag &&  blocResult.equals("true")){
-				if(itemurl!=null && !"".equals(itemurl)){
-					//向项目执行操作
-					Client itemclient = dcf.createClient(itemurl);
-					jutil.Authority(itemclient);
-					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-					result = itemobj[0].toString();
+				if(exists){
+					if(itemurl!=null && !"".equals(itemurl)){
+						//向项目执行操作
+						Client itemclient = dcf.createClient(itemurl);
+						jutil.Authority(itemclient);
+						Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+						result = itemobj[0].toString();
+					}else{
+						return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					}
+					return result;
 				}else{
-					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					return true;
 				}
-				return result;
 			}else{
 				return false;
 			}

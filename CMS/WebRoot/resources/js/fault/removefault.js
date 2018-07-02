@@ -5,7 +5,7 @@ function removeFault(){
 			$.ajax({  
 		        type : "post",  
 		        async : false,
-		        url : "fault/removeFault?id="+id,  
+		        url : "fault/removeFault?id="+id+"&uid="+$("#creator").val(),  
 		        data : {},  
 		        dataType : "json", //返回数据形式为json  
 		        success : function(result) {

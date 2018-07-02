@@ -80,6 +80,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 				obj.put("TYPEID",jutil.setValue(list.getTypeid()));
 				obj.put("TYPENAME",jutil.setValue(list.getType()));
 				obj.put("TYPEVALUE",jutil.setValue(list.getTypeValue()));
+				obj.put("CREATOR",jutil.setValue(list.getCreator()));
 			}
 			return JSON.toJSONString(obj);
 		}catch(Exception e){

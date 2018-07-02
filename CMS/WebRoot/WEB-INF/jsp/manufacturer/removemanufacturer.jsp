@@ -38,6 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>生产厂商</lable>
 					<input type="hidden" id="id"  value="${m.id }">
+					<input type="hidden" id="creator"  name="creator" value="${m.creator }">
 					<input class="easyui-textbox"  id="name"  value="${m.name }" readonly="readonly"/>
 				</div>
 				<div class="fitem">

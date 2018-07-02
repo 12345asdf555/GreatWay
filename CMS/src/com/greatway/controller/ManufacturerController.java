@@ -4,7 +4,10 @@ import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.namespace.QName;
 
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,10 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.greatway.manager.DictionaryManager;
+import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.ManufacturerManager;
 import com.greatway.model.Dictionarys;
 import com.greatway.model.EquipmentManufacturer;
+import com.greatway.model.Insframework;
 import com.greatway.page.Page;
+import com.greatway.util.IsnullUtil;
 import com.spring.model.MyUser;
 
 import net.sf.json.JSONArray;
@@ -37,6 +43,11 @@ public class ManufacturerController {
 
 	@Autowired
 	private DictionaryManager dm;
+
+	@Autowired
+	private InsframeworkManager im;
+	
+	private IsnullUtil iutil = new IsnullUtil();
 	
 	@RequestMapping("/goManufacturer")
 	public String goManufacturer(){
@@ -97,14 +108,51 @@ public class ManufacturerController {
 	public String addManufacturer(HttpServletRequest request,@ModelAttribute("manufacturer") EquipmentManufacturer manufacturer){
 		JSONObject obj = new JSONObject();
 		try{
+			//当前层级
+			String hierarchy = request.getSession().getServletContext().getInitParameter("hierarchy");
 			//获取当前用户
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			manufacturer.setCreator(myuser.getId()+"");
-			mm.addManu(manufacturer);
-			obj.put("success", true);
+			BigInteger insfid = im.getUserInsfId(new BigInteger(myuser.getId()+""));
+			int type = im.getUserInsfType(new BigInteger(myuser.getId()+""));
+			String url = "",method = "enterTheIDU",itemid="";
+			if(hierarchy.equals("1")){
+				url = request.getSession().getServletContext().getInitParameter("blocurl");
+				method = "enterTheWS";
+			}else{
+				if(type==23){
+					itemid = insfid.toString();
+					Insframework ins = im.getParent(insfid);
+					Insframework companyid = im.getParent(ins.getId());
+					url = request.getSession().getServletContext().getInitParameter(companyid.getId().toString());
+				}else{
+					url = request.getSession().getServletContext().getInitParameter("companyurl");
+				}
+			}
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(url);
+			iutil.Authority(client);
+			String obj1 = "{\"CLASSNAME\":\"manuWebServiceImpl\",\"METHOD\":\"addManu\"}";
+			String obj2 = "{\"NAME\":\""+manufacturer.getName()+"\",\"TYPEID\":\""+manufacturer.getType()+"\",\"TYPEVALUE\":\""+manufacturer.getTypeValue()+"\",\"CREATOR\":\"1\",\"INSFID\":\""+itemid+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", method), new Object[]{obj1,obj2});  
+			if(method.equals("enterTheWS")){
+				//集团层返回的是id
+				if(objects[0].toString()!=null && !"".equals(objects[0].toString())){
+					obj.put("success", true);
+				}
+			}else{
+				if(objects[0].toString().equals("true")){
+					obj.put("success", true);
+				}else if(!objects[0].toString().equals("false")){
+					obj.put("success", true);
+					obj.put("msg", objects[0].toString());
+				}else{
+					obj.put("success", false);
+					obj.put("errorMsg", "操作失败！");
+				}
+			}
 		}catch(Exception e){
-			e.printStackTrace();
 			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
 		}
@@ -116,12 +164,37 @@ public class ManufacturerController {
 	public String editManufacturer(HttpServletRequest request,@ModelAttribute("manufacturer") EquipmentManufacturer manufacturer){
 		JSONObject obj = new JSONObject();
 		try{
-			//获取当前用户
-			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			MyUser myuser = (MyUser)object;
-			manufacturer.setModifier(myuser.getId()+"");
-			mm.editManu(manufacturer);
-			obj.put("success", true);
+			//获取创建者信息
+			BigInteger insfid = im.getUserInsfId(new BigInteger(manufacturer.getCreator()));
+			int type = im.getUserInsfType(new BigInteger(manufacturer.getCreator()));
+			String url = "",method = "enterTheIDU",itemid="";
+			if(type==20){
+				url = request.getSession().getServletContext().getInitParameter("blocurl");
+				method = "enterTheWS";
+			}else if(type==23){
+				itemid = insfid.toString();
+				Insframework ins = im.getParent(insfid);
+				Insframework companyid = im.getParent(ins.getId());
+				url = request.getSession().getServletContext().getInitParameter(companyid.getId().toString());
+			}else{
+				url = request.getSession().getServletContext().getInitParameter("companyurl");
+			}
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(url);
+			iutil.Authority(client);
+			String obj1 = "{\"CLASSNAME\":\"manuWebServiceImpl\",\"METHOD\":\"editManu\"}";
+			String obj2 = "{\"ID\":\""+manufacturer.getId()+"\",\"NAME\":\""+manufacturer.getName()+"\",\"TYPEID\":\""+manufacturer.getType()+"\",\"TYPEVALUE\":\""+manufacturer.getTypeValue()+"\",\"MODIFIER\":\"1\",\"HIERARCHY\":\""+manufacturer.getId()+"\",\"INSFID\":\""+itemid+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", method), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else if(!objects[0].toString().equals("false")){
+				obj.put("success", true);
+				obj.put("msg", objects[0].toString());
+			}else{
+				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			obj.put("success", false);
@@ -135,11 +208,40 @@ public class ManufacturerController {
 	public String removeManufacturer(HttpServletRequest request,@RequestParam String id){
 		JSONObject obj = new JSONObject();
 		try{
-			mm.deleteManu(new BigInteger(id));
-			obj.put("success", true);
+			//获取创建者信息
+			String uid = request.getParameter("uid");
+			BigInteger insfid = im.getUserInsfId(new BigInteger(uid));
+			int type = im.getUserInsfType(new BigInteger(uid));
+			String url = "",method = "enterTheIDU",itemid="";
+			if(type==20){
+				url = request.getSession().getServletContext().getInitParameter("blocurl");
+				method = "enterTheWS";
+			}else if(type==23){
+				itemid = insfid.toString();
+				Insframework ins = im.getParent(insfid);
+				Insframework companyid = im.getParent(ins.getId());
+				url = request.getSession().getServletContext().getInitParameter(companyid.getId().toString());
+			}else{
+				url = request.getSession().getServletContext().getInitParameter("companyurl");
+			}
+			//客户端执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client client = dcf.createClient(url);
+			iutil.Authority(client);
+			String obj1 = "{\"CLASSNAME\":\"manuWebServiceImpl\",\"METHOD\":\"deleteManu\"}";
+			String obj2 = "{\"ID\":\""+id+"\",\"INSFID\":\""+itemid+"\"}";
+			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", method), new Object[]{obj1,obj2});  
+			if(objects[0].toString().equals("true")){
+				obj.put("success", true);
+			}else if(!objects[0].toString().equals("false")){
+				obj.put("success", true);
+				obj.put("msg", objects[0].toString());
+			}else{
+				obj.put("success", false);
+				obj.put("errorMsg", "操作失败！");
+			}
 		}catch(Exception e){
-			e.printStackTrace();
-			obj.put("success", false);
+			obj.put("success", true);
 			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();

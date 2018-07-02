@@ -39,6 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>生产厂商</lable>
 					<input type="hidden" id="id"  name="id" value="${m.id }">
 					<input type="hidden" id="oldname"  value="${m.name }">
+					<input type="hidden" id="creator"  name="creator" value="${m.creator }">
 					<input class="easyui-textbox" name="name" id="name"  value="${m.name }" data-options="validType:['manuValidate'],required:true"/>
 				</div>
 				<div class="fitem">

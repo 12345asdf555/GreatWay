@@ -30,7 +30,7 @@
 	</select>
 	
 	<select id="getManuById" resultMap="mMap">
-		SELECT m.fid, fname,d.fvaluename ftype,ftype typeid, ftype_value FROM tb_equipment_manufacturer m INNER JOIN tb_dictionary d on d.fvalue = m.ftype where d.ftypeid=4 and m.fid = #{id}
+		SELECT m.fid, fname,d.fvaluename ftype,ftype typeid, ftype_value,m.fcreator FROM tb_equipment_manufacturer m INNER JOIN tb_dictionary d on d.fvalue = m.ftype where d.ftypeid=4 and m.fid = #{id}
 	</select>
 	
 	<insert id="addManu" parameterType="com.spring.model.EquipmentManufacturer">

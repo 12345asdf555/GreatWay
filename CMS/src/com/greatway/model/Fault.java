@@ -5,7 +5,7 @@ import java.math.BigInteger;
 public class Fault {
 	private BigInteger id;
 	private String code;
-	private String type;
+	private int type;
 	private String desc;
 	private String creator;
 	private String modifier;
@@ -29,10 +29,10 @@ public class Fault {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getType() {
+	public int getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	public String getDesc() {

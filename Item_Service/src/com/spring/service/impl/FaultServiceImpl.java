@@ -58,6 +58,7 @@ public class FaultServiceImpl implements FaultService {
 				obj.put("TYPEID",jutil.setValue(list.getType()));
 				obj.put("TYPENAME",jutil.setValue(list.getValuename()));
 				obj.put("DESC",jutil.setValue(list.getDesc()));
+				obj.put("CREATOR",jutil.setValue(list.getCreator()));
 			}
 			return JSON.toJSONString(obj);
 		}catch(Exception e){

@@ -88,6 +88,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 				obj.put("TYPEID",jutil.setValue(list.getTypeid()));
 				obj.put("TYPENAME",jutil.setValue(list.getType()));
 				obj.put("TYPEVALUE",jutil.setValue(list.getTypeValue()));
+				obj.put("CREATOR",jutil.setValue(list.getCreator()));
 			}
 			return JSON.toJSONString(obj);
 		}catch(Exception e){
@@ -109,14 +110,12 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
 			BigInteger id = new BigInteger(blocobj[0].toString());
 			JSONObject json = JSONObject.fromObject(obj2);
-			//获取层级id
-			String hierarchy = json.getString("HIERARCHY");
 			String itemurl = "";
-			if(hierarchy.equals("4")){
-				itemurl = json.getString("ITEMURL");
-			}else{
+			boolean exists = false;
+			if(json.getString("INSFID")!=null && !"".equals(json.getString("INSFID"))){
 				BigInteger insfid = new BigInteger(json.getString("INSFID"));
 				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+				exists = true;
 			}
 			EquipmentManufacturer e = new EquipmentManufacturer();
 			e.setId(id);
@@ -127,17 +126,21 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 			boolean flag = em.addManu(e);
 			String result = "false";
 			if(flag){
-				//向项目执行插入
-				if(itemurl!=null && !"".equals(itemurl)){
-					Client itemclient = dcf.createClient(itemurl);
-					jutil.Authority(itemclient);
-					obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
-					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-					result = itemobj[0].toString();
+				if(exists){
+					//向项目执行插入
+					if(itemurl!=null && !"".equals(itemurl)){
+						Client itemclient = dcf.createClient(itemurl);
+						jutil.Authority(itemclient);
+						obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
+						Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+						result = itemobj[0].toString();
+					}else{
+						return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					}
+					return result;
 				}else{
-					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					return true;
 				}
-				return result;
 			}else{
 				return false;
 			}
@@ -160,14 +163,12 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
-			//获取层级id
-			String hierarchy = json.getString("HIERARCHY");
 			String itemurl = "";
-			if(hierarchy.equals("4")){
-				itemurl = json.getString("ITEMURL");
-			}else{
+			boolean exists = false;
+			if(json.getString("INSFID")!=null && !"".equals(json.getString("INSFID"))){
 				BigInteger insfid = new BigInteger(json.getString("INSFID"));
 				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+				exists = true;
 			}
 			EquipmentManufacturer e = new EquipmentManufacturer();
 			e.setId(new BigInteger(json.getString("ID")));
@@ -178,15 +179,19 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 			boolean flag = em.editManu(e);
 			String result = "false";
 			if(flag && blocResult.equals("true")){
-				if(itemurl!=null && !"".equals(itemurl)){//向项目执行操作
-					Client itemclient = dcf.createClient(itemurl);
-					jutil.Authority(itemclient);
-					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-					result = itemobj[0].toString();
+				if(exists){
+					if(itemurl!=null && !"".equals(itemurl)){//向项目执行操作
+						Client itemclient = dcf.createClient(itemurl);
+						jutil.Authority(itemclient);
+						Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+						result = itemobj[0].toString();
+					}else{
+						return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					}
+					return result;
 				}else{
-					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					return true;
 				}
-				return result;
 			}else{
 				return false;
 			}
@@ -209,28 +214,30 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});  
 			String blocResult = blocobj[0].toString();
 			JSONObject json = JSONObject.fromObject(obj2);
-			//获取层级id
-			String hierarchy = json.getString("HIERARCHY");
 			String itemurl = "";
-			if(hierarchy.equals("4")){
-				itemurl = json.getString("ITEMURL");
-			}else{
+			boolean exists = false;
+			if(json.getString("INSFID")!=null && !"".equals(json.getString("INSFID"))){
 				BigInteger insfid = new BigInteger(json.getString("INSFID"));
 				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+				exists = true;
 			}
 			boolean flag = em.deleteManu(new BigInteger(json.getString("ID")));
 			String result = "false";
 			if(flag &&  blocResult.equals("true")){
-				if(itemurl!=null && !"".equals(itemurl)){
-					//向项目执行操作
-					Client itemclient = dcf.createClient(itemurl);
-					jutil.Authority(itemclient);
-					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-					result = itemobj[0].toString();
+				if(exists){
+					if(itemurl!=null && !"".equals(itemurl)){
+						//向项目执行操作
+						Client itemclient = dcf.createClient(itemurl);
+						jutil.Authority(itemclient);
+						Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+						result = itemobj[0].toString();
+					}else{
+						return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					}
+					return result;
 				}else{
-					return "未找到该项目部，请检查网络连接情况或是否部署服务";
+					return true;
 				}
-				return result;
 			}else{
 				return false;
 			}
