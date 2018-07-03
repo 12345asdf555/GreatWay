@@ -132,7 +132,7 @@ function insertSearchInsf(){
 //组织机构下拉框
 function searchInsfCombobox(){
 	var optionFields = 
-		"<option value='fname'>名称</option>" +
+		"<option value='i.fname'>名称</option>" +
 		"<option value='flogogram'>简写</option>" +
 		"<option value='fcode'>编码</option>" +
 		"<option value='fparent'>上级项目</option>" +
@@ -157,7 +157,8 @@ function searchInsf(){
 		return;
 	}
 	$('#insframeworkTable').datagrid('load', {
-		"searchStr" : searchStr
+		"searchStr" : searchStr,
+		"parent" : $("#treeid").val()
 	});
 	$("#searchdiv").dialog("close");
 	searchStr="";
@@ -181,6 +182,7 @@ function insertSearchGather(){
 function searchGatherCombobox(){
 	var optionFields = 
 		"<option value='fgather_no'>采集模块编号</option>" +
+		"<option value='i.fname'>所属项目</option>" +
 		"<option value='fstatus'>采集模块状态</option>" +
 		"<option value='fprotocol'>采集模块通讯协议</option>" +
 		"<option value='fipurl'>采集模块IP地址</option>" +
@@ -205,7 +207,8 @@ function searchGather(){
 		return;
 	}
 	$('#gatherTable').datagrid('load', {
-		"searchStr" : searchStr
+		"searchStr" : searchStr,
+		"parent" : $("#treeid").val()
 	});
 	$("#searchdiv").dialog("close");
 	searchStr="";
@@ -280,7 +283,8 @@ function searchWeldingmachine(){
 		}
 	}
 	$('#weldingmachineTable').datagrid('load', {
-		"searchStr" : searchStr
+		"searchStr" : searchStr,
+		"parent" : $("#treeid").val()
 	});
 	$("#searchdiv").dialog("close");
 	searchStr = "";
@@ -322,7 +326,8 @@ function searchMaintain(){
 		return;
 	}
 	$('#maintainTable').datagrid('load', {
-		"searchStr" : searchStr
+		"searchStr" : searchStr,
+		"parent" : $("#treeid").val()
 	});
 	$("#searchdiv").dialog("close");
 	searchStr="";

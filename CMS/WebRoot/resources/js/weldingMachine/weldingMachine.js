@@ -257,6 +257,7 @@ function insframeworkTree(){
 			$("#weldingmachineTable").datagrid('load',{
 				"parent" : node.id
 			})
+			$("#treeid").val(node.id);
 		 }
 	})
 }

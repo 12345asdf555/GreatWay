@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body  class="easyui-layout">
   	<jsp:include  page="../insframeworktree.jsp"/>
   	<div id="body" region="center"  hide="true"  split="true" title="采集模块管理" style="background: witch; height: 335px;">
-	  	
+	  	<input type="hidden" id="treeid"/>
 	  	<div id="gather_btn">
 			<div style="margin-bottom: 5px;">
 				<a href="gather/goaddGather" class="easyui-linkbutton" iconCls="icon-add">新增</a>

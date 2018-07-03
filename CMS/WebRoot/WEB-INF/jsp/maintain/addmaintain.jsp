@@ -34,9 +34,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">新增维修记录</div>
-				<div class="fitem">
+				<div class="fitem" style="margin-left: -60px;">
 					<lable>固定资产编号</lable>
-					<select class="easyui-combobox" name="equipmentNo" id="equipmentNo" data-options="required:true,editable:false"></select>
+					<input type="hidden" id="machineid" name="machineid"/>
+					<input class="easyui-textbox" id="machineno" data-options="required:true" readonly="readonly"/>
+<!-- 					<select class="easyui-combobox" name="equipmentNo" id="equipmentNo" data-options="required:true,editable:false"></select> -->
+					<a href="javascript:selectMachine();" class="easyui-linkbutton">选择</a>
 				</div>
 				<div class="fitem">
 					<lable>维修类型</lable>
@@ -60,13 +63,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>维修说明</lable>
-					<textarea name="desc" id="desc" style="height:40px;width:150px"></textarea>
+					<textarea name="desc" id="desc" style="height:60px;width:150px"></textarea>
 				</div>
 				<div class="weldbutton">
 					<a href="javascript:addMaintain();" class="easyui-linkbutton"	iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="maintain/goMaintain" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 				</div>
 			</form>
+		</div>
+	    <!-- 选择焊机 -->
+		<div id="dlg" class="easyui-dialog" style="width: 700px; height: 530px;backgroud:#fff;" title="选择焊机" closed="true" buttons="#dlg-buttons">
+			<div id="dlgSearch">
+				<input class="easyui-textbox" id="searchname"/>
+				<a href="javascript:dlgSearchMachine();" class="easyui-linkbutton" iconCls="icon-search">保存</a>
+			</div>
+	    	<table id="weldingmachineTable" style="table-layout: fixed; width:100%;"></table>
+		</div>
+		<div id="dlg-buttons">
+			<a href="javascript:saveWeldingMachine();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+			<a href="javascript:$('#dlg').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel" >取消</a>
 		</div>
 	</div>
   </body>

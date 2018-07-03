@@ -284,7 +284,7 @@ public class JunctionChartController {
 		String time1 = request.getParameter("time1");
 		String time2 = request.getParameter("time2");
 		WeldDto dto = new WeldDto();
-		dto.setTime("%"+weldtime+"%");
+		dto.setTime(weldtime+"%");
 		if(iutil.isNull(time1)){
 			dto.setDtoTime1(time1);
 		}
@@ -308,6 +308,7 @@ public class JunctionChartController {
 				json.put("welderno",l.getFwelder_id());
 				json.put("machineno",l.getFmachine_id());
 				json.put("wname",l.getWname());
+				json.put("worktime", (double)Math.round(l.getWorktime()*100)/100);
 				ary.add(json);
 			}
 		}catch(Exception e){

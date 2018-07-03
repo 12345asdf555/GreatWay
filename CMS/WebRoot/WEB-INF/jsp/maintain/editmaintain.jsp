@@ -37,9 +37,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>固定资产编号</lable>
 					<input class="easyui-textbox" id="mid" value="${wm.maintenance.id }"/>
-					<input class="easyui-textbox" id="wid" value="${wm.welding.id }"/>
+					<input type="hidden" id="wid" value="${wm.welding.id }"/>
 					<input type="hidden" id="insfid" value="${insfid }"/>
-					<select class="easyui-combobox" name="equipmentNo" id="equipmentNo" readonly="readonly"></select>
+<!-- 					<select class="easyui-combobox" name="equipmentNo" id="equipmentNo" readonly="readonly"></select> -->
+					<input class="easyui-textbox" name="equipmentNo" id="equipmentNo" value="${wm.welding.equipmentNo }" readonly="readonly">
 				</div>
 				<div class="fitem">
 					<lable>维修类型</lable>
@@ -64,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>维修说明</lable>
-					<textarea name="desc" id="desc" style="height:40px;width:150px">${wm.maintenance.desc }</textarea>
+					<textarea name="desc" id="desc" style="height:60px;width:150px">${wm.maintenance.desc }</textarea>
 				</div>
 				<div class="weldbutton">
 					<a href="javascript:editMaintain();" class="easyui-linkbutton"	iconCls="icon-ok">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

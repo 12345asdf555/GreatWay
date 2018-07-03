@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="fitem">
 				<lable>维修说明</lable>
-				<input class="easyui-textbox" id="desc" readonly="readonly" value="${m.maintenance.desc }"/>
+				<textarea name="desc" id="desc" style="height:60px;width:150px" readonly="readonly">${m.maintenance.desc }</textarea>
 			</div>
 			<div class="weldbutton">
 				<a href="javascript:removeMaintain();" class="easyui-linkbutton"	iconCls="icon-remove">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

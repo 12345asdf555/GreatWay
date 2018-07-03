@@ -146,6 +146,7 @@ function insframeworkTree(){
 			$("#gatherTable").datagrid('load',{
 				"parent" : node.id
 			})
+			$("#treeid").val(node.id);
 		 }
 	})
 }

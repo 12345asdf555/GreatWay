@@ -9,7 +9,7 @@ function detailnoloadsDatagrid(){
 	var time2 = $("#time2").val();
 	$("#detailNoLoadsTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#detailNoLoad_btn").height(),
+		height : $("#body").height() - $("#detailNoLoad_btn").height()-30,
 		width : $("#body").width(),
 		idField : 'id',
 		url : "junctionChart/getDetailNoLoads?parent="+parent+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2,
@@ -56,7 +56,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#detailNoLoadsTable").datagrid('resize', {
-		height : $("#body").height() - $("#detailNoLoad_btn").height(),
+		height : $("#body").height() - $("#detailNoLoad_btn").height()-30,
 		width : $("#body").width()
 	});
 }

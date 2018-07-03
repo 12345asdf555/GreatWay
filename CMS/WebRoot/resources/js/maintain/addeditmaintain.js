@@ -1,10 +1,9 @@
 $(function(){
 	typeCombobox();
-	equipmentCombobox();
+//	equipmentCombobox();
 	updatetext();
 	$("#fm").form("disableValidation");
 })
-
 
 var url = "";
 var maintainfalg = true;
@@ -23,15 +22,14 @@ function editMaintain(){
 }
 //提交
 function saveMaintain(){
-	var wid = $("#equipmentNo").combobox('getValue');
 	var tid = $("#typeId").combobox('getValue');
 	var url2 = "";
 	if(maintainfalg){
 		messager = "新增成功！";
-		url2 = url+"?tId="+tid+"&wId="+wid;
+		url2 = url+"?tId="+tid+"&wId="+$("#machineid").val();
 	}else{
 		messager = "修改成功！";
-		url2 = url+"&tId="+tid+"&wid="+wid;;
+		url2 = url+"&tId="+tid+"&wid="+$("#wid").val();
 	}
 	$('#fm').form('submit', {
 		url : url2,
@@ -75,12 +73,12 @@ function saveMaintain(){
 function updatetext(){
 	//隐藏文本框
 	$("#mid").next().hide();
-	$("#wid").next().hide();
+//	$("#wid").next().hide();
 	$("#type").next().hide();
 	var type = $("#type").val();
-	var wid = $("#wid").val();
+//	var wid = $("#wid").val();
 	$("#typeId").combobox('select',type);
-	$("#equipmentNo").combobox('select',wid);
+//	$("#equipmentNo").combobox('select',wid);
 }
 
 //维修类型
@@ -131,4 +129,87 @@ function equipmentCombobox(){
       }  
 	});
 	$("#equipmentNo").combobox();
+}
+
+function selectMachine(){
+	$('#dlg').window( {
+		modal : true
+	});
+	$('#dlg').window('open');
+	weldingMachineDatagrid();
+}
+function weldingMachineDatagrid(){
+	$("#weldingmachineTable").datagrid( {
+		height : $("#dlg").height(),
+		width : $("#dlg").width(),
+		idField : 'id',
+		pageSize : 10,
+		pageList : [ 10, 20, 30, 40, 50 ],
+		url : "weldingMachine/getWedlingMachineList",
+		singleSelect : true,
+		rownumbers : true,
+		showPageList : false, 
+        columns : [ [ {
+		    field:'ck',
+			checkbox:true
+		},{
+			field : 'id',
+			title : '序号',
+			width : 50,
+			halign : "center",
+			align : "left",
+			hidden:true
+		}, {
+			field : 'equipmentNo',
+			title : '固定资产编号',
+			width : 80,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'typeName',
+			title : '设备类型',
+			width : 80,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'insframeworkName',
+			title : '所属项目',
+			width : 80,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'statusName',
+			title : '状态',
+			width : 80,
+			halign : "center",
+			align : "left"
+		} , {
+			field : 'manufacturerName',
+			title : '厂家',
+			width : 150,
+			halign : "center",
+			align : "left"
+		}
+		] ],
+		toolbar:'#dlgSearch',
+		pagination : true,
+		fitColumns : true
+	});
+}
+
+function saveWeldingMachine(){
+	var row = $("#weldingmachineTable").datagrid('getSelected');
+	$("#machineno").textbox('setValue',row.equipmentNo);
+	$("#machineid").val(row.id);
+	$('#dlg').dialog('close');
+}
+
+function dlgSearchMachine(){
+	var searchStr = "";
+	if($("#searchname").val()){
+		searchStr =  'fequipment_no='+$("#searchname").val();
+	}
+	$('#weldingmachineTable').datagrid('load', {
+		"searchStr" : searchStr
+	});
 }

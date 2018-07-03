@@ -1,4 +1,5 @@
 $(function(){
+	insframeworkTree();
 	mainDatagrid();
 });
 
@@ -48,7 +49,7 @@ function mainDatagrid(){
 		}, {
 			field : 'starttime',
 			title : '维修起始时间',
-			width : 100,
+			width : 150,
 			halign : "center",
 			align : "left"
 		}, {
@@ -201,6 +202,17 @@ function importWeldingMachine(){
 		    } 
 		});
 	}
+}
+
+function insframeworkTree(){
+	$("#myTree").tree({  
+		onClick : function(node){
+			$("#maintainTable").datagrid('load',{
+				"parent" : node.id
+			})
+			$("#treeid").val(node.id);
+		 }
+	})
 }
 
 //监听窗口大小变化

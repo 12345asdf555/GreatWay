@@ -23,14 +23,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="resources/js/insframework/insframeworktree.js"></script>
 	<script type="text/javascript" src="resources/js/maintain/maintain.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
 	
   </head>
   
   <body  class="easyui-layout">
+  	<jsp:include  page="../insframeworktree.jsp"/>
   	<div id="body" region="center"  hide="true"  split="true" title="维修记录管理" style="background: witch; height: 335px;">
-	  	
+	  	<input type="hidden" id="treeid"/>
 	  	<div id="maintainTable_btn">
 			<div style="margin-bottom: 5px;">
 				<a href="maintain/goAddMaintain" class="easyui-linkbutton" iconCls="icon-add">新增</a>

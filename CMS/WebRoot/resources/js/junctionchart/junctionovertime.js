@@ -10,7 +10,7 @@ function junctionOvertimeDatagrid(){
 	var number = $("#number").val();
 	$("#junctionOvertimeTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#junctionOvertime_btn").height(),
+		height : $("#body").height() - $("#junctionOvertime_btn").height()-30,
 		width : $("#body").width(),
 		idField : 'id',
 		url : "junctionChart/getjunctionovertime?parent="+parent+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2+"&number="+number,
@@ -28,7 +28,13 @@ function junctionOvertimeDatagrid(){
 			align : "left"
 		}, {
 			field : 'overtime',
-			title : '超时(台)',
+			title : '超时待机焊机数(台)',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'worktime',
+			title : '超时待机时长(h)',
 			width : 100,
 			halign : "center",
 			align : "left"
@@ -63,7 +69,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#junctionOvertimeTable").datagrid('resize', {
-		height : $("#body").height() - $("#junctionOvertime_btn").height(),
+		height : $("#body").height() - $("#junctionOvertime_btn").height()-30,
 		width : $("#body").width()
 	});
 }

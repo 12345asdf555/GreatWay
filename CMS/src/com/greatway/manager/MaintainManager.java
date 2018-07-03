@@ -3,8 +3,6 @@ package com.greatway.manager;
 import java.math.BigInteger;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.greatway.model.MaintenanceRecord;
 import com.greatway.model.WeldingMachine;
 import com.greatway.model.WeldingMaintenance;

@@ -10,7 +10,7 @@ function detailloadsDatagrid(){
 	var otype = $("#otype").val();
 	$("#detailLoadsTable").datagrid( {
 		fitColumns : true,
-		height : $("#body").height() - $("#detailLoad_btn").height(),
+		height : $("#body").height() - $("#detailLoad_btn").height()-30,
 		width : $("#body").width(),
 		idField : 'id',
 		url : "junctionChart/getDetailLoads?parent="+parent+"&weldtime="+weldtime+"&time1="+time1+"&time2="+time2+"&otype="+otype,
@@ -57,7 +57,7 @@ window.onresize = function() {
 //改变表格高宽
 function domresize() {
 	$("#detailLoadsTable").datagrid('resize', {
-		height : $("#body").height() - $("#detailLoad_btn").height(),
+		height : $("#body").height() - $("#detailLoad_btn").height()-30,
 		width : $("#body").width()
 	});
 }

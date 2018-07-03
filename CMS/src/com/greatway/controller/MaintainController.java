@@ -106,15 +106,28 @@ public class MaintainController {
 		pageIndex = Integer.parseInt(request.getParameter("page"));
 		pageSize = Integer.parseInt(request.getParameter("rows"));
 		String weldingmachineId = request.getParameter("wid");
+		String parent = request.getParameter("parent");
 		String searchStr = request.getParameter("searchStr");
+		BigInteger parentid = null;
+		if(iutil.isNull(parent)){
+			parentid = new BigInteger(parent);
+		}else{
+			MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+				    .getAuthentication()  
+				    .getPrincipal();
+			long uid = myuser.getId();
+			parentid = im.getUserInsfId(BigInteger.valueOf(uid));
+		}
+		if(iutil.isNull(searchStr)){
+			searchStr += " and (i.fid="+parentid+" or ins.fid="+parentid+" or insf.fid="+parentid+" or insf.fparent="+parentid+")";
+		} else{
+			searchStr = "(i.fid="+parentid+" or ins.fid="+parentid+" or insf.fid="+parentid+" or insf.fparent="+parentid+")";
+		}
 		request.getSession().setAttribute("searchStr", searchStr);
-		BigInteger wid;
+		BigInteger wid = null;
 		if(iutil.isNull(weldingmachineId)){
 			wid = new BigInteger(weldingmachineId);
-		}else{
-			wid = null;
 		}
-		
 		page = new Page(pageIndex,pageSize,total);
 		
 		List<WeldingMaintenance> list = mm.getWeldingMaintenanceAllPage(page,wid,searchStr);
