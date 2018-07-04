@@ -56,9 +56,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<lable>生产厂商</lable>
 					<select class="easyui-combobox" name="manuno" id="manuno" data-options="required:true,editable:false"></select>
 				</div>
-				<div class="fitem">
+				<div class="fitem" style="margin-left: -60px;">
 					<lable>采集序号</lable>
-					<select class="easyui-combobox" name="gatherId" id="gatherId" data-options="validType:['checkNumber','wmGatheridValidate'],editable:false"></select>
+<!-- 					<select class="easyui-combobox" name="gatherId" id="gatherId" data-options="validType:['checkNumber','wmGatheridValidate'],editable:false"></select> -->
+					<input type="hidden" name="gatherId" id="gatherId" />
+					<input class="easyui-textbox" name="gatherNo" id="gatherNo" data-options="validType:['wmGatheridValidate']" re/>
+					<a href="javascript:selectMachine();" class="easyui-linkbutton">选择</a>
 				</div>
 				<div class="fitem">
 					<lable>设备位置</lable>
@@ -84,6 +87,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</lable>
 				</div>
 			</form>
+		</div>
+	    <!-- 选择采集模块 -->
+		<div id="dlg" class="easyui-dialog" style="width: 700px; height: 530px;" title="选择焊机" closed="true" buttons="#dlg-buttons">
+			<div id="dlgSearch">
+				采集模块编号：<input class="easyui-textbox" id="searchname"/>
+				<a href="javascript:dlgSearchGather();" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+			</div>
+	    	<table id="gatherTable" style="table-layout: fixed; width:100%;"></table>
+		</div>
+		<div id="dlg-buttons">
+			<a href="javascript:saveGather();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+			<a href="javascript:$('#dlg').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel" >取消</a>
 		</div>
 	</div>
   </body>

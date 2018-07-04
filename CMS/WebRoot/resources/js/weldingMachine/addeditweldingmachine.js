@@ -3,12 +3,16 @@ $(function(){
 	InsframeworkCombobox();
 	manuCombobox();
 	statusRadio();
-	gatherCombobox();
+//	gatherCombobox();
 	insframeworkTree();
 	$("#iId").combobox({
         onChange:function(){  
         	itemid = $("#iId").combobox("getValue");
-        	gatherCombobox();
+        	if(itemid != gatheritemid){
+            	$("#gatherId").val("");
+            	$("#gatherNo").textbox('setValue');
+        	}
+//        	gatherCombobox();
         } 
      });
 	editText();
@@ -35,7 +39,6 @@ function editWeldingMachine(){
 function saveWeldingMachine(){
 	var tid = $('#tId').combobox('getValue');
 	var iid = $('#iId').combobox('getValue');
-	var gatherId = $('#gatherId').combobox('getValue');
 	var manuno = $('#manuno').combobox('getValue');
 	var sid = $("input[name='statusId']:checked").val();
 	var isnetworking = $("input[name='isnetworking']:checked").val();
@@ -46,7 +49,7 @@ function saveWeldingMachine(){
 		url2 = url+"?tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno;
 	}else{
 		messager = "修改成功！";
-		url2 = url+"&tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno+"&gatherId="+gatherId;
+		url2 = url+"&tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno+"&gatherId="+$('#gatherId').val();
 	}
 	$('#fm').form('submit', {
 		url : url2,
@@ -97,7 +100,7 @@ function editText(){
 	var type = $("#type").val();
 	var insframework = $("#insframework").val();
 	var manu = $("#manu").val();
-	var gid = $("#gid").val();
+//	var gid = $("#gid").val();
 	$('[name="isnetworking"]:radio').each(function() { 
 		if (this.value ==isnw ) { 
 			this.checked = true;
@@ -112,7 +115,8 @@ function editText(){
 	$('#iId').combobox('select',insframework);
 	$('#manuno').combobox('select',manu);
 	
-	$('#gatherId').combobox('select',gid);
+	$('#gatherId').val($("#gid").val());
+	$('#gatherNo').textbox('setValue',$("#gno").val());
 }
 
 var itemid = "";
@@ -253,4 +257,112 @@ function insframeworkTree(){
 			}
 		 }
 	})
+}
+
+function GatherDatagrid(){
+	var searchStr = "g.fid not in (select g.fid from tb_gather g INNER JOIN tb_welding_machine m on m.fgather_id = g.fid)";
+	$("#gatherTable").datagrid( {
+		fitColumns : true,
+		height : $("#dlg").height(),
+		width : $("#dlg").width(),
+		idField : 'id',
+		pageSize : 10,
+		pageList : [ 10, 20, 30, 40, 50 ],
+		url : "gather/getGatherList?parent="+$("#iId").combobox('getValue')+"&searchStr="+searchStr,
+		singleSelect : true,
+		rownumbers : true,
+		showPageList : false,
+		columns : [ [ {
+			field : 'ck',
+			checkbox : true
+		}, {
+			field : 'id',
+			title : '序号',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden:true
+		}, {
+			field : 'gatherNo',
+			title : '采集模块编号',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'itemid',
+			title : '项目id',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden : true
+		}, {
+			field : 'itemname',
+			title : '所属项目',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'status',
+			title : '采集模块状态',
+			width : 100,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'protocol',
+			title : '采集模块通讯协议',
+			width : 150,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'ipurl',
+			title : '采集模块IP地址',
+			width : 150,
+			halign : "center",
+			align : "left"
+		}, {
+			field : 'macurl',
+			title : '采集模块MAC地址',
+			width : 150,
+			halign : "center",
+			align : "left"
+		}] ],
+		toolbar : '#dlgSearch',
+		pagination : true,
+		onLoadSuccess:function(data){
+	        $("a[id='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
+	        $("a[id='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
+		}
+	});
+}
+
+function selectMachine(){
+	$('#dlg').window( {
+		modal : true
+	});
+	$('#dlg').window('open');
+	GatherDatagrid();
+}
+var gatheritemid;
+function saveGather(){
+	var row = $("#gatherTable").datagrid('getSelected');
+	gatheritemid = row.itemid;
+	$("#gatherNo").textbox('setValue',row.gatherNo);
+	$("#gatherId").val(row.id);
+	$('#dlg').dialog('close');
+}
+
+function dlgSearchGather(){
+	var searchStr = "";
+	if($("#searchname").val()){
+		searchStr =  "fgather_no like '%"+$("#searchname").val()+"%' and g.fid not in (select g.fid from tb_gather g INNER JOIN tb_welding_machine m on m.fgather_id = g.fid)";
+	}
+	$('#gatherTable').datagrid('load', {
+		"searchStr" : searchStr
+	});
+}
+
+function reset(){
+	$("#iId").combobox('select',$("#insframework").val());
+	$('#gatherId').val($("#gid").val());
+	$('#gatherNo').textbox('setValue',$("#gno").val());
 }

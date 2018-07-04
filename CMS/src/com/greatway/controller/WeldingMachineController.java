@@ -353,10 +353,14 @@ public class WeldingMachineController {
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
 			iutil.Authority(client);
+			int money = 0;
+			if(iutil.isNull(request.getParameter("money"))){
+				money = Integer.parseInt(request.getParameter("money"));
+			}
 			String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"addWeldingMachine\"}";
 			String obj2 = "{\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\",\"ISNETWORKING\":\""+request.getParameter("isnetworking")+"\","
 					+ "\"JOINTIME\":\""+request.getParameter("joinTime")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\",\"STATUSID\":\""+request.getParameter("sId")+"\","
-					+ "\"GATHERID\":\""+request.getParameter("gatherId")+"\",\"MONEY\":\""+request.getParameter("money")+"\",\"MANUFACTURERID\":\""+request.getParameter("manuno")+"\","
+					+ "\"GATHERID\":\""+request.getParameter("gatherId")+"\",\"MONEY\":\""+money+"\",\"MANUFACTURERID\":\""+request.getParameter("manuno")+"\","
 					+ "\"INSFRAMEWORKID\":\""+request.getParameter("iId")+"\",\"CREATOR\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){
@@ -397,10 +401,14 @@ public class WeldingMachineController {
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
 			iutil.Authority(client);
+			int money = 0;
+			if(iutil.isNull(request.getParameter("money"))){
+				money = Integer.parseInt(request.getParameter("money"));
+			}
 			String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"editWeldingMachine\"}";
 			String obj2 = "{\"ID\":\""+request.getParameter("wid")+"\",\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\","
 					+ "\"ISNETWORKING\":\""+request.getParameter("isnetworking")+"\",\"JOINTIME\":\""+request.getParameter("joinTime")+"\",\"TYPEID\":\""+request.getParameter("tId")+"\""
-					+ ",\"STATUSID\":\""+request.getParameter("sId")+"\",\"GATHERID\":\""+request.getParameter("gatherId")+"\",\"MONEY\":\""+request.getParameter("money")+"\",\"MANUFACTURERID\":\""+request.getParameter("manuno")+"\","
+					+ ",\"STATUSID\":\""+request.getParameter("sId")+"\",\"GATHERID\":\""+request.getParameter("gatherId")+"\",\"MONEY\":\""+money+"\",\"MANUFACTURERID\":\""+request.getParameter("manuno")+"\","
 					+ "\"INSFRAMEWORKID\":\""+request.getParameter("iId")+"\",\"MODIFIER\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
 			Object[] objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2});  
 			if(objects[0].toString().equals("true")){

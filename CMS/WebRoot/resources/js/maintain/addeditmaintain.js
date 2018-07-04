@@ -207,7 +207,7 @@ function saveWeldingMachine(){
 function dlgSearchMachine(){
 	var searchStr = "";
 	if($("#searchname").val()){
-		searchStr =  'fequipment_no='+$("#searchname").val();
+		searchStr =  "fequipment_no like '%"+$("#searchname").val()+"%'";
 	}
 	$('#weldingmachineTable').datagrid('load', {
 		"searchStr" : searchStr

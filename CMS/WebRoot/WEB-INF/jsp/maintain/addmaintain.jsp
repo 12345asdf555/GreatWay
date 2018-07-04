@@ -72,10 +72,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	    <!-- 选择焊机 -->
-		<div id="dlg" class="easyui-dialog" style="width: 700px; height: 530px;backgroud:#fff;" title="选择焊机" closed="true" buttons="#dlg-buttons">
-			<div id="dlgSearch">
-				<input class="easyui-textbox" id="searchname"/>
-				<a href="javascript:dlgSearchMachine();" class="easyui-linkbutton" iconCls="icon-search">保存</a>
+		<div id="dlg" class="easyui-dialog" style="width: 700px; height: 530px;" title="选择焊机" closed="true" buttons="#dlg-buttons">
+			<div id="dlgSearch" style="backgroud:#fff;">
+				固定资产编号：<input class="easyui-textbox" id="searchname"/>
+				<a href="javascript:dlgSearchMachine();" class="easyui-linkbutton" iconCls="icon-search">查询</a>
 			</div>
 	    	<table id="weldingmachineTable" style="table-layout: fixed; width:100%;"></table>
 		</div>
