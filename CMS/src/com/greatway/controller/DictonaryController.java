@@ -107,12 +107,12 @@ public class DictonaryController {
 	public String AddDictionary(Dictionarys dic, HttpServletRequest request){
 		JSONObject obj=new JSONObject();
 		try{
-			//获取当前用户
+			//鑾峰彇褰撳墠鐢ㄦ埛
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			//获取集团层url
+			//鑾峰彇闆嗗洟灞倁rl
 			String blocurl = request.getSession().getServletContext().getInitParameter("blocurl");
-			//客户端执行操作
+			//瀹㈡埛绔墽琛屾搷浣�
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(blocurl);
 			iutil.Authority(client);
@@ -126,7 +126,7 @@ public class DictonaryController {
 				obj.put("msg", objects[0].toString());
 			}else{
 				obj.put("success", false);
-				obj.put("errorMsg", "操作失败！");
+				obj.put("errorMsg", "鎿嶄綔澶辫触锛�");
 			}
 		}catch(Exception e){
 			obj.put("success",false);
@@ -140,12 +140,12 @@ public class DictonaryController {
 	public String EditDictionary(Dictionarys dic,HttpServletRequest request){
 		JSONObject obj=new JSONObject();
 		try{
-			//获取当前用户
+			//鑾峰彇褰撳墠鐢ㄦ埛
 			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser myuser = (MyUser)object;
-			//获取集团层url
+			//鑾峰彇闆嗗洟灞倁rl
 			String blocurl = request.getSession().getServletContext().getInitParameter("blocurl");
-			//客户端执行操作
+			//瀹㈡埛绔墽琛屾搷浣�
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(blocurl);
 			iutil.Authority(client);
@@ -159,7 +159,7 @@ public class DictonaryController {
 				obj.put("msg", objects[0].toString());
 			}else{
 				obj.put("success", false);
-				obj.put("errorMsg", "操作失败！");
+				obj.put("errorMsg", "鎿嶄綔澶辫触锛�");
 			}
 		}catch(Exception e){
 			obj.put("success",false);
@@ -173,9 +173,9 @@ public class DictonaryController {
 	public String DeleteDictionary(HttpServletRequest request,@RequestParam int id){
 		JSONObject obj=new JSONObject();
 		try{
-			//获取集团层url
+			//鑾峰彇闆嗗洟灞倁rl
 			String blocurl = request.getSession().getServletContext().getInitParameter("blocurl");
-			//客户端执行操作
+			//瀹㈡埛绔墽琛屾搷浣�
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(blocurl);
 			iutil.Authority(client);
@@ -189,7 +189,7 @@ public class DictonaryController {
 				obj.put("msg", objects[0].toString());
 			}else{
 				obj.put("success", false);
-				obj.put("errorMsg", "操作失败！");
+				obj.put("errorMsg", "鎿嶄綔澶辫触锛�");
 			}
 		}catch(Exception e){
 			obj.put("success",false);
@@ -211,6 +211,24 @@ public class DictonaryController {
 				json.put("back", d.getBack());
 				ary.add(json);
 			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		obj.put("ary", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/getDictionaryValueame")
+	@ResponseBody
+	public String getDictionaryValueame(HttpServletRequest request){
+		JSONObject obj=new JSONObject();
+		JSONObject json=new JSONObject();
+		JSONArray ary=new JSONArray();
+		int ivalue = Integer.valueOf(request.getParameter("ivalue"));
+		try{
+			String list = dictionaryManager.getDicValueByType(ivalue);
+				json.put("name", list);
+				ary.add(json);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -37,34 +37,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <body class="easyui-layout">
 	<jsp:include  page="../insframeworktree.jsp"/>
-	<div id="body" region="center"  hide="true"  split="true" title="实时界面" style="background: #eee; height: 335px;">
-<!-- 		<div id="body1" style="width:15%;height:100%;float:left">
-			<div class="easyui-accordion" fit="true" border="false" id="accordiondiv">
-			    <div id="body11" title="设备位置" ></div>
-			</div>
-		</div> -->
+	<div id="body" region="center"  hide="true"  split="true" title="实时界面" style="background: #eee; width:600px;height: 335px;">
 		<div id="body2" style="width:15%;height:15%;float:left;position:absolute;left:5%;top:8%;">
 		<div style="position:absolute;left:5%;top:30%;"><label>电流：</label></div>
 		<div class="wrap">
-		<div class="clock">
-<!-- 			<div style="height:25%;"></div>
-			<div>
-				<label region="center" style="font-size:15px;">电压</label>
-			</div>
-			<div style="height:15%;">
-				<input id="voltage1" name="voltage1" style="height:25px;width:200px" type="text" 
-readonly="readonly">
-			</div>
-			<div style="height:15%;"></div>
-			<div>
-				<label region="center" style="font-size:15px;">电流</label>
-			</div>
-			<div style="height:20%;" region="center">
-				<input id="electricity1" name="electricity1" style="height:25px;width:200px" type="text" 
-readonly="readonly">
-			</div>
-			<div style="height:25%;"></div> -->
-			
+		<div class="clock">		
 			<ul>
 			<li>
 				<ul id="time1">
@@ -122,7 +99,6 @@ readonly="readonly">
 		<div style="position:absolute;left:5%;top:35%;"><label>电压：</label></div>
 		<div class="wrap">
 		<div class="clock">
-			
 			<ul>
 			<li>
 				<ul id="time5">
@@ -157,9 +133,9 @@ readonly="readonly">
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 				</ul>
 			</li>
-<!-- 			<li class="point"><span></span></li> -->
+			<li class="point"><span></span></li>
 			<li>
-				<ul id="time8"  style="margin-left:0px">
+				<ul id="time8"  style="margin-left:-38px">
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
 					<li><img src="resources/images/front.png" width="20%" height="20%"></li>
