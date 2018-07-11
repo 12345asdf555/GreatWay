@@ -1,5 +1,6 @@
 var url = "";
 function removeGather(){
+	$('#rfm').form('clear');
 	var row = $('#gatherTable').datagrid('getSelected');
 	if (row) {
 		$('#rdlg').window( {

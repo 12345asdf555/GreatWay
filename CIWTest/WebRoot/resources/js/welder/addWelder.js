@@ -109,6 +109,7 @@ function saveWelder(){
 
 function editWelder(){
 	flag = 2;
+	$('#fm').form('clear');
 	var row = $('#welderTable').datagrid('getSelected');
 	if (row) {
 		$('#dlg').window( {

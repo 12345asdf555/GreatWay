@@ -1,5 +1,6 @@
 var url = "";
 function removeMaintain(){
+	$('#rfm').form('clear');
 	var row = $('#maintainTable').datagrid('getSelected');
 	if (row) {
 		$('#rdlg').window( {

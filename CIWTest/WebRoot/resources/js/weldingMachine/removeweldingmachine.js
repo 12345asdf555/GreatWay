@@ -1,5 +1,6 @@
 var url = "";
 function removeWeldingMachine(){
+	$('#rfm').form('clear');
 	var row = $('#weldingmachineTable').datagrid('getSelected');
 	if (row) {
 		$('#rdlg').window( {

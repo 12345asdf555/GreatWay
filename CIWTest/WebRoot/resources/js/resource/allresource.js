@@ -90,6 +90,7 @@ $(function(){
      
 var url = "";
 function removeResource(){
+	$('#rfm').form('clear');
 	var row = $('#dg').datagrid('getSelected');
 	if (row) {
 		$('#rdlg').window( {

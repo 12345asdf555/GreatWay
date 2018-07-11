@@ -1,5 +1,6 @@
 var url = "";
 function removeInsframework(){
+	$('#rfm').form('clear');
 	var row = $('#insframeworkTable').datagrid('getSelected');
 	if (row) {
 		$('#rdlg').window( {

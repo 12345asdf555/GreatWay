@@ -30,6 +30,7 @@ function addWps(){
 
 function editWps(){
 	flag = 2;
+	$('#fm').form('clear');
 	var row = $('#dg').datagrid('getSelected');
 	if (row) {
 		$('#dlg').window( {

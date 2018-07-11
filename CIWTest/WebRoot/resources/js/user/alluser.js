@@ -147,6 +147,7 @@ $(function(){
 
 var url = "";
 function removeUser(){
+	$('#rfm').form('clear');
 	var row = $('#dg').datagrid('getSelected');
 	if (row) {
 		$('#rdlg').window( {

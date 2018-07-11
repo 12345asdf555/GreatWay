@@ -110,6 +110,7 @@ function addDictionary(){
 
 function editDictionary(){
 	flag = 2;
+	$('#fm').form('clear');
 	var row = $('#dg').datagrid('getSelected');
 	if (row) {
 		$('#dlg').window( {
@@ -160,6 +161,7 @@ function save(){
 }
 
 function removeDictionary(){
+	$('#rfm').form('clear');
 	var row = $('#dg').datagrid('getSelected');
 	if (row) {
 		$('#rdlg').window( {

@@ -27,6 +27,7 @@ function addMaintain(){
 
 function editMaintain(){
 	maintainfalg = false;
+	$('#fm').form('clear');
 	var row = $('#maintainTable').datagrid('getSelected');
 	if (row) {
 		$('#dlg').window( {

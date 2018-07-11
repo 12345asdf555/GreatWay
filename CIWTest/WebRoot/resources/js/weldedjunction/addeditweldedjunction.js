@@ -34,6 +34,7 @@ function addWeldedjunction(){
 
 function editWeldedjunction(){
 	flag = 2;
+	$('#fm').form('clear');
 	var row = $('#weldedJunctionTable').datagrid('getSelected');
 	if (row) {
 		$('#dlg').window( {

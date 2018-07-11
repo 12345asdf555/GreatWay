@@ -26,6 +26,7 @@ function newInsframework(){
 
 function editInsframework(){
 	flag = 2;
+	$('#fm').form('clear');
 	var row = $('#insframeworkTable').datagrid('getSelected');
 	insfcombobox(row.typeid,row.id);
 	if (row) {

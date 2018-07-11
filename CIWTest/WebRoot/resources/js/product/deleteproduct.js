@@ -3,6 +3,7 @@
  */
 var url = "";
 function removeProduct(){
+	$('#rfm').form('clear');
 	var row = $('#dg').datagrid('getSelected');
 	if (row) {
 		$('#rdlg').window( {

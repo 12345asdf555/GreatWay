@@ -110,6 +110,7 @@ function saveUser(){
 
 function editUser(){
 	flag = 2;
+	$('#fm').form('clear');
 	var row = $('#dg').datagrid('getSelected');
 	if (row) {
 		$('#dlg').window( {

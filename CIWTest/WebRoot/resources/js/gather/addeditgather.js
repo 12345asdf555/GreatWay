@@ -38,6 +38,7 @@ function addGather(){
 
 function editGather(){
 	flag = 2;
+	$('#fm').form('clear');
 	var row = $('#gatherTable').datagrid('getSelected');
 	if (row) {
 		$('#dlg').window( {

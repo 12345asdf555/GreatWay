@@ -42,6 +42,7 @@ function addWeldingMachine(){
 
 function editWeldingMachine(){
 	flag = 2;
+	$('#fm').form('clear');
 	var row = $('#weldingmachineTable').datagrid('getSelected');
 	if (row) {
 		$('#dlg').window( {

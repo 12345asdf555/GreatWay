@@ -1,16 +1,17 @@
 var url = "";
  function removeWelder(){
+		$('#rfm').form('clear');
 		var row = $('#welderTable').datagrid('getSelected');
 		if (row) {
 			$('#rdlg').window( {
 				title : "删除焊工",
 				modal : true
-			});
-			$('#rdlg').window('open');
-			$('#rfm').form('load', row);
-			url = "welders/destroyWelder?fid="+row.id;
-		}
+		});
+		$('#rdlg').window('open');
+		$('#rfm').form('load', row);
+		url = "welders/destroyWelder?fid="+row.id;
 	}
+}
 
 	function remove(){
 

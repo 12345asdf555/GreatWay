@@ -1,5 +1,6 @@
 var url = "";
 function removeWeldedjunction(){
+	$('#rfm').form('clear');
 	var row = $('#weldedJunctionTable').datagrid('getSelected');
 	if (row) {
 		$('#rdlg').window( {
