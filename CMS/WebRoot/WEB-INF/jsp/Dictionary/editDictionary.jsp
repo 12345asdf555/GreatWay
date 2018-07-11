@@ -24,6 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="resources/js/easyui-extend-check.js"></script>
 	<script type="text/javascript" src="resources/js/Dictionary/addeditdictionary.js"></script>
 
   </head>
@@ -39,6 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     							<input name="id" id="id" type="hidden" value="${Dictionary.id}">
 			    				<input class="easyui-textbox" name="valueName" id="valueName" value="${Dictionary.valueName}" data-options="required:true"/>
 			    			</div>
+			    			<div align="center">
+    							<label id="wxts" style="display: none;color:red;">(注：请输入1~100之间的数字)</label>
+    						</div>
 			    			<div class="fitem">
 			    				<lable>类型</lable>
 			    				<input name="type" id="type" value="${Dictionary.typeid }" type="hidden">

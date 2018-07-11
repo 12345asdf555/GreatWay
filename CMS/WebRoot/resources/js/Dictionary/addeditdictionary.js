@@ -20,6 +20,17 @@ function typeidCombobox(){
 	          alert("数据请求失败，请联系系统管理员!");  
 	      }  
 	})
+	$("#typeid").combobox({
+		onChange: function () {
+			if($("#typeid").combobox('getValue')==8){
+				$('#valueName').validatebox({required:true,validType:['intNum']});
+//				$('#valueName').attr("data-options", "required:true,validType:['intNum']");
+				document.getElementById("wxts").style.display="block";
+			}else{
+				document.getElementById("wxts").style.display="none";
+			}
+		}
+	});
 	$("#typeid").combobox();
 }
 

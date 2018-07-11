@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.greatway.manager.InsframeworkManager;
+import com.greatway.manager.LiveDataManager;
 import com.greatway.manager.WeldingMachineManager;
 import com.greatway.model.Insframework;
 import com.spring.model.MyUser;
@@ -35,10 +36,13 @@ public class TdController {
 	@Autowired
 	private InsframeworkManager im;
 	
+	@Autowired
+	private LiveDataManager lm;
+	
 	IsnullUtil iutil = new IsnullUtil();
 	
 	/**
-	 * 获取所有用户列表
+	 * 鑾峰彇鎵�鏈夌敤鎴峰垪琛�
 	 * @param request
 	 * @return
 	 */
@@ -54,11 +58,12 @@ public class TdController {
 	
 	@RequestMapping("/AllTd")
 	public String Alltd(HttpServletRequest request){
-		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
+/*		MyUser myuser = (MyUser) SecurityContextHolder.getContext()  
 			    .getAuthentication()  
 			    .getPrincipal();
 		long uid = myuser.getId();
-		int dic=tdService.findDic(uid);
+		int dic=tdService.findDic(uid);*/
+		lm.getUserId(request);
 		return "td/BackUp";
 /*		if(dic==21){
 		String insname = tdService.findInsname(tdService.findIns(uid));
