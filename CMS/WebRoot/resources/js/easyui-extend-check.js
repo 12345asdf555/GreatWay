@@ -181,7 +181,13 @@ $(function(){
 				wmGatheridValidate : {
 					validator : function(value, param){
 						if(flag){
-							var iId = $('#iId').combobox('getValue');
+							var iId;
+							if($("#flag").val()==1){
+								iId  = $('#iId').combobox('getValue');
+							}else{
+								iId = $("#insframework").val();
+							}
+							
 							var validgid = $("#validgid").val();
 							var olditem = $("#insframework").val();
 							if((validgid!=null || validgid!="") && validgid == value && iId == olditem){
@@ -327,6 +333,16 @@ $(function(){
 						}
 					},
 					message : '该生产厂商+类型已经被占用'
-				}
+				},
+				
+				intNum: { //验证1-100之间正整数
+                    validator: function(value, param){
+                    	if(value<0||value>100){
+							return false;
+						}
+                    	return /^[1-9]\d*$/.test(value);
+                    },     
+                    message: '请输入正确的比例数'    
+                }
 			})
 })
