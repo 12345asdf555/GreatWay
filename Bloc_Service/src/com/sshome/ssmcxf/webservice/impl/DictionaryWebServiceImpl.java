@@ -315,4 +315,21 @@ public class DictionaryWebServiceImpl implements DictionaryWebService{
 		}
 	}
 
+	@Override
+	public Object getBack() {
+		try{
+			JSONObject obj = new JSONObject();
+			JSONArray ary = new JSONArray();
+			List<Dictionarys> list = ds.getBack();
+			for(int i=0;i<list.size();i++){
+				obj.put("TYPEID",jutil.setValue(list.get(i).getTypeid()));
+				obj.put("BACK",jutil.setValue(list.get(i).getBack()));
+				ary.add(obj);
+			}
+			return JSON.toJSONString(ary);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
 }

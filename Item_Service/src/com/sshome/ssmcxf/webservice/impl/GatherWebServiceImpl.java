@@ -155,4 +155,14 @@ public class GatherWebServiceImpl implements GatherWebService{
 			return false;
 		}
 	}
+
+	@Override
+	public boolean editGatherStatusToItem(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			return gs.editGatherStatusToItem(json.getString("STATUSNAME"), new BigInteger(json.getString("ID")));
+		}catch(Exception e){
+			return false;
+		}
+	}
 }

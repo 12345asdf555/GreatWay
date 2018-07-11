@@ -48,4 +48,11 @@ public interface GatherWebService {
 	 * @param id采集id
 	 */
 	boolean deleteGather(String object);
+	
+	/**
+	 * 修改采集模块状态
+	 * @param Object
+	 * @return
+	 */
+	boolean editGatherStatusToItem(String object);
 }

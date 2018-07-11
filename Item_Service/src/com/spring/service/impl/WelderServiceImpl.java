@@ -34,6 +34,7 @@ public class WelderServiceImpl implements WelderService {
 				obj.put("ID", jutil.setValue(list.get(i).getId()));
 				obj.put("NAME",jutil.setValue(list.get(i).getName()));
 				obj.put("WELDERNO",jutil.setValue(list.get(i).getWelderno()));
+				obj.put("ITEMID",jutil.setValue(list.get(i).getIid()));
 				obj.put("ITEMNAME",jutil.setValue(list.get(i).getIname()));
 				ary.add(obj);
 			}

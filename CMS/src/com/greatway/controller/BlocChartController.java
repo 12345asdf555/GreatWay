@@ -1142,7 +1142,7 @@ public class BlocChartController {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			long t1 = sdf.parse(time1).getTime();
 			long t2 = sdf.parse(time2).getTime();
-			int days = (int)((t2-t1)/(1000*60*60*24));
+			int days = (int)((t2-t1)/(1000*60*60*24))+1;
 			if(flag==0){//集团层
 				for(Insframework c:caust){
 					double worktime = 0;

@@ -69,6 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <li onclick="changeColor(this)"><a href="javascript:openWedJunction()"><div><i class="iconfont icon-bijiben"></i>焊口管理</div></a></li>
 	        <li onclick="changeColor(this)"><a href="javascript:openWelder()"><div><i class="iconfont icon-bijiben"></i>焊工管理</div></a></li>
 			<li onclick="changeColor(this)"><a href="javascript:openWeldingMachine()"><div><i class="iconfont icon-bijiben"></i>焊机设备管理</div></a></li>
+			<li onclick="changeColor(this)"><a href="javascript:openMachineMigrate()"><div><i class="iconfont icon-bijiben"></i>焊机设备迁移</div></a></li>
 		    <li onclick="changeColor(this)"><a href="javascript:openMachine()"><div><i class="iconfont icon-bijiben"></i>维修记录管理</div></a></li>
 		    <li onclick="changeColor(this)"><a href="javascript:openFault()"><div><i class="iconfont icon-bijiben"></i>故障代码管理</div></a></li>
 		    <li onclick="changeColor(this)"><a href="javascript:openManufacturer()"><div><i class="iconfont icon-bijiben"></i>生产厂商管理</div></a></li>

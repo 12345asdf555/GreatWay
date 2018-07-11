@@ -13,6 +13,8 @@ import com.spring.dao.GatherMapper;
 import com.spring.dao.WeldingMachineMapper;
 import com.spring.model.Gather;
 import com.spring.service.GatherService;
+
+import net.sf.json.JSONObject;
 @WebService
 @Service
 @Transactional
@@ -38,6 +40,7 @@ public class GatherServiceImpl implements GatherService {
 		try{
 			return gm.getGatherNoCount(gatherno);
 		}catch(Exception e){
+			e.printStackTrace();
 			return -1;
 		}
 	}
@@ -47,6 +50,7 @@ public class GatherServiceImpl implements GatherService {
 		try{
 			return gm.getGatherById(id);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -61,6 +65,7 @@ public class GatherServiceImpl implements GatherService {
 				return false;
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -75,6 +80,7 @@ public class GatherServiceImpl implements GatherService {
 				return false;
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -92,6 +98,7 @@ public class GatherServiceImpl implements GatherService {
 				return false;
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}

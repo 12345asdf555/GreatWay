@@ -57,7 +57,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<lable>上级项目</lable>
 					<input type="hidden" id="parentid" value="${insf.parent }"/>
-					<select class="easyui-combobox" name="parent" value="${insf.parent }" id="parent" data-options="required:true,editable:false"></select>
+<%-- 					<select class="easyui-combobox" name="parent" value="${insf.parent }" id="parent" data-options="required:true,editable:false"></select> --%>
+					<input class="easyui-textbox" id="parentname" name="parentname" value="${parent }" readonly="readonly"/>
 				</div>
 				<div class="fitem">
 					<lable>项目类型</lable>

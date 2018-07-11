@@ -74,6 +74,14 @@ public interface MaintainWebService {
 	 * @param status
 	 */
 	boolean editstatus(String object);
+	
+
+	/**
+	 * 修改焊机维修状态
+	 * @param wid
+	 * @param status
+	 */
+	boolean editStatusToItem(String obj1,String obj2);
 
 	/**
 	 * 根据焊机id获取组织机构id

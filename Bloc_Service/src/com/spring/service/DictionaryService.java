@@ -51,4 +51,10 @@ public interface DictionaryService {
 	 * @return
 	 */
 	String getDicValueByType(int value);
+	
+	/**
+	 * 获取字典类型id及描述
+	 * @return
+	 */
+	List<Dictionarys> getBack();
 }

@@ -105,4 +105,13 @@ public class GatherServiceImpl implements GatherService {
 		}
 	}
 
+	@Override
+	public boolean editGatherStatusToItem(String statusname, BigInteger id) {
+		try{
+			return gm.editGatherStatusToItem(statusname, id);
+		}catch(Exception e){
+			return false;
+		}
+	}
+
 }

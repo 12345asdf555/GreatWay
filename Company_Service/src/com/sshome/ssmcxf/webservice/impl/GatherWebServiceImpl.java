@@ -265,4 +265,128 @@ public class GatherWebServiceImpl implements GatherWebService{
 			return false;
 		}
 	}
+
+
+	@Override
+	public int getGatherNoCountToItem(String obj1, String obj2) {
+		try{
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			JSONObject json = JSONObject.fromObject(obj2);
+			BigInteger insfid = new BigInteger(json.getString("INSFID"));
+			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			int num = 0;
+			if(itemurl !=null && !"".equals(itemurl)){
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+				//向项目执行插入
+				Client itemclient = dcf.createClient(itemurl);
+				jutil.Authority(itemclient);
+				String newobj = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"getGatherNoCount\"}";
+				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});
+				num =  Integer.parseInt(itemobj[0].toString());
+			}
+			return num;
+		}catch(Exception e){
+			return -1;
+		}
+	}
+
+	@Override
+	public boolean editGatherStatusToItem(String obj1,String obj2) {
+		try{
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			JSONObject json = JSONObject.fromObject(obj2);
+			BigInteger insfid = new BigInteger(json.getString("INSFID"));
+			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			boolean flag = true;
+			if(itemurl !=null && !"".equals(itemurl)){
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+				//向项目执行插入
+				Client itemclient = dcf.createClient(itemurl);
+				jutil.Authority(itemclient);
+				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+				if(itemobj[0].toString().equals("true")){
+					flag = true;
+				}else{
+					flag = false;
+				}
+			}
+			return flag;
+		}catch(Exception e){
+			return false;
+		}
+	}
+
+
+	@Override
+	public Object addGatherToItem(String obj1, String obj2) {
+		try{
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			JSONObject json = JSONObject.fromObject(obj2);
+			BigInteger insfid = new BigInteger(json.getString("INSFID"));
+			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			boolean flag = true;
+			if(itemurl !=null && !"".equals(itemurl)){
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+				//向项目执行插入
+				Client itemclient = dcf.createClient(itemurl);
+				jutil.Authority(itemclient);
+				String newobj = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"addGather\"}";
+				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});
+				if( itemobj[0].toString().equals("true")){
+					flag = true;
+				}else{
+					flag = false;
+				}
+			}
+			return flag;
+		}catch(Exception e){
+			return false;
+		}
+	}
+
+
+	@Override
+	public Object editGatherToBlocCompany(String obj1, String obj2) {
+		try{
+			String newobj = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGather\"}";
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			//向集团层执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
+			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});  
+			String blocResult = blocobj[0].toString();
+			JSONObject json = JSONObject.fromObject(obj2);
+			Gather g = new Gather();
+			g.setId(new BigInteger(json.getString("ID")));
+			g.setGatherNo(json.getString("GATHERNO"));
+			g.setIpurl(json.getString("IPURL"));
+			g.setItemid(new BigInteger(json.getString("INSFID")));
+			String leavetime =json.getString("LEAVETIME");
+			if(leavetime!=null && !"".equals(leavetime)){
+				g.setLeavetime(leavetime);
+			}
+			g.setMacurl(json.getString("MACURL"));
+			g.setProtocol(json.getString("PROTOCOL"));
+			g.setStatus(json.getString("STATUS"));
+			g.setModifier(json.getString("MODIFIER"));
+			boolean flag = gs.editGather(g);
+			if(flag && blocResult.equals("true")){
+				return true;
+			}else{
+				return false;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

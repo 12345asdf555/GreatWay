@@ -38,7 +38,6 @@ function editWeldingMachine(){
 //提交
 function saveWeldingMachine(){
 	var tid = $('#tId').combobox('getValue');
-	var iid = $('#iId').combobox('getValue');
 	var manuno = $('#manuno').combobox('getValue');
 	var sid = $("input[name='statusId']:checked").val();
 	var isnetworking = $("input[name='isnetworking']:checked").val();
@@ -46,10 +45,10 @@ function saveWeldingMachine(){
 	var url2 = "";
 	if(flag==1){
 		messager = "新增成功！";
-		url2 = url+"?tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno;
+		url2 = url+"?tId="+tid+"&iId="+$('#iId').combobox('getValue')+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno;
 	}else{
 		messager = "修改成功！";
-		url2 = url+"&tId="+tid+"&iId="+iid+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno+"&gatherId="+$('#gatherId').val();
+		url2 = url+"&tId="+tid+"&iId="+$('#insframework').val()+"&sId="+sid+"&isnetworking="+isnetworking+"&manuno="+manuno+"&gatherId="+$('#gatherId').val();
 	}
 	$('#fm').form('submit', {
 		url : url2,
@@ -260,7 +259,7 @@ function insframeworkTree(){
 }
 
 function GatherDatagrid(){
-	var searchStr = "g.fid not in (select g.fid from tb_gather g INNER JOIN tb_welding_machine m on m.fgather_id = g.fid)";
+	var searchStr = "g.fid not in (select g.fid from tb_gather g INNER JOIN tb_welding_machine m on m.fgather_id = g.fid) and fstatus!='迁移'";
 	$("#gatherTable").datagrid( {
 		fitColumns : true,
 		height : $("#dlg").height(),
@@ -354,7 +353,7 @@ function saveGather(){
 function dlgSearchGather(){
 	var searchStr = "";
 	if($("#searchname").val()){
-		searchStr =  "fgather_no like '%"+$("#searchname").val()+"%' and g.fid not in (select g.fid from tb_gather g INNER JOIN tb_welding_machine m on m.fgather_id = g.fid)";
+		searchStr =  "fgather_no like '%"+$("#searchname").val()+"%' and g.fid not in (select g.fid from tb_gather g INNER JOIN tb_welding_machine m on m.fgather_id = g.fid) and fstatus!='迁移'";
 	}
 	$('#gatherTable').datagrid('load', {
 		"searchStr" : searchStr
@@ -362,7 +361,7 @@ function dlgSearchGather(){
 }
 
 function reset(){
-	$("#iId").combobox('select',$("#insframework").val());
+//	$("#iId").combobox('select',$("#insframework").val());
 	$('#gatherId').val($("#gid").val());
 	$('#gatherNo').textbox('setValue',$("#gno").val());
 }

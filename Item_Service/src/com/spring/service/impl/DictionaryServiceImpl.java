@@ -121,4 +121,13 @@ public class DictionaryServiceImpl implements DictionaryService {
 			return null;
 		}
 	}
+
+	@Override
+	public List<Dictionarys> getBack() {
+		try{
+			return dictionaryMapper.getBack();
+		}catch(Exception e){
+			return null;
+		}
+	}
 }

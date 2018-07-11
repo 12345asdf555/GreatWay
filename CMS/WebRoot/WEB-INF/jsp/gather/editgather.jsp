@@ -45,8 +45,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>所属项目</lable>
-					<input type="hidden" id="item" value="${g.itemid }"/>
-					<select class="easyui-textbox" name="itemid" id="itemid" data-options="required:true,editable:false"></select>
+					<input type="hidden" name="itemid" id="item" value="${g.itemid }"/>
+<!-- 					<select class="easyui-textbox" name="itemid" id="itemid" data-options="required:true,editable:false"></select> -->
+					<input class="easyui-textbox" name="itemname" id="itemname" value="${g.itemname }" readonly="readonly"/>
 				</div>
 				<div class="fitem">
 					<lable>采集模块状态</lable>

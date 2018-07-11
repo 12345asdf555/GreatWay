@@ -1,5 +1,9 @@
 package com.sshome.ssmcxf.webservice;
 
+import java.util.List;
+
+import com.spring.model.Dictionarys;
+
 public interface DictionaryWebService {
 
 	/**
@@ -46,5 +50,11 @@ public interface DictionaryWebService {
 	 * @return
 	 */
 	Object getDicValueByType(String object);
+	
+	/**
+	 * 获取字典类型id及描述
+	 * @return
+	 */
+	Object getBack();
 	
 }

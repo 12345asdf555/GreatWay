@@ -443,4 +443,33 @@ public class MaintainWebServiceImpl implements MaintainWebService {
 		}
 	}
 
+	@Override
+	public boolean editStatusToItem(String obj1, String obj2) {
+		try{
+			String newobj = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"editstatus\"}";
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			JSONObject json = JSONObject.fromObject(obj2);
+			BigInteger insfid = new BigInteger(json.getString("INSFID"));
+			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			if(itemurl !=null && !"".equals(itemurl)){
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+				//向项目执行插入
+				Client itemclient = dcf.createClient(itemurl);
+				jutil.Authority(itemclient);
+				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});
+				if(itemobj[0].toString().equals("true")){
+					return true;
+				}else{
+					return false;
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+			return true;
+	}
+
 }

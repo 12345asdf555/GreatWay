@@ -27,15 +27,14 @@ function editInsframework(){
 }
 //提交
 function saveInsframework(){
-	var parent = $("#parent").combobox('getValue');
 	var type = $("#typeid").combobox('getValue');
 	var url2 = "";
 	if(flag==1){
 		messager = "新增成功！";
-		url2 = url+"?parent="+parent+"&type="+type;
+		url2 = url+"?parent="+$("#parent").combobox('getValue')+"&type="+type;
 	}else{
 		messager = "修改成功！";
-		url2 = url+"&parent="+parent+"&type="+type;
+		url2 = url+"&parent="+$("#parentid").val()+"&type="+type;
 	}
 	$('#fm').form('submit', {
 		url : url2,
@@ -78,9 +77,9 @@ function saveInsframework(){
 
 function updatetext(){
 	var type = $("#type").val();
-	var parent = $("#parentid").val();
+//	var parent = $("#parentid").val();
 	$("#typeid").combobox('select',type);
-	$("#parent").combobox('select',parent);
+//	$("#parent").combobox('select',parent);
 }
 
 //上级项目/类型
@@ -117,7 +116,7 @@ function insfcombobox(type,id){
 
 //树形菜单点击事件
 function insframeworkTree(){
-	$("#myTree").tree({  
+	$("#myTree").tree({
 		onClick : function(node){
 			$("#parent").combobox('select',node.id);
 			if($("#parent").combobox('getText')==$("#parent").combobox('getValue')){

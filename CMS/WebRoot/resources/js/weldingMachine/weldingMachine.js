@@ -39,7 +39,7 @@ function weldingMachineDatagrid(){
 		}, {
 			field : 'equipmentNo',
 			title : '固定资产编号',
-			width : 80,
+			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
@@ -51,13 +51,13 @@ function weldingMachineDatagrid(){
 		}, {
 			field : 'jointime',
 			title : '入厂时间',
-			width : 150,
+			width : 170,
 			halign : "center",
 			align : "left"
 		}, {
 			field : 'insframeworkName',
 			title : '所属项目',
-			width : 80,
+			width : 100,
 			halign : "center",
 			align : "left"
 		}, {
@@ -81,7 +81,7 @@ function weldingMachineDatagrid(){
 		}, {
 			field : 'gatherId',
 			title : '采集序号',
-			width : 100,
+			width : 80,
 			halign : "center",
 			align : "left"
 		}, {
@@ -93,7 +93,7 @@ function weldingMachineDatagrid(){
 		}, {
 			field : 'money',
 			title : '价值',
-			width : 100,
+			width : 80,
 			halign : "center",
 			align : "left"
 		}, {

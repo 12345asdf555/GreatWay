@@ -83,7 +83,8 @@ function saveGather(){
 function statusCombobox(){
     var optionStr = '';
     optionStr += "<option value='正常'>正常</option>"+
-    		"<option value='维修'>维修</option>";  
+    		"<option value='维修'>维修</option>"+
+    		"<option value='迁移'>迁移</option>";  
     $("#status").html(optionStr);
 	$("#status").combobox();
 }

@@ -52,4 +52,12 @@ public interface GatherService {
 	 * @param id采集id
 	 */
 	boolean deleteGather(BigInteger id);
+	
+	/**
+	 * 修改采集模块状态
+	 * @param statusname
+	 * @param id
+	 * @return
+	 */
+	boolean editGatherStatusToItem(String statusname,BigInteger id);
 }

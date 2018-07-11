@@ -422,4 +422,106 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 		}
 	}
 
+	@Override
+	public Object addMachineToItem(String obj1, String obj2) {
+		try{
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			JSONObject json = JSONObject.fromObject(obj2);
+			BigInteger insfid = new BigInteger(json.getString("INSFRAMEWORKID"));
+			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			if(itemurl !=null && !"".equals(itemurl)){
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+				//向项目执行插入
+				Client itemclient = dcf.createClient(itemurl);
+				jutil.Authority(itemclient);
+				String newobj = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"addWeldingMachine\"}";
+				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});
+				return itemobj[0].toString();
+			}else{
+				return "未找到该项目部，请检查网络连接情况或是否部署服务";
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public Object editMachineToBlocCompany(String obj1, String obj2) {
+		try{
+			String newobj = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"editWeldingMachine\"}";
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			//向集团层执行操作
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
+			jutil.Authority(blocclient);
+			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});  
+			String blocResult = blocobj[0].toString();
+			JSONObject json = JSONObject.fromObject(obj2);
+			WeldingMachine wm = new WeldingMachine();
+			wm.setId(new BigInteger(json.getString("ID")));
+			wm.setMoney(json.getInt("MONEY"));
+			wm.setEquipmentNo(json.getString("EQUIPMENTNO"));
+			wm.setPosition(json.getString("POSITION"));
+			wm.setIsnetworking(json.getInt("ISNETWORKING"));
+			String jointime = json.getString("JOINTIME");
+			if(jointime!=null && !"".equals(jointime)){
+				wm.setJoinTime(jointime);
+			}
+			wm.setTypeId(json.getInt("TYPEID"));
+			wm.setStatusId(json.getInt("STATUSID"));
+			wm.setModifier(json.getString("MODIFIER"));
+			Gather gather = new Gather();
+			String gatherid = json.getString("GATHERID");
+			if(gatherid!=null && !"".equals(gatherid)){
+				gather.setId(new BigInteger(gatherid));
+			}
+			wm.setGatherId(gather);
+			EquipmentManufacturer e = new EquipmentManufacturer();
+			e.setId(new BigInteger(json.getString("MANUFACTURERID")));
+			wm.setManufacturerId(e);
+			Insframework ins = new Insframework();
+			ins.setId(new BigInteger(json.getString("INSFRAMEWORKID")));
+			wm.setInsframeworkId(ins);
+			boolean flag = wms.editWeldingMachine(wm);
+			if(flag && blocResult.equals("true")){
+				return true;
+			}else{
+				return false;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public int getMachineCountToItem(String obj1, String obj2) {
+		try{
+			String newobj = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"getEquipmentnoCount\"}";
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			JSONObject json = JSONObject.fromObject(obj2);
+			BigInteger insfid = new BigInteger(json.getString("INSFID"));
+			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			int num = 0;
+			if(itemurl !=null && !"".equals(itemurl)){
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+				//向项目执行插入
+				Client itemclient = dcf.createClient(itemurl);
+				jutil.Authority(itemclient);
+				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});
+				num =  Integer.parseInt(itemobj[0].toString());
+			}
+			return num;
+		}catch(Exception e){
+			return -1;
+		}
+	}
+
 }

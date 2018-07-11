@@ -37,6 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align: center ">
 			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
 				<div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">焊机设备编辑</div>
+				<input type="hidden" id="flag" value="2">
 				<div class="fitem">
 					<lable>固定资产编号</lable>
 					<input type="hidden" id="wid" value="${w.id }">
@@ -54,8 +55,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="fitem">
 					<lable>所属项目</lable>
-					<input type="hidden"  id="insframework" value="${w.insframeworkId.id }">
-					<select class="easyui-combobox" name="insframeworkId" id="iId" data-options="required:true,editable:false"></select>
+					<input type="hidden"  id="insframework"  name="insframework" value="${w.insframeworkId.id }">
+					<input class="easyui-textbox"  name="insframeworkId"   id="insframeworkId"  value="${w.insframeworkId.name}" readonly="readonly">
+<!-- 					<select class="easyui-combobox" name="insframeworkId" id="iId" data-options="required:true,editable:false"></select> -->
 				</div>
 				<div class="fitem">
 					<lable>生产厂商</lable>

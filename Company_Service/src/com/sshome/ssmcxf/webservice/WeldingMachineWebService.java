@@ -20,9 +20,20 @@ public interface WeldingMachineWebService {
 	Object addWeldingMachine(String obj1,String obj2);
 	
 	/**
+	 * 新增设备至项目部
+	 * @return
+	 */
+	Object addMachineToItem(String obj1,String obj2);
+	
+	/**
 	 * 修改设备
 	 */
 	Object editWeldingMachine(String obj1,String obj2);
+
+	/**
+	 * 修改设备
+	 */
+	Object editMachineToBlocCompany(String obj1,String obj2);
 	
 	/**
 	 * 删除设备
@@ -38,6 +49,8 @@ public interface WeldingMachineWebService {
 	 * 判断焊机编号是否存在
 	 */
 	int getEquipmentnoCount(String object);
+	
+	int getMachineCountToItem(String obj1,String obj2);
 	
 	/**
 	 * 判断采集序号是否存在

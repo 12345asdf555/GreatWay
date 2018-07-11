@@ -53,6 +53,10 @@
 		fmacurl=#{macurl}, fleavetime=#{leavetime},fmodifier=#{modifier},fupdatetime=now()  WHERE fid=#{id}
 	</update>
 	
+	<update id="editGatherStatusToItem">
+		UPDATE tb_gather SET fstatus=#{statusname}   WHERE fid=#{id}
+	</update>
+	
 	<delete id="deleteGather" parameterType="java.math.BigInteger">
 		DELETE FROM tb_gather WHERE fid=#{id}
 	</delete>

@@ -46,4 +46,9 @@ public interface DictionaryWebService {
 	 * @return
 	 */
 	Object getDicValueByType(String object);
+	
+	/**
+	 * 获取字典类型id及描述
+	 */
+	Object getBack();
 }

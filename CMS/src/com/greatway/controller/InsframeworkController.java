@@ -76,6 +76,7 @@ public class InsframeworkController {
 	@RequestMapping("/goeditInsframework")
 	public String goeditInsframework(HttpServletRequest request,@RequestParam String id){
 		Insframework insf = im.getInsfAllById(new BigInteger(id));
+		request.setAttribute("parent", im.getInsframeworkById(insf.getParent()));
 		request.setAttribute("insf", insf);
 		return "insframework/editinsframework";
 	}
