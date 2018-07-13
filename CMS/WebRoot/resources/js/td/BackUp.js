@@ -30,6 +30,7 @@ var series1;
 var chart1;
 var led=["0,1,2,4,5,6","2,5","0,2,3,4,6","0,2,3,5,6","1,2,3,5","0,1,3,5,6","0,1,3,4,5,6","0,2,5","0,1,2,3,4,5,6","0,1,2,3,5,6"];
 var dic;
+var starows = new Array();
 /*var jishiqi=0;
 var tioshu;*/
 $(function(){
@@ -65,6 +66,7 @@ $(function(){
 			vol.length=0;
 			ele.length=0;
 			time.length=0;
+			starows.length=0;
 			symbol=0;
 			$("#macname").val("");
 			$("#welname").val("");
@@ -96,6 +98,23 @@ $(function(){
 	      success : function(result) {
 	          if (result) {
 	        	  dic = eval(result.ary);
+	          }  
+	      },
+	      error : function(errorMsg) {  
+	          alert("数据请求失败，请联系系统管理员!");  
+	      }  
+	 });
+	var dtoTime1=getNowFormatDate(new Date().getTime()-7200*1000);
+	var dtoTime2=getNowFormatDate(new Date().getTime());
+	$.ajax({  
+	      type : "post",  
+	      async : false,
+	      url : "td/standbytimeout?dtoTime1="+dtoTime1+"&dtoTime2="+dtoTime2,  
+	      data : {},  
+	      dataType : "json", //返回数据形式为json  
+	      success : function(result) {
+	          if (result) {
+	        	  starows = eval(result.rows);
 	          }  
 	      },
 	      error : function(errorMsg) {  
@@ -215,6 +234,52 @@ $(function(){
 		}
 	}
 	
+	function getNowFormatDate(millsTime){
+	    var day = new Date(millsTime);
+	    var Year = 0;
+	    var Month = 0;
+	    var Day = 0;
+	    var Hour = 0;
+	    var Minute = 0;
+	    var Second =0;
+	    var CurrentDate = "";
+	    Year= day.getFullYear();//支持IE和火狐浏览器.
+	    Month= day.getMonth()+1;
+	    Day = day.getDate();
+	    Hour = day.getHours();
+	    Minute = day.getMinutes();
+	    Second = day.getSeconds();
+	    CurrentDate += Year +'-';
+	    if (Month >= 10 ){
+	     CurrentDate += Month + '-';
+	    }
+	    else{
+	     CurrentDate += "0" + Month + '-';
+	    }
+	    if (Day >= 10 ){
+	     CurrentDate += Day + ' ';
+	    }
+	    else{
+	     CurrentDate += "0" + Day + ' ';
+	    }
+	    if(Hour >= 10){
+	    	CurrentDate += Hour + ':';
+	    } else {
+	    	CurrentDate += '0' + Hour + ':';
+	    }
+	    if(Minute >= 10){
+	    	CurrentDate += Minute + ':';
+	    } else {
+	    	CurrentDate += '0' + Minute + ':';
+	    }
+	    if(Second >= 10){
+	    	CurrentDate += Second;
+	    } else {
+	    	CurrentDate += '0' + Second;
+	    }
+	    return CurrentDate;
+	 }
+	
 	function datatable(){
 	    $("#dg").datagrid( {
 			fitColumns : true,
@@ -299,11 +364,23 @@ $(function(){
 				}
 			}]],
 			toolbar : '#toolbar',
-/*			onLoadSuccess:function(data){
-		        $("a[id='view']").linkbutton({text :'查看',plain:true,iconCls:'icon-view'});
-		        },*/
+			onLoadSuccess:function(data){
+				window.setInterval(function() {
+					if(starows.length!=0){
+				        for(var i=0;i<data.rows.length;i++){
+				        	for(var j=0;j<starows.length/2;j++){
+				        		if(data.rows[i].fequipment_no==starows[j].fname){
+				        			data.rows[i].percentage=(parseInt(starows[j].ftime)/parseInt(starows[starows.length/2+j].ftime)).toFixed(2);
+				        			sta[j].ftime=0;
+				        			starows[starows.length/2+j].ftime=0;
+				        		}    
+				        	}
+				        }
+					};
+				}, 3600*1000)
+		        },
 	        rowStyler:function(index,row){
-	            if(row.percentage>(parseInt(dic[0].name)/100).toFixed(2)){
+	            if(row.percentage>(parseInt(dic[0].name)/100).toFixed(2)&&(row.fstatus_id=="00")){
 	            	return 'background-color:#FFFF00;color:black;';
 	            }else{
 	            	if ((row.fstatus_id=="03")||(row.fstatus_id=="05")||(row.fstatus_id=="07")){
@@ -578,9 +655,9 @@ $(function(){
 				    if((redata.substring(8+i, 12+i)!="0000")&&(redata.substring(4+i, 8+i)==rows[dex].fequipment_no)){
 						rows[dex].fwelder_no=redata.substring(8+i, 12+i);
 						rows[dex].fstatus_id=redata.substring(0+i, 2+i);
-						var wwk = parseInt(redata.substring(53+i, 55+i))*3600+parseInt(redata.substring(56+i, 58+i))*60+parseInt(redata.substring(59+i, 61+i));
+/*						var wwk = parseInt(redata.substring(53+i, 55+i))*3600+parseInt(redata.substring(56+i, 58+i))*60+parseInt(redata.substring(59+i, 61+i));
 						var wwz = parseInt(redata.substring(61+i, 63+i))*3600+parseInt(redata.substring(64+i, 66+i))*60+parseInt(redata.substring(67+i, 69+i));
-						rows[dex].percentage=parseFloat(((wwz-wwk)/wwz).toFixed(2));
+						rows[dex].percentage=parseFloat(((wwz-wwk)/wwz).toFixed(2));*/
 						for(var k=0;k<welderName.length;k++){
 							if(welderName[k].fwelder_no==redata.substring(8+i, 12+i)){
 								rows[dex].fname=welderName[k].fname;
@@ -589,6 +666,15 @@ $(function(){
 						$('#dg').datagrid('refreshRow', dex);
 /*						$("a[id='view']").linkbutton({text:'查看',plain:true,iconCls:'icon-view'});*/
 				    }
+					if(starows.length!=0){
+				        	for(var j=0;j<starows.length/2;j++){
+				        		if(rows[dex].fequipment_no==starows[j].fname){
+				        			rows[dex].percentage=(parseInt(starows[j].ftime)/parseInt(starows[starows.length/2+j].ftime)).toFixed(2);
+				        			starows[j].ftime=0;
+				        			starows[starows.length/2+j].ftime=0;
+				        		}
+				        	}
+					};
 		    		}
 	            var work=0;
 	            var wait=0;
@@ -621,8 +707,8 @@ $(function(){
 				if(zu!=""&&zu!=null){
 					if(redata.substring(4+i, 8+i)==value&&redata.substring(2+i, 4+i)==zu){
 						ele.push(parseInt(redata.substring(12+i, 16+i)));
-//						vol.push(parseFloat((parseInt(redata.substring(16+i, 20+i))/10).toFixed(2)));
-						vol.push(parseInt(redata.substring(16+i, 20+i)));
+						vol.push(parseFloat((parseInt(redata.substring(16+i, 20+i))/10).toFixed(2)));
+//						vol.push(parseInt(redata.substring(16+i, 20+i)));
 						time.push(Date.parse(redata.substring(20+i, 39+i)));
 						maxele = parseInt(redata.substring(41+i, 44+i));
 						minele = parseInt(redata.substring(44+i, 47+i));
@@ -695,8 +781,8 @@ $(function(){
 				}else{
 					if(redata.substring(4+i, 8+i)==value){
 						ele.push(parseInt(redata.substring(12+i, 16+i)));
-//						vol.push(parseFloat((parseInt(redata.substring(16+i, 20+i))/10).toFixed(2)));
-						vol.push(parseInt(redata.substring(16+i, 20+i)));
+						vol.push(parseFloat((parseInt(redata.substring(16+i, 20+i))/10).toFixed(2)));
+//						vol.push(parseInt(redata.substring(16+i, 20+i)));
 						time.push(Date.parse(redata.substring(20+i, 39+i)));
 						maxele = parseInt(redata.substring(41+i, 44+i));
 						minele = parseInt(redata.substring(44+i, 47+i));
@@ -767,6 +853,45 @@ $(function(){
 					}
 				}
 			}
+			if(starows.length==0){
+				var arr  =
+			     {
+			         "fname" : redata.substring(4+i, 8+i),
+			         "ftime" : 1
+			     }
+				var arr1  =
+			     {
+			         "fname" : redata.substring(4+i, 8+i),
+			         "ftime" : 1
+			     }
+				starows.splice(starows.length/2, 0, arr);
+				starows.push(arr1);
+			}else{
+				for(var sta=0;sta<starows.length/2;sta++){
+				if(redata.substring(4+i, 8+i)==starows[sta].fname){
+					if(redata.substring(0+i, 2+i)=="00"){
+						starows[sta].ftime++;
+					}
+					starows[starows.length/2+sta].ftime++;
+					break;
+				}else{
+					if(sta==starows.length/2-1){
+						var arr  =
+					     {
+					         "fname" : redata.substring(4+i, 8+i),
+					         "ftime" : 1
+					     }
+						var arr1  =
+					     {
+					         "fname" : redata.substring(4+i, 8+i),
+					         "ftime" : 1
+					     }
+						starows.splice(starows.length/2, 0, arr);
+						starows.push(arr1);
+					}
+				}
+			}
+		}
 			/*tioshu=(i+69)/69;*/
 		};
 	}

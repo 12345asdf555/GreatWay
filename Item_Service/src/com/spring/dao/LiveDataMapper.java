@@ -119,4 +119,6 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	List<ModelDto> getJunctionByWelder(@Param("dto")WeldDto dto,@Param("welder")String welder);
 	
 	List<ModelDto> getExcessiveBack(@Param("time")String time,@Param("welder")String welder,@Param("junction")String junction);
+	
+	List<ModelDto> getStandbytimeout(@Param("dto")WeldDto dto);
 }

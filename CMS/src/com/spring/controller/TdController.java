@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.greatway.dto.ModelDto;
+import com.greatway.dto.WeldDto;
 import com.greatway.manager.InsframeworkManager;
 import com.greatway.manager.LiveDataManager;
 import com.greatway.manager.WeldingMachineManager;
@@ -535,6 +537,40 @@ public class TdController {
 			for(Td td:fwn){
 				json.put("fname",td.getFname());
 				json.put("fwelder_no", td.getFwelder_no());
+				ary.add(json);
+			}
+		}catch(Exception e){
+			e.getMessage();
+		}
+		obj.put("rows", ary);
+		return obj.toString();
+	}
+	
+	@RequestMapping("/standbytimeout")
+	@ResponseBody
+	public String standbytimeout(HttpServletRequest request){
+		
+		String time1 = request.getParameter("dtoTime1");
+		String time2 = request.getParameter("dtoTime2");
+		WeldDto dto = new WeldDto();
+		String s = (String)request.getSession().getAttribute("s");
+		if(iutil.isNull(s)){
+			dto.setSearch(s);
+		}
+		if(iutil.isNull(time1)){
+			dto.setDtoTime1(time1);
+		}
+		if(iutil.isNull(time2)){
+			dto.setDtoTime2(time2);
+		}
+		List<ModelDto> md = lm.getStandbytimeout(dto);
+		JSONObject obj = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray ary = new JSONArray();
+		try{
+			for(ModelDto sta:md){
+				json.put("fname",sta.getFname());
+				json.put("ftime", sta.getHous());
 				ary.add(json);
 			}
 		}catch(Exception e){

@@ -491,4 +491,14 @@ public class LiveDataServiceImpl implements LiveDataService {
 			return null;
 		}
 	}
+
+	@Override
+	public List<ModelDto> getStandbytimeout(WeldDto dto) {
+		try{
+			return live.getStandbytimeout(dto);
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

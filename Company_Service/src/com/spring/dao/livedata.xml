@@ -2034,5 +2034,46 @@
 		inner join tb_welded_junction j on j.fwelded_junction_no=k0.fjunction_id inner join tb_welder w on w.fwelder_no = k0.fwelder_id where fwelder_id=#{welder} and fjunction_id=#{junction} group by weldtimes )B
 		where overproofs=1 order by weldtimes)C where num>1 )D on F.nums = D.num)temp
 	</select>
+	
+	<!-- 焊机一小时内待机时间和总时间 -->
+	<select id="getStandbytimeout" resultMap="dtoMap">
+		SELECT m.fequipment_no fname,COUNT(l.fid) AS hous FROM tb_live_data l 
+		INNER join tb_welding_machine m on l.fmachine_id=m.fid WHERE 1=1 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				AND l.FWeldTime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				AND l.FWeldTime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		AND l.fstatus='0' 
+		GROUP BY m.fequipment_no
+		UNION
+		SELECT m.fequipment_no fname,COUNT(l.fid) AS hous FROM tb_live_data l 
+		INNER join tb_welding_machine m on l.fmachine_id=m.fid WHERE 1=1 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				AND l.FWeldTime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				AND l.FWeldTime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		AND m.fequipment_no IN (
+		SELECT m.fequipment_no FROM tb_live_data l 
+		INNER join tb_welding_machine m on l.fmachine_id=m.fid WHERE 1=1 
+		<if test="dto!=null and dto!=''">
+			<if test="dto.dtoTime1!=null and dto.dtoTime1!=''">
+				AND l.FWeldTime &gt;= #{dto.dtoTime1}
+			</if>
+			<if test="dto.dtoTime2!=null and dto.dtoTime2!=''">
+				AND l.FWeldTime &lt;= #{dto.dtoTime2}
+			</if>
+		</if>
+		AND l.fstatus='0' 
+		GROUP BY m.fequipment_no) 
+		GROUP BY m.fequipment_no
+	</select>
 
 </mapper>
