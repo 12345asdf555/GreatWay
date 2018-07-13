@@ -1,328 +1,333 @@
 package com.sshome.ssmcxf.webservice;
 
+import java.util.List;
+
+import com.spring.dto.ModelDto;
+import com.spring.dto.WeldDto;
+
 public interface LiveDataWebService {
 	/**
-	 * 查询事业部焊接工时
-	 * @param dto扩展参数类
-	 * @param parent 父id
+	 * 鏌ヨ浜嬩笟閮ㄧ剨鎺ュ伐鏃�
+	 * @param dto鎵╁睍鍙傛暟绫�
+	 * @param parent 鐖秈d
 	 * @return
 	 */
 	Object getCausehour(String object);
 	
 	/**
-	 * 查询公司焊接工时
-	 * @param dto扩展参数类
-	 * @param parent父id
+	 * 鏌ヨ鍏徃鐒婃帴宸ユ椂
+	 * @param dto鎵╁睍鍙傛暟绫�
+	 * @param parent鐖秈d
 	 * @return
 	 */
 	Object getCompanyhour(String object);
 	
 	/**
-	 * 项目部焊接工时
-	 * @param dto扩展参数类
+	 * 椤圭洰閮ㄧ剨鎺ュ伐鏃�
+	 * @param dto鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getItemhour(String object);
 	
 	/**
-	 * 焊口焊接工时
-	 * @param dto扩展参数类
+	 * 鐒婂彛鐒婃帴宸ユ椂
+	 * @param dto鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getJunctionHous(String object);
 	
 	/**
-	 * 事业部工艺超标统计
-	 * @param dto 扩展参数类
-	 * @param parent 父id
+	 * 浜嬩笟閮ㄥ伐鑹鸿秴鏍囩粺璁�
+	 * @param dto 鎵╁睍鍙傛暟绫�
+	 * @param parent 鐖秈d
 	 * @return
 	 */
 	Object getCauseOverproof(String object);
 	
 	/**
-	 * 项目部工艺超标统计
-	 * @param dto 扩展参数类
-	 * @param id 项目id
+	 * 椤圭洰閮ㄥ伐鑹鸿秴鏍囩粺璁�
+	 * @param dto 鎵╁睍鍙傛暟绫�
+	 * @param id 椤圭洰id
 	 * @return
 	 */
 	Object getItemOverproof(String object);
 	
 	/**
-	 * 获取当前所包含的项目
-	 * @param parent 上级项目id
+	 * 鑾峰彇褰撳墠鎵�鍖呭惈鐨勯」鐩�
+	 * @param parent 涓婄骇椤圭洰id
 	 * @return
 	 */
 	Object getAllInsf(String object);
 	
 	/**
-	 * 获取当前跨度所包含的时间
-	 * @param dto 扩展参数类
+	 * 鑾峰彇褰撳墠璺ㄥ害鎵�鍖呭惈鐨勬椂闂�
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getAllTime(String object);
 	
 	/**
-	 * 公司工艺超标统计
-	 * @param dto 扩展参数类
+	 * 鍏徃宸ヨ壓瓒呮爣缁熻
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getCompanyOverproof(String object);
 	
 	/**
-	 * 获取公司超时待机统计
-	 * @param dto 扩展参数类
-	 * @param num 超时点
+	 * 鑾峰彇鍏徃瓒呮椂寰呮満缁熻
+	 * @param dto 鎵╁睍鍙傛暟绫�
+	 * @param num 瓒呮椂鐐�
 	 * @return
 	 */
 	Object getcompanyOvertime(String object);
 	
 	/**
-	 * 获取事业部超时待机统计
-	 * @param dto扩展参数类
-	 * @param num超时点
-	 * @param parent上级id
+	 * 鑾峰彇浜嬩笟閮ㄨ秴鏃跺緟鏈虹粺璁�
+	 * @param dto鎵╁睍鍙傛暟绫�
+	 * @param num瓒呮椂鐐�
+	 * @param parent涓婄骇id
 	 * @return
 	 */
 	Object getCaustOvertime(String object);
 	
 	/**
-	 * 获取项目部超时待机统计
-	 * @param dto扩展参数类
-	 * @param num超时点
-	 * @param parent上级id
+	 * 鑾峰彇椤圭洰閮ㄨ秴鏃跺緟鏈虹粺璁�
+	 * @param dto鎵╁睍鍙傛暟绫�
+	 * @param num瓒呮椂鐐�
+	 * @param parent涓婄骇id
 	 * @return
 	 */
 	Object getItemOvertime(String object);
 	
 	/**
-	 * 获取所有焊口
-	 * @param parent 所属项目id
+	 * 鑾峰彇鎵�鏈夌剨鍙�
+	 * @param parent 鎵�灞為」鐩甶d
 	 * @return
 	 */
 	Object getJunction(String object);
 	
 	/**
-	 * 待机明细
-	 * @param dto扩展参数类
-	 * @param num超时点
-	 * @param parent 项目id
+	 * 寰呮満鏄庣粏
+	 * @param dto鎵╁睍鍙傛暟绫�
+	 * @param num瓒呮椂鐐�
+	 * @param parent 椤圭洰id
 	 * @return
 	 */
 	Object getDetailovertime(String object);
 	
 	/**
-	 * 公司负荷率
-	 * @param dto扩展参数类
+	 * 鍏徃璐熻嵎鐜�
+	 * @param dto鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getCompanyLoads(String object);
 	
 	/**
-	 * 事业部负荷率
-	 * @param dto扩展参数类
-	 * @param parent上级id
+	 * 浜嬩笟閮ㄨ礋鑽风巼
+	 * @param dto鎵╁睍鍙傛暟绫�
+	 * @param parent涓婄骇id
 	 * @return
 	 */
 	Object getCaustLoads(String object);
 	
 	/**
-	 * 项目部负荷率
-	 * @param dto扩展参数类
-	 * @param parent上级id
+	 * 椤圭洰閮ㄨ礋鑽风巼
+	 * @param dto鎵╁睍鍙傛暟绫�
+	 * @param parent涓婄骇id
 	 * @return
 	 */
 	Object getItemLoads(String object);
 	
 	/**
-	 * 获取所有焊机
-	 * @param parent 项目id
-	 * @param dto扩展参数类
+	 * 鑾峰彇鎵�鏈夌剨鏈�
+	 * @param parent 椤圭洰id
+	 * @param dto鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getMachine(String object);
 	
 	/**
-	 * 获取负荷率明细
-	 * @param dto扩展参数类
-	 * @param machineno焊机编号
+	 * 鑾峰彇璐熻嵎鐜囨槑缁�
+	 * @param dto鎵╁睍鍙傛暟绫�
+	 * @param machineno鐒婃満缂栧彿
 	 * @return
 	 */
 	Object getDetailLoads(String object);
 	
 	/**
-	 * 获取公司空载率
-	 * @param dto 扩展参数类
+	 * 鑾峰彇鍏徃绌鸿浇鐜�
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getCompanyNoLoads(String object);
 
 	/**
-	 * 获取事业部空载率
-	 * @param dto 扩展参数类
-	 * @param parent 父id
+	 * 鑾峰彇浜嬩笟閮ㄧ┖杞界巼
+	 * @param dto 鎵╁睍鍙傛暟绫�
+	 * @param parent 鐖秈d
 	 * @return
 	 */
 	Object getCaustNOLoads(String object);
 	
 	/**
-	 * 获取项目部空载率
-	 * @param dto 扩展参数类
-	 * @param parent 父id
+	 * 鑾峰彇椤圭洰閮ㄧ┖杞界巼
+	 * @param dto 鎵╁睍鍙傛暟绫�
+	 * @param parent 鐖秈d
 	 * @return
 	 */
 	Object getItemNOLoads(String object);
 	
 	/**
-	 * 公司闲置率
-	 * @param dto 扩展参数类
+	 * 鍏徃闂茬疆鐜�
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getCompanyIdle(String object);
 	
 	/**
-	 * 事业部闲置率
-	 * @param dto扩展参数类
-	 * @param parent上级id
+	 * 浜嬩笟閮ㄩ棽缃巼
+	 * @param dto鎵╁睍鍙傛暟绫�
+	 * @param parent涓婄骇id
 	 * @return
 	 */
 	Object getCaustIdle(String object);
 	
 	/**
-	 * 项目部闲置率
-	 * @param dto扩展参数类
-	 * @param itemid项目id
+	 * 椤圭洰閮ㄩ棽缃巼
+	 * @param dto鎵╁睍鍙傛暟绫�
+	 * @param itemid椤圭洰id
 	 * @return
 	 */
 	Object getItemIdle(String object);
 	
 	/**
-	 * 获取项目所有焊机数量
-	 * @param id 项目id
+	 * 鑾峰彇椤圭洰鎵�鏈夌剨鏈烘暟閲�
+	 * @param id 椤圭洰id
 	 * @return
 	 */
 	int getMachineCount(String object);
 	
 	/**
-	 * 公司单台设备运行数据统计
-	 * @param dto 扩展参数类
-	 * @param parent 上级id
+	 * 鍏徃鍗曞彴璁惧杩愯鏁版嵁缁熻
+	 * @param dto 鎵╁睍鍙傛暟绫�
+	 * @param parent 涓婄骇id
 	 * @return
 	 */
 	Object getCompanyUse(String object);
 	
 	/**
-	 * 事业部单台设备运行数据统计
-	 * @param dto 扩展参数类
-	 * @param insid 项目id
+	 * 浜嬩笟閮ㄥ崟鍙拌澶囪繍琛屾暟鎹粺璁�
+	 * @param dto 鎵╁睍鍙傛暟绫�
+	 * @param insid 椤圭洰id
 	 * @return
 	 */
 	Object getCaustUse(String object);
 	
 
 	/**
-	 * 项目部单台设备运行数据统计
-	 * @param dto 扩展参数类
-	 * @param insid 项目id
+	 * 椤圭洰閮ㄥ崟鍙拌澶囪繍琛屾暟鎹粺璁�
+	 * @param dto 鎵╁睍鍙傛暟绫�
+	 * @param insid 椤圭洰id
 	 * @return
 	 */
 	Object getItemUse(String object);
 	
 	/**
-	 * 集团焊接工时
-	 * @param dto 扩展参数类
+	 * 闆嗗洟鐒婃帴宸ユ椂
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getBlochour(String object);
 	
 	/**
-	 * 集团超标统计
-	 * @param dto 扩展参数类
+	 * 闆嗗洟瓒呮爣缁熻
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getBlocOverproof(String object);
 	
 	/**
-	 * 集团超时待机统计
-	 * @param dto 扩展参数类
-	 * @param num 超时点
+	 * 闆嗗洟瓒呮椂寰呮満缁熻
+	 * @param dto 鎵╁睍鍙傛暟绫�
+	 * @param num 瓒呮椂鐐�
 	 * @return
 	 */
 	Object getBlocOvertime(String object);
 	
 	/**
-	 * 集团负载率
-	 * @param dto 扩展参数类
+	 * 闆嗗洟璐熻浇鐜�
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getBlocLoads(String object);
 	
 	/**
-	 * 集团空载率
-	 * @param dto 扩展参数类
+	 * 闆嗗洟绌鸿浇鐜�
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getBlocNoLoads(String object);
 	
 	/**
-	 * 集团闲置率
-	 * @param dto 扩展参数类
+	 * 闆嗗洟闂茬疆鐜�
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object getBlocIdle(String object);
 	
 	/**
-	 * 集团单台设备运行数据统计
-	 * @param dto  扩展参数类
-	 * @param parent 上级的父id
+	 * 闆嗗洟鍗曞彴璁惧杩愯鏁版嵁缁熻
+	 * @param dto  鎵╁睍鍙傛暟绫�
+	 * @param parent 涓婄骇鐨勭埗id
 	 * @return
 	 */
 	Object getBlocUse(String object);
 	
 	/**
-	 * 获取集团下的公司
+	 * 鑾峰彇闆嗗洟涓嬬殑鍏徃
 	 * @return
 	 */
 	Object getBlocChildren();
 	
 	/**
-	 * 事业部工效
-	 * @param page 分页
-	 * @param parent 父id
-	 * @param dto 扩展参数类
+	 * 浜嬩笟閮ㄥ伐鏁�
+	 * @param page 鍒嗛〉
+	 * @param parent 鐖秈d
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object caustEfficiency(String object);
 	
 	/**
-	 * 公司工效
-	 * @param page 分页
-	 * @param parent 父id
-	 * @param dto 扩展参数类
+	 * 鍏徃宸ユ晥
+	 * @param page 鍒嗛〉
+	 * @param parent 鐖秈d
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object companyEfficiency(String object);
 	
 	/**
-	 * 集团工效
-	 * @param page 分页
-	 * @param parent 父id
-	 * @param dto 扩展参数类
+	 * 闆嗗洟宸ユ晥
+	 * @param page 鍒嗛〉
+	 * @param parent 鐖秈d
+	 * @param dto 鎵╁睍鍙傛暟绫�
 	 * @return
 	 */
 	Object blocEfficiency(String object);
 	
 	/**
-	 * 获取工效图表数据
+	 * 鑾峰彇宸ユ晥鍥捐〃鏁版嵁
 	 */
 	Object getEfficiencyChart(String object);
 	
 	/**
-	 * 获取焊口分类
-	 * @param parent 父id
-	 * @param material 材质
-	 * @param external_diameter 外径
-	 * @param wall_thickness 璧厚
-	 * @param nextExternal_diameter 下游外径
+	 * 鑾峰彇鐒婂彛鍒嗙被
+	 * @param parent 鐖秈d
+	 * @param material 鏉愯川
+	 * @param external_diameter 澶栧緞
+	 * @param wall_thickness 鐠у帤
+	 * @param nextExternal_diameter 涓嬫父澶栧緞
 	 * @return
 	 */
 	Object getHousClassify(String object);
@@ -331,52 +336,59 @@ public interface LiveDataWebService {
 	
 
 	/**
-	 * 查询实时数据集团焊机数量
-	 * @param dto 扩张参数类
-	 * @param parent 公司id
+	 * 鏌ヨ瀹炴椂鏁版嵁闆嗗洟鐒婃満鏁伴噺
+	 * @param dto 鎵╁紶鍙傛暟绫�
+	 * @param parent 鍏徃id
 	 * @return
 	 */
 	Object getBlocMachineCount(String object);
 
 	/**
-	 * 查询实时数据公司焊机数量
-	 * @param dto 扩张参数类
-	 * @param parent 公司id
+	 * 鏌ヨ瀹炴椂鏁版嵁鍏徃鐒婃満鏁伴噺
+	 * @param dto 鎵╁紶鍙傛暟绫�
+	 * @param parent 鍏徃id
 	 * @return
 	 */
 	Object getCompanyMachineCount(String object);
 
 	/**
-	 * 查询实时数据事业部/项目部焊机数量
-	 * @param dto 扩张参数类
-	 * @param parent 公司id
+	 * 鏌ヨ瀹炴椂鏁版嵁浜嬩笟閮�/椤圭洰閮ㄧ剨鏈烘暟閲�
+	 * @param dto 鎵╁紶鍙傛暟绫�
+	 * @param parent 鍏徃id
 	 * @return
 	 */
 	Object getCaustMachineCount(String object);
 	
 	/**
-	 * 根据组织机构及时间点获取工作总时长
-	 * @param parent 组织机构id
-	 * @param time 时间点
-	 * @param mid 焊机id
+	 * 鏍规嵁缁勭粐鏈烘瀯鍙婃椂闂寸偣鑾峰彇宸ヤ綔鎬绘椂闀�
+	 * @param parent 缁勭粐鏈烘瀯id
+	 * @param time 鏃堕棿鐐�
+	 * @param mid 鐒婃満id
 	 * @return
 	 */
 	Object getCountByTime(String object);
 	
 	/**
-	 * 根据焊工获取焊口
-	 * @param dto 扩展参数类
-	 * @param welder 焊工编号
+	 * 鏍规嵁鐒婂伐鑾峰彇鐒婂彛
+	 * @param dto 鎵╁睍鍙傛暟绫�
+	 * @param welder 鐒婂伐缂栧彿
 	 * @return
 	 */
 	Object getJunctionByWelder(String object);
 	
 	/**
-	 * 获取超标回溯
-	 * @param time 超标时间
-	 * @param welder 焊工
-	 * @param jucntion 焊口
+	 * 鑾峰彇瓒呮爣鍥炴函
+	 * @param time 瓒呮爣鏃堕棿
+	 * @param welder 鐒婂伐
+	 * @param jucntion 鐒婂彛
 	 * @return
 	 */
 	Object getExcessiveBack(String object);
+	
+	/**
+	 * 得到焊机待机时间和总时间
+	 * @param dto 截止当前时间为止的一个小时内
+	 * @return
+	 */
+	Object getStandbytimeout(String object);
 }

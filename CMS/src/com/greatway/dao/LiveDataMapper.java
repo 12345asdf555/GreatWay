@@ -127,4 +127,6 @@ public interface LiveDataMapper extends Mapper<LiveData>{
 	List<ModelDto> getMaintenanceratio(@Param("dto")WeldDto dto);
 	
 	ModelDto getSumMaintenance(@Param("dto")WeldDto dto);
+	
+	List<ModelDto> getStandbytimeout(@Param("dto")WeldDto dto);
 }

@@ -181,13 +181,7 @@ $(function(){
 				wmGatheridValidate : {
 					validator : function(value, param){
 						if(flag){
-							var iId;
-							if($("#flag").val()==1){
-								iId  = $('#iId').combobox('getValue');
-							}else{
-								iId = $("#insframework").val();
-							}
-							
+							var iId = $('#iId').combobox('getValue');
 							var validgid = $("#validgid").val();
 							var olditem = $("#insframework").val();
 							if((validgid!=null || validgid!="") && validgid == value && iId == olditem){

@@ -1443,4 +1443,25 @@ public class LiveDataWebServiceImpl implements LiveDataWebService {
 			return null;
 		}
 	}
+
+	@Override
+	public Object getStandbytimeout(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			JSONArray ary = new JSONArray();
+			JSONObject obj = new JSONObject();
+			WeldDto dto = new WeldDto();
+			dto.setDtoTime1(json.getString("STARTTIME"));
+			dto.setDtoTime2(json.getString("ENDTIME"));
+			List<ModelDto> list = live.getStandbytimeout(dto);
+			for(ModelDto d:list){
+				obj.put("FNAME", jutil.setValue(d.getFname()));
+				obj.put("HOUS", jutil.setValue(d.getHous()));
+				ary.add(obj);
+			}
+			return ary.toString();
+		}catch(Exception e){
+			return null;
+		}
+	}
 }
