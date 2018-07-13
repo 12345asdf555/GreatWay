@@ -316,4 +316,16 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 		}
 	}
 
+	@Override
+	public String getGatheridMachine(String object) {
+		try{
+			JSONObject json = JSONObject.fromObject(object);
+			BigInteger itemid = new BigInteger(json.getString("INSFID"));
+			String gather = json.getString("GATHERNO");
+			return wms.getGatheridMachine(itemid, gather);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
 }

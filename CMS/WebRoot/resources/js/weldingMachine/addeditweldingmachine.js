@@ -259,6 +259,12 @@ function insframeworkTree(){
 }
 
 function GatherDatagrid(){
+	var parent;
+	if($("#flag").val()==2){
+		parent = $("#insframework").val();
+	}else{
+		parent = $("#iId").combobox('getValue');
+	}
 	var searchStr = "g.fid not in (select g.fid from tb_gather g INNER JOIN tb_welding_machine m on m.fgather_id = g.fid) and fstatus!='迁移'";
 	$("#gatherTable").datagrid( {
 		fitColumns : true,
@@ -267,7 +273,7 @@ function GatherDatagrid(){
 		idField : 'id',
 		pageSize : 10,
 		pageList : [ 10, 20, 30, 40, 50 ],
-		url : "gather/getGatherList?parent="+$("#iId").combobox('getValue')+"&searchStr="+searchStr,
+		url : "gather/getGatherList?parent="+parent+"&searchStr="+searchStr,
 		singleSelect : true,
 		rownumbers : true,
 		showPageList : false,

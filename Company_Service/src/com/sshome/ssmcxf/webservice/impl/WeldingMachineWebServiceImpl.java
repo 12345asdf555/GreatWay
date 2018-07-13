@@ -524,4 +524,55 @@ public class WeldingMachineWebServiceImpl implements WeldingMachineWebService {
 		}
 	}
 
+	@Override
+	public String getGatheridMachine(String obj1, String obj2) {
+		try{
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			JSONObject json = JSONObject.fromObject(obj2);
+			BigInteger insfid = new BigInteger(json.getString("INSFID"));
+			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			String num = "";
+			if(itemurl !=null && !"".equals(itemurl)){
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+				//向项目执行插入
+				Client itemclient = dcf.createClient(itemurl);
+				jutil.Authority(itemclient);
+				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+				num =  itemobj[0].toString();
+			}
+			return num;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Object editMachineToItem(String obj1, String obj2) {
+		try{
+			//webservice获取request
+			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
+			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
+			JSONObject json = JSONObject.fromObject(obj2);
+			BigInteger insfid = new BigInteger(json.getString("INSFRAMEWORKID"));
+			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			if(itemurl !=null && !"".equals(itemurl)){
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+				//向项目执行插入
+				Client itemclient = dcf.createClient(itemurl);
+				jutil.Authority(itemclient);
+				String newobj = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"editWeldingMachine\"}";
+				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});
+				return itemobj[0].toString();
+			}else{
+				return "未找到该项目部，请检查网络连接情况或是否部署服务";
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

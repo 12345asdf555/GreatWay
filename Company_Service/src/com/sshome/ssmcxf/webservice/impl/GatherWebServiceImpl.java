@@ -268,7 +268,7 @@ public class GatherWebServiceImpl implements GatherWebService{
 
 
 	@Override
-	public int getGatherNoCountToItem(String obj1, String obj2) {
+	public BigInteger getGatherNoCountToItem(String obj1, String obj2) {
 		try{
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
@@ -276,97 +276,51 @@ public class GatherWebServiceImpl implements GatherWebService{
 			JSONObject json = JSONObject.fromObject(obj2);
 			BigInteger insfid = new BigInteger(json.getString("INSFID"));
 			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
-			int num = 0;
+			String num = "0";
 			if(itemurl !=null && !"".equals(itemurl)){
 				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 				//向项目执行插入
 				Client itemclient = dcf.createClient(itemurl);
 				jutil.Authority(itemclient);
-				String newobj = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"getGatherNoCount\"}";
+				String newobj = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"getGatherByNo\"}";
 				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});
-				num =  Integer.parseInt(itemobj[0].toString());
-			}
-			return num;
-		}catch(Exception e){
-			return -1;
-		}
-	}
-
-	@Override
-	public boolean editGatherStatusToItem(String obj1,String obj2) {
-		try{
-			//webservice获取request
-			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
-			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
-			JSONObject json = JSONObject.fromObject(obj2);
-			BigInteger insfid = new BigInteger(json.getString("INSFID"));
-			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
-			boolean flag = true;
-			if(itemurl !=null && !"".equals(itemurl)){
-				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
-				//向项目执行插入
-				Client itemclient = dcf.createClient(itemurl);
-				jutil.Authority(itemclient);
-				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
-				if(itemobj[0].toString().equals("true")){
-					flag = true;
-				}else{
-					flag = false;
+				if(itemobj[0]!=null && !"".equals(itemobj[0])){
+					num = itemobj[0].toString();
 				}
 			}
-			return flag;
+			return new BigInteger(num);
 		}catch(Exception e){
-			return false;
+			e.printStackTrace();
+			return new BigInteger("0");
 		}
 	}
 
 
 	@Override
-	public Object addGatherToItem(String obj1, String obj2) {
+	public BigInteger addMachineGather(String obj1, String obj2) {
 		try{
+			obj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"addGather\"}";
 			//webservice获取request
 			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
 			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
-			JSONObject json = JSONObject.fromObject(obj2);
-			BigInteger insfid = new BigInteger(json.getString("INSFID"));
-			String itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
-			boolean flag = true;
-			if(itemurl !=null && !"".equals(itemurl)){
-				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
-				//向项目执行插入
-				Client itemclient = dcf.createClient(itemurl);
-				jutil.Authority(itemclient);
-				String newobj = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"addGather\"}";
-				Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});
-				if( itemobj[0].toString().equals("true")){
-					flag = true;
-				}else{
-					flag = false;
-				}
-			}
-			return flag;
-		}catch(Exception e){
-			return false;
-		}
-	}
-
-
-	@Override
-	public Object editGatherToBlocCompany(String obj1, String obj2) {
-		try{
-			String newobj = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGather\"}";
-			//webservice获取request
-			MessageContext ctx = new WebServiceContextImpl().getMessageContext();
-			HttpServletRequest request = (HttpServletRequest) ctx.get(AbstractHTTPDestination.HTTP_REQUEST);
-			//向集团层执行操作
+			//向集团层执行插入
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client blocclient = dcf.createClient(request.getSession().getServletContext().getInitParameter("blocurl"));
 			jutil.Authority(blocclient);
-			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{newobj,obj2});  
-			String blocResult = blocobj[0].toString();
+			Object[] blocobj = blocclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+			BigInteger id = new BigInteger(blocobj[0].toString());
 			JSONObject json = JSONObject.fromObject(obj2);
+			//获取层级id
+			String hierarchy = json.getString("HIERARCHY");
+			String itemurl = "";
+			if(hierarchy.equals("4")){
+				itemurl = json.getString("ITEMURL");
+			}else{
+				BigInteger insfid = new BigInteger(json.getString("INSFID"));
+				itemurl = request.getSession().getServletContext().getInitParameter(insfid.toString());
+			}
 			Gather g = new Gather();
-			g.setId(new BigInteger(json.getString("ID")));
+			g.setId(id);
 			g.setGatherNo(json.getString("GATHERNO"));
 			g.setIpurl(json.getString("IPURL"));
 			g.setItemid(new BigInteger(json.getString("INSFID")));
@@ -377,16 +331,28 @@ public class GatherWebServiceImpl implements GatherWebService{
 			g.setMacurl(json.getString("MACURL"));
 			g.setProtocol(json.getString("PROTOCOL"));
 			g.setStatus(json.getString("STATUS"));
-			g.setModifier(json.getString("MODIFIER"));
-			boolean flag = gs.editGather(g);
-			if(flag && blocResult.equals("true")){
-				return true;
+			g.setCreator(json.getString("CREATOR"));
+			boolean flag = gs.addGather(g);
+			String result = "false";
+			if(flag){
+				//向项目执行插入
+				if(itemurl!=null && !"".equals(itemurl)){
+					Client itemclient = dcf.createClient(itemurl);
+					jutil.Authority(itemclient);
+					obj2 = obj2.substring(0,obj2.length()-1)+",\"ID\":\""+id+"\"}";
+					Object[] itemobj = itemclient.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheWS"), new Object[]{obj1,obj2});
+					result = itemobj[0].toString();
+					if(result.equals("false")){
+						return null;
+					}
+				}
+				return id;
 			}else{
-				return false;
+				return null;
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 }

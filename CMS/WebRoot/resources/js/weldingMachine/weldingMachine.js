@@ -79,7 +79,7 @@ function weldingMachineDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
-			field : 'gatherId',
+			field : 'gatherNo',
 			title : '采集序号',
 			width : 80,
 			halign : "center",

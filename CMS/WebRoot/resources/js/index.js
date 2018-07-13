@@ -141,6 +141,10 @@ function openWeldingMachine(){
 	addTab("焊机设备管理","weldingMachine/goWeldingMachine");
 }
 
+function openMachineMigrate(){
+	addTab("焊机设备迁移","weldingMachine/goMachineMigrate");
+}
+
 function openMachine(){
 	addTab("维修记录管理","maintain/goMaintain");
 }

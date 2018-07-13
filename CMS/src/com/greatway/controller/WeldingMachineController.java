@@ -39,6 +39,7 @@ public class WeldingMachineController {
 	private int pageIndex = 1;
 	private int pageSize = 10;
 	private int total = 0;
+	private String primaryKey = "";
 	
 	@Autowired
 	private WeldingMachineManager wmm;
@@ -456,7 +457,7 @@ public class WeldingMachineController {
 			//获取项目层url
 			String itemurl = request.getSession().getServletContext().getInitParameter("itemurl");
 			//获取公司发布地址
-			String companyurl = im.webserviceDto(request, new BigInteger(request.getParameter("iId")));
+			String companyurl = im.webserviceDto(request, new BigInteger(request.getParameter("insframework")));
 			//客户端执行操作
 			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
 			Client client = dcf.createClient(companyurl);
@@ -468,11 +469,12 @@ public class WeldingMachineController {
 			String obj2 = "{\"ID\":\""+request.getParameter("wid")+"\",\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\","
 					+ "\"ISNETWORKING\":\""+request.getParameter("isnetworkingId")+"\",\"JOINTIME\":\""+request.getParameter("jointime")+"\",\"TYPEID\":\""+request.getParameter("typeId")+"\""
 					+ ",\"STATUSID\":\""+request.getParameter("statusId")+"\",\"GATHERID\":\""+request.getParameter("gatherId")+"\",\"MONEY\":\""+money+"\",\"MANUFACTURERID\":\""+request.getParameter("manufacturerId")+"\","
-					+ "\"INSFRAMEWORKID\":\""+request.getParameter("iId")+"\",\"MODIFIER\":\""+myuser.getId()+"\",\"CREATOR\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
-
-			if(request.getParameter("insframework").equals(request.getParameter("iId"))){
-				//归属未发生改变，正常执行操作editWeldingMachine
-				String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"editWeldingMachine\"}";
+					+ "\"INSFRAMEWORKID\":\""+request.getParameter("insframework")+"\",\"MODIFIER\":\""+myuser.getId()+"\",\"CREATOR\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+			
+			if(request.getParameter("insframework").equals(request.getParameter("insframeworkId"))){
+				obj.put("success", true);
+				//归属未发生改变，正常执行操作editWeldingMachine (由于该页面只有归属可以编辑故归属未发生变化时无需操作)
+				/*String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"editWeldingMachine\"}";
 				Object[] editobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1, obj2});
 				if(editobj[0].toString().equals("true")){
 					obj.put("success", true);
@@ -482,38 +484,57 @@ public class WeldingMachineController {
 				}else{
 					obj.put("success", false);
 					obj.put("errorMsg", "操作失败！");
-				}
+				}*/
 			}else{
-				//归属发生改变
-				//1_2.判断新项目部焊机是否存在
-				String countobj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"getMachineCountToItem\"}";
-				String countobj2 = "{\"ENO\":\""+request.getParameter("equipmentNo")+"\",\"INSFID\":\""+request.getParameter("iId")+"\"}";
-				Object[] countobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{countobj1, countobj2});
-				Object[] objects = null;
-				if(Integer.parseInt(countobj[0].toString())>0){//已存在，修改目标项目部焊机状态为启用
-					String existsobj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"editStatusToItem\"}";
-					String existsobj2 = "{\"WID\":\""+request.getParameter("wid")+"\",\"STATUSID\":\"31\",\"INSFID\":\""+request.getParameter("iId")+"\"}";
-					objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{existsobj1, existsobj2});
-				}else{//不存在则将该焊机新增到新项目部
-					String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"addMachineToItem\"}";
-					objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2}); 
-				}
-				if(!objects[0].toString().equals("false")){
-					//1_3.向公司和集团修改焊机归属
-					String obj3 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"editMachineToBlocCompany\"}";
-					Object[] updateobjects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj3,obj2});
-					if(!updateobjects[0].toString().equals("false")){
-						if(checkGather(request, client, myuser)){
+				//1.归属发生改变
+				int flag = checkGather(request, client, myuser,hierarchy);
+				obj2 = "{\"ID\":\""+request.getParameter("wid")+"\",\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\","
+						+ "\"ISNETWORKING\":\""+request.getParameter("isnetworkingId")+"\",\"JOINTIME\":\""+request.getParameter("jointime")+"\",\"TYPEID\":\""+request.getParameter("typeId")+"\""
+						+ ",\"STATUSID\":\""+request.getParameter("statusId")+"\",\"GATHERID\":\""+primaryKey+"\",\"MONEY\":\""+money+"\",\"MANUFACTURERID\":\""+request.getParameter("manufacturerId")+"\","
+						+ "\"INSFRAMEWORKID\":\""+request.getParameter("insframework")+"\",\"MODIFIER\":\""+myuser.getId()+"\",\"CREATOR\":\""+myuser.getId()+"\",\"ITEMURL\":\""+itemurl+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+				
+				if(flag == 0){
+					//1_1.判断新项目部焊机是否存在
+					String countobj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"getMachineCountToItem\"}";
+					String countobj2 = "{\"ENO\":\""+request.getParameter("equipmentNo")+"\",\"INSFID\":\""+request.getParameter("insframework")+"\"}";
+					Object[] countobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{countobj1, countobj2});
+					Object[] objects = null;
+					if(Integer.parseInt(countobj[0].toString())>0){//已存在，修改目标项目部焊机状态为启用
+						String existsobj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"editMachineToItem\"}";
+						String existsobj2 = "{\"ID\":\""+request.getParameter("wid")+"\",\"EQUIPMENTNO\":\""+request.getParameter("equipmentNo")+"\",\"POSITION\":\""+request.getParameter("position")+"\","
+								+ "\"ISNETWORKING\":\""+request.getParameter("isnetworkingId")+"\",\"JOINTIME\":\""+request.getParameter("jointime")+"\",\"TYPEID\":\""+request.getParameter("typeId")+"\""
+								+ ",\"STATUSID\":\"31\",\"GATHERID\":\""+primaryKey+"\",\"MONEY\":\""+money+"\",\"MANUFACTURERID\":\""+request.getParameter("manufacturerId")+"\","
+								+ "\"INSFRAMEWORKID\":\""+request.getParameter("insframework")+"\",\"MODIFIER\":\""+myuser.getId()+"\"}";
+						objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{existsobj1, existsobj2});
+					}else{//不存在则将该焊机新增到新项目部
+						String obj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"addMachineToItem\"}";
+						objects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj1,obj2}); 
+					}
+					if(!objects[0].toString().equals("false")){
+						//1_2.修改原项目部焊机采集序号及状态为迁移
+						String statusobj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"editStatusToItem\"}";
+						String statusobj2 = "{\"WID\":\""+request.getParameter("wid")+"\",\"STATUSID\":\"35\",\"INSFID\":\""+request.getParameter("insframeworkId")+"\"}";
+						Object[] statusobjects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{statusobj1, statusobj2});
+						
+						//1_3.向公司和集团修改焊机归属
+						String obj3 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"editMachineToBlocCompany\"}";
+						Object[] updateobjects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{obj3,obj2});
+						if(!updateobjects[0].toString().equals("false") && !statusobjects[0].toString().equals("false")){
 							obj.put("success", true);
 							if(!objects[0].toString().equals("true")){
 								obj.put("msg", objects[0].toString());
 							}
 						}else{
 							obj.put("success", false);
+							obj.put("errorMsg", "操作失败！");
 						}
 					}else{
 						obj.put("success", false);
+						obj.put("errorMsg", "操作失败！");
 					}
+				}else if(flag == 1){
+					obj.put("success", false);
+					obj.put("errorMsg", "操作失败 ,采集模块已经被绑定！");
 				}else{
 					obj.put("success", false);
 					obj.put("errorMsg", "操作失败！");
@@ -527,60 +548,69 @@ public class WeldingMachineController {
 		return obj.toString();
 	}
 	
-	public boolean checkGather(HttpServletRequest request,Client client,MyUser myuser){
-		boolean flag = true;
+	/**
+	 * 项目部发生改变，根据需求处理采集
+	 * @param request request对象
+	 * @param client Client客户端
+	 * @param myuser 当前用户对象
+	 * @param hierarchy 当前层级
+	 * @return 0表示执行正确，1表示采集被绑定，2表示执行错误
+	 */
+	public int checkGather(HttpServletRequest request,Client client,MyUser myuser,String hierarchy){
+		int flag = 0;
 		try{
-			//1.该焊机是否绑定采集
+			//2.该焊机是否绑定采集
 			if(iutil.isNull(request.getParameter("gatherId"))){//绑定采集模块
-				//1_2.修改原采集模块状态为迁移
-				String oldstatusobj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGatherStatusToItem\"}";
-				String oldstatusobj2 = "{\"STATUSNAME\":\"迁移\",\"ID\":\""+request.getParameter("gatherId")+"\",\"INSFID\":\""+request.getParameter("insframework")+"\"}";
-				Object[] oldstatusobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{oldstatusobj1, oldstatusobj2});
-				if(oldstatusobj[0].toString().equals("true")){
-					//1_3.判断目标项目部采集模块是否存在
-					String gatherobj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"getGatherNoCountToItem\"}";
-					String gatherobj2 = "{\"GATHERNO\":\""+request.getParameter("gatherNo")+"\",\"INSFID\":\""+request.getParameter("iId")+"\"}";
-					Object[] gatherobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{gatherobj1, gatherobj2});
-					if(Integer.parseInt(gatherobj[0].toString())>0){//已存在，修改目标项目部采集状态为正常
-						String statusobj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGatherStatusToItem\"}";
-						String statusobj2 = "{\"STATUSNAME\":\"正常\",\"ID\":\""+request.getParameter("gatherId")+"\",\"INSFID\":\""+request.getParameter("iId")+"\"}";
-						Object[] statusobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{statusobj1, statusobj2});
-						if(!statusobj[0].toString().equals("true")){
-							flag = false;
-						}
-					}else{//不存在则将该采集新增到新项目部
-						Gather g = gm.getGatherById(new BigInteger(request.getParameter("gatherId")));
-						String addgatherobj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"addGatherToItem\"}";
-						String addgatherobj2 = "{\"GATHERNO\":\""+g.getGatherNo()+"\",\"IPURL\":\""+g.getIpurl()+"\",\"INSFID\":\""+request.getParameter("iId")+"\",\"LEAVETIME\":\""+g.getLeavetime()+"\",\"MACURL\":\""+g.getMacurl()+"\",\"PROTOCOL\":\""+g.getProtocol()+"\",\"STATUS\":\"正常\",\"CREATOR\":\""+myuser.getId()+"\"}";
-						Object[] addgetherobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{addgatherobj1, addgatherobj2});
-						if(!addgetherobj[0].toString().equals("true")){
-							flag = false;
+				Gather g = gm.getGatherById(new BigInteger(request.getParameter("gatherId")));
+				if(!iutil.isNull(g.getLeavetime())){
+					g.setLeavetime("");
+				}
+				//2_1.判断目标项目部采集模块是否存在
+				String gatherobj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"getGatherNoCountToItem\"}";
+				String gatherobj2 = "{\"GATHERNO\":\""+request.getParameter("gatherNo")+"\",\"INSFID\":\""+request.getParameter("insframework")+"\"}";
+				Object[] gatherobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{gatherobj1, gatherobj2});
+				if(!gatherobj[0].toString().equals("0")){//已存在
+					//判断采集是否被焊机绑定
+					String bindingobj1 = "{\"CLASSNAME\":\"weldingMachineWebServiceImpl\",\"METHOD\":\"getGatheridMachine\"}";
+					String bindingobj2 = "{\"GATHERNO\":\""+request.getParameter("gatherNo")+"\",\"INSFID\":\""+request.getParameter("insframework")+"\"}";
+					Object[] bindingobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{bindingobj1, bindingobj2});
+					if(bindingobj[0]!=null && !"".equals(bindingobj[0])){//被绑定
+						if(!bindingobj[0].toString().equals(request.getParameter("equipmentNo"))){//被绑定且不是与当前焊机绑定
+							flag = 1;
+							return flag;
 						}
 					}
-					//1_4.修改集团及公司层采集归属 (ps:无须修改，对应部门只能对应)
-					Gather g = gm.getGatherById(new BigInteger(request.getParameter("gatherId")));
-					if(!iutil.isNull(g.getLeavetime())){
-						g.setLeavetime("");
+					//修改采集状态（三层同步）为正常
+					String statusobj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGather\"}";
+					String statusobj2 = "{\"ID\":\""+gatherobj[0].toString()+"\",\"GATHERNO\":\""+g.getGatherNo()+"\",\"IPURL\":\""+g.getIpurl()+"\",\"INSFID\":\""+request.getParameter("insframework")+"\",\"LEAVETIME\":\""+g.getLeavetime()+"\",\"MACURL\":\""+g.getMacurl()+"\",\"PROTOCOL\":\""+g.getProtocol()+"\",\"STATUS\":\"正常\",\"MODIFIER\":\""+myuser.getId()+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+					Object[] statusobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{statusobj1, statusobj2});
+					if(statusobj[0].toString().equals("false")){
+						flag = 2;
+					}else{
+						primaryKey = gatherobj[0].toString();
 					}
-					String editgatherobj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGatherToBlocCompany\"}";
-					String editgatherobj2 = "{\"ID\":\""+g.getId()+"\",\"GATHERNO\":\""+g.getGatherNo()+"\",\"IPURL\":\""+g.getIpurl()+"\",\"INSFID\":\""+request.getParameter("iId")+"\",\"LEAVETIME\":\""+g.getLeavetime()+"\",\"MACURL\":\""+g.getMacurl()+"\",\"PROTOCOL\":\""+g.getProtocol()+"\",\"STATUS\":\"正常\",\"MODIFIER\":\""+myuser.getId()+"\"}";
-					Object[] editgatherobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{editgatherobj1, editgatherobj2});
-					if(!editgatherobj[0].toString().equals("true")){
-						flag = false;
+					
+				}else{//不存在则新增采集（三层同步）
+					String addgatherobj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"addMachineGather\"}";
+					String addgatherobj2 = "{\"GATHERNO\":\""+g.getGatherNo()+"\",\"IPURL\":\""+g.getIpurl()+"\",\"INSFID\":\""+request.getParameter("insframework")+"\",\"LEAVETIME\":\""+g.getLeavetime()+"\",\"MACURL\":\""+g.getMacurl()+"\",\"PROTOCOL\":\""+g.getProtocol()+"\",\"STATUS\":\"正常\",\"CREATOR\":\""+myuser.getId()+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+					Object[] addgetherobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{addgatherobj1, addgatherobj2});
+					if(addgetherobj[0].toString()!=null && !"".equals(addgetherobj[0].toString())){
+						primaryKey = addgetherobj[0].toString();
+					}else{
+						flag = 2;
 					}
 				}
-				
-			}else{
-				//1_1.未绑定采集模块，修改焊机状态为迁移
-				String statusobj1 = "{\"CLASSNAME\":\"maintainWebServiceImpl\",\"METHOD\":\"editStatusToItem\"}";
-				String statusobj2 = "{\"WID\":\""+request.getParameter("wid")+"\",\"STATUSID\":\"35\",\"INSFID\":\""+request.getParameter("insframework")+"\"}";
-				Object[] statusobjects = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{statusobj1, statusobj2});
-				if(!statusobjects[0].toString().equals("true")){
-					flag = false;
+				//2_2.修改原采集模块状态为迁移（三层同步）
+				String oldstatusobj1 = "{\"CLASSNAME\":\"gatherWebServiceImpl\",\"METHOD\":\"editGather\"}";
+				String oldstatusobj2 = "{\"ID\":\""+g.getId()+"\",\"GATHERNO\":\""+g.getGatherNo()+"\",\"IPURL\":\""+g.getIpurl()+"\",\"INSFID\":\""+request.getParameter("insframeworkId")+"\",\"LEAVETIME\":\""+g.getLeavetime()+"\",\"MACURL\":\""+g.getMacurl()+"\",\"PROTOCOL\":\""+g.getProtocol()+"\",\"STATUS\":\"迁移\",\"MODIFIER\":\""+myuser.getId()+"\",\"HIERARCHY\":\""+hierarchy+"\"}";
+				Object[] oldstatusobj = client.invoke(new QName("http://webservice.ssmcxf.sshome.com/", "enterTheIDU"), new Object[]{oldstatusobj1, oldstatusobj2});
+				if(oldstatusobj[0].toString().equals("false")){
+					flag = 2;
 				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+			flag = 2;
 		}
 		return flag;
 	}

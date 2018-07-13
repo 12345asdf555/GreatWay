@@ -29,7 +29,6 @@ public interface WeldingMachineWebService {
 	 * 修改设备
 	 */
 	Object editWeldingMachine(String obj1,String obj2);
-
 	/**
 	 * 修改设备
 	 */
@@ -76,4 +75,14 @@ public interface WeldingMachineWebService {
 	 * 获取某厂商下的焊机总数
 	 */
 	BigInteger getMachineCountByManu(String object);
+
+	/**
+	 * 根据组织机构及采集编号获取焊机编号
+	 */
+	String getGatheridMachine(String obj1, String obj2);
+	
+	/**
+	 * 修改项目部焊机设备
+	 */
+	Object editMachineToItem(String obj1, String obj2);
 }

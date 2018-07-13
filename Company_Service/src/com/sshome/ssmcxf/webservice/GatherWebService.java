@@ -26,12 +26,12 @@ public interface GatherWebService {
 	
 
 	/**
-	 * 判断项目部采集编号是否存在
+	 *根据编号查找id来判断项目部采集编号是否存在
 	 * @param obj1
 	 * @param obj2
 	 * @return
 	 */
-	int getGatherNoCountToItem(String obj1,String obj2);
+	BigInteger getGatherNoCountToItem(String obj1,String obj2);
 	
 	/**
 	 * 根据id查询采集信息
@@ -45,25 +45,12 @@ public interface GatherWebService {
 	 * @param ins采集对象
 	 */
 	Object addGather(String obj1,String obj2);
-
-	/**
-	 * 项目部添加采集信息
-	 * @param ins采集对象
-	 */
-	Object addGatherToItem(String obj1,String obj2);
 	
 	/**
 	 * 修改采集信息
 	 * @param ins采集对象
 	 */
 	Object editGather(String obj1,String obj2);
-	
-
-	/**
-	 * 修改集团公司采集信息
-	 * @param ins采集对象
-	 */
-	Object editGatherToBlocCompany(String obj1,String obj2);
 	
 	/**
 	 * 删除采集信息
@@ -72,7 +59,7 @@ public interface GatherWebService {
 	Object deleteGather(String obj1,String obj2);
 	
 	/**
-	 * 修改采集状态
+	 * 添加采集信息
 	 */
-	boolean editGatherStatusToItem(String obj1,String obj2);
+	BigInteger addMachineGather(String obj1,String obj2);
 }
