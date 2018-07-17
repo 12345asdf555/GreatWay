@@ -1,7 +1,6 @@
 $(function(){
 	dgDatagrid();
 });
-
 function dgDatagrid(){
 	$("#dg").datagrid( {
 		fitColumns : true,
@@ -28,6 +27,13 @@ function dgDatagrid(){
 			halign : "center",
 			align : "left"
 		}, {
+			field : 'creator',
+			title : '创建者 ',
+			width : 100,
+			halign : "center",
+			align : "left",
+			hidden:	true
+		}, {
 			field : 'type',
 			title : '故障类别',
 			width : 100,
@@ -47,8 +53,8 @@ function dgDatagrid(){
 			align : "left",
 			formatter:function(value,row,index){
 				var str = "";
-				str += '<a id="edit" class="easyui-linkbutton" href="fault/goeditFault?id='+row.id+'"/>';
-				str += '<a id="remove" class="easyui-linkbutton" href="fault/goremoveFault?id='+row.id+'"/>';
+				str += '<a id="edit" class="easyui-linkbutton" href="javascript:editFault();"/>';
+				str += '<a id="remove" class="easyui-linkbutton" href="javascript:removeFault();"/>';
 				return str;
 			}
 		}] ],

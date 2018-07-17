@@ -92,6 +92,7 @@ public class FaultController {
 				json.put("code", list.get(i).getCode());
 				json.put("desc", list.get(i).getDesc());
 				json.put("type", list.get(i).getValuename());
+				json.put("creator", list.get(i).getCreator());
 				ary.add(json);
 			}
 		}catch(Exception e){
@@ -240,7 +241,7 @@ public class FaultController {
 				obj.put("errorMsg", "操作失败！");
 			}
 		}catch(Exception e){
-			obj.put("success", true);
+			obj.put("success", false);
 			obj.put("errorMsg", e.getMessage());
 		}
 		return obj.toString();

@@ -24,6 +24,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="resources/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="resources/js/fault/fault.js"></script>
+	<script type="text/javascript" src="resources/js/fault/addeditfault.js"></script>
+	<script type="text/javascript" src="resources/js/fault/removefault.js"></script>
 	<script type="text/javascript" src="resources/js/search/search.js"></script>
 	
   </head>
@@ -31,9 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body  class="easyui-layout">
   	<div id="body" region="center"  hide="true"  split="true" title="故障代码管理" style="background: witch; height: 335px;">
 	  	
-	  	<div id="dg_btn">
-			<div style="margin-bottom: 5px;">
-				<a href="fault/goaddFault" class="easyui-linkbutton" iconCls="icon-add">新增</a>
+	  	<div id="dg_btn" style="margin-bottom: 5px;">
+				<a href="javascript:addFault();" class="easyui-linkbutton" iconCls="icon-add" >新增</a>
 				<a href="javascript:insertSearchFault();" class="easyui-linkbutton" iconCls="icon-search" >查找</a>
 			</div>
 		</div>
@@ -55,7 +56,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:searchFault();" class="easyui-linkbutton" iconCls="icon-ok">查询</a>
 			<a href="javascript:close();" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
 		</div>
-	    
+	    <!-- 新增修改 -->
+		<div id="dlg" class="easyui-dialog" style="width: 400px; height: 500px; padding:10px 20px" closed="true" buttons="#dlg-buttons">
+			<form id="fm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
+				<div class="fitem  ">
+					<lable>故障代码</lable>
+					<input type="hidden" id="id"  name="id">
+					<input type="hidden" id="creator"  name="creator">
+					<input class="easyui-textbox" name="code" id="code" data-options="required:true"/>
+				</div>
+				<div class="fitem">
+					<lable>故障类别</lable>
+					<input type="hidden" id="typeid" name="typeid">
+					<select class="easyui-combobox" name="type" id="type" data-options="required:true,editable:false"></select>
+				</div>
+				<div class="fitem">
+					<lable>故障描述</lable>
+					<textarea name="desc" id="desc" style="height:60px;width:150px"></textarea>
+				</div>	
+		</form>
+		</div>
+		<div id="dlg-buttons">
+			<a href="javascript:saveFault();" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+			<a href="javascript:$('#dlg').dialog('close');" class="easyui-linkbutton" iconCls="icon-cancel" >取消</a>
+		</div>
+		<!-- 删除 -->
+			<div id="rdlg" class="easyui-dialog" style="width: 400px; height: 500px; padding:10px 20px" closed="true" buttons="#remove-buttons">
+			<form id="rfm" class="easyui-form" method="post" data-options="novalidate:true"><br/>
+			<div class="fitem">
+				<lable>故障代码</lable>
+					<input class="easyui-textbox" name="code" id="code" data-options="required:true" readonly="readonly"/>
+				</div>
+				<div class="fitem">
+					<lable>故障类别</lable>
+					<select class="easyui-textbox" name="type" id="type" data-options="required:true,editable:false" readonly="readonly"></select>
+				</div>
+				<div class="fitem">
+					<lable>故障描述</lable>
+					<textarea name="desc" id="desc" style="height:60px;width:150px" readonly="readonly"></textarea>
+				</div>
+			</form>
+			<div class="weldbutton">
+					<a href="javascript:remove();" class="easyui-linkbutton"	iconCls="icon-remove">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="fault/goFault" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+			</div>
+		</div>
 	</div>
   </body>
 </html>
